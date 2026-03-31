@@ -40,8 +40,8 @@ const OpeningDay = () => {
                   <h3 className="font-bold text-lg text-foreground mb-2">{event.title_ar}</h3>
                   {event.description_ar && <p className="text-sm text-muted-foreground mb-3">{event.description_ar}</p>}
                   <div className="flex gap-4 text-xs text-accent">
-                    {event.start_time && <span>🕐 {event.start_time}</span>}
-                    {event.event_date && <span>📅 {event.event_date}</span>}
+                    {event.start_time && <span>{event.start_time}</span>}
+                    {event.event_date && <span>{event.event_date}</span>}
                   </div>
                 </div>
               ))}
