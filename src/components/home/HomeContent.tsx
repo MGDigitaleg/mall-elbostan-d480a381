@@ -94,19 +94,19 @@ type HomeContentProps = {
 export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeContentProps) {
   return (
     <>
-      <section className="relative overflow-hidden pb-12 pt-10 md:pb-20 md:pt-16">
-        <div className="absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.18),transparent_42%)]" />
+      <section className="relative overflow-hidden pb-14 pt-12 md:pb-24 md:pt-20">
+        <div className="absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top,hsl(var(--primary)/0.12),transparent_44%)]" />
         <div className="container relative">
           <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
             <div className="space-y-6 py-8 lg:py-14">
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/80 px-4 py-2 text-sm text-muted-foreground shadow-[var(--shadow-soft)] backdrop-blur">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/80 bg-card px-4 py-2 text-sm text-muted-foreground shadow-[var(--shadow-soft)]">
                   <Sparkles className="h-4 w-4 text-accent" />
                   افتتاح مرتقب في 1 مايو 2026
                 </div>
                 <h1 className="max-w-3xl text-4xl font-black leading-[1.2] text-foreground md:text-6xl">
                   مول البستان
-                  <span className="mt-2 block text-balance text-2xl font-semibold text-foreground/88 md:text-4xl">
+                  <span className="mt-2 block text-balance text-2xl font-semibold leading-tight text-foreground/88 md:text-[2.35rem]">
                     وجهة تقنية راقية تجمع المتاجر والخريطة التفاعلية وحملات الإطلاق القادمة
                   </span>
                 </h1>
@@ -127,7 +127,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   { label: "جوائز وإطلاق", value: "حملة افتتاحية" },
                   { label: "تأجير وسوق إلكتروني", value: "نمو مستقبلي" },
                 ].map((item) => (
-                  <div key={item.label} className="rounded-2xl border border-border/70 bg-card/75 px-4 py-4 shadow-[var(--shadow-soft)] backdrop-blur-sm">
+                  <div key={item.label} className="soft-card px-4 py-4">
                     <p className="text-xs font-semibold text-muted-foreground">{item.label}</p>
                     <p className="mt-2 text-base font-bold text-foreground">{item.value}</p>
                   </div>
@@ -177,7 +177,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   alt="الواجهة الرئيسية لمول البستان بتصميم معماري حديث"
                   className="h-full w-full object-cover object-[center_36%]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/55 via-background/12 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
               </div>
               <div className="surface-panel absolute bottom-4 left-4 right-4 rounded-2xl p-5 md:bottom-6 md:left-6 md:right-6">
                 <div className="flex items-start justify-between gap-4">
@@ -193,7 +193,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-10 md:py-16">
+      <section className="py-12 md:py-18">
         <div className="container">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
@@ -218,7 +218,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-10 md:py-18">
+      <section className="section-soft py-12 md:py-20">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
             <motion.div
@@ -252,14 +252,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             >
               <div className="image-shell aspect-[16/11] overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-[var(--shadow-elevated)]">
                 <img src={interiorImage} alt="الأتريوم الداخلي متعدد الطوابق في مول البستان" className="h-full w-full object-cover object-center" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/24 via-transparent to-transparent" />
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section id="marketplace" className="bg-card/35 py-12 md:py-18">
+      <section id="marketplace" className="py-12 md:py-18">
         <div className="container">
           <div className="mb-8 max-w-2xl">
             <p className="section-kicker">المتاجر والفئات</p>
@@ -283,7 +283,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-12 md:py-18">
+      <section className="section-soft py-12 md:py-18">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div className="space-y-5">
@@ -295,7 +295,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </p>
               <div className="space-y-3">
                 {launchHighlights.map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-border/70 bg-card/70 px-4 py-4">
+                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-border/70 bg-card px-4 py-4 shadow-[var(--shadow-soft)]">
                     <Calendar className="mt-1 h-5 w-5 text-accent" />
                     <p className="text-sm leading-7 text-foreground/88">{item}</p>
                   </div>
@@ -318,11 +318,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 مع تعليمات واضحة وآلية منظمة للمطالبة بالجائزة.
               </p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-border/70 bg-background/55 p-4">
+                <div className="rounded-2xl border border-border/70 bg-background p-4">
                   <p className="mb-2 text-sm font-bold text-foreground">تجربة تفاعلية</p>
                   <p className="text-sm leading-7 text-muted-foreground">واجهة سلسة ونتيجة قابلة للحفظ والرجوع إليها عند الحضور.</p>
                 </div>
-                <div className="rounded-2xl border border-border/70 bg-background/55 p-4">
+                <div className="rounded-2xl border border-border/70 bg-background p-4">
                   <p className="mb-2 text-sm font-bold text-foreground">رسالة موحدة</p>
                   <p className="text-sm leading-7 text-muted-foreground">ربط المكافآت بالحضور الفعلي ومتابعة قنوات المول عند الحاجة.</p>
                 </div>
@@ -337,7 +337,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       </section>
 
       {featuredStores && featuredStores.length > 0 && (
-        <section className="bg-card/35 py-12 md:py-18">
+        <section className="py-12 md:py-18">
           <div className="container">
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
@@ -418,7 +418,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="bg-card/35 py-12 md:py-18">
+      <section className="section-soft py-12 md:py-18">
         <div className="container">
           <div className="surface-panel rounded-[2rem] p-6 md:p-8 lg:p-10">
             <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -435,13 +435,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     "Online shopping experience",
                     "Browse products from your favorite tech stores",
                   ].map((item) => (
-                    <div key={item} className="rounded-2xl border border-border/70 bg-background/55 px-4 py-4 text-sm font-semibold text-foreground/88">
+                    <div key={item} className="rounded-2xl border border-border/70 bg-background px-4 py-4 text-sm font-semibold text-foreground/88 shadow-[var(--shadow-soft)]">
                       {item}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="rounded-[1.75rem] border border-border/70 bg-background/60 p-6 text-center lg:w-[280px]">
+              <div className="rounded-[1.75rem] border border-border/70 bg-background p-6 text-center shadow-[var(--shadow-soft)] lg:w-[280px]">
                 <ShoppingBag className="mx-auto h-10 w-10 text-primary" />
                 <p className="mt-4 text-lg font-bold text-foreground">سوق رقمي متصل بالمول</p>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">امتداد استراتيجي للمتاجر الحالية وليس قسمًا منفصلًا عن هوية المشروع.</p>
@@ -482,7 +482,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </section>
       )}
 
-      <section className="bg-card/35 py-12 md:py-18">
+      <section className="py-12 md:py-18">
         <div className="container max-w-4xl">
           <h2 className="mb-8 text-center text-3xl font-bold text-foreground md:text-4xl">
             <HelpCircle className="ml-2 inline-block h-7 w-7 text-accent" />

@@ -22,14 +22,22 @@ const OpeningDay = () => {
   return (
     <MainLayout>
       <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تفاصيل يوم افتتاح مول البستان الكبير - فعاليات، مسابقات، ضيوف، وجوائز حصرية." descriptionEn="Mall Elbostan grand opening - events, competitions, guests, and exclusive prizes." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
-      <div className="container py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gradient-blue mb-6">يوم الافتتاح الكبير</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">استعد لأكبر حدث تقني في القاهرة الجديدة! فعاليات ومسابقات وجوائز حصرية بانتظارك.</p>
-          <CountdownTimer />
+      <div className="container py-16 md:py-20">
+        <div className="mb-16 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground shadow-[var(--shadow-soft)]">
+              <Calendar className="h-4 w-4 text-primary" />
+              برنامج الإطلاق والعد التنازلي
+            </div>
+            <h1 className="mb-5 text-4xl font-bold text-foreground md:text-5xl">يوم الافتتاح الكبير</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">صفحة مصممة لتجميع تفاصيل الإطلاق في شكل أوضح وأكثر أناقة: الفعاليات، المسابقات، الضيوف، والجوائز ضمن تجربة launch premium وليست صفحة مزدحمة أو ثقيلة بصريًا.</p>
+          </div>
+          <div className="surface-panel rounded-[2rem] p-6 md:p-8">
+            <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي حتى الافتتاح</p>
+            <CountdownTimer />
+          </div>
         </div>
 
-        {/* Event Schedule */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Calendar className="w-6 h-6 text-primary" /> جدول الفعاليات</h2>
           {isLoading ? <LoadingGrid count={3} /> : schedule.length > 0 ? (
@@ -46,10 +54,9 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <EmptyState title="سيتم الإعلان عن جدول الفعاليات قريباً" />}
+          ) : <div className="soft-card p-8"><EmptyState title="سيتم الإعلان عن جدول الفعاليات قريباً" /></div>}
         </section>
 
-        {/* Guests */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Users className="w-6 h-6 text-accent" /> الضيوف والشخصيات</h2>
           {guests.length > 0 ? (
@@ -62,10 +69,9 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <p className="text-muted-foreground">سيتم الإعلان عن الضيوف والشخصيات قريباً</p>}
+          ) : <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن الضيوف والشخصيات قريباً</div>}
         </section>
 
-        {/* Gaming */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Gamepad2 className="w-6 h-6 text-orange" /> مسابقات الألعاب</h2>
           {gaming.length > 0 ? (
@@ -78,13 +84,12 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <p className="text-muted-foreground">سيتم الإعلان عن مسابقات الألعاب قريباً</p>}
+          ) : <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن مسابقات الألعاب قريباً</div>}
         </section>
 
-        {/* Sponsors */}
         <section>
           <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Award className="w-6 h-6 text-primary" /> الرعاة</h2>
-          <p className="text-muted-foreground">سيتم الإعلان عن رعاة الافتتاح قريباً</p>
+          <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن رعاة الافتتاح قريباً</div>
         </section>
       </div>
     </MainLayout>

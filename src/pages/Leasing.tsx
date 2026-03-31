@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import facadeImage from "@/assets/mall-facade.jpg";
 
 const Leasing = () => {
   const { toast } = useToast();
@@ -51,17 +52,26 @@ const Leasing = () => {
   return (
     <MainLayout>
       <SEOHead title="التأجير" titleEn="Leasing" description="احجز وحدتك التجارية في مول البستان - مساحات تجارية بأسعار تنافسية في القاهرة الجديدة." descriptionEn="Lease your commercial space at Mall Elbostan - competitive prices in New Cairo." breadcrumbs={[{ name: "التأجير", url: "/leasing" }]} />
-      <div className="container py-20">
-        <div className="text-center mb-12">
-          <Building className="w-16 h-16 text-orange mx-auto mb-4" />
-          <h1 className="text-4xl font-bold text-gradient-blue mb-4">التأجير</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto leading-8">صفحة مخصصة للعلامات والأنشطة التي تبحث عن حضور داخل مول تقني حديث، مع رحلة واضحة للاستفسار واستعراض الوحدات المتاحة.</p>
+      <div className="container py-16 md:py-20">
+        <div className="mb-12 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="space-y-5">
+            <div className="inline-flex items-center gap-3 rounded-full border border-border bg-card px-4 py-2 shadow-[var(--shadow-soft)]">
+              <Building className="h-4 w-4 text-orange" />
+              <span className="text-sm font-medium text-muted-foreground">فرص تجارية داخل وجهة تقنية متخصصة</span>
+            </div>
+            <h1 className="text-4xl font-bold text-foreground md:text-5xl">التأجير والاستثمار داخل مول البستان</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">صفحة مخصصة للعلامات والأنشطة التي تبحث عن حضور داخل مول تقني حديث، مع رحلة أوضح للاستفسار، عرض الوحدات، وفهم طبيعة الفرص التجارية داخل المشروع.</p>
+          </div>
+          <div className="image-shell overflow-hidden rounded-[1.75rem] border border-border/70 shadow-[var(--shadow-elevated)]">
+            <img src={facadeImage} alt="واجهة مول البستان الخارجية الداعمة لفرص التأجير والاستثمار" className="h-[280px] w-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Form */}
           <div className="surface-panel rounded-[1.75rem] p-8">
-            <h2 className="text-2xl font-bold mb-6">استفسر الآن</h2>
+            <h2 className="text-2xl font-bold mb-2">استفسر الآن</h2>
+            <p className="mb-6 text-sm leading-7 text-muted-foreground">املأ البيانات الأساسية وسيتواصل معك الفريق بمزيد من التفاصيل حول المساحات المتاحة وخيارات النشاط المناسبة.</p>
             {submitted ? (
               <div className="text-center py-10">
                 <CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" />
@@ -70,11 +80,11 @@ const Leasing = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="bg-secondary border-border" required />
-                <Input placeholder="اسم الشركة" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} className="bg-secondary border-border" />
-                <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-secondary border-border" required dir="ltr" />
-                <Input placeholder="البريد الإلكتروني" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border" dir="ltr" />
-                <Textarea placeholder="رسالتك أو تفاصيل إضافية..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="bg-secondary border-border" rows={4} />
+                <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="border-border bg-background" required />
+                <Input placeholder="اسم الشركة" value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} className="border-border bg-background" />
+                <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="border-border bg-background" required dir="ltr" />
+                <Input placeholder="البريد الإلكتروني" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="border-border bg-background" dir="ltr" />
+                <Textarea placeholder="رسالتك أو تفاصيل إضافية..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="border-border bg-background" rows={4} />
                 <Button type="submit" variant="orange" className="w-full" disabled={loading}>
                   {loading ? "جاري الإرسال..." : "إرسال الطلب"}
                 </Button>
@@ -82,9 +92,11 @@ const Leasing = () => {
             )}
           </div>
 
-          {/* Featured Units */}
-          <div>
-            <h2 className="text-2xl font-bold mb-6">وحدات <span className="text-orange">مميزة متاحة</span></h2>
+          <div className="space-y-6">
+            <div className="soft-card p-6">
+              <h2 className="mb-3 text-2xl font-bold">وحدات <span className="text-orange">مميزة متاحة</span></h2>
+              <p className="text-sm leading-7 text-muted-foreground">استعرض عينة من الوحدات البارزة الآن، ثم انتقل مباشرة إلى الخريطة لفهم مواقعها داخل المشروع.</p>
+            </div>
             {availableUnits && availableUnits.length > 0 ? (
               <div className="space-y-4">
                 {availableUnits.map((unit) => (
@@ -101,7 +113,7 @@ const Leasing = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-muted-foreground">سيتم عرض الوحدات المتاحة قريباً</p>
+              <div className="soft-card p-6 text-muted-foreground">سيتم عرض الوحدات المتاحة قريباً</div>
             )}
             <Link to="/map" className="block mt-6">
               <Button variant="outline-blue" className="w-full">عرض الخريطة التفاعلية</Button>
