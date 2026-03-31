@@ -43,16 +43,16 @@ export function MapTeaserPreview() {
   );
 
   return (
-    <div className="brand-shell rounded-[1.85rem] p-3.5 md:p-4">
-      <div className="grid gap-3 xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
-        <div className="space-y-2.5">
-          <div className="flex flex-wrap gap-1.5">
+    <div className="brand-shell rounded-[1.85rem] p-2.5 md:p-4">
+      <div className="grid gap-2.5 xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
+        <div className="order-1 space-y-2.5">
+          <div className="grid grid-cols-3 gap-1.5">
             {floorMapData.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedFloor(item.id)}
-                className={`inline-flex h-9 items-center rounded-full px-3.5 text-sm font-semibold transition-colors ${
+                className={`inline-flex h-10 items-center justify-center rounded-[1rem] px-2 text-sm font-semibold transition-colors ${
                   selectedFloor === item.id
                     ? "bg-secondary text-foreground"
                     : "border border-border bg-card text-muted-foreground hover:text-foreground"
@@ -64,7 +64,7 @@ export function MapTeaserPreview() {
           </div>
 
           <FloorPlanSvg
-            className="min-h-[22.5rem] rounded-[1.45rem] border border-border/80 p-3 md:min-h-[24.5rem] md:p-4 lg:min-h-[28rem] lg:p-4"
+            className="min-h-[28rem] rounded-[1.45rem] border border-border/80 p-2.5 md:min-h-[24.5rem] md:p-4 lg:min-h-[28rem] lg:p-4"
             floorId={selectedFloor}
             units={floor.units}
             selectedUnitId={activeUnit.unit_id}
@@ -73,12 +73,15 @@ export function MapTeaserPreview() {
           />
         </div>
 
-        <div className="space-y-2.5">
+        <div className="order-2 space-y-2.5 xl:order-none">
           <div className="editorial-panel rounded-[1.45rem] p-4 md:p-5">
-            <p className="text-xs font-semibold text-muted-foreground">معاينة مباشرة من الدليل</p>
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <p className="text-xs font-semibold text-muted-foreground">معاينة مباشرة من الدليل</p>
+              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground">منتج حي</span>
+            </div>
             <h3 className="mt-1.5 text-2xl font-bold text-foreground">وحدة {activeUnit.unit_id}</h3>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">اختر الدور، راجع الحالة، ثم انتقل مباشرة إلى الدليل الكامل أو الاستفسار التجاري.</p>
-            <div className="mt-4 space-y-2 text-sm">
+            <div className="mt-4 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1">
               <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
                 <span className="text-muted-foreground">الدور</span>
                 <span className="font-semibold text-foreground">{floorLabelAr[activeUnit.floor_id]}</span>
@@ -100,15 +103,15 @@ export function MapTeaserPreview() {
             </div>
           </div>
 
-          <div className="grid gap-2 sm:grid-cols-3 xl:grid-cols-1">
+          <div className="grid grid-cols-3 gap-2 xl:grid-cols-1">
             <div className="rounded-[1rem] border border-orange/35 bg-card px-4 py-3 text-sm font-semibold text-orange">متاح الآن</div>
             <div className="rounded-[1rem] border border-accent/35 bg-card px-4 py-3 text-sm font-semibold text-accent">قريبًا</div>
             <div className="rounded-[1rem] border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground">مشغول</div>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            <Link to="/map"><Button variant="outline-blue" className="h-11 rounded-[1rem] px-5">افتح الدليل</Button></Link>
-            <Link to="/leasing"><Button variant="orange" className="h-11 rounded-[1rem] px-5">استفسر عن الوحدة</Button></Link>
+          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1">
+            <Link to="/map"><Button variant="outline-blue" className="h-11 w-full rounded-[1rem] px-5">افتح الدليل</Button></Link>
+            <Link to="/leasing"><Button variant="orange" className="h-11 w-full rounded-[1rem] px-5">استفسر عن الوحدة</Button></Link>
           </div>
         </div>
       </div>
