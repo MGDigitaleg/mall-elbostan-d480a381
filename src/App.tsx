@@ -33,6 +33,8 @@ import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJo
 
 const queryClient = new QueryClient();
 
+function GA4Init() { useGA4(); return null; }
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
