@@ -57,13 +57,13 @@ export function Footer() {
             <div className="md:hidden">
               <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
             </div>
-            <div className="hidden gap-2.5 sm:grid-cols-2 md:grid">
+            <div className="hidden gap-2.5 sm:grid-cols-2 md:hidden xl:grid">
               <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
               <Link to="/leasing"><Button variant="outline-blue" className="h-11 w-full rounded-[18px] px-5">التأجير</Button></Link>
             </div>
           </div>
 
-          <div className="xl:hidden">
+          <div className="md:hidden">
             <Accordion type="multiple" className="space-y-2">
               {mobileFooterGroups.map((group) => (
                 <AccordionItem key={group.title} value={group.title} className="section-shell overflow-hidden rounded-[1.1rem] px-4">
@@ -82,6 +82,40 @@ export function Footer() {
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+
+          <div className="hidden min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:grid-cols-[1.05fr_0.95fr] min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:col-span-full">
+            <div className="section-shell rounded-[1.45rem] p-5">
+              <div className="space-y-4">
+                <h4 className="text-lg font-bold text-foreground">تنقل أوضح من نفس المسار</h4>
+                <p className="max-w-[28rem] text-sm leading-7 text-muted-foreground">الخريطة، المتاجر، والتأجير تظهر هنا بإيقاع أخف يناسب التابلت دون كثافة زائدة.</p>
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
+                  <Link to="/leasing"><Button variant="outline-blue" className="h-11 w-full rounded-[18px] px-5">التأجير</Button></Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {mobileFooterGroups.map((group) => (
+                <Accordion key={group.title} type="single" collapsible defaultValue={group.title} className="section-shell overflow-hidden rounded-[1.25rem] px-4">
+                  <AccordionItem value={group.title} className="border-none">
+                    <AccordionTrigger className="min-h-[3.6rem] py-3 text-right text-sm font-bold text-foreground">
+                      {group.title}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                      <ul className="grid gap-2 sm:grid-cols-2">
+                        {group.links.map((link) => (
+                          <li key={link.path}>
+                            <Link to={link.path} className="text-sm text-muted-foreground transition-colors hover:text-primary">{link.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              ))}
+            </div>
           </div>
 
           {footerLinks.map((group) => (

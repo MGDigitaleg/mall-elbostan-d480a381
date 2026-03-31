@@ -25,6 +25,91 @@ const mobileNavItems = [
   { label: "السوق قريباً", path: "/#marketplace" },
 ];
 
+function HeaderMenuSheet({
+  isActive,
+  trigger,
+}: {
+  isActive: (path: string) => boolean;
+  trigger: JSX.Element;
+}) {
+  return (
+    <Sheet>
+      <SheetTrigger asChild>{trigger}</SheetTrigger>
+      <SheetContent side="right" className="w-[90vw] max-w-[23rem] border-border bg-background px-4 py-5">
+        <SheetHeader className="space-y-2 text-right">
+          <div className="flex items-center justify-between gap-3">
+            <BrandLogo align="start" imageClassName="h-auto max-w-[156px]" />
+            <span className="rounded-full border border-border bg-card px-3 py-1.5 text-[0.72rem] font-semibold text-muted-foreground">
+              تنقل سريع
+            </span>
+          </div>
+          <SheetTitle className="text-right text-xl">وصول أسرع إلى صفحات المول</SheetTitle>
+          <SheetDescription className="text-right leading-7">
+            إجراء أساسي واحد ظاهر، وباقي الصفحات داخل قائمة أوضح وأهدأ.
+          </SheetDescription>
+        </SheetHeader>
+
+        <div className="mt-5 grid gap-2 sm:grid-cols-2">
+          <Link to="/map">
+            <Button variant="cta" className="h-11 w-full rounded-[1rem]">استكشف الخريطة</Button>
+          </Link>
+          <Link to="/leasing">
+            <Button variant="orange" className="h-11 w-full rounded-[1rem]">التأجير</Button>
+          </Link>
+          <Link to="/spin-win" className="sm:col-span-2">
+            <Button variant="secondary" className="h-11 w-full rounded-[1rem]">أدر واربح</Button>
+          </Link>
+        </div>
+
+        <div className="mt-5 space-y-5">
+          <div className="space-y-2">
+            <p className="px-1 text-[0.72rem] font-semibold tracking-[0.18em] text-muted-foreground">التصفح الرئيسي</p>
+            <nav className="grid gap-2">
+              {primaryNavItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`rounded-[1rem] border px-4 py-3 text-sm font-semibold transition-colors ${
+                    isActive(item.path)
+                      ? "border-primary/20 bg-secondary text-foreground"
+                      : "border-border bg-card text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <div className="space-y-2">
+            <p className="px-1 text-[0.72rem] font-semibold tracking-[0.18em] text-muted-foreground">صفحات إضافية</p>
+            <nav className="grid gap-2">
+              {mobileNavItems.slice(4).map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`rounded-[1rem] px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive(item.path)
+                      ? "bg-secondary text-foreground"
+                      : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          <Link to="/#marketplace" className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+            <span>السوق قريبًا</span>
+            <ShoppingBag className="h-4 w-4" />
+          </Link>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
+}
+
 export function Header() {
   const location = useLocation();
   const isActive = (path: string) => {
@@ -90,7 +175,42 @@ export function Header() {
             </div>
           </div>
 
-          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-2 xl:hidden">
+          <div className="hidden min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:min-h-[78px] min-[768px]:max-[1194px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:py-1">
+            <nav className="flex items-center justify-end gap-1.5 overflow-hidden">
+              {primaryNavItems.map((item) => (
+                <Link key={item.path} to={item.path} className="inline-flex h-9 items-center rounded-full px-3 text-[0.83rem] font-semibold text-foreground transition-colors hover:bg-secondary/75 hover:text-foreground">
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <Link to="/" className="justify-self-center">
+              <div className="flex -translate-y-[1px] items-center justify-center">
+                <BrandLogo align="center" imageClassName="h-auto max-w-[188px]" />
+              </div>
+            </Link>
+
+            <div className="flex items-center justify-start gap-2">
+              <Link to="/spin-win">
+                <Button variant="cta" size="sm" className="h-9 rounded-full px-4 text-[0.8rem] font-semibold">
+                  أدر واربح
+                </Button>
+              </Link>
+              <HeaderMenuSheet
+                isActive={isActive}
+                trigger={
+                  <button
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-card text-foreground shadow-[var(--shadow-soft)]"
+                    aria-label="فتح القائمة"
+                  >
+                    <Menu size={20} />
+                  </button>
+                }
+              />
+            </div>
+          </div>
+
+          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-2 md:hidden">
             <Link to="/map">
               <Button variant="outline-blue" size="sm" className="h-10 rounded-full px-3.5 text-[0.78rem] font-semibold">
                 <Compass className="h-4 w-4" />
@@ -104,87 +224,17 @@ export function Header() {
               </div>
             </Link>
 
-            <Sheet>
-              <SheetTrigger asChild>
+            <HeaderMenuSheet
+              isActive={isActive}
+              trigger={
                 <button
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-card text-foreground shadow-[var(--shadow-soft)]"
                   aria-label="فتح القائمة"
                 >
                   <Menu size={20} />
                 </button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[90vw] max-w-[23rem] border-border bg-background px-4 py-5">
-                <SheetHeader className="space-y-2 text-right">
-                  <div className="flex items-center justify-between gap-3">
-                    <BrandLogo align="start" imageClassName="h-auto max-w-[156px]" />
-                    <span className="rounded-full border border-border bg-card px-3 py-1.5 text-[0.72rem] font-semibold text-muted-foreground">
-                      تنقل سريع
-                    </span>
-                  </div>
-                  <SheetTitle className="text-right text-xl">وصول أسرع إلى صفحات المول</SheetTitle>
-                  <SheetDescription className="text-right leading-7">
-                    إجراء أساسي واحد ظاهر، وباقي الصفحات داخل قائمة أوضح وأهدأ.
-                  </SheetDescription>
-                </SheetHeader>
-
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  <Link to="/map">
-                    <Button variant="cta" className="h-11 w-full rounded-[1rem]">استكشف الخريطة</Button>
-                  </Link>
-                  <Link to="/leasing">
-                    <Button variant="orange" className="h-11 w-full rounded-[1rem]">التأجير</Button>
-                  </Link>
-                  <Link to="/spin-win" className="sm:col-span-2">
-                    <Button variant="secondary" className="h-11 w-full rounded-[1rem]">أدر واربح</Button>
-                  </Link>
-                </div>
-
-                <div className="mt-5 space-y-5">
-                  <div className="space-y-2">
-                    <p className="px-1 text-[0.72rem] font-semibold tracking-[0.18em] text-muted-foreground">التصفح الرئيسي</p>
-                    <nav className="grid gap-2">
-                      {primaryNavItems.map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className={`rounded-[1rem] border px-4 py-3 text-sm font-semibold transition-colors ${
-                            isActive(item.path)
-                              ? "border-primary/20 bg-secondary text-foreground"
-                              : "border-border bg-card text-foreground hover:bg-secondary"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </nav>
-                  </div>
-
-                  <div className="space-y-2">
-                    <p className="px-1 text-[0.72rem] font-semibold tracking-[0.18em] text-muted-foreground">صفحات إضافية</p>
-                    <nav className="grid gap-2">
-                      {mobileNavItems.slice(4).map((item) => (
-                        <Link
-                          key={item.path}
-                          to={item.path}
-                          className={`rounded-[1rem] px-4 py-3 text-sm font-medium transition-colors ${
-                            isActive(item.path)
-                              ? "bg-secondary text-foreground"
-                              : "text-muted-foreground hover:bg-secondary hover:text-foreground"
-                          }`}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </nav>
-                  </div>
-
-                  <Link to="/#marketplace" className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                    <span>السوق قريبًا</span>
-                    <ShoppingBag className="h-4 w-4" />
-                  </Link>
-                </div>
-              </SheetContent>
-            </Sheet>
+              }
+            />
           </div>
         </div>
       </div>
