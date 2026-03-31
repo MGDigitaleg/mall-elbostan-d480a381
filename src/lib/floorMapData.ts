@@ -261,15 +261,24 @@ export const applyTenantImportRows = (
 };
 
 export const floorMapData: FloorMapDefinition[] = [
-  buildFloor("ground", "G", "Ground Floor", groundAreas),
-  buildFloor("first", "F", "First Floor", upperAreas),
-  buildFloor("second", "S", "Second Floor", upperAreas),
+  buildFloor("ground", "G", "الدور الأرضي", groundAreas),
+  buildFloor("first", "F", "الدور الأول", upperAreas),
+  buildFloor("second", "S", "الدور الثاني", upperAreas),
 ];
 
 export const floorLabelAr: Record<FloorId, string> = {
   ground: "الدور الأرضي",
   first: "الدور الأول",
   second: "الدور الثاني",
+};
+
+export const needCategoryLabels: Record<NeedCategory, string> = {
+  Laptops: "الكمبيوتر والأجهزة",
+  Maintenance: "الصيانة والدعم الفني",
+  Networking: "الشبكات والحماية",
+  Accessories: "الهواتف والإكسسوارات",
+  Components: "الألعاب والترفيه",
+  "Security Systems": "أنظمة الحماية",
 };
 
 export const exploreNeeds: NeedCategory[] = categories;
