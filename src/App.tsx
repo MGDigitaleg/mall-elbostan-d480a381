@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { useGA4 } from "@/hooks/useGA4";
 
 import Index from "./pages/Index";
@@ -38,49 +37,47 @@ function GA4Init() { useGA4(); return null; }
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <GA4Init />
-          <Routes>
-            {/* Public */}
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
-            <Route path="/stores" element={<Stores />} />
-            <Route path="/stores/:slug" element={<StoreDetail />} />
-            <Route path="/map" element={<InteractiveMap />} />
-            <Route path="/leasing" element={<Leasing />} />
-            <Route path="/spin-win" element={<SpinWin />} />
-            <Route path="/opening-day" element={<OpeningDay />} />
-            <Route path="/daily-deals" element={<DailyDeals />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/reward-terms" element={<RewardTerms />} />
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <GA4Init />
+        <Routes>
+          {/* Public */}
+          <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
+          <Route path="/stores" element={<Stores />} />
+          <Route path="/stores/:slug" element={<StoreDetail />} />
+          <Route path="/map" element={<InteractiveMap />} />
+          <Route path="/leasing" element={<Leasing />} />
+          <Route path="/spin-win" element={<SpinWin />} />
+          <Route path="/opening-day" element={<OpeningDay />} />
+          <Route path="/daily-deals" element={<DailyDeals />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/reward-terms" element={<RewardTerms />} />
 
-            {/* Admin */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/stores" element={<AdminStores />} />
-            <Route path="/admin/units" element={<AdminUnits />} />
-            <Route path="/admin/events" element={<AdminEvents />} />
-            <Route path="/admin/rewards" element={<AdminRewards />} />
-            <Route path="/admin/deals" element={<AdminDeals />} />
-            <Route path="/admin/jobs" element={<AdminJobs />} />
-            <Route path="/admin/blog" element={<AdminBlog />} />
-            <Route path="/admin/faqs" element={<AdminFaqs />} />
-            <Route path="/admin/leads" element={<AdminLeads />} />
+          {/* Admin */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/stores" element={<AdminStores />} />
+          <Route path="/admin/units" element={<AdminUnits />} />
+          <Route path="/admin/events" element={<AdminEvents />} />
+          <Route path="/admin/rewards" element={<AdminRewards />} />
+          <Route path="/admin/deals" element={<AdminDeals />} />
+          <Route path="/admin/jobs" element={<AdminJobs />} />
+          <Route path="/admin/blog" element={<AdminBlog />} />
+          <Route path="/admin/faqs" element={<AdminFaqs />} />
+          <Route path="/admin/leads" element={<AdminLeads />} />
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </QueryClientProvider>
   </HelmetProvider>
 );
