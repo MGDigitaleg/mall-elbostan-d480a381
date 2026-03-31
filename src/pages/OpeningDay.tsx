@@ -22,31 +22,53 @@ const OpeningDay = () => {
   return (
     <MainLayout>
       <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تفاصيل يوم افتتاح مول البستان الكبير - فعاليات، مسابقات، ضيوف، وجوائز حصرية." descriptionEn="Mall Elbostan grand opening - events, competitions, guests, and exclusive prizes." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
-      <div className="container py-16 md:py-20">
-        <div className="mb-16 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <div className="container py-8 md:py-12">
+        <div className="brand-shell mb-14 grid gap-8 overflow-hidden rounded-[2.4rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm text-muted-foreground shadow-[var(--shadow-soft)]">
+            <div className="eyebrow-chip mb-4">
               <Calendar className="h-4 w-4 text-primary" />
               برنامج الإطلاق والعد التنازلي
             </div>
             <h1 className="mb-5 text-4xl font-bold text-foreground md:text-5xl">يوم الافتتاح الكبير</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">صفحة مصممة لتجميع تفاصيل الإطلاق في شكل أوضح وأكثر أناقة: الفعاليات، المسابقات، الضيوف، والجوائز ضمن تجربة launch premium وليست صفحة مزدحمة أو ثقيلة بصريًا.</p>
+            <p className="max-w-2xl leading-8 text-muted-foreground">تمت إعادة تصميم صفحة الافتتاح لتصبح أكثر تنظيمًا وحيوية: عد تنازلي واضح، رحلة مشاركة مفهومة، ومحتوى فعاليات يمكن تصفحه بسهولة ضمن تجربة بصرية أخف وأكثر أناقة.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {[
+                "عد تنازلي للإطلاق",
+                "فعاليات ومشاركات مرتقبة",
+                "جوائز مرتبطة بالحضور الفعلي",
+              ].map((item) => (
+                <div key={item} className="soft-card rounded-[1.35rem] p-4 text-sm font-semibold text-foreground">{item}</div>
+              ))}
+            </div>
           </div>
-          <div className="surface-panel rounded-[2rem] p-6 md:p-8">
+          <div className="section-shell rounded-[2rem] p-6 md:p-8">
             <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي حتى الافتتاح</p>
             <CountdownTimer />
           </div>
         </div>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Calendar className="w-6 h-6 text-primary" /> جدول الفعاليات</h2>
+          <div className="mb-8 grid gap-4 md:grid-cols-3">
+            {[
+              "استكشف الفعاليات قبل يوم الافتتاح لترتيب زيارتك.",
+              "شارك في الجوائز واحتفظ بالنتيجة عند الحاجة.",
+              "تابع الصفحة لمعرفة تفاصيل الضيوف والبرنامج النهائي.",
+            ].map((item, index) => (
+              <div key={item} className="section-shell p-5">
+                <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">0{index + 1}</p>
+                <p className="mt-3 text-sm leading-7 text-foreground/88">{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Calendar className="h-6 w-6 text-primary" /> جدول الفعاليات</h2>
           {isLoading ? <LoadingGrid count={3} /> : schedule.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {schedule.map((event) => (
-                <div key={event.id} className="card-premium p-6">
-                  {event.image_url && <img src={event.image_url} alt={event.title_ar} className="w-full h-40 object-cover rounded-lg mb-4" loading="lazy" />}
+                <div key={event.id} className="section-shell p-6">
+                  {event.image_url && <img src={event.image_url} alt={event.title_ar} className="mb-4 h-40 w-full rounded-[1.2rem] object-cover" loading="lazy" />}
                   <h3 className="font-bold text-lg text-foreground mb-2">{event.title_ar}</h3>
-                  {event.description_ar && <p className="text-sm text-muted-foreground mb-3">{event.description_ar}</p>}
+                  {event.description_ar && <p className="mb-3 text-sm leading-7 text-muted-foreground">{event.description_ar}</p>}
                   <div className="flex gap-4 text-xs text-accent">
                     {event.start_time && <span>{event.start_time}</span>}
                     {event.event_date && <span>{event.event_date}</span>}
@@ -54,42 +76,42 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="soft-card p-8"><EmptyState title="سيتم الإعلان عن جدول الفعاليات قريباً" /></div>}
+          ) : <div className="section-shell p-8"><EmptyState title="سيتم الإعلان عن جدول الفعاليات قريباً" /></div>}
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Users className="w-6 h-6 text-accent" /> الضيوف والشخصيات</h2>
+          <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Users className="h-6 w-6 text-accent" /> الضيوف والشخصيات</h2>
           {guests.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {guests.map((guest) => (
-                <div key={guest.id} className="card-premium p-6 text-center">
-                  {guest.image_url && <img src={guest.image_url} alt={guest.title_ar} className="w-24 h-24 rounded-full object-cover mx-auto mb-4" loading="lazy" />}
+                <div key={guest.id} className="section-shell p-6 text-center">
+                  {guest.image_url && <img src={guest.image_url} alt={guest.title_ar} className="mx-auto mb-4 h-24 w-24 rounded-full object-cover" loading="lazy" />}
                   <h3 className="font-bold text-foreground">{guest.title_ar}</h3>
                   {guest.speaker_or_guest && <p className="text-sm text-accent">{guest.speaker_or_guest}</p>}
                 </div>
               ))}
             </div>
-          ) : <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن الضيوف والشخصيات قريباً</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن الضيوف والشخصيات قريباً</div>}
         </section>
 
         <section className="mb-16">
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Gamepad2 className="w-6 h-6 text-orange" /> مسابقات الألعاب</h2>
+          <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Gamepad2 className="h-6 w-6 text-orange" /> مسابقات الألعاب</h2>
           {gaming.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {gaming.map((comp) => (
-                <div key={comp.id} className="card-premium p-6 border-orange/30">
+                <div key={comp.id} className="section-shell border-orange/30 p-6">
                   <h3 className="font-bold text-lg text-orange mb-2">{comp.title_ar}</h3>
-                  {comp.description_ar && <p className="text-sm text-muted-foreground">{comp.description_ar}</p>}
+                  {comp.description_ar && <p className="text-sm leading-7 text-muted-foreground">{comp.description_ar}</p>}
                   {comp.start_time && <p className="text-xs text-accent mt-2">{comp.start_time}</p>}
                 </div>
               ))}
             </div>
-          ) : <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن مسابقات الألعاب قريباً</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن مسابقات الألعاب قريباً</div>}
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2"><Award className="w-6 h-6 text-primary" /> الرعاة</h2>
-          <div className="soft-card p-6 text-muted-foreground">سيتم الإعلان عن رعاة الافتتاح قريباً</div>
+          <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Award className="h-6 w-6 text-primary" /> الرعاة</h2>
+          <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن رعاة الافتتاح قريباً</div>
         </section>
       </div>
     </MainLayout>

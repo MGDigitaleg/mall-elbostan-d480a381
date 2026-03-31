@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import entranceImage from "@/assets/mall-entrance.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -39,28 +40,39 @@ const Contact = () => {
   return (
     <MainLayout>
       <SEOHead title="تواصل معنا" titleEn="Contact Us" description="تواصل مع فريق مول البستان - استفسارات، شراكات، إعلام." descriptionEn="Get in touch with Mall Elbostan team." breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]} />
-      <div className="container py-20">
-        <h1 className="text-4xl font-bold text-gradient-blue mb-8 text-center">تواصل معنا</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div className="card-premium p-8">
-            <h2 className="text-2xl font-bold mb-6">أرسل رسالة</h2>
+      <div className="container py-8 md:py-12">
+        <div className="brand-shell mb-12 grid max-w-6xl gap-8 overflow-hidden rounded-[2.4rem] px-6 py-8 md:px-8 md:py-10 lg:mx-auto lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <div className="space-y-5">
+            <div className="eyebrow-chip">تواصل معنا</div>
+            <h1 className="text-4xl font-bold text-foreground md:text-5xl">قناة تواصل أكثر وضوحًا واحترافية مع فريق مول البستان</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">إذا كانت لديك استفسارات حول المشروع، الشراكات، أو فرص التعاون، يمكنك استخدام هذه الصفحة لبدء تواصل مباشر مع الفريق ضمن تجربة أخف وأكثر اتساقًا مع الهوية العامة للموقع.</p>
+          </div>
+          <div className="image-shell overflow-hidden rounded-[2rem] border border-border/70 shadow-[var(--shadow-elevated)]">
+            <img src={entranceImage} alt="مدخل مول البستان" className="h-[320px] w-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
+          </div>
+        </div>
+
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-2">
+          <div className="section-shell p-8">
+            <h2 className="mb-6 text-2xl font-bold">أرسل رسالة</h2>
             {submitted ? (
-              <div className="text-center py-10"><CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" /><p className="font-bold text-success">تم إرسال رسالتك بنجاح!</p><p className="text-muted-foreground mt-2">سنتواصل معك قريباً</p></div>
+              <div className="py-10 text-center"><CheckCircle2 className="mx-auto mb-2 h-10 w-10 text-success" /><p className="font-bold text-success">تم إرسال رسالتك بنجاح</p><p className="mt-2 text-muted-foreground">سنتواصل معك قريباً</p></div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="bg-secondary border-border" required />
-                <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-secondary border-border" required dir="ltr" />
-                <Input placeholder="البريد الإلكتروني" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border" dir="ltr" />
-                <Textarea placeholder="رسالتك..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="bg-secondary border-border" rows={5} />
+                <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="bg-background border-border" required />
+                <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-background border-border" required dir="ltr" />
+                <Input placeholder="البريد الإلكتروني" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-background border-border" dir="ltr" />
+                <Textarea placeholder="رسالتك..." value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} className="bg-background border-border" rows={5} />
                 <Button type="submit" variant="cta" className="w-full" disabled={loading}>{loading ? "جاري الإرسال..." : "إرسال"}</Button>
               </form>
             )}
           </div>
           <div className="space-y-6">
-            <div className="card-premium p-6"><MapPin className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الموقع</h3><p className="text-sm text-muted-foreground">القاهرة الجديدة، مصر</p></div>
-            <div className="card-premium p-6"><Phone className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الهاتف</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
-            <div className="card-premium p-6"><Mail className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">البريد الإلكتروني</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
-            <div className="card-premium p-6 h-48 flex items-center justify-center text-muted-foreground"><MapPin className="w-5 h-5 ml-2" />خريطة Google Maps - سيتم إضافتها</div>
+            <div className="section-shell p-6"><MapPin className="mb-2 h-6 w-6 text-primary" /><h3 className="mb-1 font-bold">الموقع</h3><p className="text-sm text-muted-foreground">القاهرة الجديدة، مصر</p></div>
+            <div className="section-shell p-6"><Phone className="mb-2 h-6 w-6 text-primary" /><h3 className="mb-1 font-bold">الهاتف</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
+            <div className="section-shell p-6"><Mail className="mb-2 h-6 w-6 text-primary" /><h3 className="mb-1 font-bold">البريد الإلكتروني</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
+            <div className="section-shell flex h-48 items-center justify-center p-6 text-muted-foreground"><MapPin className="ml-2 h-5 w-5" />خريطة الموقع ستتم إضافتها عند توفر بيانات العنوان التفصيلية</div>
           </div>
         </div>
       </div>
