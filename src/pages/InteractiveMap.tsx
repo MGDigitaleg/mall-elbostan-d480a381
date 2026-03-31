@@ -57,7 +57,7 @@ const InteractiveMap = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="الخريطة التفاعلية" description="تصفح خريطة مول البستان واعثر على المتاجر والوحدات المتاحة." />
+      <SEOHead title="الخريطة التفاعلية" titleEn="Interactive Map" description="تصفح خريطة مول البستان واعثر على المتاجر والوحدات المتاحة." descriptionEn="Browse Mall Elbostan's interactive floor map." breadcrumbs={[{ name: "الخريطة", url: "/map" }]} />
       <div className="container py-20">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8">الخريطة التفاعلية</h1>
 
