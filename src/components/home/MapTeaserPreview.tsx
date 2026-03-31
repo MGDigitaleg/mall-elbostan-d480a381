@@ -43,7 +43,7 @@ export function MapTeaserPreview() {
   );
 
   return (
-    <div className="brand-shell rounded-[1.85rem] p-2.5 md:p-4">
+    <div className="rounded-[1.85rem] md:brand-shell md:p-4">
       <div className="grid gap-2.5 xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
         <div className="order-1 space-y-2.5">
           <div className="grid grid-cols-3 gap-1.5">
@@ -64,7 +64,7 @@ export function MapTeaserPreview() {
           </div>
 
           <FloorPlanSvg
-            className="min-h-[28rem] rounded-[1.45rem] border border-border/80 p-2.5 md:min-h-[24.5rem] md:p-4 lg:min-h-[28rem] lg:p-4"
+            className="min-h-[29rem] rounded-[1.45rem] border border-border/80 p-2 md:min-h-[24.5rem] md:p-4 lg:min-h-[28rem] lg:p-4"
             floorId={selectedFloor}
             units={floor.units}
             selectedUnitId={activeUnit.unit_id}
@@ -74,14 +74,14 @@ export function MapTeaserPreview() {
         </div>
 
         <div className="order-2 space-y-2.5 xl:order-none">
-          <div className="editorial-panel rounded-[1.45rem] p-4 md:p-5">
+          <div className="editorial-panel rounded-[1.25rem] p-4 md:rounded-[1.45rem] md:p-5">
             <div className="mb-3 flex items-center justify-between gap-3">
               <p className="text-xs font-semibold text-muted-foreground">معاينة مباشرة من الدليل</p>
               <span className="rounded-full border border-border bg-card px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground">منتج حي</span>
             </div>
-            <h3 className="mt-1.5 text-2xl font-bold text-foreground">وحدة {activeUnit.unit_id}</h3>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">اختر الدور، راجع الحالة، ثم انتقل مباشرة إلى الدليل الكامل أو الاستفسار التجاري.</p>
-            <div className="mt-4 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1">
+            <h3 className="mt-1 text-[1.45rem] font-bold text-foreground md:mt-1.5 md:text-2xl">وحدة {activeUnit.unit_id}</h3>
+            <p className="mt-1.5 text-sm leading-6 text-muted-foreground">اختر الدور ثم راجع بيانات الوحدة من نفس المعاينة.</p>
+            <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1">
               <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
                 <span className="text-muted-foreground">الدور</span>
                 <span className="font-semibold text-foreground">{floorLabelAr[activeUnit.floor_id]}</span>

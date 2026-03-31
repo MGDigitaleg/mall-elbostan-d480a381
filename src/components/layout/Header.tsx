@@ -90,17 +90,16 @@ export function Header() {
             </div>
           </div>
 
-          <div className="grid min-h-[64px] grid-cols-[auto_1fr_auto] items-center gap-2 xl:hidden">
+          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-1.5 xl:hidden">
             <Link to="/map">
-              <Button variant="outline-blue" size="sm" className="h-10 rounded-full px-3.5 text-[0.82rem] font-semibold">
+              <Button variant="outline-blue" size="sm" className="h-10 w-10 rounded-full px-0">
                 <Compass className="h-4 w-4" />
-                الخريطة
               </Button>
             </Link>
 
             <Link to="/" className="justify-self-center">
               <div className="flex -translate-y-[1px] items-center justify-center">
-                <BrandLogo align="center" imageClassName="h-auto max-w-[158px]" />
+                <BrandLogo align="center" imageClassName="h-auto max-w-[170px]" />
               </div>
             </Link>
 
@@ -123,7 +122,7 @@ export function Header() {
                   </div>
                   <SheetTitle className="text-right text-xl">وصول أسرع إلى صفحات المول</SheetTitle>
                   <SheetDescription className="text-right leading-7">
-                    اختر الإجراء الأساسي أولًا، ثم انتقل لباقي الصفحات من قائمة واحدة واضحة.
+                    إجراء أساسي واحد ظاهر، وباقي الصفحات داخل قائمة أوضح وأهدأ.
                   </SheetDescription>
                 </SheetHeader>
 

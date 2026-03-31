@@ -95,42 +95,42 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-4 pt-1 md:pb-8 lg:pb-10">
+      <section className="relative overflow-hidden pb-3 pt-1 md:pb-8 lg:pb-10">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell page-shell grid min-h-[auto] gap-3 overflow-hidden rounded-[2rem] lg:min-h-[40rem] lg:grid-cols-[5fr_7fr] lg:gap-4">
-            <div className="space-y-3 lg:flex lg:flex-col lg:justify-center">
+          <div className="brand-shell grid min-h-[auto] gap-3 overflow-hidden rounded-[2rem] px-3.5 py-4 lg:page-shell lg:min-h-[40rem] lg:grid-cols-[5fr_7fr] lg:gap-4">
+            <div className="order-2 space-y-2.5 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-3">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-2.5 text-[0.78rem] md:mb-3 md:text-sm">افتتاح مايو 2026 • وجهة تقنية في القاهرة الجديدة</div>
-                <h1 className="max-w-[32rem] text-[1.85rem] font-black leading-[1.06] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] lg:text-[4rem]">
+                <h1 className="max-w-[19rem] text-[1.72rem] font-black leading-[1.05] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] lg:text-[4rem]">
                   مول البستان
-                  <span className="mt-2 block max-w-[24rem] text-[0.96rem] font-semibold leading-[1.45] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] lg:text-[1.6rem]">
-                    خريطة أوضح وتجربة أسرع للاستكشاف والاستفسار.
+                  <span className="mt-2 block max-w-[18rem] text-[0.9rem] font-semibold leading-[1.42] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] lg:text-[1.6rem]">
+                    خريطة أوضح لاستكشاف المتاجر والوحدات.
                   </span>
                 </h1>
-                <p className="mt-2.5 max-w-[26rem] text-sm leading-6 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7">
-                  ابدأ من الدليل، افهم الفئات بسرعة، ثم انتقل مباشرة إلى المتجر أو الوحدة المناسبة.
+                <p className="mt-2 max-w-[18rem] text-[0.82rem] leading-6 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7">
+                  ابدأ من الدليل ثم تحرك مباشرة إلى المتجر أو الوحدة المناسبة.
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.45rem] p-3.5 md:gap-2.5 md:rounded-[1.6rem] md:p-5">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.35rem] p-3 md:gap-2.5 md:rounded-[1.6rem] md:p-5">
                 <div className="flex flex-wrap gap-2">
                   {heroPills.map((item, index) => (
                     <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.76rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "hidden sm:inline-flex" : "inline-flex"}`}>{item}</span>
                   ))}
                 </div>
 
-                <div className="grid gap-2 sm:flex sm:flex-wrap sm:gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
                   <Link to="/map" className="w-full sm:w-auto"><Button variant="cta" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
                   <Link to="/leasing" className="w-full sm:w-auto"><Button variant="orange" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
                 </div>
 
                 <div className="grid gap-2 lg:grid-cols-[1.08fr_0.92fr] lg:gap-2.5">
-                  <div className="rounded-[1.15rem] border border-border bg-card px-3 py-2.5 md:rounded-[1.25rem] md:px-3.5 md:py-3">
-                    <div className="grid grid-cols-3 gap-2">
-                    {heroFacts.map((item) => (
-                      <div key={item.label} className="editorial-panel flex min-h-[4rem] flex-col justify-center rounded-[0.95rem] px-2.5 py-2 md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5">
+                  <div className="rounded-[1.1rem] border border-border bg-card px-2.5 py-2.5 md:rounded-[1.25rem] md:px-3.5 md:py-3">
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+                    {heroFacts.map((item, index) => (
+                      <div key={item.label} className={`editorial-panel flex min-h-[3.8rem] flex-col justify-center rounded-[0.95rem] px-2.5 py-2 md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 ${index === 2 ? "col-span-2 md:col-span-1" : ""}`}>
                         <p className="text-[0.68rem] font-semibold leading-4 text-muted-foreground md:text-xs">{item.label}</p>
                         <p className="mt-1 text-sm font-bold text-foreground md:text-lg">{item.value}</p>
                       </div>
@@ -142,16 +142,16 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
                     </div>
-                    <CountdownTimer />
+                    <CountdownTimer compact />
                   </div>
                 </div>
               </motion.div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="relative mx-auto flex w-full max-w-[48rem] items-center lg:justify-start">
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-1 relative mx-auto flex w-full max-w-[48rem] items-center lg:order-2 lg:justify-start">
               <div className="relative w-full">
                 <div className="section-shell overflow-hidden rounded-[1.8rem] p-2 md:rounded-[2.25rem]">
-                  <div className="image-shell aspect-[4/4.6] overflow-hidden rounded-[1.5rem] bg-card md:rounded-[2rem] lg:aspect-[4/3]">
+                  <div className="image-shell aspect-[4/4.2] overflow-hidden rounded-[1.5rem] bg-card md:rounded-[2rem] lg:aspect-[4/3]">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
                     <div className="image-wash absolute inset-0" />
                   </div>
@@ -167,10 +167,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section pt-7 md:pt-12 lg:pt-14">
+      <section className="page-section pt-6 md:pt-12 lg:pt-14">
         <div className="container">
-          <div className="grid gap-3.5 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-4">
-            <div className="space-y-3 lg:order-2">
+          <div className="grid gap-3 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-4">
+            <div className="space-y-2.5 lg:order-2 lg:space-y-3">
               <div className="chapter-shell pt-4 md:pt-5">
                 <p className="section-kicker">لماذا مول البستان</p>
                 <h2 className="section-title max-w-[35rem]">وجهة تقنية بهوية واضحة وتجربة زيارة أهدأ.</h2>
@@ -178,13 +178,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <p className="max-w-[24rem] text-sm leading-6 text-muted-foreground md:max-w-[29rem] md:text-lg md:leading-7">
                 المشروع يجمع الفئات الأساسية في مسار أقصر للزائر ويمنح النشاط التجاري حضورًا أوضح داخل المول.
               </p>
-              <div className="grid gap-2 sm:grid-cols-2 md:gap-2.5">
+              <div className="grid gap-1.5 sm:grid-cols-2 md:gap-2.5">
                 {benefitChips.map((item) => (
-                  <div key={item} className="mini-chip h-[2.7rem] justify-start rounded-[0.95rem] px-3.5 py-0 text-[0.76rem] md:h-[2.9rem] md:rounded-[1rem] md:px-4 md:text-sm">{item}</div>
+                  <div key={item} className="mini-chip h-[2.55rem] justify-start rounded-[0.95rem] px-3 py-0 text-[0.72rem] md:h-[2.9rem] md:rounded-[1rem] md:px-4 md:text-sm">{item}</div>
                 ))}
               </div>
             </div>
-            <div className="grid gap-2 md:grid-cols-3 md:gap-2.5 lg:order-1">
+            <div className="hidden gap-2 md:grid md:grid-cols-3 md:gap-2.5 lg:order-1">
               {whyCards.map((card, index) => (
                 <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                   <div className="editorial-panel h-full rounded-[1.15rem] p-3.5 md:rounded-[1.3rem] md:p-4">
@@ -198,6 +198,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                 </motion.div>
               ))}
+            </div>
+            <div className="editorial-panel rounded-[1.2rem] p-3.5 md:hidden">
+              <div className="space-y-3">
+                {whyCards.map((card, index) => (
+                  <div key={card.title} className={`flex items-start gap-2.5 ${index !== whyCards.length - 1 ? "border-b border-border pb-3" : ""}`}>
+                    <card.icon className="icon-shell h-9 w-9 shrink-0 p-2" />
+                    <div>
+                      <h3 className="text-[0.95rem] font-bold text-foreground">{card.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-muted-foreground">{card.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -303,11 +316,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="section-soft page-section py-8 md:py-12 lg:py-14">
         <div className="container">
-          <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <div className="order-2 space-y-3 lg:max-w-[29rem] lg:order-2 lg:space-y-3.5">
+          <div className="grid gap-3 overflow-hidden lg:section-shell lg:page-shell lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-4">
+            <div className="order-2 space-y-2.5 lg:max-w-[29rem] lg:order-2 lg:space-y-3.5">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو المنتج الأساسي هنا.</h2>
-              <p className="text-sm leading-6 text-muted-foreground md:text-lg md:leading-7">اختر الدور، شاهد الوحدة، ثم افتح الدليل الكامل من معاينة حقيقية وليست بطاقة تعريف.</p>
+              <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground md:text-lg md:leading-7">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
               <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
                 <div className="editorial-panel min-h-[4.5rem] rounded-[1rem] p-3 md:min-h-[5.2rem] md:rounded-[1.25rem] md:p-4">
                   <p className="text-xs font-semibold text-muted-foreground">عدد الأدوار</p>
@@ -322,7 +335,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <p className="mt-1 text-lg font-bold text-foreground md:mt-1.5 md:text-xl">{totalUnits}</p>
                 </div>
               </div>
-              <div className="rounded-[1.1rem] border border-border bg-card px-3.5 py-3 text-sm leading-6 text-muted-foreground md:rounded-[1.25rem] md:px-4 md:py-3.5 md:leading-7">
+              <div className="rounded-[1.05rem] border border-border bg-card px-3 py-2.5 text-sm leading-6 text-muted-foreground md:rounded-[1.25rem] md:px-4 md:py-3.5 md:leading-7">
                 ابدأ من الدور، راجع تمييز الحالة، ثم افتح الدليل أو انتقل مباشرة إلى الاستفسار من نفس المصدر.
               </div>
             </div>
@@ -354,7 +367,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/map"><Button variant="outline-blue" size="lg" className="h-11 w-full rounded-[1.1rem] px-6">افتح الدليل الكامل</Button></Link>
               </div>
             </div>
-            <div className="space-y-2.5 md:space-y-3">
+             <div className="space-y-2.5 md:space-y-3">
               <div className="editorial-panel rounded-[1.3rem] p-4 md:rounded-[1.6rem] md:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -363,7 +376,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                   <span className="rounded-full border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground">مصدر واحد</span>
                 </div>
-                <div className="mt-3 grid gap-2 sm:grid-cols-3 md:mt-4 md:gap-2.5">
+                <div className="mt-3 grid grid-cols-3 gap-2 md:mt-4 md:gap-2.5">
                   {availableByFloor.map((floor) => (
                     <div key={floor.id} className="rounded-[1rem] border border-border bg-card px-3 py-2.5 md:rounded-[1.1rem] md:px-4 md:py-3">
                       <p className="text-xs font-semibold text-muted-foreground">{floor.label}</p>
