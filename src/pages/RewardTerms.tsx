@@ -3,7 +3,7 @@ import { SEOHead } from "@/components/SEOHead";
 
 const RewardTerms = () => (
   <MainLayout>
-    <SEOHead title="شروط المكافآت" description="شروط وأحكام المكافآت والجوائز في مول البستان." />
+    <SEOHead title="شروط المكافآت" titleEn="Reward Terms" description="شروط وأحكام المكافآت والجوائز في مول البستان." descriptionEn="Reward terms and conditions at Mall Elbostan." breadcrumbs={[{ name: "شروط المكافآت", url: "/reward-terms" }]} />
     <div className="container py-20 max-w-3xl">
       <h1 className="text-4xl font-bold text-gradient-blue mb-8">شروط المكافآت</h1>
       <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">

@@ -3,7 +3,7 @@ import { SEOHead } from "@/components/SEOHead";
 
 const NewCairoBranch = () => (
   <MainLayout>
-    <SEOHead title="فرع القاهرة الجديدة" description="مول البستان - فرع القاهرة الجديدة. الموقع والتفاصيل." />
+    <SEOHead title="فرع القاهرة الجديدة" titleEn="New Cairo Branch" description="مول البستان - فرع القاهرة الجديدة. الموقع والتفاصيل." descriptionEn="Mall Elbostan New Cairo branch location and details." breadcrumbs={[{ name: "فرع القاهرة الجديدة", url: "/new-cairo-branch" }]} />
     <div className="container py-20 max-w-4xl">
       <h1 className="text-4xl font-bold text-gradient-blue mb-8">فرع القاهرة الجديدة</h1>
       <div className="space-y-6 text-foreground/90 leading-relaxed">
