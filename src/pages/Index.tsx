@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { MapPin, Store, Calendar, Sparkles, Building, Tag, HelpCircle, Zap } from "lucide-react";
+import { MapPin, Store, Calendar, Sparkles, Building, Tag, HelpCircle, Zap, Smartphone, Monitor, Gamepad2, Printer, Shield, Wrench, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { CountdownTimer } from "@/components/CountdownTimer";
@@ -8,7 +8,9 @@ import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import heroImage from "@/assets/hero-mall.jpg";
+import heroImage from "@/assets/mall-exterior.jpg";
+import interiorImage from "@/assets/mall-interior.jpg";
+import facadeImage from "@/assets/mall-facade.jpg";
 
 const features = [
   { icon: Sparkles, title: "أدر واربح", desc: "جوائز فورية قيّمة بانتظارك يوم الافتتاح", link: "/spin-win", color: "text-orange" },
@@ -16,8 +18,6 @@ const features = [
   { icon: Store, title: "دليل المتاجر", desc: "أفضل العلامات التجارية في التكنولوجيا", link: "/stores", color: "text-primary" },
   { icon: Building, title: "احجز وحدتك", desc: "فرص تأجير مميزة في أفضل موقع بالقاهرة الجديدة", link: "/leasing", color: "text-orange" },
 ];
-
-import { Smartphone, Monitor, Gamepad2, Printer, Shield, Wrench } from "lucide-react";
 
 const categories = [
   { name: "الهواتف والإكسسوارات", icon: Smartphone },
@@ -72,16 +72,22 @@ const Index = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="مول البستان" width={1920} height={1080} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-hero opacity-85" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+          <img
+            src={heroImage}
+            alt="مبنى مول البستان - وجهة التكنولوجيا الأولى في القاهرة الجديدة"
+            width={1920}
+            height={1280}
+            className="w-full h-full object-cover object-[center_30%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
+          <div className="absolute inset-0 bg-background/40" />
         </div>
 
         <div className="container relative z-10 text-center py-20">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-            <p className="text-accent text-sm font-semibold mb-4 tracking-wider">القاهرة الجديدة • مدينتي • الرحاب</p>
+            <p className="text-accent text-sm font-semibold mb-4 tracking-wider">القاهرة الجديدة - مدينتي - الرحاب</p>
             <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
               <span className="text-gradient-blue">مول البستان</span>
             </h1>
@@ -132,8 +138,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Interior Experience Section — Image 4 */}
+      <section className="py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden"
+          >
+            <img
+              src={interiorImage}
+              alt="الأتريوم الداخلي لمول البستان متعدد الطوابق"
+              className="w-full h-full object-cover min-h-[400px] lg:min-h-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-background/20 to-transparent" />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex flex-col justify-center p-10 lg:p-16"
+          >
+            <p className="text-accent text-sm font-semibold mb-3 tracking-wider">اكتشف التجربة</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              داخل <span className="text-gradient-blue">مول البستان</span>
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              تصميم معماري فاخر متعدد الطوابق يجمع بين الفخامة والعملية. أتريوم مركزي واسع يربط بين جميع الأدوار مع إضاءة طبيعية وتشطيبات عالية الجودة.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-8">
+              كل طابق مصمم ليوفر تجربة تسوق سلسة مع مساحات مفتوحة ولافتات واضحة تسهل التنقل بين المتاجر والخدمات.
+            </p>
+            <Link to="/about">
+              <Button variant="outline-blue" size="lg" className="gap-2">
+                اعرف المزيد عن المول
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Categories */}
-      <section className="py-20">
+      <section className="py-20 bg-card">
         <div className="container">
           <h2 className="text-3xl font-bold text-center mb-12">تسوّق حسب <span className="text-gradient-blue">الفئة</span></h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -151,7 +201,7 @@ const Index = () => {
 
       {/* Featured Stores */}
       {featuredStores && featuredStores.length > 0 && (
-        <section className="py-20 bg-card">
+        <section className="py-20">
           <div className="container">
             <h2 className="text-3xl font-bold text-center mb-12">متاجر <span className="text-gradient-blue">مميزة</span></h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -181,7 +231,7 @@ const Index = () => {
 
       {/* Events Preview */}
       {upcomingEvents && upcomingEvents.length > 0 && (
-        <section className="py-20">
+        <section className="py-20 bg-card">
           <div className="container">
             <h2 className="text-3xl font-bold text-center mb-12">فعاليات <span className="text-gradient-blue">الافتتاح</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -204,22 +254,41 @@ const Index = () => {
         </section>
       )}
 
-      {/* Leasing CTA */}
-      <section className="py-20 bg-card">
-        <div className="container text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <Building className="w-16 h-16 text-orange mx-auto mb-6" />
+      {/* Leasing CTA — Image 3 */}
+      <section className="relative py-0 overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[480px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col justify-center p-10 lg:p-16 order-2 lg:order-1"
+          >
+            <Building className="w-12 h-12 text-orange mb-6" />
             <h2 className="text-3xl md:text-4xl font-bold mb-4">وحدات تجارية <span className="text-orange">متاحة للتأجير</span></h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              انضم إلى أكبر تجمع تقني في القاهرة الجديدة. مساحات تجارية متنوعة بأسعار تنافسية وموقع استراتيجي.
+            <p className="text-muted-foreground max-w-lg mb-8 leading-relaxed">
+              انضم إلى أكبر تجمع تقني في القاهرة الجديدة. مساحات تجارية متنوعة بأسعار تنافسية وموقع استراتيجي يضمن لك أعلى عائد على الاستثمار.
             </p>
-            <Link to="/leasing"><Button variant="orange" size="lg" className="text-lg px-10">استفسر الآن</Button></Link>
+            <Link to="/leasing"><Button variant="orange" size="lg" className="text-lg px-10 w-fit">استفسر الآن</Button></Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="relative overflow-hidden order-1 lg:order-2"
+          >
+            <img
+              src={facadeImage}
+              alt="الواجهة الخارجية لمول البستان عند الغروب"
+              className="w-full h-full object-cover min-h-[350px] lg:min-h-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/30 to-transparent" />
           </motion.div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-20">
+      <section className="py-20 bg-card">
         <div className="container max-w-3xl">
           <h2 className="text-3xl font-bold text-center mb-12">
             <HelpCircle className="w-8 h-8 text-accent inline-block ml-2" />
@@ -240,7 +309,7 @@ const Index = () => {
             </Accordion>
           ) : (
             <div className="text-center text-muted-foreground">
-              <p>سيتم إضافة الأسئلة الشائعة قريباً</p>
+              <p>سيتم إضافة الأسئلة الشائعة قريبا</p>
             </div>
           )}
           <div className="text-center mt-8">
