@@ -1,153 +1,194 @@
-import { useState, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useMemo, useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { FloorPlanSvg } from "@/components/map/FloorPlanSvg";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { exploreNeeds, floorLabelAr, floorMapData, type FloorId, type MapUnitDefinition, type UnitStatus } from "@/lib/floorMapData";
 import { Link } from "react-router-dom";
 
 const InteractiveMap = () => {
-  const [selectedFloor, setSelectedFloor] = useState<string | null>(null);
-  const [filter, setFilter] = useState<"all" | "leased" | "available">("all");
-  const [selectedItem, setSelectedItem] = useState<{ type: "store" | "unit"; data: Record<string, unknown> } | null>(null);
+  const isMobile = useIsMobile();
+  const [selectedFloor, setSelectedFloor] = useState<FloorId>("ground");
+  const [statusFilter, setStatusFilter] = useState<"all" | UnitStatus>("all");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [needFilter, setNeedFilter] = useState<"all" | (typeof exploreNeeds)[number]>("all");
+  const [selectedUnit, setSelectedUnit] = useState<MapUnitDefinition | null>(null);
 
-  const { data: floors } = useQuery({
-    queryKey: ["floors"],
-    queryFn: async () => {
-      const { data } = await supabase.from("floors").select("*").order("sort_order");
-      return data ?? [];
-    },
-  });
-
-  const { data: stores } = useQuery({
-    queryKey: ["stores-map"],
-    queryFn: async () => {
-      const { data } = await supabase.from("stores").select("*").neq("status", "hidden");
-      return data ?? [];
-    },
-  });
-
-  const { data: units } = useQuery({
-    queryKey: ["units-map"],
-    queryFn: async () => {
-      const { data } = await supabase.from("units").select("*").neq("status", "hidden");
-      return data ?? [];
-    },
-  });
-
-  const activeFloor = selectedFloor ?? floors?.[0]?.id ?? null;
-
-  const filteredStores = useMemo(() => {
-    return stores?.filter((s) => {
-      const matchFloor = !activeFloor || s.floor_id === activeFloor;
-      const matchFilter = filter === "all" || s.status === filter;
-      return matchFloor && matchFilter;
-    }) ?? [];
-  }, [stores, activeFloor, filter]);
+  const floor = useMemo(
+    () => floorMapData.find((item) => item.id === selectedFloor) ?? floorMapData[0],
+    [selectedFloor],
+  );
 
   const filteredUnits = useMemo(() => {
-    return units?.filter((u) => {
-      const matchFloor = !activeFloor || u.floor_id === activeFloor;
-      const matchFilter = filter === "all" || filter === "available" ? u.status === "available" : false;
-      return matchFloor && matchFilter;
-    }) ?? [];
-  }, [units, activeFloor, filter]);
+    return floor.units.filter((unit) => {
+      const normalized = searchTerm.trim().toLowerCase();
+      const matchSearch =
+        normalized.length === 0 ||
+        unit.store_name_ar.toLowerCase().includes(normalized) ||
+        unit.unit_id.toLowerCase().includes(normalized);
+      const matchStatus = statusFilter === "all" || unit.status === statusFilter;
+      const matchNeed = needFilter === "all" || unit.category === needFilter;
+      return matchSearch && matchStatus && matchNeed;
+    });
+  }, [floor.units, searchTerm, statusFilter, needFilter]);
+
+  const filteredIds = useMemo(() => new Set(filteredUnits.map((unit) => unit.unit_id)), [filteredUnits]);
+
+  const mutedUnitIds = useMemo(
+    () => new Set(floor.units.filter((unit) => !filteredIds.has(unit.unit_id)).map((unit) => unit.unit_id)),
+    [filteredIds, floor.units],
+  );
+
+  const availableUnits = useMemo(
+    () => filteredUnits.filter((unit) => unit.status === "available"),
+    [filteredUnits],
+  );
+
+  const activeUnit = selectedUnit && selectedUnit.floor_id === selectedFloor ? selectedUnit : null;
+
+  const DetailBody = ({ unit }: { unit: MapUnitDefinition }) => (
+    <div className="space-y-4 text-sm text-muted-foreground">
+      <div className="rounded-2xl border border-border bg-card p-4">
+        <p className="text-xs text-muted-foreground">الوحدة</p>
+        <p className="text-base font-bold text-foreground">{unit.unit_id}</p>
+        <p className="mt-1">{floorLabelAr[unit.floor_id]}</p>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="rounded-2xl border border-border bg-card p-4">
+          <p className="text-xs">المساحة</p>
+          <p className="mt-1 text-base font-semibold text-foreground">{unit.area_m2} م²</p>
+        </div>
+        <div className="rounded-2xl border border-border bg-card p-4">
+          <p className="text-xs">الفئة</p>
+          <p className="mt-1 text-base font-semibold text-foreground">{unit.category}</p>
+        </div>
+      </div>
+      <p className="leading-7">{unit.description_ar}</p>
+      <div className="flex flex-wrap gap-2">
+        {unit.status === "available" ? (
+          <>
+            <Link to="/leasing"><Button variant="orange" size="sm">احجز وحدة</Button></Link>
+            <Link to="/leasing"><Button variant="outline-blue" size="sm">اطلب معاينة</Button></Link>
+          </>
+        ) : (
+          <Link to="/stores"><Button variant="outline-blue" size="sm">عرض المتاجر</Button></Link>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <MainLayout>
-      <SEOHead title="الخريطة التفاعلية" titleEn="Interactive Map" description="تصفح خريطة مول البستان واعثر على المتاجر والوحدات المتاحة." descriptionEn="Browse Mall Elbostan's interactive floor map." breadcrumbs={[{ name: "الخريطة", url: "/map" }]} />
-      <div className="container py-20">
-        <h1 className="text-4xl font-bold text-gradient-blue mb-8">الخريطة التفاعلية</h1>
+      <SEOHead title="دليل المول التفاعلي" titleEn="Interactive Directory" description="دليل تفاعلي معماري لمول البستان مع بحث وفلاتر ووحدات متاحة للتأجير." descriptionEn="Architectural interactive directory for Mall Elbostan with search, filters, and leasing units." breadcrumbs={[{ name: "الخريطة", url: "/map" }]} />
+      <div className="container py-12 md:py-16">
+        <div className="mb-8 chapter-shell pt-5">
+          <h1 className="section-title">الدليل التفاعلي</h1>
+          <p className="mt-3 text-base text-muted-foreground">استكشف الطوابق، ابحث عن الوحدة، وابدأ خطوة التأجير مباشرة.</p>
+        </div>
 
-        {/* Floor Tabs */}
-        <div className="flex gap-2 mb-6 flex-wrap">
-          {floors?.map((floor) => (
-            <Button key={floor.id} variant={activeFloor === floor.id ? "default" : "outline"} size="sm" onClick={() => setSelectedFloor(floor.id)}>
-              {floor.name_ar}
+        <div className="mb-5 flex flex-wrap gap-2 md:gap-3">
+          {floorMapData.map((item) => (
+            <Button
+              key={item.id}
+              variant={selectedFloor === item.id ? "default" : "outline"}
+              onClick={() => {
+                setSelectedFloor(item.id);
+                setSelectedUnit(null);
+              }}
+              className="h-11 rounded-full px-5"
+            >
+              {item.label}
             </Button>
           ))}
         </div>
 
-        {/* Filter */}
-        <div className="flex gap-2 mb-6">
-          <Badge variant={filter === "all" ? "default" : "outline"} className="cursor-pointer" onClick={() => setFilter("all")}>الكل</Badge>
-          <Badge variant={filter === "leased" ? "default" : "outline"} className="cursor-pointer" onClick={() => setFilter("leased")}>المؤجرة</Badge>
-          <Badge variant={filter === "available" ? "default" : "outline"} className="cursor-pointer bg-orange text-orange-foreground" onClick={() => setFilter("available")}>متاحة</Badge>
+        <div className="mb-6 section-shell rounded-[1.5rem] p-4 md:p-5">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+            <Input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="ابحث باسم المتجر أو رقم الوحدة" className="h-11" />
+            <Select value={statusFilter} onValueChange={(value) => setStatusFilter(value as "all" | UnitStatus)}>
+              <SelectTrigger className="h-11"><SelectValue placeholder="الحالة" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الحالات</SelectItem>
+                <SelectItem value="occupied">مشغولة</SelectItem>
+                <SelectItem value="available">متاحة</SelectItem>
+                <SelectItem value="coming_soon">قريبًا</SelectItem>
+              </SelectContent>
+            </Select>
+            <Select value={needFilter} onValueChange={(value) => setNeedFilter(value as "all" | (typeof exploreNeeds)[number])}>
+              <SelectTrigger className="h-11"><SelectValue placeholder="الاستكشاف حسب الاحتياج" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">كل الفئات</SelectItem>
+                {exploreNeeds.map((need) => (
+                  <SelectItem key={need} value={need}>{need}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button variant="outline-blue" className="h-11" onClick={() => setStatusFilter("available")}>الوحدات المتاحة فقط</Button>
+          </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex gap-4 mb-8 text-sm">
-          <span className="flex items-center gap-2"><span className="w-4 h-4 rounded bg-primary inline-block" /> مؤجرة</span>
-          <span className="flex items-center gap-2"><span className="w-4 h-4 rounded bg-orange inline-block" /> متاحة</span>
-          <span className="flex items-center gap-2"><span className="w-4 h-4 rounded bg-accent inline-block" /> خدمات</span>
+        <div className="mb-5 flex flex-wrap gap-2">
+          <Badge variant="outline" className="border-primary/40 text-primary">مشغولة</Badge>
+          <Badge variant="outline" className="border-orange/50 text-orange">متاحة</Badge>
+          <Badge variant="outline" className="border-accent/50 text-accent">قريبًا</Badge>
         </div>
 
-        {/* Map Grid (SVG-ready placeholder) */}
-        <div className="card-premium p-6 min-h-[400px]">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {filteredStores.map((store) => (
-              <button
-                key={store.id}
-                onClick={() => setSelectedItem({ type: "store", data: store as unknown as Record<string, unknown> })}
-                className="p-4 rounded-lg bg-primary/20 border border-primary/30 hover:border-primary transition-colors text-center"
-              >
-                <p className="text-xs font-bold text-foreground truncate">{store.name_ar}</p>
-                <p className="text-[10px] text-muted-foreground">{store.unit_code}</p>
-              </button>
-            ))}
-            {filteredUnits.map((unit) => (
-              <button
-                key={unit.id}
-                onClick={() => setSelectedItem({ type: "unit", data: unit as unknown as Record<string, unknown> })}
-                className="p-4 rounded-lg bg-orange/20 border border-orange/30 hover:border-orange transition-colors text-center"
-              >
-                <p className="text-xs font-bold text-orange">متاح</p>
-                <p className="text-[10px] text-muted-foreground">{unit.unit_code}</p>
-              </button>
-            ))}
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
+          <div className="lg:col-span-8">
+            <FloorPlanSvg
+              floorId={selectedFloor}
+              units={floor.units}
+              selectedUnitId={activeUnit?.unit_id ?? null}
+              mutedUnitIds={mutedUnitIds}
+              onSelectUnit={setSelectedUnit}
+            />
           </div>
 
-          {filteredStores.length === 0 && filteredUnits.length === 0 && (
-            <div className="text-center py-16 text-muted-foreground">
-              <p>لم يتم إضافة بيانات لهذا الطابق بعد</p>
-            </div>
+          {!isMobile && (
+            <aside className="lg:col-span-4 lg:w-full lg:max-w-[420px]">
+              <div className="surface-panel rounded-[1.5rem] p-4 md:p-5">
+                <h2 className="mb-4 text-xl font-bold text-foreground">تفاصيل الوحدة</h2>
+                {activeUnit ? (
+                  <DetailBody unit={activeUnit} />
+                ) : (
+                  <p className="text-sm text-muted-foreground">اختر وحدة من الخريطة لعرض بياناتها.</p>
+                )}
+              </div>
+            </aside>
           )}
         </div>
 
-        {/* Detail Dialog */}
-        <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
-          <DialogContent className="bg-card border-border">
-            <DialogHeader>
-              <DialogTitle>
-                {selectedItem?.type === "store"
-                  ? (selectedItem.data.name_ar as string)
-                  : `وحدة ${selectedItem?.data.unit_code as string}`}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              {selectedItem?.type === "store" ? (
-                <>
-                  <p>{selectedItem.data.short_description_ar as string}</p>
-                  {selectedItem.data.category && <p>الفئة: {selectedItem.data.category as string}</p>}
-                  <Link to={`/stores/${selectedItem.data.slug as string}`}>
-                    <Button variant="cta" size="sm" className="mt-2">عرض التفاصيل</Button>
-                  </Link>
-                </>
-              ) : (
-                <>
-                  {selectedItem?.data.area_sqm && <p>المساحة: {selectedItem.data.area_sqm as number} م²</p>}
-                  {selectedItem?.data.activity_suggestion && <p>النشاط المقترح: {selectedItem.data.activity_suggestion as string}</p>}
-                  {selectedItem?.data.description_ar && <p>{selectedItem.data.description_ar as string}</p>}
-                  <Link to="/leasing">
-                    <Button variant="orange" size="sm" className="mt-2">استفسر عن هذه الوحدة</Button>
-                  </Link>
-                </>
-              )}
-            </div>
-          </DialogContent>
-        </Dialog>
+        <section className="mt-8 section-shell rounded-[1.7rem] p-4 md:p-6">
+          <h2 className="mb-4 text-2xl font-bold text-foreground">الوحدات المتاحة</h2>
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {availableUnits.map((unit) => (
+              <button
+                key={unit.unit_id}
+                className="text-right rounded-2xl border border-orange/30 bg-card p-4 transition-colors hover:border-orange"
+                onClick={() => setSelectedUnit(unit)}
+              >
+                <p className="text-base font-bold text-foreground">وحدة {unit.unit_id}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{unit.area_m2} م²</p>
+                <p className="mt-2 text-sm text-muted-foreground">{floorLabelAr[unit.floor_id]}</p>
+              </button>
+            ))}
+          </div>
+          {availableUnits.length === 0 ? <p className="mt-4 text-sm text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p> : null}
+        </section>
+
+        <Drawer open={isMobile && !!activeUnit} onOpenChange={(isOpen) => !isOpen && setSelectedUnit(null)}>
+          <DrawerContent className="max-h-[85vh] rounded-t-[1.4rem] border-border bg-card">
+            <DrawerHeader className="border-b border-border text-right">
+              <DrawerTitle>{activeUnit ? `وحدة ${activeUnit.unit_id}` : "تفاصيل الوحدة"}</DrawerTitle>
+            </DrawerHeader>
+            <div className="overflow-y-auto p-4">{activeUnit ? <DetailBody unit={activeUnit} /> : null}</div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </MainLayout>
   );
