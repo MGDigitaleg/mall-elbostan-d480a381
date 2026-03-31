@@ -39,18 +39,18 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
+    `rounded-full px-3.5 py-2 text-sm font-semibold transition-all duration-300 ${
       isActive(path)
         ? "bg-card text-foreground shadow-[var(--shadow-soft)]"
-        : "text-muted-foreground/90 hover:bg-card hover:text-foreground"
+        : "text-muted-foreground/90 hover:text-foreground"
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-3 md:px-4 md:pt-4">
+    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-3 md:px-4 md:pt-3.5">
       <div className="container">
-        <div className="glass rounded-[2.2rem] border-white/60 px-4 py-3 md:px-6 md:py-4 shadow-[var(--shadow-premium)]">
-          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-6">
-            <nav className="flex items-center justify-end gap-1 rounded-full border border-border/70 bg-card/55 p-2">
+        <div className="glass rounded-[1.7rem] border-white/60 px-4 py-2.5 md:px-5 md:py-2.5 shadow-[var(--shadow-soft)]">
+          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
+            <nav className="flex items-center justify-end gap-1">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
@@ -59,21 +59,20 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="brand-shell relative overflow-hidden rounded-[1.9rem] px-7 py-5 shadow-[var(--shadow-premium)] before:absolute before:inset-x-8 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/80 before:to-transparent">
+              <div className="relative flex flex-col items-center px-4 py-1.5">
                 <BrandLogo
                   align="center"
                   subtitle="Mall Elbostan"
-                  framed
-                  imageClassName="h-[4.5rem] md:h-[5.25rem]"
+                  imageClassName="h-[4.6rem] md:h-[5rem]"
                 />
-                <p className="mt-3 text-center text-[0.7rem] font-semibold tracking-[0.26em] text-muted-foreground uppercase">
+                <p className="mt-1.5 text-center text-[0.64rem] font-semibold tracking-[0.24em] text-muted-foreground uppercase">
                   Opening Soon • May 2026
                 </p>
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-3">
-              <div className="hidden 2xl:flex items-center gap-1 rounded-full border border-border/70 bg-card/45 p-2">
+            <div className="flex items-center justify-start gap-2">
+              <div className="hidden 2xl:flex items-center gap-1">
                 {secondaryNavItems.map((item) => (
                   <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                     {item.label}
@@ -81,13 +80,13 @@ export function Header() {
                 ))}
               </div>
               <Link to="/#marketplace">
-                <Button variant="secondary" size="sm" className="rounded-full px-5">
+                <Button variant="secondary" size="sm" className="rounded-full px-4.5">
                   <ShoppingBag className="h-4 w-4" />
                   السوق قريباً
                 </Button>
               </Link>
               <Link to="/spin-win">
-                <Button variant="cta" size="sm" className="rounded-full px-6">
+                <Button variant="cta" size="sm" className="rounded-full px-5">
                   أدر واربح
                 </Button>
               </Link>
@@ -96,7 +95,7 @@ export function Header() {
 
           <div className="flex items-center justify-between gap-3 xl:hidden">
             <button
-              className="rounded-full border border-border/70 bg-card p-3 text-foreground shadow-[var(--shadow-soft)]"
+              className="rounded-full border border-border/70 bg-card p-2.5 text-foreground shadow-[var(--shadow-soft)]"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
             >
@@ -104,13 +103,13 @@ export function Header() {
             </button>
 
             <Link to="/" className="flex-1">
-              <div className="brand-shell flex items-center justify-center rounded-[1.6rem] px-4 py-3 shadow-[var(--shadow-soft)]">
-                <BrandLogo align="center" subtitle="Mall Elbostan" framed imageClassName="h-12" />
+              <div className="flex items-center justify-center rounded-[1.3rem] px-2 py-1">
+                <BrandLogo align="center" subtitle="Mall Elbostan" imageClassName="h-[3.2rem]" />
               </div>
             </Link>
 
             <Link to="/spin-win" className="hidden sm:block">
-              <Button variant="cta" size="sm" className="rounded-full px-5">
+              <Button variant="cta" size="sm" className="rounded-full px-4.5">
                 أدر واربح
               </Button>
             </Link>
@@ -126,9 +125,9 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="container xl:hidden"
           >
-            <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.75rem] px-4 py-4">
-              <div className="brand-shell rounded-[1.5rem] px-4 py-4 text-center shadow-[var(--shadow-soft)]">
-                <BrandLogo align="center" subtitle="Premium Technology Mall" framed imageClassName="mx-auto h-14" />
+            <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.4rem] px-4 py-4">
+              <div className="rounded-[1.2rem] px-4 py-2 text-center">
+                <BrandLogo align="center" subtitle="Premium Technology Mall" imageClassName="mx-auto h-14" />
               </div>
 
               {mobileNavItems.map((item) => (

@@ -11,31 +11,31 @@ import facadeImage from "@/assets/mall-facade.jpg";
 const heroChips = ["وجهة تقنية متخصصة", "حملة افتتاحية وجوائز", "Marketplace by Mall Elbostan"];
 
 const heroStats = [
-  { label: "الافتتاح المرتقب", value: "مايو 2026" },
-  { label: "المسار الأول", value: "الخريطة والمتاجر" },
-  { label: "الامتداد القادم", value: "تجربة Marketplace" },
+  { label: "الافتتاح", value: "مايو 2026" },
+  { label: "الخطوة الأولى", value: "الخريطة والمتاجر" },
+  { label: "المرحلة الجاية", value: "تجربة Marketplace" },
 ];
 
 const featurePillars = [
   {
     icon: Monitor,
-    title: "وجهة تقنية متخصصة",
-    desc: "تجربة تركّز على الإلكترونيات والحلول التقنية والمتاجر التي يعرف جمهورها ما يبحث عنه بدقة.",
+    title: "وجهة معمولة للتقنية من الأساس",
+    desc: "مش تجميعة محلات وخلاص، لكن مكان واضح الهوية للناس اللي رايحة تدور على أجهزة وحلول وخدمة متخصصة.",
   },
   {
     icon: MapPin,
-    title: "موقع يخدم شرق القاهرة",
-    desc: "حضور عملي يخدم القاهرة الجديدة ومدينتي والرحاب ضمن نقطة تجمع تجارية واضحة وسهلة الوصول.",
+    title: "موقع يخدم شرق القاهرة بوضوح",
+    desc: "قريب من القاهرة الجديدة ومدينتي والرحاب، وده يديه قيمة حقيقية للزيارة والحضور التجاري طوال الأسبوع.",
   },
   {
     icon: Store,
-    title: "متاجر مختارة بعناية",
-    desc: "تنسيق فئات ومتاجر داعمة يقدّم تجربة منظمة وقابلة للنمو داخل المول وعبر القنوات الرقمية لاحقًا.",
+    title: "فئات ومتاجر متنسقة صح",
+    desc: "تنظيم الفئات عامل التجربة أسهل للزائر، وفي نفس الوقت بيجهّز المنظومة لسوق إلكتروني بعدين.",
   },
   {
     icon: Sparkles,
-    title: "إطلاق مليء بالحوافز",
-    desc: "جوائز وحملة إطلاق مدروسة تربط الزيارة بالحضور والتفاعل بطريقة راقية وواضحة.",
+    title: "افتتاح فيه حماس بس بذوق",
+    desc: "الجوائز والأنشطة هنا جزء من إطلاق محسوب يخلّي الناس متحمسة من غير ما الإحساس يبقى صاخب أو طفولي.",
   },
 ];
 
@@ -49,15 +49,15 @@ const categories = [
 ];
 
 const launchHighlights = [
-  "استعد ليوم إطلاق يجمع الحضور الفعلي مع تجربة رقمية متكاملة قبل الافتتاح وبعده.",
-  "رحلة المشاركة في الجوائز واضحة: استكشف، شارك، ثم احتفظ بالنتيجة ليوم الافتتاح.",
-  "الرسالة التجارية متوازنة بين جذب الزوار، دعم المتاجر، وفتح باب النمو للمستأجرين.",
+  "يوم الافتتاح معمول كحدث واضح ومتحضر، مش مجرد إعلان تقليدي وخلاص.",
+  "المشاركة في الجوائز سهلة ومفهومة من أول خطوة لحد الاستفادة يوم الافتتاح.",
+  "التجربة كلها بتربط بين الزيارة، المتاجر، والجو العام اللي هيبدأ مع الافتتاح.",
 ];
 
 const campaignJourney = [
-  "استكشف الخريطة والمتاجر والفئات قبل الزيارة.",
-  "شارك في حملة الجوائز واحتفظ بنتيجتك.",
-  "احضر الافتتاح واستفد من الأجواء الافتتاحية والأنشطة المعلنة.",
+  "شوف الخريطة والمتاجر قبل ما تنزل.",
+  "ادخل حملة الجوائز واحتفظ بالنتيجة.",
+  "تعالى يوم الافتتاح واستفيد من الأجواء والأنشطة المعلنة.",
 ];
 
 const marketplaceFeatures = [
@@ -97,28 +97,28 @@ type HomeContentProps = {
 export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeContentProps) {
   return (
     <>
-      <section className="relative overflow-hidden pb-16 pt-4 md:pb-28 md:pt-8">
+      <section className="relative overflow-hidden pb-16 pt-2 md:pb-24 md:pt-4">
         <div className="editorial-grid absolute inset-0 opacity-50" />
         <div className="absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_right,hsl(var(--primary)/0.12),transparent_54%)]" />
         <div className="container relative">
-          <div className="brand-shell relative grid items-center gap-10 overflow-hidden rounded-[2.8rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:px-10 lg:py-12">
+          <div className="brand-shell relative grid items-center gap-8 overflow-hidden rounded-[2.8rem] px-6 py-7 md:px-8 md:py-9 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:px-10 lg:py-10">
             <div className="absolute left-10 top-10 hidden h-28 w-28 rounded-full bg-primary/10 blur-3xl lg:block" />
             <div className="absolute bottom-12 right-14 hidden h-24 w-24 rounded-full bg-accent/10 blur-3xl lg:block" />
             <div className="space-y-6 lg:py-6">
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
                 <div className="eyebrow-chip mb-5">
                   <Sparkles className="h-4 w-4 text-accent" />
-                  افتتاح مرتقب • مايو 2026 • وجهة تقنية جديدة في شرق القاهرة
+                  افتتاح قريب • مايو 2026 • وجهة تقنية جديدة في شرق القاهرة
                 </div>
-                <h1 className="max-w-3xl text-4xl font-black leading-[1.1] text-foreground md:text-[4.2rem]">
+                <h1 className="max-w-3xl text-4xl font-black leading-[1.08] text-foreground md:text-[4.1rem]">
                   مول البستان
-                  <span className="mt-4 block text-[1.9rem] font-semibold leading-tight text-foreground/88 md:text-[2.7rem]">
-                    مول تقني راقٍ يربط المتاجر، الافتتاح المرتقب، فرص التأجير، والسوق الإلكتروني القادم ضمن تجربة علامة تجارية واحدة
+                  <span className="mt-4 block text-[2rem] font-semibold leading-tight text-foreground/88 md:text-[2.65rem]">
+                    مول تقني راقٍ بيجمع المتاجر، الخريطة، الافتتاح، فرص التأجير، والسوق الإلكتروني الجاي تحت هوية واحدة واضحة
                   </span>
                 </h1>
                 <p className="mt-7 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-                  الصفحة الرئيسية صُممت لتوضح الفكرة كاملة منذ اللحظة الأولى: وجهة تقنية متخصصة، خريطة تفاعلية، متاجر وفئات منظمة،
-                  حملة جوائز راقية للافتتاح، وفرص تجارية مدروسة تمهّد لاحقًا إلى Marketplace by Mall Elbostan.
+                  من أول نظرة هتفهم الصورة كاملة: مول بيتركّز على التقنية، افتتاح قريب، حملة جوائز معمولة بذوق، فرص تأجير واضحة،
+                  وتمهيد طبيعي لسوق إلكتروني يكمّل تجربة الزيارة بعدين.
                 </p>
               </motion.div>
 
@@ -162,7 +162,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 className="grid gap-4 xl:grid-cols-[1.12fr_0.88fr]"
               >
                 <div className="section-shell rounded-[1.9rem] p-5">
-                  <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي للإطلاق</p>
+                  <p className="mb-4 text-sm font-semibold text-muted-foreground">فاضل على الافتتاح</p>
                   <CountdownTimer />
                 </div>
                 <div className="grid gap-4">
@@ -191,8 +191,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Mall Elbostan</p>
-                      <p className="mt-2 text-xl font-bold text-foreground">عنوان تقني جديد يجمع الزيارة الفعلية بالنمو التجاري والامتداد الرقمي</p>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">واجهة معمارية مدروسة تمنح المشروع حضورًا بصريًا يليق بموقع flagship لتجربة تسوق تقنية راقية.</p>
+                      <p className="mt-2 text-xl font-bold text-foreground">واجهة معمارية تدي المشروع حضور يبان من أول لحظة</p>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">صورة تخلّي فكرة المول ملموسة: مكان حقيقي جاهز يبني ثقة الزائر ويقوّي حضور العلامات.</p>
                     </div>
                     <Layers3 className="mt-1 h-5 w-5 text-primary" />
                   </div>
@@ -204,13 +204,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="h-full w-full object-cover object-center" />
                 </div>
                 <p className="text-sm font-bold text-foreground">تجربة داخلية متعددة المستويات</p>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">صورة داعمة تؤكد حضورًا معماريًا حقيقيًا ومسار حركة واضحًا للزوار والعلامات.</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">مشهد داخلي يوضح إن التجربة جوه المول بنفس قوة الانطباع الخارجي.</p>
               </div>
 
               <div className="section-shell absolute -right-6 bottom-16 hidden w-60 rounded-[1.9rem] p-5 lg:block">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Marketplace by Mall Elbostan</p>
-                <p className="mt-3 text-base font-bold text-foreground">سوق إلكتروني قادم يوسّع تجربة المول بعد الزيارة</p>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">تصفّح المنتجات من المتاجر المفضلة ضمن منظومة موحدة تحمل نفس هوية المشروع.</p>
+                <p className="mt-3 text-base font-bold text-foreground">سوق إلكتروني قادم يكمّل التجربة بعد الزيارة</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">امتداد رقمي طبيعي يخلي علاقتك بالمتاجر مستمرة حتى بعد ما تمشي.</p>
               </div>
             </motion.div>
           </div>
@@ -219,25 +219,27 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="py-12 md:py-20">
         <div className="container">
-          <div className="mb-10 flex items-end justify-between gap-4">
-            <div className="max-w-3xl">
+          <div className="mb-10 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+            <div className="chapter-shell pt-5">
               <p className="section-kicker">لماذا مول البستان</p>
-              <h2 className="section-title">وجهة علامة تجارية تقنية صُممت لتكون أوضح وأكثر تأثيرًا من البداية</h2>
-              <p className="mt-4 text-base leading-8 text-muted-foreground">
-                هذه ليست مجرد صفحة تعريفية لمول جديد، بل منصة تشرح قيمة المشروع: تخصص واضح، موقع يخدم شرق القاهرة، متاجر منتقاة،
-                وإطلاق مبني على التفاعل والزيارة الفعلية.
-              </p>
+              <h2 className="section-title">ليه مول البستان ممكن يبقى علامة أقوى من مجرد مول تقني تقليدي</h2>
             </div>
-            <Link to="/about" className="hidden md:block">
-              <Button variant="ghost" className="text-primary">تعرف على المشروع</Button>
-            </Link>
+            <div className="space-y-4">
+              <p className="text-base leading-8 text-muted-foreground">
+                الفكرة هنا إن المول من البداية بيتقدم كمنظومة: فئات واضحة، حضور معماري، موقع يخدم شرق القاهرة، وحملة افتتاح تخلي
+                الناس عايزة تتابع وتزور وتشارك. كل جزء في الصفحة معمول علشان يوضح ده من غير زحمة أو تكرار.
+              </p>
+              <Link to="/about" className="inline-flex">
+                <Button variant="ghost" className="text-primary">اعرف حكاية المشروع</Button>
+              </Link>
+            </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
             {featurePillars.map((feature, i) => (
-              <motion.div key={feature.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <div className="section-shell h-full rounded-[1.8rem] p-6 transition-transform duration-300 hover:-translate-y-1">
+              <motion.div key={feature.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className={i === 0 ? "lg:row-span-2" : undefined}>
+                <div className={`section-shell h-full transition-transform duration-300 hover:-translate-y-1 ${i === 0 ? "rounded-[2rem] p-7" : "rounded-[1.8rem] p-6"}`}>
                   <feature.icon className="mb-4 h-10 w-10 text-primary" />
-                  <h3 className="mb-3 text-lg font-bold text-foreground">{feature.title}</h3>
+                  <h3 className={`${i === 0 ? "text-2xl" : "text-lg"} mb-3 font-bold text-foreground`}>{feature.title}</h3>
                   <p className="text-sm leading-7 text-muted-foreground">{feature.desc}</p>
                 </div>
               </motion.div>
@@ -256,19 +258,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-2 space-y-5 lg:order-1"
             >
               <p className="section-kicker">داخل المول</p>
-              <h2 className="section-title">مساحة داخلية تمنح العلامات رؤية أوضح وتجعل التجربة أكثر ترابطًا وأناقة</h2>
+              <h2 className="section-title">من جوه، المول شكله فعلاً يدي ثقة ويخلي التجربة أرقى</h2>
               <p className="text-base leading-8 text-muted-foreground">
-                الصورة الداخلية تؤكد أن المشروع ليس فكرة تسويقية فقط، بل تجربة مول متعددة المستويات تدعم وضوح الحركة، إبراز
-                العلامات، وتقديم بيئة تقنية تبدو مقنعة للزائر والمستأجر على حد سواء.
+                الصورة الداخلية هنا مش مجرد تجميل. هي دليل إن المكان متفكّر فيه كويس: حركة واضحة، مستويات متعددة، ومساحات تدي
+                فرصة أفضل للعرض والظهور والبيع.
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="soft-card rounded-[1.4rem] p-5">
-                  <p className="mb-1 text-sm font-semibold text-foreground">حضور معماري راقٍ</p>
-                  <p className="text-sm leading-7 text-muted-foreground">أتريوم متعدد الطوابق يقدّم للمشروع شخصية مكانية قوية وقابلة للتذكّر.</p>
+                  <p className="mb-1 text-sm font-semibold text-foreground">شكل معماري يثبت الفكرة</p>
+                  <p className="text-sm leading-7 text-muted-foreground">أتريوم واضح ومرتب يدي للمشروع شخصية قوية وسهلة التذكّر.</p>
                 </div>
                 <div className="soft-card rounded-[1.4rem] p-5">
-                  <p className="mb-1 text-sm font-semibold text-foreground">حركة تجارة أوضح</p>
-                  <p className="text-sm leading-7 text-muted-foreground">مساحات تسمح بعرض أفضل للفئات التقنية والأنشطة والظهور التجاري المتدرج.</p>
+                  <p className="mb-1 text-sm font-semibold text-foreground">عرض وحركة أريح</p>
+                  <p className="text-sm leading-7 text-muted-foreground">المساحات بتخدم المتاجر والأنشطة بشكل أهدى وأوضح للزائر.</p>
                 </div>
               </div>
             </motion.div>
@@ -289,11 +291,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="py-12 md:py-20">
         <div className="container">
-          <div className="mb-10 max-w-3xl">
+          <div className="chapter-shell mb-10 max-w-3xl pt-5">
             <p className="section-kicker">المتاجر والفئات</p>
-            <h2 className="section-title">تسوق حسب الفئة ضمن بنية واضحة تدعم الحضور الفعلي وتمهّد لتجربة Marketplace لاحقًا</h2>
+            <h2 className="section-title">ابدأ من الفئة اللي تهمك، وشوف إزاي المنظومة دي جاهزة تكبر بعدين</h2>
             <p className="mt-4 text-base leading-8 text-muted-foreground">
-              تم تنظيم الفئات التقنية لتكون واضحة اليوم على الموقع والخريطة، وقابلة للامتداد لاحقًا إلى تجربة تصفح منتجات أكثر تطورًا.
+              الفئات هنا معمولة بشكل عملي وواضح، علشان تسهّل عليك الاستكشاف دلوقتي، وتبقى أساس طبيعي لتجربة Marketplace بعدين.
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -305,7 +307,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                   <div>
                     <h3 className="mb-2 text-base font-bold text-foreground">{cat.name}</h3>
-                    <p className="text-sm leading-7 text-muted-foreground">استكشف المتاجر والخدمات المرتبطة بهذه الفئة داخل منظومة مول البستان المتجهة نحو تجربة رقمية أوسع.</p>
+                    <p className="text-sm leading-7 text-muted-foreground">شوف المتاجر والخدمات اللي تحت الفئة دي جوه منظومة بتتجه لتجربة رقمية أوسع مع الوقت.</p>
                   </div>
                 </Link>
               </motion.div>
@@ -317,7 +319,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <div className="mb-8 flex items-end justify-between gap-4">
                 <div>
                   <p className="section-kicker">متاجر مختارة</p>
-                  <h2 className="section-title">معاينة أولية لعلامات وفئات ستشكّل تجربة المول</h2>
+                  <h2 className="section-title">بداية لمجموعة متاجر هتشكّل شخصية المول</h2>
                 </div>
                 <Link to="/stores" className="hidden md:block">
                   <Button variant="ghost" className="text-primary">عرض كل المتاجر</Button>
@@ -353,10 +355,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           <div className="section-shell grid gap-6 overflow-hidden px-6 py-6 md:px-8 md:py-8 lg:grid-cols-[1.04fr_0.96fr] lg:items-start">
             <div className="space-y-5">
               <p className="section-kicker">الافتتاح قريبًا</p>
-              <h2 className="section-title">حملة إطلاق أنيقة تربط الافتتاح بالحضور والجوائز والزيارة الفعلية</h2>
+              <h2 className="section-title">افتتاح معمول علشان الناس تتحمس وتفهم وتشارك بسهولة</h2>
               <p className="text-base leading-8 text-muted-foreground">
-                تجربة الافتتاح هنا ليست ضوضاء دعائية، بل رحلة مفهومة وواضحة: عد تنازلي، محتوى افتتاحي، مشاركة في الجوائز، ثم
-                حضور فعلي يمنح الزائر سببًا للعودة والتفاعل مع المشروع من أول يوم.
+                الفكرة مش ضجيج دعائي. الفكرة إن الزائر يلاقي رحلة واضحة: يعرف الافتتاح إمتى، يشارك في الجوائز، ويجي وهو فاهم
+                هيلاقي إيه جوه المول.
               </p>
               <div className="space-y-3">
                 {launchHighlights.map((item) => (
@@ -368,10 +370,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
               <div className="flex flex-wrap gap-3">
                 <Link to="/opening-day">
-                  <Button variant="outline-blue" size="lg" className="rounded-xl px-7">تعرف على فعاليات الافتتاح</Button>
+                  <Button variant="outline-blue" size="lg" className="rounded-xl px-7">شوف تفاصيل الافتتاح</Button>
                 </Link>
                 <Link to="/spin-win">
-                  <Button variant="cta" size="lg" className="rounded-xl px-7">اكتشف أدر واربح</Button>
+                  <Button variant="cta" size="lg" className="rounded-xl px-7">جرّب أدر واربح</Button>
                 </Link>
               </div>
             </div>
@@ -381,7 +383,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Gift className="h-9 w-9 text-primary" />
                   <div>
                     <p className="text-sm font-semibold text-muted-foreground">الجوائز والمكافآت</p>
-                    <h3 className="text-2xl font-bold text-foreground">تجربة جوائز أكثر رقيًا ووضوحًا</h3>
+                    <h3 className="text-2xl font-bold text-foreground">حملة جوائز شكلها راقٍ وطريقتها سهلة</h3>
                   </div>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -438,26 +440,26 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="space-y-5"
             >
               <p className="section-kicker">التأجير والوحدات</p>
-              <h2 className="section-title">فرص تجارية تُقدَّم بصورة استثمارية أوضح وأكثر إقناعًا</h2>
+              <h2 className="section-title">لو بتفكر في وجود قوي داخل المول، دي بداية واضحة ومحترمة</h2>
               <p className="text-base leading-8 text-muted-foreground">
-                إذا كنت علامة تقنية أو نشاطًا يبحث عن موطئ قدم داخل بيئة متخصصة، فالموقع يقدّم لك نقطة دخول واضحة لفهم الوحدات
-                المتاحة، طبيعة الحضور داخل المول، وخطوة الاستفسار المناسبة لاتخاذ قرار أفضل.
+                سواء أنت علامة تقنية أو نشاط مكمل، الصفحة دي بتوضح الفكرة بسرعة: إيه المتاح، فين مكانه، وإزاي تبدأ استفسار من غير
+                لف ودوران.
               </p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="soft-card rounded-[1.4rem] p-5">
                   <Building className="mb-3 h-8 w-8 text-orange" />
                   <p className="mb-2 text-sm font-bold text-foreground">وحدات متاحة</p>
-                  <p className="text-sm leading-7 text-muted-foreground">عرض واضح للمساحات المتاحة مع إبرازها بصريًا داخل المنظومة.</p>
+                  <p className="text-sm leading-7 text-muted-foreground">مساحات ظاهرة بوضوح علشان تعرف الأنسب لنشاطك بسرعة.</p>
                 </div>
                 <div className="soft-card rounded-[1.4rem] p-5">
                   <MapPin className="mb-3 h-8 w-8 text-primary" />
                   <p className="mb-2 text-sm font-bold text-foreground">ربط بالموقع والخريطة</p>
-                  <p className="text-sm leading-7 text-muted-foreground">سهولة الانتقال من الاستفسار إلى فهم الموقع ومكان الوحدة داخل المشروع.</p>
+                  <p className="text-sm leading-7 text-muted-foreground">انتقال سهل من الاستفسار لفهم مكان الوحدة داخل المشروع.</p>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3">
-                <Link to="/leasing"><Button variant="orange" size="lg" className="rounded-xl px-7">ابدأ استفسار التأجير</Button></Link>
-                <Link to="/map"><Button variant="outline-blue" size="lg" className="rounded-xl px-7">شاهد الوحدات على الخريطة</Button></Link>
+                <Link to="/leasing"><Button variant="orange" size="lg" className="rounded-xl px-7">ابدأ استفسارك</Button></Link>
+                <Link to="/map"><Button variant="outline-blue" size="lg" className="rounded-xl px-7">شوف الوحدات على الخريطة</Button></Link>
               </div>
             </motion.div>
           </div>
@@ -466,14 +468,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section id="marketplace" className="section-soft py-12 md:py-20">
         <div className="container">
-          <div className="section-shell rounded-[2rem] p-6 md:p-8 lg:p-10">
-            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="brand-shell rounded-[2.3rem] p-6 md:p-8 lg:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
                 <p className="section-kicker">Marketplace by Mall Elbostan</p>
-                <h2 className="section-title">امتداد رقمي استراتيجي يفتح تجربة تسوق إلكتروني من داخل منظومة المول</h2>
+                <h2 className="section-title">المرحلة الجاية من مول البستان: تجربة شراء أونلاين من نفس عالم المتاجر</h2>
                 <p className="mt-4 max-w-3xl text-base leading-8 text-muted-foreground">
-                  Marketplace by Mall Elbostan سيحوّل حضور المتاجر داخل المول إلى تجربة مستمرة بعد الزيارة، حيث يتمكن المستخدم لاحقًا
-                  من تصفح المنتجات المفضلة، متابعة العروض، واستكمال علاقة الشراء ضمن هوية رقمية متسقة مع المشروع.
+                  Marketplace by Mall Elbostan مش إضافة جانبية، لكنه خطوة منطقية بعد بناء التجربة داخل المول. بعدين هتقدر تتصفح
+                  منتجات متاجرك المفضلة، تتابع الجديد، وتكمل الشراء من نفس المنظومة.
                 </p>
                 <div className="mt-6 grid gap-4 md:grid-cols-3">
                   {marketplaceFeatures.map((item) => (
@@ -483,12 +485,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   ))}
                 </div>
               </div>
-              <div className="rounded-[1.75rem] border border-border/70 bg-background p-6 text-center shadow-[var(--shadow-soft)] lg:w-[300px]">
+              <div className="rounded-[1.95rem] border border-border/70 bg-background/92 p-6 text-center shadow-[var(--shadow-soft)] lg:w-[320px]">
                 <ShoppingBag className="mx-auto h-10 w-10 text-primary" />
                 <p className="mt-4 text-lg font-bold text-foreground">سوق رقمي متصل بالمتاجر الحالية</p>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">جزء مهم من رؤية مول البستان التجارية، وليس مجرد إضافة جانبية داخل الموقع.</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">مرحلة جاية من نفس الرؤية، علشان العلاقة بين الزائر والمتجر تفضل مستمرة.</p>
                 <Link to="/stores" className="mt-5 block">
-                  <Button variant="secondary" className="w-full rounded-xl">استكشف المتاجر الحالية</Button>
+                  <Button variant="secondary" className="w-full rounded-xl">ابدأ من المتاجر الحالية</Button>
                 </Link>
               </div>
             </div>
@@ -498,14 +500,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl">
-          <div className="mb-8 text-center">
+          <div className="chapter-shell mb-8 pt-5 text-center">
             <p className="section-kicker">الأسئلة الشائعة</p>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">
               <HelpCircle className="ml-2 inline-block h-7 w-7 text-accent" />
-              أسئلة شائعة قبل الافتتاح
+              أسئلة ناس كتير ممكن تكون عايزة تعرفها قبل الافتتاح
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-muted-foreground">
-              إجابات مختصرة وواضحة تساعد الزائر على فهم المشروع، التفاعل مع صفحات الافتتاح، والاستعداد للخطوة التالية.
+              إجابات سريعة وواضحة تساعدك تفهم المشروع أحسن وتعرف الخطوة اللي تهمك من غير تعقيد.
             </p>
           </div>
           {faqs && faqs.length > 0 ? (

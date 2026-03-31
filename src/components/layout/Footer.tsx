@@ -36,54 +36,61 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/70 bg-secondary/35">
+    <footer className="mt-16 border-t border-border/60 bg-secondary/30">
       <div className="container py-14 md:py-16">
-        <div className="brand-shell mb-10 grid gap-8 overflow-hidden rounded-[2.2rem] px-6 py-8 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div className="space-y-4">
-            <BrandLogo imageClassName="h-[4.5rem] md:h-[5.5rem]" subtitle="Mall Elbostan" framed />
-            <p className="max-w-2xl text-sm leading-8 text-muted-foreground md:text-base">
-              مول البستان يقدّم تجربة علامة تجارية تقنية أكثر نضجًا: متاجر متخصصة، خريطة تفاعلية، حملة إطلاق مدروسة، وفرص
-              تجارية تمتد لاحقًا إلى Marketplace by Mall Elbostan.
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Link to="/map" className="soft-card rounded-[1.35rem] p-4 transition-transform duration-300 hover:-translate-y-1">
-              <p className="text-sm font-semibold text-foreground">استكشف الخريطة</p>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">تعرّف على المتاجر والوحدات ومواقعها داخل المشروع.</p>
-            </Link>
-            <Link to="/leasing" className="soft-card rounded-[1.35rem] p-4 transition-transform duration-300 hover:-translate-y-1">
-              <p className="text-sm font-semibold text-foreground">استفسر عن التأجير</p>
-              <p className="mt-2 text-sm leading-7 text-muted-foreground">ابدأ محادثة احترافية حول الوحدات المتاحة وخطط الحضور التجاري.</p>
-            </Link>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="soft-card p-6">
-            <p className="text-sm font-semibold tracking-[0.16em] text-muted-foreground uppercase">هوية العلامة</p>
-            <p className="mt-4 text-sm leading-8 text-foreground/88">
-              تجربة تقنية راقية في شرق القاهرة، تربط الزيارة الفعلية بالأنشطة الافتتاحية والنمو الرقمي المستقبلي.
-            </p>
-          </div>
-
-          {footerLinks.map((group) => (
-            <div key={group.title} className="soft-card p-6">
-              <h4 className="mb-4 text-base font-semibold text-foreground">{group.title}</h4>
-              <ul className="space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.path}>
-                    <Link to={link.path} className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+        <div className="brand-shell overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10">
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+            <div className="space-y-5">
+              <BrandLogo imageClassName="h-[5rem] md:h-[6rem]" subtitle="Mall Elbostan" />
+              <div className="chapter-shell pt-5">
+                <h3 className="text-3xl font-bold text-foreground md:text-4xl">مول تقني مصري بطموح أكبر من مجرد وجهة تسوق</h3>
+                <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+                  مول البستان بيتجه يبقى عنوان واضح للتقنية في شرق القاهرة، يجمع المتاجر، الخريطة، حملة الافتتاح، وفرص النمو التجاري
+                  في تجربة واحدة شكلها راقٍ وكلامها مباشر ومقنع.
+                </p>
+              </div>
             </div>
-          ))}
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link to="/map" className="soft-card rounded-[1.5rem] p-5 transition-transform duration-300 hover:-translate-y-1">
+                <p className="text-sm font-semibold text-foreground">استكشف الخريطة</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">شوف مواقع المتاجر والوحدات بشكل أوضح داخل المشروع.</p>
+              </Link>
+              <Link to="/leasing" className="soft-card rounded-[1.5rem] p-5 transition-transform duration-300 hover:-translate-y-1">
+                <p className="text-sm font-semibold text-foreground">ابدأ استفسار التأجير</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">خد خطوة مباشرة لو بتدور على حضور قوي جوه وجهة تقنية متخصصة.</p>
+              </Link>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-[1.05fr_0.7fr_0.7fr_0.85fr]">
+            <div className="section-shell p-6">
+              <p className="text-sm font-semibold tracking-[0.16em] text-muted-foreground uppercase">ملخص العلامة</p>
+              <p className="mt-4 text-sm leading-8 text-foreground/88">
+                تجربة أقرب للواقع، لغة أهدى، وصورة أوضح لمول بيحضّر لإطلاق قوي ولسوق إلكتروني جاي كمرحلة طبيعية بعد كده.
+              </p>
+            </div>
+
+            {footerLinks.map((group) => (
+              <div key={group.title} className="section-shell p-6">
+                <h4 className="mb-4 text-lg font-bold text-foreground">{group.title}</h4>
+                <ul className="space-y-3">
+                  {group.links.map((link) => (
+                    <li key={link.path}>
+                      <Link to={link.path} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-10 border-t border-border/70 pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.
+        <div className="mt-8 flex flex-col gap-3 border-t border-border/70 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>مول البستان — تجربة تقنية مصرية راقية بتستعد للافتتاح.</p>
+          <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
         </div>
       </div>
     </footer>

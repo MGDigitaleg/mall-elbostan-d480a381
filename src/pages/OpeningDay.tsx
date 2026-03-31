@@ -30,7 +30,7 @@ const OpeningDay = () => {
               برنامج الإطلاق والعد التنازلي
             </div>
             <h1 className="mb-5 text-4xl font-bold text-foreground md:text-5xl">يوم الافتتاح الكبير</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">تمت إعادة تصميم صفحة الافتتاح لتصبح أكثر تنظيمًا وحيوية: عد تنازلي واضح، رحلة مشاركة مفهومة، ومحتوى فعاليات يمكن تصفحه بسهولة ضمن تجربة بصرية أخف وأكثر أناقة.</p>
+            <p className="max-w-2xl leading-8 text-muted-foreground">الصفحة دي بتجمع لك صورة يوم الافتتاح بشكل مرتب ومباشر: إمتى، إيه اللي هيحصل، وإزاي تشارك وتستفيد من الجوائز والأنشطة من غير لخبطة.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
               {[
                 "عد تنازلي للإطلاق",
@@ -50,9 +50,9 @@ const OpeningDay = () => {
         <section className="mb-16">
           <div className="mb-8 grid gap-4 md:grid-cols-3">
             {[
-              "استكشف الفعاليات قبل يوم الافتتاح لترتيب زيارتك.",
-              "شارك في الجوائز واحتفظ بالنتيجة عند الحاجة.",
-              "تابع الصفحة لمعرفة تفاصيل الضيوف والبرنامج النهائي.",
+              "شوف الفعاليات بدري ورتّب زيارتك على أساسها.",
+              "ادخل الجوائز واحتفظ بالنتيجة لو احتجتها وقت الافتتاح.",
+              "تابع الصفحة علشان تعرف البرنامج النهائي أول بأول.",
             ].map((item, index) => (
               <div key={item} className="section-shell p-5">
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">0{index + 1}</p>
@@ -76,7 +76,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-8"><EmptyState title="سيتم الإعلان عن جدول الفعاليات قريباً" /></div>}
+          ) : <div className="section-shell p-8"><EmptyState title="جدول الفعاليات هيتعلن قريب" /></div>}
         </section>
 
         <section className="mb-16">
@@ -91,7 +91,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن الضيوف والشخصيات قريباً</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف هتنزل قريب</div>}
         </section>
 
         <section className="mb-16">
@@ -106,12 +106,12 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن مسابقات الألعاب قريباً</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل مسابقات الألعاب هتنزل قريب</div>}
         </section>
 
         <section>
           <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Award className="h-6 w-6 text-primary" /> الرعاة</h2>
-          <div className="section-shell p-6 text-muted-foreground">سيتم الإعلان عن رعاة الافتتاح قريباً</div>
+          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة هتتحدث قريب</div>
         </section>
       </div>
     </MainLayout>
