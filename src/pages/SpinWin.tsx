@@ -104,7 +104,7 @@ const SpinWin = () => {
             <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-secondary border-border" required dir="ltr" />
             <Input placeholder="البريد الإلكتروني (اختياري)" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border" dir="ltr" />
             <Button type="submit" variant="cta" className="w-full text-lg" disabled={loading}>
-              {loading ? "جاري التحميل..." : "أدر العجلة! 🎡"}
+              {loading ? "جاري التحميل..." : "أدر العجلة"}
             </Button>
             <p className="text-xs text-muted-foreground text-center">يمكنك المشاركة مرة واحدة فقط</p>
           </form>
