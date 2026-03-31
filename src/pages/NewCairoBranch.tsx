@@ -11,14 +11,14 @@ const NewCairoBranch = () => (
     <SEOHead title="فرع القاهرة الجديدة" titleEn="New Cairo Branch" description="مول البستان - فرع القاهرة الجديدة. الموقع والتفاصيل." descriptionEn="Mall Elbostan New Cairo branch location and details." breadcrumbs={[{ name: "فرع القاهرة الجديدة", url: "/new-cairo-branch" }]} />
 
     {/* Hero with entrance image */}
-    <section className="relative min-h-[50vh] flex items-end overflow-hidden">
+    <section className="relative min-h-[44vh] flex items-end overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={entranceImage}
           alt="مدخل مول البستان - فرع القاهرة الجديدة"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-[center_48%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/84 via-background/38 to-background/8" />
       </div>
       <div className="container relative z-10 pb-12 pt-32">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -29,9 +29,9 @@ const NewCairoBranch = () => (
     </section>
 
     <div className="container py-16 max-w-4xl">
-      <div className="space-y-6 text-foreground/90 leading-relaxed">
+        <div className="space-y-6 text-foreground/90 leading-relaxed">
         <p>يقع فرع القاهرة الجديدة في موقع استراتيجي يخدم سكان القاهرة الجديدة ومدينتي والرحاب والمناطق المحيطة.</p>
-        <div className="card-premium p-8 mt-8">
+        <div className="surface-panel mt-8 rounded-[1.75rem] p-8">
           <h2 className="text-xl font-bold text-foreground mb-6">معلومات الفرع</h2>
           <div className="space-y-4 text-muted-foreground">
             <div className="flex items-center gap-3">

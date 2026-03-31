@@ -9,10 +9,10 @@ const About = () => (
     <SEOHead title="عن المول" titleEn="About" description="تعرف على مول البستان - أكبر مول متخصص في التكنولوجيا بالقاهرة الجديدة." descriptionEn="Learn about Mall Elbostan - Egypt's largest technology mall." breadcrumbs={[{ name: "عن المول", url: "/about" }]} />
 
     {/* Hero */}
-    <section className="relative min-h-[40vh] flex items-end overflow-hidden">
+    <section className="relative min-h-[38vh] flex items-end overflow-hidden">
       <div className="absolute inset-0">
         <img src={exteriorImage} alt="مبنى مول البستان من الخارج" className="w-full h-full object-cover object-[center_30%]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/82 via-background/42 to-background/10" />
       </div>
       <div className="container relative z-10 pb-12 pt-32">
         <h1 className="text-4xl md:text-5xl font-bold">عن <span className="text-gradient-blue">مول البستان</span></h1>
@@ -30,10 +30,10 @@ const About = () => (
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="relative rounded-2xl overflow-hidden mb-16"
+        className="relative rounded-[1.75rem] overflow-hidden mb-16 border border-border/70 shadow-[var(--shadow-elevated)]"
       >
-        <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="w-full h-[400px] md:h-[500px] object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+        <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="w-full h-[360px] md:h-[460px] object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/72 to-transparent" />
         <div className="absolute bottom-0 right-0 p-8">
           <p className="text-foreground font-bold text-xl mb-1">تصميم معماري فاخر</p>
           <p className="text-muted-foreground text-sm">أتريوم مركزي متعدد الطوابق بتشطيبات عالمية</p>
@@ -46,7 +46,7 @@ const About = () => (
           { title: "تنوع فريد", desc: "أقسام متعددة تغطي جميع احتياجاتك التقنية" },
           { title: "خدمة متميزة", desc: "فريق عمل محترف لخدمتك وتوجيهك" },
         ].map((item) => (
-          <div key={item.title} className="card-premium p-6">
+          <div key={item.title} className="surface-panel rounded-2xl p-6">
             <h3 className="font-bold text-primary mb-2">{item.title}</h3>
             <p className="text-sm text-muted-foreground">{item.desc}</p>
           </div>
