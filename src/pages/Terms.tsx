@@ -1,0 +1,24 @@
+import { MainLayout } from "@/components/layout/MainLayout";
+import { SEOHead } from "@/components/SEOHead";
+
+const Terms = () => (
+  <MainLayout>
+    <SEOHead title="الشروط والأحكام" description="الشروط والأحكام لاستخدام موقع مول البستان." />
+    <div className="container py-20 max-w-3xl">
+      <h1 className="text-4xl font-bold text-gradient-blue mb-8">الشروط والأحكام</h1>
+      <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">
+        <p>باستخدام موقع مول البستان الإلكتروني، فإنك توافق على الالتزام بهذه الشروط والأحكام.</p>
+        <h2 className="text-lg font-bold text-foreground">استخدام الموقع</h2>
+        <p>يُسمح باستخدام هذا الموقع للأغراض المشروعة فقط. يُحظر أي استخدام يخالف القوانين المصرية أو يضر بمصالح المول.</p>
+        <h2 className="text-lg font-bold text-foreground">المحتوى</h2>
+        <p>جميع المحتويات المنشورة على الموقع هي ملك لمول البستان ولا يجوز نسخها أو إعادة نشرها دون إذن مسبق.</p>
+        <h2 className="text-lg font-bold text-foreground">المسؤولية</h2>
+        <p>نسعى لتقديم معلومات دقيقة ومحدثة، لكننا لا نتحمل المسؤولية عن أي أخطاء أو سهو في المحتوى.</p>
+        <h2 className="text-lg font-bold text-foreground">التعديلات</h2>
+        <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. يُنصح بمراجعة هذه الصفحة بانتظام.</p>
+      </div>
+    </div>
+  </MainLayout>
+);
+
+export default Terms;
