@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar, HelpCircle, Map, MapPin, Monitor, Shield, Smartphone, Sparkles, Store, Wrench } from "lucide-react";
+import { Calendar, HelpCircle, MapPin, Monitor, Shield, Smartphone, Sparkles, Store, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -242,7 +242,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
                    <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{category.desc}</p>
                   <span className="mt-auto pt-3 text-xs font-semibold text-muted-foreground">تصنيف واضح داخل الدليل</span>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </div>
