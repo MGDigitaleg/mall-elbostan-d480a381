@@ -95,7 +95,7 @@ const SpinWin = () => {
     <MainLayout>
       <SEOHead title="أدر واربح" titleEn="Spin & Win" description="شارك في لعبة أدر واربح واحصل على جوائز فورية من مول البستان يوم الافتتاح!" descriptionEn="Spin the wheel and win prizes at Mall Elbostan's grand opening!" breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]} />
       <div className="container py-20 max-w-2xl text-center">
-        <h1 className="text-4xl font-bold text-gradient-blue mb-4">🎡 أدر واربح</h1>
+        <h1 className="text-4xl font-bold text-gradient-blue mb-4">أدر واربح</h1>
         <p className="text-muted-foreground mb-10">سجّل بياناتك وأدر العجلة للفوز بجوائز قيّمة يوم الافتتاح!</p>
 
         {step === "register" && (
