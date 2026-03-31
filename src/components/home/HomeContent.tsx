@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar, Gamepad2, HelpCircle, Map, MapPin, Monitor, Printer, Shield, Smartphone, Sparkles, Store, Wrench } from "lucide-react";
+import { Calendar, HelpCircle, Map, MapPin, Monitor, Shield, Smartphone, Sparkles, Store, Wrench } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { floorMapData } from "@/lib/floorMapData";
+import { exploreNeeds, floorMapData, needCategoryLabels, type NeedCategory } from "@/lib/floorMapData";
 import heroImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
 
-const heroPills = ["وجهة تقنية متخصصة", "خريطة أسهل للزيارة", "وحدات جاهزة للاستفسار"];
+const heroPills = ["وجهة تقنية متخصصة", "دليل أوضح للزيارة", "وحدات جاهزة للاستفسار"];
 
-const benefitChips = ["فئات تقنية واضحة", "حركة أسهل داخل المول", "حضور أقوى للمتاجر", "نقطة انطلاق للتأجير"];
+const benefitChips = ["فئات تقنية واضحة", "تنقل أسهل داخل المول", "حضور أوضح للمتاجر", "مسار مباشر للتأجير"];
 
 const whyCards = [
   { icon: Monitor, title: "تركيز تقني واضح", desc: "المشروع موجه لفئات الأجهزة والإكسسوارات والخدمات المرتبطة بها." },
@@ -19,14 +19,14 @@ const whyCards = [
   { icon: Sparkles, title: "إطلاق منظم", desc: "الافتتاح والحملة الترويجية جزء من تجربة مدروسة وليست إضافة جانبية." },
 ];
 
-const categoryStories = [
-  { name: "الهواتف والإكسسوارات", icon: Smartphone, desc: "خيارات يومية سريعة وواضحة." },
-  { name: "الكمبيوتر والأجهزة", icon: Monitor, desc: "حلول للدراسة والعمل والأداء." },
-  { name: "الألعاب والترفيه", icon: Gamepad2, desc: "فئة مخصصة لعشاق الأداء والملحقات." },
-  { name: "الطباعة والتصوير", icon: Printer, desc: "خدمات عملية في نفس الزيارة." },
-  { name: "الصيانة والدعم الفني", icon: Wrench, desc: "حلول ما بعد الشراء والدعم السريع." },
-  { name: "الشبكات والحماية", icon: Shield, desc: "احتياجات الشركات والمكاتب والأنظمة المتخصصة." },
-];
+const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone; desc: string }> = {
+  Accessories: { icon: Smartphone, desc: "احتياجات يومية سريعة للهواتف والإكسسوارات داخل مسار واضح." },
+  Laptops: { icon: Monitor, desc: "خيارات موجهة للدراسة والعمل والأداء في مكان واحد." },
+  Maintenance: { icon: Wrench, desc: "خدمات صيانة ودعم فني تساعد الزائر على إكمال احتياجه بسرعة." },
+  Networking: { icon: Shield, desc: "حلول للشبكات والحماية تخدم الأفراد والأنشطة التجارية." },
+  Components: { icon: Monitor, desc: "مكونات وتجهيزات تقنية لعشاق الأداء والاستخدام المتخصص." },
+  "Security Systems": { icon: Shield, desc: "أنظمة حماية ومراقبة ضمن فئة واضحة وسهلة الوصول." },
+};
 
 const launchSteps = [
   { title: "استكشف المول", desc: "ابدأ بالخريطة واعرف موقع الوحدات والمتاجر بسهولة." },
@@ -63,6 +63,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   const totalUnits = allUnits.length;
   const availableUnits = allUnits.filter((unit) => unit.status === "available");
   const floorLabels = Object.fromEntries(floorMapData.map((floor) => [floor.id, floor.label]));
+  const categoryStories = exploreNeeds.map((need) => ({
+    key: need,
+    name: needCategoryLabels[need],
+    icon: categoryMeta[need].icon,
+    desc: categoryMeta[need].desc,
+  }));
   const faqItems = (faqs.length > 0 ? faqs : fallbackFaqs).slice(0, 6);
   const launchEvent = upcomingEvents[0] ?? null;
   const heroFacts = [
@@ -73,12 +79,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-12 pt-2 md:pb-16 lg:pb-20">
+      <section className="relative overflow-hidden pb-10 pt-2 md:pb-14 lg:pb-16">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell page-shell grid min-h-[auto] gap-5 overflow-hidden rounded-[2rem] lg:min-h-[45rem] lg:grid-cols-[5fr_7fr] lg:gap-6">
-            <div className="space-y-5 lg:flex lg:flex-col lg:justify-center">
+          <div className="brand-shell page-shell grid min-h-[auto] gap-4 overflow-hidden rounded-[2rem] lg:min-h-[45rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
+            <div className="space-y-4 lg:flex lg:flex-col lg:justify-center">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-4">افتتاح مايو 2026 • مول تقني في القاهرة الجديدة</div>
                 <h1 className="max-w-[38.75rem] text-[2.1rem] font-black leading-[1.08] text-foreground md:text-[2.9rem] lg:text-[4rem]">
@@ -88,7 +94,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </span>
                 </h1>
                 <p className="mt-4 max-w-[35rem] text-[0.98rem] leading-7 text-muted-foreground md:text-lg">
-                  اكتشف المول قبل الزيارة، اعرف الفئات الأساسية، وابدأ خطوتك التجارية من نفس المكان.
+                  اكتشف المول قبل الزيارة، تعرّف على الفئات الأساسية، وابدأ استفسارك التجاري من نفس التجربة.
                 </p>
               </motion.div>
 
@@ -216,12 +222,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {categoryStories.map((category, index) => (
-              <motion.div key={category.name} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <Link to={`/stores?category=${encodeURIComponent(category.name)}`} className="editorial-panel flex min-h-[11.875rem] h-full flex-col rounded-[1.5rem] p-5 transition-transform duration-200 hover:-translate-y-1">
+              <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                <Link to="/map" className="editorial-panel flex min-h-[11.875rem] h-full flex-col rounded-[1.5rem] p-5 transition-transform duration-200 hover:-translate-y-1">
                   <div className="icon-shell mb-4 h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
                   <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{category.desc}</p>
-                  <span className="mt-auto pt-4 text-sm font-semibold text-primary">استعرض المتاجر</span>
+                  <span className="mt-auto pt-4 text-sm font-semibold text-primary">استكشفها على الخريطة</span>
                 </Link>
               </motion.div>
             ))}
