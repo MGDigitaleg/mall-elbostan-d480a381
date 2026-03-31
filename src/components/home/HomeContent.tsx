@@ -407,6 +407,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               ) : null}
             </div>
           </div>
+        </div>
         </section>
 
       <section className="py-12 md:py-20">
