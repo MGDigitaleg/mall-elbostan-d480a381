@@ -10,6 +10,7 @@ const navItems = [
   { label: "الخريطة", path: "/map" },
   { label: "التأجير", path: "/leasing" },
   { label: "يوم الافتتاح", path: "/opening-day" },
+  { label: "العروض اليومية", path: "/daily-deals" },
   { label: "المدونة", path: "/blog" },
   { label: "الوظائف", path: "/careers" },
   { label: "تواصل معنا", path: "/contact" },
@@ -22,12 +23,11 @@ export function Header() {
   return (
     <header className="fixed top-0 right-0 left-0 z-50 glass">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="text-2xl font-bold text-gradient-gold tracking-tight">
+        <Link to="/" className="text-2xl font-bold text-gradient-blue tracking-tight">
           مول البستان
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden xl:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -42,29 +42,27 @@ export function Header() {
             </Link>
           ))}
           <Link to="/spin-win">
-            <Button size="sm" className="bg-gradient-gold text-primary-foreground font-bold mr-2 hover:opacity-90">
-              🎡 العجلة
+            <Button variant="cta" size="sm" className="mr-2">
+              🎡 أدر واربح
             </Button>
           </Link>
         </nav>
 
-        {/* Mobile toggle */}
         <button
-          className="lg:hidden text-foreground"
+          className="xl:hidden text-foreground"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden glass border-t border-border"
+            className="xl:hidden glass border-t border-border"
           >
             <nav className="container py-4 flex flex-col gap-1">
               {navItems.map((item) => (
@@ -82,8 +80,8 @@ export function Header() {
                 </Link>
               ))}
               <Link to="/spin-win" onClick={() => setMobileOpen(false)}>
-                <Button className="w-full bg-gradient-gold text-primary-foreground font-bold mt-2">
-                  🎡 العجلة
+                <Button variant="cta" className="w-full mt-2">
+                  🎡 أدر واربح
                 </Button>
               </Link>
             </nav>
