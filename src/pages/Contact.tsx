@@ -45,7 +45,7 @@ const Contact = () => {
           <div className="card-premium p-8">
             <h2 className="text-2xl font-bold mb-6">أرسل رسالة</h2>
             {submitted ? (
-              <div className="text-center py-10"><p className="text-2xl mb-2">✅</p><p className="font-bold text-success">تم إرسال رسالتك بنجاح!</p><p className="text-muted-foreground mt-2">سنتواصل معك قريباً</p></div>
+              <div className="text-center py-10"><CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" /><p className="font-bold text-success">تم إرسال رسالتك بنجاح!</p><p className="text-muted-foreground mt-2">سنتواصل معك قريباً</p></div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="bg-secondary border-border" required />
