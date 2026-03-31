@@ -17,13 +17,15 @@ const features = [
   { icon: Building, title: "احجز وحدتك", desc: "فرص تأجير مميزة في أفضل موقع بالقاهرة الجديدة", link: "/leasing", color: "text-orange" },
 ];
 
+import { Smartphone, Monitor, Gamepad2, Printer, Shield, Wrench } from "lucide-react";
+
 const categories = [
-  { name: "الهواتف والإكسسوارات", icon: "📱" },
-  { name: "الكمبيوتر والأجهزة", icon: "💻" },
-  { name: "الألعاب والجيمنج", icon: "🎮" },
-  { name: "الطباعة والتصوير", icon: "🖨️" },
-  { name: "الشبكات والحماية", icon: "🔒" },
-  { name: "الصيانة والدعم الفني", icon: "🔧" },
+  { name: "الهواتف والإكسسوارات", icon: Smartphone },
+  { name: "الكمبيوتر والأجهزة", icon: Monitor },
+  { name: "الألعاب والجيمنج", icon: Gamepad2 },
+  { name: "الطباعة والتصوير", icon: Printer },
+  { name: "الشبكات والحماية", icon: Shield },
+  { name: "الصيانة والدعم الفني", icon: Wrench },
 ];
 
 const fadeUp = {
