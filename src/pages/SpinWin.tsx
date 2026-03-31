@@ -139,8 +139,7 @@ const SpinWin = () => {
               </>
             ) : (
               <>
-                <p className="text-5xl mb-4">😊</p>
-                <h2 className="text-2xl font-bold text-foreground mb-4">شكراً لمشاركتك!</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-4">شكراً لمشاركتك</h2>
                 <p className="text-muted-foreground">لم يحالفك الحظ هذه المرة، لكن لا تقلق — هناك عروض وفعاليات رائعة بانتظارك يوم الافتتاح!</p>
               </>
             )}
