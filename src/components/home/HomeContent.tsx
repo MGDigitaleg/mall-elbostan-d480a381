@@ -39,6 +39,15 @@ const categorySupportLabels: Record<NeedCategory, string> = {
   "Security Systems": "مراقبة وحماية",
 };
 
+const mobileCategorySummaries: Record<NeedCategory, string> = {
+  Accessories: "ملحقات سريعة وواضحة.",
+  Laptops: "أجهزة للدراسة والعمل.",
+  Components: "مكوّنات وتجميعات أداء.",
+  Networking: "حلول شبكات للمكاتب.",
+  Maintenance: "صيانة مباشرة وسريعة.",
+  "Security Systems": "مراقبة وحماية واضحة.",
+};
+
 const launchSteps = [
   { title: "استكشف المول", desc: "ابدأ بالخريطة واعرف موقع الوحدات والمتاجر بسهولة." },
   { title: "تابع الحملة", desc: "شارك في التجربة الترويجية واحتفظ بنتيجتك قبل الافتتاح." },
@@ -137,7 +146,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     ))}
                     </div>
                   </div>
-                  <div className="rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:rounded-[1.25rem] md:px-4 md:py-3.5">
+                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:block md:rounded-[1.25rem] md:px-4 md:py-3.5">
                     <div className="mb-2 flex items-center justify-between gap-3 md:mb-2.5">
                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
@@ -167,7 +176,145 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section pt-6 md:pt-12 lg:pt-14">
+      <div className="space-y-0 md:hidden">
+        <section className="page-section pt-5">
+          <div className="container">
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <p className="section-kicker">الخريطة التفاعلية</p>
+                <h2 className="section-title max-w-[18rem]">ابدأ من الدليل مباشرة.</h2>
+                <p className="max-w-[20rem] text-sm leading-6 text-muted-foreground">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
+              </div>
+              <MapTeaserPreview />
+            </div>
+          </div>
+        </section>
+
+        <section className="page-section py-7">
+          <div className="container">
+            <div className="space-y-3">
+              <div className="space-y-2">
+                <p className="section-kicker">الفئات الرئيسية</p>
+                <h2 className="section-title max-w-[18rem]">ابدأ من فئة واضحة.</h2>
+              </div>
+              <Collapsible className="space-y-2.5">
+                {categoryStories.slice(0, 3).map((category, index) => (
+                  <div key={category.key} className="editorial-panel rounded-[1.1rem] p-3.5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <div className="icon-shell h-10 w-10 p-2.5"><category.icon className="h-5 w-5" /></div>
+                        <div>
+                          <h3 className="text-base font-bold text-foreground">{category.name}</h3>
+                          <p className="mt-1 text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
+                        </div>
+                      </div>
+                      <span className="text-[0.72rem] font-semibold text-muted-foreground">0{index + 1}</span>
+                    </div>
+                  </div>
+                ))}
+                <CollapsibleContent className="space-y-2.5">
+                  {categoryStories.slice(3).map((category, index) => (
+                    <div key={category.key} className="editorial-panel rounded-[1.1rem] p-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="icon-shell h-10 w-10 p-2.5"><category.icon className="h-5 w-5" /></div>
+                          <div>
+                            <h3 className="text-base font-bold text-foreground">{category.name}</h3>
+                            <p className="mt-1 text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
+                          </div>
+                        </div>
+                        <span className="text-[0.72rem] font-semibold text-muted-foreground">0{index + 4}</span>
+                      </div>
+                    </div>
+                  ))}
+                </CollapsibleContent>
+                <CollapsibleTrigger asChild>
+                  <Button variant="secondary" className="h-10 w-full rounded-[1rem]">عرض باقي الفئات</Button>
+                </CollapsibleTrigger>
+              </Collapsible>
+            </div>
+          </div>
+        </section>
+
+        <section className="section-soft page-section py-7">
+          <div className="container">
+            <div className="section-shell rounded-[1.45rem] px-4 py-4">
+              <div className="space-y-3">
+                <p className="section-kicker">التأجير والوحدات</p>
+                <h2 className="section-title max-w-[18rem]">وحدات مرتبطة بالدليل نفسه.</h2>
+                <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground">ابدأ من المصدر نفسه ثم انتقل مباشرة إلى الاستفسار التجاري.</p>
+                <div className="space-y-2">
+                  {[
+                    "حالة كل وحدة واضحة داخل الدليل.",
+                    "التحويل إلى الاستفسار يتم مباشرة.",
+                  ].map((item) => (
+                    <div key={item} className="editorial-panel flex min-h-[2.9rem] items-center rounded-[1rem] px-3.5 py-2.5 text-sm text-foreground/90">{item}</div>
+                  ))}
+                </div>
+                <div className="grid gap-2.5">
+                  {homepageLeasingUnits.slice(0, 2).map((unit) => (
+                    <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6rem] flex-col rounded-[1.15rem] p-3.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                        <span className="rounded-full border border-orange/25 bg-orange/10 px-2.5 py-1 text-[0.7rem] font-semibold text-orange">متاحة</span>
+                      </div>
+                      <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                        <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2">
+                          <p className="text-[0.7rem] font-semibold text-muted-foreground">الدور</p>
+                          <p className="mt-1 font-semibold text-foreground">{floorLabels[unit.floor_id]}</p>
+                        </div>
+                        <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2">
+                          <p className="text-[0.7rem] font-semibold text-muted-foreground">المساحة</p>
+                          <p className="mt-1 font-semibold text-foreground">{unit.area_m2} م²</p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <Link to="/leasing"><Button variant="orange" className="h-11 w-full rounded-[1rem]">افتح صفحة التأجير</Button></Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="page-section py-7">
+          <div className="container">
+            <div className="section-shell rounded-[1.45rem] px-4 py-4">
+              <div className="space-y-3">
+                <p className="section-kicker">داخل المول</p>
+                <h2 className="section-title max-w-[18rem]">مسار أوضح داخل الزيارة.</h2>
+                <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground">تنظيم داخلي يساعد على الوصول الأسرع للفئات والمتاجر داخل المول.</p>
+                <div className="image-shell aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-border/80 bg-card">
+                  <img src={interiorImage} alt="مشهد داخلي من مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
+                </div>
+                <div className="grid gap-2">
+                  <div className="editorial-panel rounded-[1rem] px-3.5 py-3 text-sm text-foreground">مشهد داخلي متوازن يدعم العرض الواضح.</div>
+                  <div className="editorial-panel rounded-[1rem] px-3.5 py-3 text-sm text-foreground">حركة أسهل بين الفئات والمتاجر من أول نظرة.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="page-section py-7">
+          <div className="container">
+            <div className="section-shell rounded-[1.3rem] px-4 py-4">
+              <div className="space-y-2.5">
+                <p className="section-kicker">لماذا مول البستان</p>
+                <h2 className="section-title max-w-[16rem]">هوية تقنية أوضح.</h2>
+                <p className="max-w-[20rem] text-sm leading-6 text-muted-foreground">المشروع يجمع الفئات الأساسية في مسار أقصر ويمنح النشاط التجاري حضورًا أوضح.</p>
+                <div className="grid gap-2">
+                  {benefitChips.slice(0, 2).map((item) => (
+                    <div key={item} className="mini-chip h-[2.7rem] justify-start rounded-[0.95rem] px-3.5 py-0 text-[0.76rem]">{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section className="hidden page-section pt-6 md:block md:pt-12 lg:pt-14">
         <div className="container">
           <div className="grid gap-3 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-4">
             <div className="space-y-2.5 lg:order-2 lg:space-y-3">
@@ -216,7 +363,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft page-section">
+      <section className="hidden section-soft page-section md:block">
         <div className="container">
           <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-5">
             <div className="order-2 space-y-3 lg:order-1 lg:max-w-[32rem] lg:space-y-4">
@@ -250,7 +397,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section py-8 md:py-12 lg:py-14">
+      <section className="hidden page-section py-8 md:block md:py-12 lg:py-14">
         <div className="container">
           <div className="chapter-shell mb-4 max-w-[34rem] pt-4 md:pt-5">
             <p className="section-kicker">الفئات الرئيسية</p>
@@ -314,7 +461,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft page-section py-8 md:py-12 lg:py-14">
+      <section className="hidden section-soft page-section py-8 md:block md:py-12 lg:py-14">
         <div className="container">
           <div className="grid gap-3 overflow-hidden lg:section-shell lg:page-shell lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-4">
             <div className="order-2 space-y-2.5 lg:max-w-[29rem] lg:order-2 lg:space-y-3.5">
@@ -346,7 +493,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section py-8 md:py-12 lg:py-14">
+      <section className="hidden page-section py-8 md:block md:py-12 lg:py-14">
         <div className="container">
            <div className="section-shell page-shell grid gap-3.5 overflow-hidden lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-4">
              <div className="space-y-3 lg:max-w-[30rem] lg:space-y-3.5">
@@ -411,7 +558,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft page-section py-8 md:py-12 lg:py-14">
+      <section className="hidden section-soft page-section py-8 md:block md:py-12 lg:py-14">
         <div className="container">
           <div className="section-shell page-shell grid gap-3 overflow-hidden lg:grid-cols-[0.98fr_1.02fr] lg:items-stretch">
             <div className="space-y-3 lg:order-2">
@@ -499,7 +646,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section pt-8 md:pt-10">
+      <section className="page-section pt-7 md:pt-10">
         <div className="container max-w-5xl">
           <div className="grid gap-4 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
             <div className="chapter-shell pt-4 md:pt-5">
@@ -508,16 +655,16 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <HelpCircle className="ml-2 inline-block h-7 w-7 text-accent" />
                 إجابات سريعة قبل زيارتك الأولى
               </h2>
-                <p className="mt-2.5 text-sm leading-6 text-muted-foreground md:mt-3 md:text-lg md:leading-7">أسئلة أساسية تساعدك على الوصول للمعلومة بسرعة وبدون تكرار.</p>
-              <Link to="/faq" className="mt-4 inline-flex md:mt-5"><Button variant="ghost" className="text-primary">عرض جميع الأسئلة</Button></Link>
+                <p className="mt-2 max-w-[19rem] text-sm leading-6 text-muted-foreground md:mt-3 md:max-w-none md:text-lg md:leading-7">إجابات مختصرة للأسئلة الأهم قبل الزيارة الأولى.</p>
+              <Link to="/faq" className="mt-3 inline-flex md:mt-5"><Button variant="ghost" className="text-primary">عرض جميع الأسئلة</Button></Link>
             </div>
-            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-3">
+            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2 md:space-y-3">
               {faqItems.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id} className="section-shell overflow-hidden rounded-[1.25rem] px-5">
-                  <AccordionTrigger className="min-h-[4.25rem] py-4 text-right text-base font-semibold text-foreground hover:text-primary">
+                <AccordionItem key={faq.id} value={faq.id} className="section-shell overflow-hidden rounded-[1.1rem] px-4 md:rounded-[1.25rem] md:px-5">
+                  <AccordionTrigger className="min-h-[3.85rem] py-3 text-right text-sm font-semibold text-foreground hover:text-primary md:min-h-[4.25rem] md:py-4 md:text-base">
                     {faq.question_ar}
                   </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-sm leading-7 text-muted-foreground md:text-base">
+                  <AccordionContent className="pb-4 text-sm leading-6 text-muted-foreground md:pb-5 md:text-base md:leading-7">
                     {faq.answer_ar}
                   </AccordionContent>
                 </AccordionItem>
