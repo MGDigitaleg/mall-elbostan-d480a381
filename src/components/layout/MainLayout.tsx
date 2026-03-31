@@ -6,7 +6,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-[linear-gradient(180deg,hsl(var(--background)),hsl(210_34%_97%))]">
       <Header />
-      <main className="flex-1 pt-20 md:pt-24">{children}</main>
+      <main className="flex-1 pt-16 md:pt-18">{children}</main>
       <Footer />
       <WhatsAppFab />
     </div>
