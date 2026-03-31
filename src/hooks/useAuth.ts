@@ -59,5 +59,6 @@ export function useRequireAdmin() {
     }
   }, [user, loading, isAdmin, navigate]);
 
-  return { user, loading, isAdmin };
+  const { signOut } = useAuth();
+  return { user, loading, isAdmin, signOut };
 }
