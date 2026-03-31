@@ -4,7 +4,7 @@ import { Calendar, HelpCircle, Map, MapPin, Monitor, Shield, Smartphone, Sparkle
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { allMapUnits, availableMapUnits, exploreNeeds, floorMapData, needCategoryLabels, type NeedCategory } from "@/lib/floorMapData";
+import { allMapUnits, availableMapUnits, exploreNeeds, floorMapData, homepageLeasingUnits, needCategoryDescriptions, needCategoryLabels, type NeedCategory } from "@/lib/floorMapData";
 import heroImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
@@ -19,13 +19,13 @@ const whyCards = [
   { icon: Sparkles, title: "إطلاق منظم", desc: "الافتتاح والحملة الترويجية جزء من تجربة مدروسة وليست إضافة جانبية." },
 ];
 
-const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone; desc: string }> = {
-  Accessories: { icon: Smartphone, desc: "هواتف وإكسسوارات يومية ضمن مسار سريع وواضح." },
-  Laptops: { icon: Monitor, desc: "أجهزة وحلول للدراسة والعمل في فئة واحدة مباشرة." },
-  Components: { icon: Monitor, desc: "ألعاب وتجهيزات أداء لهواة الاستخدام المتخصص." },
-  Networking: { icon: Monitor, desc: "طباعة وتصوير وحلول مساندة تخدم الاحتياج العملي." },
-  Maintenance: { icon: Wrench, desc: "صيانة ودعم فني يختصران وقت البحث واتخاذ القرار." },
-  "Security Systems": { icon: Shield, desc: "شبكات وأنظمة أمنية ضمن تصنيف واضح وغير متداخل." },
+const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
+  Accessories: { icon: Smartphone },
+  Laptops: { icon: Monitor },
+  Components: { icon: Monitor },
+  Networking: { icon: Monitor },
+  Maintenance: { icon: Wrench },
+  "Security Systems": { icon: Shield },
 };
 
 const launchSteps = [
@@ -66,7 +66,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
     key: need,
     name: needCategoryLabels[need],
     icon: categoryMeta[need].icon,
-    desc: categoryMeta[need].desc,
+    desc: needCategoryDescriptions[need],
   }));
   const faqItems = (faqs.length >= 6 ? faqs : fallbackFaqs).slice(0, 6);
   const launchEvent = upcomingEvents[0] ?? null;
@@ -78,11 +78,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-8 pt-2 md:pb-12 lg:pb-14">
+      <section className="relative overflow-hidden pb-6 pt-2 md:pb-10 lg:pb-12">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell page-shell grid min-h-[auto] gap-4 overflow-hidden rounded-[2rem] lg:min-h-[43.75rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
+          <div className="brand-shell page-shell grid min-h-[auto] gap-4 overflow-hidden rounded-[2rem] lg:min-h-[42rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
             <div className="space-y-4 lg:flex lg:flex-col lg:justify-center">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-4">افتتاح مايو 2026 • وجهة تقنية في القاهرة الجديدة</div>
@@ -97,7 +97,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.4 }} className="flex flex-wrap gap-2.5">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.4 }} className="flex flex-wrap gap-2">
                 {heroPills.map((item) => (
                   <span key={item} className="mini-chip h-9 px-4 py-0 text-sm">{item}</span>
                 ))}
@@ -108,10 +108,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/leasing"><Button variant="orange" size="lg" className="h-14 min-w-[12rem] rounded-[1.1rem] px-7">استفسر عن الوحدات</Button></Link>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24, duration: 0.4 }} className="grid gap-3 lg:grid-cols-[0.82fr_1.18fr]">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24, duration: 0.4 }} className="grid gap-3 lg:grid-cols-[0.78fr_1.22fr]">
                 <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
                   {heroFacts.map((item) => (
-                    <div key={item.label} className="editorial-panel flex min-h-[5.75rem] flex-col justify-center rounded-[1.25rem] px-4 py-3.5">
+                    <div key={item.label} className="editorial-panel flex min-h-[5.4rem] flex-col justify-center rounded-[1.25rem] px-4 py-3">
                       <p className="text-xs font-semibold text-muted-foreground">{item.label}</p>
                       <p className="mt-1.5 text-lg font-bold text-foreground">{item.value}</p>
                     </div>
@@ -149,7 +149,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       <section className="page-section">
         <div className="container">
           <div className="grid gap-5 lg:grid-cols-[1fr_1fr] lg:items-start">
-            <div className="space-y-5 lg:order-2">
+            <div className="space-y-4 lg:order-2">
               <div className="chapter-shell pt-5">
                 <p className="section-kicker">لماذا مول البستان</p>
                 <h2 className="section-title max-w-[35rem]">وجهة تقنية بهوية واضحة وتجربة زيارة أهدأ.</h2>
@@ -163,11 +163,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </div>
             </div>
-            <div className="grid gap-4 lg:order-1">
+            <div className="grid gap-3.5 lg:order-1">
               {whyCards.map((card, index) => (
                 <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <div className="editorial-panel min-h-[11.25rem] rounded-[1.5rem] p-5 md:p-6">
-                    <card.icon className="icon-shell mb-4 h-12 w-12 p-3" />
+                  <div className="editorial-panel min-h-[10.8rem] rounded-[1.5rem] p-5 md:p-6">
+                    <card.icon className="icon-shell mb-3 h-12 w-12 p-3" />
                     <h3 className="text-xl font-bold text-foreground">{card.title}</h3>
                     <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{card.desc}</p>
                   </div>
@@ -214,7 +214,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="page-section">
         <div className="container">
-          <div className="chapter-shell mb-7 max-w-[36rem] pt-5">
+          <div className="chapter-shell mb-6 max-w-[36rem] pt-5">
             <p className="section-kicker">الفئات الرئيسية</p>
             <h2 className="section-title">ابدأ من الفئة الأقرب لاحتياجك.</h2>
             <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">ست فئات أساسية تقدم صورة أوضح لطبيعة المول وما يمكن أن تجده داخله.</p>
@@ -222,11 +222,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {categoryStories.map((category, index) => (
               <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                 <Link to="/map" className="editorial-panel flex min-h-[12.25rem] h-full flex-col rounded-[1.5rem] p-5 transition-colors duration-200 hover:border-primary/35">
-                  <div className="icon-shell mb-4 h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
+                 <Link to="/map" className="editorial-panel flex min-h-[12rem] h-full flex-col rounded-[1.5rem] p-5 transition-colors duration-200 hover:border-primary/35">
+                  <div className="icon-shell mb-3 h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
                   <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
                    <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{category.desc}</p>
-                  <span className="mt-auto pt-4 text-sm font-semibold text-primary">استكشفها على الخريطة</span>
+                  <span className="mt-auto pt-3 text-sm font-semibold text-primary">استكشفها على الخريطة</span>
                 </Link>
               </motion.div>
             ))}
@@ -236,21 +236,21 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="section-soft page-section">
         <div className="container">
-          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-[1.04fr_0.96fr] lg:items-center">
+          <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
             <div className="space-y-4 lg:max-w-[33rem]">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو نقطة البداية داخل المول.</h2>
               <p className="text-base leading-7 text-muted-foreground md:text-lg">ابدأ من الدليل التفاعلي لتعرف الدور، حالة الوحدة، وأقصر طريق إلى التأجير أو المتاجر.</p>
               <div className="grid gap-3 sm:grid-cols-3">
-                <div className="editorial-panel rounded-[1.25rem] p-4">
+                <div className="editorial-panel min-h-[5.75rem] rounded-[1.25rem] p-4">
                   <p className="text-xs font-semibold text-muted-foreground">عدد الأدوار</p>
                   <p className="mt-2 text-xl font-bold text-foreground">{floorMapData.length}</p>
                 </div>
-                <div className="editorial-panel rounded-[1.25rem] p-4">
+                <div className="editorial-panel min-h-[5.75rem] rounded-[1.25rem] p-4">
                   <p className="text-xs font-semibold text-muted-foreground">الوحدات المتاحة</p>
                   <p className="mt-2 text-xl font-bold text-foreground">{availableUnits.length}</p>
                 </div>
-                <div className="editorial-panel rounded-[1.25rem] p-4">
+                <div className="editorial-panel min-h-[5.75rem] rounded-[1.25rem] p-4">
                   <p className="text-xs font-semibold text-muted-foreground">الوحدات المعروضة</p>
                   <p className="mt-2 text-xl font-bold text-foreground">{totalUnits}</p>
                 </div>
@@ -262,7 +262,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Map className="icon-shell h-12 w-12 p-3" />
                 <div>
                   <h3 className="text-2xl font-bold text-foreground">استكشاف أسرع قبل الزيارة</h3>
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">الخريطة هي الأداة الأساسية لفهم المول واتخاذ الخطوة التالية بثقة.</p>
+                    <p className="mt-2 max-w-[20rem] text-sm leading-7 text-muted-foreground md:text-base">الخريطة هي الأداة الأساسية لفهم المول واتخاذ الخطوة التالية بثقة.</p>
                 </div>
               </div>
             </div>
@@ -272,18 +272,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="page-section">
         <div className="container">
-          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-2 lg:items-center">
-            <div className="space-y-4 lg:max-w-[33rem]">
+           <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-2 lg:items-center">
+             <div className="space-y-4 lg:max-w-[31rem]">
               <p className="section-kicker">التأجير والوحدات</p>
               <h2 className="section-title">التأجير هنا قرار تجاري أوضح وأسرع.</h2>
               <p className="text-base leading-7 text-muted-foreground md:text-lg">الوحدات المعروضة هنا مرتبطة مباشرة ببيانات الخريطة نفسها، لتبدأ الاستفسار من مصدر واحد واضح.</p>
-              <div className="space-y-3">
+               <div className="space-y-2.5">
                 {[
                   "وحدات معروضة بحالة واضحة داخل الخريطة.",
                   "فهم أسرع لموقع الوحدة داخل الدور.",
                   "تحويل مباشر من الاستكشاف إلى الاستفسار التجاري.",
                 ].map((item) => (
-                  <div key={item} className="editorial-panel flex min-h-[3.75rem] items-center rounded-[1.25rem] px-4 py-3 text-sm text-foreground/90 md:text-base">{item}</div>
+                   <div key={item} className="editorial-panel flex min-h-[3.5rem] items-center rounded-[1.25rem] px-4 py-3 text-sm text-foreground/90 md:text-base">{item}</div>
                 ))}
               </div>
               <div className="flex flex-wrap gap-3 pt-1">
@@ -295,8 +295,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <div className="image-shell aspect-[4/3] overflow-hidden rounded-[2rem] border border-border/80 bg-card">
                 <img src={facadeImage} alt="واجهة مول البستان الخارجية" className="h-full w-full object-cover object-center" loading="lazy" />
               </div>
-              <div className="grid gap-3 sm:grid-cols-2">
-                 {availableUnits.slice(0, 4).map((unit) => (
+               <div className="grid gap-3 sm:grid-cols-2">
+                  {homepageLeasingUnits.map((unit) => (
                    <div key={unit.unit_id} className="editorial-panel flex min-h-[5.25rem] flex-col justify-center rounded-[1.25rem] p-4">
                      <p className="text-base font-bold text-foreground">وحدة {unit.unit_id}</p>
                      <p className="mt-1 text-sm text-muted-foreground">{floorLabels[unit.floor_id]} • {unit.area_m2} م²</p>
@@ -311,13 +311,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="section-soft page-section">
         <div className="container">
-          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-[0.96fr_1.04fr] lg:items-start">
+          <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-[0.96fr_1.04fr] lg:items-start">
             <div className="space-y-4 lg:order-2">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
               <div className="space-y-3">
                 {launchSteps.map((item, index) => (
-                  <div key={item.title} className="editorial-panel min-h-[7.5rem] rounded-[1.4rem] p-4 md:p-5">
+                  <div key={item.title} className="editorial-panel min-h-[7.25rem] rounded-[1.4rem] p-4 md:p-5">
                     <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
                     <p className="mt-2 text-lg font-bold text-foreground">{item.title}</p>
                     <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
@@ -348,21 +348,21 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section id="marketplace" className="page-section">
         <div className="container">
-          <div className="brand-shell page-shell rounded-[2rem]">
-            <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+             <div className="brand-shell page-shell rounded-[2rem]">
+             <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <p className="section-kicker">الامتداد الرقمي</p>
                 <h2 className="section-title">مرحلة تالية تربط الزائر بالمتاجر بعد الزيارة.</h2>
                 <p className="mt-3 max-w-[34rem] text-base leading-7 text-muted-foreground md:text-lg">
                    السوق الرقمي هو المرحلة التالية للتجربة، ليبقي العلاقة مع المتاجر أسهل بعد الزيارة.
                 </p>
-                <div className="mt-5 grid gap-3 md:grid-cols-3">
+                 <div className="mt-4 grid gap-3 md:grid-cols-3">
                   {[
                     "ابدأ من الخريطة.",
                     "اختر المتاجر الأقرب لك.",
                     "ثم تابعها رقميًا لاحقًا.",
                   ].map((item, index) => (
-                    <div key={item} className="editorial-panel flex min-h-[6rem] items-center rounded-[1.3rem] p-4">
+                     <div key={item} className="editorial-panel flex min-h-[5.8rem] items-center rounded-[1.3rem] p-4">
                       <div>
                         <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
                         <p className="mt-2 text-sm font-semibold text-foreground md:text-base">{item}</p>
@@ -371,7 +371,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   ))}
                 </div>
               </div>
-              <div className="editorial-panel rounded-[1.6rem] p-5 md:p-6 lg:mr-auto lg:max-w-[20rem]">
+               <div className="editorial-panel rounded-[1.6rem] p-5 md:p-6 lg:mr-auto lg:max-w-[18.5rem]">
                 <Store className="icon-shell h-12 w-12 p-3" />
                 <h3 className="mt-4 text-2xl font-bold text-foreground">واجهة رقمية من نفس الهوية</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">مسار مختصر يبدأ من المتاجر الحالية ويتوسع لاحقًا دون تغيير روح المشروع.</p>

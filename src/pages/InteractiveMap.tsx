@@ -15,6 +15,7 @@ import {
   exploreNeeds,
   floorLabelAr,
   floorMapData,
+  homepageLeasingUnits,
   needCategoryLabels,
   type FloorId,
   type MapUnitDefinition,
@@ -146,8 +147,8 @@ const InteractiveMap = () => {
     <MainLayout>
       <SEOHead title="دليل المول التفاعلي" titleEn="Interactive Directory" description="دليل تفاعلي معماري لمول البستان مع بحث وفلاتر ووحدات متاحة للتأجير." descriptionEn="Architectural interactive directory for Mall Elbostan with search, filters, and leasing units." breadcrumbs={[{ name: "الخريطة", url: "/map" }]} />
       <div className="container py-10 md:py-14 lg:py-[5.5rem]">
-        <div className="mb-6 section-shell page-shell grid gap-5 lg:grid-cols-[7fr_5fr] lg:items-center">
-          <div className="space-y-4">
+        <div className="mb-5 section-shell page-shell grid gap-4 lg:grid-cols-[7fr_5fr] lg:items-center">
+          <div className="space-y-3.5">
             <div className="chapter-shell pt-5">
               <h1 className="section-title">الدليل التفاعلي</h1>
               <p className="mt-3 max-w-[38.75rem] text-base leading-7 text-muted-foreground md:text-lg">ابدأ من الخريطة لتحديد الدور، فهم حالة الوحدة، والانتقال مباشرة إلى خطوة التأجير أو استكشاف المتاجر.</p>
@@ -170,6 +171,16 @@ const InteractiveMap = () => {
           <div className="editorial-panel rounded-[1.5rem] p-5 md:p-6">
             <h2 className="text-2xl font-bold text-foreground">ابدأ من الخريطة</h2>
             <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">فلترة حسب الحالة أو الفئة، ثم اختر الوحدة لتظهر بياناتها وإجراءاتها في اللوحة الجانبية مباشرة.</p>
+            <div className="mt-4 grid gap-2">
+              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3 text-sm">
+                <span className="text-foreground">وحدات هذا الدور</span>
+                <span className="font-semibold text-foreground">{floor.units.length}</span>
+              </div>
+              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3 text-sm">
+                <span className="text-orange">المتاح في هذا الدور</span>
+                <span className="font-semibold text-orange">{selectedFloorAvailableUnits}</span>
+              </div>
+            </div>
             <div className="mt-4 flex flex-wrap gap-3">
               <Button variant="default" className="h-[3.375rem] rounded-[1rem] px-6">أنت داخل الخريطة الآن</Button>
               <Link to="/leasing"><Button variant="outline-blue" className="h-[3.375rem] rounded-[1rem] px-6">انتقل إلى التأجير</Button></Link>
@@ -285,6 +296,26 @@ const InteractiveMap = () => {
               </button>
             ))}
           </div>
+          {!availableOnly && statusFilter === "all" && needFilter === "all" && searchTerm.trim().length === 0 ? (
+            <div className="mt-4 rounded-[1.25rem] border border-border bg-card p-4">
+              <p className="text-sm font-semibold text-foreground">نفس الوحدات المميزة على الصفحة الرئيسية</p>
+              <div className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                {homepageLeasingUnits.map((unit) => (
+                  <button
+                    key={`featured-${unit.unit_id}`}
+                    className="rounded-[1rem] border border-orange/25 px-4 py-3 text-right transition-colors hover:border-orange"
+                    onClick={() => {
+                      setSelectedFloor(unit.floor_id);
+                      setSelectedUnit(unit);
+                    }}
+                  >
+                    <p className="text-sm font-bold text-foreground">{unit.unit_id}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">{floorLabelAr[unit.floor_id]}</p>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
           {availableUnits.length === 0 ? <p className="mt-4 text-sm text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية على هذا الدور.</p> : null}
         </section>
         <Drawer open={isMobile && !!activeUnit} onOpenChange={(isOpen) => !isOpen && setSelectedUnit(null)}>
