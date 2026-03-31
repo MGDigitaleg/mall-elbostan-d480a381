@@ -4,7 +4,7 @@ import { MapPin, Store, Calendar, Sparkles, Building, Tag, HelpCircle, Zap } fro
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
