@@ -16,7 +16,7 @@ const Blog = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="المدونة" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." />
+      <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." descriptionEn="Latest news and articles about technology and Mall Elbostan." breadcrumbs={[{ name: "المدونة", url: "/blog" }]} />
       <div className="container py-20">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8">المدونة</h1>
         {isLoading ? <LoadingGrid /> : posts && posts.length > 0 ? (

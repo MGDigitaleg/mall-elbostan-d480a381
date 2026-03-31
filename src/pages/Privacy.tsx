@@ -3,7 +3,7 @@ import { SEOHead } from "@/components/SEOHead";
 
 const Privacy = () => (
   <MainLayout>
-    <SEOHead title="سياسة الخصوصية" description="سياسة الخصوصية لمول البستان." />
+    <SEOHead title="سياسة الخصوصية" titleEn="Privacy Policy" description="سياسة الخصوصية لمول البستان." descriptionEn="Mall Elbostan privacy policy." breadcrumbs={[{ name: "سياسة الخصوصية", url: "/privacy" }]} />
     <div className="container py-20 max-w-3xl">
       <h1 className="text-4xl font-bold text-gradient-blue mb-8">سياسة الخصوصية</h1>
       <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">

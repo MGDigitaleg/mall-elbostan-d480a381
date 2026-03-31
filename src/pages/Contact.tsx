@@ -38,7 +38,7 @@ const Contact = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="تواصل معنا" description="تواصل مع فريق مول البستان - استفسارات، شراكات، إعلام." />
+      <SEOHead title="تواصل معنا" titleEn="Contact Us" description="تواصل مع فريق مول البستان - استفسارات، شراكات، إعلام." descriptionEn="Get in touch with Mall Elbostan team." breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]} />
       <div className="container py-20">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8 text-center">تواصل معنا</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">

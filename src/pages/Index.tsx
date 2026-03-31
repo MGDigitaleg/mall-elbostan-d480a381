@@ -4,7 +4,7 @@ import { MapPin, Store, Calendar, Sparkles, Building, Tag, HelpCircle, Zap } fro
 import { Button } from "@/components/ui/button";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -63,7 +63,10 @@ const Index = () => {
     <MainLayout>
       <SEOHead
         title="الرئيسية"
+        titleEn="Home"
         description="مول البستان - وجهة التكنولوجيا الأولى في القاهرة الجديدة. أكثر من 150 متجراً للتكنولوجيا والإلكترونيات. افتتاح 1 مايو 2026."
+        descriptionEn="Mall Elbostan - Egypt's premier technology mall in New Cairo. 150+ stores. Grand opening May 1, 2026."
+        jsonLd={[organizationLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
       />
 
       {/* Hero Section */}

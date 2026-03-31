@@ -33,7 +33,7 @@ const Stores = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="دليل المتاجر" description="تصفح جميع المتاجر في مول البستان - أجهزة، هواتف، جيمنج، وأكثر." />
+      <SEOHead title="دليل المتاجر" titleEn="Stores Directory" description="تصفح جميع المتاجر في مول البستان - أجهزة، هواتف، جيمنج، وأكثر." descriptionEn="Browse all stores at Mall Elbostan - phones, computers, gaming, and more." breadcrumbs={[{ name: "المتاجر", url: "/stores" }]} />
       <div className="container py-20">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8">دليل المتاجر</h1>
 

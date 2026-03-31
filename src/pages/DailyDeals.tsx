@@ -23,7 +23,7 @@ const DailyDeals = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="العروض اليومية" description="أحدث العروض والخصومات في مول البستان - عروض يومية حصرية على التكنولوجيا والإلكترونيات." />
+      <SEOHead title="العروض اليومية" titleEn="Daily Deals" description="أحدث العروض والخصومات في مول البستان - عروض يومية حصرية على التكنولوجيا والإلكترونيات." descriptionEn="Latest deals and discounts at Mall Elbostan." breadcrumbs={[{ name: "العروض اليومية", url: "/daily-deals" }]} />
       <div className="container py-20">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8 text-center">العروض اليومية</h1>
 

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildFaqLd } from "@/components/SEOHead";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQ = () => {
@@ -17,7 +17,7 @@ const FAQ = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="الأسئلة الشائعة" description="إجابات على أكثر الأسئلة شيوعاً حول مول البستان." />
+      <SEOHead title="الأسئلة الشائعة" titleEn="FAQ" description="إجابات على أكثر الأسئلة شيوعاً حول مول البستان." descriptionEn="Frequently asked questions about Mall Elbostan." breadcrumbs={[{ name: "الأسئلة الشائعة", url: "/faq" }]} jsonLd={faqs && faqs.length > 0 ? buildFaqLd(faqs) : undefined} />
       <div className="container py-20 max-w-3xl">
         <h1 className="text-4xl font-bold text-gradient-blue mb-8 text-center">الأسئلة الشائعة</h1>
         {categories.length > 0 ? categories.map((cat) => (

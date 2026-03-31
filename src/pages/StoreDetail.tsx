@@ -23,7 +23,7 @@ const StoreDetail = () => {
 
   return (
     <MainLayout>
-      <SEOHead title={store.name_ar} description={store.short_description_ar ?? `${store.name_ar} في مول البستان`} />
+      <SEOHead title={store.name_ar} description={store.short_description_ar ?? `${store.name_ar} في مول البستان`} breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]} />
       <div className="container py-20 max-w-4xl">
         <Link to="/stores" className="text-primary text-sm flex items-center gap-1 mb-6 hover:underline">
           <ArrowRight className="w-4 h-4" /> العودة لدليل المتاجر

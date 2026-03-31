@@ -50,7 +50,7 @@ const Leasing = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="التأجير" description="احجز وحدتك التجارية في مول البستان - مساحات تجارية بأسعار تنافسية في القاهرة الجديدة." />
+      <SEOHead title="التأجير" titleEn="Leasing" description="احجز وحدتك التجارية في مول البستان - مساحات تجارية بأسعار تنافسية في القاهرة الجديدة." descriptionEn="Lease your commercial space at Mall Elbostan - competitive prices in New Cairo." breadcrumbs={[{ name: "التأجير", url: "/leasing" }]} />
       <div className="container py-20">
         <div className="text-center mb-12">
           <Building className="w-16 h-16 text-orange mx-auto mb-4" />
