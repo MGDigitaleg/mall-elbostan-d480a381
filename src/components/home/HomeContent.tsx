@@ -65,6 +65,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   const floorLabels = Object.fromEntries(floorMapData.map((floor) => [floor.id, floor.label]));
   const faqItems = (faqs.length > 0 ? faqs : fallbackFaqs).slice(0, 6);
   const launchEvent = upcomingEvents[0] ?? null;
+  const heroFacts = [
+    { label: "عدد الأدوار", value: `${floorMapData.length}` },
+    { label: "الوحدات المتاحة", value: `${availableUnits.length}` },
+    { label: "الفئات الرئيسية", value: `${categoryStories.length}` },
+  ];
 
   return (
     <>
@@ -72,7 +77,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell grid min-h-[auto] gap-5 overflow-hidden rounded-[2rem] px-4 py-5 md:px-6 md:py-6 lg:min-h-[45rem] lg:grid-cols-[5fr_7fr] lg:gap-6 lg:px-8 lg:py-8">
+          <div className="brand-shell page-shell grid min-h-[auto] gap-5 overflow-hidden rounded-[2rem] lg:min-h-[45rem] lg:grid-cols-[5fr_7fr] lg:gap-6">
             <div className="space-y-5 lg:flex lg:flex-col lg:justify-center">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-4">افتتاح مايو 2026 • مول تقني في القاهرة الجديدة</div>
@@ -107,11 +112,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <CountdownTimer />
                 </div>
                 <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {[
-                    { label: "الدور المعروض", value: "3 أدوار" },
-                    { label: "الوحدات الحالية", value: `${totalUnits} وحدة` },
-                    { label: "المتاجر المميزة", value: `${featuredStores.length} عناصر` },
-                  ].map((item) => (
+                  {heroFacts.map((item) => (
                     <div key={item.label} className="editorial-panel rounded-[1.25rem] p-4">
                       <p className="text-xs font-semibold text-muted-foreground">{item.label}</p>
                       <p className="mt-1.5 text-base font-bold text-foreground">{item.value}</p>
@@ -131,7 +132,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </div>
                 <div className="section-shell absolute bottom-4 right-4 w-[28%] min-w-[9.5rem] overflow-hidden rounded-[1.5rem] p-2 md:bottom-6 md:right-6">
                   <div className="image-shell aspect-[3/4] overflow-hidden rounded-[1.15rem]">
-                    <img src={facadeImage} alt="لقطة داعمة لهوية مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
+                    <img src={interiorImage} alt="مشهد داخلي داعم لتجربة مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -140,7 +141,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20">
+      <section className="page-section">
         <div className="container">
           <div className="grid gap-5 lg:grid-cols-[1.02fr_0.98fr] lg:items-start">
             <div className="space-y-5 lg:order-2">
@@ -172,9 +173,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft py-12 md:py-16 lg:py-20">
+      <section className="section-soft page-section">
         <div className="container">
-          <div className="section-shell grid gap-5 overflow-hidden px-4 py-5 md:px-6 md:py-6 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:px-8 lg:py-8">
+          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
             <div className="order-2 space-y-4 lg:order-1 lg:max-w-[32rem]">
               <p className="section-kicker">داخل المول</p>
               <h2 className="section-title">تنظيم معماري يعطي الزيارة مسارًا أوضح.</h2>
@@ -206,7 +207,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20">
+      <section className="page-section">
         <div className="container">
           <div className="chapter-shell mb-7 max-w-[36rem] pt-5">
             <p className="section-kicker">الفئات الرئيسية</p>
@@ -228,9 +229,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft py-12 md:py-16 lg:py-20">
+      <section className="section-soft page-section">
         <div className="container">
-          <div className="section-shell grid gap-5 overflow-hidden px-4 py-5 md:px-6 md:py-6 lg:grid-cols-[1.04fr_0.96fr] lg:items-center lg:px-8 lg:py-8">
+          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-[1.04fr_0.96fr] lg:items-center">
             <div className="space-y-4 lg:max-w-[33rem]">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو نقطة البداية داخل المول.</h2>
@@ -268,9 +269,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="py-12 md:py-16 lg:py-20">
+      <section className="page-section">
         <div className="container">
-          <div className="section-shell grid gap-5 overflow-hidden px-4 py-5 md:px-6 md:py-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-8">
+          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-2 lg:items-center">
             <div className="space-y-4 lg:max-w-[33rem]">
               <p className="section-kicker">التأجير والوحدات</p>
               <h2 className="section-title">التأجير هنا قرار تجاري أوضح وأسرع.</h2>
@@ -306,9 +307,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="section-soft py-12 md:py-16 lg:py-20">
+      <section className="section-soft page-section">
         <div className="container">
-          <div className="section-shell grid gap-5 overflow-hidden px-4 py-5 md:px-6 md:py-6 lg:grid-cols-[0.96fr_1.04fr] lg:items-start lg:px-8 lg:py-8">
+          <div className="section-shell page-shell grid gap-5 overflow-hidden lg:grid-cols-[0.96fr_1.04fr] lg:items-start">
             <div className="space-y-4 lg:order-2">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
@@ -343,9 +344,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section id="marketplace" className="py-12 md:py-16 lg:py-20">
+      <section id="marketplace" className="page-section">
         <div className="container">
-          <div className="brand-shell rounded-[2rem] p-5 md:p-6 lg:p-8">
+          <div className="brand-shell page-shell rounded-[2rem]">
             <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <p className="section-kicker">الامتداد الرقمي</p>
@@ -379,7 +380,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="pb-12 pt-12 md:pb-16 md:pt-16 lg:pb-20 lg:pt-20">
+      <section className="page-section">
         <div className="container max-w-5xl">
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div className="chapter-shell pt-5">
