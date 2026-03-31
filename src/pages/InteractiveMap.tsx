@@ -8,7 +8,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FloorPlanSvg } from "@/components/map/FloorPlanSvg";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { exploreNeeds, floorLabelAr, floorMapData, type FloorId, type MapUnitDefinition, type UnitStatus } from "@/lib/floorMapData";
+import {
+  applyTenantImportRows,
+  expectedTenantImportColumns,
+  exploreNeeds,
+  floorLabelAr,
+  floorMapData,
+  type FloorId,
+  type MapUnitDefinition,
+  type TenantImportRow,
+  type UnitStatus,
+} from "@/lib/floorMapData";
 import { Link } from "react-router-dom";
 
 const InteractiveMap = () => {
@@ -19,9 +29,16 @@ const InteractiveMap = () => {
   const [needFilter, setNeedFilter] = useState<"all" | (typeof exploreNeeds)[number]>("all");
   const [selectedUnit, setSelectedUnit] = useState<MapUnitDefinition | null>(null);
 
+  const tenantImportRows: TenantImportRow[] = [];
+
+  const mappedFloors = useMemo(
+    () => applyTenantImportRows(floorMapData, tenantImportRows),
+    [tenantImportRows],
+  );
+
   const floor = useMemo(
-    () => floorMapData.find((item) => item.id === selectedFloor) ?? floorMapData[0],
-    [selectedFloor],
+    () => mappedFloors.find((item) => item.id === selectedFloor) ?? mappedFloors[0],
+    [mappedFloors, selectedFloor],
   );
 
   const filteredUnits = useMemo(() => {
@@ -68,6 +85,9 @@ const InteractiveMap = () => {
           <p className="mt-1 text-base font-semibold text-foreground">{unit.category}</p>
         </div>
       </div>
+      {unit.status === "occupied" && !unit.store_name_ar ? (
+        <p className="leading-7">اسم المستأجر وشعاره يظهران بعد استيراد ملف المستأجرين المعتمد.</p>
+      ) : null}
       <p className="leading-7">{unit.description_ar}</p>
       <div className="flex flex-wrap gap-2">
         {unit.status === "available" ? (
@@ -92,7 +112,7 @@ const InteractiveMap = () => {
         </div>
 
         <div className="mb-5 flex flex-wrap gap-2 md:gap-3">
-          {floorMapData.map((item) => (
+          {mappedFloors.map((item) => (
             <Button
               key={item.id}
               variant={selectedFloor === item.id ? "default" : "outline"}
@@ -179,6 +199,21 @@ const InteractiveMap = () => {
             ))}
           </div>
           {availableUnits.length === 0 ? <p className="mt-4 text-sm text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p> : null}
+        </section>
+
+        <section className="mt-6 section-shell rounded-[1.5rem] p-4 md:p-5">
+          <h2 className="text-xl font-bold text-foreground">تنسيق استيراد المستأجرين</h2>
+          <p className="mt-2 text-sm text-muted-foreground">ارفع الملف بنفس الأعمدة ليتم تطبيق الأسماء والشعارات تلقائيًا داخل حدود كل وحدة دون تغيير شكل الخريطة.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {expectedTenantImportColumns.map((column) => (
+              <Badge key={column} variant="outline" className="rounded-full px-3 py-1 text-xs">
+                {column}
+              </Badge>
+            ))}
+          </div>
+          <a href="/tenant-import-template.csv" className="mt-4 inline-flex">
+            <Button variant="outline-blue" size="sm">تحميل قالب CSV</Button>
+          </a>
         </section>
 
         <Drawer open={isMobile && !!activeUnit} onOpenChange={(isOpen) => !isOpen && setSelectedUnit(null)}>
