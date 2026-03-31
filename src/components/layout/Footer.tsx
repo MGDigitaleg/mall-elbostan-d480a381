@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const footerLinks = [
   {
@@ -9,6 +10,7 @@ const footerLinks = [
       { label: "المتاجر", path: "/stores" },
       { label: "الخريطة", path: "/map" },
       { label: "يوم الافتتاح", path: "/opening-day" },
+      { label: "السوق قريباً", path: "/#marketplace" },
     ],
   },
   {
@@ -34,13 +36,13 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="container py-12">
+    <footer className="border-t border-border/70 bg-card/70 backdrop-blur-sm">
+      <div className="container py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold text-gradient-blue mb-3">مول البستان</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              وجهتك الأولى للتكنولوجيا في مصر. أحدث المنتجات وأفضل العلامات التجارية تحت سقف واحد.
+            <BrandLogo imageClassName="h-12" subtitle="Mall Elbostan" />
+            <p className="text-muted-foreground text-sm leading-relaxed mt-4 max-w-xs">
+              مول تقني حديث يربط بين المتاجر، الخريطة التفاعلية، فرص التأجير، والحملة الافتتاحية ضمن تجربة رقمية واضحة ومقنعة.
             </p>
           </div>
 
@@ -63,7 +65,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border text-center text-xs text-muted-foreground">
+        <div className="mt-10 pt-6 border-t border-border/70 text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.
         </div>
       </div>

@@ -55,12 +55,12 @@ const Leasing = () => {
         <div className="text-center mb-12">
           <Building className="w-16 h-16 text-orange mx-auto mb-4" />
           <h1 className="text-4xl font-bold text-gradient-blue mb-4">التأجير</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">انضم إلى أكبر تجمع تقني في القاهرة الجديدة. مساحات تجارية متنوعة بأسعار تنافسية وموقع استراتيجي في قلب مدينتي.</p>
+          <p className="text-muted-foreground max-w-2xl mx-auto leading-8">صفحة مخصصة للعلامات والأنشطة التي تبحث عن حضور داخل مول تقني حديث، مع رحلة واضحة للاستفسار واستعراض الوحدات المتاحة.</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Form */}
-          <div className="card-premium p-8">
+          <div className="surface-panel rounded-[1.75rem] p-8">
             <h2 className="text-2xl font-bold mb-6">استفسر الآن</h2>
             {submitted ? (
               <div className="text-center py-10">
@@ -88,7 +88,7 @@ const Leasing = () => {
             {availableUnits && availableUnits.length > 0 ? (
               <div className="space-y-4">
                 {availableUnits.map((unit) => (
-                  <div key={unit.id} className="card-premium p-4 border-orange/30">
+                  <div key={unit.id} className="surface-panel rounded-2xl p-4 border border-orange/25">
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-bold text-orange">وحدة {unit.unit_code}</h3>
