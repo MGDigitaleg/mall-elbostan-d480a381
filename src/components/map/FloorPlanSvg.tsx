@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import type { FloorId, MapUnitDefinition, UnitStatus } from "@/lib/floorMapData";
 
 type FloorPlanSvgProps = {
+  className?: string;
   floorId: FloorId;
   units: MapUnitDefinition[];
   selectedUnitId: string | null;
@@ -22,9 +23,9 @@ const floorShellById: Record<FloorId, string> = {
   second: "130,120 940,120 1020,220 1020,840 900,980 300,980 120,840 120,220",
 };
 
-export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onSelectUnit }: FloorPlanSvgProps) {
+export function FloorPlanSvg({ className, floorId, units, selectedUnitId, mutedUnitIds, onSelectUnit }: FloorPlanSvgProps) {
   return (
-    <div className="surface-panel min-h-[420px] rounded-[1.75rem] p-4 md:min-h-[620px] md:p-5 lg:min-h-[760px] lg:p-6">
+    <div className={cn("surface-panel min-h-[420px] rounded-[1.75rem] p-4 md:min-h-[620px] md:p-5 lg:min-h-[760px] lg:p-6", className)}>
       <svg viewBox="0 0 1100 1100" className="h-full w-full" role="img" aria-label="خريطة الطابق التفاعلية">
         <g id="floor-shell">
           <polygon points={floorShellById[floorId]} className="fill-background stroke-border stroke-[2]" />

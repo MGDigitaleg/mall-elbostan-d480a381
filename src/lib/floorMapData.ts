@@ -291,21 +291,21 @@ export const floorLabelAr: Record<FloorId, string> = {
 };
 
 export const needCategoryLabels: Record<NeedCategory, string> = {
-  Accessories: "الهواتف والإكسسوارات",
-  Laptops: "الكمبيوتر والأجهزة",
-  Components: "الألعاب والترفيه",
-  Networking: "الطباعة والتصوير",
-  Maintenance: "الصيانة والدعم الفني",
-  "Security Systems": "الشبكات والأنظمة الأمنية",
+  Accessories: "الإكسسوارات والملحقات",
+  Laptops: "أجهزة الكمبيوتر",
+  Components: "المكوّنات والتجميع",
+  Networking: "الشبكات والطباعة",
+  Maintenance: "الصيانة والدعم",
+  "Security Systems": "الأنظمة الأمنية",
 };
 
 export const needCategoryDescriptions: Record<NeedCategory, string> = {
-  Accessories: "هواتف وإكسسوارات أساسية ضمن مسار سريع وواضح.",
-  Laptops: "أجهزة وحلول موجهة للدراسة والعمل والاستخدام اليومي.",
-  Components: "ألعاب وتجهيزات أداء داخل فئة واضحة وغير متداخلة.",
-  Networking: "الطباعة والتصوير ضمن احتياج عملي مستقل وواضح.",
-  Maintenance: "صيانة ودعم فني يختصران وقت البحث واتخاذ القرار.",
-  "Security Systems": "شبكات وأنظمة أمنية ضمن تصنيف مهني مباشر.",
+  Accessories: "ملحقات واستخدامات يومية ضمن مسار سريع وواضح.",
+  Laptops: "أجهزة موجهة للدراسة والعمل والاحتياج العملي المباشر.",
+  Components: "مكوّنات وتجميعات أداء ضمن تصنيف تقني واضح.",
+  Networking: "حلول شبكات وطباعة لاحتياج مهني منفصل وغير متداخل.",
+  Maintenance: "خدمات صيانة ودعم تساعد على القرار والإنجاز بسرعة.",
+  "Security Systems": "أنظمة أمنية وحلول مراقبة ضمن فئة مستقلة ومباشرة.",
 };
 
 export const exploreNeeds: NeedCategory[] = categories;
