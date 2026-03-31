@@ -100,13 +100,13 @@ const Index = () => {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex flex-wrap gap-4 justify-center mt-10">
             <Link to="/spin-win">
-              <Button variant="cta" size="lg" className="text-lg px-8">🎡 أدر واربح</Button>
+              <Button variant="cta" size="lg" className="text-lg px-8">أدر واربح</Button>
             </Link>
             <Link to="/map">
-              <Button variant="outline-blue" size="lg" className="text-lg px-8">🗺️ تصفح الخريطة</Button>
+              <Button variant="outline-blue" size="lg" className="text-lg px-8">تصفح الخريطة</Button>
             </Link>
             <Link to="/leasing">
-              <Button variant="orange" size="lg" className="text-lg px-8">🏢 احجز وحدتك</Button>
+              <Button variant="orange" size="lg" className="text-lg px-8">احجز وحدتك</Button>
             </Link>
           </motion.div>
         </div>
