@@ -20,12 +20,12 @@ const FAQ = () => {
     <MainLayout>
       <SEOHead title="الأسئلة الشائعة" titleEn="FAQ" description="إجابات على أكثر الأسئلة شيوعاً حول مول البستان." descriptionEn="Frequently asked questions about Mall Elbostan." breadcrumbs={[{ name: "الأسئلة الشائعة", url: "/faq" }]} jsonLd={faqs && faqs.length > 0 ? buildFaqLd(faqs) : undefined} />
       <div className="container max-w-5xl py-8 md:py-12">
-        <div className="brand-shell page-halo mb-10 rounded-[2.5rem] px-6 py-8 md:px-8 md:py-10">
+        <div className="brand-shell page-halo mb-10 rounded-[2.4rem] px-5 py-6 md:px-8 md:py-8">
           <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
             <div>
               <p className="section-kicker">FAQ</p>
-              <h1 className="mb-4 text-4xl font-bold text-foreground md:text-[3.4rem]">إجابات واضحة على أهم الأسئلة قبل الافتتاح</h1>
-              <p className="max-w-2xl leading-8 text-muted-foreground">الهدف هنا إنك تلاقي الإجابة بسرعة وبأسلوب بسيط ومحترم، سواء سؤالك عن المول، الافتتاح، المتاجر، أو الخطوات اللي تهمك.</p>
+              <h1 className="mb-4 text-4xl font-bold text-foreground md:text-[3.2rem]">إجابات واضحة على أهم الأسئلة قبل الافتتاح</h1>
+              <p className="max-w-2xl leading-7 text-muted-foreground">إجابات مختصرة تساعدك تصل للمعلومة بسرعة وبأسلوب واضح.</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               {[

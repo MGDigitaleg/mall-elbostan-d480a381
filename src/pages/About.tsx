@@ -13,18 +13,17 @@ const About = () => (
 
     <section className="pb-16">
       <div className="container">
-        <div className="brand-shell page-halo grid gap-8 overflow-hidden rounded-[2.7rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
-          <div className="space-y-6">
+        <div className="brand-shell page-halo grid gap-7 overflow-hidden rounded-[2.5rem] px-5 py-6 md:px-8 md:py-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
+          <div className="space-y-5">
             <div className="eyebrow-chip">عن المشروع</div>
-            <h1 className="max-w-3xl text-4xl font-bold leading-tight text-foreground md:text-[3.6rem]">مول البستان بيتبني كعلامة تقنية مصرية شكلها راقٍ وحضورها واضح</h1>
-            <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-              الفكرة مش مجرد مكان يجمع متاجر تقنية. الفكرة إن يبقى فيه مشروع له شخصية، لغة، وتجربة محترمة من أول الواجهة لحد طريقة
-              الاستكشاف جوه الموقع والمول نفسه.
+            <h1 className="max-w-3xl text-4xl font-bold leading-tight text-foreground md:text-[3.3rem]">مول البستان علامة تقنية مصرية بتجربة أوضح وحضور أهدأ</h1>
+            <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+              المشروع لا يقدّم مجرد مجموعة متاجر، بل وجهة تقنية بهوية واضحة وتجربة أسهل في الاستكشاف.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { icon: Layers3, title: "هوية معمارية واضحة", desc: "واجهة وشكل داخلي يخلّوا صورة المشروع ثابتة في ذهن الزائر من أول لحظة." },
-                { icon: MapPin, title: "موقع يخدم شرق القاهرة", desc: "قربه من القاهرة الجديدة ومدينتي والرحاب يديه قيمة فعلية للحركة والزيارة." },
+                { icon: Layers3, title: "هوية معمارية واضحة", desc: "واجهة ومشهد داخلي يثبتان شخصية المشروع." },
+                { icon: MapPin, title: "موقع يخدم شرق القاهرة", desc: "قريب من مناطق الحركة والطلب الأساسية." },
               ].map((item) => (
                 <div key={item.title} className="editorial-panel rounded-[1.5rem] p-5">
                   <item.icon className="icon-shell mb-4 h-11 w-11 p-2.5" />
@@ -53,12 +52,12 @@ const About = () => (
       <div className="mb-16 grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
         <div className="section-shell p-6 md:p-8">
           <p className="section-kicker">رؤية المول</p>
-          <h2 className="text-2xl font-bold text-foreground md:text-3xl">تجربة تقنية بطابع تجاري أهدى وأقوى</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">رؤية المشروع ماشية على فكرة بسيطة: المكان لازم يبقى مقنع للزائر، ومفيد تجاريًا للعلامات، وقابل يتوسع رقميًا بعد كده.</p>
+          <h2 className="text-2xl font-bold text-foreground md:text-3xl">تجربة تقنية أوضح للزائر والعلامة</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">المكان مصمم ليكون مقنعًا للزائر ومفيدًا تجاريًا للعلامات من البداية.</p>
         </div>
         <div className="space-y-6 text-foreground/90 leading-relaxed">
-          <p className="text-lg">مول البستان بيتقدّم بشكل يركّز على احتياجات جمهور التقنية فعلاً، من الزائر اللي بيدور على تجربة واضحة، لحد النشاط اللي محتاج مكان حضوره فيه باين ومحترم.</p>
-          <p>الهدف هو إن التجربة على الأرض تبقى منظمة وسهلة، والهوية البصرية واللغوية تبقى على نفس المستوى، وبعدها ييجي الامتداد الرقمي كخطوة منطقية ومفهومة.</p>
+          <p className="text-lg">مول البستان يركّز على جمهور التقنية بتجربة مرتبة وواضحة، من أول النظرة إلى سهولة الوصول للمعلومة.</p>
+          <p>الهدف أن تكون التجربة على الأرض والموقع بنفس الدرجة من الوضوح والاتساق.</p>
         </div>
       </div>
 
@@ -71,16 +70,16 @@ const About = () => (
         <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="h-[360px] w-full rounded-[1.5rem] object-cover md:h-[460px]" />
         <div className="image-wash absolute inset-3 rounded-[1.5rem]" />
         <div className="glass absolute bottom-8 right-8 max-w-md rounded-[1.4rem] p-5">
-          <p className="mb-1 text-xl font-bold text-foreground">من جوه كمان، المشروع شكله يدي ثقة</p>
-          <p className="text-sm leading-7 text-muted-foreground">الأتريوم المتعدد الطوابق بيدّي إحساس أوضح بالحركة والعرض والوجود التجاري، وده جزء أساسي من قوة العلامة.</p>
+          <p className="mb-1 text-xl font-bold text-foreground">المشهد الداخلي يعزّز ثقة التجربة</p>
+          <p className="text-sm leading-7 text-muted-foreground">تنظيم بصري يدعم الحركة والعرض ويعكس حضورًا تجاريًا أكثر نضجًا.</p>
         </div>
       </motion.div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {[
-          { icon: Store, title: "فئات ومتاجر مختارة", desc: "تنظيم مدروس يسهّل على الزائر يلاقي اللي محتاجه بسرعة وبصورة أرقى." },
-          { icon: Sparkles, title: "افتتاح يبني الترقب", desc: "حملة إطلاق تخلي الناس تتابع المشروع بدافع حقيقي، مش مجرد إعلان عابر." },
-          { icon: MapPin, title: "قيمة مكانية واضحة", desc: "الموقع يخدم مناطق الحركة والطلب في شرق القاهرة ويقوّي جدوى الزيارة والوجود التجاري." },
+          { icon: Store, title: "فئات ومتاجر مختارة", desc: "تنظيم مدروس يسهّل الوصول للفئة المناسبة." },
+          { icon: Sparkles, title: "افتتاح يبني الترقب", desc: "حملة إطلاق مختصرة وواضحة تشجع على المتابعة." },
+          { icon: MapPin, title: "قيمة مكانية واضحة", desc: "الموقع يدعم الزيارة والحضور التجاري في شرق القاهرة." },
         ].map((item) => (
           <div key={item.title} className="section-shell p-6">
             <item.icon className="icon-shell mb-4 h-11 w-11 p-2.5" />

@@ -23,16 +23,16 @@ const OpeningDay = () => {
     <MainLayout>
       <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تابع تفاصيل يوم افتتاح مول البستان من الفعاليات للجوائز وخطة الزيارة." descriptionEn="Follow Mall Elbostan opening day details, from events to rewards and visit planning." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
       <div className="container py-8 md:py-12">
-        <section className="brand-shell page-halo mb-14 grid gap-8 overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
+        <section className="brand-shell page-halo mb-14 grid gap-7 overflow-hidden rounded-[2.5rem] px-5 py-6 md:px-8 md:py-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
           <div>
             <div className="eyebrow-chip mb-4">
               <Calendar className="h-4 w-4 text-primary" />
               برنامج الإطلاق والعد التنازلي
             </div>
-            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.5rem]">يوم الافتتاح متقدّم كرحلة واضحة من أول الترقب لحد لحظة الحضور</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">الصفحة دي بتجمع لك صورة يوم الافتتاح بشكل مرتب ومباشر: إمتى، إيه اللي هيحصل، وإزاي تشارك وتستفيد من الجوائز والأنشطة من غير زحمة أو لخبطة.</p>
+            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">يوم الافتتاح بخطة واضحة من الترقب إلى الحضور</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على الموعد، الفعاليات، وخطوات المشاركة في الجوائز بصورة مختصرة وواضحة.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {["عد تنازلي للإطلاق", "فعاليات ومشاركات مرتقبة", "جوائز مرتبطة بالحضور الفعلي"].map((item) => (
+              {["عد تنازلي للإطلاق", "فعاليات مرتقبة", "جوائز مرتبطة بالحضور"].map((item) => (
                 <div key={item} className="editorial-panel rounded-[1.4rem] p-4 text-sm font-semibold text-foreground">{item}</div>
               ))}
             </div>
@@ -45,10 +45,10 @@ const OpeningDay = () => {
 
         <section className="mb-16">
           <div className="mb-8 grid gap-4 md:grid-cols-3">
-            {[
-              "شوف الفعاليات بدري ورتّب زيارتك على أساسها.",
-              "ادخل الجوائز واحتفظ بالنتيجة لو احتجتها يوم الافتتاح.",
-              "تابع الصفحة علشان تعرف البرنامج النهائي أول بأول.",
+              {[
+                "راجع الفعاليات وحدد زيارتك.",
+                "شارك في الجوائز واحتفظ بالنتيجة.",
+                "تابع الصفحة لمعرفة البرنامج النهائي.",
             ].map((item, index) => (
               <div key={item} className="section-shell p-5">
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">0{index + 1}</p>
@@ -87,7 +87,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف هتنزل قريب</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف ستتوفر قريبًا</div>}
         </section>
 
         <section className="mb-16">
@@ -102,12 +102,12 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل مسابقات الألعاب هتنزل قريب</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل مسابقات الألعاب ستتوفر قريبًا</div>}
         </section>
 
         <section>
           <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Award className="h-6 w-6 text-primary" /> الرعاة</h2>
-          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة هتتحدث قريب</div>
+          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة ستتحدث قريبًا</div>
         </section>
       </div>
     </MainLayout>
