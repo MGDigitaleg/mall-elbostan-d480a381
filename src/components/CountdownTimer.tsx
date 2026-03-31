@@ -9,13 +9,13 @@ interface CountdownBlockProps {
 
 function CountdownBlock({ value, label }: CountdownBlockProps) {
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg bg-secondary border border-border flex items-center justify-center">
-        <span className="text-2xl md:text-3xl font-bold text-primary font-poppins">
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex h-[5.25rem] w-[4.75rem] items-center justify-center rounded-[1.125rem] border border-border bg-card md:h-[5.75rem] md:w-[5.25rem]">
+        <span className="text-2xl md:text-[2rem] font-bold text-primary font-poppins">
           {String(value).padStart(2, "0")}
         </span>
       </div>
-      <span className="text-xs md:text-sm text-muted-foreground mt-2">{label}</span>
+      <span className="text-xs md:text-sm text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -32,7 +32,7 @@ export function CountdownTimer() {
   }
 
   return (
-    <div className="flex gap-3 md:gap-4 justify-center" dir="ltr">
+    <div className="flex justify-center gap-2.5 md:gap-3" dir="ltr">
       <CountdownBlock value={days} label="يوم" />
       <CountdownBlock value={hours} label="ساعة" />
       <CountdownBlock value={minutes} label="دقيقة" />

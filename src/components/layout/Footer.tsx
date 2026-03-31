@@ -36,12 +36,12 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-border bg-background">
+    <footer className="mt-12 border-t border-border bg-background">
       <div className="container pt-[72px] pb-9">
         <div className="grid gap-8 xl:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr]">
           <div className="space-y-5">
-            <BrandLogo imageClassName="h-auto max-w-[180px]" />
-            <p className="max-w-[320px] text-sm leading-7 text-muted-foreground">مول البستان يقدّم تجربة تقنية عربية أولًا، تجمع الخريطة والمتاجر وفرص التأجير في مسار واضح ومباشر.</p>
+            <BrandLogo imageClassName="h-auto max-w-[140px]" />
+            <p className="max-w-[320px] text-sm leading-7 text-muted-foreground">مول البستان يقدم تجربة تقنية عربية أولًا، تربط الزيارة بالخريطة والمتاجر والتأجير في مسار واضح.</p>
             <div className="flex flex-wrap gap-3">
               <Link to="/map"><Button variant="cta" className="h-12 rounded-[18px] px-5">استكشف الخريطة</Button></Link>
               <Link to="/leasing"><Button variant="outline-blue" className="h-12 rounded-[18px] px-5">التأجير</Button></Link>
@@ -63,7 +63,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-border pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>مول البستان — وجهة تقنية مصرية راقية، افتتاحها قريب.</p>
+          <p>مول البستان — وجهة تقنية مصرية راقية تقترب من الافتتاح.</p>
           <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --font-cairo: 'Cairo', sans-serif;
-    --font-arabic-display: 'Noto Naskh Arabic', serif;
-    --font-poppins: 'Poppins', sans-serif;
+    --font-cairo: 'Alexandria', sans-serif;
+    --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
+    --font-poppins: 'Inter', sans-serif;
 
     --background: 210 33% 98%;
     --foreground: 220 45% 15%;
@@ -54,11 +54,11 @@
     --neutral-light: 210 40% 98%;
 
     --gradient-blue: linear-gradient(135deg, hsl(217 85% 54%), hsl(188 94% 43%));
-    --gradient-hero: linear-gradient(135deg, hsl(210 44% 99%) 0%, hsl(210 38% 97%) 44%, hsl(214 34% 95%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 36% 98%));
-    --gradient-section: linear-gradient(180deg, hsl(0 0% 100% / 0.98), hsl(210 34% 98% / 0.96));
-    --gradient-brand: linear-gradient(140deg, hsl(0 0% 100% / 0.99), hsl(210 35% 97%), hsl(214 28% 95% / 0.92));
-    --gradient-logo: linear-gradient(180deg, hsl(0 0% 100% / 0.99), hsl(210 28% 98% / 0.9));
+    --gradient-hero: linear-gradient(180deg, hsl(210 33% 98%), hsl(210 33% 98%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
+    --gradient-section: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
+    --gradient-brand: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
+    --gradient-logo: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
 
     --shadow-blue: 0 12px 36px hsl(217 85% 54% / 0.18);
     --shadow-card: 0 14px 28px hsl(219 28% 24% / 0.04);
@@ -88,7 +88,7 @@
 
   body {
     @apply bg-background text-foreground font-cairo antialiased;
-    background-image: linear-gradient(180deg, hsl(var(--background)), hsl(210 34% 97%));
+    background-image: linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
     text-rendering: optimizeLegibility;
     line-height: 1.82;
   }
@@ -142,14 +142,14 @@
   }
 
   .section-shell {
-    background: var(--gradient-section);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border) / 0.88);
     border-radius: calc(var(--radius) * 1.9);
     box-shadow: var(--shadow-card);
   }
 
   .brand-shell {
-    background: var(--gradient-brand);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border) / 0.82);
     box-shadow: var(--shadow-premium);
   }
@@ -195,21 +195,21 @@
   }
 
   .card-premium {
-    background: var(--gradient-card);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
     box-shadow: var(--shadow-card);
   }
 
   .surface-panel {
-    background: linear-gradient(180deg, hsl(var(--card) / 0.98), hsl(210 36% 99% / 0.96));
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border) / 0.95);
     box-shadow: var(--shadow-card);
     backdrop-filter: blur(14px);
   }
 
   .section-soft {
-    background: linear-gradient(180deg, hsl(var(--secondary) / 0.75), hsl(var(--background) / 0.98));
+    background: linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
   }
 
   .soft-card {
@@ -220,7 +220,7 @@
   }
 
   .editorial-panel {
-    background: linear-gradient(180deg, hsl(var(--card) / 0.98), hsl(var(--secondary) / 0.68));
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border) / 0.88);
     box-shadow: var(--shadow-premium);
   }
@@ -254,11 +254,11 @@
   }
 
   .page-section {
-    @apply py-12 md:py-[4.5rem] lg:py-24;
+    @apply py-10 md:py-16 lg:py-[5.5rem];
   }
 
   .page-shell {
-    @apply px-4 py-5 md:px-6 md:py-6 lg:px-8 lg:py-8;
+    @apply px-4 py-5 md:px-6 md:py-6 lg:px-10 lg:py-8;
   }
 
   .editorial-grid {
