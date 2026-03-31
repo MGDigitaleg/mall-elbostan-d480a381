@@ -38,17 +38,17 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `rounded-full px-2 py-1 text-[0.88rem] font-semibold transition-all duration-300 ${
+    `rounded-full px-1.5 py-0.5 text-[0.84rem] font-semibold transition-all duration-300 ${
       isActive(path)
         ? "bg-card/88 text-foreground shadow-[var(--shadow-soft)]"
         : "text-muted-foreground/90 hover:text-foreground"
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-2 md:px-4 md:pt-2">
+    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-1.5 md:px-4 md:pt-1.5">
       <div className="container">
-        <div className="glass rounded-[1.15rem] border-border/60 px-3 py-1.5 md:px-4 md:py-1.5 shadow-[var(--shadow-soft)]">
-          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-3">
+        <div className="glass rounded-[1.05rem] border-border/60 px-3 py-1 md:px-4 md:py-1 shadow-[var(--shadow-soft)]">
+          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-2.5">
             <nav className="flex items-center justify-end gap-1">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
@@ -58,11 +58,11 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="relative flex items-center justify-center px-2 py-0.5">
+              <div className="relative flex items-center justify-center px-0.5 py-0">
                 <BrandLogo
                   framed
                   align="center"
-                  imageClassName="h-[5.2rem] md:h-[5.6rem]"
+                  imageClassName="h-[5.35rem] md:h-[5.65rem]"
                 />
               </div>
             </Link>
@@ -75,11 +75,11 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-              <Link to="/#marketplace" className="rounded-full px-2 py-1 text-[0.88rem] font-semibold text-muted-foreground transition-colors hover:text-foreground">
+              <Link to="/#marketplace" className="rounded-full px-1.5 py-0.5 text-[0.84rem] font-semibold text-muted-foreground transition-colors hover:text-foreground">
                 السوق قريبًا
               </Link>
               <Link to="/spin-win">
-                <Button variant="cta" size="sm" className="h-8.5 rounded-full px-4">
+                <Button variant="cta" size="sm" className="h-8 rounded-full px-3.5">
                   أدر واربح
                 </Button>
               </Link>
@@ -88,7 +88,7 @@ export function Header() {
 
           <div className="flex items-center justify-between gap-2 xl:hidden">
             <button
-              className="rounded-full border border-border/70 bg-card p-2 text-foreground shadow-[var(--shadow-soft)]"
+              className="rounded-full border border-border/70 bg-card p-1.5 text-foreground shadow-[var(--shadow-soft)]"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "إغلاق القائمة" : "فتح القائمة"}
             >
@@ -97,12 +97,12 @@ export function Header() {
 
             <Link to="/" className="flex-1">
               <div className="flex items-center justify-center px-1 py-0">
-                <BrandLogo framed align="center" imageClassName="h-[4.65rem]" />
+                <BrandLogo framed align="center" imageClassName="h-[4.95rem]" />
               </div>
             </Link>
 
             <Link to="/spin-win" className="hidden sm:block">
-              <Button variant="cta" size="sm" className="h-8.5 rounded-full px-4">
+              <Button variant="cta" size="sm" className="h-8 rounded-full px-3.5">
                 أدر واربح
               </Button>
             </Link>
@@ -119,8 +119,8 @@ export function Header() {
             className="container xl:hidden"
           >
             <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.2rem] px-4 py-4">
-              <div className="rounded-[1.2rem] px-1 py-0.5 text-center">
-                <BrandLogo framed align="center" imageClassName="mx-auto h-[4.8rem]" />
+              <div className="rounded-[1.2rem] px-0.5 py-0 text-center">
+                <BrandLogo framed align="center" imageClassName="mx-auto h-[4.9rem]" />
               </div>
 
               {mobileNavItems.map((item) => (
