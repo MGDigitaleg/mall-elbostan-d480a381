@@ -13,7 +13,7 @@ type FloorPlanSvgProps = {
 const statusClass: Record<UnitStatus, string> = {
   occupied: "fill-card stroke-border",
   available: "fill-card stroke-orange",
-  coming_soon: "fill-muted stroke-accent",
+  coming_soon: "fill-card stroke-accent",
 };
 
 const floorShellById: Record<FloorId, string> = {
@@ -24,7 +24,7 @@ const floorShellById: Record<FloorId, string> = {
 
 export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onSelectUnit }: FloorPlanSvgProps) {
   return (
-    <div className="surface-panel rounded-[1.8rem] p-3 md:p-4">
+    <div className="surface-panel min-h-[420px] rounded-[1.75rem] p-4 md:min-h-[620px] md:p-5 lg:min-h-[760px] lg:p-6">
       <svg viewBox="0 0 1100 1100" className="h-full w-full" role="img" aria-label="خريطة الطابق التفاعلية">
         <g id="floor-shell">
           <polygon points={floorShellById[floorId]} className="fill-background stroke-border stroke-[2]" />
@@ -69,9 +69,9 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
                   points={unit.polygon}
                   onClick={() => onSelectUnit(unit)}
                   className={cn(
-                    "cursor-pointer stroke-[1.6] transition-all duration-200 hover:fill-secondary",
+                    "cursor-pointer stroke-[1.5] transition-all duration-200 hover:fill-secondary hover:stroke-primary",
                     statusClass[unit.status],
-                    isSelected && "stroke-primary stroke-[2.5]",
+                    isSelected && "stroke-primary stroke-[2]",
                   )}
                 />
                 {unit.status === "available" && (
@@ -93,7 +93,7 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
               y={unit.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              className="fill-foreground text-[14px] font-semibold"
+              className="fill-foreground text-[11px] font-semibold"
             >
               {unit.unit_id}
             </text>
@@ -130,7 +130,7 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
                     y={unit.y + 19}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    className="fill-foreground text-[12px] font-medium"
+                    className="fill-foreground text-[11px] font-medium"
                   >
                     {unit.store_name_ar}
                   </text>
@@ -140,7 +140,7 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
                     y={unit.y + 21}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    className="fill-muted-foreground text-[11px]"
+                    className="fill-muted-foreground text-[10px]"
                   >
                     {unit.area_m2} م²
                   </text>

@@ -3,11 +3,11 @@ export type UnitStatus = "occupied" | "available" | "coming_soon";
 export type LabelMode = "logo" | "text" | "number";
 
 export type NeedCategory =
-  | "Laptops"
-  | "Maintenance"
-  | "Networking"
   | "Accessories"
+  | "Laptops"
   | "Components"
+  | "Networking"
+  | "Maintenance"
   | "Security Systems";
 
 export type FloorId = "ground" | "first" | "second";
@@ -82,11 +82,11 @@ const baseUnitPolygons = [
 ] as const;
 
 const categories: NeedCategory[] = [
-  "Laptops",
-  "Maintenance",
-  "Networking",
   "Accessories",
+  "Laptops",
   "Components",
+  "Networking",
+  "Maintenance",
   "Security Systems",
 ];
 
@@ -206,8 +206,8 @@ const buildFloor = (
         category: categories[index % categories.length],
         store_name_ar: "",
         store_name_en: "",
-        description_ar: status === "occupied" ? "يتم إضافة بيانات المستأجر من ملف الاستيراد." : "وحدة جاهزة للتأجير داخل مول البستان.",
-        description_en: status === "occupied" ? "Tenant details come from the import sheet." : "Leasing-ready unit in Mall Elbostan.",
+        description_ar: status === "occupied" ? "" : "وحدة جاهزة للتأجير داخل مول البستان.",
+        description_en: status === "occupied" ? "" : "Leasing-ready unit in Mall Elbostan.",
         phone: null,
         whatsapp: null,
         website: null,
@@ -266,6 +266,22 @@ export const floorMapData: FloorMapDefinition[] = [
   buildFloor("second", "S", "الدور الثاني", upperAreas),
 ];
 
+const floorOrder: Record<FloorId, number> = {
+  ground: 0,
+  first: 1,
+  second: 2,
+};
+
+export const allMapUnits = floorMapData.flatMap((floor) => floor.units);
+
+export const availableMapUnits = allMapUnits
+  .filter((unit) => unit.status === "available")
+  .sort((a, b) => {
+    const floorDifference = floorOrder[a.floor_id] - floorOrder[b.floor_id];
+    if (floorDifference !== 0) return floorDifference;
+    return a.sort_order - b.sort_order;
+  });
+
 export const floorLabelAr: Record<FloorId, string> = {
   ground: "الدور الأرضي",
   first: "الدور الأول",
@@ -273,12 +289,12 @@ export const floorLabelAr: Record<FloorId, string> = {
 };
 
 export const needCategoryLabels: Record<NeedCategory, string> = {
-  Laptops: "الكمبيوتر والأجهزة",
-  Maintenance: "الصيانة والدعم الفني",
-  Networking: "الشبكات والحماية",
   Accessories: "الهواتف والإكسسوارات",
+  Laptops: "الكمبيوتر والأجهزة",
   Components: "الألعاب والترفيه",
-  "Security Systems": "أنظمة الحماية",
+  Networking: "الطباعة والتصوير",
+  Maintenance: "الصيانة والدعم الفني",
+  "Security Systems": "الشبكات والأنظمة الأمنية",
 };
 
 export const exploreNeeds: NeedCategory[] = categories;

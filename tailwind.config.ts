@@ -18,8 +18,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        cairo: ["Cairo", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
+        cairo: ["Alexandria", "sans-serif"],
+        poppins: ["Inter", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
