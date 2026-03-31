@@ -8,27 +8,27 @@ import heroImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
 
-const heroStatements = ["وجهة تقنية متخصصة", "خريطة ومتاجر واضحة", "افتتاح وجوائز وسوق قادم"];
+const heroStatements = ["وجهة تقنية متخصصة", "خريطة ومتاجر واضحة", "افتتاح وجوائز وسوق جاي"];
 
 const categoryStories = [
-  { name: "الهواتف والإكسسوارات", icon: Smartphone, desc: "أجهزة وإكسسوارات وحلول سريعة لجمهور التقنية اليومي." },
-  { name: "الكمبيوتر والأجهزة", icon: Monitor, desc: "حلول للعمل والدراسة وصناعة المحتوى في مساحة استكشاف أوضح." },
-  { name: "الألعاب والترفيه", icon: Gamepad2, desc: "فئة لها جمهورها الواضح ومكانها الطبيعي جوه منظومة تقنية متخصصة." },
-  { name: "الطباعة والتصوير", icon: Printer, desc: "احتياجات عملية للشركات والطلبة والمكاتب جوه وجهة واحدة." },
-  { name: "الشبكات والحماية", icon: Shield, desc: "حلول بنية تحتية وأمان تقني بشكل أكثر احترافية." },
-  { name: "الصيانة والدعم الفني", icon: Wrench, desc: "خدمات ما بعد الشراء والدعم السريع كجزء من التجربة." },
+  { name: "الهواتف والإكسسوارات", icon: Smartphone, desc: "فئة دايمًا عليها طلب، ومعروضة هنا بشكل يسهّل المقارنة والوصول." },
+  { name: "الكمبيوتر والأجهزة", icon: Monitor, desc: "حلول للشغل والدراسة وصناعة المحتوى في مشهد واضح ومقنع." },
+  { name: "الألعاب والترفيه", icon: Gamepad2, desc: "عالم له جمهوره وحضوره، والمكان هنا مهيأ يقدّمه بشكل يلفت فعلًا." },
+  { name: "الطباعة والتصوير", icon: Printer, desc: "احتياجات عملية ومهنية متجمعة في وجهة واحدة أسهل في الزيارة والمتابعة." },
+  { name: "الشبكات والحماية", icon: Shield, desc: "حلول بنية تحتية وأمان تقني بطابع أهدى وأكتر احترافية." },
+  { name: "الصيانة والدعم الفني", icon: Wrench, desc: "خدمات ما بعد البيع والدعم الفني كجزء طبيعي من التجربة، مش إضافة جانبية." },
 ];
 
 const whyCards = [
-  { icon: Monitor, title: "المول معمول للتقنية من الأساس", desc: "مش تجميعة محلات وخلاص، لكن مكان له منطق واضح للناس اللي بتدور على أجهزة وخدمات متخصصة." },
-  { icon: MapPin, title: "موقع يخدم الحركة والطلب", desc: "قربه من القاهرة الجديدة ومدينتي والرحاب يخلي الزيارة أسهل والحضور التجاري أقوى." },
-  { icon: Sparkles, title: "إطلاق يبني الترقب بذوق", desc: "حملة الافتتاح والجوائز معمولة بحس تجاري أهدى يخلّي الناس متحمسة من غير ضجيج." },
+  { icon: Monitor, title: "المشروع معمول للتقنية من الأول", desc: "مش تجميعة محلات وخلاص، لكن وجهة لها منطق واضح للناس اللي بتدور على أجهزة وخدمات متخصصة." },
+  { icon: MapPin, title: "موقع يخدم الطلب الحقيقي", desc: "قربه من القاهرة الجديدة ومدينتي والرحاب يخلّي الزيارة أسهل والحضور التجاري أقوى." },
+  { icon: Sparkles, title: "إطلاق يرفع الترقب من غير دوشة", desc: "حملة الافتتاح والجوائز معمولة بحس راقٍ يدي المشروع وزن من أول يوم." },
 ];
 
 const launchJourney = [
-  { title: "اعرف قبل ما تنزل", desc: "شوف الخريطة والمتاجر والبرنامج المبدئي علشان تبقى شايف الصورة كاملة." },
-  { title: "شارك في الجوائز", desc: "ادخل حملة أدر واربح واحتفظ بالنتيجة علشان تكون جاهز ليوم الافتتاح." },
-  { title: "تعالى في الموعد", desc: "احضر الافتتاح واستفد من الجو والفعاليات والفرصة الحقيقية إنك تعيش العلامة على أرض الواقع." },
+  { title: "اعرف الصورة قبل الزيارة", desc: "شوف الخريطة والمتاجر والبرنامج المبدئي علشان تنزل وإنت عارف المكان رايح لفين." },
+  { title: "شارك في حملة الجوائز", desc: "ادخل أدر واربح واحتفظ بالنتيجة علشان تبقى جاهز ليوم الافتتاح." },
+  { title: "احضر وقت الانطلاق", desc: "تعالى في الموعد واستفد من الزخم الحقيقي للزيارة والفعاليات والتجربة على أرض الواقع." },
 ];
 
 const fadeUp = {
@@ -49,29 +49,29 @@ type HomeContentProps = {
 export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeContentProps) {
   return (
     <>
-      <section className="relative overflow-hidden pb-16 pt-2 md:pb-22 md:pt-4">
+      <section className="relative overflow-hidden pb-14 pt-1 md:pb-20 md:pt-2">
         <div className="editorial-grid absolute inset-0 opacity-40" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell relative grid items-center gap-8 overflow-hidden rounded-[3rem] px-6 py-7 md:px-8 md:py-9 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:px-10 lg:py-10">
-            <div className="space-y-6 lg:py-6">
+          <div className="brand-shell relative grid items-center gap-8 overflow-hidden rounded-[3rem] px-6 py-6 md:px-8 md:py-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10 lg:px-10 lg:py-9">
+            <div className="space-y-6 lg:py-4">
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
                 <div className="eyebrow-chip mb-5">
                   <Sparkles className="h-4 w-4 text-accent" />
                   افتتاح قريب • مايو 2026 • وجهة تقنية راقية في شرق القاهرة
                 </div>
-                <h1 className="max-w-3xl text-4xl font-black leading-[1.04] text-foreground md:text-[4.35rem]">
+                <h1 className="max-w-3xl text-4xl font-black leading-[1.02] text-foreground md:text-[4.6rem]">
                   مول البستان
-                  <span className="mt-4 block text-[1.9rem] font-semibold leading-[1.25] text-foreground/88 md:text-[2.7rem]">
-                    مول تقني راقٍ بيجمع المتاجر، الخريطة، فرص التأجير، حملة الجوائز، والسوق الجاي تحت هوية واحدة واضحة
+                  <span className="mt-4 block text-[1.75rem] font-semibold leading-[1.22] text-foreground/88 md:text-[2.55rem]">
+                    وجهة تقنية راقية بتجمع المتاجر والخريطة وفرص التأجير وحملة الافتتاح في صورة واحدة أقوى وأوضح
                   </span>
                 </h1>
-                <p className="mt-7 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-                  من أول نظرة هتفهم الصورة كاملة: مشروع تقني حقيقي، افتتاح قريب، حملة جوائز معمولة بذوق، فرص تجارية واضحة، وتمهيد طبيعي لسوق رقمي يكمل علاقة الزائر بالمتاجر بعدين.
+                <p className="mt-6 max-w-xl text-base leading-8 text-muted-foreground md:text-lg">
+                  من أول لحظة هتبقى شايف المشهد كامل: مول تقني حقيقي، افتتاح قريب، متاجر وخريطة أسهل في الاستكشاف، فرص تجارية محترمة، وخطوة جاية لسوق رقمي يكمل نفس الهوية.
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.45 }} className="flex flex-wrap gap-3">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.45 }} className="flex flex-wrap gap-2.5">
                 {heroStatements.map((item) => (
                   <div key={item} className="mini-chip">{item}</div>
                 ))}
@@ -85,17 +85,17 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </motion.div>
 
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.45 }} className="grid gap-4 xl:grid-cols-[1.08fr_0.92fr]">
-                <div className="section-shell rounded-[1.9rem] p-5 md:p-6">
-                  <p className="mb-4 text-sm font-semibold text-muted-foreground">فاضل على الافتتاح</p>
+                <div className="section-shell rounded-[2rem] p-5 md:p-6">
+                  <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي للافتتاح</p>
                   <CountdownTimer />
                 </div>
                 <div className="grid gap-4">
                   {[
-                    { label: "أقرب خطوة", value: "استكشف الخريطة والمتاجر" },
-                    { label: "فرصة تجارية", value: "استفسر عن الوحدات المتاحة" },
-                    { label: "المرحلة الجاية", value: "Marketplace by Mall Elbostan" },
+                    { label: "أقرب خطوة", value: "ابدأ بالخريطة والمتاجر" },
+                    { label: "فرصة واضحة", value: "استفسر عن الوحدات المتاحة" },
+                    { label: "المرحلة اللي بعدها", value: "Marketplace by Mall Elbostan" },
                   ].map((item) => (
-                    <div key={item.label} className="editorial-panel rounded-[1.4rem] p-4">
+                    <div key={item.label} className="editorial-panel rounded-[1.5rem] p-4">
                       <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">{item.label}</p>
                       <p className="mt-2 text-base font-bold text-foreground">{item.value}</p>
                     </div>
@@ -104,36 +104,36 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </motion.div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55 }} className="relative mx-auto w-full max-w-[39rem]">
-              <div className="section-shell overflow-hidden rounded-[2.5rem] p-3 shadow-[var(--shadow-elevated)]">
-                <div className="image-shell aspect-[4/5] overflow-hidden rounded-[2rem] bg-card lg:aspect-[5/6]">
+            <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55 }} className="relative mx-auto w-full max-w-[42rem]">
+              <div className="section-shell overflow-hidden rounded-[2.6rem] p-3 shadow-[var(--shadow-elevated)]">
+                <div className="image-shell aspect-[4/5] overflow-hidden rounded-[2.2rem] bg-card lg:aspect-[5/6]">
                   <img src={heroImage} alt="الواجهة الرئيسية لمول البستان بتصميم معماري حديث" className="h-full w-full object-cover object-[center_36%]" />
                   <div className="image-wash absolute inset-0" />
                 </div>
-                <div className="glass absolute inset-x-7 bottom-7 rounded-[1.7rem] p-5 md:inset-x-9 md:bottom-9 md:p-6">
+                <div className="glass absolute inset-x-7 bottom-7 rounded-[1.8rem] p-5 md:inset-x-9 md:bottom-9 md:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Mall Elbostan</p>
                       <p className="mt-2 text-xl font-bold text-foreground">واجهة معمارية تدي المشروع حضور يبان من أول لحظة</p>
-                      <p className="mt-3 text-sm leading-7 text-muted-foreground">صورة تخلّي الفكرة ملموسة: مكان حقيقي جاهز يبني ثقة الزائر ويقوّي حضور العلامات التجارية.</p>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">صورة تخلّي الفكرة ملموسة: مكان حقيقي يدي الزائر ثقة، ويخلّي العلامات التجارية تبان بشكل أهدى وأقوى.</p>
                     </div>
                     <Layers3 className="mt-1 h-5 w-5 text-primary" />
                   </div>
                 </div>
               </div>
 
-              <div className="section-shell absolute -left-6 top-10 hidden w-64 overflow-hidden rounded-[1.9rem] p-3 lg:block">
+              <div className="section-shell absolute -left-8 top-12 hidden w-64 overflow-hidden rounded-[2rem] p-3 lg:block">
                 <div className="image-shell mb-3 aspect-[4/3] rounded-[1.2rem]">
                   <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="h-full w-full object-cover object-center" />
                 </div>
-                <p className="text-sm font-bold text-foreground">تجربة داخلية متعددة المستويات</p>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">مشهد داخلي يوضح إن التجربة جوه المول بنفس قوة الانطباع الخارجي.</p>
+                <p className="text-sm font-bold text-foreground">مشهد داخلي متعدد المستويات</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">صورة بتأكد إن التجربة جوه المول بنفس قوة الواجهة الخارجية.</p>
               </div>
 
-              <div className="section-shell absolute -right-6 bottom-16 hidden w-60 rounded-[1.9rem] p-5 lg:block">
+              <div className="section-shell absolute -right-7 bottom-16 hidden w-64 rounded-[2rem] p-5 lg:block">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Marketplace by Mall Elbostan</p>
-                <p className="mt-3 text-base font-bold text-foreground">سوق قادم يكمّل التجربة بعد الزيارة</p>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground">امتداد رقمي طبيعي يخلي علاقتك بالمتاجر مستمرة حتى بعد ما تمشي.</p>
+                <p className="mt-3 text-base font-bold text-foreground">سوق جاي يكمّل التجربة بعد الزيارة</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">امتداد رقمي طبيعي يخلّي علاقتك بالمتاجر مستمرة حتى بعد ما تمشي.</p>
               </div>
             </motion.div>
           </div>
@@ -145,20 +145,20 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           <div className="mb-10 grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
             <div className="chapter-shell pt-5">
               <p className="section-kicker">لماذا مول البستان</p>
-              <h2 className="section-title">ليه مول البستان أقرب لفكرة علامة تقنية كاملة مش مجرد مكان بيع</h2>
+              <h2 className="section-title">ليه مول البستان أقرب لفكرة علامة تقنية كاملة، مش مجرد مكان بيع</h2>
             </div>
             <div className="space-y-4">
-              <p className="text-base leading-8 text-muted-foreground">الفكرة هنا إن المول من البداية بيتقدم كمنظومة: فئات واضحة، حضور معماري، موقع يخدم شرق القاهرة، وإطلاق يخلي الناس عايزة تتابع وتزور وتشارك.</p>
+              <p className="text-base leading-8 text-muted-foreground">الفكرة من البداية إن المول يتقدّم كمنظومة واضحة: فئات متقسمة صح، حضور معماري قوي، موقع يخدم شرق القاهرة، وإطلاق يخلّي الناس عايزة تتابع وتزور وتشارك.</p>
               <Link to="/about" className="inline-flex"><Button variant="ghost" className="text-primary">اعرف حكاية المشروع</Button></Link>
             </div>
           </div>
-          <div className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="section-shell h-full rounded-[2.2rem] p-7 md:p-8">
+          <div className="grid gap-4 lg:grid-cols-[1.08fr_0.92fr]">
+            <div className="section-shell h-full rounded-[2.3rem] p-7 md:p-8">
               <p className="text-sm font-semibold text-muted-foreground">قيمة المشروع</p>
-              <h3 className="mt-3 max-w-xl text-3xl font-bold text-foreground">مكان يخلي التقنية تظهر بشكل أرتب وأقوى للزائر والعلامة معًا</h3>
-              <p className="mt-4 text-base leading-8 text-muted-foreground">مول البستان بيقدّم التقنية في صورة أوضح: فئات متقسمة صح، خريطة مفهومة، حضور معماري يثبت العلامة، وخطة إطلاق تخلّي التجربة من أولها فيها سبب للزيارة والرجوع.</p>
+              <h3 className="mt-3 max-w-xl text-3xl font-bold text-foreground">مكان يخلّي التقنية تظهر بشكل أرتب وأقوى للزائر وللعلامة معًا</h3>
+              <p className="mt-4 text-base leading-8 text-muted-foreground">مول البستان بيقدّم التقنية في صورة أهدى وأوضح: فئات متقسمة صح، خريطة مفهومة، حضور معماري يثبت المكان، وخطة إطلاق تدي كل زيارة سبب واضح إنها تحصل.</p>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">
-                {["خريطة تسهّل الاستكشاف قبل ما تنزل.", "حضور بصري وتجاري أقوى للعلامات.", "صفحات مبنية علشان تدفع الخطوة المهمة بسرعة.", "سوق قادم يكمل نفس الهوية بعد الافتتاح."].map((item) => (
+                {["خريطة تسهّل الاستكشاف قبل ما تنزل.", "حضور بصري وتجاري أقوى للعلامات.", "رحلة أوضح من أول معرفة لحد قرار الزيارة.", "سوق جاي يكمل نفس الهوية بعد الافتتاح."].map((item) => (
                   <div key={item} className="mini-chip min-h-14 justify-start rounded-[1rem]">{item}</div>
                 ))}
               </div>
@@ -180,18 +180,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="section-soft py-12 md:py-18">
         <div className="container">
-          <div className="section-shell grid gap-6 overflow-hidden px-6 py-6 md:px-8 md:py-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div className="section-shell grid gap-6 overflow-hidden px-6 py-6 md:px-8 md:py-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
             <div className="order-2 space-y-5 lg:order-1">
               <p className="section-kicker">داخل المول</p>
-              <h2 className="section-title">من جوه، التجربة شكلها يثبت إن المشروع معمول علشان يبقى حاضر ومقنع</h2>
-              <p className="text-base leading-8 text-muted-foreground">الصورة الداخلية هنا مش مجرد تجميل. هي دليل إن المكان متفكّر فيه كويس: حركة واضحة، مستويات متعددة، ومساحات تدي فرصة أفضل للعرض والظهور والحضور التجاري.</p>
+              <h2 className="section-title">من جوه، المشهد يثبت إن المشروع معمول علشان يبقى حاضر ومقنع</h2>
+              <p className="text-base leading-8 text-muted-foreground">الصورة الداخلية هنا مش مجرد تجميل. دي علامة إن المكان متفكّر فيه كويس: حركة واضحة، مستويات متعددة، ومساحات تدي فرصة أحسن للعرض والظهور والحضور التجاري.</p>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="editorial-panel rounded-[1.5rem] p-5"><p className="mb-1 text-sm font-semibold text-foreground">شكل معماري يثبت الفكرة</p><p className="text-sm leading-7 text-muted-foreground">أتريوم واضح ومرتب يدي للمشروع شخصية قوية وسهلة التذكّر.</p></div>
                 <div className="editorial-panel rounded-[1.5rem] p-5"><p className="mb-1 text-sm font-semibold text-foreground">عرض وحركة أريح</p><p className="text-sm leading-7 text-muted-foreground">المساحات بتخدم المتاجر والأنشطة بشكل أهدى وأوضح للزائر.</p></div>
               </div>
             </div>
             <div className="order-1 lg:order-2">
-              <div className="relative grid gap-4 lg:grid-cols-[1fr_0.44fr]">
+              <div className="relative grid gap-4 lg:grid-cols-[1fr_0.42fr]">
                 <div className="image-shell aspect-[16/11] overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-[var(--shadow-elevated)]">
                   <img src={interiorImage} alt="الأتريوم الداخلي متعدد الطوابق في مول البستان" className="h-full w-full object-cover object-center" />
                   <div className="image-wash absolute inset-0" />
@@ -213,15 +213,24 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         <div className="container">
           <div className="chapter-shell mb-10 max-w-3xl pt-5">
             <p className="section-kicker">المتاجر والفئات</p>
-            <h2 className="section-title">ابدأ من الفئة اللي تهمك، وشوف إزاي المنظومة دي جاهزة تكبر كمان بعدين</h2>
-            <p className="mt-4 text-base leading-8 text-muted-foreground">الفئات هنا معمولة بشكل عملي وواضح، علشان تسهّل عليك الاستكشاف دلوقتي، وتبقى أساس طبيعي لتجربة Marketplace بعدين.</p>
+              <h2 className="section-title">ابدأ من الفئة اللي تهمك، وشوف إزاي المنظومة دي جاهزة تكبر كمان بعدين</h2>
+              <p className="mt-4 text-base leading-8 text-muted-foreground">الفئات هنا معمولة بشكل عملي وواضح علشان تسهّل عليك الاستكشاف دلوقتي، وتبقى أساس طبيعي لتجربة Marketplace بعدين.</p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {categoryStories.map((cat, i) => (
               <motion.div key={cat.name} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <Link to={`/stores?category=${encodeURIComponent(cat.name)}`} className="editorial-panel flex h-full items-start gap-4 rounded-[1.8rem] p-5 transition-transform duration-300 hover:-translate-y-1">
-                  <div className="icon-shell h-12 w-12 p-3"><cat.icon className="h-6 w-6" /></div>
-                  <div><h3 className="mb-2 text-base font-bold text-foreground">{cat.name}</h3><p className="text-sm leading-7 text-muted-foreground">{cat.desc}</p></div>
+                <Link
+                  to={`/stores?category=${encodeURIComponent(cat.name)}`}
+                  className={`editorial-panel flex h-full flex-col rounded-[1.8rem] p-5 transition-transform duration-300 hover:-translate-y-1 ${i === 0 || i === 1 ? "xl:col-span-2" : ""}`}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="icon-shell h-12 w-12 p-3"><cat.icon className="h-6 w-6" /></div>
+                    <div>
+                      <h3 className="mb-2 text-base font-bold text-foreground">{cat.name}</h3>
+                      <p className="text-sm leading-7 text-muted-foreground">{cat.desc}</p>
+                    </div>
+                  </div>
+                  {(i === 0 || i === 1) ? <div className="mt-5 mini-chip w-fit rounded-[1rem] px-4 py-2">فئة أساسية في المشهد القادم</div> : null}
                 </Link>
               </motion.div>
             ))}
@@ -342,7 +351,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section id="marketplace" className="section-soft py-12 md:py-18">
         <div className="container">
-          <div className="brand-shell rounded-[2.6rem] p-6 md:p-8 lg:p-10">
+          <div className="brand-shell rounded-[2.8rem] p-6 md:p-8 lg:p-10">
             <div className="grid gap-8 lg:grid-cols-[1.06fr_0.94fr] lg:items-center">
               <div>
                 <p className="section-kicker">Marketplace by Mall Elbostan</p>
