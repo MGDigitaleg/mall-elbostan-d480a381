@@ -42,6 +42,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <GA4Init />
           <Routes>
             {/* Public */}
             <Route path="/" element={<Index />} />
