@@ -32,8 +32,26 @@ export type MapUnitDefinition = {
   sort_order: number;
   x: number;
   y: number;
+  label_box_width: number;
+  label_box_height: number;
   label_mode: LabelMode;
   visibility: boolean;
+};
+
+export type TenantImportRow = {
+  floor_id: FloorId;
+  unit_id: string;
+  store_name_ar: string;
+  store_name_en: string;
+  category: NeedCategory;
+  status: UnitStatus;
+  area_m2: number;
+  logo_filename: string;
+  short_description_ar: string;
+  short_description_en: string;
+  phone: string;
+  whatsapp: string;
+  website: string;
 };
 
 export type FloorMapDefinition = {
@@ -116,6 +134,51 @@ const upperAreas: Record<string, number> = {
 const availableUnits = new Set(["G-04", "G-08", "F-05", "F-11", "S-02", "S-14"]);
 const comingSoonUnits = new Set(["G-10", "F-09", "S-07"]);
 
+const tenantImportColumns: Array<keyof TenantImportRow> = [
+  "floor_id",
+  "unit_id",
+  "store_name_ar",
+  "store_name_en",
+  "category",
+  "status",
+  "area_m2",
+  "logo_filename",
+  "short_description_ar",
+  "short_description_en",
+  "phone",
+  "whatsapp",
+  "website",
+];
+
+const getPolygonBounds = (polygon: string) => {
+  const points = polygon
+    .split(" ")
+    .map((pair) => pair.split(",").map(Number))
+    .filter((pair) => pair.length === 2 && Number.isFinite(pair[0]) && Number.isFinite(pair[1])) as Array<[number, number]>;
+
+  const xs = points.map(([x]) => x);
+  const ys = points.map(([, y]) => y);
+
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+
+  return {
+    width: Math.max(0, maxX - minX),
+    height: Math.max(0, maxY - minY),
+  };
+};
+
+const resolveLabelMode = (row: Pick<TenantImportRow, "logo_filename" | "store_name_ar">, labelBoxWidth: number, labelBoxHeight: number): LabelMode => {
+  const hasLogo = row.logo_filename.trim().length > 0;
+  const hasText = row.store_name_ar.trim().length > 0;
+
+  if (hasLogo && labelBoxWidth >= 44 && labelBoxHeight >= 22) return "logo";
+  if (hasText) return "text";
+  return "number";
+};
+
 const buildFloor = (
   floor_id: FloorId,
   prefix: "G" | "F" | "S",
@@ -141,10 +204,10 @@ const buildFloor = (
         polygon: unit.points,
         status,
         category: categories[index % categories.length],
-        store_name_ar: status === "occupied" ? `متجر ${unit_id}` : "وحدة متاحة",
-        store_name_en: status === "occupied" ? `Store ${unit_id}` : "Available Unit",
-        description_ar: status === "occupied" ? "بيانات المتجر تضاف من لوحة الإدارة." : "وحدة جاهزة للتأجير داخل مول البستان.",
-        description_en: status === "occupied" ? "Store details will be managed in admin." : "Leasing-ready unit in Mall Elbostan.",
+        store_name_ar: "",
+        store_name_en: "",
+        description_ar: status === "occupied" ? "يتم إضافة بيانات المستأجر من ملف الاستيراد." : "وحدة جاهزة للتأجير داخل مول البستان.",
+        description_en: status === "occupied" ? "Tenant details come from the import sheet." : "Leasing-ready unit in Mall Elbostan.",
         phone: null,
         whatsapp: null,
         website: null,
@@ -154,11 +217,48 @@ const buildFloor = (
         sort_order: index + 1,
         x: unit.x,
         y: unit.y,
+        label_box_width: Math.max(34, getPolygonBounds(unit.points).width * 0.65 - 16),
+        label_box_height: Math.max(18, getPolygonBounds(unit.points).height * 0.35 - 16),
         label_mode: "number",
         visibility: true,
       };
     }),
 });
+
+export const applyTenantImportRows = (
+  baseFloors: FloorMapDefinition[],
+  rows: TenantImportRow[],
+  logoBasePath = "/tenant-logos",
+): FloorMapDefinition[] => {
+  const rowMap = new Map(rows.map((row) => [`${row.floor_id}:${row.unit_id}`, row]));
+
+  return baseFloors.map((floor) => ({
+    ...floor,
+    units: floor.units.map((unit) => {
+      const row = rowMap.get(`${unit.floor_id}:${unit.unit_id}`);
+      if (!row) return unit;
+
+      const safeLogo = row.logo_filename.trim();
+      const label_mode = resolveLabelMode(row, unit.label_box_width, unit.label_box_height);
+
+      return {
+        ...unit,
+        store_name_ar: row.store_name_ar.trim(),
+        store_name_en: row.store_name_en.trim(),
+        category: row.category,
+        status: row.status,
+        area_m2: row.area_m2,
+        description_ar: row.short_description_ar.trim(),
+        description_en: row.short_description_en.trim(),
+        phone: row.phone.trim() || null,
+        whatsapp: row.whatsapp.trim() || null,
+        website: row.website.trim() || null,
+        logo: safeLogo ? `${logoBasePath}/${safeLogo}` : null,
+        label_mode,
+      };
+    }),
+  }));
+};
 
 export const floorMapData: FloorMapDefinition[] = [
   buildFloor("ground", "G", "Ground Floor", groundAreas),
@@ -173,3 +273,5 @@ export const floorLabelAr: Record<FloorId, string> = {
 };
 
 export const exploreNeeds: NeedCategory[] = categories;
+
+export const expectedTenantImportColumns = tenantImportColumns;
