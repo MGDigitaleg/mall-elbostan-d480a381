@@ -16,7 +16,7 @@ export function BrandLogo({ className, imageClassName, subtitle }: BrandLogoProp
         className={cn("h-10 w-auto object-contain", imageClassName)}
         loading="eager"
       />
-      {subtitle ? <span className="text-[0.7rem] font-medium text-muted-foreground">{subtitle}</span> : null}
+      {subtitle ? <span className="text-[0.72rem] font-medium tracking-[0.08em] text-muted-foreground/90">{subtitle}</span> : null}
     </div>
   );
 }

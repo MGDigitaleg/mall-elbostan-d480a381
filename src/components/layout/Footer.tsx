@@ -36,18 +36,18 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/70 bg-card/70 backdrop-blur-sm">
+    <footer className="border-t border-border/70 bg-secondary/55">
       <div className="container py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <BrandLogo imageClassName="h-12" subtitle="Mall Elbostan" />
+          <div className="soft-card p-6">
+            <BrandLogo imageClassName="h-12" subtitle="Premium technology destination" />
             <p className="text-muted-foreground text-sm leading-relaxed mt-4 max-w-xs">
               مول تقني حديث يربط بين المتاجر، الخريطة التفاعلية، فرص التأجير، والحملة الافتتاحية ضمن تجربة رقمية واضحة ومقنعة.
             </p>
           </div>
 
           {footerLinks.map((group) => (
-            <div key={group.title}>
+            <div key={group.title} className="soft-card p-6">
               <h4 className="font-semibold text-foreground mb-3">{group.title}</h4>
               <ul className="space-y-2">
                 {group.links.map((link) => (
