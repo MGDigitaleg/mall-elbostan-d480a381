@@ -157,9 +157,13 @@
   .brand-mark-frame {
     background: var(--gradient-logo);
     border: 1px solid hsl(var(--border) / 0.9);
-    border-radius: calc(var(--radius) * 1.25);
-    padding: 0.1rem 0.35rem;
-    box-shadow: var(--shadow-card);
+    border-radius: calc(var(--radius) * 0.95);
+    padding: 0.06rem 0.16rem;
+    box-shadow: var(--shadow-soft);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
   }
 
   .logo-stage {
@@ -170,10 +174,10 @@
   .logo-stage::after {
     content: "";
     position: absolute;
-    inset: 18% 12%;
+    inset: 14% 8%;
     z-index: -1;
-    border-radius: calc(var(--radius) * 1.6);
-    background: radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 68%);
+    border-radius: calc(var(--radius) * 1.1);
+    background: radial-gradient(circle, hsl(var(--primary) / 0.06), transparent 68%);
   }
 
   .chapter-shell {
