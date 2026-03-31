@@ -35,6 +35,17 @@ const footerLinks = [
   },
 ];
 
+const mobileFooterGroups = [
+  {
+    title: "روابط المول",
+    links: footerLinks[0].links,
+  },
+  {
+    title: "الخدمات والقانوني",
+    links: [...footerLinks[1].links, ...footerLinks[2].links],
+  },
+];
+
 export function Footer() {
   return (
     <footer className="mt-12 border-t border-border bg-background">
@@ -42,8 +53,11 @@ export function Footer() {
         <div className="grid gap-6 xl:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr] xl:gap-8">
           <div className="space-y-4 md:space-y-5">
             <BrandLogo imageClassName="h-auto max-w-[140px]" />
-            <p className="max-w-[320px] text-sm leading-7 text-muted-foreground">مول البستان يقدم تجربة تقنية عربية أولًا، تربط الزيارة بالخريطة والمتاجر والتأجير في مسار واضح.</p>
-            <div className="grid gap-2.5 sm:grid-cols-2">
+            <p className="max-w-[320px] text-sm leading-7 text-muted-foreground">مول البستان يقدم تجربة تقنية عربية أولًا، تربط الزيارة بالخريطة والمتاجر في مسار واضح.</p>
+            <div className="md:hidden">
+              <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
+            </div>
+            <div className="hidden gap-2.5 sm:grid-cols-2 md:grid">
               <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
               <Link to="/leasing"><Button variant="outline-blue" className="h-11 w-full rounded-[18px] px-5">التأجير</Button></Link>
             </div>
@@ -51,7 +65,7 @@ export function Footer() {
 
           <div className="xl:hidden">
             <Accordion type="multiple" className="space-y-2">
-              {footerLinks.map((group) => (
+              {mobileFooterGroups.map((group) => (
                 <AccordionItem key={group.title} value={group.title} className="section-shell overflow-hidden rounded-[1.1rem] px-4">
                   <AccordionTrigger className="min-h-[3.75rem] py-3 text-right text-sm font-bold text-foreground">
                     {group.title}

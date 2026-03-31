@@ -90,16 +90,17 @@ export function Header() {
             </div>
           </div>
 
-          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-1.5 xl:hidden">
+          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-2 xl:hidden">
             <Link to="/map">
-              <Button variant="outline-blue" size="sm" className="h-10 w-10 rounded-full px-0">
+              <Button variant="outline-blue" size="sm" className="h-10 rounded-full px-3.5 text-[0.78rem] font-semibold">
                 <Compass className="h-4 w-4" />
+                الخريطة
               </Button>
             </Link>
 
             <Link to="/" className="justify-self-center">
               <div className="flex -translate-y-[1px] items-center justify-center">
-                <BrandLogo align="center" imageClassName="h-auto max-w-[170px]" />
+                <BrandLogo align="center" imageClassName="h-auto max-w-[176px]" />
               </div>
             </Link>
 
