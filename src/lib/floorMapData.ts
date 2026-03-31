@@ -282,6 +282,8 @@ export const availableMapUnits = allMapUnits
     return a.sort_order - b.sort_order;
   });
 
+export const homepageLeasingUnits = availableMapUnits.slice(0, 4);
+
 export const floorLabelAr: Record<FloorId, string> = {
   ground: "الدور الأرضي",
   first: "الدور الأول",
@@ -295,6 +297,15 @@ export const needCategoryLabels: Record<NeedCategory, string> = {
   Networking: "الطباعة والتصوير",
   Maintenance: "الصيانة والدعم الفني",
   "Security Systems": "الشبكات والأنظمة الأمنية",
+};
+
+export const needCategoryDescriptions: Record<NeedCategory, string> = {
+  Accessories: "هواتف وإكسسوارات أساسية ضمن مسار سريع وواضح.",
+  Laptops: "أجهزة وحلول موجهة للدراسة والعمل والاستخدام اليومي.",
+  Components: "ألعاب وتجهيزات أداء داخل فئة واضحة وغير متداخلة.",
+  Networking: "الطباعة والتصوير ضمن احتياج عملي مستقل وواضح.",
+  Maintenance: "صيانة ودعم فني يختصران وقت البحث واتخاذ القرار.",
+  "Security Systems": "شبكات وأنظمة أمنية ضمن تصنيف مهني مباشر.",
 };
 
 export const exploreNeeds: NeedCategory[] = categories;
