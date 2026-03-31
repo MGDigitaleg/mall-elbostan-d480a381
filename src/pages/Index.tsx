@@ -140,7 +140,7 @@ const Index = () => {
             {categories.map((cat, i) => (
               <motion.div key={cat.name} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                 <Link to={`/stores?category=${encodeURIComponent(cat.name)}`} className="block text-center p-6 rounded-xl bg-secondary/30 border border-border hover:border-primary/30 transition-all group">
-                  <span className="text-3xl block mb-3">{cat.icon}</span>
+                  <cat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{cat.name}</span>
                 </Link>
               </motion.div>

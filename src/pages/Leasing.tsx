@@ -64,7 +64,7 @@ const Leasing = () => {
             <h2 className="text-2xl font-bold mb-6">استفسر الآن</h2>
             {submitted ? (
               <div className="text-center py-10">
-                <p className="text-2xl mb-2">✅</p>
+                <CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" />
                 <p className="text-lg font-bold text-success">تم إرسال طلبك بنجاح</p>
                 <p className="text-muted-foreground mt-2">سنتواصل معك في أقرب وقت ممكن</p>
               </div>

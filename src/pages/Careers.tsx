@@ -82,7 +82,7 @@ const Careers = () => {
             <div className="card-premium p-8">
               {submitted ? (
                 <div className="text-center py-6">
-                  <p className="text-2xl mb-2">✅</p>
+                  <CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" />
                   <p className="font-bold text-success">تم إرسال طلبك بنجاح!</p>
                 </div>
               ) : (

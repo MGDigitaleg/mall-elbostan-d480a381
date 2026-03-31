@@ -74,7 +74,7 @@ const OpeningDay = () => {
                 <div key={comp.id} className="card-premium p-6 border-orange/30">
                   <h3 className="font-bold text-lg text-orange mb-2">{comp.title_ar}</h3>
                   {comp.description_ar && <p className="text-sm text-muted-foreground">{comp.description_ar}</p>}
-                  {comp.start_time && <p className="text-xs text-accent mt-2">🕐 {comp.start_time}</p>}
+                  {comp.start_time && <p className="text-xs text-accent mt-2">{comp.start_time}</p>}
                 </div>
               ))}
             </div>

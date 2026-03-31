@@ -60,7 +60,7 @@ const Contact = () => {
             <div className="card-premium p-6"><MapPin className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الموقع</h3><p className="text-sm text-muted-foreground">القاهرة الجديدة، مصر</p></div>
             <div className="card-premium p-6"><Phone className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الهاتف</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
             <div className="card-premium p-6"><Mail className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">البريد الإلكتروني</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
-            <div className="card-premium p-6 h-48 flex items-center justify-center text-muted-foreground">📍 خريطة Google Maps - سيتم إضافتها</div>
+            <div className="card-premium p-6 h-48 flex items-center justify-center text-muted-foreground"><MapPin className="w-5 h-5 ml-2" />خريطة Google Maps - سيتم إضافتها</div>
           </div>
         </div>
       </div>
