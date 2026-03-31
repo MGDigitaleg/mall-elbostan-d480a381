@@ -2,7 +2,7 @@ import { Calendar, Users, Gamepad2, Award } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildEventLd } from "@/components/SEOHead";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 
