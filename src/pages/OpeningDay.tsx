@@ -21,7 +21,7 @@ const OpeningDay = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="يوم الافتتاح" description="تفاصيل يوم افتتاح مول البستان الكبير - فعاليات، مسابقات، ضيوف، وجوائز حصرية." />
+      <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تفاصيل يوم افتتاح مول البستان الكبير - فعاليات، مسابقات، ضيوف، وجوائز حصرية." descriptionEn="Mall Elbostan grand opening - events, competitions, guests, and exclusive prizes." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
       <div className="container py-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-gradient-blue mb-6">يوم الافتتاح الكبير</h1>
