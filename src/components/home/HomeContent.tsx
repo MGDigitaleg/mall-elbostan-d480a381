@@ -10,6 +10,12 @@ import facadeImage from "@/assets/mall-facade.jpg";
 
 const heroChips = ["وجهة تقنية متخصصة", "حملة افتتاحية وجوائز", "Marketplace by Mall Elbostan"];
 
+const heroStats = [
+  { label: "الافتتاح المرتقب", value: "مايو 2026" },
+  { label: "المسار الأول", value: "الخريطة والمتاجر" },
+  { label: "الامتداد القادم", value: "تجربة Marketplace" },
+];
+
 const featurePillars = [
   {
     icon: Monitor,
@@ -92,22 +98,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   return (
     <>
       <section className="relative overflow-hidden pb-16 pt-4 md:pb-28 md:pt-8">
+        <div className="editorial-grid absolute inset-0 opacity-50" />
         <div className="absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top_right,hsl(var(--primary)/0.12),transparent_54%)]" />
         <div className="container relative">
-          <div className="brand-shell grid items-center gap-10 overflow-hidden rounded-[2.5rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:px-10 lg:py-12">
+          <div className="brand-shell relative grid items-center gap-10 overflow-hidden rounded-[2.8rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:px-10 lg:py-12">
+            <div className="absolute left-10 top-10 hidden h-28 w-28 rounded-full bg-primary/10 blur-3xl lg:block" />
+            <div className="absolute bottom-12 right-14 hidden h-24 w-24 rounded-full bg-accent/10 blur-3xl lg:block" />
             <div className="space-y-6 lg:py-6">
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
                 <div className="eyebrow-chip mb-5">
                   <Sparkles className="h-4 w-4 text-accent" />
                   افتتاح مرتقب • مايو 2026 • وجهة تقنية جديدة في شرق القاهرة
                 </div>
-                <h1 className="max-w-3xl text-4xl font-black leading-[1.15] text-foreground md:text-6xl">
+                <h1 className="max-w-3xl text-4xl font-black leading-[1.1] text-foreground md:text-[4.2rem]">
                   مول البستان
-                  <span className="mt-3 block text-2xl font-semibold leading-tight text-foreground/88 md:text-[2.55rem]">
+                  <span className="mt-4 block text-[1.9rem] font-semibold leading-tight text-foreground/88 md:text-[2.7rem]">
                     مول تقني راقٍ يربط المتاجر، الافتتاح المرتقب، فرص التأجير، والسوق الإلكتروني القادم ضمن تجربة علامة تجارية واحدة
                   </span>
                 </h1>
-                <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+                <p className="mt-7 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
                   الصفحة الرئيسية صُممت لتوضح الفكرة كاملة منذ اللحظة الأولى: وجهة تقنية متخصصة، خريطة تفاعلية، متاجر وفئات منظمة،
                   حملة جوائز راقية للافتتاح، وفرص تجارية مدروسة تمهّد لاحقًا إلى Marketplace by Mall Elbostan.
                 </p>
@@ -120,7 +129,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 className="flex flex-wrap gap-3"
               >
                 {heroChips.map((item) => (
-                  <div key={item} className="rounded-full border border-border/75 bg-card/88 px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)]">
+                  <div key={item} className="rounded-full border border-border/75 bg-card/92 px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)]">
                     {item}
                   </div>
                 ))}
@@ -130,19 +139,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.25, duration: 0.45 }}
-                className="flex flex-wrap gap-3"
+                className="flex flex-wrap gap-3 pt-1"
               >
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="min-w-[180px] rounded-xl px-7">استكشف الخريطة</Button>
+                  <Button variant="cta" size="lg" className="min-w-[190px] rounded-xl px-7">استكشف الخريطة</Button>
                 </Link>
                 <Link to="/leasing">
-                  <Button variant="orange" size="lg" className="min-w-[180px] rounded-xl px-7">استفسر عن الوحدات</Button>
+                  <Button variant="orange" size="lg" className="min-w-[190px] rounded-xl px-7">استفسر عن الوحدات</Button>
                 </Link>
                 <Link to="/spin-win">
-                  <Button variant="outline-blue" size="lg" className="min-w-[180px] rounded-xl px-7">حملة الجوائز</Button>
+                  <Button variant="outline-blue" size="lg" className="min-w-[190px] rounded-xl px-7">حملة الجوائز</Button>
                 </Link>
                 <Link to="/stores">
-                  <Button variant="secondary" size="lg" className="min-w-[180px] rounded-xl px-7">المتاجر والسوق القادم</Button>
+                  <Button variant="secondary" size="lg" className="min-w-[190px] rounded-xl px-7">المتاجر والسوق القادم</Button>
                 </Link>
               </motion.div>
 
@@ -150,21 +159,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.45 }}
-                className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]"
+                className="grid gap-4 xl:grid-cols-[1.12fr_0.88fr]"
               >
-                <div className="section-shell rounded-[1.75rem] p-5">
+                <div className="section-shell rounded-[1.9rem] p-5">
                   <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي للإطلاق</p>
                   <CountdownTimer />
                 </div>
                 <div className="grid gap-4">
-                  <div className="soft-card p-4">
-                    <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">خريطة ومتاجر</p>
-                    <p className="mt-2 text-sm leading-7 text-foreground/88">ابدأ من الخريطة أو الفئات للوصول السريع إلى المتاجر والوحدات والخدمات.</p>
-                  </div>
-                  <div className="soft-card p-4">
-                    <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">Marketplace</p>
-                    <p className="mt-2 text-sm leading-7 text-foreground/88">امتداد رقمي قادم يربط متاجر المول بتجربة تصفح وشراء إلكتروني.</p>
-                  </div>
+                  {heroStats.map((item) => (
+                    <div key={item.label} className="soft-card p-4">
+                      <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">{item.label}</p>
+                      <p className="mt-2 text-base font-bold text-foreground">{item.value}</p>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             </div>
@@ -175,23 +182,24 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               transition={{ duration: 0.55 }}
               className="relative mx-auto w-full max-w-[38rem]"
             >
-              <div className="section-shell overflow-hidden rounded-[2.2rem] p-3 shadow-[var(--shadow-elevated)]">
-                <div className="image-shell aspect-[4/5] overflow-hidden rounded-[1.8rem] bg-card lg:aspect-[5/6]">
+              <div className="section-shell overflow-hidden rounded-[2.4rem] p-3 shadow-[var(--shadow-elevated)]">
+                <div className="image-shell aspect-[4/5] overflow-hidden rounded-[2rem] bg-card lg:aspect-[5/6]">
                   <img src={heroImage} alt="الواجهة الرئيسية لمول البستان بتصميم معماري حديث" className="h-full w-full object-cover object-[center_36%]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/35 via-transparent to-background/15" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/42 via-transparent to-background/12" />
                 </div>
-                <div className="glass absolute inset-x-7 bottom-7 rounded-[1.5rem] p-5 md:inset-x-9 md:bottom-9">
+                <div className="glass absolute inset-x-7 bottom-7 rounded-[1.7rem] p-5 md:inset-x-9 md:bottom-9 md:p-6">
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Mall Elbostan</p>
-                      <p className="mt-2 text-lg font-bold text-foreground">عنوان تقني جديد يجمع الزيارة الفعلية بالنمو التجاري والامتداد الرقمي</p>
+                      <p className="mt-2 text-xl font-bold text-foreground">عنوان تقني جديد يجمع الزيارة الفعلية بالنمو التجاري والامتداد الرقمي</p>
+                      <p className="mt-3 text-sm leading-7 text-muted-foreground">واجهة معمارية مدروسة تمنح المشروع حضورًا بصريًا يليق بموقع flagship لتجربة تسوق تقنية راقية.</p>
                     </div>
                     <Layers3 className="mt-1 h-5 w-5 text-primary" />
                   </div>
                 </div>
               </div>
 
-              <div className="section-shell absolute -left-4 top-8 hidden w-60 overflow-hidden rounded-[1.7rem] p-3 lg:block">
+              <div className="section-shell absolute -left-6 top-10 hidden w-64 overflow-hidden rounded-[1.9rem] p-3 lg:block">
                 <div className="image-shell mb-3 aspect-[4/3] rounded-[1.2rem]">
                   <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="h-full w-full object-cover object-center" />
                 </div>
@@ -199,7 +207,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">صورة داعمة تؤكد حضورًا معماريًا حقيقيًا ومسار حركة واضحًا للزوار والعلامات.</p>
               </div>
 
-              <div className="section-shell absolute -right-4 bottom-14 hidden w-56 rounded-[1.7rem] p-5 lg:block">
+              <div className="section-shell absolute -right-6 bottom-16 hidden w-60 rounded-[1.9rem] p-5 lg:block">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Marketplace by Mall Elbostan</p>
                 <p className="mt-3 text-base font-bold text-foreground">سوق إلكتروني قادم يوسّع تجربة المول بعد الزيارة</p>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">تصفّح المنتجات من المتاجر المفضلة ضمن منظومة موحدة تحمل نفس هوية المشروع.</p>
@@ -227,7 +235,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {featurePillars.map((feature, i) => (
               <motion.div key={feature.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <div className="section-shell h-full rounded-[1.6rem] p-6">
+                <div className="section-shell h-full rounded-[1.8rem] p-6 transition-transform duration-300 hover:-translate-y-1">
                   <feature.icon className="mb-4 h-10 w-10 text-primary" />
                   <h3 className="mb-3 text-lg font-bold text-foreground">{feature.title}</h3>
                   <p className="text-sm leading-7 text-muted-foreground">{feature.desc}</p>

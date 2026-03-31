@@ -42,15 +42,15 @@ export function Header() {
     `rounded-full px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
       isActive(path)
         ? "bg-card text-foreground shadow-[var(--shadow-soft)]"
-        : "text-muted-foreground hover:bg-card hover:text-foreground"
+        : "text-muted-foreground/90 hover:bg-card hover:text-foreground"
     }`;
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-3 md:px-4 md:pt-4">
       <div className="container">
-        <div className="glass rounded-[2rem] px-4 py-3 md:px-6 md:py-4">
+        <div className="glass rounded-[2.2rem] border-white/60 px-4 py-3 md:px-6 md:py-4 shadow-[var(--shadow-premium)]">
           <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-6">
-            <nav className="flex items-center justify-end gap-1 rounded-full border border-border/70 bg-secondary/45 p-2">
+            <nav className="flex items-center justify-end gap-1 rounded-full border border-border/70 bg-card/55 p-2">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
@@ -59,20 +59,21 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="rounded-[1.75rem] border border-border/70 bg-background/92 px-6 py-4 shadow-[var(--shadow-soft)]">
+              <div className="brand-shell relative overflow-hidden rounded-[1.9rem] px-7 py-5 shadow-[var(--shadow-premium)] before:absolute before:inset-x-8 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/80 before:to-transparent">
                 <BrandLogo
                   align="center"
                   subtitle="Mall Elbostan"
-                  imageClassName="h-16 md:h-[4.5rem]"
+                  framed
+                  imageClassName="h-[4.5rem] md:h-[5.25rem]"
                 />
-                <p className="mt-2 text-center text-[0.7rem] font-semibold tracking-[0.26em] text-muted-foreground uppercase">
+                <p className="mt-3 text-center text-[0.7rem] font-semibold tracking-[0.26em] text-muted-foreground uppercase">
                   Opening Soon • May 2026
                 </p>
               </div>
             </Link>
 
             <div className="flex items-center justify-start gap-3">
-              <div className="hidden 2xl:flex items-center gap-1 rounded-full border border-border/70 bg-secondary/35 p-2">
+              <div className="hidden 2xl:flex items-center gap-1 rounded-full border border-border/70 bg-card/45 p-2">
                 {secondaryNavItems.map((item) => (
                   <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                     {item.label}
@@ -103,8 +104,8 @@ export function Header() {
             </button>
 
             <Link to="/" className="flex-1">
-              <div className="flex items-center justify-center rounded-[1.4rem] border border-border/70 bg-background/92 px-4 py-3 shadow-[var(--shadow-soft)]">
-                <BrandLogo align="center" subtitle="Mall Elbostan" imageClassName="h-12" />
+              <div className="brand-shell flex items-center justify-center rounded-[1.6rem] px-4 py-3 shadow-[var(--shadow-soft)]">
+                <BrandLogo align="center" subtitle="Mall Elbostan" framed imageClassName="h-12" />
               </div>
             </Link>
 
@@ -126,8 +127,8 @@ export function Header() {
             className="container xl:hidden"
           >
             <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.75rem] px-4 py-4">
-              <div className="rounded-[1.5rem] border border-border/70 bg-background/90 px-4 py-4 text-center shadow-[var(--shadow-soft)]">
-                <BrandLogo align="center" subtitle="Premium Technology Mall" imageClassName="mx-auto h-14" />
+              <div className="brand-shell rounded-[1.5rem] px-4 py-4 text-center shadow-[var(--shadow-soft)]">
+                <BrandLogo align="center" subtitle="Premium Technology Mall" framed imageClassName="mx-auto h-14" />
               </div>
 
               {mobileNavItems.map((item) => (
