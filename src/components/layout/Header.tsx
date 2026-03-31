@@ -45,10 +45,10 @@ export function Header() {
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-1.5 md:px-4 md:pt-1.5">
+    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-1 md:px-4 md:pt-1">
       <div className="container">
-        <div className="glass rounded-[1.05rem] border-border/60 px-3 py-1 md:px-4 md:py-1 shadow-[var(--shadow-soft)]">
-          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-2.5">
+        <div className="glass rounded-[0.95rem] border-border/60 px-3 py-0.5 md:px-4 md:py-0.5 shadow-[var(--shadow-soft)]">
+          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-2">
             <nav className="flex items-center justify-end gap-1">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
@@ -58,11 +58,10 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="relative flex items-center justify-center px-0.5 py-0">
+              <div className="relative flex items-center justify-center">
                 <BrandLogo
-                  framed
                   align="center"
-                  imageClassName="h-[5.35rem] md:h-[5.65rem]"
+                  imageClassName="h-[4.5rem] md:h-[4.8rem]"
                 />
               </div>
             </Link>
@@ -79,7 +78,7 @@ export function Header() {
                 السوق قريبًا
               </Link>
               <Link to="/spin-win">
-                <Button variant="cta" size="sm" className="h-8 rounded-full px-3.5">
+                <Button variant="cta" size="sm" className="h-7.5 rounded-full px-3.5">
                   أدر واربح
                 </Button>
               </Link>
@@ -96,13 +95,13 @@ export function Header() {
             </button>
 
             <Link to="/" className="flex-1">
-              <div className="flex items-center justify-center px-1 py-0">
-                <BrandLogo framed align="center" imageClassName="h-[4.95rem]" />
+              <div className="flex items-center justify-center">
+                <BrandLogo align="center" imageClassName="h-[4.05rem] sm:h-[4.2rem]" />
               </div>
             </Link>
 
             <Link to="/spin-win" className="hidden sm:block">
-              <Button variant="cta" size="sm" className="h-8 rounded-full px-3.5">
+              <Button variant="cta" size="sm" className="h-7.5 rounded-full px-3.5">
                 أدر واربح
               </Button>
             </Link>
@@ -118,9 +117,9 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="container xl:hidden"
           >
-            <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.2rem] px-4 py-4">
-              <div className="rounded-[1.2rem] px-0.5 py-0 text-center">
-                <BrandLogo framed align="center" imageClassName="mx-auto h-[4.9rem]" />
+            <nav className="glass mt-2.5 flex flex-col gap-2 rounded-[1.1rem] px-4 py-4">
+              <div className="text-center">
+                <BrandLogo align="center" imageClassName="mx-auto h-[4rem]" />
               </div>
 
               {mobileNavItems.map((item) => (

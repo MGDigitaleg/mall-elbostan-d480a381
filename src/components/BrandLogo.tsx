@@ -11,12 +11,12 @@ type BrandLogoProps = {
 
 export function BrandLogo({ className, imageClassName, subtitle, align = "start", framed = false }: BrandLogoProps) {
   return (
-    <div className={cn("flex flex-col gap-1", align === "center" ? "items-center text-center" : "items-start text-right", className)}>
+    <div className={cn("flex flex-col gap-0.5", align === "center" ? "items-center text-center" : "items-start text-right", className)}>
       <div className={cn(framed && "brand-mark-frame logo-stage")}>
         <img
           src={logoImage}
           alt="شعار مول البستان"
-          className={cn("h-[4.45rem] w-auto object-contain md:h-[5rem]", imageClassName)}
+          className={cn("block h-[3.7rem] w-auto max-w-full object-contain md:h-[4.1rem]", imageClassName)}
           loading="eager"
         />
       </div>
