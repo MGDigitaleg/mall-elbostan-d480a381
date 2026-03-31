@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Briefcase, Upload } from "lucide-react";
+import { Briefcase, Upload, CheckCircle2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";

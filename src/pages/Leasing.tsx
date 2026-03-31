@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Building } from "lucide-react";
+import { Building, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
