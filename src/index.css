@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 @layer base {
   :root {
     --font-cairo: 'Cairo', sans-serif;
-    --font-arabic-display: 'Cairo', sans-serif;
+    --font-arabic-display: 'Noto Naskh Arabic', serif;
     --font-poppins: 'Poppins', sans-serif;
 
     --background: 210 33% 98%;
@@ -61,10 +61,10 @@
     --gradient-logo: linear-gradient(180deg, hsl(0 0% 100% / 0.99), hsl(210 28% 98% / 0.9));
 
     --shadow-blue: 0 12px 36px hsl(217 85% 54% / 0.18);
-    --shadow-card: 0 16px 32px hsl(219 28% 24% / 0.045);
-    --shadow-elevated: 0 24px 52px hsl(219 28% 24% / 0.065);
-    --shadow-soft: 0 8px 18px hsl(219 28% 24% / 0.04);
-    --shadow-premium: 0 24px 60px hsl(219 28% 24% / 0.07);
+    --shadow-card: 0 14px 28px hsl(219 28% 24% / 0.04);
+    --shadow-elevated: 0 22px 46px hsl(219 28% 24% / 0.06);
+    --shadow-soft: 0 7px 16px hsl(219 28% 24% / 0.035);
+    --shadow-premium: 0 22px 52px hsl(219 28% 24% / 0.065);
 
     --sidebar-background: 218 36% 18%;
     --sidebar-foreground: 210 40% 96%;
@@ -98,15 +98,15 @@
   h3,
   h4 {
     font-family: var(--font-arabic-display);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.18;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.14;
     text-wrap: balance;
-    font-feature-settings: "liga" 1;
+    font-feature-settings: "ss01" 1, "liga" 1;
   }
 
   p {
-    max-width: 52ch;
+    max-width: 48ch;
   }
 }
 
@@ -157,8 +157,8 @@
   .brand-mark-frame {
     background: var(--gradient-logo);
     border: 1px solid hsl(var(--border) / 0.9);
-    border-radius: calc(var(--radius) * 1.5);
-    padding: 0.2rem 0.6rem;
+    border-radius: calc(var(--radius) * 1.25);
+    padding: 0.1rem 0.35rem;
     box-shadow: var(--shadow-card);
   }
 
@@ -170,7 +170,7 @@
   .logo-stage::after {
     content: "";
     position: absolute;
-    inset: 14% 10%;
+    inset: 18% 12%;
     z-index: -1;
     border-radius: calc(var(--radius) * 1.6);
     background: radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 68%);
@@ -222,7 +222,7 @@
   }
 
   .mini-chip {
-    @apply inline-flex items-center rounded-full border border-border/80 bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
+    @apply inline-flex items-center rounded-full border border-border/80 bg-card px-3.5 py-1.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
   }
 
   .page-halo {
@@ -246,7 +246,7 @@
   }
 
   .section-title {
-    @apply text-3xl font-bold leading-[1.18] text-foreground md:text-[3.15rem];
+    @apply text-3xl font-bold leading-[1.14] text-foreground md:text-[3rem];
   }
 
   .editorial-grid {
