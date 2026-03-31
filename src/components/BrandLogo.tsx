@@ -16,11 +16,11 @@ export function BrandLogo({ className, imageClassName, subtitle, align = "start"
         <img
           src={logoImage}
           alt="شعار مول البستان"
-          className={cn("h-12 w-auto object-contain md:h-14", imageClassName)}
+          className={cn("h-14 w-auto object-contain md:h-16", imageClassName)}
           loading="eager"
         />
       </div>
-      {subtitle ? <span className="text-[0.72rem] font-medium tracking-[0.18em] text-muted-foreground/90 uppercase">{subtitle}</span> : null}
+      {subtitle ? <span className="text-[0.7rem] font-medium tracking-[0.16em] text-muted-foreground/90 uppercase">{subtitle}</span> : null}
     </div>
   );
 }
