@@ -26,7 +26,7 @@ export function CountdownTimer() {
   if (isExpired) {
     return (
       <div className="text-center">
-        <p className="text-2xl font-bold text-success">🎉 المول مفتوح الآن!</p>
+        <p className="text-2xl font-bold text-success">المول مفتوح الآن</p>
       </div>
     );
   }

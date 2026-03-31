@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -45,7 +45,7 @@ const Contact = () => {
           <div className="card-premium p-8">
             <h2 className="text-2xl font-bold mb-6">أرسل رسالة</h2>
             {submitted ? (
-              <div className="text-center py-10"><p className="text-2xl mb-2">✅</p><p className="font-bold text-success">تم إرسال رسالتك بنجاح!</p><p className="text-muted-foreground mt-2">سنتواصل معك قريباً</p></div>
+              <div className="text-center py-10"><CheckCircle2 className="w-10 h-10 text-success mx-auto mb-2" /><p className="font-bold text-success">تم إرسال رسالتك بنجاح!</p><p className="text-muted-foreground mt-2">سنتواصل معك قريباً</p></div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <Input placeholder="الاسم الكامل *" value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="bg-secondary border-border" required />
@@ -60,7 +60,7 @@ const Contact = () => {
             <div className="card-premium p-6"><MapPin className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الموقع</h3><p className="text-sm text-muted-foreground">القاهرة الجديدة، مصر</p></div>
             <div className="card-premium p-6"><Phone className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">الهاتف</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
             <div className="card-premium p-6"><Mail className="w-6 h-6 text-primary mb-2" /><h3 className="font-bold mb-1">البريد الإلكتروني</h3><p className="text-sm text-muted-foreground">سيتم الإعلان قريباً</p></div>
-            <div className="card-premium p-6 h-48 flex items-center justify-center text-muted-foreground">📍 خريطة Google Maps - سيتم إضافتها</div>
+            <div className="card-premium p-6 h-48 flex items-center justify-center text-muted-foreground"><MapPin className="w-5 h-5 ml-2" />خريطة Google Maps - سيتم إضافتها</div>
           </div>
         </div>
       </div>

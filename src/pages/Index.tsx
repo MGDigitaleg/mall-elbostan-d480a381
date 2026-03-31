@@ -17,13 +17,15 @@ const features = [
   { icon: Building, title: "احجز وحدتك", desc: "فرص تأجير مميزة في أفضل موقع بالقاهرة الجديدة", link: "/leasing", color: "text-orange" },
 ];
 
+import { Smartphone, Monitor, Gamepad2, Printer, Shield, Wrench } from "lucide-react";
+
 const categories = [
-  { name: "الهواتف والإكسسوارات", icon: "📱" },
-  { name: "الكمبيوتر والأجهزة", icon: "💻" },
-  { name: "الألعاب والجيمنج", icon: "🎮" },
-  { name: "الطباعة والتصوير", icon: "🖨️" },
-  { name: "الشبكات والحماية", icon: "🔒" },
-  { name: "الصيانة والدعم الفني", icon: "🔧" },
+  { name: "الهواتف والإكسسوارات", icon: Smartphone },
+  { name: "الكمبيوتر والأجهزة", icon: Monitor },
+  { name: "الألعاب والجيمنج", icon: Gamepad2 },
+  { name: "الطباعة والتصوير", icon: Printer },
+  { name: "الشبكات والحماية", icon: Shield },
+  { name: "الصيانة والدعم الفني", icon: Wrench },
 ];
 
 const fadeUp = {
@@ -98,13 +100,13 @@ const Index = () => {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="flex flex-wrap gap-4 justify-center mt-10">
             <Link to="/spin-win">
-              <Button variant="cta" size="lg" className="text-lg px-8">🎡 أدر واربح</Button>
+              <Button variant="cta" size="lg" className="text-lg px-8">أدر واربح</Button>
             </Link>
             <Link to="/map">
-              <Button variant="outline-blue" size="lg" className="text-lg px-8">🗺️ تصفح الخريطة</Button>
+              <Button variant="outline-blue" size="lg" className="text-lg px-8">تصفح الخريطة</Button>
             </Link>
             <Link to="/leasing">
-              <Button variant="orange" size="lg" className="text-lg px-8">🏢 احجز وحدتك</Button>
+              <Button variant="orange" size="lg" className="text-lg px-8">احجز وحدتك</Button>
             </Link>
           </motion.div>
         </div>
@@ -138,7 +140,7 @@ const Index = () => {
             {categories.map((cat, i) => (
               <motion.div key={cat.name} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                 <Link to={`/stores?category=${encodeURIComponent(cat.name)}`} className="block text-center p-6 rounded-xl bg-secondary/30 border border-border hover:border-primary/30 transition-all group">
-                  <span className="text-3xl block mb-3">{cat.icon}</span>
+                  <cat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{cat.name}</span>
                 </Link>
               </motion.div>

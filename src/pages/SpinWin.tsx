@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -95,7 +96,7 @@ const SpinWin = () => {
     <MainLayout>
       <SEOHead title="أدر واربح" titleEn="Spin & Win" description="شارك في لعبة أدر واربح واحصل على جوائز فورية من مول البستان يوم الافتتاح!" descriptionEn="Spin the wheel and win prizes at Mall Elbostan's grand opening!" breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]} />
       <div className="container py-20 max-w-2xl text-center">
-        <h1 className="text-4xl font-bold text-gradient-blue mb-4">🎡 أدر واربح</h1>
+        <h1 className="text-4xl font-bold text-gradient-blue mb-4">أدر واربح</h1>
         <p className="text-muted-foreground mb-10">سجّل بياناتك وأدر العجلة للفوز بجوائز قيّمة يوم الافتتاح!</p>
 
         {step === "register" && (
@@ -104,7 +105,7 @@ const SpinWin = () => {
             <Input placeholder="رقم الهاتف *" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="bg-secondary border-border" required dir="ltr" />
             <Input placeholder="البريد الإلكتروني (اختياري)" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="bg-secondary border-border" dir="ltr" />
             <Button type="submit" variant="cta" className="w-full text-lg" disabled={loading}>
-              {loading ? "جاري التحميل..." : "أدر العجلة! 🎡"}
+              {loading ? "جاري التحميل..." : "أدر العجلة"}
             </Button>
             <p className="text-xs text-muted-foreground text-center">يمكنك المشاركة مرة واحدة فقط</p>
           </form>
@@ -113,7 +114,7 @@ const SpinWin = () => {
         {step === "spinning" && (
           <div className="py-10">
             <div className="w-48 h-48 mx-auto rounded-full bg-gradient-blue flex items-center justify-center transition-transform duration-[4500ms] ease-out" style={{ transform: `rotate(${rotation}deg)` }}>
-              <span className="text-6xl">🎡</span>
+              <Sparkles className="w-16 h-16 text-white" />
             </div>
             <p className="text-lg font-bold text-foreground mt-8 animate-pulse">جاري الدوران...</p>
           </div>
@@ -123,8 +124,7 @@ const SpinWin = () => {
           <div className="card-premium p-8">
             {prize ? (
               <>
-                <p className="text-5xl mb-4">🎉</p>
-                <h2 className="text-2xl font-bold text-success mb-4">مبروك! لقد فزت!</h2>
+                <h2 className="text-2xl font-bold text-success mb-4">مبروك! لقد فزت</h2>
                 <p className="text-xl font-bold text-foreground mb-4">{prize.title_ar}</p>
                 {prize.claim_rules_ar && (
                   <div className="bg-secondary/50 p-4 rounded-lg text-sm text-muted-foreground mt-4 text-right">
@@ -133,15 +133,14 @@ const SpinWin = () => {
                   </div>
                 )}
                 <div className="bg-accent/10 p-4 rounded-lg mt-4 text-sm text-accent">
-                  <p>📸 احفظ لقطة شاشة لهذه الصفحة</p>
-                  <p>📅 أحضرها يوم الافتتاح لاستلام جائزتك</p>
-                  <p>📱 تابع صفحاتنا الرسمية على مواقع التواصل</p>
+                  <p>احفظ لقطة شاشة لهذه الصفحة</p>
+                  <p>أحضرها يوم الافتتاح لاستلام جائزتك</p>
+                  <p>تابع صفحاتنا الرسمية على مواقع التواصل</p>
                 </div>
               </>
             ) : (
               <>
-                <p className="text-5xl mb-4">😊</p>
-                <h2 className="text-2xl font-bold text-foreground mb-4">شكراً لمشاركتك!</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-4">شكراً لمشاركتك</h2>
                 <p className="text-muted-foreground">لم يحالفك الحظ هذه المرة، لكن لا تقلق — هناك عروض وفعاليات رائعة بانتظارك يوم الافتتاح!</p>
               </>
             )}

@@ -34,10 +34,10 @@ const AdminLeads = () => {
                   <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">{typeLabels[lead.lead_type] ?? lead.lead_type}</span>
                 </div>
                 <div className="text-sm text-muted-foreground space-y-1">
-                  {lead.phone && <p>📞 <span dir="ltr">{lead.phone}</span></p>}
-                  {lead.email && <p>📧 {lead.email}</p>}
-                  {lead.company && <p>🏢 {lead.company}</p>}
-                  {lead.message && <p>💬 {lead.message}</p>}
+                  {lead.phone && <p>الهاتف: <span dir="ltr">{lead.phone}</span></p>}
+                  {lead.email && <p>البريد: {lead.email}</p>}
+                  {lead.company && <p>الشركة: {lead.company}</p>}
+                  {lead.message && <p>الرسالة: {lead.message}</p>}
                   <p className="text-xs">{new Date(lead.created_at).toLocaleDateString("ar-EG")}</p>
                 </div>
               </div>
