@@ -113,7 +113,7 @@ const SpinWin = () => {
         {step === "spinning" && (
           <div className="py-10">
             <div className="w-48 h-48 mx-auto rounded-full bg-gradient-blue flex items-center justify-center transition-transform duration-[4500ms] ease-out" style={{ transform: `rotate(${rotation}deg)` }}>
-              <span className="text-6xl">🎡</span>
+              <Sparkles className="w-16 h-16 text-white" />
             </div>
             <p className="text-lg font-bold text-foreground mt-8 animate-pulse">جاري الدوران...</p>
           </div>
