@@ -38,9 +38,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border/70 bg-secondary/35">
       <div className="container py-14 md:py-16">
-        <div className="section-shell mb-10 grid gap-8 px-6 py-8 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div className="brand-shell mb-10 grid gap-8 overflow-hidden rounded-[2.2rem] px-6 py-8 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div className="space-y-4">
-            <BrandLogo imageClassName="h-16 md:h-20" subtitle="Mall Elbostan" />
+            <BrandLogo imageClassName="h-[4.5rem] md:h-[5.5rem]" subtitle="Mall Elbostan" framed />
             <p className="max-w-2xl text-sm leading-8 text-muted-foreground md:text-base">
               مول البستان يقدّم تجربة علامة تجارية تقنية أكثر نضجًا: متاجر متخصصة، خريطة تفاعلية، حملة إطلاق مدروسة، وفرص
               تجارية تمتد لاحقًا إلى Marketplace by Mall Elbostan.
