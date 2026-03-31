@@ -22,7 +22,7 @@ const FAQ = () => {
         <div className="brand-shell mb-10 rounded-[2.2rem] px-6 py-8 text-center md:px-8 md:py-10">
           <p className="section-kicker">FAQ</p>
           <h1 className="mb-4 text-4xl font-bold text-foreground md:text-5xl">الأسئلة الشائعة</h1>
-          <p className="mx-auto max-w-2xl leading-8 text-muted-foreground">إجابات واضحة ومباشرة حول المول، الافتتاح، المتاجر، وصفحات التفاعل، ضمن قراءة أخف وأكثر أناقة واتساقًا مع الهوية الجديدة.</p>
+          <p className="mx-auto max-w-2xl leading-8 text-muted-foreground">إجابات سريعة وواضحة عن المول، الافتتاح، المتاجر، والصفحات المهمة، بشكل أبسط وأقرب لطريقة الكلام اللي تناسب علامة مصرية premium.</p>
         </div>
         {categories.length > 0 ? categories.map((cat) => (
           <div key={cat} className="mb-8">
@@ -46,7 +46,7 @@ const FAQ = () => {
             ))}
           </Accordion>
         )}
-        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">سيتم إضافة الأسئلة الشائعة قريباً</div>}
+        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">الأسئلة دي هتتحدث قريب مع إضافة محتوى أكتر</div>}
       </div>
     </MainLayout>
   );
