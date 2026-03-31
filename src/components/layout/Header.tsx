@@ -116,7 +116,7 @@ export function Header() {
               <SheetContent side="right" className="w-[90vw] max-w-[23rem] border-border bg-background px-4 py-5">
                 <SheetHeader className="space-y-2 text-right">
                   <div className="flex items-center justify-between gap-3">
-                    <BrandLogo align="right" imageClassName="h-auto max-w-[156px]" />
+                    <BrandLogo align="start" imageClassName="h-auto max-w-[156px]" />
                     <span className="rounded-full border border-border bg-card px-3 py-1.5 text-[0.72rem] font-semibold text-muted-foreground">
                       تنقل سريع
                     </span>
