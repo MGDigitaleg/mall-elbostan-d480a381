@@ -5,6 +5,7 @@ const footerLinks = [
     title: "المول",
     links: [
       { label: "عن المول", path: "/about" },
+      { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
       { label: "المتاجر", path: "/stores" },
       { label: "الخريطة", path: "/map" },
       { label: "يوم الافتتاح", path: "/opening-day" },
@@ -14,9 +15,19 @@ const footerLinks = [
     title: "خدمات",
     links: [
       { label: "التأجير", path: "/leasing" },
+      { label: "العروض اليومية", path: "/daily-deals" },
       { label: "الوظائف", path: "/careers" },
       { label: "المدونة", path: "/blog" },
       { label: "تواصل معنا", path: "/contact" },
+    ],
+  },
+  {
+    title: "قانوني",
+    links: [
+      { label: "الأسئلة الشائعة", path: "/faq" },
+      { label: "سياسة الخصوصية", path: "/privacy" },
+      { label: "الشروط والأحكام", path: "/terms" },
+      { label: "شروط المكافآت", path: "/reward-terms" },
     ],
   },
 ];
@@ -25,9 +36,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-card">
       <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-2xl font-bold text-gradient-gold mb-3">مول البستان</h3>
+            <h3 className="text-2xl font-bold text-gradient-blue mb-3">مول البستان</h3>
             <p className="text-muted-foreground text-sm leading-relaxed">
               وجهتك الأولى للتكنولوجيا في مصر. أحدث المنتجات وأفضل العلامات التجارية تحت سقف واحد.
             </p>
