@@ -43,7 +43,7 @@ export function Header() {
           ))}
           <Link to="/spin-win">
             <Button variant="cta" size="sm" className="mr-2">
-              🎡 أدر واربح
+              أدر واربح
             </Button>
           </Link>
         </nav>
