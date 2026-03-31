@@ -259,7 +259,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="bg-card/35 py-12 md:py-18">
+      <section id="marketplace" className="bg-card/35 py-12 md:py-18">
         <div className="container">
           <div className="mb-8 max-w-2xl">
             <p className="section-kicker">المتاجر والفئات</p>
