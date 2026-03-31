@@ -1,10 +1,50 @@
-const AdminDashboard = () => (
-  <div className="min-h-screen bg-background p-8">
-    <div className="container">
-      <h1 className="text-4xl font-bold text-gradient-gold mb-4">لوحة التحكم</h1>
-      <p className="text-muted-foreground">إدارة المول والمتاجر والمحتوى.</p>
+import { Link } from "react-router-dom";
+import { useRequireAdmin } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut } from "lucide-react";
+
+const adminSections = [
+  { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
+  { title: "الوحدات", icon: Building, path: "/admin/units", desc: "إدارة الوحدات التجارية" },
+  { title: "الفعاليات", icon: Calendar, path: "/admin/events", desc: "إدارة فعاليات الافتتاح" },
+  { title: "المكافآت", icon: Gift, path: "/admin/rewards", desc: "إدارة جوائز أدر واربح" },
+  { title: "العروض", icon: Tag, path: "/admin/deals", desc: "إدارة العروض اليومية" },
+  { title: "الوظائف", icon: Briefcase, path: "/admin/jobs", desc: "إدارة الوظائف الشاغرة" },
+  { title: "المدونة", icon: FileText, path: "/admin/blog", desc: "إدارة المقالات والأخبار" },
+  { title: "الأسئلة الشائعة", icon: HelpCircle, path: "/admin/faqs", desc: "إدارة الأسئلة والأجوبة" },
+  { title: "العملاء المحتملون", icon: Users, path: "/admin/leads", desc: "عرض طلبات التواصل والتأجير" },
+];
+
+const AdminDashboard = () => {
+  const { loading, signOut } = useRequireAdmin();
+
+  if (loading) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground">جاري التحميل...</div>;
+
+  return (
+    <div className="min-h-screen bg-background">
+      <header className="glass sticky top-0 z-50">
+        <div className="container flex h-16 items-center justify-between">
+          <h1 className="text-xl font-bold text-gradient-blue">لوحة تحكم مول البستان</h1>
+          <div className="flex gap-2">
+            <Link to="/"><Button variant="ghost" size="sm"><Settings className="w-4 h-4 ml-1" /> الموقع</Button></Link>
+            <Button variant="ghost" size="sm" onClick={signOut}><LogOut className="w-4 h-4 ml-1" /> خروج</Button>
+          </div>
+        </div>
+      </header>
+      <main className="container py-10">
+        <h2 className="text-2xl font-bold text-foreground mb-8">مرحباً بك في لوحة التحكم</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {adminSections.map((section) => (
+            <Link key={section.path} to={section.path} className="card-premium p-6 hover:glow-blue transition-all group">
+              <section.icon className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
+              <h3 className="font-bold text-lg text-foreground mb-1">{section.title}</h3>
+              <p className="text-sm text-muted-foreground">{section.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </main>
     </div>
-  </div>
-);
+  );
+};
 
 export default AdminDashboard;
