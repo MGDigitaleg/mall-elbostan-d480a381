@@ -20,21 +20,21 @@ const FAQ = () => {
     <MainLayout>
       <SEOHead title="الأسئلة الشائعة" titleEn="FAQ" description="إجابات على أكثر الأسئلة شيوعاً حول مول البستان." descriptionEn="Frequently asked questions about Mall Elbostan." breadcrumbs={[{ name: "الأسئلة الشائعة", url: "/faq" }]} jsonLd={faqs && faqs.length > 0 ? buildFaqLd(faqs) : undefined} />
       <div className="container max-w-5xl py-8 md:py-12">
-        <div className="brand-shell page-halo mb-10 rounded-[2.4rem] px-5 py-6 md:px-8 md:py-8">
-          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end">
+        <div className="brand-shell page-halo mb-8 rounded-[2.15rem] px-5 py-5 md:px-7 md:py-6">
+          <div className="grid gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div>
-              <p className="section-kicker">FAQ</p>
-              <h1 className="mb-4 text-4xl font-bold text-foreground md:text-[3.2rem]">إجابات واضحة على أهم الأسئلة قبل الافتتاح</h1>
-              <p className="max-w-2xl leading-7 text-muted-foreground">إجابات مختصرة تساعدك تصل للمعلومة بسرعة وبأسلوب واضح.</p>
+              <p className="section-kicker">الأسئلة الشائعة</p>
+              <h1 className="mb-3 text-4xl font-bold text-foreground md:text-[3rem]">إجابات واضحة قبل الزيارة أو الاستفسار</h1>
+              <p className="max-w-2xl leading-7 text-muted-foreground">محتوى مباشر ومختصر يساعدك تصل للمعلومة بسرعة.</p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-3">
               {[
                 { icon: HelpCircle, title: "إجابات مباشرة" },
                 { icon: Store, title: "تفاصيل المتاجر" },
                 { icon: MapPin, title: "الزيارة والموقع" },
               ].map((item) => (
-                <div key={item.title} className="editorial-panel rounded-[1.4rem] p-4">
-                  <item.icon className="icon-shell mb-3 h-10 w-10 p-2.5" />
+                <div key={item.title} className="editorial-panel rounded-[1.25rem] p-4">
+                  <item.icon className="icon-shell mb-2.5 h-10 w-10 p-2.5" />
                   <p className="text-sm font-semibold text-foreground">{item.title}</p>
                 </div>
               ))}
@@ -55,7 +55,7 @@ const FAQ = () => {
             </Accordion>
           </div>
         )) : (
-          <Accordion type="single" collapsible className="space-y-3">
+            <Accordion type="single" collapsible defaultValue={faqs?.[0]?.id} className="space-y-3">
             {faqs?.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id} className="section-shell rounded-[1.5rem] px-6">
                 <AccordionTrigger className="font-semibold text-foreground hover:text-primary">{faq.question_ar}</AccordionTrigger>

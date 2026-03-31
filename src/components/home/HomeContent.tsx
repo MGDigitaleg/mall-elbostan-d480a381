@@ -4,6 +4,7 @@ import { Calendar, HelpCircle, Map, MapPin, Monitor, Shield, Smartphone, Sparkle
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
 import { allMapUnits, availableMapUnits, exploreNeeds, floorMapData, homepageLeasingUnits, needCategoryDescriptions, needCategoryLabels, type NeedCategory } from "@/lib/floorMapData";
 import heroImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
@@ -70,6 +71,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   }));
   const faqItems = (faqs.length >= 6 ? faqs : fallbackFaqs).slice(0, 6);
   const launchEvent = upcomingEvents[0] ?? null;
+  const availableByFloor = floorMapData.map((floor) => ({
+    id: floor.id,
+    label: floor.label,
+    count: floor.units.filter((unit) => unit.status === "available").length,
+  }));
   const heroFacts = [
     { label: "عدد الأدوار", value: `${floorMapData.length}` },
     { label: "الوحدات المتاحة", value: `${availableUnits.length}` },
@@ -97,32 +103,34 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.4 }} className="flex flex-wrap gap-2">
-                {heroPills.map((item) => (
-                  <span key={item} className="mini-chip h-9 px-4 py-0 text-sm">{item}</span>
-                ))}
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, duration: 0.4 }} className="flex flex-wrap gap-3 pt-1">
-                <Link to="/map"><Button variant="cta" size="lg" className="h-14 min-w-[12rem] rounded-[1.1rem] px-7">استكشف الخريطة</Button></Link>
-                <Link to="/leasing"><Button variant="orange" size="lg" className="h-14 min-w-[12rem] rounded-[1.1rem] px-7">استفسر عن الوحدات</Button></Link>
-              </motion.div>
-
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.24, duration: 0.4 }} className="grid gap-3 lg:grid-cols-[0.78fr_1.22fr]">
-                <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-                  {heroFacts.map((item) => (
-                    <div key={item.label} className="editorial-panel flex min-h-[5.4rem] flex-col justify-center rounded-[1.25rem] px-4 py-3">
-                      <p className="text-xs font-semibold text-muted-foreground">{item.label}</p>
-                      <p className="mt-1.5 text-lg font-bold text-foreground">{item.value}</p>
-                    </div>
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-3 rounded-[1.6rem] p-4 md:p-5">
+                <div className="flex flex-wrap gap-2">
+                  {heroPills.map((item) => (
+                    <span key={item} className="mini-chip h-8 px-3.5 py-0 text-sm">{item}</span>
                   ))}
                 </div>
-                <div className="section-shell rounded-[1.5rem] p-4 md:p-5">
-                  <div className="mb-3 flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-foreground">العد التنازلي للافتتاح</p>
-                    <span className="text-xs text-muted-foreground">متابعة يوم الافتتاح</span>
+
+                <div className="flex flex-wrap gap-3">
+                  <Link to="/map"><Button variant="cta" size="lg" className="h-13 min-w-[11.5rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
+                  <Link to="/leasing"><Button variant="orange" size="lg" className="h-13 min-w-[11.5rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
+                </div>
+
+                <div className="grid gap-3 lg:grid-cols-[1.05fr_0.95fr]">
+                  <div className="grid gap-2 sm:grid-cols-3">
+                    {heroFacts.map((item) => (
+                      <div key={item.label} className="editorial-panel flex min-h-[4.75rem] flex-col justify-center rounded-[1.1rem] px-4 py-3">
+                        <p className="text-xs font-semibold text-muted-foreground">{item.label}</p>
+                        <p className="mt-1 text-lg font-bold text-foreground">{item.value}</p>
+                      </div>
+                    ))}
                   </div>
-                  <CountdownTimer />
+                  <div className="rounded-[1.25rem] border border-border bg-card px-4 py-4">
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <p className="text-sm font-semibold text-foreground">العد التنازلي للافتتاح</p>
+                      <span className="text-xs text-muted-foreground">متابعة يوم الافتتاح</span>
+                    </div>
+                    <CountdownTimer />
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -148,28 +156,32 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="page-section">
         <div className="container">
-          <div className="grid gap-5 lg:grid-cols-[1fr_1fr] lg:items-start">
-            <div className="space-y-4 lg:order-2">
+          <div className="grid gap-4 lg:grid-cols-[1fr_1fr] lg:items-start">
+            <div className="space-y-3.5 lg:order-2">
               <div className="chapter-shell pt-5">
                 <p className="section-kicker">لماذا مول البستان</p>
                 <h2 className="section-title max-w-[35rem]">وجهة تقنية بهوية واضحة وتجربة زيارة أهدأ.</h2>
               </div>
-              <p className="max-w-[32.5rem] text-base leading-7 text-muted-foreground md:text-lg">
-                المشروع يجمع الفئات الأساسية في مكان واحد، ويقدم للزائر ولصاحب النشاط طريقة أوضح لفهم المول واتخاذ القرار.
+              <p className="max-w-[31rem] text-base leading-7 text-muted-foreground md:text-lg">
+                المشروع يجمع الفئات الأساسية في مسار أسهل للزائر، ويمنح النشاط التجاري عرضًا أوضح داخل المول.
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 {benefitChips.map((item) => (
-                  <div key={item} className="mini-chip h-[3.375rem] justify-start rounded-[1rem] px-4 py-0 text-sm">{item}</div>
+                  <div key={item} className="mini-chip h-[3.1rem] justify-start rounded-[1rem] px-4 py-0 text-sm">{item}</div>
                 ))}
               </div>
             </div>
-            <div className="grid gap-3.5 lg:order-1">
+            <div className="grid gap-3 lg:order-1">
               {whyCards.map((card, index) => (
                 <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <div className="editorial-panel min-h-[10.8rem] rounded-[1.5rem] p-5 md:p-6">
-                    <card.icon className="icon-shell mb-3 h-12 w-12 p-3" />
-                    <h3 className="text-xl font-bold text-foreground">{card.title}</h3>
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{card.desc}</p>
+                  <div className="editorial-panel rounded-[1.35rem] p-5">
+                    <div className="flex items-start gap-3.5">
+                      <card.icon className="icon-shell h-11 w-11 shrink-0 p-2.5" />
+                      <div>
+                        <h3 className="text-lg font-bold text-foreground">{card.title}</h3>
+                        <p className="mt-1.5 text-sm leading-7 text-muted-foreground md:text-base">{card.desc}</p>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -214,22 +226,28 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="page-section">
         <div className="container">
-          <div className="chapter-shell mb-6 max-w-[36rem] pt-5">
+          <div className="chapter-shell mb-5 max-w-[34rem] pt-5">
             <p className="section-kicker">الفئات الرئيسية</p>
             <h2 className="section-title">ابدأ من الفئة الأقرب لاحتياجك.</h2>
-            <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">ست فئات أساسية تقدم صورة أوضح لطبيعة المول وما يمكن أن تجده داخله.</p>
+            <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">ست فئات أساسية غير متداخلة تساعدك تفهم طبيعة المول بسرعة.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {categoryStories.map((category, index) => (
               <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                 <Link to="/map" className="editorial-panel flex min-h-[12rem] h-full flex-col rounded-[1.5rem] p-5 transition-colors duration-200 hover:border-primary/35">
-                  <div className="icon-shell mb-3 h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
+                 <div className="editorial-panel flex min-h-[11rem] h-full flex-col rounded-[1.4rem] p-5 transition-colors duration-200 hover:border-primary/35">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <div className="icon-shell h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
+                    <span className="text-xs font-semibold text-muted-foreground">0{index + 1}</span>
+                  </div>
                   <h3 className="text-xl font-bold text-foreground">{category.name}</h3>
                    <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">{category.desc}</p>
-                  <span className="mt-auto pt-3 text-sm font-semibold text-primary">استكشفها على الخريطة</span>
+                  <span className="mt-auto pt-3 text-xs font-semibold text-muted-foreground">تصنيف واضح داخل الدليل</span>
                 </Link>
               </motion.div>
             ))}
+          </div>
+          <div className="mt-4 flex justify-start">
+            <Link to="/map"><Button variant="outline-blue" className="h-12 rounded-[1rem] px-6">استكشف الفئات على الخريطة</Button></Link>
           </div>
         </div>
       </section>
@@ -240,7 +258,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             <div className="space-y-4 lg:max-w-[33rem]">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو نقطة البداية داخل المول.</h2>
-              <p className="text-base leading-7 text-muted-foreground md:text-lg">ابدأ من الدليل التفاعلي لتعرف الدور، حالة الوحدة، وأقصر طريق إلى التأجير أو المتاجر.</p>
+              <p className="text-base leading-7 text-muted-foreground md:text-lg">بدل الحديث عن الخريطة فقط، هذه معاينة مباشرة لطريقة اختيار الدور والوحدة والانتقال الفوري إلى الإجراء التالي.</p>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="editorial-panel min-h-[5.75rem] rounded-[1.25rem] p-4">
                   <p className="text-xs font-semibold text-muted-foreground">عدد الأدوار</p>
@@ -255,24 +273,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <p className="mt-2 text-xl font-bold text-foreground">{totalUnits}</p>
                 </div>
               </div>
-              <Link to="/map"><Button variant="outline-blue" size="lg" className="h-14 rounded-[1.1rem] px-7">اذهب إلى الخريطة</Button></Link>
-            </div>
-              <div className="editorial-panel rounded-[1.7rem] p-5 md:p-6">
-              <div className="flex items-start gap-4">
-                <Map className="icon-shell h-12 w-12 p-3" />
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">استكشاف أسرع قبل الزيارة</h3>
-                    <p className="mt-2 max-w-[20rem] text-sm leading-7 text-muted-foreground md:text-base">الخريطة هي الأداة الأساسية لفهم المول واتخاذ الخطوة التالية بثقة.</p>
-                </div>
+              <div className="rounded-[1.25rem] border border-border bg-card px-4 py-4 text-sm leading-7 text-muted-foreground">
+                التحديد داخل الدليل يبدأ من الدور، ثم حالة الوحدة، ثم ينتقل مباشرة إلى المتجر أو الاستفسار التجاري من نفس المصدر.
               </div>
             </div>
+            <MapTeaserPreview />
           </div>
         </div>
       </section>
 
       <section className="page-section">
         <div className="container">
-           <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-2 lg:items-center">
+           <div className="section-shell page-shell grid gap-4 overflow-hidden lg:grid-cols-2 lg:items-start">
              <div className="space-y-4 lg:max-w-[31rem]">
               <p className="section-kicker">التأجير والوحدات</p>
               <h2 className="section-title">التأجير هنا قرار تجاري أوضح وأسرع.</h2>
@@ -292,17 +304,34 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
             </div>
             <div className="space-y-4">
-              <div className="image-shell aspect-[4/3] overflow-hidden rounded-[2rem] border border-border/80 bg-card">
-                <img src={facadeImage} alt="واجهة مول البستان الخارجية" className="h-full w-full object-cover object-center" loading="lazy" />
+              <div className="editorial-panel rounded-[1.6rem] p-5 md:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-sm font-semibold text-muted-foreground">مصدر البيانات</p>
+                    <h3 className="mt-1 text-2xl font-bold text-foreground">العرض هنا متصل مباشرة بالدليل التفاعلي.</h3>
+                  </div>
+                  <span className="rounded-full border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground">مصدر واحد</span>
+                </div>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  {availableByFloor.map((floor) => (
+                    <div key={floor.id} className="rounded-[1.1rem] border border-border bg-card px-4 py-3">
+                      <p className="text-xs font-semibold text-muted-foreground">{floor.label}</p>
+                      <p className="mt-1 text-lg font-bold text-foreground">{floor.count}</p>
+                    </div>
+                ))}
+              </div>
               </div>
                <div className="grid gap-3 sm:grid-cols-2">
                   {homepageLeasingUnits.map((unit) => (
-                   <div key={unit.unit_id} className="editorial-panel flex min-h-[5.25rem] flex-col justify-center rounded-[1.25rem] p-4">
-                     <p className="text-base font-bold text-foreground">وحدة {unit.unit_id}</p>
-                     <p className="mt-1 text-sm text-muted-foreground">{floorLabels[unit.floor_id]} • {unit.area_m2} م²</p>
-                     <p className="mt-1 text-xs font-semibold text-orange">{needCategoryLabels[unit.category]}</p>
-                  </div>
-                ))}
+                   <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6rem] flex-col justify-center rounded-[1.25rem] p-4 transition-colors hover:border-orange/45">
+                     <div className="flex items-start justify-between gap-3">
+                       <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                       <span className="rounded-full border border-orange/25 bg-orange/10 px-2.5 py-1 text-[0.7rem] font-semibold text-orange">{needCategoryLabels[unit.category]}</span>
+                     </div>
+                     <p className="mt-2 text-sm text-muted-foreground">{floorLabels[unit.floor_id]}</p>
+                     <p className="mt-1 text-sm font-semibold text-foreground">{unit.area_m2} م²</p>
+                  </Link>
+                 ))}
               </div>
             </div>
           </div>
@@ -315,12 +344,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             <div className="space-y-4 lg:order-2">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
-              <div className="space-y-3">
+              <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
                 {launchSteps.map((item, index) => (
-                  <div key={item.title} className="editorial-panel min-h-[7.25rem] rounded-[1.4rem] p-4 md:p-5">
+                  <div key={item.title} className="editorial-panel rounded-[1.35rem] p-4 md:p-5">
                     <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
-                    <p className="mt-2 text-lg font-bold text-foreground">{item.title}</p>
-                    <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
+                    <p className="mt-2 text-base font-bold text-foreground">{item.title}</p>
+                    <p className="mt-1.5 text-sm leading-7 text-muted-foreground">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -330,13 +359,22 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Calendar className="icon-shell h-11 w-11 p-2.5" />
                 <div>
                   <p className="text-sm font-semibold text-muted-foreground">ملخص الحملة</p>
-                  <h3 className="mt-1 text-2xl font-bold text-foreground">تابع الموعد، واحتفظ بمسارك قبل الزيارة.</h3>
+                  <h3 className="mt-1 text-2xl font-bold text-foreground">تابع الموعد وحدد خطوتك التالية قبل الزيارة.</h3>
                 </div>
               </div>
               <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base">
                  {launchEvent?.description_ar ?? "صفحة الافتتاح تجمع تفاصيل اليوم، والحملة، والخطوات الأساسية للاستفادة من التجربة الترويجية."}
               </p>
-              {launchEvent?.event_date ? <p className="mt-4 text-sm font-semibold text-primary">{launchEvent.event_date}</p> : null}
+              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-[1rem] border border-border bg-card px-4 py-3 text-sm">
+                  <p className="text-xs font-semibold text-muted-foreground">المسار</p>
+                  <p className="mt-1 font-semibold text-foreground">خريطة ثم حملة ثم حضور فعلي</p>
+                </div>
+                <div className="rounded-[1rem] border border-border bg-card px-4 py-3 text-sm">
+                  <p className="text-xs font-semibold text-muted-foreground">التاريخ</p>
+                  <p className="mt-1 font-semibold text-foreground">{launchEvent?.event_date ?? "1 مايو 2026"}</p>
+                </div>
+              </div>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-[3.375rem] rounded-[1rem] px-6">تفاصيل الافتتاح</Button></Link>
                 <Link to="/spin-win"><Button variant="cta" size="lg" className="h-[3.375rem] rounded-[1rem] px-6">جرّب أدر واربح</Button></Link>
@@ -348,21 +386,21 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section id="marketplace" className="page-section">
         <div className="container">
-             <div className="brand-shell page-shell rounded-[2rem]">
-             <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-              <div>
+             <div className="brand-shell page-shell rounded-[1.85rem] py-6">
+             <div className="grid gap-4 lg:grid-cols-[1.12fr_0.88fr] lg:items-center">
+              <div className="space-y-4">
                 <p className="section-kicker">الامتداد الرقمي</p>
-                <h2 className="section-title">مرحلة تالية تربط الزائر بالمتاجر بعد الزيارة.</h2>
-                <p className="mt-3 max-w-[34rem] text-base leading-7 text-muted-foreground md:text-lg">
-                   السوق الرقمي هو المرحلة التالية للتجربة، ليبقي العلاقة مع المتاجر أسهل بعد الزيارة.
+                <h2 className="section-title">مرحلة لاحقة تُبنى بعد تثبيت تجربة الدليل والمتاجر.</h2>
+                <p className="max-w-[34rem] text-base leading-7 text-muted-foreground md:text-lg">
+                   الامتداد الرقمي يظل خطوة لاحقة مختصرة، تبدأ من المتاجر الحالية وتستكمل العلاقة بعد الزيارة دون تشتيت المنتج الأساسي الآن.
                 </p>
-                 <div className="mt-4 grid gap-3 md:grid-cols-3">
+                 <div className="grid gap-3 md:grid-cols-3">
                   {[
                     "ابدأ من الخريطة.",
                     "اختر المتاجر الأقرب لك.",
                     "ثم تابعها رقميًا لاحقًا.",
                   ].map((item, index) => (
-                     <div key={item} className="editorial-panel flex min-h-[5.8rem] items-center rounded-[1.3rem] p-4">
+                      <div key={item} className="editorial-panel flex min-h-[4.8rem] items-center rounded-[1.15rem] p-4">
                       <div>
                         <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
                         <p className="mt-2 text-sm font-semibold text-foreground md:text-base">{item}</p>
@@ -371,11 +409,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   ))}
                 </div>
               </div>
-               <div className="editorial-panel rounded-[1.6rem] p-5 md:p-6 lg:mr-auto lg:max-w-[18.5rem]">
+               <div className="editorial-panel rounded-[1.45rem] p-5 lg:mr-auto lg:max-w-[17.5rem]">
                 <Store className="icon-shell h-12 w-12 p-3" />
-                <h3 className="mt-4 text-2xl font-bold text-foreground">واجهة رقمية من نفس الهوية</h3>
-                <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">مسار مختصر يبدأ من المتاجر الحالية ويتوسع لاحقًا دون تغيير روح المشروع.</p>
-                <Link to="/stores" className="mt-5 block"><Button variant="secondary" className="h-12 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
+                <h3 className="mt-4 text-xl font-bold text-foreground">امتداد رقمي من نفس الهوية</h3>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground md:text-base">يبقى مؤجلًا ومضغوطًا حتى يظل الدليل والخريطة هما مركز المنتج الآن.</p>
+                <Link to="/stores" className="mt-5 block"><Button variant="secondary" className="h-11 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
               </div>
             </div>
           </div>
@@ -384,17 +422,17 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="page-section">
         <div className="container max-w-5xl">
-          <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
             <div className="chapter-shell pt-5">
               <p className="section-kicker">الأسئلة الشائعة</p>
               <h2 className="text-3xl font-bold text-foreground md:text-4xl">
                 <HelpCircle className="ml-2 inline-block h-7 w-7 text-accent" />
                 إجابات سريعة قبل زيارتك الأولى
               </h2>
-               <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">أسئلة أساسية تساعدك على الوصول للمعلومة بسرعة.</p>
+               <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">أسئلة أساسية تساعدك على الوصول للمعلومة بسرعة وبدون تكرار.</p>
               <Link to="/faq" className="mt-5 inline-flex"><Button variant="ghost" className="text-primary">عرض جميع الأسئلة</Button></Link>
             </div>
-            <Accordion type="single" collapsible className="space-y-3">
+            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-3">
               {faqItems.map((faq) => (
                 <AccordionItem key={faq.id} value={faq.id} className="section-shell overflow-hidden rounded-[1.25rem] px-5">
                   <AccordionTrigger className="min-h-[4.25rem] py-4 text-right text-base font-semibold text-foreground hover:text-primary">

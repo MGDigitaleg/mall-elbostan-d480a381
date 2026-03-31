@@ -38,18 +38,25 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `inline-flex h-9 items-center rounded-full px-3.5 text-base font-semibold transition-colors duration-200 ${
+    `inline-flex h-8 items-center rounded-full px-3 text-[0.95rem] font-semibold transition-colors duration-200 ${
       isActive(path)
-        ? "bg-secondary text-foreground"
-        : "text-muted-foreground/90 hover:text-foreground"
+        ? "bg-secondary text-foreground shadow-[var(--shadow-soft)]"
+        : "text-foreground/88 hover:bg-secondary/75 hover:text-foreground"
+    }`;
+
+  const secondaryNavLinkClass = (path: string) =>
+    `inline-flex h-8 items-center rounded-full px-3 text-sm font-semibold transition-colors duration-200 ${
+      isActive(path)
+        ? "bg-card text-foreground"
+        : "text-muted-foreground hover:text-foreground"
     }`;
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-2 md:px-4 md:pt-3">
       <div className="container">
-        <div className="surface-panel rounded-[1.5rem] px-[1.125rem] md:px-7">
+        <div className="surface-panel rounded-[1.35rem] px-4 md:px-6">
           <div className="hidden min-h-[88px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
-            <nav className="flex items-center justify-end gap-2">
+            <nav className="flex items-center justify-end gap-1.5">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
@@ -66,15 +73,15 @@ export function Header() {
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-3">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-start gap-2.5">
+              <div className="flex items-center gap-1">
                 {secondaryNavItems.map((item) => (
-                  <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
+                  <Link key={item.path} to={item.path} className={secondaryNavLinkClass(item.path)}>
                     {item.label}
                   </Link>
                 ))}
               </div>
-              <Link to="/#marketplace" className="inline-flex h-9 items-center rounded-full px-3.5 text-base font-semibold text-muted-foreground transition-colors hover:text-foreground">
+              <Link to="/#marketplace" className="inline-flex h-8 items-center rounded-full px-3 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">
                 السوق قريبًا
               </Link>
               <Link to="/spin-win">
@@ -85,7 +92,7 @@ export function Header() {
             </div>
           </div>
 
-          <div className="flex min-h-[74px] items-center justify-between gap-2 xl:hidden">
+          <div className="flex min-h-[72px] items-center justify-between gap-2 xl:hidden">
             <button
               className="rounded-full border border-border/70 bg-card p-2 text-foreground shadow-[var(--shadow-soft)]"
               onClick={() => setMobileOpen(!mobileOpen)}
