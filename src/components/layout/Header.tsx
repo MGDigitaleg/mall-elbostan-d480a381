@@ -15,7 +15,7 @@ const primaryNavItems = [
 
 const secondaryNavItems = [
   { label: "يوم الافتتاح", path: "/opening-day" },
-  { label: "العروض اليومية", path: "/daily-deals" },
+  { label: "التأجير", path: "/leasing" },
   { label: "الوظائف", path: "/careers" },
   { label: "تواصل معنا", path: "/contact" },
 ];
@@ -39,18 +39,18 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `rounded-full px-3.5 py-2 text-sm font-semibold transition-all duration-300 ${
+    `rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-300 ${
       isActive(path)
-        ? "bg-card text-foreground shadow-[var(--shadow-soft)]"
-        : "text-muted-foreground/90 hover:text-foreground"
+        ? "bg-card/95 text-foreground shadow-[var(--shadow-soft)]"
+        : "text-muted-foreground/90 hover:bg-secondary/70 hover:text-foreground"
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-3 md:px-4 md:pt-3.5">
+    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-2.5 md:px-4 md:pt-3">
       <div className="container">
-        <div className="glass rounded-[1.7rem] border-white/60 px-4 py-2.5 md:px-5 md:py-2.5 shadow-[var(--shadow-soft)]">
-          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
-            <nav className="flex items-center justify-end gap-1">
+        <div className="glass rounded-[1.45rem] border-border/70 px-4 py-2 md:px-5 md:py-2.5 shadow-[var(--shadow-soft)]">
+          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-5">
+            <nav className="flex items-center justify-end gap-1.5">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
@@ -59,34 +59,32 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="relative flex flex-col items-center px-4 py-1.5">
+              <div className="relative flex flex-col items-center px-2 py-0.5">
                 <BrandLogo
+                  framed
                   align="center"
-                  subtitle="Mall Elbostan"
-                  imageClassName="h-[4.6rem] md:h-[5rem]"
+                  subtitle="Premium Technology Mall"
+                  imageClassName="h-[4.8rem] md:h-[5.15rem]"
                 />
-                <p className="mt-1.5 text-center text-[0.64rem] font-semibold tracking-[0.24em] text-muted-foreground uppercase">
+                <p className="mt-1 text-center text-[0.6rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                   Opening Soon • May 2026
                 </p>
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-2">
-              <div className="hidden 2xl:flex items-center gap-1">
+            <div className="flex items-center justify-start gap-2.5">
+              <div className="hidden 2xl:flex items-center gap-1.5">
                 {secondaryNavItems.map((item) => (
                   <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                     {item.label}
                   </Link>
                 ))}
               </div>
-              <Link to="/#marketplace">
-                <Button variant="secondary" size="sm" className="rounded-full px-4.5">
-                  <ShoppingBag className="h-4 w-4" />
-                  السوق قريباً
-                </Button>
+              <Link to="/#marketplace" className="rounded-full px-3 py-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">
+                السوق قريبًا
               </Link>
               <Link to="/spin-win">
-                <Button variant="cta" size="sm" className="rounded-full px-5">
+                <Button variant="cta" size="sm" className="h-10 rounded-full px-5">
                   أدر واربح
                 </Button>
               </Link>
@@ -103,13 +101,13 @@ export function Header() {
             </button>
 
             <Link to="/" className="flex-1">
-              <div className="flex items-center justify-center rounded-[1.3rem] px-2 py-1">
-                <BrandLogo align="center" subtitle="Mall Elbostan" imageClassName="h-[3.2rem]" />
+              <div className="flex items-center justify-center px-2 py-0.5">
+                <BrandLogo framed align="center" imageClassName="h-[4rem]" />
               </div>
             </Link>
 
             <Link to="/spin-win" className="hidden sm:block">
-              <Button variant="cta" size="sm" className="rounded-full px-4.5">
+              <Button variant="cta" size="sm" className="h-10 rounded-full px-4.5">
                 أدر واربح
               </Button>
             </Link>
@@ -125,9 +123,9 @@ export function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="container xl:hidden"
           >
-            <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.4rem] px-4 py-4">
-              <div className="rounded-[1.2rem] px-4 py-2 text-center">
-                <BrandLogo align="center" subtitle="Premium Technology Mall" imageClassName="mx-auto h-14" />
+            <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.35rem] px-4 py-4">
+              <div className="rounded-[1.2rem] px-2 py-1 text-center">
+                <BrandLogo framed align="center" subtitle="Mall Elbostan" imageClassName="mx-auto h-[4.4rem]" />
               </div>
 
               {mobileNavItems.map((item) => (
@@ -135,21 +133,21 @@ export function Header() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`rounded-2xl px-4 py-3 text-sm font-medium transition-colors ${
-                    isActive(item.path) ? "bg-card text-foreground shadow-[var(--shadow-soft)]" : "text-muted-foreground hover:bg-card hover:text-foreground"
+                  className={`rounded-[1.1rem] px-4 py-3 text-sm font-medium transition-colors ${
+                    isActive(item.path) ? "bg-card text-foreground shadow-[var(--shadow-soft)]" : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
               <Link to="/#marketplace" onClick={() => setMobileOpen(false)}>
-                <Button variant="secondary" className="w-full rounded-2xl">
+                <Button variant="secondary" className="w-full rounded-[1.1rem]">
                   <ShoppingBag className="h-4 w-4" />
-                  السوق قريباً
+                  السوق قريبًا
                 </Button>
               </Link>
               <Link to="/spin-win" onClick={() => setMobileOpen(false)}>
-                <Button variant="cta" className="w-full rounded-2xl">
+                <Button variant="cta" className="w-full rounded-[1.1rem]">
                   أدر واربح
                 </Button>
               </Link>

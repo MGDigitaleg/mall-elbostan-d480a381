@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Building, CheckCircle2, MapPin, Store, Sparkles } from "lucide-react";
+import { ArrowLeft, Building, CheckCircle2, MapPin, Sparkles, Store } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -7,15 +9,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
 import facadeImage from "@/assets/mall-facade.jpg";
 
 const Leasing = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ full_name: "", company: "", phone: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ full_name: "", company: "", phone: "", email: "", message: "" });
 
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
@@ -31,6 +31,7 @@ const Leasing = () => {
       toast({ title: "خطأ", description: "يرجى ملء الاسم ورقم الهاتف", variant: "destructive" });
       return;
     }
+
     setLoading(true);
     const { error } = await supabase.from("leads").insert({
       lead_type: "leasing",
@@ -41,67 +42,76 @@ const Leasing = () => {
       message: form.message.trim() || null,
     });
     setLoading(false);
+
     if (error) {
       toast({ title: "خطأ", description: "حدث خطأ. حاول مرة أخرى.", variant: "destructive" });
-    } else {
-      setSubmitted(true);
-      toast({ title: "تم الإرسال", description: "سنتواصل معك في أقرب وقت!" });
+      return;
     }
+
+    setSubmitted(true);
+    toast({ title: "تم الإرسال", description: "هنرجع لك في أقرب وقت." });
   };
 
   return (
     <MainLayout>
-      <SEOHead title="التأجير" titleEn="Leasing" description="احجز وحدتك التجارية في مول البستان - مساحات تجارية بأسعار تنافسية في القاهرة الجديدة." descriptionEn="Lease your commercial space at Mall Elbostan - competitive prices in New Cairo." breadcrumbs={[{ name: "التأجير", url: "/leasing" }]} />
+      <SEOHead title="التأجير" titleEn="Leasing" description="استفسر عن الوحدات التجارية في مول البستان داخل وجهة تقنية مصرية راقية." descriptionEn="Enquire about commercial units at Mall Elbostan, a premium Egyptian technology mall." breadcrumbs={[{ name: "التأجير", url: "/leasing" }]} />
       <div className="container py-8 md:py-12">
-        <div className="brand-shell mb-12 grid gap-8 overflow-hidden rounded-[2.4rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-          <div className="space-y-5">
+        <section className="brand-shell page-halo mb-12 grid gap-8 overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-10">
+          <div className="space-y-6">
             <div className="eyebrow-chip">
               <Building className="h-4 w-4 text-orange" />
               فرص تجارية داخل وجهة تقنية متخصصة
             </div>
-            <h1 className="text-4xl font-bold text-foreground md:text-5xl">التأجير داخل مول البستان بشكل أوضح وأقرب للقرار</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">لو بتدور على مكان يدي نشاطك حضور أقوى داخل وجهة تقنية واضحة، فالصفحة دي بتجمع لك الصورة ببساطة: شكل المشروع، قيمة المكان، وإزاي تبدأ استفسارك بسرعة.</p>
+            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.5rem]">التأجير هنا متقدّم بشكل يسهّل القرار ويقوّي صورة الفرصة</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">لو نشاطك محتاج وجود جوه وجهة تقنية محترمة، الصفحة دي بتوضح لك قيمة المكان، شكل الحضور، وطريقة البداية من غير لف كتير.</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 { icon: Store, title: "حضور تجاري متخصص" },
-                { icon: MapPin, title: "موقع يخدم شرق القاهرة" },
+                { icon: MapPin, title: "موقع يخدم الحركة" },
                 { icon: Sparkles, title: "افتتاح يرفع الزخم" },
               ].map((item) => (
-                <div key={item.title} className="soft-card rounded-[1.35rem] p-4">
-                  <item.icon className="mb-3 h-6 w-6 text-primary" />
+                <div key={item.title} className="editorial-panel rounded-[1.4rem] p-4">
+                  <item.icon className="icon-shell mb-3 h-10 w-10 p-2.5" />
                   <p className="text-sm font-semibold text-foreground">{item.title}</p>
                 </div>
               ))}
             </div>
+            <Link to="/map" className="inline-flex">
+              <Button variant="outline-blue" size="lg" className="rounded-xl px-7">
+                شوف الوحدات على الخريطة
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
+
           <div className="image-shell overflow-hidden rounded-[2rem] border border-border/70 shadow-[var(--shadow-elevated)]">
             <img src={facadeImage} alt="واجهة مول البستان الخارجية الداعمة لفرص التأجير والاستثمار" className="h-[340px] w-full object-cover object-center" />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/24 to-transparent" />
+            <div className="image-wash absolute inset-0" />
           </div>
-        </div>
+        </section>
 
-        <div className="mb-10 grid gap-4 md:grid-cols-3">
+        <section className="mb-10 grid gap-4 md:grid-cols-3">
           {[
-            { title: "عرض وحدات أوضح", desc: "شوف الوحدات المتاحة بسرعة وافهم أينسب نشاطك إيه." },
-            { title: "طرح تجاري أهدى", desc: "الكلام هنا مباشر وواضح ويساعدك تاخد قرار أفضل." },
-            { title: "ربط بالخريطة", desc: "من الاستفسار لمكان الوحدة داخل المشروع في خطوة واحدة." },
+            { title: "عرض وحدات أوضح", desc: "شوف الوحدات المتاحة بسرعة وافهم إيه الأنسب لطبيعة نشاطك." },
+            { title: "طرح تجاري أهدى", desc: "اللغة هنا مباشرة ومحترمة علشان الصورة تبقى واضحة من غير مبالغة." },
+            { title: "ربط بالخريطة", desc: "من الاستفسار لمكان الوحدة داخل المشروع في خط سير واحد مفهوم." },
           ].map((item) => (
-            <div key={item.title} className="section-shell p-5">
+            <div key={item.title} className="section-shell p-5 md:p-6">
               <h2 className="text-lg font-bold text-foreground">{item.title}</h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.desc}</p>
             </div>
           ))}
-        </div>
+        </section>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr]">
-          <div className="section-shell rounded-[1.9rem] p-8">
+        <section className="grid grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+          <div className="section-shell rounded-[2rem] p-8">
             <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك</h2>
-            <p className="mb-6 text-sm leading-7 text-muted-foreground">اكتب بياناتك الأساسية، والفريق هيرجع لك بتفاصيل أنسب عن المساحات المتاحة وطبيعة الفرصة المناسبة لنشاطك.</p>
+            <p className="mb-6 text-sm leading-7 text-muted-foreground">اكتب بياناتك الأساسية، والفريق هيرجع لك بصورة أوضح عن المساحات المتاحة وطبيعة الفرصة المناسبة لنشاطك.</p>
             {submitted ? (
               <div className="py-10 text-center">
                 <CheckCircle2 className="mx-auto mb-2 h-10 w-10 text-success" />
                 <p className="text-lg font-bold text-success">تم إرسال طلبك بنجاح</p>
-                <p className="text-muted-foreground mt-2">هنرجع لك في أقرب وقت</p>
+                <p className="mt-2 text-muted-foreground">هنرجع لك في أقرب وقت</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -120,13 +130,13 @@ const Leasing = () => {
           <div className="space-y-6">
             <div className="section-shell p-6">
               <h2 className="mb-3 text-2xl font-bold">وحدات <span className="text-orange">مميزة متاحة</span></h2>
-              <p className="text-sm leading-7 text-muted-foreground">دي عينة من الوحدات البارزة دلوقتي، وبعدها تقدر تكمّل على الخريطة وتشوف المواقع بشكل أوضح.</p>
+              <p className="text-sm leading-7 text-muted-foreground">دي عينة من الوحدات البارزة دلوقتي، وبعدها تقدر تكمّل على الخريطة وتشوف المواقع بشكل أوضح قبل ما تبعت استفسارك.</p>
             </div>
             {availableUnits && availableUnits.length > 0 ? (
               <div className="space-y-4">
                 {availableUnits.map((unit) => (
-                  <div key={unit.id} className="section-shell rounded-[1.5rem] border border-orange/25 p-4">
-                    <div className="flex justify-between items-start">
+                  <div key={unit.id} className="editorial-panel rounded-[1.6rem] border border-orange/20 p-5">
+                    <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="font-bold text-orange">وحدة {unit.unit_code}</h3>
                         {unit.area_sqm && <p className="text-sm text-muted-foreground">{unit.area_sqm} م²</p>}
@@ -140,11 +150,11 @@ const Leasing = () => {
             ) : (
               <div className="section-shell p-6 text-muted-foreground">سيتم عرض الوحدات المتاحة قريباً</div>
             )}
-            <Link to="/map" className="block mt-6">
+            <Link to="/map" className="block">
               <Button variant="outline-blue" className="w-full">عرض الخريطة التفاعلية</Button>
             </Link>
           </div>
-        </div>
+        </section>
       </div>
     </MainLayout>
   );

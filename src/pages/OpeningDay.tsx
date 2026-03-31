@@ -1,10 +1,10 @@
-import { Calendar, Users, Gamepad2, Award } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Award, Calendar, Gamepad2, Users } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildEventLd } from "@/components/SEOHead";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
+import { EmptyState, LoadingGrid } from "@/components/ui/loading-states";
 
 const OpeningDay = () => {
   const { data: events, isLoading } = useQuery({
@@ -21,23 +21,19 @@ const OpeningDay = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تفاصيل يوم افتتاح مول البستان الكبير - فعاليات، مسابقات، ضيوف، وجوائز حصرية." descriptionEn="Mall Elbostan grand opening - events, competitions, guests, and exclusive prizes." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
+      <SEOHead title="يوم الافتتاح" titleEn="Opening Day" description="تابع تفاصيل يوم افتتاح مول البستان من الفعاليات للجوائز وخطة الزيارة." descriptionEn="Follow Mall Elbostan opening day details, from events to rewards and visit planning." breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]} jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined} />
       <div className="container py-8 md:py-12">
-        <div className="brand-shell mb-14 grid gap-8 overflow-hidden rounded-[2.4rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <section className="brand-shell page-halo mb-14 grid gap-8 overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:px-10">
           <div>
             <div className="eyebrow-chip mb-4">
               <Calendar className="h-4 w-4 text-primary" />
               برنامج الإطلاق والعد التنازلي
             </div>
-            <h1 className="mb-5 text-4xl font-bold text-foreground md:text-5xl">يوم الافتتاح الكبير</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">الصفحة دي بتجمع لك صورة يوم الافتتاح بشكل مرتب ومباشر: إمتى، إيه اللي هيحصل، وإزاي تشارك وتستفيد من الجوائز والأنشطة من غير لخبطة.</p>
+            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.5rem]">يوم الافتتاح متقدّم كرحلة واضحة من أول الترقب لحد لحظة الحضور</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">الصفحة دي بتجمع لك صورة يوم الافتتاح بشكل مرتب ومباشر: إمتى، إيه اللي هيحصل، وإزاي تشارك وتستفيد من الجوائز والأنشطة من غير زحمة أو لخبطة.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {[
-                "عد تنازلي للإطلاق",
-                "فعاليات ومشاركات مرتقبة",
-                "جوائز مرتبطة بالحضور الفعلي",
-              ].map((item) => (
-                <div key={item} className="soft-card rounded-[1.35rem] p-4 text-sm font-semibold text-foreground">{item}</div>
+              {["عد تنازلي للإطلاق", "فعاليات ومشاركات مرتقبة", "جوائز مرتبطة بالحضور الفعلي"].map((item) => (
+                <div key={item} className="editorial-panel rounded-[1.4rem] p-4 text-sm font-semibold text-foreground">{item}</div>
               ))}
             </div>
           </div>
@@ -45,13 +41,13 @@ const OpeningDay = () => {
             <p className="mb-4 text-sm font-semibold text-muted-foreground">العد التنازلي حتى الافتتاح</p>
             <CountdownTimer />
           </div>
-        </div>
+        </section>
 
         <section className="mb-16">
           <div className="mb-8 grid gap-4 md:grid-cols-3">
             {[
               "شوف الفعاليات بدري ورتّب زيارتك على أساسها.",
-              "ادخل الجوائز واحتفظ بالنتيجة لو احتجتها وقت الافتتاح.",
+              "ادخل الجوائز واحتفظ بالنتيجة لو احتجتها يوم الافتتاح.",
               "تابع الصفحة علشان تعرف البرنامج النهائي أول بأول.",
             ].map((item, index) => (
               <div key={item} className="section-shell p-5">
@@ -65,9 +61,9 @@ const OpeningDay = () => {
           {isLoading ? <LoadingGrid count={3} /> : schedule.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {schedule.map((event) => (
-                <div key={event.id} className="section-shell p-6">
+                <div key={event.id} className="section-shell p-6 md:p-7">
                   {event.image_url && <img src={event.image_url} alt={event.title_ar} className="mb-4 h-40 w-full rounded-[1.2rem] object-cover" loading="lazy" />}
-                  <h3 className="font-bold text-lg text-foreground mb-2">{event.title_ar}</h3>
+                  <h3 className="mb-2 text-lg font-bold text-foreground">{event.title_ar}</h3>
                   {event.description_ar && <p className="mb-3 text-sm leading-7 text-muted-foreground">{event.description_ar}</p>}
                   <div className="flex gap-4 text-xs text-accent">
                     {event.start_time && <span>{event.start_time}</span>}
@@ -84,7 +80,7 @@ const OpeningDay = () => {
           {guests.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {guests.map((guest) => (
-                <div key={guest.id} className="section-shell p-6 text-center">
+                <div key={guest.id} className="editorial-panel rounded-[1.7rem] p-6 text-center">
                   {guest.image_url && <img src={guest.image_url} alt={guest.title_ar} className="mx-auto mb-4 h-24 w-24 rounded-full object-cover" loading="lazy" />}
                   <h3 className="font-bold text-foreground">{guest.title_ar}</h3>
                   {guest.speaker_or_guest && <p className="text-sm text-accent">{guest.speaker_or_guest}</p>}
@@ -99,10 +95,10 @@ const OpeningDay = () => {
           {gaming.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {gaming.map((comp) => (
-                <div key={comp.id} className="section-shell border-orange/30 p-6">
-                  <h3 className="font-bold text-lg text-orange mb-2">{comp.title_ar}</h3>
+                <div key={comp.id} className="editorial-panel border-orange/20 p-6">
+                  <h3 className="mb-2 text-lg font-bold text-orange">{comp.title_ar}</h3>
                   {comp.description_ar && <p className="text-sm leading-7 text-muted-foreground">{comp.description_ar}</p>}
-                  {comp.start_time && <p className="text-xs text-accent mt-2">{comp.start_time}</p>}
+                  {comp.start_time && <p className="mt-2 text-xs text-accent">{comp.start_time}</p>}
                 </div>
               ))}
             </div>
