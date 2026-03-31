@@ -38,17 +38,17 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `rounded-full px-2.5 py-1 text-[0.92rem] font-semibold transition-all duration-300 ${
+    `rounded-full px-2 py-1 text-[0.88rem] font-semibold transition-all duration-300 ${
       isActive(path)
-        ? "bg-card/92 text-foreground shadow-[var(--shadow-soft)]"
+        ? "bg-card/88 text-foreground shadow-[var(--shadow-soft)]"
         : "text-muted-foreground/90 hover:text-foreground"
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-2 md:px-4 md:pt-2.5">
+    <header className="fixed top-0 right-0 left-0 z-50 px-3 pt-2 md:px-4 md:pt-2">
       <div className="container">
-        <div className="glass rounded-[1.2rem] border-border/70 px-3 py-1.5 md:px-4 md:py-2 shadow-[var(--shadow-soft)]">
-          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
+        <div className="glass rounded-[1.15rem] border-border/60 px-3 py-1.5 md:px-4 md:py-1.5 shadow-[var(--shadow-soft)]">
+          <div className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-3">
             <nav className="flex items-center justify-end gap-1">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
@@ -58,20 +58,16 @@ export function Header() {
             </nav>
 
             <Link to="/" className="justify-self-center">
-              <div className="relative flex flex-col items-center px-4 py-1">
+              <div className="relative flex items-center justify-center px-2 py-0.5">
                 <BrandLogo
                   framed
                   align="center"
-                  subtitle="Premium Technology Mall"
-                  imageClassName="h-[5.85rem] md:h-[6.1rem]"
+                  imageClassName="h-[5.2rem] md:h-[5.6rem]"
                 />
-                <p className="mt-1 text-center text-[0.58rem] font-semibold tracking-[0.24em] text-muted-foreground uppercase">
-                  Opening Soon • May 2026
-                </p>
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-start gap-1.5">
               <div className="flex items-center gap-1">
                 {secondaryNavItems.map((item) => (
                   <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
@@ -79,11 +75,11 @@ export function Header() {
                   </Link>
                 ))}
               </div>
-              <Link to="/#marketplace" className="rounded-full px-2 py-1 text-[0.92rem] font-semibold text-muted-foreground transition-colors hover:text-foreground">
+              <Link to="/#marketplace" className="rounded-full px-2 py-1 text-[0.88rem] font-semibold text-muted-foreground transition-colors hover:text-foreground">
                 السوق قريبًا
               </Link>
               <Link to="/spin-win">
-                <Button variant="cta" size="sm" className="h-9 rounded-full px-4.5">
+                <Button variant="cta" size="sm" className="h-8.5 rounded-full px-4">
                   أدر واربح
                 </Button>
               </Link>
@@ -100,13 +96,13 @@ export function Header() {
             </button>
 
             <Link to="/" className="flex-1">
-              <div className="flex items-center justify-center px-2 py-0.5">
-                <BrandLogo framed align="center" imageClassName="h-[4.85rem]" />
+              <div className="flex items-center justify-center px-1 py-0">
+                <BrandLogo framed align="center" imageClassName="h-[4.65rem]" />
               </div>
             </Link>
 
             <Link to="/spin-win" className="hidden sm:block">
-              <Button variant="cta" size="sm" className="h-9 rounded-full px-4">
+              <Button variant="cta" size="sm" className="h-8.5 rounded-full px-4">
                 أدر واربح
               </Button>
             </Link>
@@ -123,8 +119,8 @@ export function Header() {
             className="container xl:hidden"
           >
             <nav className="glass mt-3 flex flex-col gap-2 rounded-[1.2rem] px-4 py-4">
-              <div className="rounded-[1.2rem] px-2 py-1 text-center">
-                <BrandLogo framed align="center" subtitle="Mall Elbostan" imageClassName="mx-auto h-[5.1rem]" />
+              <div className="rounded-[1.2rem] px-1 py-0.5 text-center">
+                <BrandLogo framed align="center" imageClassName="mx-auto h-[4.8rem]" />
               </div>
 
               {mobileNavItems.map((item) => (

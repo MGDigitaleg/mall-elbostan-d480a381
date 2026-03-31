@@ -56,14 +56,14 @@ const Leasing = () => {
     <MainLayout>
       <SEOHead title="التأجير" titleEn="Leasing" description="استفسر عن الوحدات التجارية في مول البستان داخل وجهة تقنية مصرية راقية." descriptionEn="Enquire about commercial units at Mall Elbostan, a premium Egyptian technology mall." breadcrumbs={[{ name: "التأجير", url: "/leasing" }]} />
       <div className="container py-8 md:py-12">
-        <section className="brand-shell page-halo mb-12 grid gap-8 overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-10">
-          <div className="space-y-6">
+        <section className="brand-shell page-halo mb-12 grid gap-7 overflow-hidden rounded-[2.5rem] px-5 py-6 md:px-8 md:py-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-10">
+          <div className="space-y-5">
             <div className="eyebrow-chip">
               <Building className="h-4 w-4 text-orange" />
               فرص تجارية داخل وجهة تقنية متخصصة
             </div>
-            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.5rem]">التأجير هنا متقدّم بشكل يسهّل القرار ويقوّي صورة الفرصة</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">لو نشاطك محتاج وجود جوه وجهة تقنية محترمة، الصفحة دي بتوضح لك قيمة المكان، شكل الحضور، وطريقة البداية من غير لف كتير.</p>
+            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">التأجير هنا أوضح وأقرب لاتخاذ القرار</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على قيمة المكان، شكل الحضور، وكيف تبدأ استفسارك بخطوات مباشرة.</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 { icon: Store, title: "حضور تجاري متخصص" },
@@ -91,10 +91,10 @@ const Leasing = () => {
         </section>
 
         <section className="mb-10 grid gap-4 md:grid-cols-3">
-          {[
-            { title: "عرض وحدات أوضح", desc: "شوف الوحدات المتاحة بسرعة وافهم إيه الأنسب لطبيعة نشاطك." },
-            { title: "طرح تجاري أهدى", desc: "اللغة هنا مباشرة ومحترمة علشان الصورة تبقى واضحة من غير مبالغة." },
-            { title: "ربط بالخريطة", desc: "من الاستفسار لمكان الوحدة داخل المشروع في خط سير واحد مفهوم." },
+            {[
+              { title: "عرض وحدات أوضح", desc: "راجع الوحدات المتاحة بسرعة." },
+              { title: "طرح تجاري مباشر", desc: "معلومات مختصرة بدون مبالغة." },
+              { title: "ربط بالخريطة", desc: "انتقل من الوحدة إلى مكانها بسهولة." },
           ].map((item) => (
             <div key={item.title} className="section-shell p-5 md:p-6">
               <h2 className="text-lg font-bold text-foreground">{item.title}</h2>
@@ -106,7 +106,7 @@ const Leasing = () => {
         <section className="grid grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="section-shell rounded-[2rem] p-8">
             <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك</h2>
-            <p className="mb-6 text-sm leading-7 text-muted-foreground">اكتب بياناتك الأساسية، والفريق هيرجع لك بصورة أوضح عن المساحات المتاحة وطبيعة الفرصة المناسبة لنشاطك.</p>
+            <p className="mb-6 text-sm leading-7 text-muted-foreground">أرسل بياناتك الأساسية، وسيتواصل معك الفريق بمعلومات أوضح عن الوحدات المناسبة.</p>
             {submitted ? (
               <div className="py-10 text-center">
                 <CheckCircle2 className="mx-auto mb-2 h-10 w-10 text-success" />
@@ -129,8 +129,8 @@ const Leasing = () => {
 
           <div className="space-y-6">
             <div className="section-shell p-6">
-              <h2 className="mb-3 text-2xl font-bold">وحدات <span className="text-orange">مميزة متاحة</span></h2>
-              <p className="text-sm leading-7 text-muted-foreground">دي عينة من الوحدات البارزة دلوقتي، وبعدها تقدر تكمّل على الخريطة وتشوف المواقع بشكل أوضح قبل ما تبعت استفسارك.</p>
+               <h2 className="mb-3 text-2xl font-bold">وحدات <span className="text-orange">مميزة متاحة</span></h2>
+               <p className="text-sm leading-7 text-muted-foreground">عينة من الوحدات البارزة، ثم يمكنك متابعة التفاصيل على الخريطة.</p>
             </div>
             {availableUnits && availableUnits.length > 0 ? (
               <div className="space-y-4">

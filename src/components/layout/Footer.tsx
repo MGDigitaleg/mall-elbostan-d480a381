@@ -35,42 +35,41 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-border/60 bg-secondary/20">
-      <div className="container py-14 md:py-18">
-        <div className="brand-shell overflow-hidden rounded-[3rem] px-6 py-8 md:px-8 md:py-10 lg:px-10 lg:py-12">
-          <div className="grid gap-8 border-b border-border/70 pb-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-            <div className="space-y-6">
-              <BrandLogo framed imageClassName="h-[7rem] md:h-[8rem]" subtitle="Premium Technology Mall" />
+    <footer className="mt-18 border-t border-border/60 bg-secondary/20">
+      <div className="container py-12 md:py-16">
+        <div className="brand-shell overflow-hidden rounded-[2.7rem] px-5 py-7 md:px-8 md:py-9 lg:px-10 lg:py-10">
+          <div className="grid gap-8 border-b border-border/70 pb-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+            <div className="space-y-5">
+              <BrandLogo framed imageClassName="h-[5.8rem] md:h-[6.6rem]" />
               <div className="chapter-shell pt-5">
-                <h3 className="max-w-3xl text-3xl font-bold leading-tight text-foreground md:text-[3rem]">
-                  مول البستان بيتقدّم كعلامة تقنية مصرية راقية، حضورها واضح من أول نظرة لآخر خطوة.
+                <h3 className="max-w-3xl text-3xl font-bold leading-tight text-foreground md:text-[2.7rem]">
+                  مول البستان وجهة تقنية راقية، بتجربة واضحة وحضور بصري أقوى.
                 </h3>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-                  التجربة هنا معمولة بشكل أنضج وأوضح: متاجر وخريطة، افتتاح فيه زخم محسوب، فرص تجارية محترمة، وخطوة جاية لسوق رقمي
-                  يكمّل نفس الشخصية من غير ما يخفّ وهجها.
+                <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+                  من المتاجر والخريطة إلى الافتتاح وفرص التأجير، كل خطوة هنا مصممة بصورة مختصرة وواثقة.
                 </p>
               </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <Link to="/map" className="editorial-panel rounded-[1.9rem] p-6 transition-transform duration-300 hover:-translate-y-1">
-                <p className="text-sm font-semibold text-muted-foreground">استكشف المشهد كامل</p>
+                <p className="text-sm font-semibold text-muted-foreground">ابدأ بالاستكشاف</p>
                 <p className="mt-2 text-2xl font-bold text-foreground">الخريطة والمتاجر</p>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">شوف أماكن المتاجر والوحدات بشكل أوضح قبل الزيارة أو قبل ما تبدأ أي استفسار.</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">شاهد المتاجر والوحدات بخطوة واحدة واضحة.</p>
               </Link>
               <Link to="/leasing" className="editorial-panel rounded-[1.9rem] p-6 transition-transform duration-300 hover:-translate-y-1">
                 <p className="text-sm font-semibold text-muted-foreground">خطوة تجارية مباشرة</p>
                 <p className="mt-2 text-2xl font-bold text-foreground">استفسر عن الوحدات</p>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">لو بتدور على حضور أقوى لنشاطك، ابدأ من صفحة التأجير وشوف الصورة بشكل مرتب وواضح.</p>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">ابدأ الاستفسار التجاري من صفحة التأجير.</p>
               </Link>
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 xl:grid-cols-[1.1fr_0.78fr_0.78fr_0.9fr]">
+          <div className="mt-8 grid gap-5 xl:grid-cols-[1.05fr_0.8fr_0.8fr_0.9fr]">
             <div className="section-shell p-6 md:p-7">
               <p className="text-sm font-semibold tracking-[0.16em] text-muted-foreground uppercase">نبذة العلامة</p>
-              <p className="mt-4 text-sm leading-8 text-foreground/88">
-                مول البستان بيتكلم بلغة مصرية راقية وواضحة، ويقدّم التقنية كعالم متكامل شكله هادي لكن أثره التجاري قوي.
+              <p className="mt-4 text-sm leading-7 text-foreground/88">
+                مول البستان يقدّم التقنية بصورة أوضح وأهدأ، مع تجربة زيارة أقصر وأقوى في الرسالة.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <Link to="/spin-win" className="mini-chip justify-center">شارك في الجوائز</Link>
@@ -96,7 +95,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 border-t border-border/70 pt-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>مول البستان — علامة تقنية مصرية راقية، افتتاحها قريب وتجربتها معمولة علشان تفضل في الذاكرة.</p>
+          <p>مول البستان — وجهة تقنية مصرية راقية، افتتاحها قريب وتجربتها مصممة بوضوح وثقة.</p>
           <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
         </div>
       </div>
