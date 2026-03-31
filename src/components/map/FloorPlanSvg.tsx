@@ -115,7 +115,7 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
                     width={unit.label_box_width}
                     height={unit.label_box_height}
                   >
-                    <div xmlns="http://www.w3.org/1999/xhtml" className="flex h-full w-full items-center justify-center overflow-hidden">
+                    <div className="flex h-full w-full items-center justify-center overflow-hidden">
                       <img
                         src={unit.logo}
                         alt={hasStoreText ? unit.store_name_ar : `شعار ${unit.unit_id}`}
