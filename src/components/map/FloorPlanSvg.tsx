@@ -101,18 +101,53 @@ export function FloorPlanSvg({ floorId, units, selectedUnitId, mutedUnitIds, onS
         </g>
 
         <g id="labels-layer">
-          {units.map((unit) => (
-            <text
-              key={`${unit.unit_id}-label`}
-              x={unit.x}
-              y={unit.y + 21}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              className="fill-muted-foreground text-[11px]"
-            >
-              {unit.area_m2} م²
-            </text>
-          ))}
+          {units.map((unit) => {
+            const labelTop = unit.y + 14;
+            const labelLeft = unit.x - unit.label_box_width / 2;
+            const hasStoreText = unit.store_name_ar.trim().length > 0;
+
+            return (
+              <g key={`${unit.unit_id}-label`}>
+                {unit.label_mode === "logo" && unit.logo ? (
+                  <foreignObject
+                    x={labelLeft}
+                    y={labelTop}
+                    width={unit.label_box_width}
+                    height={unit.label_box_height}
+                  >
+                    <div className="flex h-full w-full items-center justify-center overflow-hidden">
+                      <img
+                        src={unit.logo}
+                        alt={hasStoreText ? unit.store_name_ar : `شعار ${unit.unit_id}`}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  </foreignObject>
+                ) : unit.label_mode === "text" && hasStoreText ? (
+                  <text
+                    x={unit.x}
+                    y={unit.y + 19}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="fill-foreground text-[12px] font-medium"
+                  >
+                    {unit.store_name_ar}
+                  </text>
+                ) : (
+                  <text
+                    x={unit.x}
+                    y={unit.y + 21}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="fill-muted-foreground text-[11px]"
+                  >
+                    {unit.area_m2} م²
+                  </text>
+                )}
+              </g>
+            );
+          })}
         </g>
 
         <g id="interactive-hotspots" />
