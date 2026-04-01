@@ -1,5 +1,6 @@
 // Mall Elbostan – Floor plan geometry data
-// Traced from architectural reference plans (3D isometric + PDF base pack)
+// Traced from architectural reference plans (PDF base pack)
+// Polygon boundaries are area-proportional to real unit footprints
 
 export type MallUnitStatus = "available" | "occupied" | "coming_soon";
 export type MallFloorId = "ground" | "first" | "second";
@@ -102,8 +103,11 @@ const getDescription = (status: MallUnitStatus): string => {
 };
 
 // ── Ground floor unit polygons (17 units) ────────────────────────────────
-// Traced clockwise from top-left, matching the octagonal perimeter.
-// Outer wall boundary → inner corridor boundary forms each unit's depth.
+// Boundaries computed to be area-proportional along each edge.
+// Top edge boundaries: x=394, x=534
+// Right edge boundaries: y=431, y=501, y=570
+// Bottom edge boundaries: x=444, x=556
+// Left edge boundaries: y=401, y=499, y=597
 
 type RawUnit = {
   key: string;
@@ -115,59 +119,64 @@ type RawUnit = {
 
 const groundRaw: RawUnit[] = [
   // ── Top edge (left→right): G-11, G-10, G-09 ──
-  { key: "11", polygon: "225,48 382,48 382,158 285,158",   lx: 318, ly: 103, area: 27.48 },
-  { key: "10", polygon: "382,48 540,48 540,158 382,158",   lx: 461, ly: 103, area: 27.52 },
-  { key: "09", polygon: "540,48 775,48 715,158 540,158",   lx: 643, ly: 103, area: 41.68 },
+  { key: "11", polygon: "225,48 394,48 394,158 285,158",   lx: 322, ly: 103, area: 27.48 },
+  { key: "10", polygon: "394,48 534,48 534,158 394,158",   lx: 464, ly: 103, area: 27.52 },
+  { key: "09", polygon: "534,48 775,48 715,158 534,158",   lx: 640, ly: 103, area: 41.68 },
   // ── Top-right diagonal: G-08 ──
   { key: "08", polygon: "775,48 952,225 842,285 715,158",  lx: 821, ly: 179, area: 28.48 },
   // ── Right edge (top→bottom): G-07, G-06, G-05, G-04 ──
-  { key: "07", polygon: "952,225 952,412 842,412 842,285", lx: 897, ly: 334, area: 42.03 },
-  { key: "06", polygon: "952,412 952,501 842,501 842,412", lx: 897, ly: 457, area: 20.03 },
-  { key: "05", polygon: "952,501 952,589 842,589 842,501", lx: 897, ly: 545, area: 19.82 },
-  { key: "04", polygon: "952,589 952,775 842,715 842,589", lx: 897, ly: 667, area: 41.69 },
+  { key: "07", polygon: "952,225 952,431 842,431 842,285", lx: 897, ly: 358, area: 42.03 },
+  { key: "06", polygon: "952,431 952,501 842,501 842,431", lx: 897, ly: 466, area: 20.03 },
+  { key: "05", polygon: "952,501 952,570 842,570 842,501", lx: 897, ly: 536, area: 19.82 },
+  { key: "04", polygon: "952,570 952,775 842,715 842,570", lx: 897, ly: 643, area: 41.69 },
   // ── Bottom-right diagonal: G-03 ──
   { key: "03", polygon: "952,775 775,952 715,842 842,715", lx: 821, ly: 821, area: 28.42 },
   // ── Bottom edge (right→left): G-02, G-01, G-17 ──
-  { key: "02", polygon: "775,952 563,952 563,842 715,842", lx: 654, ly: 897, area: 41.54 },
-  { key: "01", polygon: "563,952 437,952 437,842 563,842", lx: 500, ly: 897, area: 24.67 },
-  { key: "17", polygon: "437,952 225,952 285,842 437,842", lx: 346, ly: 897, area: 41.49 },
+  { key: "02", polygon: "775,952 556,952 556,842 715,842", lx: 650, ly: 897, area: 41.54 },
+  { key: "01", polygon: "556,952 444,952 444,842 556,842", lx: 500, ly: 897, area: 24.67 },
+  { key: "17", polygon: "444,952 225,952 285,842 444,842", lx: 349, ly: 897, area: 41.49 },
   // ── Bottom-left diagonal: G-16 ──
   { key: "16", polygon: "225,952 48,775 158,715 285,842",  lx: 179, ly: 821, area: 28.23 },
   // ── Left edge (bottom→top): G-15, G-14, G-13, G-12 ──
-  { key: "15", polygon: "48,775 48,609 158,609 158,715",   lx: 103, ly: 677, area: 41.78 },
-  { key: "14", polygon: "48,609 48,499 158,499 158,609",   lx: 103, ly: 554, area: 27.62 },
-  { key: "13", polygon: "48,499 48,389 158,389 158,499",   lx: 103, ly: 444, area: 27.62 },
-  { key: "12", polygon: "48,389 48,225 158,285 158,389",   lx: 103, ly: 322, area: 41.00 },
+  { key: "15", polygon: "48,775 48,597 158,597 158,715",   lx: 103, ly: 656, area: 41.78 },
+  { key: "14", polygon: "48,597 48,499 158,499 158,597",   lx: 103, ly: 548, area: 27.62 },
+  { key: "13", polygon: "48,499 48,401 158,401 158,499",   lx: 103, ly: 450, area: 27.62 },
+  { key: "12", polygon: "48,401 48,225 158,285 158,401",   lx: 103, ly: 343, area: 41.00 },
 ];
 
 // ── Upper floor unit polygons (18 units) ─────────────────────────────────
-// Same as ground except bottom edge has 4 units (17, 18, 01, 02)
+// Same octagonal perimeter. Different area distributions require different boundaries.
+// Top edge: x=394, x=534 (same areas as ground)
+// Right edge: y=427, y=495, y=562 (F-04/S-04 larger)
+// Bottom edge (4 units): x=406, x=510, x=595
+// Left edge: y=397, y=493, y=589 (F-15/S-15 larger)
+
 const upperRaw: RawUnit[] = [
   // ── Top edge ──
-  { key: "11", polygon: "225,48 382,48 382,158 285,158",   lx: 318, ly: 103, area: 27.48 },
-  { key: "10", polygon: "382,48 540,48 540,158 382,158",   lx: 461, ly: 103, area: 27.52 },
-  { key: "09", polygon: "540,48 775,48 715,158 540,158",   lx: 643, ly: 103, area: 41.68 },
+  { key: "11", polygon: "225,48 394,48 394,158 285,158",   lx: 322, ly: 103, area: 27.48 },
+  { key: "10", polygon: "394,48 534,48 534,158 394,158",   lx: 464, ly: 103, area: 27.52 },
+  { key: "09", polygon: "534,48 775,48 715,158 534,158",   lx: 640, ly: 103, area: 41.68 },
   // ── Top-right diagonal ──
   { key: "08", polygon: "775,48 952,225 842,285 715,158",  lx: 821, ly: 179, area: 28.48 },
   // ── Right edge ──
-  { key: "07", polygon: "952,225 952,412 842,412 842,285", lx: 897, ly: 334, area: 42.03 },
-  { key: "06", polygon: "952,412 952,501 842,501 842,412", lx: 897, ly: 457, area: 20.03 },
-  { key: "05", polygon: "952,501 952,589 842,589 842,501", lx: 897, ly: 545, area: 19.82 },
-  { key: "04", polygon: "952,589 952,775 842,715 842,589", lx: 897, ly: 667, area: 45.28 },
+  { key: "07", polygon: "952,225 952,427 842,427 842,285", lx: 897, ly: 356, area: 42.03 },
+  { key: "06", polygon: "952,427 952,495 842,495 842,427", lx: 897, ly: 461, area: 20.03 },
+  { key: "05", polygon: "952,495 952,562 842,562 842,495", lx: 897, ly: 529, area: 19.82 },
+  { key: "04", polygon: "952,562 952,775 842,715 842,562", lx: 897, ly: 639, area: 45.28 },
   // ── Bottom-right diagonal ──
   { key: "03", polygon: "952,775 775,952 715,842 842,715", lx: 821, ly: 821, area: 33.85 },
   // ── Bottom edge (4 units) ──
-  { key: "02", polygon: "775,952 606,952 606,842 715,842", lx: 676, ly: 897, area: 56.18 },
-  { key: "01", polygon: "606,952 511,952 511,842 606,842", lx: 559, ly: 897, area: 31.66 },
-  { key: "18", polygon: "511,952 394,952 394,842 511,842", lx: 453, ly: 897, area: 38.95 },
-  { key: "17", polygon: "394,952 225,952 285,842 394,842", lx: 325, ly: 897, area: 56.18 },
+  { key: "02", polygon: "775,952 595,952 595,842 715,842", lx: 670, ly: 897, area: 56.18 },
+  { key: "01", polygon: "595,952 510,952 510,842 595,842", lx: 553, ly: 897, area: 31.66 },
+  { key: "18", polygon: "510,952 406,952 406,842 510,842", lx: 458, ly: 897, area: 38.95 },
+  { key: "17", polygon: "406,952 225,952 285,842 406,842", lx: 330, ly: 897, area: 56.18 },
   // ── Bottom-left diagonal ──
   { key: "16", polygon: "225,952 48,775 158,715 285,842",  lx: 179, ly: 821, area: 33.85 },
   // ── Left edge ──
-  { key: "15", polygon: "48,775 48,609 158,609 158,715",   lx: 103, ly: 677, area: 45.21 },
-  { key: "14", polygon: "48,609 48,499 158,499 158,609",   lx: 103, ly: 554, area: 27.62 },
-  { key: "13", polygon: "48,499 48,389 158,389 158,499",   lx: 103, ly: 444, area: 27.62 },
-  { key: "12", polygon: "48,389 48,225 158,285 158,389",   lx: 103, ly: 322, area: 41.00 },
+  { key: "15", polygon: "48,775 48,589 158,589 158,715",   lx: 103, ly: 652, area: 45.21 },
+  { key: "14", polygon: "48,589 48,493 158,493 158,589",   lx: 103, ly: 541, area: 27.62 },
+  { key: "13", polygon: "48,493 48,397 158,397 158,493",   lx: 103, ly: 445, area: 27.62 },
+  { key: "12", polygon: "48,397 48,225 158,285 158,397",   lx: 103, ly: 341, area: 41.00 },
 ];
 
 function buildFloor(
