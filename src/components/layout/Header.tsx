@@ -121,7 +121,7 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `inline-flex h-8 items-center rounded-full px-3 text-[0.93rem] font-semibold transition-colors duration-200 ${
+    `inline-flex h-8 items-center rounded-full px-4 text-[0.93rem] font-semibold transition-colors duration-200 ${
       isActive(path)
         ? "bg-card text-foreground shadow-[var(--shadow-soft)] ring-1 ring-border/80"
         : "text-foreground hover:bg-secondary/75 hover:text-foreground"
