@@ -104,44 +104,49 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-3 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-10">
+      <section className="relative overflow-hidden pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-10">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell grid min-h-[auto] gap-3 overflow-hidden rounded-[2rem] px-3.5 py-4 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[40rem] lg:grid-cols-[5fr_7fr] lg:gap-4">
-            <div className="order-2 space-y-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-3">
+          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[40rem] lg:grid-cols-[5fr_7fr] lg:gap-4">
+            <div className="order-1 space-y-2 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-3">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                <div className="eyebrow-chip mb-2.5 text-[0.78rem] md:mb-3 md:text-sm">افتتاح مايو 2026 • وجهة تقنية في القاهرة الجديدة</div>
-                <h1 className="max-w-[19rem] text-[1.72rem] font-black leading-[1.05] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:text-[4rem]">
+                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm">افتتاح مايو 2026 • القاهرة الجديدة</div>
+                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:text-[4rem]">
                   مول البستان
-                  <span className="mt-2 block max-w-[18rem] text-[0.9rem] font-semibold leading-[1.42] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:text-[1.6rem]">
-                    خريطة أوضح لاستكشاف المتاجر والوحدات.
+                  <span className="mt-1.5 block max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:text-[1.6rem]">
+                    خريطة أسرع لاختيار المتجر أو الوحدة.
                   </span>
                 </h1>
-                <p className="mt-2 max-w-[18rem] text-[0.82rem] leading-6 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7">
-                  ابدأ من الدليل ثم تحرك مباشرة إلى المتجر أو الوحدة المناسبة.
+                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7">
+                  استكشف الدور والوحدة قبل زيارتك أو استفسارك.
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.35rem] p-3 md:gap-2.5 md:rounded-[1.6rem] md:p-5 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:p-4">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.2rem] p-2.5 md:gap-2.5 md:rounded-[1.6rem] md:p-5 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:p-4">
                 <div className="flex flex-wrap gap-2">
                   {heroPills.map((item, index) => (
-                    <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.76rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "hidden sm:inline-flex" : "inline-flex"}`}>{item}</span>
+                    <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.72rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "inline-flex" : "inline-flex"}`}>{item}</span>
                   ))}
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 min-[768px]:max-[1194px]:col-start-1 min-[768px]:max-[1194px]:row-start-2 min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5">
+                <div className="grid grid-cols-2 gap-2 md:hidden">
+                  <Link to="/map" className="w-full"><Button variant="cta" size="lg" className="h-12 w-full rounded-[1rem] px-4">استكشف الخريطة</Button></Link>
+                  <Link to="/leasing" className="w-full"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-[1rem] px-4">استفسر عن الوحدات</Button></Link>
+                </div>
+
+                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:col-start-1 min-[768px]:max-[1194px]:row-start-2 min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5">
                   <Link to="/map" className="w-full sm:w-auto"><Button variant="cta" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
                   <Link to="/leasing" className="w-full sm:w-auto"><Button variant="orange" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
                 </div>
 
                 <div className="grid gap-2 min-[768px]:max-[1194px]:col-start-2 min-[768px]:max-[1194px]:row-span-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-[1.08fr_0.92fr] lg:gap-2.5">
-                  <div className="rounded-[1.1rem] border border-border bg-card px-2.5 py-2.5 md:rounded-[1.25rem] md:px-3.5 md:py-3 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3.5">
-                    <div className="grid grid-cols-2 gap-2 md:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-3">
+                  <div className="rounded-[1rem] border border-border bg-card px-2 py-2 md:rounded-[1.25rem] md:px-3.5 md:py-3 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3.5">
+                    <div className="grid grid-cols-3 gap-1.5 md:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-3">
                     {heroFacts.map((item, index) => (
-                      <div key={item.label} className={`editorial-panel flex min-h-[3.8rem] flex-col justify-center rounded-[0.95rem] px-2.5 py-2 md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 min-[768px]:max-[1194px]:min-h-[4.6rem] ${index === 2 ? "col-span-2 md:col-span-1 min-[768px]:max-[1194px]:col-span-1" : ""}`}>
-                        <p className="text-[0.68rem] font-semibold leading-4 text-muted-foreground md:text-xs">{item.label}</p>
-                        <p className="mt-1 text-sm font-bold text-foreground md:text-lg">{item.value}</p>
+                      <div key={item.label} className="editorial-panel flex min-h-[3.35rem] flex-col justify-center rounded-[0.9rem] px-2 py-1.5 md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 min-[768px]:max-[1194px]:min-h-[4.6rem]">
+                        <p className="text-[0.62rem] font-semibold leading-4 text-muted-foreground md:text-xs">{item.label}</p>
+                        <p className="mt-0.5 text-[0.9rem] font-bold text-foreground md:text-lg">{item.value}</p>
                       </div>
                     ))}
                     </div>
@@ -157,15 +162,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </motion.div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-1 relative mx-auto flex w-full max-w-[48rem] items-center min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none lg:order-2 lg:justify-start">
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative mx-auto flex w-full max-w-[48rem] items-center min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none lg:order-2 lg:justify-start">
               <div className="relative w-full">
-                <div className="section-shell overflow-hidden rounded-[1.8rem] p-2 md:rounded-[2.25rem] min-[768px]:max-[1194px]:p-2.5">
-                  <div className="image-shell aspect-[4/4.2] overflow-hidden rounded-[1.5rem] bg-card md:rounded-[2rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/3]">
+                <div className="section-shell overflow-hidden rounded-[1.45rem] p-1.5 md:rounded-[2.25rem] min-[768px]:max-[1194px]:p-2.5">
+                  <div className="image-shell aspect-[4/3.2] overflow-hidden rounded-[1.25rem] bg-card md:rounded-[2rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/3]">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
                     <div className="image-wash absolute inset-0" />
                   </div>
                 </div>
-                <div className="section-shell absolute bottom-4 right-4 hidden w-[28%] min-w-[9.5rem] overflow-hidden rounded-[1.5rem] p-2 sm:block md:bottom-6 md:right-6 min-[768px]:max-[1194px]:w-[24%] min-[768px]:max-[1194px]:min-w-[8.75rem]">
+                <div className="section-shell absolute bottom-4 right-4 hidden w-[28%] min-w-[9.5rem] overflow-hidden rounded-[1.5rem] p-2 md:block md:bottom-6 md:right-6 min-[768px]:max-[1194px]:w-[24%] min-[768px]:max-[1194px]:min-w-[8.75rem]">
                   <div className="image-shell aspect-[3/4] overflow-hidden rounded-[1.15rem]">
                     <img src={interiorImage} alt="مشهد داخلي داعم لتجربة مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
                   </div>
@@ -177,93 +182,90 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       </section>
 
       <div className="space-y-0 md:hidden">
-        <section className="page-section pt-5">
+        <section className="page-section pt-3">
           <div className="container">
-            <div className="space-y-3">
-              <div className="space-y-2">
+            <div className="space-y-2.5">
+              <div className="space-y-1.5">
                 <p className="section-kicker">الخريطة التفاعلية</p>
-                <h2 className="section-title max-w-[18rem]">ابدأ من الدليل مباشرة.</h2>
-                <p className="max-w-[20rem] text-sm leading-6 text-muted-foreground">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
+                <h2 className="section-title max-w-[16rem]">ابدأ من الدليل.</h2>
+                <p className="max-w-[18rem] text-sm leading-6 text-muted-foreground">الوحدة، الدور، والحالة ظاهرة فورًا قبل أي خطوة لاحقة.</p>
               </div>
               <MapTeaserPreview />
             </div>
           </div>
         </section>
 
-        <section className="page-section py-7">
+        <section className="page-section py-6">
           <div className="container">
-            <div className="space-y-3">
-              <div className="space-y-2">
+            <div className="space-y-2.5">
+              <div className="space-y-1.5">
                 <p className="section-kicker">الفئات الرئيسية</p>
-                <h2 className="section-title max-w-[18rem]">ابدأ من فئة واضحة.</h2>
+                <h2 className="section-title max-w-[16rem]">ابدأ من فئة واضحة.</h2>
               </div>
               <Collapsible className="space-y-2.5">
-                {categoryStories.slice(0, 3).map((category, index) => (
-                  <div key={category.key} className="editorial-panel rounded-[1.1rem] p-3.5">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-2.5">
-                        <div className="icon-shell h-10 w-10 p-2.5"><category.icon className="h-5 w-5" /></div>
-                        <div>
-                          <h3 className="text-base font-bold text-foreground">{category.name}</h3>
-                          <p className="mt-1 text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
-                        </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {categoryStories.slice(0, 4).map((category, index) => (
+                    <div key={category.key} className="editorial-panel flex min-h-[7.15rem] flex-col rounded-[1rem] p-3">
+                      <div className="mb-2 flex items-start justify-between gap-2">
+                        <div className="icon-shell h-9 w-9 p-2.5"><category.icon className="h-4.5 w-4.5" /></div>
+                        <span className="text-[0.68rem] font-semibold text-muted-foreground">0{index + 1}</span>
                       </div>
-                      <span className="text-[0.72rem] font-semibold text-muted-foreground">0{index + 1}</span>
+                      <h3 className="text-[0.92rem] font-bold leading-5 text-foreground">{category.name}</h3>
+                      <p className="mt-1 text-[0.73rem] leading-5 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
                     </div>
-                  </div>
-                ))}
-                <CollapsibleContent className="space-y-2.5">
+                  ))}
+                </div>
+                <CollapsibleContent className="grid grid-cols-2 gap-2">
                   {categoryStories.slice(3).map((category, index) => (
-                    <div key={category.key} className="editorial-panel rounded-[1.1rem] p-3.5">
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="flex items-center gap-2.5">
-                          <div className="icon-shell h-10 w-10 p-2.5"><category.icon className="h-5 w-5" /></div>
-                          <div>
-                            <h3 className="text-base font-bold text-foreground">{category.name}</h3>
-                            <p className="mt-1 text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
-                          </div>
-                        </div>
-                        <span className="text-[0.72rem] font-semibold text-muted-foreground">0{index + 4}</span>
+                    <div key={category.key} className="editorial-panel flex min-h-[7.15rem] flex-col rounded-[1rem] p-3">
+                      <div className="mb-2 flex items-start justify-between gap-2">
+                        <div className="icon-shell h-9 w-9 p-2.5"><category.icon className="h-4.5 w-4.5" /></div>
+                        <span className="text-[0.68rem] font-semibold text-muted-foreground">0{index + 5}</span>
                       </div>
+                      <h3 className="text-[0.92rem] font-bold leading-5 text-foreground">{category.name}</h3>
+                      <p className="mt-1 text-[0.73rem] leading-5 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
                     </div>
                   ))}
                 </CollapsibleContent>
                 <CollapsibleTrigger asChild>
-                  <Button variant="secondary" className="h-10 w-full rounded-[1rem]">عرض باقي الفئات</Button>
+                  <Button variant="secondary" className="h-11 w-full rounded-[1rem]">عرض باقي الفئات</Button>
                 </CollapsibleTrigger>
               </Collapsible>
             </div>
           </div>
         </section>
 
-        <section className="section-soft page-section py-7">
+        <section className="page-section py-6">
           <div className="container">
-            <div className="section-shell rounded-[1.45rem] px-4 py-4">
-              <div className="space-y-3">
+            <div className="section-shell rounded-[1.3rem] px-4 py-4">
+              <div className="space-y-2.5">
                 <p className="section-kicker">التأجير والوحدات</p>
-                <h2 className="section-title max-w-[18rem]">وحدات مرتبطة بالدليل نفسه.</h2>
-                <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground">ابدأ من المصدر نفسه ثم انتقل مباشرة إلى الاستفسار التجاري.</p>
-                <div className="space-y-2">
+                <h2 className="section-title max-w-[17rem]">وحدات جاهزة للاستفسار.</h2>
+                <p className="max-w-[18rem] text-sm leading-6 text-muted-foreground">عرض مختصر للوحدات المتاحة مع انتقال مباشر إلى التأجير.</p>
+                <div className="grid gap-2">
                   {[
                     "حالة كل وحدة واضحة داخل الدليل.",
-                    "التحويل إلى الاستفسار يتم مباشرة.",
+                    "التحويل إلى الاستفسار يتم بخطوة واحدة.",
                   ].map((item) => (
-                    <div key={item} className="editorial-panel flex min-h-[2.9rem] items-center rounded-[1rem] px-3.5 py-2.5 text-sm text-foreground/90">{item}</div>
+                    <div key={item} className="editorial-panel flex min-h-[2.8rem] items-center rounded-[0.95rem] px-3 py-2 text-sm text-foreground/90">{item}</div>
                   ))}
                 </div>
                 <div className="grid gap-2.5">
                   {homepageLeasingUnits.slice(0, 2).map((unit) => (
-                    <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6rem] flex-col rounded-[1.15rem] p-3.5">
+                    <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6.35rem] flex-col rounded-[1.05rem] p-3">
                       <div className="flex items-start justify-between gap-3">
-                        <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                        <div>
+                          <p className="text-base font-bold text-foreground">وحدة {unit.unit_id}</p>
+                          <p className="mt-1 text-[0.72rem] font-semibold text-muted-foreground">{needCategoryLabels[unit.category]}</p>
+                        </div>
                         <span className="rounded-full border border-orange/25 bg-orange/10 px-2.5 py-1 text-[0.7rem] font-semibold text-orange">متاحة</span>
                       </div>
-                      <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-                        <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2">
+                      <div className="mt-2.5 grid grid-cols-2 gap-2 text-sm">
+                        <div className="rounded-[0.9rem] border border-border bg-card px-3 py-2">
                           <p className="text-[0.7rem] font-semibold text-muted-foreground">الدور</p>
                           <p className="mt-1 font-semibold text-foreground">{floorLabels[unit.floor_id]}</p>
                         </div>
-                        <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2">
+                        <div className="rounded-[0.9rem] border border-border bg-card px-3 py-2">
                           <p className="text-[0.7rem] font-semibold text-muted-foreground">المساحة</p>
                           <p className="mt-1 font-semibold text-foreground">{unit.area_m2} م²</p>
                         </div>
@@ -271,42 +273,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     </Link>
                   ))}
                 </div>
-                <Link to="/leasing"><Button variant="orange" className="h-11 w-full rounded-[1rem]">افتح صفحة التأجير</Button></Link>
+                <Link to="/leasing"><Button variant="orange" className="h-12 w-full rounded-[1rem]">افتح صفحة التأجير</Button></Link>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="page-section py-7">
-          <div className="container">
-            <div className="section-shell rounded-[1.45rem] px-4 py-4">
-              <div className="space-y-3">
-                <p className="section-kicker">داخل المول</p>
-                <h2 className="section-title max-w-[18rem]">مسار أوضح داخل الزيارة.</h2>
-                <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground">تنظيم داخلي يساعد على الوصول الأسرع للفئات والمتاجر داخل المول.</p>
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-border/80 bg-card">
-                  <img src={interiorImage} alt="مشهد داخلي من مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
-                </div>
-                <div className="grid gap-2">
-                  <div className="editorial-panel rounded-[1rem] px-3.5 py-3 text-sm text-foreground">مشهد داخلي متوازن يدعم العرض الواضح.</div>
-                  <div className="editorial-panel rounded-[1rem] px-3.5 py-3 text-sm text-foreground">حركة أسهل بين الفئات والمتاجر من أول نظرة.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="page-section py-7">
+        <section className="page-section py-6">
           <div className="container">
             <div className="section-shell rounded-[1.3rem] px-4 py-4">
               <div className="space-y-2.5">
-                <p className="section-kicker">لماذا مول البستان</p>
-                <h2 className="section-title max-w-[16rem]">هوية تقنية أوضح.</h2>
-                <p className="max-w-[20rem] text-sm leading-6 text-muted-foreground">المشروع يجمع الفئات الأساسية في مسار أقصر ويمنح النشاط التجاري حضورًا أوضح.</p>
+                <p className="section-kicker">داخل المول</p>
+                <h2 className="section-title max-w-[16rem]">مسار أوضح داخل الزيارة.</h2>
+                <p className="max-w-[18rem] text-sm leading-6 text-muted-foreground">تنظيم داخلي يسهّل الوصول للفئات والمتاجر بسرعة.</p>
+                <div className="image-shell aspect-[4/3.05] overflow-hidden rounded-[1.35rem] border border-border/80 bg-card">
+                  <img src={interiorImage} alt="مشهد داخلي من مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
+                </div>
                 <div className="grid gap-2">
-                  {benefitChips.slice(0, 2).map((item) => (
-                    <div key={item} className="mini-chip h-[2.7rem] justify-start rounded-[0.95rem] px-3.5 py-0 text-[0.76rem]">{item}</div>
-                  ))}
+                  <div className="editorial-panel rounded-[0.95rem] px-3 py-2.5 text-sm text-foreground">مشهد داخلي متوازن يدعم العرض الواضح.</div>
+                  <div className="editorial-panel rounded-[0.95rem] px-3 py-2.5 text-sm text-foreground">حركة أسهل بين الفئات والمتاجر من أول نظرة.</div>
                 </div>
               </div>
             </div>
@@ -651,25 +636,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="page-section pt-7 md:pt-10 min-[768px]:max-[1194px]:pt-9">
+      <section className="page-section pt-6 md:pt-10 min-[768px]:max-[1194px]:pt-9">
         <div className="container max-w-5xl">
           <div className="grid gap-4 min-[768px]:max-[1194px]:grid-cols-[0.8fr_1.2fr] min-[768px]:max-[1194px]:items-start lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
-            <div className="chapter-shell pt-4 md:pt-5">
+            <div className="chapter-shell pt-3 md:pt-5">
               <p className="section-kicker">الأسئلة الشائعة</p>
-              <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-                <HelpCircle className="ml-2 inline-block h-7 w-7 text-accent" />
-                إجابات سريعة قبل زيارتك الأولى
+              <h2 className="text-[1.7rem] font-bold leading-[1.08] text-foreground md:text-4xl">
+                <HelpCircle className="ml-2 hidden h-7 w-7 text-accent md:inline-block" />
+                إجابات سريعة قبل الزيارة
               </h2>
-                <p className="mt-2 max-w-[19rem] text-sm leading-6 text-muted-foreground md:mt-3 md:max-w-none md:text-lg md:leading-7 min-[768px]:max-[1194px]:text-base">إجابات مختصرة للأسئلة الأهم قبل الزيارة الأولى.</p>
-              <Link to="/faq" className="mt-3 inline-flex md:mt-5 min-[768px]:max-[1194px]:mt-4"><Button variant="ghost" className="text-primary">عرض جميع الأسئلة</Button></Link>
+                <p className="mt-2 max-w-[16rem] text-sm leading-6 text-muted-foreground md:mt-3 md:max-w-none md:text-lg md:leading-7 min-[768px]:max-[1194px]:text-base">إجابات مختصرة للأسئلة الأهم قبل الزيارة الأولى.</p>
+              <Link to="/faq" className="mt-2.5 inline-flex md:mt-5 min-[768px]:max-[1194px]:mt-4"><Button variant="ghost" className="px-0 text-primary">عرض جميع الأسئلة</Button></Link>
             </div>
-            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2 md:space-y-3">
+            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-1.5 md:space-y-3">
               {faqItems.map((faq) => (
                 <AccordionItem key={faq.id} value={faq.id} className="section-shell overflow-hidden rounded-[1.1rem] px-4 md:rounded-[1.25rem] md:px-5">
-                  <AccordionTrigger className="min-h-[3.85rem] py-3 text-right text-sm font-semibold text-foreground hover:text-primary md:min-h-[4.25rem] md:py-4 md:text-base">
+                  <AccordionTrigger className="min-h-[3.65rem] py-3 text-right text-sm font-semibold text-foreground hover:text-primary md:min-h-[4.25rem] md:py-4 md:text-base">
                     {faq.question_ar}
                   </AccordionTrigger>
-                  <AccordionContent className="pb-4 text-sm leading-6 text-muted-foreground md:pb-5 md:text-base md:leading-7">
+                  <AccordionContent className="pb-3.5 text-sm leading-6 text-muted-foreground md:pb-5 md:text-base md:leading-7">
                     {faq.answer_ar}
                   </AccordionContent>
                 </AccordionItem>

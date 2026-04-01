@@ -210,17 +210,16 @@ export function Header() {
             </div>
           </div>
 
-          <div className="grid min-h-[66px] grid-cols-[auto_1fr_auto] items-center gap-2 md:hidden">
+          <div className="grid min-h-[64px] grid-cols-[auto_1fr_auto] items-center gap-1.5 py-1 md:hidden">
             <Link to="/map">
-              <Button variant="outline-blue" size="sm" className="h-10 rounded-full px-3.5 text-[0.78rem] font-semibold">
-                <Compass className="h-4 w-4" />
-                الخريطة
+              <Button variant="outline-blue" size="sm" className="h-11 w-11 rounded-full px-0 text-[0.78rem] font-semibold" aria-label="افتح الخريطة">
+                <Compass className="h-4.5 w-4.5" />
               </Button>
             </Link>
 
             <Link to="/" className="justify-self-center">
               <div className="flex -translate-y-[1px] items-center justify-center">
-                <BrandLogo align="center" imageClassName="h-auto max-w-[176px]" />
+                <BrandLogo align="center" imageClassName="h-auto max-w-[168px]" />
               </div>
             </Link>
 
@@ -228,7 +227,7 @@ export function Header() {
               isActive={isActive}
               trigger={
                 <button
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-card text-foreground shadow-[var(--shadow-soft)]"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 bg-card text-foreground shadow-[var(--shadow-soft)]"
                   aria-label="فتح القائمة"
                 >
                   <Menu size={20} />

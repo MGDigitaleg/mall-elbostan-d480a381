@@ -48,14 +48,14 @@ const mobileFooterGroups = [
 
 export function Footer() {
   return (
-    <footer className="mt-12 border-t border-border bg-background">
-      <div className="container pt-12 pb-8 md:pt-[72px] md:pb-9">
+    <footer className="mt-10 border-t border-border bg-background md:mt-12">
+      <div className="container pt-10 pb-7 md:pt-[72px] md:pb-9">
         <div className="grid gap-6 xl:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr] xl:gap-8">
-          <div className="space-y-4 md:space-y-5">
-            <BrandLogo imageClassName="h-auto max-w-[140px]" />
-            <p className="max-w-[320px] text-sm leading-7 text-muted-foreground">مول البستان يقدم تجربة تقنية عربية أولًا، تربط الزيارة بالخريطة والمتاجر في مسار واضح.</p>
+          <div className="space-y-3.5 md:space-y-5">
+            <BrandLogo imageClassName="h-auto max-w-[136px]" />
+            <p className="max-w-[280px] text-sm leading-6 text-muted-foreground">تجربة تقنية عربية تبدأ بالخريطة ثم تقودك للمتاجر والوحدات بوضوح.</p>
             <div className="md:hidden">
-              <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
+              <Link to="/map"><Button variant="cta" className="h-12 w-full rounded-[16px] px-5">استكشف الخريطة</Button></Link>
             </div>
             <div className="hidden gap-2.5 sm:grid-cols-2 md:hidden xl:grid">
               <Link to="/map"><Button variant="cta" className="h-11 w-full rounded-[18px] px-5">استكشف الخريطة</Button></Link>
@@ -64,14 +64,14 @@ export function Footer() {
           </div>
 
           <div className="md:hidden">
-            <Accordion type="multiple" className="space-y-2">
+            <Accordion type="multiple" className="space-y-1.5">
               {mobileFooterGroups.map((group) => (
-                <AccordionItem key={group.title} value={group.title} className="section-shell overflow-hidden rounded-[1.1rem] px-4">
-                  <AccordionTrigger className="min-h-[3.75rem] py-3 text-right text-sm font-bold text-foreground">
+                <AccordionItem key={group.title} value={group.title} className="section-shell overflow-hidden rounded-[1rem] px-3.5">
+                  <AccordionTrigger className="min-h-[3.45rem] py-2.5 text-right text-sm font-bold text-foreground">
                     {group.title}
                   </AccordionTrigger>
-                  <AccordionContent className="pb-4">
-                    <ul className="space-y-2.5">
+                  <AccordionContent className="pb-3">
+                    <ul className="space-y-2">
                       {group.links.map((link) => (
                         <li key={link.path}>
                           <Link to={link.path} className="text-sm text-muted-foreground transition-colors hover:text-primary">{link.label}</Link>
@@ -132,7 +132,7 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-border pt-5 text-xs text-muted-foreground md:mt-10 md:flex-row md:items-center md:justify-between md:pt-6">
+        <div className="mt-6 flex flex-col gap-2 border-t border-border pt-4 text-xs text-muted-foreground md:mt-10 md:flex-row md:items-center md:justify-between md:gap-3 md:pt-6">
           <p>مول البستان — وجهة تقنية مصرية راقية تقترب من الافتتاح.</p>
           <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
         </div>
