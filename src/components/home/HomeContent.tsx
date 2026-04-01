@@ -104,20 +104,20 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden bg-background pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-12">
-        <div className="relative container px-4 md:px-6 lg:px-8 xl:px-10">
-          <div className="grid min-h-[auto] gap-2.5 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:py-6 lg:grid-cols-[1fr_0.7fr] lg:items-center lg:gap-14 lg:py-16">
+      <section className="relative overflow-hidden bg-card pb-2 pt-4 md:pb-8 md:pt-8 lg:pb-16 lg:pt-12">
+        <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12 xl:px-16">
+          <div className="grid min-h-[auto] gap-4 py-3.5 md:gap-6 lg:grid-cols-[1.1fr_0.65fr] lg:items-center lg:gap-16 lg:min-h-[70vh] lg:py-0">
             {/* Text block — right side in RTL */}
-            <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-5">
+            <div className="order-1 space-y-3 text-right lg:space-y-5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-4">افتتاح مايو 2026 • القاهرة الجديدة</div>
-                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[26rem] lg:text-[3.2rem] lg:leading-[1.05]">
+                <div className="eyebrow-chip mb-3 text-[0.72rem] md:mb-4 md:text-sm">افتتاح مايو 2026 • القاهرة الجديدة</div>
+                <h1 className="text-[1.7rem] font-black leading-[1.05] text-foreground md:text-[3rem] lg:text-[3.4rem]">
                   مول البستان
                 </h1>
-                <p className="mt-2 max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:mt-3 lg:max-w-[22rem] lg:text-[1.28rem] lg:leading-[1.3]">
+                <p className="mt-2.5 max-w-[20rem] text-[0.92rem] font-semibold leading-[1.4] text-foreground/90 md:mt-3 md:max-w-[30rem] md:text-[1.3rem] lg:max-w-[24rem] lg:text-[1.25rem]">
                   خريطة أوضح لاختيار المتجر أو الوحدة.
                 </p>
-                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7 lg:mt-3 lg:max-w-[24rem] lg:text-[0.95rem] lg:leading-7">
+                <p className="mt-2 max-w-[18rem] text-[0.82rem] leading-[1.65] text-muted-foreground md:mt-3 md:max-w-[30rem] md:text-base lg:max-w-[26rem] lg:text-[0.95rem] lg:leading-7">
                   استكشف الدور والوحدة قبل زيارتك أو استفسارك.
                 </p>
               </motion.div>
@@ -134,42 +134,42 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link to="/leasing" className="w-full"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-[1rem] px-4">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-2 lg:gap-3">
-                  <Link to="/map" className="w-full sm:w-auto"><Button variant="cta" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
-                  <Link to="/leasing" className="w-full sm:w-auto"><Button variant="outline-blue" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
+                <div className="hidden gap-3 sm:flex sm:flex-wrap md:flex lg:flex">
+                  <Link to="/map"><Button variant="cta" size="lg" className="h-11 min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
+                  <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-11 min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="rounded-[1rem] border border-border bg-card px-3 py-3 md:rounded-[1.25rem] md:px-3.5 md:py-3 lg:px-4 lg:py-3.5">
-                  <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-[1rem] border border-border bg-background px-3 py-3 md:rounded-[1.25rem] md:px-4 md:py-3.5 lg:px-5 lg:py-4">
+                  <div className="grid grid-cols-3 gap-2.5">
                     {heroFacts.map((item) => (
-                      <div key={item.label} className="editorial-panel flex min-h-[3.35rem] flex-col items-center justify-center rounded-[0.9rem] px-2 py-2 text-center md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 lg:min-h-[4.5rem] lg:rounded-[1.1rem] lg:px-4 lg:py-3">
-                        <p className="text-[0.62rem] font-semibold leading-4 text-muted-foreground md:text-xs lg:text-xs">{item.label}</p>
-                        <p className="mt-1 text-[0.9rem] font-bold text-foreground md:text-lg lg:text-xl">{item.value}</p>
+                      <div key={item.label} className="flex min-h-[3.5rem] flex-col items-center justify-center rounded-xl border border-border/60 bg-card px-2 py-2.5 text-center md:min-h-[4.2rem] md:px-3 md:py-3 lg:min-h-[4.5rem]">
+                        <p className="text-[0.65rem] font-semibold text-muted-foreground md:text-xs">{item.label}</p>
+                        <p className="mt-0.5 text-[0.95rem] font-bold text-foreground md:text-lg lg:text-xl">{item.value}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-4 md:block md:rounded-[1.25rem] md:px-4 md:py-4 lg:px-5 lg:py-4">
-                  <div className="mb-3 flex items-center justify-between gap-3 lg:mb-4">
+                <div className="hidden rounded-[1.15rem] border border-border bg-background px-4 py-4 md:block lg:px-5">
+                  <div className="mb-3 flex items-center justify-between gap-3">
                     <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
-                    <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
+                    <span className="text-xs text-muted-foreground">حتى الافتتاح</span>
                   </div>
                   <CountdownTimer compact />
                 </div>
               </motion.div>
             </div>
 
-            {/* Image block — left side in RTL, scaled down */}
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative flex w-full items-center min-[768px]:max-[1194px]:order-2 lg:order-2 lg:justify-center">
-              <div className="relative w-full lg:max-w-[380px] xl:max-w-[420px]">
-                <div className="section-shell overflow-hidden rounded-[1.45rem] p-1.5 md:rounded-[2rem] min-[768px]:max-[1194px]:p-2.5 lg:rounded-[1.75rem] lg:p-2">
-                  <div className="image-shell aspect-[4/3.2] overflow-hidden rounded-[1.25rem] bg-card md:rounded-[1.75rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/5]">
+            {/* Image block — left side in RTL, balanced size */}
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 flex w-full items-center justify-center lg:justify-center">
+              <div className="relative w-full max-w-[280px] md:max-w-[320px] lg:max-w-[340px] xl:max-w-[360px]">
+                <div className="section-shell overflow-hidden rounded-2xl p-1.5 md:rounded-[1.75rem] lg:p-2">
+                  <div className="image-shell aspect-[3/4] overflow-hidden rounded-xl bg-card md:rounded-2xl">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
                   </div>
                 </div>
-                <div className="section-shell absolute bottom-3 right-3 hidden w-[35%] min-w-[7rem] overflow-hidden rounded-[1.15rem] p-1.5 md:block md:bottom-4 md:right-4 min-[768px]:max-[1194px]:w-[24%] min-[768px]:max-[1194px]:min-w-[8.75rem]">
-                  <div className="image-shell aspect-[3/4] overflow-hidden rounded-[0.9rem]">
+                <div className="section-shell absolute -bottom-2 -right-2 hidden w-[38%] min-w-[6rem] overflow-hidden rounded-xl p-1 md:block md:-bottom-3 md:-right-3 lg:rounded-2xl lg:p-1.5">
+                  <div className="image-shell aspect-[3/4] overflow-hidden rounded-lg md:rounded-xl">
                     <img src={interiorImage} alt="مشهد داخلي داعم لتجربة مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
                   </div>
                 </div>
