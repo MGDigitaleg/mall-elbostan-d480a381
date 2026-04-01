@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -31,17 +31,25 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs } from "./pages/admin/AdminPages";
 
+import { Header } from "./components/layout/Header";
+import { Footer } from "./components/layout/Footer";
+import { WhatsAppFab } from "./components/WhatsAppFab";
+
 const queryClient = new QueryClient();
 
 function GA4Init() { useGA4(); return null; }
 
-const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <GA4Init />
+/* Routes that should NOT show the public header/footer */
+const adminPaths = ["/admin"];
+
+function AppLayout() {
+  const location = useLocation();
+  const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+
+  return (
+    <>
+      {!isAdmin && <Header />}
+      <main className={!isAdmin ? "flex-1 pt-11 md:pt-12" : "flex-1"}>
         <Routes>
           {/* Public */}
           <Route path="/" element={<Index />} />
@@ -79,6 +87,23 @@ const App = () => (
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+      </main>
+      {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppFab />}
+    </>
+  );
+}
+
+const App = () => (
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <GA4Init />
+        <div className="min-h-screen flex flex-col bg-[linear-gradient(180deg,hsl(var(--background)),hsl(210_34%_97%))]">
+          <AppLayout />
+        </div>
       </BrowserRouter>
     </QueryClientProvider>
   </HelmetProvider>

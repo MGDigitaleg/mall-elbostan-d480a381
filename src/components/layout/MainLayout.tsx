@@ -1,14 +1,8 @@
-import { Header } from "./Header";
-import { Footer } from "./Footer";
-import { WhatsAppFab } from "@/components/WhatsAppFab";
-
+/**
+ * Legacy wrapper kept for backward-compatibility.
+ * Header, Footer & WhatsAppFab are now rendered once in App.tsx,
+ * so MainLayout simply passes children through.
+ */
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="min-h-screen flex flex-col bg-[linear-gradient(180deg,hsl(var(--background)),hsl(210_34%_97%))]">
-      <Header />
-      <main className="flex-1 pt-11 md:pt-12">{children}</main>
-      <Footer />
-      <WhatsAppFab />
-    </div>
-  );
+  return <>{children}</>;
 }
