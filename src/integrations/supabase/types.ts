@@ -532,6 +532,93 @@ export type Database = {
           },
         ]
       }
+      tenant_logo_assets: {
+        Row: {
+          approved_for_final_export: boolean
+          asset_type: string | null
+          background_removal_needed: boolean
+          brand_key: string
+          created_at: string
+          crop_needed: boolean
+          execution_note: string | null
+          final_export_name: string | null
+          final_export_path: string | null
+          final_file_path: string | null
+          id: string
+          last_follow_up_note: string | null
+          normalized_display_name: string
+          raw_file_path: string | null
+          requested_source_type: string | null
+          review_file_path: string | null
+          review_status: string
+          reviewer_notes: string | null
+          safe_margin_applied: boolean
+          source_file_name: string | null
+          source_file_path: string | null
+          square_artboard_ready: boolean
+          tenant_provided_name: string
+          transparent_export_ready: boolean
+          units: string[]
+          updated_at: string
+        }
+        Insert: {
+          approved_for_final_export?: boolean
+          asset_type?: string | null
+          background_removal_needed?: boolean
+          brand_key: string
+          created_at?: string
+          crop_needed?: boolean
+          execution_note?: string | null
+          final_export_name?: string | null
+          final_export_path?: string | null
+          final_file_path?: string | null
+          id?: string
+          last_follow_up_note?: string | null
+          normalized_display_name: string
+          raw_file_path?: string | null
+          requested_source_type?: string | null
+          review_file_path?: string | null
+          review_status?: string
+          reviewer_notes?: string | null
+          safe_margin_applied?: boolean
+          source_file_name?: string | null
+          source_file_path?: string | null
+          square_artboard_ready?: boolean
+          tenant_provided_name: string
+          transparent_export_ready?: boolean
+          units?: string[]
+          updated_at?: string
+        }
+        Update: {
+          approved_for_final_export?: boolean
+          asset_type?: string | null
+          background_removal_needed?: boolean
+          brand_key?: string
+          created_at?: string
+          crop_needed?: boolean
+          execution_note?: string | null
+          final_export_name?: string | null
+          final_export_path?: string | null
+          final_file_path?: string | null
+          id?: string
+          last_follow_up_note?: string | null
+          normalized_display_name?: string
+          raw_file_path?: string | null
+          requested_source_type?: string | null
+          review_file_path?: string | null
+          review_status?: string
+          reviewer_notes?: string | null
+          safe_margin_applied?: boolean
+          source_file_name?: string | null
+          source_file_path?: string | null
+          square_artboard_ready?: boolean
+          tenant_provided_name?: string
+          transparent_export_ready?: boolean
+          units?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       units: {
         Row: {
           activity_suggestion: string | null
