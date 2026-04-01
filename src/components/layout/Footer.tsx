@@ -52,7 +52,7 @@ export function Footer() {
       <div className="container pt-10 pb-7 md:pt-[72px] md:pb-9">
         <div className="grid gap-6 xl:grid-cols-[1.2fr_0.9fr_0.9fr_0.9fr] xl:gap-8">
           <div className="space-y-3.5 md:space-y-5">
-            <BrandLogo imageClassName="h-auto max-w-[136px]" />
+            <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[148px]" />
             <p className="max-w-[280px] text-sm leading-6 text-muted-foreground">تجربة تقنية عربية تبدأ بالخريطة ثم تقودك للمتاجر والوحدات بوضوح.</p>
             <div className="md:hidden">
               <Link to="/map"><Button variant="cta" className="h-12 w-full rounded-[16px] px-5">استكشف الخريطة</Button></Link>
