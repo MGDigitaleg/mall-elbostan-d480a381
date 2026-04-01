@@ -109,7 +109,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
           <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[38rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
-            <div className="order-1 space-y-2 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-2.5">
+            <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-2.5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-2.5">افتتاح مايو 2026 • القاهرة الجديدة</div>
                 <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[28rem] lg:text-[3.72rem] lg:leading-[0.98]">
