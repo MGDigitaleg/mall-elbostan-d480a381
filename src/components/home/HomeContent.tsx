@@ -162,7 +162,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
             {/* Image block — left side in RTL, balanced size */}
             <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 flex w-full items-center justify-center">
-              <div className="relative mx-auto w-[75%] lg:w-[60%]">
+              <div className="relative mx-auto w-[85%] lg:w-[85%]">
                 <div className="section-shell overflow-hidden rounded-2xl p-1.5 md:rounded-[1.75rem] lg:p-2">
                   <div className="image-shell aspect-[3/4] overflow-hidden rounded-xl bg-card md:rounded-2xl">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
