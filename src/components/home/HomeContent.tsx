@@ -104,29 +104,29 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-10">
+      <section className="relative overflow-hidden pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-8">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
-          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[40rem] lg:grid-cols-[5fr_7fr] lg:gap-4">
-            <div className="order-1 space-y-2 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-3">
+          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[38rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
+            <div className="order-1 space-y-2 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-2.5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm">افتتاح مايو 2026 • القاهرة الجديدة</div>
-                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:text-[4rem]">
+                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-2.5">افتتاح مايو 2026 • القاهرة الجديدة</div>
+                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[28rem] lg:text-[3.72rem] lg:leading-[0.98]">
                   مول البستان
-                  <span className="mt-1.5 block max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:text-[1.6rem]">
-                    خريطة أسرع لاختيار المتجر أو الوحدة.
+                  <span className="mt-1.5 block max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:max-w-[23rem] lg:text-[1.42rem] lg:leading-[1.25]">
+                    خريطة أوضح لاختيار المتجر أو الوحدة.
                   </span>
                 </h1>
-                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7">
+                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7 lg:max-w-[26rem] lg:text-[1rem] lg:leading-7">
                   استكشف الدور والوحدة قبل زيارتك أو استفسارك.
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.2rem] p-2.5 md:gap-2.5 md:rounded-[1.6rem] md:p-5 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:p-4">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.2rem] p-2.5 md:gap-2.5 md:rounded-[1.6rem] md:p-5 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:p-4 lg:grid-cols-[1.02fr_0.98fr] lg:gap-3.5 lg:rounded-[1.8rem] lg:p-4.5">
                 <div className="flex flex-wrap gap-2">
                   {heroPills.map((item, index) => (
-                    <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.72rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "inline-flex" : "inline-flex"}`}>{item}</span>
+                    <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.72rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "inline-flex lg:hidden" : "inline-flex"}`}>{item}</span>
                   ))}
                 </div>
 
@@ -135,12 +135,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link to="/leasing" className="w-full"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-[1rem] px-4">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:col-start-1 min-[768px]:max-[1194px]:row-start-2 min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5">
+                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:col-start-1 min-[768px]:max-[1194px]:row-start-2 min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-[1.08fr_0.92fr] lg:gap-2.5">
                   <Link to="/map" className="w-full sm:w-auto"><Button variant="cta" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
-                  <Link to="/leasing" className="w-full sm:w-auto"><Button variant="orange" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
+                  <Link to="/leasing" className="w-full sm:w-auto"><Button variant="outline-blue" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="grid gap-2 min-[768px]:max-[1194px]:col-start-2 min-[768px]:max-[1194px]:row-span-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-[1.08fr_0.92fr] lg:gap-2.5">
+                <div className="grid gap-2 min-[768px]:max-[1194px]:col-start-2 min-[768px]:max-[1194px]:row-span-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-[1fr_0.98fr] lg:gap-2">
                   <div className="rounded-[1rem] border border-border bg-card px-2 py-2 md:rounded-[1.25rem] md:px-3.5 md:py-3 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3.5">
                     <div className="grid grid-cols-3 gap-1.5 md:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-3">
                     {heroFacts.map((item, index) => (
@@ -151,7 +151,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     ))}
                     </div>
                   </div>
-                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:block md:rounded-[1.25rem] md:px-4 md:py-3.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3">
+                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:block md:rounded-[1.25rem] md:px-4 md:py-3.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3 lg:flex lg:flex-col lg:justify-between">
                     <div className="mb-2 flex items-center justify-between gap-3 md:mb-2.5">
                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
@@ -299,7 +299,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </section>
       </div>
 
-      <section className="hidden page-section pt-6 md:block md:pt-12 min-[768px]:max-[1194px]:pt-10 lg:pt-14">
+      <section className="hidden page-section pt-6 md:block md:pt-12 min-[768px]:max-[1194px]:pt-10 lg:pt-12">
         <div className="container">
           <div className="grid gap-3 min-[768px]:max-[1194px]:grid-cols-[0.9fr_1.1fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-4">
             <div className="space-y-2.5 min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:space-y-3 lg:order-2 lg:space-y-3">
@@ -316,15 +316,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </div>
             </div>
-            <div className="hidden gap-2 md:grid md:grid-cols-3 md:gap-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1">
-              {whyCards.slice(0, 2).map((card, index) => (
+            <div className="hidden gap-2 md:grid md:grid-cols-3 md:gap-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-[1fr_1fr] lg:items-start">
+              {whyCards.map((card, index) => (
                 <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <div className="editorial-panel h-full rounded-[1.15rem] p-3.5 md:rounded-[1.3rem] md:p-4 min-[768px]:max-[1194px]:min-h-[10.5rem] min-[768px]:max-[1194px]:p-3.5">
+                  <div className={`editorial-panel h-full rounded-[1.15rem] p-3.5 md:rounded-[1.3rem] md:p-4 min-[768px]:max-[1194px]:min-h-[10.5rem] min-[768px]:max-[1194px]:p-3.5 ${index === 2 ? "lg:col-span-2 lg:min-h-[8.75rem]" : "lg:min-h-[8.75rem]"}`}>
                     <div className="flex items-start gap-2.5 md:gap-3 min-[768px]:max-[1194px]:gap-2.5">
                       <card.icon className="icon-shell h-9 w-9 shrink-0 p-2 md:h-10 md:w-10 md:p-2.5" />
                       <div>
                         <h3 className="text-[0.98rem] font-bold text-foreground md:text-lg">{card.title}</h3>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6">{card.desc}</p>
+                        <p className="mt-1 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6 lg:max-w-[22rem]">{card.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -348,9 +348,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="hidden section-soft page-section md:block min-[768px]:max-[1194px]:py-16">
+      <section className="hidden section-soft page-section md:block min-[768px]:max-[1194px]:py-16 lg:py-20">
         <div className="container">
-          <div className="section-shell page-shell grid gap-4 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1.08fr_0.92fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-5">
+          <div className="section-shell page-shell grid gap-4 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1.08fr_0.92fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-4.5">
             <div className="order-2 space-y-3 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:max-w-[28rem] lg:order-1 lg:max-w-[32rem] lg:space-y-4">
               <p className="section-kicker">داخل المول</p>
               <h2 className="section-title">تنظيم معماري يعطي الزيارة مسارًا أوضح.</h2>
@@ -382,7 +382,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="hidden page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-14">
+      <section className="hidden page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
           <div className="chapter-shell mb-4 max-w-[34rem] pt-4 md:pt-5">
             <p className="section-kicker">الفئات الرئيسية</p>
@@ -392,15 +392,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           <div className="hidden gap-3 md:grid md:grid-cols-2 min-[768px]:max-[1194px]:gap-4 lg:grid-cols-3">
             {categoryStories.map((category, index) => (
               <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                 <div className="editorial-panel flex min-h-[10.25rem] h-full flex-col rounded-[1.35rem] p-4.5 transition-colors duration-200 hover:border-primary/35 min-[768px]:max-[1194px]:min-h-[9.2rem] min-[768px]:max-[1194px]:rounded-[1.5rem] min-[768px]:max-[1194px]:p-4">
+                 <div className="editorial-panel flex min-h-[10rem] h-full flex-col rounded-[1.35rem] p-4.5 transition-colors duration-200 hover:border-primary/35 min-[768px]:max-[1194px]:min-h-[9.2rem] min-[768px]:max-[1194px]:rounded-[1.5rem] min-[768px]:max-[1194px]:p-4 lg:min-h-[9.6rem]">
                   <div className="mb-2.5 flex items-center justify-between gap-3">
-                    <div className="icon-shell h-12 w-12 p-3"><category.icon className="h-6 w-6" /></div>
+                    <div className="icon-shell h-12 w-12 p-3 shadow-[var(--shadow-soft)]"><category.icon className="h-6 w-6" /></div>
                     <span className="text-xs font-semibold text-muted-foreground">0{index + 1}</span>
                   </div>
                   <h3 className="text-lg font-bold text-foreground md:text-xl">{category.name}</h3>
                    <p className="mt-2 text-sm leading-6 text-muted-foreground md:text-base min-[768px]:max-[1194px]:text-[0.92rem] min-[768px]:max-[1194px]:leading-6">{mobileCategorySummaries[category.key]}</p>
                   <div className="mt-auto pt-3">
-                    <span className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-[0.72rem] font-semibold text-muted-foreground">{category.supportLabel}</span>
+                    <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[0.72rem] font-semibold ${index % 3 === 0 ? "border-primary/20 bg-secondary text-foreground" : index % 3 === 1 ? "border-accent/20 bg-accent/10 text-foreground" : "border-border bg-card text-muted-foreground"}`}>{category.supportLabel}</span>
                   </div>
                 </div>
               </motion.div>
@@ -446,14 +446,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-14">
+      <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-          <div className="grid gap-3 overflow-hidden min-[768px]:max-[1194px]:section-shell min-[768px]:max-[1194px]:page-shell min-[768px]:max-[1194px]:grid-cols-[0.38fr_0.62fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:section-shell lg:page-shell lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-4">
+          <div className="grid gap-3 overflow-hidden min-[768px]:max-[1194px]:section-shell min-[768px]:max-[1194px]:page-shell min-[768px]:max-[1194px]:grid-cols-[0.38fr_0.62fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:section-shell lg:page-shell lg:grid-cols-[0.72fr_1.28fr] lg:items-start lg:gap-3.5">
             <div className="order-2 space-y-2.5 min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none min-[768px]:max-[1194px]:space-y-3 lg:max-w-[29rem] lg:order-2 lg:space-y-3.5">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو المنتج الأساسي هنا.</h2>
               <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[20rem] min-[768px]:max-[1194px]:text-base">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
-              <div className="grid grid-cols-3 gap-2 sm:gap-2.5 min-[768px]:max-[1194px]:grid-cols-1">
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5 min-[768px]:max-[1194px]:grid-cols-1 lg:grid-cols-3">
                 <div className="editorial-panel min-h-[4.5rem] rounded-[1rem] p-3 md:min-h-[5.2rem] md:rounded-[1.25rem] md:p-4">
                   <p className="text-xs font-semibold text-muted-foreground">عدد الأدوار</p>
                   <p className="mt-1 text-lg font-bold text-foreground md:mt-1.5 md:text-xl">{floorMapData.length}</p>
@@ -478,9 +478,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="hidden page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-14">
+      <section className="hidden page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-           <div className="section-shell page-shell grid gap-3.5 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[0.96fr_1.04fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[0.92fr_1.08fr] lg:items-start lg:gap-4">
+           <div className="section-shell page-shell grid gap-3.5 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[0.96fr_1.04fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[0.94fr_1.06fr] lg:items-start lg:gap-3.5">
              <div className="space-y-3 min-[768px]:max-[1194px]:max-w-[27rem] lg:max-w-[30rem] lg:space-y-3.5">
               <p className="section-kicker">التأجير والوحدات</p>
               <h2 className="section-title">التأجير هنا قرار تجاري أوضح وأسرع.</h2>
@@ -519,10 +519,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
                 <div className="grid gap-2.5 sm:grid-cols-2">
                   {homepageLeasingUnits.slice(0, 2).map((unit) => (
-                    <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6.4rem] flex-col rounded-[1.25rem] p-4 transition-colors hover:border-orange/45 min-[768px]:max-[1194px]:min-h-[7rem]">
+                     <Link key={unit.unit_id} to="/map" className="editorial-panel flex min-h-[6.4rem] flex-col rounded-[1.25rem] p-4 transition-colors hover:border-orange/45 min-[768px]:max-[1194px]:min-h-[7rem] lg:min-h-[6.8rem]">
                       <div className="flex items-start justify-between gap-3">
-                        <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
-                        <span className="rounded-full border border-orange/25 bg-orange/10 px-2.5 py-1 text-[0.7rem] font-semibold text-orange">متاحة</span>
+                        <div>
+                          <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                          <p className="mt-1 text-[0.72rem] font-semibold text-muted-foreground">{needCategoryLabels[unit.category]}</p>
+                        </div>
+                        <span className="rounded-full border border-orange/25 bg-orange/10 px-2.5 py-1 text-[0.68rem] font-semibold text-orange">متاحة</span>
                      </div>
                       <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
                         <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2">
@@ -534,7 +537,6 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                           <p className="mt-1 font-semibold text-foreground">{unit.area_m2} م²</p>
                         </div>
                       </div>
-                      <p className="mt-2 text-xs font-semibold text-muted-foreground">{needCategoryLabels[unit.category]}</p>
                   </Link>
                  ))}
               </div>
@@ -543,18 +545,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-14">
+      <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-          <div className="section-shell page-shell grid gap-3 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1fr_1fr] min-[768px]:max-[1194px]:items-stretch min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[0.98fr_1.02fr] lg:items-stretch">
-            <div className="space-y-3 min-[768px]:max-[1194px]:order-1 lg:order-2">
+          <div className="section-shell page-shell grid gap-3 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1fr_1fr] min-[768px]:max-[1194px]:items-stretch min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:gap-3.5">
+            <div className="space-y-3 min-[768px]:max-[1194px]:order-1 lg:order-1 lg:space-y-2.5">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
-              <div className="hidden gap-2.5 sm:grid sm:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-1 lg:grid-cols-1">
+              <p className="max-w-[28rem] text-sm leading-6 text-muted-foreground">المسار الأوضح: استكشف، تابع الحملة، ثم احضر يوم الافتتاح.</p>
+              <div className="hidden gap-2.5 sm:grid sm:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-1 lg:grid-cols-3">
                 {launchSteps.map((item, index) => (
-                  <div key={item.title} className="editorial-panel min-h-[7.6rem] rounded-[1.3rem] p-4 md:p-4.5 min-[768px]:max-[1194px]:min-h-[6.2rem]">
+                  <div key={item.title} className="editorial-panel min-h-[6.9rem] rounded-[1.2rem] p-4 md:p-4.5 min-[768px]:max-[1194px]:min-h-[6.2rem] lg:min-h-[7.1rem]">
                     <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
-                    <p className="mt-2 text-base font-bold text-foreground">{item.title}</p>
-                    <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{item.desc}</p>
+                    <p className="mt-1.5 text-[0.98rem] font-bold text-foreground">{item.title}</p>
+                    <p className="mt-1 text-sm leading-6 text-muted-foreground">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -574,7 +577,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </Accordion>
             </div>
-            <div className="section-shell flex h-full flex-col justify-between rounded-[1.25rem] p-4 md:rounded-[1.55rem] md:p-5.5 min-[768px]:max-[1194px]:order-2 lg:order-1">
+            <div className="section-shell flex h-full flex-col justify-between rounded-[1.25rem] p-4 md:rounded-[1.55rem] md:p-5.5 min-[768px]:max-[1194px]:order-2 lg:order-2 lg:p-5">
               <div>
               <div className="flex items-start gap-3">
                 <Calendar className="icon-shell h-11 w-11 p-2.5" />
@@ -583,10 +586,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <h3 className="mt-1 text-[1.28rem] font-bold text-foreground md:text-2xl">تابع الموعد وحدد خطوتك التالية قبل الزيارة.</h3>
                 </div>
               </div>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base">
+              <p className="mt-3 text-sm leading-6 text-muted-foreground md:text-base">
                  {launchEvent?.description_ar ?? "صفحة الافتتاح تجمع تفاصيل اليوم، والحملة، والخطوات الأساسية للاستفادة من التجربة الترويجية."}
               </p>
-              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+              <div className="mt-3.5 grid gap-2.5 sm:grid-cols-2">
                 <div className="rounded-[1rem] border border-border bg-card px-4 py-3 text-sm">
                   <p className="text-xs font-semibold text-muted-foreground">المسار</p>
                   <p className="mt-1 font-semibold text-foreground">خريطة ثم حملة ثم حضور فعلي</p>
@@ -597,51 +600,50 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </div>
               </div>
               </div>
-              <div className="mt-4 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-5">
-                <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-11 w-full rounded-[1rem] px-6">تفاصيل الافتتاح</Button></Link>
+              <div className="mt-4 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3 md:mt-4.5">
                 <Link to="/spin-win"><Button variant="cta" size="lg" className="h-11 w-full rounded-[1rem] px-6">جرّب أدر واربح</Button></Link>
+                <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-11 w-full rounded-[1rem] px-6">تفاصيل الافتتاح</Button></Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="marketplace" className="hidden page-section py-8 md:block md:py-10 min-[768px]:max-[1194px]:py-14 lg:py-12">
+      <section id="marketplace" className="hidden page-section py-8 md:block md:py-10 min-[768px]:max-[1194px]:py-14 lg:py-10">
         <div className="container">
-             <div className="brand-shell page-shell rounded-[1.85rem] py-5 min-[768px]:max-[1194px]:py-4.5">
-              <div className="grid gap-3 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start lg:grid-cols-[1.22fr_0.78fr] lg:items-center">
-               <div className="space-y-3">
+             <div className="brand-shell page-shell rounded-[1.85rem] py-5 min-[768px]:max-[1194px]:py-4.5 lg:py-4.5">
+              <div className="grid gap-3 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start lg:grid-cols-[1.3fr_0.7fr] lg:items-center lg:gap-3.5">
+               <div className="space-y-2.5">
                 <p className="section-kicker">الامتداد الرقمي</p>
-                 <h2 className="section-title">مرحلة لاحقة بعد تثبيت تجربة الدليل والمتاجر.</h2>
-                  <p className="max-w-[33rem] text-base leading-7 text-muted-foreground md:text-lg min-[768px]:max-[1194px]:text-base">
-                    الامتداد الرقمي يظل مؤجلًا ومضغوطًا حتى تبقى الخريطة والمتاجر هما مركز المنتج الآن.
+                  <h2 className="section-title">امتداد رقمي لاحق بعد تثبيت المنتج الأساسي.</h2>
+                   <p className="max-w-[31rem] text-base leading-7 text-muted-foreground md:text-lg min-[768px]:max-[1194px]:text-base lg:text-[0.98rem] lg:leading-7">
+                    الخريطة والمتاجر أولًا، ثم أي توسع رقمي لاحقًا.
                 </p>
-                  <div className="rounded-[1.2rem] border border-border bg-card px-4 py-3 text-sm leading-7 text-muted-foreground min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:gap-2.5">
-                    <p>الخريطة أولًا، ثم المتاجر، ثم أي امتداد رقمي لاحقًا.</p>
+                   <div className="rounded-[1.2rem] border border-border bg-card px-4 py-3 text-sm leading-7 text-muted-foreground min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:gap-2.5">
                     <div className="grid gap-2 min-[768px]:max-[1194px]:grid-cols-3">
-                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.78rem] font-semibold text-foreground">1. الدليل</div>
-                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.78rem] font-semibold text-foreground">2. المتاجر</div>
-                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.78rem] font-semibold text-foreground">3. الامتداد</div>
+                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.76rem] font-semibold text-foreground">1. الدليل</div>
+                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.76rem] font-semibold text-foreground">2. المتاجر</div>
+                      <div className="rounded-[0.95rem] border border-border/80 bg-background px-3 py-2 text-[0.76rem] font-semibold text-foreground">3. الامتداد</div>
                     </div>
                  </div>
               </div>
-                <div className="editorial-panel rounded-[1.45rem] p-5 min-[768px]:max-[1194px]:p-4.5 lg:mr-auto lg:max-w-[17rem]">
+                <div className="editorial-panel rounded-[1.35rem] p-4.5 min-[768px]:max-[1194px]:p-4.5 lg:mr-auto lg:max-w-[16rem]">
                 <Store className="icon-shell h-12 w-12 p-3" />
-                 <h3 className="mt-4 text-xl font-bold text-foreground">التركيز الآن على المنتج الأساسي</h3>
-                 <p className="mt-2 text-sm leading-6 text-muted-foreground md:text-base">ابدأ بالمتاجر الحالية والدليل قبل أي طبقة إضافية لاحقة.</p>
-                 <Link to="/stores" className="mt-4 block"><Button variant="secondary" className="h-11 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
+                  <h3 className="mt-3 text-[1.05rem] font-bold text-foreground">التركيز الآن على المنتج الأساسي</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground md:text-base">ابدأ بالمتاجر الحالية والدليل أولًا.</p>
+                  <Link to="/stores" className="mt-3.5 block"><Button variant="secondary" className="h-11 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="page-section pt-6 md:pt-10 min-[768px]:max-[1194px]:pt-9">
+      <section className="page-section pt-6 md:pt-10 min-[768px]:max-[1194px]:pt-9 lg:pt-8">
         <div className="container max-w-5xl">
           <div className="grid gap-4 min-[768px]:max-[1194px]:grid-cols-[0.8fr_1.2fr] min-[768px]:max-[1194px]:items-start lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
             <div className="chapter-shell pt-3 md:pt-5">
               <p className="section-kicker">الأسئلة الشائعة</p>
-              <h2 className="text-[1.7rem] font-bold leading-[1.08] text-foreground md:text-4xl">
+              <h2 className="text-[1.7rem] font-bold leading-[1.08] text-foreground md:text-4xl lg:text-[2.5rem]">
                 <HelpCircle className="ml-2 hidden h-7 w-7 text-accent md:inline-block" />
                 إجابات سريعة قبل الزيارة
               </h2>
