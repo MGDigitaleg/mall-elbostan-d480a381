@@ -256,6 +256,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 stroke={isSelected ? "#F97316" : stroke}
                 strokeWidth={isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
                 filter={isSelected ? "url(#selectedGlow)" : "url(#unitShadow)"}
+                pointerEvents="visiblePainted"
+                vectorEffect="non-scaling-stroke"
                 className="cursor-pointer outline-none"
                 style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
                 onClick={() => onSelectUnit(unit)}
