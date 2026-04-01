@@ -44,19 +44,24 @@ export function FloorPlanSvg({
 }: FloorPlanSvgProps) {
   const viewBox = floorPolygonConfigs[floorId].viewBox;
 
+  // Compute aspect ratio from viewBox for proper sizing
+  const [, , vbW, vbH] = viewBox.split(" ").map(Number);
+  const aspectStyle = { aspectRatio: `${vbW} / ${vbH}` };
+
   return (
     <div
       className={cn(
         "surface-panel relative overflow-hidden rounded-[1.75rem]",
         className,
       )}
+      style={aspectStyle}
     >
       {/* 3D Architectural Background Image */}
       <motion.img
         key={floorId}
         src={floorImageById[floorId]}
         alt={`مخطط ${floorId === "ground" ? "الدور الأرضي" : floorId === "first" ? "الدور الأول" : "الدور الأخير"}`}
-        className="block w-full"
+        className="absolute inset-0 h-full w-full object-contain"
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
