@@ -2,6 +2,10 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { FloorId, MapUnitDefinition, UnitStatus } from "@/lib/floorMapData";
 
+import floorGroundImg from "@/assets/floor-ground-3d.png";
+import floorFirstImg from "@/assets/floor-first-3d.png";
+import floorSecondImg from "@/assets/floor-second-3d.png";
+
 type FloorPlanSvgProps = {
   className?: string;
   floorId: FloorId;
@@ -11,49 +15,60 @@ type FloorPlanSvgProps = {
   onSelectUnit: (unit: MapUnitDefinition) => void;
 };
 
-const statusClass: Record<UnitStatus, string> = {
-  occupied: "fill-card stroke-border",
-  available: "fill-card stroke-orange",
-  coming_soon: "fill-card stroke-accent",
+const floorImageById: Record<FloorId, string> = {
+  ground: floorGroundImg,
+  first: floorFirstImg,
+  second: floorSecondImg,
 };
 
-const floorShellById: Record<FloorId, string> = {
-  ground: "130,120 940,120 1020,220 1020,840 900,980 300,980 120,840 120,220",
-  first: "130,120 940,120 1020,220 1020,840 900,980 300,980 120,840 120,220",
-  second: "130,120 940,120 1020,220 1020,840 900,980 300,980 120,840 120,220",
+const statusStroke: Record<UnitStatus, string> = {
+  occupied: "stroke-primary/40",
+  available: "stroke-orange",
+  coming_soon: "stroke-accent",
 };
 
-export function FloorPlanSvg({ className, floorId, units, selectedUnitId, mutedUnitIds, onSelectUnit }: FloorPlanSvgProps) {
+const statusFillHover: Record<UnitStatus, string> = {
+  occupied: "hover:fill-primary/15",
+  available: "hover:fill-orange/20",
+  coming_soon: "hover:fill-accent/15",
+};
+
+export function FloorPlanSvg({
+  className,
+  floorId,
+  units,
+  selectedUnitId,
+  mutedUnitIds,
+  onSelectUnit,
+}: FloorPlanSvgProps) {
   return (
-    <div className={cn("surface-panel min-h-[420px] rounded-[1.75rem] p-4 md:min-h-[620px] md:p-5 lg:min-h-[760px] lg:p-6", className)}>
-      <svg viewBox="0 0 1100 1100" className="h-full w-full" role="img" aria-label="خريطة الطابق التفاعلية">
-        <g id="floor-shell">
-          <polygon points={floorShellById[floorId]} className="fill-background stroke-border stroke-[2]" />
-        </g>
+    <div
+      className={cn(
+        "surface-panel relative min-h-[420px] overflow-hidden rounded-[1.75rem] md:min-h-[620px] lg:min-h-[760px]",
+        className,
+      )}
+    >
+      {/* 3D Architectural Background Image */}
+      <motion.img
+        key={floorId}
+        src={floorImageById[floorId]}
+        alt={`مخطط ${floorId === "ground" ? "الدور الأرضي" : floorId === "first" ? "الدور الأول" : "الدور الأخير"}`}
+        className="h-full w-full object-contain"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        loading="eager"
+      />
 
-        <g id="circulation-corridors">
-          <polygon points="380,350 720,350 820,470 820,720 720,820 380,820 280,720 280,470" className="fill-secondary/45 stroke-border stroke-[1.5]" />
-          <polygon points="470,440 630,440 700,530 700,650 630,740 470,740 400,650 400,530" className="fill-background stroke-border stroke-[1.5]" />
-          <line x1="550" y1="550" x2="550" y2="440" className="stroke-border stroke-[1.2]" />
-          <line x1="550" y1="550" x2="700" y2="530" className="stroke-border stroke-[1.2]" />
-          <line x1="550" y1="550" x2="700" y2="650" className="stroke-border stroke-[1.2]" />
-          <line x1="550" y1="550" x2="550" y2="740" className="stroke-border stroke-[1.2]" />
-          <line x1="550" y1="550" x2="400" y2="650" className="stroke-border stroke-[1.2]" />
-          <line x1="550" y1="550" x2="400" y2="530" className="stroke-border stroke-[1.2]" />
-        </g>
-
-        <g id="stairs">
-          <rect x="360" y="280" width="96" height="70" className="fill-accent/20 stroke-accent stroke-[1.5]" />
-          <line x1="372" y1="292" x2="442" y2="338" className="stroke-accent stroke-[1.2]" />
-          <line x1="378" y1="286" x2="448" y2="332" className="stroke-accent stroke-[1.2]" />
-        </g>
-
-        <g id="elevators">
-          <rect x="470" y="220" width="160" height="66" className="fill-secondary/55 stroke-border stroke-[1.5]" rx="10" />
-          <text x="550" y="258" textAnchor="middle" className="fill-muted-foreground text-[15px] font-semibold">مصاعد</text>
-        </g>
-
-        <g id="unit-polygons">
+      {/* Interactive SVG Overlay */}
+      <svg
+        viewBox="0 0 1100 1100"
+        className="absolute inset-0 h-full w-full"
+        role="img"
+        aria-label="خريطة الطابق التفاعلية"
+        style={{ pointerEvents: "none" }}
+      >
+        <g id="unit-hotspots" style={{ pointerEvents: "all" }}>
           {units.map((unit) => {
             const isSelected = selectedUnitId === unit.unit_id;
             const isMuted = mutedUnitIds.has(unit.unit_id);
@@ -62,96 +77,103 @@ export function FloorPlanSvg({ className, floorId, units, selectedUnitId, mutedU
               <motion.g
                 key={unit.unit_id}
                 id={`unit-${unit.unit_id}`}
-                initial={{ opacity: 0.9 }}
-                animate={{ opacity: isMuted ? 0.24 : 1 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
+                initial={{ opacity: 0.85 }}
+                animate={{ opacity: isMuted ? 0.15 : 1 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
+                {/* Clickable hotspot polygon */}
                 <polygon
                   points={unit.polygon}
                   onClick={() => onSelectUnit(unit)}
                   className={cn(
-                    "cursor-pointer stroke-[1.5] transition-all duration-200 hover:fill-secondary hover:stroke-primary",
-                    statusClass[unit.status],
-                    isSelected && "stroke-primary stroke-[2]",
+                    "cursor-pointer fill-transparent stroke-[1.5] transition-all duration-200",
+                    statusStroke[unit.status],
+                    statusFillHover[unit.status],
+                    isSelected && "fill-primary/20 stroke-primary stroke-[2.5]",
                   )}
                 />
+
+                {/* Selected unit glow effect */}
+                {isSelected && (
+                  <polygon
+                    points={unit.polygon}
+                    className="pointer-events-none fill-none stroke-primary stroke-[3]"
+                    style={{
+                      filter: "drop-shadow(0 0 8px hsl(var(--primary) / 0.5))",
+                    }}
+                  />
+                )}
+
+                {/* Status indicator dot */}
                 {unit.status === "available" && (
-                  <circle cx={unit.x - 34} cy={unit.y - 22} r="7" className="fill-orange" />
+                  <circle
+                    cx={unit.x}
+                    cy={unit.y - 18}
+                    r="6"
+                    className="pointer-events-none fill-orange"
+                    style={{
+                      filter: "drop-shadow(0 0 4px hsl(var(--orange) / 0.6))",
+                    }}
+                  />
                 )}
                 {unit.status === "coming_soon" && (
-                  <circle cx={unit.x - 34} cy={unit.y - 22} r="7" className="fill-accent" />
+                  <circle
+                    cx={unit.x}
+                    cy={unit.y - 18}
+                    r="6"
+                    className="pointer-events-none fill-accent"
+                    style={{
+                      filter: "drop-shadow(0 0 4px hsl(var(--accent) / 0.6))",
+                    }}
+                  />
                 )}
               </motion.g>
             );
           })}
         </g>
 
-        <g id="unit-numbers">
-          {units.map((unit) => (
-            <text
-              key={`${unit.unit_id}-number`}
-              x={unit.x}
-              y={unit.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              className="fill-foreground text-[11px] font-semibold"
-            >
-              {unit.unit_id}
-            </text>
-          ))}
-        </g>
-
-        <g id="labels-layer">
+        {/* Floating unit ID + area labels */}
+        <g id="unit-labels">
           {units.map((unit) => {
-            const labelTop = unit.y + 14;
-            const labelLeft = unit.x - unit.label_box_width / 2;
-            const hasStoreText = unit.store_name_ar.trim().length > 0;
+            const isMuted = mutedUnitIds.has(unit.unit_id);
+            if (isMuted) return null;
 
             return (
-              <g key={`${unit.unit_id}-label`}>
-                {unit.label_mode === "logo" && unit.logo ? (
-                  <foreignObject
-                    x={labelLeft}
-                    y={labelTop}
-                    width={unit.label_box_width}
-                    height={unit.label_box_height}
-                  >
-                    <div className="flex h-full w-full items-center justify-center overflow-hidden">
-                      <img
-                        src={unit.logo}
-                        alt={hasStoreText ? unit.store_name_ar : `شعار ${unit.unit_id}`}
-                        className="h-full w-full object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                  </foreignObject>
-                ) : unit.label_mode === "text" && hasStoreText ? (
-                  <text
-                    x={unit.x}
-                    y={unit.y + 19}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="fill-foreground text-[11px] font-medium"
-                  >
-                    {unit.store_name_ar}
-                  </text>
-                ) : (
-                  <text
-                    x={unit.x}
-                    y={unit.y + 21}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="fill-muted-foreground text-[10px]"
-                  >
-                    {unit.area_m2} م²
-                  </text>
-                )}
+              <g key={`label-${unit.unit_id}`}>
+                {/* Background pill for readability */}
+                <rect
+                  x={unit.x - 30}
+                  y={unit.y - 14}
+                  width={60}
+                  height={30}
+                  rx={6}
+                  className="pointer-events-none fill-background/80"
+                />
+                <text
+                  x={unit.x}
+                  y={unit.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="pointer-events-none fill-foreground text-[11px] font-bold"
+                  style={{
+                    textShadow: "0 1px 3px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  {unit.unit_id}
+                </text>
+                <text
+                  x={unit.x}
+                  y={unit.y + 13}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="pointer-events-none fill-muted-foreground text-[9px] font-medium"
+                >
+                  {unit.area_m2} م²
+                </text>
               </g>
             );
           })}
         </g>
-
-        <g id="interactive-hotspots" />
       </svg>
     </div>
   );
