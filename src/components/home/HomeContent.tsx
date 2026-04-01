@@ -541,8 +541,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-          <div className="section-shell page-shell grid gap-3 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1fr_1fr] min-[768px]:max-[1194px]:items-stretch min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:gap-3.5">
-            <div className="space-y-3 min-[768px]:max-[1194px]:order-1 lg:order-1 lg:space-y-2.5">
+          <div className="section-shell page-shell flex flex-col gap-4 overflow-hidden min-[768px]:flex-row min-[768px]:items-start min-[768px]:gap-8">
+            <div className="w-full shrink-0 space-y-3 min-[768px]:order-2 min-[768px]:w-fit min-[768px]:max-w-[26rem] lg:space-y-2.5">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
               <p className="max-w-[28rem] text-sm leading-6 text-muted-foreground">المسار الأوضح: استكشف، تابع الحملة، ثم احضر يوم الافتتاح.</p>
@@ -571,7 +571,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </Accordion>
             </div>
-            <div className="section-shell flex h-full flex-col justify-between rounded-[1.25rem] p-4 md:rounded-[1.55rem] md:p-5.5 min-[768px]:max-[1194px]:order-2 lg:order-2 lg:p-5">
+            <div className="section-shell flex min-w-0 flex-1 flex-col justify-between rounded-[1.25rem] p-4 min-[768px]:order-1 md:rounded-[1.55rem] md:p-5.5 lg:p-5">
               <div>
               <div className="flex items-start gap-3">
                 <Calendar className="icon-shell h-11 w-11 p-2.5" />
