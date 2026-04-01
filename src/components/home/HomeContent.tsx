@@ -111,9 +111,6 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             <div className="order-1 space-y-3 text-right lg:space-y-5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-3 text-[0.72rem] md:mb-4 md:text-sm">افتتاح مايو 2026 • القاهرة الجديدة</div>
-                <h1 className="text-[1.7rem] font-black leading-[1.05] text-foreground md:text-[3rem] lg:text-[3.4rem]">
-                  مول البستان
-                </h1>
                 <p className="mt-2.5 max-w-[20rem] text-[0.92rem] font-semibold leading-[1.4] text-foreground/90 md:mt-3 md:max-w-[30rem] md:text-[1.3rem] lg:max-w-[24rem] lg:text-[1.25rem]">
                   خريطة أوضح لاختيار المتجر أو الوحدة.
                 </p>
