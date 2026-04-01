@@ -106,7 +106,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
     <>
       <section className="relative overflow-hidden bg-card pb-2 pt-4 md:pb-8 md:pt-8 lg:pb-16 lg:pt-12">
         <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12 xl:px-16">
-          <div className="grid min-h-[auto] gap-4 py-3.5 md:gap-6 lg:grid-cols-[1.1fr_0.65fr] lg:items-center lg:gap-16 lg:min-h-[70vh] lg:py-0">
+          <div className="grid min-h-[auto] gap-4 py-3.5 md:gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 lg:min-h-[70vh] lg:py-0">
             {/* Text block — right side in RTL */}
             <div className="order-1 space-y-3 text-right lg:space-y-5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
@@ -161,8 +161,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             </div>
 
             {/* Image block — left side in RTL, balanced size */}
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 flex w-full items-center justify-center lg:justify-center">
-              <div className="relative w-full max-w-[560px] md:max-w-[640px] lg:max-w-[680px] xl:max-w-[720px]">
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 flex w-full items-center justify-center">
+              <div className="relative w-full">
                 <div className="section-shell overflow-hidden rounded-2xl p-1.5 md:rounded-[1.75rem] lg:p-2">
                   <div className="image-shell aspect-[3/4] overflow-hidden rounded-xl bg-card md:rounded-2xl">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
