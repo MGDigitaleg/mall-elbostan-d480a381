@@ -571,7 +571,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </Accordion>
             </div>
-            <div className="section-shell flex h-full flex-col justify-between rounded-[1.25rem] p-4 md:rounded-[1.55rem] md:p-5.5 min-[768px]:max-[1194px]:order-2 lg:order-2 lg:p-5">
+            <div className="section-shell flex min-w-0 flex-1 flex-col justify-between rounded-[1.25rem] p-4 min-[768px]:order-1 md:rounded-[1.55rem] md:p-5.5 lg:p-5">
               <div>
               <div className="flex items-start gap-3">
                 <Calendar className="icon-shell h-11 w-11 p-2.5" />
