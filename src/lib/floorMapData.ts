@@ -167,46 +167,50 @@ const buildFloor = (
   prefix: "G" | "F" | "S",
   label: string,
   areas: Record<string, number>,
-): FloorMapDefinition => ({
-  id: floor_id,
-  label,
-  units: baseUnitPolygons
-    .filter((unit) => areas[unit.key] !== undefined)
-    .map((unit, index) => {
-      const unit_id = `${prefix}-${unit.key}`;
-      const status: UnitStatus = availableUnits.has(unit_id)
-        ? "available"
-        : comingSoonUnits.has(unit_id)
-          ? "coming_soon"
-          : "occupied";
+): FloorMapDefinition => {
+  const polygonConfig = floorPolygonConfigs[floor_id];
+  return {
+    id: floor_id,
+    label,
+    units: polygonConfig.units
+      .filter((unit) => areas[unit.key] !== undefined)
+      .map((unit, index) => {
+        const unit_id = `${prefix}-${unit.key}`;
+        const status: UnitStatus = availableUnits.has(unit_id)
+          ? "available"
+          : comingSoonUnits.has(unit_id)
+            ? "coming_soon"
+            : "occupied";
 
-      return {
-        floor_id,
-        unit_id,
-        area_m2: areas[unit.key],
-        polygon: unit.points,
-        status,
-        category: categories[index % categories.length],
-        store_name_ar: "",
-        store_name_en: "",
-        description_ar: status === "occupied" ? "" : "وحدة جاهزة للتأجير داخل مول البستان.",
-        description_en: status === "occupied" ? "" : "Leasing-ready unit in Mall Elbostan.",
-        phone: null,
-        whatsapp: null,
-        website: null,
-        logo: null,
-        cover_image: null,
-        is_featured: status === "available",
-        sort_order: index + 1,
-        x: unit.x,
-        y: unit.y,
-        label_box_width: Math.max(34, getPolygonBounds(unit.points).width * 0.65 - 16),
-        label_box_height: Math.max(18, getPolygonBounds(unit.points).height * 0.35 - 16),
-        label_mode: "number",
-        visibility: true,
-      };
-    }),
-});
+        return {
+          floor_id,
+          unit_id,
+          area_m2: areas[unit.key],
+          polygon: unit.polygon,
+          status,
+          category: categories[index % categories.length],
+          store_name_ar: "",
+          store_name_en: "",
+          description_ar: status === "occupied" ? "" : "وحدة جاهزة للتأجير داخل مول البستان.",
+          description_en: status === "occupied" ? "" : "Leasing-ready unit in Mall Elbostan.",
+          phone: null,
+          whatsapp: null,
+          website: null,
+          logo: null,
+          cover_image: null,
+          is_featured: status === "available",
+          sort_order: index + 1,
+          x: unit.x,
+          y: unit.y,
+          label_box_width: Math.max(34, getPolygonBounds(unit.polygon).width * 0.65 - 16),
+          label_box_height: Math.max(18, getPolygonBounds(unit.polygon).height * 0.35 - 16),
+          label_mode: "number",
+          visibility: true,
+        };
+      }),
+  };
+};
+
 
 export const applyTenantImportRows = (
   baseFloors: FloorMapDefinition[],
