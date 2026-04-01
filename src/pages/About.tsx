@@ -11,9 +11,9 @@ const About = () => (
   <MainLayout>
     <SEOHead title="عن المول" titleEn="About" description="تعرف على رؤية مول البستان كوجهة تقنية مصرية راقية في القاهرة الجديدة." descriptionEn="Learn about Mall Elbostan as a premium Egyptian technology mall in New Cairo." breadcrumbs={[{ name: "عن المول", url: "/about" }]} />
 
-    <section className="pb-10 md:pb-12">
-      <div className="container">
-        <div className="brand-shell page-halo grid gap-5 overflow-hidden rounded-[2.2rem] px-5 py-5 md:px-7 md:py-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-9">
+    <section className="bg-card pb-10 pt-4 md:pb-12 md:pt-8">
+      <div className="w-full px-4 md:px-8 lg:px-12 xl:px-16">
+        <div className="grid gap-5 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div className="space-y-4">
             <div className="eyebrow-chip">عن المشروع</div>
             <h1 className="max-w-3xl text-4xl font-bold leading-tight text-foreground md:text-[3rem]">مول البستان مشروع تقني بهوية أوضح وتنظيم أسهل.</h1>
