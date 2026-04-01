@@ -109,7 +109,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         <div className="page-halo absolute inset-0" />
         <div className="container relative">
           <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:page-shell lg:min-h-[38rem] lg:grid-cols-[5fr_7fr] lg:gap-5">
-            <div className="order-1 space-y-2 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-2.5">
+            <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-2.5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-2.5">افتتاح مايو 2026 • القاهرة الجديدة</div>
                 <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[28rem] lg:text-[3.72rem] lg:leading-[0.98]">
@@ -151,13 +151,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     ))}
                     </div>
                   </div>
-                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:block md:rounded-[1.25rem] md:px-4 md:py-3.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3 lg:flex lg:flex-col lg:justify-between">
-                    <div className="mb-2 flex items-center justify-between gap-3 md:mb-2.5">
-                      <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
-                      <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
-                    </div>
-                    <CountdownTimer compact />
-                  </div>
+                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-4 md:block md:rounded-[1.25rem] md:px-4 md:py-4.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-4 lg:flex lg:flex-col lg:justify-between">
+                     <div className="mb-3 flex items-center justify-between gap-3 md:mb-3.5">
+                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
+                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
+                     </div>
+                     <CountdownTimer compact />
+                   </div>
                 </div>
               </motion.div>
             </div>
@@ -316,17 +316,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </div>
             </div>
-            <div className="hidden gap-2 md:grid md:grid-cols-3 md:gap-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-[1fr_1fr] lg:items-start">
+            <div className="hidden gap-2.5 md:grid md:grid-cols-3 md:gap-3 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-3 lg:items-stretch">
               {whyCards.map((card, index) => (
-                <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <div className={`editorial-panel h-full rounded-[1.15rem] p-3.5 md:rounded-[1.3rem] md:p-4 min-[768px]:max-[1194px]:min-h-[10.5rem] min-[768px]:max-[1194px]:p-3.5 ${index === 2 ? "lg:col-span-2 lg:min-h-[8.75rem]" : "lg:min-h-[8.75rem]"}`}>
-                    <div className="flex items-start gap-2.5 md:gap-3 min-[768px]:max-[1194px]:gap-2.5">
-                      <card.icon className="icon-shell h-9 w-9 shrink-0 p-2 md:h-10 md:w-10 md:p-2.5" />
-                      <div>
-                        <h3 className="text-[0.98rem] font-bold text-foreground md:text-lg">{card.title}</h3>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6 lg:max-w-[22rem]">{card.desc}</p>
-                      </div>
-                    </div>
+                <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex">
+                  <div className={`editorial-panel flex h-full min-h-[11rem] w-full flex-col rounded-[1.15rem] p-4 md:rounded-[1.3rem] md:p-5 min-[768px]:max-[1194px]:min-h-[11rem] min-[768px]:max-[1194px]:p-4`}>
+                    <card.icon className="icon-shell mb-3 h-10 w-10 shrink-0 p-2.5 md:h-11 md:w-11 md:p-2.5" />
+                    <h3 className="text-[1.05rem] font-extrabold text-foreground md:text-lg">{card.title}</h3>
+                    <p className="mt-1.5 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6 lg:max-w-[22rem]">{card.desc}</p>
                   </div>
                 </motion.div>
               ))}

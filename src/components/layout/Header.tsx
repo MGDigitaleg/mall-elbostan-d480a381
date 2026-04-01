@@ -121,7 +121,7 @@ export function Header() {
   };
 
   const navLinkClass = (path: string) =>
-    `inline-flex h-8 items-center rounded-full px-3 text-[0.93rem] font-semibold transition-colors duration-200 ${
+    `inline-flex h-8 items-center rounded-full px-4 text-[0.93rem] font-semibold transition-colors duration-200 ${
       isActive(path)
         ? "bg-card text-foreground shadow-[var(--shadow-soft)] ring-1 ring-border/80"
         : "text-foreground hover:bg-secondary/75 hover:text-foreground"
@@ -139,7 +139,7 @@ export function Header() {
       <div className="container">
         <div className="surface-panel rounded-[1.35rem] px-4 md:px-5">
           <div className="hidden min-h-[78px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-3">
-            <nav className="flex items-center justify-end gap-0.5">
+            <nav className="flex items-center justify-end gap-1.5">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
