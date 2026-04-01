@@ -383,17 +383,20 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             <h2 className="section-title">ابدأ من الفئة الأقرب لاحتياجك.</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground md:mt-2.5 md:text-lg md:leading-7">ست فئات أساسية غير متداخلة تساعدك تفهم طبيعة المول بسرعة.</p>
           </div>
-          <div className="hidden gap-3 md:grid md:grid-cols-2 min-[768px]:max-[1194px]:gap-4 lg:grid-cols-3">
+          <div className="hidden gap-4 md:grid md:grid-cols-2 min-[768px]:max-[1194px]:gap-4 lg:grid-cols-3 lg:gap-5">
             {categoryStories.map((category, index) => (
               <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                 <div className="editorial-panel flex min-h-[10rem] h-full flex-col rounded-[1.35rem] p-4.5 transition-colors duration-200 hover:border-primary/35 min-[768px]:max-[1194px]:min-h-[9.2rem] min-[768px]:max-[1194px]:rounded-[1.5rem] min-[768px]:max-[1194px]:p-4 lg:min-h-[9.6rem]">
-                  <div className="mb-2.5 flex items-center justify-between gap-3">
-                    <div className="icon-shell h-12 w-12 p-3 shadow-[var(--shadow-soft)]"><category.icon className="h-6 w-6" /></div>
-                    <span className="text-xs font-semibold text-muted-foreground">0{index + 1}</span>
+                <div className="relative flex h-full min-h-[13rem] flex-col rounded-[1.35rem] border border-border/60 bg-card p-6 shadow-[0_2px_12px_-4px_hsl(var(--foreground)/0.06)] transition-all duration-200 hover:border-primary/30 hover:shadow-[0_4px_20px_-6px_hsl(var(--primary)/0.12)]">
+                  {/* Top row: icon right, number left */}
+                  <div className="mb-4 flex items-start justify-between">
+                    <span className="text-sm font-medium text-muted-foreground/60">0{index + 1}</span>
+                    <div className="icon-shell h-11 w-11 p-2.5 shadow-[var(--shadow-soft)]"><category.icon className="h-5 w-5" /></div>
                   </div>
-                  <h3 className="text-lg font-bold text-foreground md:text-xl">{category.name}</h3>
-                   <p className="mt-2 text-sm leading-6 text-muted-foreground md:text-base min-[768px]:max-[1194px]:text-[0.92rem] min-[768px]:max-[1194px]:leading-6">{mobileCategorySummaries[category.key]}</p>
-                  <div className="mt-auto pt-3">
+                  {/* Text content — right aligned */}
+                  <h3 className="text-right text-lg font-bold leading-snug text-foreground">{category.name}</h3>
+                  <p className="mt-2 text-right text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
+                  {/* Badge — bottom right via mt-auto */}
+                  <div className="mt-auto flex justify-end pt-4">
                     <span className={`inline-flex items-center rounded-full border px-3 py-1 text-[0.72rem] font-semibold ${index % 3 === 0 ? "border-primary/20 bg-secondary text-foreground" : index % 3 === 1 ? "border-accent/20 bg-accent/10 text-foreground" : "border-border bg-card text-muted-foreground"}`}>{category.supportLabel}</span>
                   </div>
                 </div>
