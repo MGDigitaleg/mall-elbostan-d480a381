@@ -316,17 +316,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </div>
             </div>
-            <div className="hidden gap-2 md:grid md:grid-cols-3 md:gap-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-[1fr_1fr] lg:items-start">
+            <div className="hidden gap-2.5 md:grid md:grid-cols-3 md:gap-3 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-3 lg:items-stretch">
               {whyCards.map((card, index) => (
-                <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                  <div className={`editorial-panel h-full rounded-[1.15rem] p-3.5 md:rounded-[1.3rem] md:p-4 min-[768px]:max-[1194px]:min-h-[10.5rem] min-[768px]:max-[1194px]:p-3.5 ${index === 2 ? "lg:col-span-2 lg:min-h-[8.75rem]" : "lg:min-h-[8.75rem]"}`}>
-                    <div className="flex items-start gap-2.5 md:gap-3 min-[768px]:max-[1194px]:gap-2.5">
-                      <card.icon className="icon-shell h-9 w-9 shrink-0 p-2 md:h-10 md:w-10 md:p-2.5" />
-                      <div>
-                        <h3 className="text-[0.98rem] font-bold text-foreground md:text-lg">{card.title}</h3>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6 lg:max-w-[22rem]">{card.desc}</p>
-                      </div>
-                    </div>
+                <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex">
+                  <div className={`editorial-panel flex h-full min-h-[11rem] w-full flex-col rounded-[1.15rem] p-4 md:rounded-[1.3rem] md:p-5 min-[768px]:max-[1194px]:min-h-[11rem] min-[768px]:max-[1194px]:p-4`}>
+                    <card.icon className="icon-shell mb-3 h-10 w-10 shrink-0 p-2.5 md:h-11 md:w-11 md:p-2.5" />
+                    <h3 className="text-[1.05rem] font-extrabold text-foreground md:text-lg">{card.title}</h3>
+                    <p className="mt-1.5 text-sm leading-6 text-muted-foreground min-[768px]:max-[1194px]:text-[0.9rem] min-[768px]:max-[1194px]:leading-6 lg:max-w-[22rem]">{card.desc}</p>
                   </div>
                 </motion.div>
               ))}

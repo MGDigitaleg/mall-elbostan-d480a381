@@ -139,7 +139,7 @@ export function Header() {
       <div className="container">
         <div className="surface-panel rounded-[1.35rem] px-4 md:px-5">
           <div className="hidden min-h-[78px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-3">
-            <nav className="flex items-center justify-end gap-0.5">
+            <nav className="flex items-center justify-end gap-1.5">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                   {item.label}
