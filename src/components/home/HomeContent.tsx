@@ -104,26 +104,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
   return (
     <>
-      <section className="relative overflow-hidden pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:min-h-screen lg:pb-0">
-        <div className="editorial-grid absolute inset-0 opacity-35" />
-        <div className="page-halo absolute inset-0" />
-        <div className="relative w-full px-4 md:px-6 lg:px-12 xl:px-20">
-          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:min-h-[calc(100vh-6rem)] lg:grid-cols-[5fr_7fr] lg:items-center lg:justify-between lg:gap-10 lg:rounded-[2rem] lg:px-12 lg:py-8">
-            <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-4">
+      <section className="relative overflow-hidden bg-background pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:pb-12">
+        <div className="relative container px-4 md:px-6 lg:px-8 xl:px-10">
+          <div className="grid min-h-[auto] gap-2.5 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:py-6 lg:grid-cols-[1fr_0.7fr] lg:items-center lg:gap-14 lg:py-16">
+            {/* Text block — right side in RTL */}
+            <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-5">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-3">افتتاح مايو 2026 • القاهرة الجديدة</div>
-                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[28rem] lg:text-[3.72rem] lg:leading-[0.98]">
+                <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-4">افتتاح مايو 2026 • القاهرة الجديدة</div>
+                <h1 className="max-w-[14rem] text-[1.56rem] font-black leading-[1.02] text-foreground md:max-w-[38.75rem] md:text-[2.9rem] min-[768px]:max-[1194px]:max-w-[34rem] min-[768px]:max-[1194px]:text-[3.1rem] lg:max-w-[26rem] lg:text-[3.2rem] lg:leading-[1.05]">
                   مول البستان
-                  <span className="mt-1.5 block max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:mt-4 lg:max-w-[23rem] lg:text-[1.42rem] lg:leading-[1.25]">
-                    خريطة أوضح لاختيار المتجر أو الوحدة.
-                  </span>
                 </h1>
-                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7 lg:mt-4 lg:max-w-[26rem] lg:text-[1rem] lg:leading-7">
+                <p className="mt-2 max-w-[14rem] text-[0.86rem] font-semibold leading-[1.35] text-foreground/90 md:mt-3 md:max-w-[35rem] md:text-[1.35rem] min-[768px]:max-[1194px]:max-w-[28rem] min-[768px]:max-[1194px]:text-[1.25rem] lg:mt-3 lg:max-w-[22rem] lg:text-[1.28rem] lg:leading-[1.3]">
+                  خريطة أوضح لاختيار المتجر أو الوحدة.
+                </p>
+                <p className="mt-2 max-w-[16rem] text-[0.8rem] leading-5 text-muted-foreground md:mt-3 md:max-w-[33rem] md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[30rem] min-[768px]:max-[1194px]:text-base min-[768px]:max-[1194px]:leading-7 lg:mt-3 lg:max-w-[24rem] lg:text-[0.95rem] lg:leading-7">
                   استكشف الدور والوحدة قبل زيارتك أو استفسارك.
                 </p>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="section-shell grid gap-2 rounded-[1.2rem] p-2.5 md:gap-2.5 md:rounded-[1.6rem] md:p-5 min-[768px]:max-[1194px]:grid-cols-[1.1fr_0.9fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:p-4 lg:mt-2 lg:gap-4 lg:rounded-[1.8rem] lg:p-5">
+              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="space-y-3 lg:space-y-4">
                 <div className="flex flex-wrap gap-2">
                   {heroPills.map((item, index) => (
                     <span key={item} className={`mini-chip h-7 px-3 py-0 text-[0.72rem] md:h-8 md:px-3.5 md:text-sm ${index === 1 ? "inline-flex lg:hidden" : "inline-flex"}`}>{item}</span>
@@ -135,43 +134,42 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link to="/leasing" className="w-full"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-[1rem] px-4">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:col-start-1 min-[768px]:max-[1194px]:row-start-2 min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-[1.08fr_0.92fr] lg:gap-3">
+                <div className="hidden grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3 md:grid min-[768px]:max-[1194px]:grid-cols-2 min-[768px]:max-[1194px]:gap-2.5 lg:grid-cols-2 lg:gap-3">
                   <Link to="/map" className="w-full sm:w-auto"><Button variant="cta" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استكشف الخريطة</Button></Link>
                   <Link to="/leasing" className="w-full sm:w-auto"><Button variant="outline-blue" size="lg" className="h-11 w-full min-w-[11rem] rounded-[1rem] px-6">استفسر عن الوحدات</Button></Link>
                 </div>
 
-                <div className="grid gap-2 min-[768px]:max-[1194px]:col-start-2 min-[768px]:max-[1194px]:row-span-2 min-[768px]:max-[1194px]:gap-2.5 lg:gap-3">
-                  <div className="rounded-[1rem] border border-border bg-card px-3 py-3 md:rounded-[1.25rem] md:px-3.5 md:py-3 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3.5">
-                    <div className="grid grid-cols-3 gap-2 md:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-3">
+                <div className="rounded-[1rem] border border-border bg-card px-3 py-3 md:rounded-[1.25rem] md:px-3.5 md:py-3 lg:px-4 lg:py-3.5">
+                  <div className="grid grid-cols-3 gap-2">
                     {heroFacts.map((item) => (
-                      <div key={item.label} className="editorial-panel flex min-h-[3.35rem] flex-col items-center justify-center rounded-[0.9rem] px-2 py-2 text-center md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 min-[768px]:max-[1194px]:min-h-[4.6rem] lg:min-h-[5rem] lg:rounded-[1.1rem] lg:px-4 lg:py-3">
+                      <div key={item.label} className="editorial-panel flex min-h-[3.35rem] flex-col items-center justify-center rounded-[0.9rem] px-2 py-2 text-center md:min-h-[4.4rem] md:rounded-[1.1rem] md:px-3.5 md:py-2.5 lg:min-h-[4.5rem] lg:rounded-[1.1rem] lg:px-4 lg:py-3">
                         <p className="text-[0.62rem] font-semibold leading-4 text-muted-foreground md:text-xs lg:text-xs">{item.label}</p>
                         <p className="mt-1 text-[0.9rem] font-bold text-foreground md:text-lg lg:text-xl">{item.value}</p>
                       </div>
                     ))}
-                    </div>
                   </div>
-                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-4 md:block md:rounded-[1.25rem] md:px-4 md:py-4.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-4 lg:flex lg:flex-col lg:justify-between lg:px-5 lg:py-5">
-                     <div className="mb-4 flex items-center justify-between gap-3 md:mb-3.5 lg:mb-5">
-                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
-                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
-                     </div>
-                     <CountdownTimer compact />
-                   </div>
+                </div>
+
+                <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-4 md:block md:rounded-[1.25rem] md:px-4 md:py-4 lg:px-5 lg:py-4">
+                  <div className="mb-3 flex items-center justify-between gap-3 lg:mb-4">
+                    <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
+                    <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
+                  </div>
+                  <CountdownTimer compact />
                 </div>
               </motion.div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative flex w-full items-center min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none lg:order-2 lg:justify-start">
-              <div className="relative w-full">
-                <div className="section-shell overflow-hidden rounded-[1.45rem] p-1.5 md:rounded-[2.25rem] min-[768px]:max-[1194px]:p-2.5 lg:rounded-[2.25rem] lg:p-2.5">
-                  <div className="image-shell aspect-[4/3.2] overflow-hidden rounded-[1.25rem] bg-card md:rounded-[2rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/3]">
+            {/* Image block — left side in RTL, scaled down */}
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative flex w-full items-center min-[768px]:max-[1194px]:order-2 lg:order-2 lg:justify-center">
+              <div className="relative w-full lg:max-w-[380px] xl:max-w-[420px]">
+                <div className="section-shell overflow-hidden rounded-[1.45rem] p-1.5 md:rounded-[2rem] min-[768px]:max-[1194px]:p-2.5 lg:rounded-[1.75rem] lg:p-2">
+                  <div className="image-shell aspect-[4/3.2] overflow-hidden rounded-[1.25rem] bg-card md:rounded-[1.75rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/5]">
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover object-center" loading="eager" />
-                    <div className="image-wash absolute inset-0" />
                   </div>
                 </div>
-                <div className="section-shell absolute bottom-4 right-4 hidden w-[28%] min-w-[9.5rem] overflow-hidden rounded-[1.5rem] p-2 md:block md:bottom-6 md:right-6 min-[768px]:max-[1194px]:w-[24%] min-[768px]:max-[1194px]:min-w-[8.75rem]">
-                  <div className="image-shell aspect-[3/4] overflow-hidden rounded-[1.15rem]">
+                <div className="section-shell absolute bottom-3 right-3 hidden w-[35%] min-w-[7rem] overflow-hidden rounded-[1.15rem] p-1.5 md:block md:bottom-4 md:right-4 min-[768px]:max-[1194px]:w-[24%] min-[768px]:max-[1194px]:min-w-[8.75rem]">
+                  <div className="image-shell aspect-[3/4] overflow-hidden rounded-[0.9rem]">
                     <img src={interiorImage} alt="مشهد داخلي داعم لتجربة مول البستان" className="h-full w-full object-cover object-center" loading="lazy" />
                   </div>
                 </div>
