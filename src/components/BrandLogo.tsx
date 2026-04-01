@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/mol-al-bostan-wordmark.png";
+import logoImage from "@/assets/logo-header.png";
 
 type BrandLogoProps = {
   className?: string;
