@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree } from "lucide-react";
 
 const adminSections = [
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
@@ -13,6 +13,7 @@ const adminSections = [
   { title: "المدونة", icon: FileText, path: "/admin/blog", desc: "إدارة المقالات والأخبار" },
   { title: "الأسئلة الشائعة", icon: HelpCircle, path: "/admin/faqs", desc: "إدارة الأسئلة والأجوبة" },
   { title: "العملاء المحتملون", icon: Users, path: "/admin/leads", desc: "عرض طلبات التواصل والتأجير" },
+  { title: "أصول المستأجرين", icon: FolderTree, path: "/admin/tenant-assets", desc: "إدارة قائمة الشعارات والمطابقة والتصدير النهائي" },
 ];
 
 const AdminDashboard = () => {
