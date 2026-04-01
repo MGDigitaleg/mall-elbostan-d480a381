@@ -176,7 +176,7 @@ export function Header() {
           </div>
 
           <div className="hidden min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:min-h-[78px] min-[768px]:max-[1194px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-3 min-[768px]:max-[1194px]:py-1">
-            <nav className="flex items-center justify-end gap-1.5 overflow-hidden text-right">
+            <nav className="flex items-center justify-start gap-1.5 overflow-hidden text-right">
               {primaryNavItems.map((item) => (
                 <Link key={item.path} to={item.path} className="inline-flex h-9 items-center rounded-full px-3 text-[0.83rem] font-semibold text-foreground transition-colors hover:bg-secondary/75 hover:text-foreground">
                   {item.label}
