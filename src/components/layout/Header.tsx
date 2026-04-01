@@ -156,7 +156,7 @@ export function Header() {
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-end gap-2">
               <div className="flex items-center gap-0.5 rounded-full border border-border/70 bg-card px-1 py-1">
                 {secondaryNavItems.map((item) => (
                   <Link key={item.path} to={item.path} className={secondaryNavLinkClass(item.path)}>
