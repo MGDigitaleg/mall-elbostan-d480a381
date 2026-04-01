@@ -107,8 +107,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       <section className="relative overflow-hidden pb-2 pt-1 md:pb-8 min-[768px]:max-[1194px]:pb-7 lg:min-h-screen lg:pb-0">
         <div className="editorial-grid absolute inset-0 opacity-35" />
         <div className="page-halo absolute inset-0" />
-        <div className="relative mx-auto w-full max-w-screen-xl px-4 md:px-6 lg:px-10">
-          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:min-h-[calc(100vh-6rem)] lg:grid-cols-[5fr_7fr] lg:gap-8 lg:rounded-[2rem] lg:px-10 lg:py-8">
+        <div className="relative w-full px-4 md:px-6 lg:px-12 xl:px-20">
+          <div className="brand-shell grid min-h-[auto] gap-2.5 overflow-hidden rounded-[1.7rem] px-3 py-3.5 min-[768px]:max-[1194px]:gap-4 min-[768px]:max-[1194px]:px-6 min-[768px]:max-[1194px]:py-6 lg:min-h-[calc(100vh-6rem)] lg:grid-cols-[5fr_7fr] lg:items-center lg:justify-between lg:gap-10 lg:rounded-[2rem] lg:px-12 lg:py-8">
             <div className="order-1 space-y-2 text-right min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:flex lg:flex-col lg:justify-center lg:space-y-4">
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
                 <div className="eyebrow-chip mb-2 text-[0.72rem] md:mb-3 md:text-sm lg:mb-3">افتتاح مايو 2026 • القاهرة الجديدة</div>
@@ -162,7 +162,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </motion.div>
             </div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative mx-auto flex w-full max-w-[48rem] items-center min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none lg:order-2 lg:max-w-none lg:justify-start">
+            <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 relative flex w-full items-center min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:max-w-none lg:order-2 lg:justify-start">
               <div className="relative w-full">
                 <div className="section-shell overflow-hidden rounded-[1.45rem] p-1.5 md:rounded-[2.25rem] min-[768px]:max-[1194px]:p-2.5 lg:rounded-[2.25rem] lg:p-2.5">
                   <div className="image-shell aspect-[4/3.2] overflow-hidden rounded-[1.25rem] bg-card md:rounded-[2rem] min-[768px]:max-[1194px]:aspect-[16/9] lg:aspect-[4/3]">
