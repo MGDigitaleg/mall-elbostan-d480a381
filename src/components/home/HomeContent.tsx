@@ -541,7 +541,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-          <div className="section-shell page-shell grid gap-3 overflow-hidden min-[768px]:max-[1194px]:grid-cols-[1fr_1fr] min-[768px]:max-[1194px]:items-stretch min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[1.08fr_0.92fr] lg:items-stretch lg:gap-3.5">
+          <div className="section-shell page-shell flex flex-col gap-4 overflow-hidden min-[768px]:flex-row min-[768px]:items-start min-[768px]:gap-8">
             <div className="space-y-3 min-[768px]:max-[1194px]:order-1 lg:order-1 lg:space-y-2.5">
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
