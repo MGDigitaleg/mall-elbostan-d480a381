@@ -145,36 +145,38 @@ const groundRaw: RawUnit[] = [
 ];
 
 // ── Upper floor unit polygons (18 units) ─────────────────────────────────
-// Traced from the reference HTML interactive map (viewBox 0 0 1985 2048),
-// then normalised to our 48–952 coordinate space.
+// Same octagonal perimeter. Different area distributions require different boundaries.
+// Top edge: x=394, x=534 (same areas as ground)
+// Right edge: y=427, y=495, y=562 (F-04/S-04 larger)
+// Bottom edge (4 units): x=406, x=510, x=595
+// Left edge: y=397, y=493, y=589 (F-15/S-15 larger)
 
 const upperRaw: RawUnit[] = [
-  // ── Top edge (left→right): 11, 10, 09 ──
-  { key: "11", polygon: "381,48 466,48 466,183 402,183 370,136",  lx: 417, ly: 120, area: 27.48 },
-  { key: "10", polygon: "466,48 566,48 566,183 466,183",          lx: 516, ly: 116, area: 27.52 },
-  { key: "09", polygon: "566,48 735,48 661,183 566,183",          lx: 632, ly: 116, area: 41.68 },
-  // ── Top-right diagonal: 08 ──
-  { key: "08", polygon: "735,48 902,124 815,312 661,183",         lx: 778, ly: 167, area: 38.46 },
-  // ── Right edge (top→bottom): 07, 06, 05 ──
-  { key: "07", polygon: "870,312 952,312 952,509 870,509",        lx: 911, ly: 410, area: 42.03 },
-  { key: "06", polygon: "870,509 952,509 952,620 870,620",        lx: 911, ly: 564, area: 20.03 },
-  { key: "05", polygon: "870,620 952,620 952,735 870,735",        lx: 911, ly: 678, area: 19.82 },
-  // ── Bottom-right corner: 04 ──
-  { key: "04", polygon: "775,814 894,732 952,732 952,952 873,952", lx: 889, ly: 836, area: 45.28 },
-  // ── Bottom-right diagonal: 03 ──
-  { key: "03", polygon: "693,882 775,814 873,952 748,952",        lx: 772, ly: 900, area: 33.85 },
-  // ── Bottom edge (right→left): 02, 01, 18, 17 ──
-  { key: "02", polygon: "635,952 748,952 693,882 600,882",        lx: 669, ly: 917, area: 56.18 },
-  { key: "01", polygon: "513,952 600,952 600,882 513,882",        lx: 556, ly: 917, area: 31.66 },
-  { key: "18", polygon: "423,952 513,952 513,882 423,882",        lx: 468, ly: 917, area: 33.85 },
-  { key: "17", polygon: "307,952 423,952 423,882 333,882",        lx: 372, ly: 917, area: 56.18 },
-  // ── Bottom-left diagonal: 16 ──
-  { key: "16", polygon: "191,811 333,882 307,952 180,952 138,893", lx: 230, ly: 898, area: 38.95 },
-  // ── Left edge (bottom→top): 15, 14, 13, 12 ──
-  { key: "15", polygon: "48,741 138,811 180,952 48,952",          lx: 104, ly: 864, area: 45.21 },
-  { key: "14", polygon: "48,606 138,606 138,741 48,741",          lx: 93, ly: 674, area: 27.62 },
-  { key: "13", polygon: "48,465 138,465 138,606 48,606",          lx: 93, ly: 536, area: 27.62 },
-  { key: "12", polygon: "48,312 138,312 138,465 48,465",          lx: 93, ly: 388, area: 41.00 },
+  // ── Top edge ──
+  { key: "11", polygon: "225,48 394,48 394,158 285,158",   lx: 322, ly: 103, area: 27.48 },
+  { key: "10", polygon: "394,48 534,48 534,158 394,158",   lx: 464, ly: 103, area: 27.52 },
+  { key: "09", polygon: "534,48 775,48 715,158 534,158",   lx: 640, ly: 103, area: 41.68 },
+  // ── Top-right diagonal ──
+  { key: "08", polygon: "775,48 952,225 842,285 715,158",  lx: 821, ly: 179, area: 28.48 },
+  // ── Right edge ──
+  { key: "07", polygon: "952,225 952,427 842,427 842,285", lx: 897, ly: 356, area: 42.03 },
+  { key: "06", polygon: "952,427 952,495 842,495 842,427", lx: 897, ly: 461, area: 20.03 },
+  { key: "05", polygon: "952,495 952,562 842,562 842,495", lx: 897, ly: 529, area: 19.82 },
+  { key: "04", polygon: "952,562 952,775 842,715 842,562", lx: 897, ly: 639, area: 45.28 },
+  // ── Bottom-right diagonal ──
+  { key: "03", polygon: "952,775 775,952 715,842 842,715", lx: 821, ly: 821, area: 33.85 },
+  // ── Bottom edge (4 units) ──
+  { key: "02", polygon: "775,952 595,952 595,842 715,842", lx: 670, ly: 897, area: 56.18 },
+  { key: "01", polygon: "595,952 510,952 510,842 595,842", lx: 553, ly: 897, area: 31.66 },
+  { key: "18", polygon: "510,952 406,952 406,842 510,842", lx: 458, ly: 897, area: 38.95 },
+  { key: "17", polygon: "406,952 225,952 285,842 406,842", lx: 330, ly: 897, area: 56.18 },
+  // ── Bottom-left diagonal ──
+  { key: "16", polygon: "225,952 48,775 158,715 285,842",  lx: 179, ly: 821, area: 33.85 },
+  // ── Left edge ──
+  { key: "15", polygon: "48,775 48,589 158,589 158,715",   lx: 103, ly: 652, area: 45.21 },
+  { key: "14", polygon: "48,589 48,493 158,493 158,589",   lx: 103, ly: 541, area: 27.62 },
+  { key: "13", polygon: "48,493 48,397 158,397 158,493",   lx: 103, ly: 445, area: 27.62 },
+  { key: "12", polygon: "48,397 48,225 158,285 158,397",   lx: 103, ly: 341, area: 41.00 },
 ];
 
 function buildFloor(
