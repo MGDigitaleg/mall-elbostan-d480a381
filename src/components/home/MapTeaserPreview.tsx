@@ -43,8 +43,8 @@ export function MapTeaserPreview() {
   );
 
   return (
-    <div className="rounded-[1.85rem] min-[768px]:max-[1194px]:brand-shell min-[768px]:max-[1194px]:p-4 md:brand-shell md:p-4">
-      <div className="grid gap-2.5 min-[768px]:max-[1194px]:grid-cols-[1.3fr_0.7fr] min-[768px]:max-[1194px]:items-start xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
+    <div className="rounded-[1.35rem] min-[768px]:max-[1194px]:brand-shell min-[768px]:max-[1194px]:p-4 md:brand-shell md:p-4">
+      <div className="grid gap-2 min-[768px]:max-[1194px]:grid-cols-[1.3fr_0.7fr] min-[768px]:max-[1194px]:items-start xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
         <div className="order-1 space-y-2.5">
           <div className="grid grid-cols-3 gap-1.5 min-[768px]:max-[1194px]:gap-2">
             {floorMapData.map((item) => (
@@ -52,7 +52,7 @@ export function MapTeaserPreview() {
                 key={item.id}
                 type="button"
                 onClick={() => setSelectedFloor(item.id)}
-                className={`inline-flex h-10 items-center justify-center rounded-[1rem] px-2 text-sm font-semibold transition-colors min-[768px]:max-[1194px]:h-11 min-[768px]:max-[1194px]:rounded-[1.1rem] ${
+                className={`inline-flex h-11 items-center justify-center rounded-[1rem] px-2 text-[0.82rem] font-semibold transition-colors min-[768px]:max-[1194px]:h-11 min-[768px]:max-[1194px]:rounded-[1.1rem] ${
                   selectedFloor === item.id
                     ? "bg-secondary text-foreground"
                     : "border border-border bg-card text-muted-foreground hover:text-foreground"
@@ -64,7 +64,7 @@ export function MapTeaserPreview() {
           </div>
 
           <FloorPlanSvg
-            className="min-h-[29rem] rounded-[1.45rem] border border-border/80 p-2 md:min-h-[24.5rem] md:p-4 min-[768px]:max-[1194px]:min-h-[33rem] min-[768px]:max-[1194px]:rounded-[1.6rem] min-[768px]:max-[1194px]:p-4 lg:min-h-[28rem] lg:p-4"
+            className="min-h-[26rem] rounded-[1.3rem] border border-border/80 p-1.5 md:min-h-[24.5rem] md:p-4 min-[768px]:max-[1194px]:min-h-[33rem] min-[768px]:max-[1194px]:rounded-[1.6rem] min-[768px]:max-[1194px]:p-4 lg:min-h-[28rem] lg:p-4"
             floorId={selectedFloor}
             units={floor.units}
             selectedUnitId={activeUnit.unit_id}
@@ -74,27 +74,27 @@ export function MapTeaserPreview() {
         </div>
 
         <div className="order-2 space-y-2.5 xl:order-none">
-          <div className="editorial-panel rounded-[1.25rem] p-4 md:rounded-[1.45rem] md:p-5 min-[768px]:max-[1194px]:sticky min-[768px]:max-[1194px]:top-24 min-[768px]:max-[1194px]:space-y-0.5">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <p className="text-xs font-semibold text-muted-foreground">معاينة مباشرة من الدليل</p>
-              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground">منتج حي</span>
+          <div className="editorial-panel rounded-[1.15rem] p-3.5 md:rounded-[1.45rem] md:p-5 min-[768px]:max-[1194px]:sticky min-[768px]:max-[1194px]:top-24 min-[768px]:max-[1194px]:space-y-0.5">
+            <div className="mb-2.5 flex items-center justify-between gap-3">
+              <p className="text-[0.72rem] font-semibold text-muted-foreground">الوحدة المحددة الآن</p>
+              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground">جاهزة للمراجعة</span>
             </div>
-            <h3 className="mt-1 text-[1.45rem] font-bold text-foreground md:mt-1.5 md:text-2xl">وحدة {activeUnit.unit_id}</h3>
-            <p className="mt-1.5 text-sm leading-6 text-muted-foreground">اختر الدور ثم راجع بيانات الوحدة من نفس المعاينة.</p>
+            <h3 className="mt-1 text-[1.3rem] font-bold text-foreground md:mt-1.5 md:text-2xl">وحدة {activeUnit.unit_id}</h3>
+            <p className="mt-1 text-sm leading-6 text-muted-foreground">اختر الدور ثم اضغط على الوحدة لمراجعة بياناتها بسرعة.</p>
             <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
+              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
                 <span className="text-muted-foreground">الدور</span>
                 <span className="font-semibold text-foreground">{floorLabelAr[activeUnit.floor_id]}</span>
               </div>
-              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
+              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
                 <span className="text-muted-foreground">المساحة</span>
                 <span className="font-semibold text-foreground">{activeUnit.area_m2} م²</span>
               </div>
-              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
+              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
                 <span className="text-muted-foreground">الفئة</span>
                 <span className="font-semibold text-foreground">{needCategoryLabels[activeUnit.category]}</span>
               </div>
-              <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
+              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
                 <span className="text-muted-foreground">الحالة</span>
                 <span className={`font-semibold ${activeUnit.status === "available" ? "text-orange" : activeUnit.status === "coming_soon" ? "text-accent" : "text-foreground"}`}>
                   {activeUnit.status === "available" ? "متاحة" : activeUnit.status === "coming_soon" ? "قريبًا" : "مشغولة"}
@@ -104,14 +104,14 @@ export function MapTeaserPreview() {
           </div>
 
           <div className="grid grid-cols-3 gap-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-            <div className="rounded-[1rem] border border-orange/35 bg-card px-4 py-3 text-sm font-semibold text-orange">متاح الآن</div>
-            <div className="rounded-[1rem] border border-accent/35 bg-card px-4 py-3 text-sm font-semibold text-accent">قريبًا</div>
-            <div className="rounded-[1rem] border border-border bg-card px-4 py-3 text-sm font-semibold text-foreground">مشغول</div>
+            <div className="rounded-[0.95rem] border border-orange/35 bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-orange">متاح الآن</div>
+            <div className="rounded-[0.95rem] border border-accent/35 bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-accent">قريبًا</div>
+            <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-foreground">مشغول</div>
           </div>
 
           <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-            <Link to="/map"><Button variant="outline-blue" className="h-11 w-full rounded-[1rem] px-5">افتح الدليل</Button></Link>
-            <Link to="/leasing"><Button variant="orange" className="h-11 w-full rounded-[1rem] px-5">استفسر عن الوحدة</Button></Link>
+            <Link to="/map"><Button variant="cta" className="h-12 w-full rounded-[1rem] px-5">افتح الدليل</Button></Link>
+            <Link to="/leasing"><Button variant="outline-blue" className="h-12 w-full rounded-[1rem] px-5">استفسر عن الوحدة</Button></Link>
           </div>
         </div>
       </div>
