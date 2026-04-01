@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { FloorId, MapUnitDefinition, UnitStatus } from "@/lib/floorMapData";
+import { floorPolygonConfigs } from "@/lib/floorPolygonData";
 
 import floorGroundImg from "@/assets/floor-ground-3d.png";
 import floorFirstImg from "@/assets/floor-first-3d.png";
@@ -41,10 +42,12 @@ export function FloorPlanSvg({
   mutedUnitIds,
   onSelectUnit,
 }: FloorPlanSvgProps) {
+  const viewBox = floorPolygonConfigs[floorId].viewBox;
+
   return (
     <div
       className={cn(
-        "surface-panel relative min-h-[420px] overflow-hidden rounded-[1.75rem] md:min-h-[620px] lg:min-h-[760px]",
+        "surface-panel relative overflow-hidden rounded-[1.75rem]",
         className,
       )}
     >
@@ -53,7 +56,7 @@ export function FloorPlanSvg({
         key={floorId}
         src={floorImageById[floorId]}
         alt={`مخطط ${floorId === "ground" ? "الدور الأرضي" : floorId === "first" ? "الدور الأول" : "الدور الأخير"}`}
-        className="h-full w-full object-contain"
+        className="block w-full"
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
@@ -62,7 +65,8 @@ export function FloorPlanSvg({
 
       {/* Interactive SVG Overlay */}
       <svg
-        viewBox="0 0 1100 1100"
+        viewBox={viewBox}
+        preserveAspectRatio="xMidYMid meet"
         className="absolute inset-0 h-full w-full"
         role="img"
         aria-label="خريطة الطابق التفاعلية"
