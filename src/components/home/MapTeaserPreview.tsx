@@ -44,7 +44,7 @@ export function MapTeaserPreview() {
 
   return (
     <div className="rounded-[1.35rem] min-[768px]:max-[1194px]:brand-shell min-[768px]:max-[1194px]:p-4 md:brand-shell md:p-4">
-      <div className="grid gap-2 min-[768px]:max-[1194px]:grid-cols-[1.3fr_0.7fr] min-[768px]:max-[1194px]:items-start xl:grid-cols-[1.38fr_0.62fr] xl:items-start">
+      <div className="grid gap-2 min-[768px]:max-[1194px]:grid-cols-[2fr_3fr] min-[768px]:max-[1194px]:items-start xl:grid-cols-[2fr_3fr] xl:items-start">
         <div className="order-1 space-y-2.5">
           <div className="grid grid-cols-3 gap-1.5 min-[768px]:max-[1194px]:gap-2">
             {floorMapData.map((item) => (
