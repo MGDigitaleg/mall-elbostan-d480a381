@@ -22,18 +22,6 @@ const floorImageById: Record<FloorId, string> = {
   second: floorSecondImg,
 };
 
-const statusStroke: Record<UnitStatus, string> = {
-  occupied: "stroke-primary/40",
-  available: "stroke-orange",
-  coming_soon: "stroke-accent",
-};
-
-const statusFillHover: Record<UnitStatus, string> = {
-  occupied: "hover:fill-primary/15",
-  available: "hover:fill-orange/20",
-  coming_soon: "hover:fill-accent/15",
-};
-
 export function FloorPlanSvg({
   className,
   floorId,
@@ -43,8 +31,6 @@ export function FloorPlanSvg({
   onSelectUnit,
 }: FloorPlanSvgProps) {
   const viewBox = floorPolygonConfigs[floorId].viewBox;
-
-  // Compute aspect ratio from viewBox for proper sizing
   const [, , vbW, vbH] = viewBox.split(" ").map(Number);
   const aspectStyle = { aspectRatio: `${vbW} / ${vbH}` };
 
@@ -68,7 +54,7 @@ export function FloorPlanSvg({
         loading="eager"
       />
 
-      {/* Interactive SVG Overlay */}
+      {/* Interactive SVG Overlay — hotspots only, no labels */}
       <svg
         viewBox={viewBox}
         preserveAspectRatio="xMidYMid meet"
@@ -77,6 +63,17 @@ export function FloorPlanSvg({
         aria-label="خريطة الطابق التفاعلية"
         style={{ pointerEvents: "none" }}
       >
+        {/* Glow filter for selected unit */}
+        <defs>
+          <filter id="glow-selected" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
         <g id="unit-hotspots" style={{ pointerEvents: "all" }}>
           {units.map((unit) => {
             const isSelected = selectedUnitId === unit.unit_id;
@@ -87,103 +84,48 @@ export function FloorPlanSvg({
                 key={unit.unit_id}
                 id={`unit-${unit.unit_id}`}
                 initial={{ opacity: 0.85 }}
-                animate={{ opacity: isMuted ? 0.15 : 1 }}
+                animate={{ opacity: isMuted ? 0.1 : 1 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                {/* Clickable hotspot polygon */}
+                {/* Invisible clickable hotspot — NO fill color ever */}
                 <polygon
                   points={unit.polygon}
                   onClick={() => onSelectUnit(unit)}
-                  className={cn(
-                    "cursor-pointer fill-transparent stroke-[1.5] transition-all duration-200",
-                    statusStroke[unit.status],
-                    statusFillHover[unit.status],
-                    isSelected && "fill-primary/20 stroke-primary stroke-[2.5]",
-                  )}
+                  className="cursor-pointer transition-all duration-200"
+                  fill="transparent"
+                  stroke={isSelected ? "hsl(var(--primary))" : "transparent"}
+                  strokeWidth={isSelected ? 2 : 0}
+                  filter={isSelected ? "url(#glow-selected)" : undefined}
+                  style={{
+                    strokeOpacity: isSelected ? 0.7 : 0,
+                  }}
                 />
 
-                {/* Selected unit glow effect */}
-                {isSelected && (
-                  <polygon
-                    points={unit.polygon}
-                    className="pointer-events-none fill-none stroke-primary stroke-[3]"
-                    style={{
-                      filter: "drop-shadow(0 0 8px hsl(var(--primary) / 0.5))",
-                    }}
-                  />
-                )}
-
-                {/* Status indicator dot */}
-                {unit.status === "available" && (
-                  <circle
-                    cx={unit.x}
-                    cy={unit.y - 18}
-                    r="6"
-                    className="pointer-events-none fill-orange"
-                    style={{
-                      filter: "drop-shadow(0 0 4px hsl(var(--orange) / 0.6))",
-                    }}
-                  />
-                )}
-                {unit.status === "coming_soon" && (
-                  <circle
-                    cx={unit.x}
-                    cy={unit.y - 18}
-                    r="6"
-                    className="pointer-events-none fill-accent"
-                    style={{
-                      filter: "drop-shadow(0 0 4px hsl(var(--accent) / 0.6))",
-                    }}
-                  />
-                )}
+                {/* Hover-only outline — separate element to avoid fill issues */}
+                <polygon
+                  points={unit.polygon}
+                  className="pointer-events-none opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  fill="transparent"
+                  stroke="hsl(var(--primary))"
+                  strokeWidth={1}
+                  style={{
+                    opacity: 0,
+                  }}
+                />
               </motion.g>
             );
           })}
         </g>
-
-        {/* Floating unit ID + area labels */}
-        <g id="unit-labels">
-          {units.map((unit) => {
-            const isMuted = mutedUnitIds.has(unit.unit_id);
-            if (isMuted) return null;
-
-            return (
-              <g key={`label-${unit.unit_id}`}>
-                {/* Background pill for readability */}
-                <rect
-                  x={unit.x - 30}
-                  y={unit.y - 14}
-                  width={60}
-                  height={30}
-                  rx={6}
-                  className="pointer-events-none fill-background/80"
-                />
-                <text
-                  x={unit.x}
-                  y={unit.y}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="pointer-events-none fill-foreground text-[11px] font-bold"
-                  style={{
-                    textShadow: "0 1px 3px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {unit.unit_id}
-                </text>
-                <text
-                  x={unit.x}
-                  y={unit.y + 13}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="pointer-events-none fill-muted-foreground text-[9px] font-medium"
-                >
-                  {unit.area_m2} م²
-                </text>
-              </g>
-            );
-          })}
-        </g>
       </svg>
+
+      {/* CSS hover overlay — applied via hover on the container */}
+      <style>{`
+        #unit-hotspots polygon:first-child:hover {
+          stroke: hsl(var(--primary));
+          stroke-width: 1.5;
+          stroke-opacity: 0.5;
+        }
+      `}</style>
     </div>
   );
 }
