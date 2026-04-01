@@ -546,7 +546,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <p className="section-kicker">الافتتاح والحملة</p>
               <h2 className="section-title">خطوات قصيرة تسبق يوم الافتتاح.</h2>
               <p className="max-w-[28rem] text-sm leading-6 text-muted-foreground">المسار الأوضح: استكشف، تابع الحملة، ثم احضر يوم الافتتاح.</p>
-              <div className="hidden gap-2.5 sm:grid sm:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-1 lg:grid-cols-3">
+              <div className="hidden gap-2.5 sm:grid sm:grid-cols-3 min-[768px]:max-[1194px]:grid-cols-3 lg:grid-cols-3">
                 {launchSteps.map((item, index) => (
                   <div key={item.title} className="editorial-panel min-h-[6.9rem] rounded-[1.2rem] p-4 md:p-4.5 min-[768px]:max-[1194px]:min-h-[6.2rem] lg:min-h-[7.1rem]">
                     <p className="text-xs font-semibold text-muted-foreground">0{index + 1}</p>
