@@ -1,0 +1,388 @@
+import { useCallback, useState } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
+import {
+  OUTER_SHELL,
+  CORRIDOR_BOUNDARY,
+  ATRIUM_OCTAGON,
+  ATRIUM_INNER,
+  ATRIUM_CENTER,
+  ATRIUM_VERTICES,
+  COLUMN_POSITIONS,
+  ELEVATOR_RECT,
+  STAIR_RECTS,
+  ENTRANCE_MARKER,
+} from "@/lib/mallFloorGeometry";
+
+type Props = {
+  floor: MallFloor;
+  selectedUnitId: string | null;
+  mutedUnitIds: Set<string>;
+  onSelectUnit: (unit: MallUnit) => void;
+  className?: string;
+};
+
+// ── Status-based fill colors (inline for SVG) ──
+const statusFill: Record<MallUnitStatus, { base: string; hover: string; selected: string }> = {
+  occupied:    { base: "#CEC5B6", hover: "#BEB5A6", selected: "#B5AC9D" },
+  available:   { base: "#FDE8D0", hover: "#FDDBB5", selected: "#FBCEA0" },
+  coming_soon: { base: "#D4EDF7", hover: "#BFE3F2", selected: "#AAD9ED" },
+};
+
+const statusStroke: Record<MallUnitStatus, string> = {
+  occupied: "#8B8174",
+  available: "#F97316",
+  coming_soon: "#06B6D4",
+};
+
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, className }: Props) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent, unit: MallUnit) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onSelectUnit(unit);
+      }
+    },
+    [onSelectUnit],
+  );
+
+  return (
+    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#F4F0EA] p-3 md:p-4", className)}>
+      <svg
+        viewBox="-20 -20 1040 1040"
+        className="h-full w-full"
+        role="img"
+        aria-label="خريطة الطابق التفاعلية لمول البستان"
+      >
+        <defs>
+          {/* Floor surface gradient */}
+          <linearGradient id="floorGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#E8E0D4" />
+            <stop offset="100%" stopColor="#DDD5C8" />
+          </linearGradient>
+
+          {/* Corridor surface */}
+          <linearGradient id="corridorGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#D0C8BA" />
+            <stop offset="100%" stopColor="#C8C0B2" />
+          </linearGradient>
+
+          {/* Atrium glass */}
+          <radialGradient id="atriumGlass" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stopColor="#E0F0FA" stopOpacity="0.7" />
+            <stop offset="60%" stopColor="#D0E8F4" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#B8D8EC" stopOpacity="0.6" />
+          </radialGradient>
+
+          {/* Building drop shadow */}
+          <filter id="buildingShadow" x="-5%" y="-5%" width="115%" height="115%">
+            <feDropShadow dx="3" dy="5" stdDeviation="8" floodColor="#000" floodOpacity="0.18" />
+          </filter>
+
+          {/* Selected unit glow */}
+          <filter id="selectedGlow" x="-15%" y="-15%" width="130%" height="130%">
+            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#F97316" floodOpacity="0.5" />
+          </filter>
+
+          {/* Subtle unit shadow */}
+          <filter id="unitShadow" x="-2%" y="-2%" width="104%" height="104%">
+            <feDropShadow dx="1" dy="2" stdDeviation="2" floodColor="#000" floodOpacity="0.08" />
+          </filter>
+
+          {/* Glass pattern */}
+          <pattern id="glassHatch" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="20" stroke="#B0D4E8" strokeWidth="0.5" strokeOpacity="0.3" />
+          </pattern>
+        </defs>
+
+        {/* ── Building outer shadow ── */}
+        <polygon
+          points={OUTER_SHELL}
+          fill="#333"
+          opacity="0.12"
+          transform="translate(5,6)"
+        />
+
+        {/* ── Building floor surface ── */}
+        <polygon
+          points={OUTER_SHELL}
+          fill="url(#floorGrad)"
+          stroke="#6B6358"
+          strokeWidth="3"
+          filter="url(#buildingShadow)"
+        />
+
+        {/* ── Outer wall thickness (double stroke effect) ── */}
+        <polygon
+          points={OUTER_SHELL}
+          fill="none"
+          stroke="#4A4540"
+          strokeWidth="5"
+        />
+        <polygon
+          points={OUTER_SHELL}
+          fill="none"
+          stroke="#9B9488"
+          strokeWidth="1.5"
+        />
+
+        {/* ── Corridor ring ── */}
+        <polygon
+          points={CORRIDOR_BOUNDARY}
+          fill="url(#corridorGrad)"
+          stroke="#8B8478"
+          strokeWidth="1.5"
+        />
+
+        {/* ── Central atrium ── */}
+        <polygon
+          points={ATRIUM_OCTAGON}
+          fill="url(#atriumGlass)"
+          stroke="#7BAEC4"
+          strokeWidth="2"
+        />
+        <polygon
+          points={ATRIUM_OCTAGON}
+          fill="url(#glassHatch)"
+          opacity="0.4"
+        />
+        {/* Inner octagon ring */}
+        <polygon
+          points={ATRIUM_INNER}
+          fill="none"
+          stroke="#7BAEC4"
+          strokeWidth="1"
+          opacity="0.5"
+        />
+
+        {/* ── Atrium web (radial lines from center) ── */}
+        {ATRIUM_VERTICES.map(([vx, vy], i) => (
+          <line
+            key={`atrium-ray-${i}`}
+            x1={ATRIUM_CENTER.x}
+            y1={ATRIUM_CENTER.y}
+            x2={vx}
+            y2={vy}
+            stroke="#7BAEC4"
+            strokeWidth="0.8"
+            opacity="0.45"
+          />
+        ))}
+        {/* Center dot */}
+        <circle cx={ATRIUM_CENTER.x} cy={ATRIUM_CENTER.y} r="4" fill="#7BAEC4" opacity="0.5" />
+
+        {/* ── Elevator area ── */}
+        <rect
+          x={ELEVATOR_RECT.x}
+          y={ELEVATOR_RECT.y}
+          width={ELEVATOR_RECT.w}
+          height={ELEVATOR_RECT.h}
+          rx="6"
+          fill="#C4BDB0"
+          stroke="#8B8478"
+          strokeWidth="1.5"
+        />
+        <text
+          x={ELEVATOR_RECT.x + ELEVATOR_RECT.w / 2}
+          y={ELEVATOR_RECT.y + ELEVATOR_RECT.h / 2 + 5}
+          textAnchor="middle"
+          className="text-[13px] font-semibold"
+          fill="#5A5348"
+        >
+          مصاعد
+        </text>
+
+        {/* ── Stairs ── */}
+        {STAIR_RECTS.map((stair, i) => (
+          <g key={`stair-${i}`}>
+            <rect
+              x={stair.x}
+              y={stair.y}
+              width={stair.w}
+              height={stair.h}
+              rx="4"
+              fill="#D4CFC6"
+              stroke="#8B8478"
+              strokeWidth="1"
+            />
+            {/* Step lines */}
+            {[0.25, 0.5, 0.75].map((frac) => (
+              <line
+                key={frac}
+                x1={stair.x + 4}
+                y1={stair.y + stair.h * frac}
+                x2={stair.x + stair.w - 4}
+                y2={stair.y + stair.h * frac}
+                stroke="#8B8478"
+                strokeWidth="0.8"
+                opacity="0.5"
+              />
+            ))}
+            <text
+              x={stair.x + stair.w / 2}
+              y={stair.y + stair.h / 2 + 4}
+              textAnchor="middle"
+              className="text-[10px]"
+              fill="#6B6358"
+            >
+              {stair.label}
+            </text>
+          </g>
+        ))}
+
+        {/* ── Unit polygons ── */}
+        <g id="units-layer">
+          {floor.units.map((unit) => {
+            const isSelected = selectedUnitId === unit.id;
+            const isHovered = hoveredId === unit.id;
+            const isMuted = mutedUnitIds.has(unit.id);
+            const colors = statusFill[unit.status];
+            const stroke = statusStroke[unit.status];
+
+            return (
+              <motion.polygon
+                key={unit.id}
+                points={unit.polygon}
+                initial={false}
+                animate={{
+                  opacity: isMuted ? 0.2 : 1,
+                  fillOpacity: isMuted ? 0.3 : 1,
+                }}
+                transition={{ duration: 0.2 }}
+                fill={isSelected ? colors.selected : isHovered ? colors.hover : colors.base}
+                stroke={isSelected ? "#F97316" : stroke}
+                strokeWidth={isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
+                filter={isSelected ? "url(#selectedGlow)" : "url(#unitShadow)"}
+                className="cursor-pointer outline-none"
+                style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
+                onClick={() => onSelectUnit(unit)}
+                onMouseEnter={() => setHoveredId(unit.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                onKeyDown={(e) => handleKeyDown(e, unit)}
+                tabIndex={0}
+                role="button"
+                aria-label={`وحدة ${unit.code} - ${unit.area} متر مربع`}
+              />
+            );
+          })}
+        </g>
+
+        {/* ── Red columns ── */}
+        {COLUMN_POSITIONS.map(([cx, cy], i) => (
+          <g key={`col-${i}`}>
+            <circle cx={cx} cy={cy} r="9" fill="#8B1A1A" />
+            <circle cx={cx} cy={cy} r="6" fill="#B71C1C" />
+            <circle cx={cx} cy={cy} r="3" fill="#D32F2F" opacity="0.6" />
+          </g>
+        ))}
+
+        {/* ── Unit labels ── */}
+        <g id="labels-layer" pointerEvents="none">
+          {floor.units.map((unit) => {
+            const isMuted = mutedUnitIds.has(unit.id);
+            const showArea = unit.area > 30;
+            return (
+              <g key={`label-${unit.id}`} opacity={isMuted ? 0.25 : 1}>
+                <text
+                  x={unit.labelX}
+                  y={unit.labelY - (showArea ? 5 : 0)}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[12px] font-bold"
+                  fill="#2D2926"
+                >
+                  {unit.code}
+                </text>
+                {showArea && (
+                  <text
+                    x={unit.labelX}
+                    y={unit.labelY + 11}
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="text-[9px]"
+                    fill="#5A5348"
+                  >
+                    {unit.area} م²
+                  </text>
+                )}
+              </g>
+            );
+          })}
+        </g>
+
+        {/* ── Status indicator dots ── */}
+        <g id="status-dots" pointerEvents="none">
+          {floor.units.map((unit) => {
+            if (unit.status === "occupied") return null;
+            const isMuted = mutedUnitIds.has(unit.id);
+            return (
+              <circle
+                key={`dot-${unit.id}`}
+                cx={unit.labelX + 20}
+                cy={unit.labelY - 14}
+                r="5"
+                fill={unit.status === "available" ? "#F97316" : "#06B6D4"}
+                opacity={isMuted ? 0.2 : 0.85}
+              />
+            );
+          })}
+        </g>
+
+        {/* ── Entrance marker ── */}
+        <g id="entrance">
+          <rect
+            x={ENTRANCE_MARKER.x - 50}
+            y={ENTRANCE_MARKER.y - 10}
+            width="100"
+            height="20"
+            rx="4"
+            fill="#4A4540"
+            opacity="0.8"
+          />
+          <text
+            x={ENTRANCE_MARKER.x}
+            y={ENTRANCE_MARKER.y + 3}
+            textAnchor="middle"
+            className="text-[10px] font-semibold"
+            fill="#F4F0EA"
+          >
+            {ENTRANCE_MARKER.label}
+          </text>
+        </g>
+
+        {/* ── Hover tooltip ── */}
+        {hoveredId && (() => {
+          const unit = floor.units.find((u) => u.id === hoveredId);
+          if (!unit) return null;
+          const tx = Math.min(Math.max(unit.labelX, 120), 880);
+          const ty = unit.labelY - 32;
+          return (
+            <g pointerEvents="none">
+              <rect
+                x={tx - 75}
+                y={ty - 16}
+                width="150"
+                height="28"
+                rx="6"
+                fill="#1A1A2E"
+                opacity="0.92"
+              />
+              <text
+                x={tx}
+                y={ty + 2}
+                textAnchor="middle"
+                className="text-[11px] font-semibold"
+                fill="#fff"
+              >
+                {unit.code} | {unit.area} م²
+              </text>
+            </g>
+          );
+        })()}
+      </svg>
+    </div>
+  );
+}
