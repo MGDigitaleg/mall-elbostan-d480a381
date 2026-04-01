@@ -299,8 +299,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="hidden page-section pt-6 md:block md:pt-12 min-[768px]:max-[1194px]:pt-10 lg:pt-12">
         <div className="container">
-          <div className="grid gap-3 min-[768px]:max-[1194px]:grid-cols-[0.9fr_1.1fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-4 lg:grid-cols-[0.84fr_1.16fr] lg:items-start lg:gap-4">
-            <div className="space-y-2.5 min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:space-y-3 lg:order-2 lg:space-y-3">
+          <div className="grid gap-4 min-[768px]:max-[1194px]:grid-cols-[2fr_3fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-5 lg:grid-cols-[2fr_3fr] lg:items-center lg:gap-6">
+            <div className="order-1 space-y-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:space-y-3">
               <div className="chapter-shell pt-4 md:pt-5">
                 <p className="section-kicker">لماذا مول البستان</p>
                 <h2 className="section-title max-w-[35rem]">وجهة تقنية بهوية واضحة وتجربة زيارة أهدأ.</h2>
@@ -314,7 +314,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ))}
               </div>
             </div>
-            <div className="hidden gap-2.5 md:grid md:grid-cols-3 md:gap-3 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:grid-cols-2 lg:order-1 lg:grid-cols-3 lg:items-stretch">
+            <div className="hidden gap-2.5 md:grid md:grid-cols-3 md:gap-3 min-[768px]:max-[1194px]:order-2 min-[768px]:max-[1194px]:grid-cols-3 lg:order-2 lg:grid-cols-3 lg:items-stretch">
               {whyCards.map((card, index) => (
                 <motion.div key={card.title} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex">
                   <div className={`editorial-panel flex h-full min-h-[11rem] w-full flex-col rounded-[1.15rem] p-4 md:rounded-[1.3rem] md:p-5 min-[768px]:max-[1194px]:min-h-[11rem] min-[768px]:max-[1194px]:p-4`}>
