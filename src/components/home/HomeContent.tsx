@@ -442,15 +442,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
       <section className="hidden section-soft page-section py-8 md:block md:py-12 min-[768px]:max-[1194px]:py-16 lg:py-12">
         <div className="container">
-          <div className="grid gap-6 overflow-hidden min-[768px]:max-[1194px]:section-shell min-[768px]:max-[1194px]:page-shell min-[768px]:max-[1194px]:grid-cols-[0.62fr_0.38fr] min-[768px]:max-[1194px]:items-start min-[768px]:max-[1194px]:gap-5 lg:section-shell lg:page-shell lg:grid-cols-[1.28fr_0.72fr] lg:items-start lg:gap-6">
-            <div className="order-2 min-[768px]:max-[1194px]:order-2 lg:order-2">
-              <MapTeaserPreview />
-            </div>
+          <div className="grid gap-6 overflow-hidden min-[768px]:max-[1194px]:section-shell min-[768px]:max-[1194px]:page-shell min-[768px]:max-[1194px]:grid-cols-[2fr_3fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-6 lg:section-shell lg:page-shell lg:grid-cols-[2fr_3fr] lg:items-center lg:gap-6">
             <div className="order-1 space-y-2.5 min-[768px]:max-[1194px]:order-1 min-[768px]:max-[1194px]:max-w-none min-[768px]:max-[1194px]:space-y-3 lg:order-1 lg:space-y-3.5">
               <p className="section-kicker">الخريطة التفاعلية</p>
               <h2 className="section-title">الدليل التفاعلي هو المنتج الأساسي هنا.</h2>
-              <p className="max-w-[21rem] text-sm leading-6 text-muted-foreground md:text-lg md:leading-7 min-[768px]:max-[1194px]:max-w-[20rem] min-[768px]:max-[1194px]:text-base">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
-              <div className="grid grid-cols-3 gap-2 sm:gap-2.5 min-[768px]:max-[1194px]:grid-cols-1 lg:grid-cols-3">
+              <p className="text-sm leading-6 text-muted-foreground md:text-lg md:leading-7 min-[768px]:max-[1194px]:text-base">الدور، الوحدة، والحالة كلها ظاهرة مباشرة قبل الدخول إلى الدليل الكامل.</p>
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5 min-[768px]:max-[1194px]:grid-cols-3 lg:grid-cols-3">
                 <div className="editorial-panel min-h-[4.5rem] rounded-[1rem] p-3 md:min-h-[5.2rem] md:rounded-[1.25rem] md:p-4">
                   <p className="text-xs font-semibold text-muted-foreground">عدد الأدوار</p>
                   <p className="mt-1 text-lg font-bold text-foreground md:mt-1.5 md:text-xl">{floorMapData.length}</p>
@@ -467,6 +464,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <div className="rounded-[1.05rem] border border-border bg-card px-3 py-2.5 text-sm leading-6 text-muted-foreground md:rounded-[1.25rem] md:px-4 md:py-3.5 md:leading-7">
                 ابدأ من الدور، راجع تمييز الحالة، ثم افتح الدليل أو انتقل مباشرة إلى الاستفسار من نفس المصدر.
               </div>
+            </div>
+            <div className="order-2 min-[768px]:max-[1194px]:order-2 lg:order-2">
+              <MapTeaserPreview />
             </div>
           </div>
         </div>
