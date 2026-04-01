@@ -151,13 +151,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     ))}
                     </div>
                   </div>
-                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-3 md:block md:rounded-[1.25rem] md:px-4 md:py-3.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-3 lg:flex lg:flex-col lg:justify-between">
-                    <div className="mb-2 flex items-center justify-between gap-3 md:mb-2.5">
-                      <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
-                      <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
-                    </div>
-                    <CountdownTimer compact />
-                  </div>
+                  <div className="hidden rounded-[1.15rem] border border-border bg-card px-3.5 py-4 md:block md:rounded-[1.25rem] md:px-4 md:py-4.5 min-[768px]:max-[1194px]:px-3.5 min-[768px]:max-[1194px]:py-4 lg:flex lg:flex-col lg:justify-between">
+                     <div className="mb-3 flex items-center justify-between gap-3 md:mb-3.5">
+                       <p className="text-sm font-semibold text-foreground">العد التنازلي</p>
+                       <span className="text-[0.72rem] text-muted-foreground md:text-xs">حتى الافتتاح</span>
+                     </div>
+                     <CountdownTimer compact />
+                   </div>
                 </div>
               </motion.div>
             </div>
