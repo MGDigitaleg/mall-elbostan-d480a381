@@ -190,7 +190,7 @@ export function Header() {
               </div>
             </Link>
 
-            <div className="flex items-center justify-start gap-2">
+            <div className="flex items-center justify-start gap-2 text-left">
               <Link to="/spin-win">
                 <Button variant="cta" size="sm" className="h-9 rounded-full px-4 text-[0.8rem] font-semibold">
                   أدر واربح
