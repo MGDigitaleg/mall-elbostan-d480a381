@@ -624,12 +624,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     </div>
                  </div>
               </div>
-                <div className="editorial-panel rounded-[1.35rem] p-4.5 min-[768px]:max-[1194px]:p-4.5 lg:mr-auto lg:max-w-[16rem]">
-                <Store className="icon-shell h-12 w-12 p-3" />
-                  <h3 className="mt-3 text-[1.05rem] font-bold text-foreground">التركيز الآن على المنتج الأساسي</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground md:text-base">ابدأ بالمتاجر الحالية والدليل أولًا.</p>
-                  <Link to="/stores" className="mt-3.5 block"><Button variant="secondary" className="h-11 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
-              </div>
+                <div className="editorial-panel flex flex-col items-center rounded-[1.35rem] p-8 text-center min-[768px]:max-[1194px]:p-7 lg:mr-auto lg:max-w-[18rem]">
+                  <div className="icon-shell flex h-14 w-14 items-center justify-center rounded-full p-3.5">
+                    <Store className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-4 text-[1.05rem] font-bold leading-snug text-foreground">التركيز الآن على المنتج الأساسي</h3>
+                  <p className="mt-3 text-sm leading-7 text-muted-foreground md:text-base">ابدأ بالمتاجر الحالية والدليل أولًا.</p>
+                  <Link to="/stores" className="mt-6 block w-full"><Button variant="secondary" className="h-11 w-full rounded-[1rem]">استعرض المتاجر الحالية</Button></Link>
+                </div>
             </div>
           </div>
         </div>
