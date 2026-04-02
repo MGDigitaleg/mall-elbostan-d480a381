@@ -354,7 +354,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-8 max-w-[30rem]">
+            <div className="mb-6 max-w-[30rem]">
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-3 text-[0.92rem] leading-7 light-body">
