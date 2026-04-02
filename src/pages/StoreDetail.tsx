@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin, Phone, Store, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -35,7 +36,14 @@ const categoryStory: Record<string, { title: string; description: string }> = {
   },
 };
 
+const heroText = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const heroImageAnim = { hidden: { opacity: 0, scale: 0.97 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6, delay: 0.1 } } };
+const sectionReveal = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
+const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
+const fadeChild = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
+
 const StoreDetail = () => {
+
   const { slug } = useParams<{ slug: string }>();
 
   const { data: store, isLoading } = useQuery({
@@ -122,7 +130,7 @@ const StoreDetail = () => {
 
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             {/* Text */}
-            <div className="space-y-6">
+            <motion.div variants={heroText} initial="hidden" animate="visible" className="space-y-6">
               <div className="flex items-center gap-5">
                 {store.logo_url ? (
                   <div className="heritage-surface flex h-20 w-20 items-center justify-center p-2">
@@ -167,10 +175,10 @@ const StoreDetail = () => {
                   </a>
                 )}
               </div>
-            </div>
+            </motion.div>
 
             {/* Hero Image */}
-            <div className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
+            <motion.div variants={heroImageAnim} initial="hidden" animate="visible" className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
               <img src={heroImage} alt={store.name_ar} className="h-full w-full object-cover object-center" loading="eager" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, hsl(222 44% 6% / 0.4), transparent 50%)' }} />
               {store.unit_code && (
@@ -178,7 +186,7 @@ const StoreDetail = () => {
                   <span className="text-xs font-semibold text-foreground">وحدة {store.unit_code}</span>
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -199,8 +207,9 @@ const StoreDetail = () => {
       <div className="container max-w-6xl py-10 md:py-14">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Main column */}
-          <div className="space-y-8">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-8">
             {/* About */}
+            <motion.div variants={fadeChild}>
             <article className="card-editorial p-6 md:p-8">
               <div className="chapter-shell">
                 <p className="section-kicker">عن المتجر</p>
@@ -210,9 +219,11 @@ const StoreDetail = () => {
                 {store.long_description_ar ?? store.short_description_ar ?? "سيتم تحديث وصف هذا المتجر قريبًا بمحتوى تفصيلي يوضح نوع المنتجات أو الخدمات التي يقدّمها داخل مول البستان."}
               </p>
             </article>
+            </motion.div>
 
             {/* Category Story */}
             {activeStory && (
+              <motion.div variants={fadeChild}>
               <article className="card-architectural p-6 md:p-8">
                 <div className="flex items-start gap-3">
                   <Layers3 className="mt-1 h-5 w-5 shrink-0 text-primary" />
@@ -223,10 +234,12 @@ const StoreDetail = () => {
                   </div>
                 </div>
               </article>
+              </motion.div>
             )}
 
             {/* Gallery */}
             {gallery.length > 1 && (
+              <motion.div variants={fadeChild}>
               <section className="editorial-panel p-6 md:p-8">
                 <p className="section-kicker">معرض بصري</p>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -237,12 +250,14 @@ const StoreDetail = () => {
                   ))}
                 </div>
               </section>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
             {/* Contact Card */}
+            <motion.div variants={fadeChild}>
             <aside className="card-editorial p-6 md:p-8">
               <p className="section-kicker">معلومات الاتصال</p>
               <h3 className="mb-5 text-lg font-bold text-foreground">تواصل مع المتجر أو قم بزيارته</h3>
@@ -260,6 +275,7 @@ const StoreDetail = () => {
                 {store.unit_code && <ContactRow icon={MapPin} text={`وحدة ${store.unit_code}`} />}
               </div>
             </aside>
+            </motion.div>
 
             {/* Related Stores */}
             {relatedStores && relatedStores.length > 0 && (
@@ -287,6 +303,7 @@ const StoreDetail = () => {
             )}
 
             {/* CTA */}
+            <motion.div variants={fadeChild}>
             <div className="card-layered p-6 text-center md:p-8">
               <p className="section-kicker">هل تريد وحدة مجاورة؟</p>
               <h3 className="mb-3 text-lg font-bold text-foreground">امتلك أو أجّر وحدتك في مول البستان</h3>
@@ -295,7 +312,8 @@ const StoreDetail = () => {
                 <Button variant="cta" size="lg" className="w-full">استعلم عن الوحدات المتاحة</Button>
               </Link>
             </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </MainLayout>
