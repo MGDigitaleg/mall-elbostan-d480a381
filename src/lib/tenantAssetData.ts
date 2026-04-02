@@ -84,9 +84,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "al-sahaba",
     providedName: "الصحابة",
     normalizedName: "الصحابة",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Source asset not received yet.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/al-sahaba.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Al-Sahaba",
   },
   {
