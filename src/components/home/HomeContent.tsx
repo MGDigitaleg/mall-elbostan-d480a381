@@ -42,6 +42,8 @@ import {
   needCategoryLabels,
   type NeedCategory,
 } from "@/lib/floorMapData";
+import facadeImage from "@/assets/mall-facade.jpg";
+import entranceImage from "@/assets/mall-entrance.jpg";
 
 /* ─── category ─── */
 const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
