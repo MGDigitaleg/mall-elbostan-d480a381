@@ -42,13 +42,8 @@ const About = () => (
     {/* ═══════════ 1 · HERO — WHO WE ARE ═══════════ */}
     <section className="heritage-section relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-hero" />
-      <div
-        className="absolute inset-0 opacity-[0.02]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+      <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.5px, transparent 0)", backgroundSize: "36px 36px" }} />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 65% 50%, hsl(220 68% 38% / 0.06), transparent 70%)" }} />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
         <div className="grid min-h-[80vh] items-center gap-10 py-20 lg:grid-cols-2 lg:gap-16 lg:py-0">
