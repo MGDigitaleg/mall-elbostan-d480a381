@@ -443,7 +443,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            className="mx-auto max-w-[54rem]"
+            className="mx-auto max-w-[58rem]"
           >
             <MapTeaserPreview />
           </motion.div>
