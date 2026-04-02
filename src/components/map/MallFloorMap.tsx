@@ -2,6 +2,35 @@ import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
+
+// ── Confirmed tenant names per unit ──
+const TENANT_NAMES: Record<string, string> = {
+  "G-01": "ستاتيك",
+  "G-02": "شرف",
+  "G-03": "2B",
+  "G-05": "Go Plus",
+  "G-07": "الهدى",
+  "G-08": "الصحابة",
+  "G-09": "ريد لاين",
+  "G-11": "Egypt Laptop",
+  "G-13": "HK",
+  "G-14": "WiFi",
+  "G-16": "Kareem Store",
+  "G-17": "كسر زيرو",
+  "F-06": "Express Home",
+  "F-07": "El Badr",
+  "F-08": "El Badr",
+  "F-09": "El Badr",
+  "F-10": "Time Tech",
+  "F-11": "Prime Technology",
+  "F-13": "Digital Plus",
+  "F-14": "سبارك",
+  "S-05": "Mix & Apex",
+  "S-10": "Quick Fix",
+  "S-07": "Compu Marts",
+  "S-08": "Compu Marts",
+  "S-09": "Compu Marts",
+};
 import {
   OUTER_SHELL,
   CORRIDOR_BOUNDARY,
@@ -283,30 +312,60 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         <g id="labels-layer" pointerEvents="none">
           {floor.units.map((unit) => {
             const isMuted = mutedUnitIds.has(unit.id);
-            const showArea = unit.area > 30;
+            const tenantName = TENANT_NAMES[unit.id];
+            const hasName = unit.status === "occupied" && tenantName;
+            const showArea = !hasName && unit.area > 30;
+
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.25 : 1}>
-                <text
-                  x={unit.labelX}
-                  y={unit.labelY - (showArea ? 5 : 0)}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="text-[12px] font-bold"
-                  fill="#2D2926"
-                >
-                  {unit.code}
-                </text>
-                {showArea && (
-                  <text
-                    x={unit.labelX}
-                    y={unit.labelY + 11}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    className="text-[9px]"
-                    fill="#5A5348"
-                  >
-                    {unit.area} م²
-                  </text>
+                {hasName ? (
+                  <>
+                    <text
+                      x={unit.labelX}
+                      y={unit.labelY - 6}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[10px] font-bold"
+                      fill="#2D2926"
+                    >
+                      {tenantName}
+                    </text>
+                    <text
+                      x={unit.labelX}
+                      y={unit.labelY + 9}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[8px]"
+                      fill="#6B6358"
+                    >
+                      {unit.code}
+                    </text>
+                  </>
+                ) : (
+                  <>
+                    <text
+                      x={unit.labelX}
+                      y={unit.labelY - (showArea ? 5 : 0)}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[12px] font-bold"
+                      fill="#2D2926"
+                    >
+                      {unit.code}
+                    </text>
+                    {showArea && (
+                      <text
+                        x={unit.labelX}
+                        y={unit.labelY + 11}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="text-[9px]"
+                        fill="#5A5348"
+                      >
+                        {unit.area} م²
+                      </text>
+                    )}
+                  </>
                 )}
               </g>
             );
@@ -377,7 +436,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 className="text-[11px] font-semibold"
                 fill="#fff"
               >
-                {unit.code} | {unit.area} م²
+                {TENANT_NAMES[unit.id] ? `${TENANT_NAMES[unit.id]} | ${unit.code}` : `${unit.code} | ${unit.area} م²`}
               </text>
             </g>
           );
