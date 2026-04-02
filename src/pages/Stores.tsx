@@ -116,10 +116,12 @@ const Stores = () => {
               transition={{ duration: 0.65 }}
               className="space-y-6"
             >
-              <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                <Store className="h-4 w-4" />
-                دليل المتاجر التقنية
-              </span>
+              <div className="flex items-center gap-3">
+                <div className="accent-line bg-primary/40" />
+                <span className="text-[0.76rem] font-semibold tracking-[0.14em] text-white/40 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                  دليل المتاجر التقنية
+                </span>
+              </div>
 
               <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.08] text-white md:text-[2.8rem] lg:text-[3.4rem]">
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
