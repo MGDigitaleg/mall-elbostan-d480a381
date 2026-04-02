@@ -239,6 +239,7 @@ const StoreDetail = () => {
 
             {/* Gallery */}
             {gallery.length > 1 && (
+              <motion.div variants={fadeChild}>
               <section className="editorial-panel p-6 md:p-8">
                 <p className="section-kicker">معرض بصري</p>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -249,8 +250,8 @@ const StoreDetail = () => {
                   ))}
                 </div>
               </section>
+              </motion.div>
             )}
-          </motion.div>
 
           {/* Sidebar */}
           <div className="space-y-6">
