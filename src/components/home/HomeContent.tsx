@@ -426,7 +426,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       </section>
 
       {/* ════════════════ 4 · STORE DISCOVERY ════════════════ */}
-      <section className="page-section">
+      <section className="section-ivory page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
