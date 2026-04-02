@@ -66,9 +66,9 @@ const Leasing = () => {
             <p className="max-w-2xl leading-7 text-muted-foreground">اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
-                { icon: Store, title: "حضور تجاري متخصص" },
-                { icon: MapPin, title: "موقع يخدم الحركة" },
-                { icon: Sparkles, title: "افتتاح يرفع الزخم" },
+                { icon: Store, title: "جمهور متخصص بالتقنية" },
+                { icon: MapPin, title: "موقع في منطقة طلب فعلي" },
+                { icon: Sparkles, title: "افتتاح يرفع الحركة والزخم" },
               ].map((item) => (
                 <div key={item.title} className="editorial-panel rounded-[1.4rem] p-4">
                   <item.icon className="icon-shell mb-3 h-10 w-10 p-2.5" />
