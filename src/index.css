@@ -335,7 +335,7 @@
 
   /* ── Heritage deep (darker variant) ── */
   .heritage-deep {
-    background: hsl(222 44% 6%);
+    background: hsl(222 34% 7%);
     color: hsl(var(--navy-foreground));
   }
 
