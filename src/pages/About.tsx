@@ -109,7 +109,7 @@ const About = () => (
     </section>
 
     {/* ═══════════ 2 · WHY MALL EL BOSTAN MATTERS ═══════════ */}
-    <section className="page-section overflow-hidden">
+    <section className="section-ivory page-section overflow-hidden">
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
