@@ -43,76 +43,73 @@ const About = () => (
     />
 
     {/* ═══════════ 1 · HERO — IDENTITY STATEMENT ═══════════ */}
-    <section className="relative min-h-[82vh] overflow-hidden" style={{ background: "#071326" }}>
+    <section className="relative overflow-hidden" style={{ background: "#071326" }}>
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 70% 50%, #2D6BFF06, transparent 65%)" }} />
 
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className="grid min-h-[82vh] items-center lg:grid-cols-2">
+        <div className="grid min-h-[68vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
           {/* text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="order-1 space-y-7 px-6 py-20 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
+            className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-20 lg:pr-16 xl:pr-20"
           >
             <div className="flex items-center gap-3">
-              <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
-              <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
+              <div className="h-[2px] w-10 rounded-full" style={{ background: "#CDBB9A" }} />
+              <span className="font-poppins text-[0.62rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
                 من نحن
               </span>
             </div>
 
-            <h1 className="max-w-[22rem] text-[2.5rem] leading-[1.04] md:text-[3.4rem] lg:text-[4rem] dark-heading">
+            <h1 className="max-w-[20rem] text-[2.2rem] leading-[1.06] md:text-[2.8rem] lg:text-[3.2rem] dark-heading">
               المكان الذي
               <br />
               <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span>
             </h1>
 
-            <p className="max-w-[28rem] text-[1.02rem] leading-[2] md:text-[1.08rem] dark-body">
+            <p className="max-w-[26rem] text-[0.95rem] leading-[1.9] dark-body">
               مول البستان لم يُبنَ على وعد — بل على سيرة تجارية بدأت قبل أكثر من عقد.
-              من اشترى جهازًا أو أصلح شاشة أو جهّز بنية تقنية في القاهرة الجديدة
-              يعرف هذا العنوان. اليوم يتجدد — بنفس المصداقية التي أسّسته.
+              من يعرف سوق الإلكترونيات في القاهرة الجديدة يعرف هذا العنوان.
             </p>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2.5">
               <Link to="/map">
-                <Button variant="cta" size="lg" className="h-[3.25rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
-                  <Compass className="ml-2 h-[1.05rem] w-[1.05rem]" />
+                <Button variant="cta" className="h-11 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
+                  <Compass className="ml-2 h-4 w-4" />
                   استكشف دليل المول
                 </Button>
               </Link>
               <Link to="/stores">
-                <Button size="lg" className="h-[3.25rem] rounded-xl border px-7 text-[0.95rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
+                <Button className="h-11 rounded-lg border px-6 text-[0.85rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
                   تصفّح المتاجر
                 </Button>
               </Link>
             </div>
           </motion.div>
 
-          {/* image — edge-to-edge editorial */}
+          {/* image — restrained, not full-height bleed */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="relative order-2 hidden h-[82vh] lg:block"
+            transition={{ duration: 0.7, delay: 0.12 }}
+            className="relative order-2 hidden self-center py-10 pe-8 lg:block"
           >
-            <img
-              src={exteriorImage}
-              alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
-              className="h-full w-full object-cover img-grade-dark"
-              loading="eager"
-            />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
-            <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 35%)" }} />
-
-            {/* anchored info */}
-            <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
+            <div className="frame-geometric overflow-hidden">
+              <img
+                src={exteriorImage}
+                alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
+                className="aspect-[4/3] max-h-[360px] w-full object-cover object-[center_35%] img-grade-dark"
+                loading="eager"
+              />
+            </div>
+            <div className="mt-2 flex items-end justify-between">
               <div>
-                <p className="font-poppins text-[0.65rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>Mall Elbostan</p>
-                <p className="mt-1 text-[0.95rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
+                <p className="font-poppins text-[0.58rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>Mall Elbostan</p>
+                <p className="mt-0.5 text-[0.78rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
               </div>
-              <div className="rounded-lg px-3.5 py-2" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                <p className="text-[0.72rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
+              <div className="rounded-md px-2.5 py-1.5" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
+                <p className="text-[0.66rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
               </div>
             </div>
           </motion.div>
