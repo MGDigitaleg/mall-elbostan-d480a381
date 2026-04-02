@@ -441,10 +441,10 @@ const About = () => (
     </section>
 
     {/* ═══════════ CLOSING CTA ═══════════ */}
-    <section className="py-16 md:py-20" style={{ background: "#F5F2EC" }}>
+     <section className="py-10 md:py-12" style={{ background: "#F5F2EC" }}>
       <div className="container max-w-[900px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="flex items-center justify-center gap-3 mb-5">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
             <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase light-muted">ابدأ من هنا</span>
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
