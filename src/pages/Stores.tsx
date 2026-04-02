@@ -111,39 +111,39 @@ const Stores = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative min-h-[62vh] overflow-hidden" style={{ background: "#071326" }}>
+      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[62vh] items-center lg:grid-cols-2">
+          <div className="grid min-h-[58vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-6 px-6 py-14 md:px-12 lg:py-0 lg:pr-16 xl:pr-20">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-6 px-6 py-14 md:px-12 lg:py-16 lg:pr-16 xl:pr-20">
               <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                 Store Directory
               </p>
 
-              <h1 className="max-w-[20rem] text-[2.2rem] leading-[1.06] md:text-[3rem] lg:text-[3.4rem]" style={{ color: "#F8FAFC" }}>
+              <h1 className="max-w-[20rem] text-[2rem] leading-[1.08] md:text-[2.6rem] lg:text-[3rem]" style={{ color: "#F8FAFC" }}>
                 دليل المتاجر
                 <br />
                 <span style={{ color: "#CDBB9A" }}>التقنية.</span>
               </h1>
 
-              <p className="max-w-[26rem] text-[0.95rem] leading-[2]" style={{ color: "#94A3B8" }}>
+              <p className="max-w-[24rem] text-[0.9rem] leading-[1.9]" style={{ color: "#94A3B8" }}>
                 دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته الفعلية.
               </p>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 <a href="#directory">
-                  <Button variant="cta" size="lg" className="h-[3rem] gap-2 rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
+                  <Button variant="cta" className="h-10 gap-2 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
                     <Search className="h-4 w-4" /> ابدأ التصفح
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-[3rem] gap-2 rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+                  <Button className="h-10 gap-2 rounded-lg border px-6 text-[0.85rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
 
-              <div className="flex items-center gap-6 pt-5" style={{ borderTop: "1px solid #1E293B" }}>
+              <div className="flex items-center gap-6 pt-4" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: "50+", l: "وحدة تجارية" },
                   { v: `${primaryCategories.length}`, l: "فئة متخصصة" },
@@ -152,7 +152,7 @@ const Stores = () => {
                   <div key={s.l} className="flex items-center gap-5">
                     <div>
                       <p className="font-poppins text-[1.3rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                      <p className="text-[0.64rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
                     {i < 2 && <div className="h-7 w-px" style={{ background: "#1E293B" }} />}
                   </div>
@@ -160,10 +160,11 @@ const Stores = () => {
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative order-2 hidden h-[62vh] lg:block">
-              <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover img-grade-dark" loading="eager" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
+            {/* restrained image — not full-height bleed */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.12 }} className="relative order-2 hidden self-center py-10 pe-8 lg:block">
+              <div className="frame-geometric overflow-hidden">
+                <img src={entranceImage} alt="مدخل مول البستان" className="aspect-[4/3] max-h-[320px] w-full object-cover object-[center_35%] img-grade-dark" loading="eager" />
+              </div>
             </motion.div>
           </div>
         </div>
