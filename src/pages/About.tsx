@@ -90,18 +90,23 @@ const About = () => (
             transition={{ duration: 0.8, delay: 0.12 }}
             className="order-2 flex items-center justify-center"
           >
-            <div className="relative w-full max-w-[480px] lg:max-w-none">
-              <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:rounded-3xl">
-                <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
-                  <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover" loading="eager" />
-                  <div className="image-wash absolute inset-0" />
+            <div className="relative w-full max-w-[460px] lg:max-w-none">
+              {/* primary: wide architectural establishing shot */}
+              <div className="editorial-frame-dark overflow-hidden rounded-2xl lg:rounded-3xl">
+                <div className="image-shell img-wash-dark aspect-[3/4] lg:aspect-[4/5]">
+                  <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
                 </div>
               </div>
-              <div className="absolute -bottom-5 -right-5 hidden w-[38%] overflow-hidden rounded-xl ring-1 ring-white/10 md:block lg:rounded-2xl">
-                <div className="image-shell aspect-[3/4]">
-                  <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+              {/* secondary: cropped facade detail — texture */}
+              <div className="absolute -bottom-5 -right-5 hidden w-[40%] md:block lg:-bottom-7 lg:-right-7">
+                <div className="editorial-frame-dark overflow-hidden rounded-xl lg:rounded-2xl">
+                  <div className="image-shell img-wash-dark aspect-[1/1]">
+                    <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="img-grade-dark h-full w-full object-cover object-[center_30%]" loading="lazy" />
+                  </div>
                 </div>
               </div>
+              {/* vertical accent */}
+              <div className="absolute -left-4 top-8 hidden h-20 w-[3px] rounded-full lg:block" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.35), transparent)" }} />
             </div>
           </motion.div>
         </div>
