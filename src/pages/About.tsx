@@ -232,7 +232,7 @@ const About = () => (
             <div className="space-y-5 lg:sticky lg:top-28">
               {/* interior — cinematic vertical crop, architectural emphasis */}
               <div className="frame-cinematic overflow-hidden">
-                <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_50%]" loading="lazy" />
+                <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-arch aspect-[16/9] max-h-[260px] w-full object-cover object-[center_50%]" loading="lazy" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, #071326CC 0%, transparent 30%)" }} />
               </div>
               <div className="grid grid-cols-2 gap-2.5">
