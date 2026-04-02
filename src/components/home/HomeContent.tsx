@@ -165,18 +165,18 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               </div>
 
               {/* stats — anchored authority strip */}
-              <div className="flex items-center gap-8 pt-7" style={{ borderTop: "1px solid #ffffff14" }}>
+              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${categoryStories.length}`, l: "أقسام متخصصة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-7">
+                  <div key={s.l} className="flex items-center gap-6">
                     <div>
-                      <p className="font-poppins text-[1.7rem] font-extrabold dark-heading">{s.v}</p>
-                      <p className="text-[0.72rem] font-semibold dark-muted">{s.l}</p>
+                      <p className="font-poppins text-[1.5rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-9 w-px" style={{ background: "#ffffff14" }} />}
+                    {i < 2 && <div className="h-8 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>

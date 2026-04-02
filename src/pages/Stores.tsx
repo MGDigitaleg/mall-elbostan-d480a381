@@ -111,65 +111,56 @@ const Stores = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative min-h-[68vh] overflow-hidden" style={{ background: "#071326" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 72% 48%, #2D6BFF08, transparent 65%)" }} />
-
+      <section className="relative min-h-[62vh] overflow-hidden" style={{ background: "#071326" }}>
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[68vh] items-center lg:grid-cols-2">
+          <div className="grid min-h-[62vh] items-center lg:grid-cols-2">
 
-            {/* text */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-7 px-6 py-16 md:px-12 lg:py-0 lg:pr-16 xl:pr-20">
-              <div className="flex items-center gap-3">
-                <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
-                <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
-                  دليل المتاجر التقنية
-                </span>
-              </div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-6 px-6 py-14 md:px-12 lg:py-0 lg:pr-16 xl:pr-20">
+              <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+                Store Directory
+              </p>
 
-              <h1 className="max-w-[22rem] text-[2.4rem] leading-[1.04] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
-                تعرّف على كل متجر
+              <h1 className="max-w-[20rem] text-[2.2rem] leading-[1.06] md:text-[3rem] lg:text-[3.4rem]" style={{ color: "#F8FAFC" }}>
+                دليل المتاجر
                 <br />
-                <span style={{ color: "#CDBB9A" }}>قبل أن تصل.</span>
+                <span style={{ color: "#CDBB9A" }}>التقنية.</span>
               </h1>
 
-              <p className="max-w-[28rem] text-[1rem] leading-[2] dark-body">
+              <p className="max-w-[26rem] text-[0.95rem] leading-[2]" style={{ color: "#94A3B8" }}>
                 دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته الفعلية.
-                ابحث بالاسم أو الفئة واطّلع على التفاصيل قبل الزيارة.
               </p>
 
               <div className="flex flex-wrap gap-3">
                 <a href="#directory">
-                  <Button variant="cta" size="lg" className="h-[3.2rem] gap-2 rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
+                  <Button variant="cta" size="lg" className="h-[3rem] gap-2 rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
                     <Search className="h-4 w-4" /> ابدأ التصفح
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-[3.2rem] gap-2 rounded-xl border px-8 text-[0.95rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
+                  <Button size="lg" className="h-[3rem] gap-2 rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
 
-              {/* stats strip */}
-              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #ffffff14" }}>
+              <div className="flex items-center gap-6 pt-5" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: "50+", l: "وحدة تجارية" },
                   { v: `${primaryCategories.length}`, l: "فئة متخصصة" },
                   { v: "3", l: "أدوار تجارية" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-6">
+                  <div key={s.l} className="flex items-center gap-5">
                     <div>
-                      <p className="font-poppins text-[1.5rem] font-extrabold dark-heading">{s.v}</p>
-                      <p className="text-[0.72rem] font-semibold dark-muted">{s.l}</p>
+                      <p className="font-poppins text-[1.3rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-8 w-px" style={{ background: "#ffffff14" }} />}
+                    {i < 2 && <div className="h-7 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* image — edge-to-edge */}
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative order-2 hidden h-[68vh] lg:block">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative order-2 hidden h-[62vh] lg:block">
               <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover img-grade-dark" loading="eager" />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
               <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
