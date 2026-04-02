@@ -129,47 +129,49 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   return (
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
-        {/* architectural grid overlay */}
+      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+        {/* fine grid */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage:
-              "linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
+              "linear-gradient(hsl(0 0% 100% / 0.025) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.025) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
-        {/* subtle radial glow */}
+        {/* radial glow — offset right for RTL visual weight */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 70% 50% at 70% 50%, hsl(220 68% 40% / 0.06), transparent)",
+            background: "radial-gradient(ellipse 60% 55% at 75% 45%, hsl(220 68% 38% / 0.07), transparent 70%)",
           }}
         />
+        {/* bottom fade */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_44%_5%)] to-transparent" />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[92vh] items-center gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-0">
+          <div className="grid min-h-[94vh] items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 lg:py-0">
             {/* ── text ── */}
             <motion.div
               initial={{ opacity: 0, y: 36 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="order-1 space-y-7"
+              className="order-1 space-y-8"
             >
               <div className="flex items-center gap-3">
-                <div className="accent-line bg-primary/50" />
-                <span className="text-[0.76rem] font-semibold tracking-[0.14em] text-white/45 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                <div className="h-px w-10 bg-primary/40" />
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
                   القاهرة الجديدة — الافتتاح مايو 2026
                 </span>
               </div>
 
-              <h1 className="max-w-[36rem] text-[2.6rem] font-extrabold leading-[1.04] text-white md:text-[3.8rem] lg:text-[4.4rem]">
+              <h1 className="max-w-[34rem] text-[2.8rem] font-extrabold leading-[1.02] text-white md:text-[4rem] lg:text-[4.6rem]">
                 وجهة التقنية
                 <br className="hidden sm:block" />
                 <span className="text-gradient-blue">التي بناها السوق</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/45 md:text-[1.15rem]">
+              <p className="max-w-[30rem] text-[1rem] leading-[2.1] text-white/40 md:text-[1.12rem]">
                 مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
                 مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
                 صُنع ليخدم القرار لا التجوّل.
@@ -180,7 +182,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Button
                     variant="cta"
                     size="lg"
-                    className="h-[3.4rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[0_4px_20px_hsl(220_68%_40%/0.25)]"
+                    className="h-[3.4rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[0_4px_20px_hsl(220_68%_38%/0.25)]"
                   >
                     <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف الخريطة
@@ -189,7 +191,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/stores">
                   <Button
                     size="lg"
-                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/12"
+                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/10 bg-white/5 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/10"
                   >
                     تصفّح المتاجر
                   </Button>
@@ -198,7 +200,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Button
                     variant="ghost"
                     size="lg"
-                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold text-white/50 hover:bg-white/6 hover:text-white"
+                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold text-white/40 hover:bg-white/5 hover:text-white"
                   >
                     فرص التأجير
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
@@ -206,16 +208,16 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </Link>
               </div>
 
-              {/* stats */}
-              <div className="grid max-w-[30rem] grid-cols-3 gap-3 pt-4">
+              {/* stats — tighter, more refined */}
+              <div className="grid max-w-[28rem] grid-cols-3 gap-3 pt-3">
                 {[
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
                   { v: `${categoryStories.length}`, l: "فئات متخصصة" },
                 ].map((s) => (
-                  <div key={s.l} className="rounded-xl border border-white/8 bg-white/4 px-4 py-4 text-center backdrop-blur-sm">
-                    <p className="font-poppins text-[1.7rem] font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.72rem] font-medium text-white/35">{s.l}</p>
+                  <div key={s.l} className="stat-block-dark px-4 py-3.5">
+                    <p className="font-poppins text-[1.5rem] font-bold text-white">{s.v}</p>
+                    <p className="mt-0.5 text-[0.68rem] font-medium text-white/28">{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -228,8 +230,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               transition={{ duration: 0.8, delay: 0.12 }}
               className="order-2 flex items-center justify-center"
             >
-              <div className="relative w-full max-w-[500px] lg:max-w-none">
-                <div className="overflow-hidden rounded-2xl ring-1 ring-white/8 lg:rounded-3xl">
+              <div className="relative w-full max-w-[480px] lg:max-w-none">
+                <div className="overflow-hidden rounded-2xl ring-1 ring-white/6 lg:rounded-3xl">
                   <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
                     <img
                       src={heroImage}
@@ -241,7 +243,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                 </div>
                 {/* floating accent image */}
-                <div className="absolute -bottom-5 -right-5 hidden w-[42%] overflow-hidden rounded-xl shadow-[var(--shadow-hero-card)] ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
+                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl shadow-[var(--shadow-deep)] ring-1 ring-white/8 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
                   <div className="image-shell aspect-[3/4]">
                     <img
                       src={interiorImage}
