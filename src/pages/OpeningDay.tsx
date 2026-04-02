@@ -29,10 +29,10 @@ const OpeningDay = () => {
               <Calendar className="h-4 w-4 text-primary" />
               برنامج الإطلاق والعد التنازلي
             </div>
-            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">يوم الافتتاح بخطة واضحة من الترقب إلى الحضور</h1>
-            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على الموعد، الفعاليات، وخطوات المشاركة في الجوائز بصورة مختصرة وواضحة.</p>
+            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">الافتتاح الكبير — برنامج واضح من الترقب إلى الحضور</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">الموعد، الفعاليات، وآلية المشاركة في المكافآت — كل ما تحتاج معرفته قبل يوم الافتتاح.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {["عد تنازلي للإطلاق", "فعاليات مرتقبة", "جوائز مرتبطة بالحضور"].map((item) => (
+              {["العد التنازلي للافتتاح", "فعاليات مرتقبة", "مكافآت مرتبطة بالحضور"].map((item) => (
                 <div key={item} className="editorial-panel rounded-[1.4rem] p-4 text-sm font-semibold text-foreground">{item}</div>
               ))}
             </div>
