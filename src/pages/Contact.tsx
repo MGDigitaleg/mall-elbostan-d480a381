@@ -94,7 +94,7 @@ const Contact = () => {
       <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #1E3A5F, transparent)" }} />
 
       {/* ═══════════ INQUIRY TYPE SELECTOR ═══════════ */}
-      <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
+      <section className="py-6 md:py-8" style={{ background: "#FAFAF8" }}>
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mb-5">
