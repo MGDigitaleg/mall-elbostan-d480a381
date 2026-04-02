@@ -2,6 +2,35 @@ import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
+
+// ── Confirmed tenant names per unit ──
+const TENANT_NAMES: Record<string, string> = {
+  "G-01": "ستاتيك",
+  "G-02": "شرف",
+  "G-03": "2B",
+  "G-05": "Go Plus",
+  "G-07": "الهدى",
+  "G-08": "الصحابة",
+  "G-09": "ريد لاين",
+  "G-11": "Egypt Laptop",
+  "G-13": "HK",
+  "G-14": "WiFi",
+  "G-16": "Kareem Store",
+  "G-17": "كسر زيرو",
+  "F-06": "Express Home",
+  "F-07": "El Badr",
+  "F-08": "El Badr",
+  "F-09": "El Badr",
+  "F-10": "Time Tech",
+  "F-11": "Prime Technology",
+  "F-13": "Digital Plus",
+  "F-14": "سبارك",
+  "S-05": "Mix & Apex",
+  "S-10": "Quick Fix",
+  "S-07": "Compu Marts",
+  "S-08": "Compu Marts",
+  "S-09": "Compu Marts",
+};
 import {
   OUTER_SHELL,
   CORRIDOR_BOUNDARY,
