@@ -289,10 +289,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-8 max-w-[32rem]">
               <p className="section-kicker dark-kicker">القيمة الحقيقية</p>
-              <h2 className="section-title dark-heading">وجهة يقصدها جمهور بنيّة شراء واضحة.</h2>
+              <h2 className="section-title dark-heading">جمهور بنيّة شراء واضحة.</h2>
               <p className="mt-3 text-[0.95rem] leading-[1.9] dark-body">
-                ما يميّز المول طبيعة زوّاره: مشترٍ يعرف ما يريد، وتاجر يثق
-                في الموقع لأن حركته مبنية على طلب حقيقي.
+                مشترٍ يعرف ما يريد، وتاجر يثق في الموقع.
               </p>
             </div>
 
