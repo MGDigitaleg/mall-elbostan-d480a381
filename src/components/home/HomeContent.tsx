@@ -345,26 +345,28 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       <div className="band-primary" />
 
       {/* ════════════════ 3 · VALUE PROPOSITION ════════════════ */}
-      <section className="heritage-deep page-section">
-        <div className="container">
+      <section className="heritage-deep page-section relative overflow-hidden">
+        {/* architectural dot pattern */}
+        <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.6px, transparent 0)", backgroundSize: "32px 32px" }} />
+        <div className="relative container">
           <motion.div
             variants={sectionReveal}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="mx-auto mb-14 max-w-[40rem] text-center">
-              <p className="section-kicker text-primary/50">القيمة الحقيقية</p>
+            <div className="mx-auto mb-12 max-w-[38rem] text-center">
+              <p className="section-kicker text-primary/45">القيمة الحقيقية</p>
               <h2 className="section-title text-white">
                 مول مصمّم ليخدم — لا ليُبهر فقط.
               </h2>
-              <p className="mx-auto mt-5 max-w-[32rem] text-[1.05rem] leading-8 text-white/40">
+              <p className="mx-auto mt-4 max-w-[32rem] text-[1rem] leading-8 text-white/35">
                 سواء كنت مشتريًا يبحث عن منتج بعينه، أو تاجرًا يبحث عن موقع فعّال، أو مستثمرًا
                 يقيّم فرصة — كل تفصيلة في المول مصمّمة لتقصير المسافة بين الدخول والقرار.
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
                   icon: Users,
@@ -402,15 +404,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="flex h-full flex-col rounded-2xl border border-white/6 bg-white/[0.03] p-7 backdrop-blur-sm">
-                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/8">
+                  <div className="heritage-surface flex h-full flex-col p-7">
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-primary/15 bg-primary/8">
                       <card.icon className="h-5 w-5 text-primary" />
                     </div>
-                    <h3 className="text-[1.15rem] font-bold text-white">{card.title}</h3>
+                    <h3 className="text-[1.1rem] font-bold text-white">{card.title}</h3>
                     <ul className="mt-4 space-y-3">
                       {card.points.map((p) => (
-                        <li key={p} className="flex items-start gap-2.5 text-[0.9rem] leading-7 text-white/42">
-                          <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-primary/50" />
+                        <li key={p} className="flex items-start gap-2.5 text-[0.88rem] leading-7 text-white/38">
+                          <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-primary/40" />
                           {p}
                         </li>
                       ))}
