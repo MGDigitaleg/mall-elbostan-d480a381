@@ -628,7 +628,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     </Button>
                   </Link>
                   <Link to="/map">
-                    <Button size="lg" className="h-12 rounded-xl border border-white/12 bg-white/6 px-8 text-white hover:bg-white/12">
+                    <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">
                       شاهد الوحدات على الخريطة
                     </Button>
                   </Link>
