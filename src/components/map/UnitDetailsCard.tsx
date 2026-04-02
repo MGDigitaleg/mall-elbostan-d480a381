@@ -178,24 +178,27 @@ type Props = {
 export function UnitDetailsCard({ unit, rewardContext }: Props) {
   return (
     <div
-      className="rounded-xl border bg-card p-5 transition-all duration-300"
+      className="rounded-xl border bg-card transition-all duration-200"
       style={{
-        borderColor: unit ? statusBadge[unit.status].dot + "40" : "#D8DEE8",
+        borderColor: unit ? statusBadge[unit.status].dot + "50" : "#D8DEE8",
         boxShadow: unit
-          ? `0 0 0 1px ${statusBadge[unit.status].dot}15, var(--shadow-elevated)`
+          ? `0 0 0 1px ${statusBadge[unit.status].dot}20, 0 4px 20px hsl(0 0% 0% / 0.06)`
           : "var(--shadow-card)",
       }}
     >
-      <div className="mb-4 flex items-center gap-2">
+      {/* Panel header — anchored */}
+      <div className="flex items-center gap-2 border-b px-5 py-3" style={{ borderColor: unit ? statusBadge[unit.status].dot + "20" : "#D8DEE8" }}>
         <div
-          className="h-[3px] w-5 rounded-full transition-colors"
+          className="h-[3px] w-4 rounded-full transition-colors"
           style={{ background: unit ? statusBadge[unit.status].dot : "#94A3B8" }}
         />
-        <h2 className="text-[0.76rem] font-bold uppercase tracking-[0.18em] light-muted">
+        <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.2em]" style={{ color: "#64748B" }}>
           {unit ? "تفاصيل الوحدة" : "لوحة التفاصيل"}
         </h2>
       </div>
-      {unit ? <UnitDetail unit={unit} rewardCtx={rewardContext} /> : <EmptyPanel />}
+      <div className="p-5">
+        {unit ? <UnitDetail unit={unit} rewardCtx={rewardContext} /> : <EmptyPanel />}
+      </div>
     </div>
   );
 }
