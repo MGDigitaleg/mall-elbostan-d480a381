@@ -27,7 +27,9 @@ import exteriorImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
 import entranceImage from "@/assets/mall-entrance.jpg";
-import downtownImage from "@/assets/downtown-branch.jpg";
+import downtownImage from "@/assets/downtown-exterior.jpg";
+import downtownNight from "@/assets/downtown-night.jpg";
+import downtownInterior from "@/assets/downtown-interior-1.jpg";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
