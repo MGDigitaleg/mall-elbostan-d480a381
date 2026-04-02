@@ -54,7 +54,6 @@
 
     /* ─── Warm heritage tones ─── */
     --warm-sand: 37 28% 70%;            /* #CDBB9A */
-    --accent-gold: 37 28% 70%;          /* alias for heritage gold */
     --warm-sand-foreground: 30 14% 36%;
     --warm-stone: 40 12% 95%;           /* matches --background */
     --bronze: 37 28% 60%;               /* darker sand for accents */
@@ -624,9 +623,4 @@
 
   /* ── Heritage section variable ── */
   :root { --heritage: 37 28% 70%; }
-}
-
-@keyframes hero-progress {
-  from { width: 0; }
-  to { width: 100%; }
 }
