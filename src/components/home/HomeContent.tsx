@@ -540,7 +540,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                   <p className="section-kicker">حملة الافتتاح</p>
                   <h2 className="section-title max-w-[22rem]">افتتاح يكافئ من يحضر.</h2>
                   <p className="text-[0.92rem] leading-7 light-body">
-                    مكافآت حقيقية مرتبطة بمتاجر فعلية — شارك الآن واستلم يوم الافتتاح.
+                    شارك الآن واستلم مكافأتك يوم الافتتاح.
                   </p>
 
                   <div className="flex flex-wrap gap-6 border-t border-border pt-5">
