@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3 } from "lucide-react";
 
 const adminSections = [
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
@@ -9,7 +9,11 @@ const adminSections = [
   { title: "فئات المنتجات", icon: LayoutGrid, path: "/admin/product-categories", desc: "إدارة فئات المنتجات والتصنيفات" },
   { title: "المنتجات", icon: ShoppingBag, path: "/admin/products", desc: "إدارة المنتجات والماركتبليس" },
   { title: "الفعاليات", icon: Calendar, path: "/admin/events", desc: "إدارة فعاليات الافتتاح" },
-  { title: "المكافآت", icon: Gift, path: "/admin/rewards", desc: "إدارة جوائز أدر واربح" },
+  { title: "المكافآت القديمة", icon: Gift, path: "/admin/rewards", desc: "نظام المكافآت القديم" },
+  { title: "متاجر المسابقة", icon: Trophy, path: "/admin/competition-stores", desc: "إدارة المتاجر المشاركة في أدر واربح" },
+  { title: "مكافآت المتاجر", icon: Award, path: "/admin/store-prizes", desc: "إدارة مكافآت كل متجر" },
+  { title: "الفائزون", icon: Users, path: "/admin/spin-winners", desc: "عرض المشاركات والتحقق من الأكواد" },
+  { title: "تقارير المسابقة", icon: BarChart3, path: "/admin/spin-reports", desc: "إحصائيات وتحليلات أدر واربح" },
   { title: "العروض", icon: Tag, path: "/admin/deals", desc: "إدارة العروض اليومية" },
   { title: "الوظائف", icon: Briefcase, path: "/admin/jobs", desc: "إدارة الوظائف الشاغرة" },
   { title: "المدونة", icon: FileText, path: "/admin/blog", desc: "إدارة المقالات والأخبار" },
