@@ -467,8 +467,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                   <h2 className="section-title max-w-[22rem]">وحدتك في موقع مُثبت تجاريًا.</h2>
                 </div>
                 <p className="text-[0.92rem] leading-[1.9] light-body">
-                  وجهة يقصدها الجمهور بالفعل. وحدات بمساحات متنوعة،
-                  في منطقة طلب حقيقي، واستفسار مباشر لفريق التأجير.
+                  وحدات بمساحات متنوعة في منطقة طلب حقيقي.
                 </p>
 
                 <div className="grid grid-cols-3 gap-2.5">
