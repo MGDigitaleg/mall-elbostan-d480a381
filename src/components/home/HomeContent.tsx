@@ -486,13 +486,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
               <div className="space-y-7">
                 <div className="chapter-shell pt-7">
-                  <p className="section-kicker">فرص التأجير والاستثمار</p>
-                  <h2 className="section-title max-w-[24rem]">وحدتك في مكان مثبت تجاريًا — مش تجربة جديدة.</h2>
+                  <p className="section-kicker">الفرصة التجارية</p>
+                  <h2 className="section-title max-w-[24rem]">وحدتك في موقع مُثبت تجاريًا — وليس تجربة جديدة.</h2>
                 </div>
                 <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                  مول البستان مش موقع جديد بيحتاج إثبات — ده مكان الناس بتيجيله بالفعل.
-                  وحدات بمساحات مختلفة، في موقع الطلب عليه حقيقي، واستفسار مباشر
-                  من الخريطة لفريق التأجير.
+                  مول البستان ليس مشروعًا يبحث عن جمهور — بل وجهة يقصدها الجمهور بالفعل.
+                  وحدات بمساحات متنوعة، في منطقة طلب حقيقي، واستفسار مباشر من
+                  الخريطة لفريق التأجير.
                 </p>
 
                 {/* floor availability */}
