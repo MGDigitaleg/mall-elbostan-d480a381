@@ -625,3 +625,8 @@
   /* ── Heritage section variable ── */
   :root { --heritage: 37 28% 70%; }
 }
+
+@keyframes hero-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
