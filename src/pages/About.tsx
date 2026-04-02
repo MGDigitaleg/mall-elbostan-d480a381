@@ -362,9 +362,9 @@ const About = () => (
 
             {/* stats panel */}
             <div className="space-y-4 lg:sticky lg:top-24">
-              <div className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
+               <div className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
                 <p className="text-[0.88rem] font-bold light-muted">أرقام المول</p>
-                <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="mt-4 grid grid-cols-2 gap-2.5">
                   {[
                     { v: "3", l: "أدوار تجارية" },
                     { v: "50+", l: "وحدة تجارية" },
