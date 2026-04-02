@@ -444,7 +444,76 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       </section>
 
 
-      {/* ═══════════ 7 · SPIN & WIN ═══════════ */}
+      {/* ═══════════ 6 · MARKETPLACE TEASER ═══════════ */}
+      <section className="heritage-deep relative overflow-hidden py-8 md:py-10">
+        <div className="relative container">
+          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+            <div className="grid items-center gap-6 lg:grid-cols-[1fr_1fr] lg:gap-10">
+              {/* Right: Copy */}
+              <div className="order-1 space-y-4">
+                <div>
+                  <p className="section-kicker dark-kicker">سوق البستان الرقمي</p>
+                  <h2 className="section-title dark-heading max-w-[20rem]">تصفّح المنتجات من متاجر المول.</h2>
+                </div>
+                <p className="text-[0.85rem] leading-[1.75] dark-body max-w-[26rem]">
+                  أول منصة رقمية تجمع منتجات متاجر مول البستان في مكان واحد — تصفّح، قارن، واطلب مباشرة من التاجر.
+                </p>
+
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { icon: ShoppingBag, title: "كتالوج موحّد", desc: "كل المنتجات في مكان واحد." },
+                    { icon: Store, title: "مرتبط بالمتاجر", desc: "كل منتج مربوط بمتجره." },
+                    { icon: Zap, title: "طلب مباشر", desc: "تواصل أو اشترِ فورًا." },
+                  ].map((c) => (
+                    <div key={c.title} className="heritage-surface rounded-lg p-3 text-center">
+                      <c.icon className="mx-auto mb-1.5 h-4 w-4" style={{ color: "#5B9AFF" }} />
+                      <p className="text-[0.78rem] font-bold dark-heading">{c.title}</p>
+                      <p className="mt-0.5 text-[0.68rem] leading-[1.5] dark-muted">{c.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-2.5">
+                  <Link to="/products">
+                    <Button variant="cta" className="h-10 rounded-lg px-5 text-[0.82rem] font-bold shadow-[var(--shadow-blue)]">
+                      <ShoppingBag className="ml-1.5 h-3.5 w-3.5" /> تصفّح المنتجات
+                    </Button>
+                  </Link>
+                  <Link to="/join-marketplace">
+                    <Button className="h-10 rounded-lg border px-5 text-[0.82rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                      انضم كتاجر
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Left: Visual steps */}
+              <div className="order-2">
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  {[
+                    { n: "01", icon: Compass, label: "تصفّح الأقسام", desc: "اختر فئة المنتج الذي تبحث عنه." },
+                    { n: "02", icon: Monitor, label: "قارن المنتجات", desc: "شاهد التفاصيل والأسعار بسهولة." },
+                    { n: "03", icon: Store, label: "تعرّف على المتجر", desc: "كل منتج مربوط بمتجره في المول." },
+                    { n: "04", icon: Phone, label: "اطلب مباشرة", desc: "تواصل مع التاجر أو اطلب أونلاين." },
+                  ].map((step) => (
+                    <div key={step.n} className="heritage-surface rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="font-poppins text-[0.6rem] font-bold" style={{ color: "#CDBB9A" }}>{step.n}</span>
+                        <step.icon className="h-4 w-4" style={{ color: "#5B9AFF" }} />
+                      </div>
+                      <p className="text-[0.86rem] font-bold dark-heading">{step.label}</p>
+                      <p className="mt-0.5 text-[0.76rem] leading-[1.55] dark-body">{step.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="band-primary" />
+
       <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
