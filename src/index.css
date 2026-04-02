@@ -27,7 +27,7 @@
     --secondary-foreground: 222 47% 11%;
 
     --muted: 220 14% 87%;
-    --muted-foreground: 215 14% 55%;    /* #7B8BA3 secondary muted blue-gray */
+    --muted-foreground: 215 16% 47%;    /* #64748B — disciplined support text */
 
     --accent: 37 28% 70%;              /* #CDBB9A sand/heritage */
     --accent-foreground: 222 47% 11%;
@@ -102,7 +102,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-cairo antialiased;
+    @apply bg-background font-cairo antialiased;
+    color: #334155; /* body text default — not heading-dark */
     text-rendering: optimizeLegibility;
     line-height: 1.8;
     font-feature-settings: "ss01" 1, "liga" 1;
@@ -115,6 +116,7 @@
     letter-spacing: -0.025em;
     line-height: 1.1;
     text-wrap: balance;
+    color: hsl(var(--foreground)); /* #0F172A */
   }
 
   h2 {
@@ -123,6 +125,7 @@
     letter-spacing: -0.02em;
     line-height: 1.12;
     text-wrap: balance;
+    color: hsl(var(--foreground));
   }
 
   h3 {
@@ -131,6 +134,7 @@
     letter-spacing: -0.012em;
     line-height: 1.18;
     text-wrap: balance;
+    color: #1E293B; /* secondary heading */
   }
 
   h4 {
@@ -138,6 +142,7 @@
     font-weight: 700;
     letter-spacing: -0.005em;
     line-height: 1.24;
+    color: #1E293B;
   }
 
   p {
