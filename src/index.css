@@ -324,6 +324,9 @@
     background: hsl(var(--warm-sand));
   }
 
+  /* ── Bronze accent for heritage elements ── */
+  .text-bronze { color: hsl(var(--bronze)); }
+
   .heritage-card {
     background: hsl(222 36% 13%);
     border: 1px solid hsl(220 16% 20%);
