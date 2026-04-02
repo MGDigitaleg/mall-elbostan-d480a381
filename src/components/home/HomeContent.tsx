@@ -115,18 +115,18 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           1 · HERO — full-screen immersive with editorial image
           ════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[88vh] overflow-hidden lg:min-h-screen" style={{ background: "#071326" }}>
+      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[88vh] items-center lg:min-h-screen lg:grid-cols-2">
+          <div className="grid min-h-[75vh] items-center lg:grid-cols-[1.15fr_0.85fr]">
 
             {/* ── text column ── */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
+              className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-20 lg:pr-16 xl:pr-20"
             >
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 rounded-full" style={{ background: "#64748B" }} />
@@ -177,37 +177,32 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               </div>
             </motion.div>
 
-            {/* ── image column ── */}
+            {/* ── image column — restrained, not full-bleed ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="relative order-2 hidden h-full lg:block"
+              className="relative order-2 hidden self-center py-12 pe-6 lg:block xl:pe-10"
             >
-              <img
-                src={heroImage}
-                alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
-                className="h-full w-full object-cover object-[center_30%] img-grade-dark"
-                style={{ maxHeight: "100vh" }}
-                loading="eager"
-              />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 22%, transparent 50%)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
-
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
-                <div>
-                  <p className="font-poppins text-[0.6rem] font-bold tracking-[0.2em] uppercase dark-accent">Mall Elbostan</p>
-                  <p className="mt-0.5 text-[0.85rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
+              <div className="grid grid-cols-[1fr_0.45fr] gap-2.5">
+                {/* main — exterior, constrained height */}
+                <div className="frame-geometric overflow-hidden">
+                  <img
+                    src={heroImage}
+                    alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
+                    className="aspect-[3/4] max-h-[420px] w-full object-cover object-[center_30%] img-grade-dark"
+                    loading="eager"
+                  />
                 </div>
-                <div className="rounded-md px-3 py-1.5" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                  <p className="text-[0.68rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
-                </div>
-              </div>
-
-              {/* detail inset — smaller, tighter */}
-              <div className="absolute bottom-12 left-6 w-[22%]">
-                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 16px 40px #07132680" }}>
-                  <img src={interiorImage} alt="التفاصيل الداخلية" className="aspect-[1/1] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
+                {/* detail — interior, square crop */}
+                <div className="flex flex-col gap-2.5">
+                  <div className="frame-heritage flex-1 overflow-hidden">
+                    <img src={interiorImage} alt="التفاصيل الداخلية" className="h-full max-h-[280px] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
+                  </div>
+                  <div className="rounded-md px-3 py-2" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
+                    <p className="font-poppins text-[0.6rem] font-bold tracking-[0.18em] uppercase dark-accent">Mall Elbostan</p>
+                    <p className="mt-0.5 text-[0.72rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
