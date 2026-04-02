@@ -292,43 +292,29 @@ const InteractiveMap = () => {
           </div>
 
           {filteredUnits.filter((u) => u.status === "available").length > 0 ? (
-            <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {filteredUnits.filter((u) => u.status === "available").map((unit) => (
                 <button
                   key={unit.id}
                   onClick={() => { setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
-                  className={`group rounded-xl border bg-card p-4 text-right transition-all duration-200 ${
+                  className={`group rounded-lg border p-3.5 text-right transition-all duration-150 ${
                     activeUnit?.id === unit.id
-                      ? "border-[#E8740E] shadow-[0_0_0_2px_#E8740E33,var(--shadow-elevated)]"
-                      : "border-border hover:border-[#E8740E]/40 hover:shadow-[var(--shadow-card)]"
+                      ? "border-[#E8740E] shadow-[0_0_0_1px_#E8740E44]"
+                      : "border-border bg-card hover:border-[#E8740E]/30"
                   }`}
+                  style={activeUnit?.id === unit.id ? { background: "#FEF3E2" } : {}}
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-[0.98rem] font-bold light-heading">وحدة {unit.code}</p>
-                      <p className="mt-0.5 text-[0.78rem] light-muted">{floorLabelsAr[unit.floor]}</p>
-                    </div>
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[0.68rem] font-bold"
-                      style={{ background: "#FDE4C4", border: "1px solid #E8740E40", color: "#B85C08" }}
-                    >
-                      متاحة
-                    </span>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[0.9rem] font-bold" style={{ color: "#0F172A" }}>{unit.code}</p>
+                    <span className="text-[0.72rem] font-bold" style={{ color: "#B85C08" }}>{unit.area} م²</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between">
-                    <span className="text-[0.84rem] font-bold light-heading">{unit.area} م²</span>
-                    <span className="flex items-center gap-1 text-[0.76rem] font-semibold opacity-0 transition-opacity group-hover:opacity-100" style={{ color: "#E8740E" }}>
-                      <MapPin className="h-3 w-3" />
-                      عرض على الخريطة
-                    </span>
-                  </div>
+                  <p className="mt-1 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
                 </button>
               ))}
             </div>
           ) : (
-            <div className="rounded-xl border border-dashed border-border bg-card px-6 py-8 text-center">
-              <p className="text-[0.88rem] font-semibold light-muted">لا توجد وحدات متاحة ضمن الفلاتر الحالية في هذا الدور.</p>
-              <p className="mt-1 text-[0.82rem] light-body">جرّب تغيير الدور أو إعادة ضبط الفلاتر.</p>
+            <div className="rounded-lg border border-dashed border-border bg-card px-6 py-6 text-center">
+              <p className="text-[0.84rem] font-semibold" style={{ color: "#64748B" }}>لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
             </div>
           )}
         </div>
