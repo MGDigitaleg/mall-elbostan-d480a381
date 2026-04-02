@@ -414,6 +414,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isSelected = selectedUnitId === unit.id;
             const isHovered = hoveredId === unit.id;
             const isMuted = mutedUnitIds.has(unit.id);
+            const isHighlighted = highlightedUnitIds?.has(unit.id) ?? false;
             const colors = statusFill[unit.status];
             const stroke = statusStroke[unit.status];
 
@@ -428,8 +429,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 }}
                 transition={{ duration: 0.2 }}
                 fill={isSelected ? colors.selected : isHovered ? colors.hover : colors.base}
-                stroke={isSelected ? "#F97316" : stroke}
-                strokeWidth={isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#F97316" : stroke}
+                strokeWidth={isHighlighted ? 3 : isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
                 filter={isSelected ? "url(#selectedGlow)" : "url(#unitShadow)"}
                 className="cursor-pointer outline-none"
                 style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
