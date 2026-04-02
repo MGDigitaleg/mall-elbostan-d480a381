@@ -414,6 +414,14 @@
   .img-grade-dark {
     filter: contrast(1.1) saturate(0.75) brightness(0.88);
   }
+  /* Architectural grade — stronger desat for structural emphasis */
+  .img-grade-arch {
+    filter: contrast(1.12) saturate(0.68) brightness(0.96);
+  }
+  /* Warm editorial — subtle warmth shift for heritage sections */
+  .img-grade-warm {
+    filter: contrast(1.06) saturate(0.78) brightness(1.02) sepia(0.06);
+  }
 
   /* ── Editorial frame — thin accent border for image authority ── */
   .editorial-frame {
@@ -447,6 +455,81 @@
     pointer-events: none;
   }
 
+  /* ── Geometric crop frame — architectural precision border ── */
+  .frame-geometric {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.3);
+  }
+  .frame-geometric::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid hsl(var(--foreground) / 0.05);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ── Diptych frame — paired image composition ── */
+  .frame-diptych {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.4);
+    box-shadow: var(--shadow-card);
+  }
+  .frame-diptych::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(var(--foreground) / 0.06);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ── Cinematic frame — wide aspect emphasis ── */
+  .frame-cinematic {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.5);
+    box-shadow: var(--shadow-elevated);
+  }
+  .frame-cinematic::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(var(--foreground) / 0.07);
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 70%, hsl(var(--foreground) / 0.04) 100%);
+  }
+
+  /* ── Heritage accent border — sand-toned edge ── */
+  .frame-heritage {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.4);
+    box-shadow: var(--shadow-premium);
+  }
+  .frame-heritage::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(37 28% 70% / 0.6), transparent);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .frame-heritage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(37 28% 70% / 0.15);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
   /* ── Image warm wash — bottom heritage tone ── */
   .img-wash-warm::before {
     content: "";
@@ -463,6 +546,16 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(0deg, hsl(222 34% 7% / 0.6) 0%, transparent 45%, hsl(222 34% 7% / 0.15) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Architectural vignette — soft corner darkening ── */
+  .img-vignette::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 50%, hsl(var(--foreground) / 0.08) 100%);
     pointer-events: none;
     z-index: 1;
   }
