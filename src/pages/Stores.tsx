@@ -398,8 +398,8 @@ const Stores = () => {
         <section className="page-section">
           <div className="container max-w-[1200px]">
             <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-              <p className="section-kicker">متاجر مميّزة</p>
-              <h2 className="section-title mb-8">وجهات تقنية بارزة داخل المول.</h2>
+              <p className="section-kicker">وجهات بارزة</p>
+              <h2 className="section-title mb-8">علامات تقنية رائدة داخل المول.</h2>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {featuredStores.slice(0, 4).map((store) => (
