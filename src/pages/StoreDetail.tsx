@@ -175,7 +175,7 @@ const StoreDetail = () => {
                   </a>
                 )}
               </div>
-            </div>
+            </motion.div>
 
             {/* Hero Image */}
             <div className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
