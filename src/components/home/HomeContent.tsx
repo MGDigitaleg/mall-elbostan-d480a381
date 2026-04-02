@@ -606,14 +606,14 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* text */}
               <div className="space-y-5">
                 <div className="chapter-shell border-primary/40 pt-6">
-                  <p className="section-kicker">الفرصة التجارية</p>
+                  <p className="section-kicker">التأجير والاستثمار</p>
                   <h2 className="section-title max-w-[24rem]">
-                    موقعك في وجهة يقصدها الجمهور المناسب.
+                    وحدتك في مكان يقصده الناس فعلًا.
                   </h2>
                 </div>
                 <p className="max-w-[32rem] text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                  ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا
-                  بحثًا عن التقنية. وحدات بمساحات متعددة واستفسار يصل للفريق مباشرة.
+                  مول البستان ليس موقعًا جديدًا يحتاج إثبات — إنه وجهة مثبتة بحركة
+                  تجارية حقيقية. وحدات جاهزة بمساحات مختلفة واستفسار مباشر.
                 </p>
 
                 {/* floor availability — compact */}
