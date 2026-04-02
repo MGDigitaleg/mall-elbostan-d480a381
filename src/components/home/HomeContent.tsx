@@ -469,46 +469,43 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-              <div className="space-y-7">
-                <div className="chapter-shell pt-7">
+            <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+              <div className="space-y-5">
+                <div className="chapter-shell pt-5">
                   <p className="section-kicker">الفرصة التجارية</p>
-                  <h2 className="section-title max-w-[24rem]">وحدتك في موقع مُثبت تجاريًا — وليس تجربة جديدة.</h2>
+                  <h2 className="section-title max-w-[22rem]">وحدتك في موقع مُثبت تجاريًا.</h2>
                 </div>
-                <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                  مول البستان ليس مشروعًا يبحث عن جمهور — بل وجهة يقصدها الجمهور بالفعل.
-                  وحدات بمساحات متنوعة، في منطقة طلب حقيقي، واستفسار مباشر من
-                  الخريطة لفريق التأجير.
+                <p className="text-[0.92rem] leading-[1.9] light-body">
+                  وجهة يقصدها الجمهور بالفعل. وحدات بمساحات متنوعة،
+                  في منطقة طلب حقيقي، واستفسار مباشر لفريق التأجير.
                 </p>
 
-                {/* floor availability */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2.5">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="rounded-xl border border-border bg-card px-4 py-5 text-center">
-                      <p className="font-poppins text-[1.8rem] font-extrabold light-heading">{f.count}</p>
-                      <p className="mt-1 text-[0.76rem] font-semibold light-muted">{f.label}</p>
+                    <div key={f.id} className="rounded-lg border border-border bg-card px-3 py-4 text-center">
+                      <p className="font-poppins text-[1.5rem] font-extrabold light-heading">{f.count}</p>
+                      <p className="mt-0.5 text-[0.72rem] font-semibold light-muted">{f.label}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* trust chips */}
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: MapPin, label: "موقع مقصود" },
                     { icon: Users, label: "جمهور بنيّة شراء" },
                     { icon: TrendingUp, label: "طلب متنامٍ سنويًا" },
                     { icon: Layers, label: "تصنيف تجاري دقيق" },
                   ].map((p) => (
-                    <div key={p.label} className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-3.5">
-                      <p.icon className="h-4 w-4 text-primary" />
-                      <span className="text-[0.88rem] font-bold light-heading">{p.label}</span>
+                    <div key={p.label} className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5">
+                      <p.icon className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-[0.82rem] font-bold light-heading">{p.label}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-3 pt-3">
-                  <Link to="/leasing"><Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">ابدأ استفسار التأجير</Button></Link>
-                  <Link to="/map"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">شاهد الوحدات على الخريطة</Button></Link>
+                <div className="flex flex-wrap gap-2.5 pt-2">
+                  <Link to="/leasing"><Button variant="orange" className="h-10 rounded-lg px-6 font-bold text-[0.85rem]">استفسار التأجير</Button></Link>
+                  <Link to="/map"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">الوحدات على الخريطة</Button></Link>
                 </div>
               </div>
 
