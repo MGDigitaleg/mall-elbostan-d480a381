@@ -62,7 +62,7 @@ const About = () => (
               </span>
             </div>
 
-            <h1 className="max-w-[20rem] text-[2.2rem] leading-[1.06] md:text-[2.8rem] lg:text-[3.2rem] dark-heading">
+            <h1 className="max-w-[20rem] text-[1.75rem] leading-[1.1] md:text-[2.2rem] lg:text-[2.5rem] dark-heading">
               المكان الذي
               <br />
               <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span>

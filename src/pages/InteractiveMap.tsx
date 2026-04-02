@@ -172,7 +172,7 @@ const InteractiveMap = () => {
                 <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
                   Interactive Directory
                 </p>
-                <h1 className="mt-1.5 text-[1.5rem] leading-[1.08] md:text-[1.85rem] lg:text-[2.2rem]" style={{ color: "#F8FAFC" }}>
+                <h1 className="mt-1.5 text-[1.35rem] leading-[1.12] md:text-[1.6rem] lg:text-[1.85rem]" style={{ color: "#F8FAFC" }}>
                   الدليل التفاعلي لمول البستان
                 </h1>
                 <p className="mt-1.5 max-w-[26rem] text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>

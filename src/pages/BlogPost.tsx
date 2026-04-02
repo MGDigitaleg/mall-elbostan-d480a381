@@ -26,7 +26,7 @@ const BlogPost = () => {
       <article className="container py-20 max-w-3xl">
         <Link to="/blog" className="text-primary text-sm flex items-center gap-1 mb-6 hover:underline"><ArrowRight className="w-4 h-4" /> العودة للمدونة</Link>
         {post.cover_image_url && <img src={post.cover_image_url} alt={post.title_ar} className="w-full h-64 object-cover rounded-xl mb-8" />}
-        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{post.title_ar}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{post.title_ar}</h1>
         {post.published_at && <p className="text-sm text-accent mb-8">{new Date(post.published_at).toLocaleDateString("ar-EG")}</p>}
         <div className="prose prose-invert max-w-none text-foreground/90 leading-relaxed whitespace-pre-line">{post.content_ar}</div>
       </article>

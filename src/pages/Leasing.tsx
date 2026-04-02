@@ -82,7 +82,7 @@ const Leasing = () => {
                 </span>
               </div>
 
-              <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.06] dark-heading md:text-[2.8rem] lg:text-[3.2rem]">
+              <h1 className="max-w-[28rem] text-[1.7rem] font-extrabold leading-[1.1] dark-heading md:text-[2.2rem] lg:text-[2.5rem]">
                 وحدتك في الوجهة التي يقصدها الجمهور
               </h1>
 

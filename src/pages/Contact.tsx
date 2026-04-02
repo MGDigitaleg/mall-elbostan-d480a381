@@ -80,7 +80,7 @@ const Contact = () => {
           <div className="py-8 md:py-11">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <p className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.28em]" style={{ color: "#64748B" }}>Contact</p>
-              <h1 className="mt-2 max-w-[22rem] text-[1.7rem] font-extrabold leading-[1.08] md:text-[2.2rem] lg:text-[2.6rem]" style={{ color: "#F8FAFC" }}>
+              <h1 className="mt-2 max-w-[22rem] text-[1.5rem] font-extrabold leading-[1.1] md:text-[1.85rem] lg:text-[2.15rem]" style={{ color: "#F8FAFC" }}>
                 تواصل مع فريق مول البستان
               </h1>
               <p className="mt-2 max-w-[30rem] text-[0.86rem] leading-[1.9]" style={{ color: "#94A3B8" }}>
