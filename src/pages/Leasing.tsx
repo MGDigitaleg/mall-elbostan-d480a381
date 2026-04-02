@@ -141,7 +141,7 @@ const Leasing = () => {
        <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
-            <div className="mb-8 flex items-center gap-3">
+            <div className="mb-6 flex items-center gap-3">
               <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
               <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
                 لماذا هنا
