@@ -302,17 +302,20 @@ const About = () => (
               </Link>
             </div>
 
-            {/* editorial imagery */}
-            <div className="space-y-3">
-              <div className="editorial-frame overflow-hidden rounded-2xl">
-                <img src={interiorImage} alt="المشهد الداخلي المنظّم" className="img-grade aspect-[16/9] w-full object-cover" loading="lazy" />
+            {/* structured diptych — exterior widescreen + facade detail */}
+            <div className="space-y-2.5">
+              <div className="frame-cinematic overflow-hidden">
+                <img src={exteriorImage} alt="الواجهة الخارجية" className="img-grade-warm aspect-[16/9] w-full object-cover object-[center_40%]" loading="lazy" />
               </div>
-              <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
-                <div className="editorial-frame overflow-hidden rounded-xl">
-                  <img src={facadeImage} alt="واجهة معمارية" className="img-grade aspect-[3/2] w-full object-cover object-[center_40%]" loading="lazy" />
+              <div className="grid grid-cols-[0.55fr_0.45fr] gap-2.5">
+                <div className="frame-geometric overflow-hidden">
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[4/3] w-full object-cover object-[center_45%]" loading="lazy" />
                 </div>
-                <div className="editorial-frame overflow-hidden rounded-xl">
-                  <img src={entranceImage} alt="مدخل المول" className="img-grade aspect-[3/2] w-full object-cover object-[50%_30%]" loading="lazy" />
+                <div className="flex items-center justify-center rounded-md border border-border bg-card p-4">
+                  <div className="text-center">
+                    <p className="font-poppins text-[1.4rem] font-extrabold light-heading">6</p>
+                    <p className="mt-0.5 text-[0.72rem] font-bold light-muted">أقسام تقنية متخصصة</p>
+                  </div>
                 </div>
               </div>
             </div>
