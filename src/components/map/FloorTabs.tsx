@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import { mallFloors } from "@/lib/mallFloorGeometry";
 
@@ -9,16 +8,19 @@ type Props = {
 
 export function FloorTabs({ selected, onChange }: Props) {
   return (
-    <div className="flex flex-wrap gap-2 md:gap-2.5">
+    <div className="flex gap-1.5 rounded-xl border border-border bg-secondary/50 p-1">
       {mallFloors.map((f) => (
-        <Button
+        <button
           key={f.id}
-          variant={selected === f.id ? "default" : "outline"}
           onClick={() => onChange(f.id)}
-          className="h-12 rounded-full px-[1.375rem] text-sm"
+          className={`rounded-lg px-5 py-2.5 text-[0.82rem] font-semibold transition-all ${
+            selected === f.id
+              ? "bg-primary text-primary-foreground shadow-sm"
+              : "text-muted-foreground hover:bg-card hover:text-foreground"
+          }`}
         >
           {f.label}
-        </Button>
+        </button>
       ))}
     </div>
   );
