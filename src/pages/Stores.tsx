@@ -377,9 +377,9 @@ const Stores = () => {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                   <Layers3 className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج مطابقة</h3>
+                <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج ضمن هذا التصفية</h3>
                 <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 text-white/40">
-                  جرّب تغيير الفلتر أو البحث بكلمة مختلفة. الدليل يتم تحديثه باستمرار مع انضمام متاجر جديدة.
+                  عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتم تحديثه مع انضمام متاجر جديدة.
                 </p>
                 <button
                   onClick={() => { setSearch(""); setSelectedCategory(""); setSelectedStatus(""); }}
