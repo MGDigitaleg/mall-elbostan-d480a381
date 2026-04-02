@@ -562,7 +562,7 @@ function EcosystemGrowingState() {
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to="/map">
             <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
-              <Compass className="h-4 w-4" /> شوف الوحدات على الخريطة
+              <Compass className="h-4 w-4" /> استعرض الوحدات على الخريطة
             </Button>
           </Link>
           <Link to="/leasing">
