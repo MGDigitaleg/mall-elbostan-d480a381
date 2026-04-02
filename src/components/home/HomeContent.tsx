@@ -30,6 +30,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
+import { HeroSlider } from "@/components/home/HeroSlider";
+import { HeroMiniMap } from "@/components/home/HeroMiniMap";
 
 import {
   allMapUnits,
@@ -40,10 +42,6 @@ import {
   needCategoryLabels,
   type NeedCategory,
 } from "@/lib/floorMapData";
-import heroImage from "@/assets/mall-exterior.jpg";
-import interiorImage from "@/assets/mall-interior.jpg";
-import facadeImage from "@/assets/mall-facade.jpg";
-import entranceImage from "@/assets/mall-entrance.jpg";
 
 /* ─── category ─── */
 const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
