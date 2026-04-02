@@ -508,10 +508,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 {/* trust chips */}
                 <div className="grid grid-cols-2 gap-2.5">
                   {[
-                    { icon: MapPin, label: "موقع استراتيجي" },
-                    { icon: Users, label: "جمهور متخصص" },
-                    { icon: TrendingUp, label: "طلب متنامٍ" },
-                    { icon: Layers, label: "أقسام منظّمة" },
+                    { icon: MapPin, label: "موقع مقصود" },
+                    { icon: Users, label: "جمهور بنيّة شراء" },
+                    { icon: TrendingUp, label: "طلب متنامٍ سنويًا" },
+                    { icon: Layers, label: "تصنيف تجاري دقيق" },
                   ].map((p) => (
                     <div key={p.label} className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-3.5">
                       <p.icon className="h-4 w-4 text-primary" />
