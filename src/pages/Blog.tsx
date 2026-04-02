@@ -18,7 +18,7 @@ const Blog = () => {
     <MainLayout>
       <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." descriptionEn="Latest news and articles about technology and Mall Elbostan." breadcrumbs={[{ name: "المدونة", url: "/blog" }]} />
       <div className="container py-20">
-        <h1 className="text-4xl font-bold text-gradient-blue mb-8">المدونة</h1>
+        <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">المدونة</h1>
         {isLoading ? <LoadingGrid /> : posts && posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
