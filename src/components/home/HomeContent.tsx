@@ -605,14 +605,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* text */}
               <div className="space-y-6">
                 <div className="chapter-shell border-primary/40 pt-6">
-                  <p className="section-kicker">التأجير والفرص التجارية</p>
+                  <p className="section-kicker">الفرصة التجارية</p>
                   <h2 className="section-title max-w-[26rem]">
-                    موقعك التجاري في أكبر وجهة تقنية بالقاهرة الجديدة.
+                    موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
                 <p className="text-base leading-8 text-white/50 md:text-lg">
-                  وحدات متنوعة المساحات في ثلاثة أدوار — كل واحدة مرتبطة مباشرة بالخريطة التفاعلية
-                  وبيانات الحالة والمساحة والفئة. الاستفسار يبدأ من هنا ويصل للفريق المختص فورًا.
+                  ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
+                  التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
 
                 {/* floor availability */}
