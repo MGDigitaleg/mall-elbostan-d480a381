@@ -90,18 +90,23 @@ const About = () => (
             transition={{ duration: 0.8, delay: 0.12 }}
             className="order-2 flex items-center justify-center"
           >
-            <div className="relative w-full max-w-[480px] lg:max-w-none">
-              <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:rounded-3xl">
-                <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
-                  <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover" loading="eager" />
-                  <div className="image-wash absolute inset-0" />
+            <div className="relative w-full max-w-[460px] lg:max-w-none">
+              {/* primary: wide architectural establishing shot */}
+              <div className="editorial-frame-dark overflow-hidden rounded-2xl lg:rounded-3xl">
+                <div className="image-shell img-wash-dark aspect-[3/4] lg:aspect-[4/5]">
+                  <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
                 </div>
               </div>
-              <div className="absolute -bottom-5 -right-5 hidden w-[38%] overflow-hidden rounded-xl ring-1 ring-white/10 md:block lg:rounded-2xl">
-                <div className="image-shell aspect-[3/4]">
-                  <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+              {/* secondary: cropped facade detail — texture */}
+              <div className="absolute -bottom-5 -right-5 hidden w-[40%] md:block lg:-bottom-7 lg:-right-7">
+                <div className="editorial-frame-dark overflow-hidden rounded-xl lg:rounded-2xl">
+                  <div className="image-shell img-wash-dark aspect-[1/1]">
+                    <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="img-grade-dark h-full w-full object-cover object-[center_30%]" loading="lazy" />
+                  </div>
                 </div>
               </div>
+              {/* vertical accent */}
+              <div className="absolute -left-4 top-8 hidden h-20 w-[3px] rounded-full lg:block" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.35), transparent)" }} />
             </div>
           </motion.div>
         </div>
@@ -114,14 +119,17 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="order-2 lg:order-1">
-              <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover" loading="lazy" />
+              <div className="grid gap-3 md:grid-cols-[1.15fr_0.55fr]">
+                {/* wide: entrance — scale & context */}
+                <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[4/3] h-full w-full object-cover object-[center_35%]" loading="lazy" />
                 </div>
-                <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl ring-1 ring-border md:block">
-                  <img src={interiorImage} alt="الأتريوم الداخلي" className="h-full w-full object-cover" loading="lazy" />
+                {/* narrow: interior — atmosphere & depth */}
+                <div className="editorial-frame hidden overflow-hidden rounded-2xl md:block">
+                  <img src={interiorImage} alt="الأتريوم الداخلي" className="img-grade aspect-[2/3] h-full w-full object-cover" loading="lazy" />
                 </div>
               </div>
+              <div className="mt-3 h-[2px] w-16 rounded-full" style={{ background: "linear-gradient(90deg, hsl(30 20% 52% / 0.3), transparent)" }} />
             </div>
 
             <div className="order-1 space-y-6 lg:order-2">
@@ -274,16 +282,19 @@ const About = () => (
               </Link>
             </div>
 
+            {/* editorial image composition — modular blocks */}
             <div className="space-y-3">
-              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                <img src={interiorImage} alt="المشهد الداخلي المنظّم لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+              {/* wide: interior panoramic — spatial understanding */}
+              <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                <img src={interiorImage} alt="المشهد الداخلي المنظّم لمول البستان" className="img-grade aspect-[16/9] h-full w-full object-cover" loading="lazy" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
-                  <img src={facadeImage} alt="واجهة معمارية" className="h-full w-full object-cover" loading="lazy" />
+              {/* pair: facade + entrance — asymmetric detail crops */}
+              <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
+                <div className="editorial-frame overflow-hidden rounded-xl">
+                  <img src={facadeImage} alt="واجهة معمارية" className="img-grade aspect-[3/2] h-full w-full object-cover object-[center_40%]" loading="lazy" />
                 </div>
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
-                  <img src={entranceImage} alt="مدخل المول" className="h-full w-full object-cover" loading="lazy" />
+                <div className="editorial-frame overflow-hidden rounded-xl">
+                  <img src={entranceImage} alt="مدخل المول" className="img-grade aspect-[3/2] h-full w-full object-cover object-[50%_30%]" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -378,8 +389,8 @@ const About = () => (
                 </div>
               </div>
 
-              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                <img src={exteriorImage} alt="مول البستان من الخارج" className="h-full w-full object-cover" loading="lazy" />
+              <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                <img src={exteriorImage} alt="مول البستان من الخارج" className="img-grade aspect-[4/3] w-full object-cover" loading="lazy" />
               </div>
             </div>
           </div>

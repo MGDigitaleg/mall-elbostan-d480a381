@@ -224,7 +224,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
             </motion.div>
 
-            {/* ── hero image composite ── */}
+            {/* ── hero image composite — editorial layered composition ── */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -232,35 +232,37 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-2 flex items-center justify-center"
             >
               <div className="relative w-full max-w-[480px] lg:max-w-none">
-                {/* main image with editorial crop frame */}
-                <div className="overflow-hidden rounded-2xl ring-1 ring-white/8 lg:rounded-3xl">
-                  <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
+                {/* primary: tall architectural crop — facade authority */}
+                <div className="editorial-frame-dark overflow-hidden rounded-2xl lg:rounded-3xl">
+                  <div className="image-shell img-wash-dark aspect-[3/4] lg:aspect-[4/5]">
                     <img
                       src={heroImage}
                       alt="الواجهة الرئيسية لمول البستان"
-                      className="h-full w-full object-cover"
-                      style={{ filter: "contrast(1.04) saturate(0.92)" }}
+                      className="img-grade-dark h-full w-full object-cover"
                       loading="eager"
                     />
-                    {/* editorial gradient wash — bottom to top */}
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.6) 0%, transparent 40%, hsl(222 34% 6% / 0.15) 100%)" }} />
                   </div>
                 </div>
-                {/* floating accent — interior detail */}
-                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl shadow-[var(--shadow-deep)] ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
-                  <div className="image-shell aspect-[3/4]">
-                    <img
-                      src={interiorImage}
-                      alt="المشهد الداخلي لمول البستان"
-                      className="h-full w-full object-cover"
-                      style={{ filter: "contrast(1.05) saturate(0.9)" }}
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.35) 0%, transparent 50%)" }} />
+
+                {/* secondary: floating interior detail — texture & atmosphere */}
+                <div className="absolute -bottom-5 -right-5 hidden w-[42%] md:block lg:-bottom-7 lg:-right-7">
+                  <div className="editorial-frame-dark overflow-hidden rounded-xl lg:rounded-2xl">
+                    <div className="image-shell img-wash-dark aspect-[1/1]">
+                      <img
+                        src={interiorImage}
+                        alt="المشهد الداخلي لمول البستان"
+                        className="img-grade-dark h-full w-full object-cover object-center"
+                        loading="lazy"
+                      />
+                    </div>
                   </div>
                 </div>
-                {/* architectural frame accent */}
-                <div className="absolute -left-3 top-12 hidden h-20 w-[3px] rounded-full lg:block" style={{ background: "hsl(220 68% 50% / 0.35)" }} />
+
+                {/* architectural accent line — vertical precision mark */}
+                <div className="absolute -left-4 top-10 hidden h-24 w-[3px] rounded-full lg:block" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.4), transparent)" }} />
+
+                {/* architectural accent line — horizontal base mark */}
+                <div className="absolute -bottom-2 left-8 hidden h-[3px] w-16 rounded-full lg:block" style={{ background: "linear-gradient(90deg, hsl(222 58% 50% / 0.3), transparent)" }} />
               </div>
             </motion.div>
           </div>
@@ -290,30 +292,30 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              {/* imagery — editorial composition */}
+              {/* imagery — asymmetric editorial composition */}
               <div className="order-2 lg:order-1">
-                <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
-                  <div className="image-architectural overflow-hidden rounded-2xl">
+                <div className="grid gap-3 md:grid-cols-[1.15fr_0.55fr]">
+                  {/* wide: entrance establishing shot — scale & authority */}
+                  <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
                     <img
                       src={entranceImage}
                       alt="مدخل مول البستان"
-                      className="aspect-[4/3] h-full w-full object-cover"
-                      style={{ filter: "contrast(1.03) saturate(0.95)" }}
+                      className="img-grade aspect-[4/3] h-full w-full object-cover object-[center_35%]"
                       loading="lazy"
                     />
-                    {/* subtle color grade overlay */}
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, hsl(36 20% 92% / 0.3) 100%)" }} />
                   </div>
-                  <div className="image-architectural hidden overflow-hidden rounded-2xl md:block">
+                  {/* narrow: facade detail — texture & architectural character */}
+                  <div className="editorial-frame hidden overflow-hidden rounded-2xl md:block">
                     <img
                       src={facadeImage}
-                      alt="واجهة معمارية لمول البستان"
-                      className="aspect-[3/5] h-full w-full object-cover object-center"
-                      style={{ filter: "contrast(1.03) saturate(0.95)" }}
+                      alt="تفاصيل الواجهة المعمارية لمول البستان"
+                      className="img-grade aspect-[2/3] h-full w-full object-cover object-[center_40%]"
                       loading="lazy"
                     />
                   </div>
                 </div>
+                {/* subtle bronze accent bar below images */}
+                <div className="mt-3 h-[2px] w-20 rounded-full" style={{ background: "linear-gradient(90deg, hsl(30 20% 52% / 0.35), transparent)" }} />
               </div>
               {/* text */}
               <div className="order-1 space-y-6 lg:order-2">

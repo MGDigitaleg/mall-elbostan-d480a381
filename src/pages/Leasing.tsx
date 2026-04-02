@@ -116,9 +116,13 @@ const Leasing = () => {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }} className="hidden items-center justify-center lg:flex">
-              <div className="image-architectural aspect-[4/5] w-full max-w-[420px] overflow-hidden shadow-[var(--shadow-deep)]" style={{ border: "1px solid hsl(0 0% 100% / 0.06)" }}>
-                <img src={facadeImage} alt="واجهة مول البستان" className="h-full w-full object-cover" loading="eager" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(222 44% 6% / 0.5), transparent 50%)" }} />
+              <div className="relative w-full max-w-[420px]">
+                {/* primary: tall facade — commercial authority */}
+                <div className="editorial-frame-dark img-wash-dark overflow-hidden">
+                  <img src={facadeImage} alt="واجهة مول البستان" className="img-grade-dark aspect-[4/5] w-full object-cover" loading="eager" />
+                </div>
+                {/* architectural accent */}
+                <div className="absolute -left-3 bottom-16 h-20 w-[3px] rounded-full" style={{ background: "linear-gradient(180deg, hsl(24 85% 50% / 0.35), transparent)" }} />
               </div>
             </motion.div>
           </div>
