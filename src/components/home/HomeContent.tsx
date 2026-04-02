@@ -137,7 +137,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </span>
               </div>
 
-              <h1 className="max-w-[24rem] text-[2.6rem] leading-[1.04] md:text-[3.6rem] lg:text-[4.2rem] dark-heading">
+              <h1 className="max-w-[24rem] text-[2.4rem] leading-[1.06] md:text-[3.4rem] lg:text-[4rem]" style={{ color: "#F8FAFC" }}>
                 المكان الذي بناه
                 <br />
                 <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
