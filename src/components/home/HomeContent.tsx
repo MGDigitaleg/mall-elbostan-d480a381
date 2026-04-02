@@ -830,11 +830,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <p className="section-kicker">أسئلة شائعة</p>
                   <h2 className="text-[1.8rem] font-bold leading-[1.08] text-foreground md:text-[2.5rem]">
                     <HelpCircle className="ml-2 hidden h-6 w-6 text-primary md:inline-block" />
-                    إجابات سريعة
+                    أسئلة متكررة
                   </h2>
                 </div>
                 <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
-                  الأسئلة الأكثر تكرارًا حول المول والتأجير والافتتاح.
+                  ما يحتاج الزائر والتاجر معرفته قبل الزيارة أو الاستفسار.
                 </p>
                 <Link to="/faq" className="mt-4 inline-flex">
                   <Button
