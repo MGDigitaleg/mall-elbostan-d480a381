@@ -71,9 +71,11 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#06B6D4",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, highlightedUnitIds, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [atriumHovered, setAtriumHovered] = useState(false);
+  const pulseColor = atriumConfig?.pulseColor ?? "#2563EB";
+  const atriumLabel = atriumConfig?.label ?? "اكتشف المكافآت";
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
