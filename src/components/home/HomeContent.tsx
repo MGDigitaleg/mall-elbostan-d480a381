@@ -252,7 +252,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       <section className="border-b border-border bg-card py-5 md:py-7">
         <div className="container flex flex-col items-center gap-3 md:flex-row md:justify-between">
           <p className="text-sm font-semibold text-muted-foreground">
-            العد التنازلي لافتتاح مول البستان
+            الافتتاح الكبير — العد التنازلي
           </p>
           <CountdownTimer compact />
         </div>
