@@ -126,19 +126,17 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
 
-            {/* editorial imagery */}
+            {/* editorial diptych — entrance (main) + facade (architectural detail) */}
             <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="editorial-frame overflow-hidden rounded-2xl">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[4/3] w-full object-cover object-[center_35%]" loading="lazy" />
+              <div className="grid grid-cols-[0.6fr_0.4fr] gap-2.5">
+                <div className="frame-cinematic overflow-hidden">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[3/4] w-full object-cover object-[center_35%]" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-5 -left-4 w-[36%] md:-left-6">
-                  <div className="editorial-frame overflow-hidden rounded-xl">
-                    <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade aspect-[3/4] w-full object-cover object-[center_40%]" loading="lazy" />
-                  </div>
+                <div className="frame-heritage overflow-hidden">
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_40%]" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-2 right-0 h-[3px] w-20 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A80, transparent)" }} />
               </div>
+              <div className="mt-2 h-[2px] w-16 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A60, transparent)" }} />
             </div>
 
             {/* text */}
@@ -235,8 +233,10 @@ const About = () => (
 
             {/* editorial image + stats panel */}
             <div className="space-y-5 lg:sticky lg:top-28">
-              <div className="editorial-frame overflow-hidden rounded-2xl">
-                <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-dark aspect-[4/5] w-full object-cover" loading="lazy" />
+              {/* interior — cinematic vertical crop, architectural emphasis */}
+              <div className="frame-cinematic overflow-hidden">
+                <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_50%]" loading="lazy" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, #071326CC 0%, transparent 30%)" }} />
               </div>
               <div className="grid grid-cols-2 gap-2.5">
                 {[
@@ -302,17 +302,20 @@ const About = () => (
               </Link>
             </div>
 
-            {/* editorial imagery */}
-            <div className="space-y-3">
-              <div className="editorial-frame overflow-hidden rounded-2xl">
-                <img src={interiorImage} alt="المشهد الداخلي المنظّم" className="img-grade aspect-[16/9] w-full object-cover" loading="lazy" />
+            {/* structured diptych — exterior widescreen + facade detail */}
+            <div className="space-y-2.5">
+              <div className="frame-cinematic overflow-hidden">
+                <img src={exteriorImage} alt="الواجهة الخارجية" className="img-grade-warm aspect-[16/9] w-full object-cover object-[center_40%]" loading="lazy" />
               </div>
-              <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
-                <div className="editorial-frame overflow-hidden rounded-xl">
-                  <img src={facadeImage} alt="واجهة معمارية" className="img-grade aspect-[3/2] w-full object-cover object-[center_40%]" loading="lazy" />
+              <div className="grid grid-cols-[0.55fr_0.45fr] gap-2.5">
+                <div className="frame-geometric overflow-hidden">
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[4/3] w-full object-cover object-[center_45%]" loading="lazy" />
                 </div>
-                <div className="editorial-frame overflow-hidden rounded-xl">
-                  <img src={entranceImage} alt="مدخل المول" className="img-grade aspect-[3/2] w-full object-cover object-[50%_30%]" loading="lazy" />
+                <div className="flex items-center justify-center rounded-md border border-border bg-card p-4">
+                  <div className="text-center">
+                    <p className="font-poppins text-[1.4rem] font-extrabold light-heading">6</p>
+                    <p className="mt-0.5 text-[0.72rem] font-bold light-muted">أقسام تقنية متخصصة</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -387,8 +390,8 @@ const About = () => (
                 </div>
               </div>
 
-              <div className="editorial-frame overflow-hidden rounded-2xl">
-                <img src={exteriorImage} alt="مول البستان من الخارج" className="img-grade aspect-[4/3] w-full object-cover" loading="lazy" />
+              <div className="frame-heritage overflow-hidden">
+                <img src={entranceImage} alt="مول البستان — المدخل" className="img-grade aspect-[4/3] w-full object-cover object-[center_35%]" loading="lazy" />
               </div>
             </div>
           </div>

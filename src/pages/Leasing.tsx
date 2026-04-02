@@ -11,7 +11,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import facadeImage from "@/assets/mall-facade.jpg";
+import entranceImage from "@/assets/mall-entrance.jpg";
 
 const reveal = {
   hidden: { opacity: 0, y: 22 },
@@ -124,9 +124,9 @@ const Leasing = () => {
             {/* Image */}
             <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="hidden lg:flex lg:items-center lg:justify-center">
               <div className="w-full max-w-[400px]">
-                <div className="editorial-frame-dark overflow-hidden rounded-2xl">
+                <div className="frame-heritage overflow-hidden">
                   <div className="image-shell img-wash-dark aspect-[3/4]">
-                    <img src={facadeImage} alt="واجهة مول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
+                    <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-arch h-full w-full object-cover object-[center_35%]" loading="eager" />
                   </div>
                 </div>
               </div>
