@@ -50,30 +50,30 @@ export function MapTeaserPreview() {
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
 
   return (
-    <div className="grid items-start gap-3 lg:grid-cols-[1fr_240px]">
+    <div className="grid items-start gap-4 lg:grid-cols-[1fr_280px]">
       {/* ── Compact map ── */}
-      <div className="overflow-hidden rounded-xl max-h-[340px]" style={{ border: "1px solid #C8C3BB" }}>
+      <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #C8C3BB" }}>
         {/* Mini stats bar */}
-        <div className="flex items-center justify-between px-2.5 py-1" style={{ background: "#F5F2EC", borderBottom: "1px solid #D8DEE8" }}>
-          <MapLegend />
-          <div className="flex items-center gap-1.5 text-[0.62rem]">
+        <div className="flex items-center justify-between px-3 py-1.5" style={{ background: "#F5F2EC", borderBottom: "1px solid #D8DEE8" }}>
+          <div className="flex items-center gap-2">
+            <MapLegend />
+          </div>
+          <div className="flex items-center gap-1.5 text-[0.66rem]">
             <span className="font-bold" style={{ color: "#E8740E" }}>{floorAvailable}</span>
             <span style={{ color: "#64748B" }}>متاحة</span>
-            <span className="mx-0.5 h-2.5 w-px" style={{ background: "#D8DEE8" }} />
+            <span className="mx-0.5 h-3 w-px" style={{ background: "#D8DEE8" }} />
             <span className="font-bold" style={{ color: "#334155" }}>{floor.units.length}</span>
             <span style={{ color: "#64748B" }}>وحدة</span>
           </div>
         </div>
 
-        <div className="max-h-[300px] overflow-hidden">
-          <MallFloorMap
-            floor={floor}
-            selectedUnitId={activeUnit.id}
-            mutedUnitIds={mutedUnitIds}
-            onSelectUnit={setSelectedUnit}
-            className="min-h-0"
-          />
-        </div>
+        <MallFloorMap
+          floor={floor}
+          selectedUnitId={activeUnit.id}
+          mutedUnitIds={mutedUnitIds}
+          onSelectUnit={setSelectedUnit}
+          className="min-h-[220px] md:min-h-[280px]"
+        />
       </div>
 
       {/* ── Featured unit card — matches UnitDetailsCard visual language ── */}
