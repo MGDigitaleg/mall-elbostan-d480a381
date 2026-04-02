@@ -87,7 +87,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف ستتوفر قريبًا</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف قيد التأكيد — ستتوفر قريبًا</div>}
         </section>
 
         <section className="mb-16">
