@@ -405,6 +405,66 @@
     pointer-events: none;
   }
 
+  /* ── Editorial image grade — consistent warm desaturation ── */
+  .img-grade {
+    filter: contrast(1.04) saturate(0.88) brightness(1.01);
+  }
+  .img-grade-dark {
+    filter: contrast(1.06) saturate(0.82) brightness(0.95);
+  }
+
+  /* ── Editorial frame — thin accent border for image authority ── */
+  .editorial-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.6);
+    box-shadow: var(--shadow-premium);
+  }
+  .editorial-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(var(--foreground) / 0.06);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ── Editorial frame on dark backgrounds ── */
+  .editorial-frame-dark {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.6);
+    box-shadow: var(--shadow-deep);
+  }
+  .editorial-frame-dark::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(0 0% 100% / 0.08);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ── Image warm wash — bottom heritage tone ── */
+  .img-wash-warm::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, hsl(34 22% 91% / 0.25) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Image dark wash — bottom fade for dark sections ── */
+  .img-wash-dark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, hsl(222 34% 7% / 0.55) 0%, transparent 45%, hsl(222 34% 7% / 0.12) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
   /* ── Stat block ── */
   .stat-block {
     @apply rounded-lg border border-border/50 bg-card px-4 py-4 text-center shadow-[var(--shadow-soft)];
