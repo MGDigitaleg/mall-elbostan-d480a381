@@ -152,13 +152,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* CTA pair */}
               <div className="flex flex-wrap gap-3">
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="h-[3.4rem] min-w-[13rem] rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Compass className="ml-2 h-[1.15rem] w-[1.15rem]" />
+                  <Button variant="cta" size="lg" className="h-[3.2rem] min-w-[12rem] rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف دليل المول
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button size="lg" className="h-[3.4rem] min-w-[10rem] rounded-xl border px-8 text-[0.95rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
+                  <Button size="lg" className="h-[3.2rem] min-w-[9rem] rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     تصفّح المتاجر
                   </Button>
                 </Link>
