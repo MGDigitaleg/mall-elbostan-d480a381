@@ -323,17 +323,45 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </g>
         ))}
 
-        {/* ── Unit labels — stronger, clearer ── */}
+        {/* ── Unit labels — with logos when available ── */}
         <g id="labels-layer" pointerEvents="none">
           {floor.units.map((unit) => {
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
+            const tenantLogo = TENANT_LOGOS[unit.id];
             const hasName = unit.status === "occupied" && tenantName;
             const isSelected = selectedUnitId === unit.id;
 
+            // Logo dimensions - fit within unit bounds
+            const logoW = 40;
+            const logoH = 24;
+
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
-                {hasName ? (
+                {tenantLogo && hasName ? (
+                  <>
+                    {/* Tenant logo */}
+                    <image
+                      href={tenantLogo}
+                      x={unit.labelX - logoW / 2}
+                      y={unit.labelY - logoH / 2 - 8}
+                      width={logoW}
+                      height={logoH}
+                      preserveAspectRatio="xMidYMid meet"
+                    />
+                    {/* Unit code below logo */}
+                    <text
+                      x={unit.labelX}
+                      y={unit.labelY + logoH / 2 + 2}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[7px] font-semibold"
+                      fill={isSelected ? "#9B6520" : "#7A7468"}
+                    >
+                      {unit.code}
+                    </text>
+                  </>
+                ) : hasName ? (
                   <>
                     {/* Tenant name — bolder, darker */}
                     <text
