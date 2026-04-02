@@ -481,11 +481,11 @@ const Stores = () => {
       <section className="heritage-section page-section">
         <div className="container max-w-[900px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="section-kicker">قريبًا</p>
-            <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متصل.</h2>
+            <p className="section-kicker">المرحلة القادمة</p>
+            <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متكامل.</h2>
             <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/45">
-              الدليل الحالي هو الخطوة الأولى — المرحلة التالية تتيح للزوار تصفّح منتجات المتاجر،
-              متابعة العروض، والتسوّق رقميًا من أي مكان.
+              الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة،
+              متابعة العروض، والشراء إلكترونيًا من متاجر المول.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[36rem] gap-4 sm:grid-cols-3">
