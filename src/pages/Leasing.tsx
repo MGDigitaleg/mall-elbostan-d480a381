@@ -62,8 +62,8 @@ const Leasing = () => {
               <Building className="h-4 w-4 text-orange" />
               فرص تجارية داخل وجهة تقنية متخصصة
             </div>
-            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">التأجير هنا أوضح وأقرب لاتخاذ القرار</h1>
-            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على قيمة المكان، شكل الحضور، وكيف تبدأ استفسارك بخطوات مباشرة.</p>
+            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">فرص تجارية في وجهة يقصدها الجمهور المناسب</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
                 { icon: Store, title: "حضور تجاري متخصص" },
