@@ -92,9 +92,9 @@ const Leasing = () => {
 
         <section className="mb-10 grid gap-4 md:grid-cols-3">
             {[
-              { title: "عرض وحدات أوضح", desc: "راجع الوحدات المتاحة بسرعة." },
-              { title: "طرح تجاري مباشر", desc: "معلومات مختصرة بدون مبالغة." },
-              { title: "ربط بالخريطة", desc: "انتقل من الوحدة إلى مكانها بسهولة." },
+              { title: "وحدات واضحة المعالم", desc: "حالة كل وحدة ظاهرة بالمساحة والموقع." },
+              { title: "معلومات بلا مبالغة", desc: "بيانات مختصرة تساعدك على تقييم الفرصة." },
+              { title: "ربط مباشر بالخريطة", desc: "من الوحدة لموقعها الفعلي بضغطة واحدة." },
           ].map((item) => (
             <div key={item.title} className="section-shell p-5 md:p-6">
               <h2 className="text-lg font-bold text-foreground">{item.title}</h2>
