@@ -205,10 +205,10 @@ const Stores = () => {
                       setSelectedCategory(selectedCategory === cat ? "" : cat);
                       document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
                     }}
-                    className={`group flex items-start gap-4 rounded-xl border p-5 text-right transition-all hover:shadow-[var(--shadow-card)] ${
+                    className={`group flex items-start gap-4 rounded-lg border p-5 text-right transition-all hover:shadow-[var(--shadow-card)] ${
                       selectedCategory === cat
-                        ? "border-primary/30 bg-primary/5 shadow-[var(--shadow-card)]"
-                        : "border-border bg-card hover:border-primary/15"
+                        ? "border-primary/25 bg-primary/4 shadow-[var(--shadow-card)]"
+                        : "border-border/50 bg-card hover:border-primary/12"
                     }`}
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
