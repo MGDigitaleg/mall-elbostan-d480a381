@@ -48,9 +48,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "sharaf",
     providedName: "شرف",
     normalizedName: "شرف",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Await storefront photo or vendor file.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/sharaf.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Sharaf",
   },
   {
