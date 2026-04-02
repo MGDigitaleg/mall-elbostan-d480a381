@@ -329,8 +329,8 @@
   .text-bronze { color: hsl(var(--bronze)); }
 
   .heritage-card {
-    background: hsl(222 32% 13%);
-    border: 1px solid hsl(222 18% 19%);
+    background: #0F2140;
+    border: 1px solid #1A3158;
     border-radius: calc(var(--radius) * 0.8);
   }
 
