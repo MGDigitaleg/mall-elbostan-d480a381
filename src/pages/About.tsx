@@ -426,7 +426,7 @@ const About = () => (
             ))}
           </div>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/map">
               <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">افتح الدليل التفاعلي</Button>
             </Link>
