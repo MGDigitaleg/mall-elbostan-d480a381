@@ -376,11 +376,11 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-12 max-w-[34rem]">
-              <p className="section-kicker">أقسام المول</p>
-              <h2 className="section-title">كل قسم — سوق متخصص قائم بذاته.</h2>
+              <p className="section-kicker">التصنيف التجاري</p>
+              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
               <p className="mt-4 text-[1rem] leading-8 light-body">
-                ستة أقسام رئيسية — كل قسم فيه متاجر ومنتجات يعرفها السوق.
-                اختار القسم وابدأ الاستكشاف.
+                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره
+                وحركته الخاصة. اختر ما يناسبك وابدأ الاستكشاف.
               </p>
             </div>
 
