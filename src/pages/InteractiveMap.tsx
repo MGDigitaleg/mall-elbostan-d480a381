@@ -16,6 +16,7 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
+import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
