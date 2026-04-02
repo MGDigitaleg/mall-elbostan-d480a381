@@ -431,11 +431,11 @@ const Stores = () => {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
               <div className="space-y-5">
-                <p className="section-kicker">الخريطة والدليل</p>
-                <h2 className="section-title max-w-[24rem]">كل متجر موجود على الخريطة — اعرف موقعه قبل الزيارة.</h2>
+                <p className="section-kicker">الربط بالخريطة</p>
+                <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه الفعلي — اعرف مكانه قبل الزيارة.</h2>
                 <p className="text-[0.95rem] leading-[2] text-muted-foreground">
-                  الخريطة التفاعلية تعرض كل وحدة بحالتها وفئتها — من المتاجر النشطة إلى الوحدات
-                  المتاحة. اضغط على أي متجر في الدليل لمعرفة موقعه على الدور المحدد.
+                  الخريطة التفاعلية تعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
+                  اضغط على أي متجر لتنتقل مباشرة لموقعه الدقيق في الدور المحدد.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
