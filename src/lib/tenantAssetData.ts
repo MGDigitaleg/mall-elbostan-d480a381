@@ -120,9 +120,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "hk",
     providedName: "HK",
     normalizedName: "HK",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Need a readable shopfront or vendor-supplied mark.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/hk.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "HK",
   },
   {
