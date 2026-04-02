@@ -375,7 +375,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {categoryStories.map((cat, i) => (
                 <motion.div key={cat.key} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                   <Link to="/stores" className="block">
-                    <div className="group flex h-full items-start gap-4 rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/20 hover:shadow-[var(--shadow-elevated)]">
+                    <div className="group flex h-full items-start gap-3.5 rounded-lg border border-border bg-card p-5 transition-all duration-200 hover:border-primary/20 hover:shadow-[var(--shadow-card)]">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
                         <cat.icon className="h-5 w-5" />
                       </div>
