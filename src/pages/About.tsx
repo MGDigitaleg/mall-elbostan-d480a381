@@ -125,15 +125,15 @@ const About = () => (
 
             {/* editorial diptych — entrance (main) + facade (architectural detail) */}
             <div className="order-2 lg:order-1">
-              <div className="grid grid-cols-[0.6fr_0.4fr] gap-2.5">
+              <div className="grid grid-cols-[0.55fr_0.45fr] gap-2">
                 <div className="frame-cinematic overflow-hidden">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[3/4] w-full object-cover object-[center_35%]" loading="lazy" />
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[4/5] max-h-[300px] w-full object-cover object-[center_35%]" loading="lazy" />
                 </div>
                 <div className="frame-heritage overflow-hidden">
-                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_40%]" loading="lazy" />
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[4/5] max-h-[300px] w-full object-cover object-[center_40%]" loading="lazy" />
                 </div>
               </div>
-              <div className="mt-2 h-[2px] w-16 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A60, transparent)" }} />
+              <div className="mt-1.5 h-[2px] w-12 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A60, transparent)" }} />
             </div>
 
             {/* text */}
