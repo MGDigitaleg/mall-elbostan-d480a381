@@ -664,9 +664,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="lg:sticky lg:top-28">
                 <div className="chapter-shell pt-7">
                   <p className="section-kicker">أسئلة شائعة</p>
-                  <h2 className="text-[1.85rem] font-bold leading-[1.06] light-heading md:text-[2.5rem]">أسئلة متكررة</h2>
+                  <h2 className="text-[1.85rem] font-bold leading-[1.06] light-heading md:text-[2.5rem]">ما يجب معرفته</h2>
                 </div>
-                <p className="mt-4 text-[1rem] leading-8 light-body">ما يحتاج الزائر والتاجر يعرفه قبل الزيارة.</p>
+                <p className="mt-4 text-[1rem] leading-8 light-body">أبرز الأسئلة التي يطرحها الزوّار والتجّار قبل الزيارة.</p>
                 <Link to="/faq" className="mt-5 inline-flex">
                   <Button variant="ghost" className="gap-1.5 px-0 font-bold text-primary hover:text-primary/80">جميع الأسئلة <ArrowLeft className="h-4 w-4" /></Button>
                 </Link>
