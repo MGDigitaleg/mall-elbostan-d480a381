@@ -211,6 +211,9 @@ const About = () => (
             </div>
 
             <div className="space-y-3 lg:sticky lg:top-24">
+              <div className="frame-cinematic overflow-hidden rounded-lg">
+                <img src={downtownImage} alt="فرع وسط البلد — مول البستان" className="img-grade-warm aspect-[4/3] max-h-[200px] w-full object-cover object-[center_40%]" loading="lazy" width={800} height={600} />
+              </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { v: "1990", l: "سنة التأسيس" },
