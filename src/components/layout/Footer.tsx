@@ -37,9 +37,9 @@ const footerColumns = [
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com/mallelbostan", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com/mallelbostan", label: "Instagram" },
-  { icon: Youtube, href: "https://youtube.com/@mallelbostan", label: "YouTube" },
+  { icon: Facebook, href: "https://www.facebook.com/mallelbostan", label: "Facebook" },
+  { icon: Instagram, href: "https://www.instagram.com/mallelbostan", label: "Instagram" },
+  { icon: Youtube, href: "https://www.youtube.com/@mallelbostan", label: "YouTube" },
 ];
 
 /* TikTok isn't in Lucide — use a tiny inline SVG */
@@ -79,7 +79,7 @@ export function Footer() {
                 </a>
               ))}
               <a
-                href="https://tiktok.com/@mallelbostan"
+                href="https://www.tiktok.com/@mallelbostan"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
