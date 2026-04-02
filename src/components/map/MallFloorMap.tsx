@@ -33,6 +33,7 @@ const TENANT_NAMES: Record<string, string> = {
   "S-08": "Compu Marts",
   "S-09": "Compu Marts",
 };
+
 import {
   OUTER_SHELL,
   CORRIDOR_BOUNDARY,
@@ -55,17 +56,17 @@ type Props = {
   className?: string;
 };
 
-// ── Status-based fill colors — stronger distinction ──
+// ── Status-based fill colors — refined, premium palette ──
 const statusFill: Record<MallUnitStatus, { base: string; hover: string; selected: string }> = {
-  occupied:    { base: "#D6D0C6", hover: "#C8C2B8", selected: "#BBB5AB" },
-  available:   { base: "#FDDBB5", hover: "#FCC98A", selected: "#FBBA6A" },
-  coming_soon: { base: "#BFE3F2", hover: "#A6D8ED", selected: "#8DCDE8" },
+  occupied:    { base: "#DDD8D0", hover: "#D0CBC3", selected: "#C4BFB7" },
+  available:   { base: "#FDE4C4", hover: "#FCD5A0", selected: "#FBC680" },
+  coming_soon: { base: "#C8E8F4", hover: "#ADD8EE", selected: "#92C8E8" },
 };
 
 const statusStroke: Record<MallUnitStatus, string> = {
-  occupied: "#8B8174",
-  available: "#F97316",
-  coming_soon: "#06B6D4",
+  occupied: "#9B9488",
+  available: "#E8740E",
+  coming_soon: "#0A9AB8",
 };
 
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, className }: Props) {
@@ -130,38 +131,30 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   );
 
   return (
-    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#EDE8E0] p-3 md:p-4", className)}>
-      {/* Zoom controls */}
-      <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
-        <button
-          onClick={handleZoomIn}
-          disabled={zoom >= MAX_ZOOM}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
-          aria-label="تكبير"
-        >
-          <ZoomIn className="h-4 w-4 text-foreground" />
-        </button>
-        <button
-          onClick={handleZoomOut}
-          disabled={zoom <= MIN_ZOOM}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
-          aria-label="تصغير"
-        >
-          <ZoomOut className="h-4 w-4 text-foreground" />
-        </button>
-        <button
-          onClick={handleReset}
-          disabled={zoom === 1 && pan.x === 0 && pan.y === 0}
-          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
-          aria-label="إعادة ضبط"
-        >
-          <RotateCcw className="h-4 w-4 text-foreground" />
-        </button>
+    <div className={cn("relative overflow-hidden rounded-2xl", className)} style={{ background: "#F0EBE3", border: "1px solid #D4CFC6" }}>
+      {/* Zoom controls — refined, compact */}
+      <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
+        {[
+          { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
+          { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
+          { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط" },
+        ].map((btn) => (
+          <button
+            key={btn.label}
+            onClick={btn.action}
+            disabled={btn.disabled}
+            className="flex h-8 w-8 items-center justify-center rounded-lg transition disabled:opacity-30"
+            style={{ background: "hsl(0 0% 100% / 0.85)", border: "1px solid #D4CFC6", boxShadow: "0 1px 3px hsl(0 0% 0% / 0.06)" }}
+            aria-label={btn.label}
+          >
+            <btn.icon className="h-3.5 w-3.5" style={{ color: "#4A4540" }} />
+          </button>
+        ))}
       </div>
 
-      {/* Zoom level indicator */}
+      {/* Zoom level badge */}
       {zoom > 1 && (
-        <div className="absolute top-4 right-4 z-10 rounded-lg bg-white/90 px-2.5 py-1 text-xs font-semibold shadow-md border border-border backdrop-blur-sm text-foreground">
+        <div className="absolute top-3 right-3 z-10 rounded-md px-2 py-0.5 text-[0.65rem] font-bold" style={{ background: "hsl(0 0% 100% / 0.85)", border: "1px solid #D4CFC6", color: "#4A4540" }}>
           {Math.round(zoom * 100)}%
         </div>
       )}
@@ -173,7 +166,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className={cn("touch-none", zoom > 1 && "cursor-grab active:cursor-grabbing")}
+        className={cn("touch-none p-2 md:p-3", zoom > 1 && "cursor-grab active:cursor-grabbing")}
         style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`, transformOrigin: "center center", transition: isPanning.current ? "none" : "transform 0.25s ease-out" }}
       >
       <svg
@@ -183,86 +176,62 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         aria-label="خريطة الطابق التفاعلية لمول البستان"
       >
         <defs>
-          {/* Floor surface gradient */}
           <linearGradient id="floorGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#E8E0D4" />
-            <stop offset="100%" stopColor="#DDD5C8" />
+            <stop offset="0%" stopColor="#EAE4DA" />
+            <stop offset="100%" stopColor="#E0D8CC" />
           </linearGradient>
 
-          {/* Corridor surface */}
           <linearGradient id="corridorGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#D0C8BA" />
-            <stop offset="100%" stopColor="#C8C0B2" />
+            <stop offset="0%" stopColor="#D4CFC6" />
+            <stop offset="100%" stopColor="#CCC6BC" />
           </linearGradient>
 
-          {/* Atrium glass */}
           <radialGradient id="atriumGlass" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#E0F0FA" stopOpacity="0.7" />
-            <stop offset="60%" stopColor="#D0E8F4" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#B8D8EC" stopOpacity="0.6" />
+            <stop offset="0%" stopColor="#E8F2F8" stopOpacity="0.6" />
+            <stop offset="60%" stopColor="#DCE8F0" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#C8DCE8" stopOpacity="0.5" />
           </radialGradient>
 
-          {/* Building drop shadow */}
           <filter id="buildingShadow" x="-5%" y="-5%" width="115%" height="115%">
-            <feDropShadow dx="3" dy="5" stdDeviation="8" floodColor="#000" floodOpacity="0.18" />
+            <feDropShadow dx="2" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.12" />
           </filter>
 
-          {/* Selected unit glow */}
           <filter id="selectedGlow" x="-15%" y="-15%" width="130%" height="130%">
-            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#F97316" floodOpacity="0.5" />
+            <feDropShadow dx="0" dy="0" stdDeviation="5" floodColor="#E8740E" floodOpacity="0.45" />
           </filter>
 
-          {/* Subtle unit shadow */}
           <filter id="unitShadow" x="-2%" y="-2%" width="104%" height="104%">
-            <feDropShadow dx="1" dy="2" stdDeviation="2" floodColor="#000" floodOpacity="0.08" />
+            <feDropShadow dx="0.5" dy="1" stdDeviation="1.5" floodColor="#000" floodOpacity="0.06" />
           </filter>
 
-          {/* Glass pattern */}
           <pattern id="glassHatch" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
-            <line x1="0" y1="0" x2="0" y2="20" stroke="#B0D4E8" strokeWidth="0.5" strokeOpacity="0.3" />
+            <line x1="0" y1="0" x2="0" y2="20" stroke="#B0D4E8" strokeWidth="0.4" strokeOpacity="0.2" />
           </pattern>
+
+          {/* Label background for tenant names */}
+          <filter id="labelBg" x="-4" y="-2" width="108%" height="140%">
+            <feFlood floodColor="#F5F2ED" floodOpacity="0.8" result="bg" />
+            <feMerge>
+              <feMergeNode in="bg" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        {/* ── Building outer shadow ── */}
-        <polygon
-          points={OUTER_SHELL}
-          fill="#333"
-          opacity="0.12"
-          transform="translate(5,6)"
-        />
+        {/* ── Building shadow ── */}
+        <polygon points={OUTER_SHELL} fill="#555" opacity="0.08" transform="translate(4,5)" />
 
-        {/* ── Building floor surface ── */}
-        <polygon
-          points={OUTER_SHELL}
-          fill="url(#floorGrad)"
-          stroke="#6B6358"
-          strokeWidth="3"
-          filter="url(#buildingShadow)"
-        />
+        {/* ── Floor surface ── */}
+        <polygon points={OUTER_SHELL} fill="url(#floorGrad)" stroke="#7A7468" strokeWidth="2.5" filter="url(#buildingShadow)" />
 
-        {/* ── Outer wall thickness (double stroke effect) ── */}
-        <polygon
-          points={OUTER_SHELL}
-          fill="none"
-          stroke="#4A4540"
-          strokeWidth="5"
-        />
-        <polygon
-          points={OUTER_SHELL}
-          fill="none"
-          stroke="#9B9488"
-          strokeWidth="1.5"
-        />
+        {/* ── Wall lines (double stroke) ── */}
+        <polygon points={OUTER_SHELL} fill="none" stroke="#5A5550" strokeWidth="4" />
+        <polygon points={OUTER_SHELL} fill="none" stroke="#A09888" strokeWidth="1" />
 
-        {/* ── Corridor ring ── */}
-        <polygon
-          points={CORRIDOR_BOUNDARY}
-          fill="url(#corridorGrad)"
-          stroke="#8B8478"
-          strokeWidth="1.5"
-        />
+        {/* ── Corridor ── */}
+        <polygon points={CORRIDOR_BOUNDARY} fill="url(#corridorGrad)" stroke="#9B9488" strokeWidth="1.2" />
 
-        {/* ── Central atrium interactive layer ── */}
+        {/* ── Central atrium — toned down ── */}
         <AtriumInteractiveLayer
           mode={atriumMode}
           customColor={pulseColor}
@@ -270,62 +239,18 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           onClick={() => onAtriumClick?.()}
         />
 
-        {/* ── Elevator area ── */}
-        <rect
-          x={ELEVATOR_RECT.x}
-          y={ELEVATOR_RECT.y}
-          width={ELEVATOR_RECT.w}
-          height={ELEVATOR_RECT.h}
-          rx="6"
-          fill="#C4BDB0"
-          stroke="#8B8478"
-          strokeWidth="1.5"
-        />
-        <text
-          x={ELEVATOR_RECT.x + ELEVATOR_RECT.w / 2}
-          y={ELEVATOR_RECT.y + ELEVATOR_RECT.h / 2 + 5}
-          textAnchor="middle"
-          className="text-[13px] font-semibold"
-          fill="#5A5348"
-        >
-          مصاعد
-        </text>
+        {/* ── Elevator ── */}
+        <rect x={ELEVATOR_RECT.x} y={ELEVATOR_RECT.y} width={ELEVATOR_RECT.w} height={ELEVATOR_RECT.h} rx="5" fill="#CCC6BC" stroke="#9B9488" strokeWidth="1" />
+        <text x={ELEVATOR_RECT.x + ELEVATOR_RECT.w / 2} y={ELEVATOR_RECT.y + ELEVATOR_RECT.h / 2 + 4} textAnchor="middle" className="text-[11px] font-semibold" fill="#6B6358">مصاعد</text>
 
         {/* ── Stairs ── */}
         {STAIR_RECTS.map((stair, i) => (
           <g key={`stair-${i}`}>
-            <rect
-              x={stair.x}
-              y={stair.y}
-              width={stair.w}
-              height={stair.h}
-              rx="4"
-              fill="#D4CFC6"
-              stroke="#8B8478"
-              strokeWidth="1"
-            />
-            {/* Step lines */}
+            <rect x={stair.x} y={stair.y} width={stair.w} height={stair.h} rx="3" fill="#D8D3CA" stroke="#9B9488" strokeWidth="0.8" />
             {[0.25, 0.5, 0.75].map((frac) => (
-              <line
-                key={frac}
-                x1={stair.x + 4}
-                y1={stair.y + stair.h * frac}
-                x2={stair.x + stair.w - 4}
-                y2={stair.y + stair.h * frac}
-                stroke="#8B8478"
-                strokeWidth="0.8"
-                opacity="0.5"
-              />
+              <line key={frac} x1={stair.x + 3} y1={stair.y + stair.h * frac} x2={stair.x + stair.w - 3} y2={stair.y + stair.h * frac} stroke="#9B9488" strokeWidth="0.5" opacity="0.4" />
             ))}
-            <text
-              x={stair.x + stair.w / 2}
-              y={stair.y + stair.h / 2 + 4}
-              textAnchor="middle"
-              className="text-[10px]"
-              fill="#6B6358"
-            >
-              {stair.label}
-            </text>
+            <text x={stair.x + stair.w / 2} y={stair.y + stair.h / 2 + 3} textAnchor="middle" className="text-[9px]" fill="#7A7468">{stair.label}</text>
           </g>
         ))}
 
@@ -345,13 +270,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 points={unit.polygon}
                 initial={false}
                 animate={{
-                  opacity: isMuted ? 0.2 : 1,
-                  fillOpacity: isMuted ? 0.3 : 1,
+                  opacity: isMuted ? 0.18 : 1,
+                  fillOpacity: isMuted ? 0.25 : 1,
                 }}
                 transition={{ duration: 0.2 }}
                 fill={isSelected ? colors.selected : isHovered ? colors.hover : colors.base}
-                stroke={isHighlighted ? "#2563EB" : isSelected ? "#F97316" : stroke}
-                strokeWidth={isHighlighted ? 3 : isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : stroke}
+                strokeWidth={isHighlighted ? 2.5 : isSelected ? 3 : isHovered ? 2 : 1.2}
                 filter={isSelected ? "url(#selectedGlow)" : "url(#unitShadow)"}
                 className="cursor-pointer outline-none"
                 style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
@@ -367,144 +292,147 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           })}
         </g>
 
-        {/* ── Red columns ── */}
+        {/* ── Structural columns — subtle ── */}
         {COLUMN_POSITIONS.map(([cx, cy], i) => (
           <g key={`col-${i}`}>
-            <circle cx={cx} cy={cy} r="9" fill="#8B1A1A" />
-            <circle cx={cx} cy={cy} r="6" fill="#B71C1C" />
-            <circle cx={cx} cy={cy} r="3" fill="#D32F2F" opacity="0.6" />
+            <circle cx={cx} cy={cy} r="7" fill="#7A7468" />
+            <circle cx={cx} cy={cy} r="4.5" fill="#9B9488" />
+            <circle cx={cx} cy={cy} r="2" fill="#B5AC9D" opacity="0.5" />
           </g>
         ))}
 
-        {/* ── Unit labels ── */}
+        {/* ── Unit labels — improved readability ── */}
         <g id="labels-layer" pointerEvents="none">
           {floor.units.map((unit) => {
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
             const hasName = unit.status === "occupied" && tenantName;
-            const showArea = !hasName && unit.area > 30;
+            const isSelected = selectedUnitId === unit.id;
 
             return (
-              <g key={`label-${unit.id}`} opacity={isMuted ? 0.25 : 1}>
+              <g key={`label-${unit.id}`} opacity={isMuted ? 0.2 : 1}>
                 {hasName ? (
                   <>
+                    {/* Tenant name — bold, clear */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY - 6}
+                      y={unit.labelY - 5}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="text-[10px] font-bold"
-                      fill="#2D2926"
+                      className="text-[11px] font-bold"
+                      fill={isSelected ? "#7A3A00" : "#2D2926"}
                     >
                       {tenantName}
                     </text>
+                    {/* Unit code below — smaller, subdued */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY + 9}
+                      y={unit.labelY + 10}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="text-[8px]"
-                      fill="#6B6358"
+                      className="text-[8px] font-medium"
+                      fill="#8B8478"
                     >
                       {unit.code}
                     </text>
                   </>
                 ) : (
                   <>
+                    {/* Unit code — primary label */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY - (showArea ? 5 : 0)}
+                      y={unit.labelY - 3}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="text-[12px] font-bold"
-                      fill="#2D2926"
+                      className="text-[13px] font-bold"
+                      fill={isSelected ? "#7A3A00" : "#2D2926"}
                     >
                       {unit.code}
                     </text>
-                    {showArea && (
-                      <text
-                        x={unit.labelX}
-                        y={unit.labelY + 11}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        className="text-[9px]"
-                        fill="#5A5348"
-                      >
-                        {unit.area} م²
-                      </text>
-                    )}
+                    {/* Area below */}
+                    <text
+                      x={unit.labelX}
+                      y={unit.labelY + 12}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      className="text-[9px]"
+                      fill="#6B6358"
+                    >
+                      {unit.area} م²
+                    </text>
                   </>
+                )}
+
+                {/* Status indicator — small colored dot for non-occupied */}
+                {unit.status !== "occupied" && (
+                  <circle
+                    cx={unit.labelX + 18}
+                    cy={unit.labelY - 14}
+                    r="4"
+                    fill={unit.status === "available" ? "#E8740E" : "#0A9AB8"}
+                    opacity={0.9}
+                  />
                 )}
               </g>
             );
           })}
         </g>
 
-        {/* ── Status indicator dots ── */}
-        <g id="status-dots" pointerEvents="none">
-          {floor.units.map((unit) => {
-            if (unit.status === "occupied") return null;
-            const isMuted = mutedUnitIds.has(unit.id);
-            return (
-              <circle
-                key={`dot-${unit.id}`}
-                cx={unit.labelX + 20}
-                cy={unit.labelY - 14}
-                r="5"
-                fill={unit.status === "available" ? "#F97316" : "#06B6D4"}
-                opacity={isMuted ? 0.2 : 0.85}
-              />
-            );
-          })}
-        </g>
-
-        {/* ── Entrance marker ── */}
+        {/* ── Entrance ── */}
         <g id="entrance">
           <rect
-            x={ENTRANCE_MARKER.x - 50}
-            y={ENTRANCE_MARKER.y - 10}
-            width="100"
-            height="20"
+            x={ENTRANCE_MARKER.x - 46}
+            y={ENTRANCE_MARKER.y - 9}
+            width="92"
+            height="18"
             rx="4"
-            fill="#4A4540"
-            opacity="0.8"
+            fill="#5A5550"
+            opacity="0.85"
           />
           <text
             x={ENTRANCE_MARKER.x}
-            y={ENTRANCE_MARKER.y + 3}
+            y={ENTRANCE_MARKER.y + 2}
             textAnchor="middle"
-            className="text-[10px] font-semibold"
+            className="text-[9px] font-semibold"
             fill="#F4F0EA"
           >
             {ENTRANCE_MARKER.label}
           </text>
         </g>
 
-        {/* ── Hover tooltip ── */}
+        {/* ── Hover tooltip — refined ── */}
         {hoveredId && (() => {
           const unit = floor.units.find((u) => u.id === hoveredId);
           if (!unit) return null;
           const tx = Math.min(Math.max(unit.labelX, 120), 880);
-          const ty = unit.labelY - 32;
+          const ty = unit.labelY - 34;
+          const tenantName = TENANT_NAMES[unit.id];
+          const tooltipText = tenantName ? `${tenantName} | ${unit.code}` : `${unit.code} | ${unit.area} م²`;
+          const textLen = tooltipText.length * 6.5 + 24;
           return (
             <g pointerEvents="none">
               <rect
-                x={tx - 75}
-                y={ty - 16}
-                width="150"
-                height="28"
+                x={tx - textLen / 2}
+                y={ty - 14}
+                width={textLen}
+                height="26"
                 rx="6"
-                fill="#1A1A2E"
-                opacity="0.92"
+                fill="hsl(222 36% 11%)"
+                opacity="0.94"
+              />
+              <polygon
+                points={`${tx - 4},${ty + 12} ${tx + 4},${ty + 12} ${tx},${ty + 18}`}
+                fill="hsl(222 36% 11%)"
+                opacity="0.94"
               />
               <text
                 x={tx}
                 y={ty + 2}
                 textAnchor="middle"
-                className="text-[11px] font-semibold"
-                fill="#fff"
+                className="text-[10px] font-semibold"
+                fill="#F4F0EA"
               >
-                {TENANT_NAMES[unit.id] ? `${TENANT_NAMES[unit.id]} | ${unit.code}` : `${unit.code} | ${unit.area} م²`}
+                {tooltipText}
               </text>
             </g>
           );

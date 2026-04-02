@@ -1,4 +1,4 @@
-import { Filter, Search } from "lucide-react";
+import { Search, SlidersHorizontal } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import type { MallCategory, MallUnitStatus } from "@/lib/mallFloorGeometry";
@@ -26,8 +26,8 @@ export function MapFilters({
   availableOnly, onAvailableOnlyChange,
 }: Props) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3.5 shadow-[var(--shadow-card)]">
-      <div className="grid gap-2.5 md:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto]">
+    <div className="rounded-xl border border-border bg-card/80 p-3 backdrop-blur-sm" style={{ boxShadow: "0 1px 4px hsl(0 0% 0% / 0.04)" }}>
+      <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto]">
         {/* Search */}
         <div className="relative">
           <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -36,14 +36,14 @@ export function MapFilters({
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="ابحث باسم المتجر أو رقم الوحدة..."
-            className="h-10 w-full rounded-lg border border-border bg-background pr-9 pl-3 text-[0.85rem] text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary/40 focus:ring-2 focus:ring-primary/10"
+            className="h-9 w-full rounded-lg border border-border bg-background pr-9 pl-3 text-[0.82rem] text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary/40 focus:ring-2 focus:ring-primary/10"
           />
         </div>
 
         {/* Category */}
         <Select value={categoryFilter} onValueChange={(v) => onCategoryChange(v as "all" | MallCategory)}>
-          <SelectTrigger className="h-10 rounded-lg border-border bg-background text-[0.85rem]">
-            <Filter className="ml-1.5 h-3.5 w-3.5 text-muted-foreground" />
+          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.82rem]">
+            <SlidersHorizontal className="ml-1.5 h-3 w-3 text-muted-foreground" />
             <SelectValue placeholder="كل الفئات" />
           </SelectTrigger>
           <SelectContent>
@@ -56,7 +56,7 @@ export function MapFilters({
 
         {/* Status */}
         <Select value={statusFilter} onValueChange={(v) => onStatusChange(v as "all" | MallUnitStatus)}>
-          <SelectTrigger className="h-10 rounded-lg border-border bg-background text-[0.85rem]">
+          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.82rem]">
             <SelectValue placeholder="كل الحالات" />
           </SelectTrigger>
           <SelectContent>
@@ -68,8 +68,8 @@ export function MapFilters({
         </Select>
 
         {/* Available toggle */}
-        <div className="flex h-10 items-center justify-between gap-3 rounded-lg border border-border bg-background px-3">
-          <span className="text-[0.8rem] font-semibold text-foreground whitespace-nowrap">المتاحة فقط</span>
+        <div className="flex h-9 items-center justify-between gap-2.5 rounded-lg border border-border bg-background px-3">
+          <span className="text-[0.78rem] font-semibold text-foreground whitespace-nowrap">المتاحة فقط</span>
           <Switch checked={availableOnly} onCheckedChange={onAvailableOnlyChange} />
         </div>
       </div>
