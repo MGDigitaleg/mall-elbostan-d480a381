@@ -266,107 +266,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           strokeWidth="1.5"
         />
 
-        {/* ── Central atrium ── */}
-        <polygon
-          points={ATRIUM_OCTAGON}
-          fill="url(#atriumGlass)"
-          stroke="#7BAEC4"
-          strokeWidth="2"
-        />
-        <polygon
-          points={ATRIUM_OCTAGON}
-          fill="url(#glassHatch)"
-          opacity="0.4"
-        />
-        {/* Inner octagon ring */}
-        <polygon
-          points={ATRIUM_INNER}
-          fill="none"
-          stroke="#7BAEC4"
-          strokeWidth="1"
-          opacity="0.5"
-        />
-
-        {/* ── Atrium web (radial lines from center) ── */}
-        {ATRIUM_VERTICES.map(([vx, vy], i) => (
-          <line
-            key={`atrium-ray-${i}`}
-            x1={ATRIUM_CENTER.x}
-            y1={ATRIUM_CENTER.y}
-            x2={vx}
-            y2={vy}
-            stroke="#7BAEC4"
-            strokeWidth="0.8"
-            opacity="0.45"
-          />
-        ))}
-        {/* Center dot */}
-        <circle cx={ATRIUM_CENTER.x} cy={ATRIUM_CENTER.y} r="4" fill="#7BAEC4" opacity="0.5" />
-
-        {/* ── Interactive Atrium Engagement Zone ── */}
-        <g
-          className="cursor-pointer"
+        {/* ── Central atrium interactive layer ── */}
+        <AtriumInteractiveLayer
+          mode={atriumMode}
+          customColor={pulseColor}
+          customLabel={atriumLabel}
           onClick={() => onAtriumClick?.()}
-          onMouseEnter={() => setAtriumHovered(true)}
-          onMouseLeave={() => setAtriumHovered(false)}
-        >
-          {/* hover glow ring */}
-          <circle
-            cx={ATRIUM_CENTER.x}
-            cy={ATRIUM_CENTER.y}
-            r="50"
-            fill="none"
-            stroke={atriumHovered ? pulseColor : "transparent"}
-            strokeWidth="2"
-            opacity={atriumHovered ? 0.5 : 0}
-            style={{ transition: "opacity 0.3s, stroke 0.3s" }}
-          />
-          {/* subtle pulse ring */}
-          <circle
-            cx={ATRIUM_CENTER.x}
-            cy={ATRIUM_CENTER.y}
-            r="38"
-            fill="none"
-            stroke={pulseColor}
-            strokeWidth="1.5"
-            opacity="0.2"
-          >
-            <animate attributeName="r" values="38;48;38" dur="3s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.2;0.05;0.2" dur="3s" repeatCount="indefinite" />
-          </circle>
-          {/* second pulse ring (offset timing) */}
-          <circle
-            cx={ATRIUM_CENTER.x}
-            cy={ATRIUM_CENTER.y}
-            r="32"
-            fill="none"
-            stroke={pulseColor}
-            strokeWidth="1"
-            opacity="0.1"
-          >
-            <animate attributeName="r" values="32;44;32" dur="3s" begin="1.5s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.1;0.02;0.1" dur="3s" begin="1.5s" repeatCount="indefinite" />
-          </circle>
-          {/* clickable center area */}
-          <circle
-            cx={ATRIUM_CENTER.x}
-            cy={ATRIUM_CENTER.y}
-            r="30"
-            fill={atriumHovered ? `${pulseColor}14` : "transparent"}
-            style={{ transition: "fill 0.3s" }}
-          />
-          {/* label */}
-          <text
-            x={ATRIUM_CENTER.x}
-            y={ATRIUM_CENTER.y + 4}
-            textAnchor="middle"
-            className="text-[11px] font-bold"
-            fill={atriumHovered ? pulseColor : "#7BAEC4"}
-            style={{ transition: "fill 0.3s" }}
-          >
-            {atriumHovered ? atriumLabel : ""}
-          </text>
-        </g>
+        />
 
         {/* ── Elevator area ── */}
         <rect
