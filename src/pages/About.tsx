@@ -410,7 +410,7 @@ const About = () => (
               { n: "02", icon: Store, label: "دليل المتاجر", desc: "تصفّح المتاجر وفئاتها وتفاصيلها.", active: true },
               { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني من متاجر المول — قريبًا.", active: false },
             ].map((item) => (
-              <div key={item.n} className="heritage-surface rounded-xl p-6 text-center">
+              <div key={item.n} className="heritage-surface rounded-xl p-5 text-center">
                 <span className="font-poppins text-[0.7rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
                 <div className="mx-auto mt-3 mb-3 flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: item.active ? "#2D6BFF14" : "#ffffff08", border: `1px solid ${item.active ? "#2D6BFF30" : "#ffffff10"}` }}>
                   <item.icon className="h-5 w-5" style={{ color: item.active ? "#5B9AFF" : "#7C8BA1" }} />
