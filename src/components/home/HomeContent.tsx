@@ -524,13 +524,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           >
             {/* section header — full width, establishing */}
             <div className="mb-8 max-w-[36rem]">
-              <p className="section-kicker">الدليل التفاعلي</p>
+              <p className="section-kicker">دليل المول</p>
               <h2 className="section-title">
-                كل وحدة ظاهرة — كل دور واضح — قبل أن تصل.
+                اعرف مكان كل متجر — قبل أن تصل.
               </h2>
               <p className="mt-3 text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                ليست خريطة عرض — بل أداة تخطيط حقيقية للزائر والتاجر.
-                اكتشف المتاجر بالفئة، تحقق من الوحدات المتاحة، وقدّم استفسارك مباشرة.
+                الدليل التفاعلي يعرض المول كما هو فعليًا — الأدوار والمتاجر والوحدات
+                المتاحة. أداة عملية للزائر الذي يريد التخطيط قبل الوصول.
               </p>
             </div>
 
