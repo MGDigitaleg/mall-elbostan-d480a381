@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Gift, MapPin, Store, Layers, X, Check } from "lucide-react";
+import { Gift, MapPin, Store, Layers, X, Check, ArrowLeft } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -36,24 +36,13 @@ type Props = {
   onExploreCategory?: () => void;
 };
 
-// Premium wheel segments — restrained palette, not casino
-const WHEEL_SEGMENTS = [
-  { label: "خصم متجر",    color: "hsl(222 40% 28%)" },
-  { label: "هدية مجانية",  color: "hsl(222 35% 35%)" },
-  { label: "قسيمة شراء",  color: "hsl(222 40% 24%)" },
-  { label: "عرض حصري",    color: "hsl(222 35% 32%)" },
-  { label: "زيارة مميّزة", color: "hsl(222 40% 26%)" },
-  { label: "مكافأة",       color: "hsl(222 35% 30%)" },
-];
-
 export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCategory }: Props) {
   const { toast } = useToast();
-  const [step, setStep] = useState<"register" | "spinning" | "result">("register");
+  const [step, setStep] = useState<"register" | "processing" | "result">("register");
   const [form, setForm] = useState({ full_name: "", phone: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [prize, setPrize] = useState<SpinReward | null>(null);
   const [sponsorStore, setSponsorStore] = useState<SpinWinResult["sponsorStore"]>(null);
-  const [rotation, setRotation] = useState(0);
 
   const { data: rewards } = useQuery({
     queryKey: ["active-rewards"],
@@ -93,7 +82,7 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
     return data ?? null;
   };
 
-  const handleSpin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.full_name.trim() || !form.phone.trim()) {
       toast({ title: "خطأ", description: "يرجى ملء الاسم ورقم الهاتف", variant: "destructive" });
@@ -111,9 +100,9 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
     }
 
     const won = pickWeightedPrize();
-    setStep("spinning");
-    setRotation((prev) => prev + 1440 + Math.random() * 720);
+    setStep("processing");
 
+    // Simulate brief processing delay — editorial reveal, not casino spin
     setTimeout(async () => {
       const { error } = await supabase.from("spin_entries").insert({
         full_name: form.full_name.trim(),
@@ -139,7 +128,7 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
         setStep("result");
         onWin?.(won ? { reward: won, sponsorStore: resolved } : null);
       }
-    }, 3800);
+    }, 2400);
   };
 
   const handleClose = () => {
@@ -152,15 +141,8 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
     }, 300);
   };
 
-  const handleViewOnMap = () => {
-    handleClose();
-    onViewOnMap?.();
-  };
-
-  const handleExploreCategory = () => {
-    handleClose();
-    onExploreCategory?.();
-  };
+  const handleViewOnMap = () => { handleClose(); onViewOnMap?.(); };
+  const handleExploreCategory = () => { handleClose(); onExploreCategory?.(); };
 
   if (!open) return null;
 
@@ -185,168 +167,134 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
             exit={{ opacity: 0, scale: 0.97, y: 16 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-x-4 top-[8vh] z-50 mx-auto max-w-[460px] max-h-[84vh] overflow-y-auto rounded-2xl bg-card md:inset-x-auto"
-            style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 20px 60px hsl(222 36% 6% / 0.3), 0 4px 16px hsl(222 36% 6% / 0.15)" }}
+            style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 24px 64px hsl(222 36% 6% / 0.28), 0 4px 20px hsl(222 36% 6% / 0.12)" }}
           >
             {/* Close */}
             <button
               onClick={handleClose}
-              className="absolute left-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" />
             </button>
 
-            {/* ── REGISTER — clean form, premium feel ── */}
+            {/* ── REGISTER — editorial form, premium ── */}
             {step === "register" && (
-              <form onSubmit={handleSpin} className="p-6 md:p-7">
+              <form onSubmit={handleSubmit} className="p-6 md:p-7">
                 {/* Header */}
-                <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "hsl(222 58% 42% / 0.08)", border: "1px solid hsl(222 58% 42% / 0.12)" }}>
-                      <Gift className="h-5 w-5" style={{ color: "hsl(222 58% 42%)" }} />
-                    </div>
-                    <div>
-                      <h2 className="text-[0.95rem] font-bold text-foreground">مكافآت مول البستان</h2>
-                      <p className="text-[0.72rem] text-muted-foreground">سجّل للحصول على مكافأة حقيقية</p>
-                    </div>
+                <div className="mb-5">
+                  <div className="mb-3 flex items-center gap-2.5">
+                    <div className="h-[3px] w-6 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+                    <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                      Rewards
+                    </span>
                   </div>
 
-                  <div className="rounded-xl p-3.5" style={{ background: "hsl(222 36% 96%)", border: "1px solid hsl(222 30% 90%)" }}>
-                    <p className="text-[0.78rem] leading-6 text-muted-foreground">
-                      المكافآت مقدّمة من متاجر المول. بعد الفوز، يظهر موقع المتجر مباشرة على الخريطة التفاعلية.
-                    </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card" style={{ boxShadow: "var(--shadow-soft)" }}>
+                      <Gift className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="text-[1rem] font-extrabold light-heading">مكافآت مول البستان</h2>
+                      <p className="text-[0.74rem] light-muted">سجّل للحصول على مكافأة من متاجر المول</p>
+                    </div>
                   </div>
+                </div>
+
+                <div className="mb-5 rounded-xl border border-border p-3.5" style={{ background: "hsl(var(--secondary) / 0.3)" }}>
+                  <p className="text-[0.8rem] leading-6 light-body">
+                    المكافآت مقدّمة من متاجر حقيقية داخل المول. بعد المشاركة، يظهر موقع المتجر الراعي مباشرة على الخريطة التفاعلية.
+                  </p>
                 </div>
 
                 {/* Form fields */}
                 <div className="space-y-3">
                   <div>
-                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">الاسم الكامل *</label>
+                    <label className="mb-1.5 block text-[0.76rem] font-bold light-heading">الاسم الكامل *</label>
                     <Input
                       value={form.full_name}
                       onChange={(e) => setForm({ ...form, full_name: e.target.value })}
-                      className="h-10 rounded-lg border-border bg-background"
+                      className="h-10 rounded-lg border-border bg-background text-[0.88rem]"
                       required
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">رقم الهاتف *</label>
+                    <label className="mb-1.5 block text-[0.76rem] font-bold light-heading">رقم الهاتف *</label>
                     <Input
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="h-10 rounded-lg border-border bg-background"
+                      className="h-10 rounded-lg border-border bg-background text-[0.88rem]"
                       required
                       dir="ltr"
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">البريد الإلكتروني <span className="text-muted-foreground font-normal">(اختياري)</span></label>
+                    <label className="mb-1.5 block text-[0.76rem] font-bold light-heading">
+                      البريد الإلكتروني <span className="font-normal light-muted">(اختياري)</span>
+                    </label>
                     <Input
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="h-10 rounded-lg border-border bg-background"
+                      className="h-10 rounded-lg border-border bg-background text-[0.88rem]"
                       dir="ltr"
                     />
                   </div>
                 </div>
 
                 <Button type="submit" variant="cta" className="mt-5 h-11 w-full rounded-xl text-[0.88rem] font-bold" disabled={loading}>
-                  {loading ? "جاري التحميل..." : "أدر العجلة"}
+                  {loading ? "جاري التحميل..." : "شارك الآن"}
                 </Button>
-                <p className="mt-2 text-center text-[0.68rem] text-muted-foreground">
+                <p className="mt-2 text-center text-[0.68rem] light-muted">
                   مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح
                 </p>
               </form>
             )}
 
-            {/* ── SPINNING — restrained, branded wheel ── */}
-            {step === "spinning" && (
-              <div className="px-6 py-12 text-center">
-                <div className="relative mx-auto h-48 w-48">
-                  {/* Outer ring */}
-                  <div className="absolute inset-0 rounded-full" style={{ border: "2px solid hsl(222 30% 80%)" }} />
-
-                  <svg
-                    viewBox="0 0 200 200"
-                    className="h-full w-full"
-                    style={{
-                      transform: `rotate(${rotation}deg)`,
-                      transition: "transform 3.8s cubic-bezier(0.17, 0.67, 0.12, 0.99)",
-                    }}
-                  >
-                    {WHEEL_SEGMENTS.map((seg, i) => {
-                      const segAngle = 360 / WHEEL_SEGMENTS.length;
-                      const angle = segAngle * i;
-                      const rad1 = (angle * Math.PI) / 180;
-                      const rad2 = ((angle + segAngle) * Math.PI) / 180;
-                      const x1 = 100 + 88 * Math.cos(rad1);
-                      const y1 = 100 + 88 * Math.sin(rad1);
-                      const x2 = 100 + 88 * Math.cos(rad2);
-                      const y2 = 100 + 88 * Math.sin(rad2);
-                      const midRad = ((angle + segAngle / 2) * Math.PI) / 180;
-                      const tx = 100 + 54 * Math.cos(midRad);
-                      const ty = 100 + 54 * Math.sin(midRad);
-                      return (
-                        <g key={i}>
-                          <path
-                            d={`M100,100 L${x1},${y1} A88,88 0 0,1 ${x2},${y2} Z`}
-                            fill={seg.color}
-                            stroke="hsl(222 30% 18%)"
-                            strokeWidth="0.5"
-                          />
-                          <text
-                            x={tx} y={ty}
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            fill="hsl(0 0% 90%)"
-                            fontSize="6.5"
-                            fontWeight="600"
-                            transform={`rotate(${angle + segAngle / 2}, ${tx}, ${ty})`}
-                          >
-                            {seg.label}
-                          </text>
-                        </g>
-                      );
-                    })}
-                    {/* Center hub */}
-                    <circle cx="100" cy="100" r="14" fill="hsl(0 0% 97%)" />
-                    <circle cx="100" cy="100" r="10" fill="hsl(222 36% 11%)" />
-                    <circle cx="100" cy="100" r="3.5" fill="hsl(222 58% 42%)" />
-                  </svg>
-
-                  {/* Pointer — subtle, architectural */}
-                  <div className="absolute -top-1 left-1/2 -translate-x-1/2">
-                    <div className="h-3.5 w-3.5 rotate-45 rounded-[2px]" style={{ background: "hsl(222 36% 11%)" }} />
+            {/* ── PROCESSING — editorial reveal, not casino spin ── */}
+            {step === "processing" && (
+              <div className="px-6 py-16 text-center">
+                {/* Minimal processing indicator */}
+                <div className="relative mx-auto h-16 w-16">
+                  <div className="absolute inset-0 rounded-2xl border border-border bg-secondary" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Gift className="h-6 w-6 text-primary animate-pulse" />
                   </div>
+                  {/* Subtle ring */}
+                  <div
+                    className="absolute -inset-3 rounded-2xl border-2 border-primary/10 animate-pulse"
+                    style={{ animationDuration: "2s" }}
+                  />
                 </div>
 
-                <p className="mt-7 text-[0.95rem] font-bold text-foreground">جاري تحديد مكافأتك...</p>
-                <p className="mt-1 text-[0.78rem] text-muted-foreground">لحظات</p>
+                <p className="mt-6 text-[0.95rem] font-bold light-heading">جاري تحديد مكافأتك...</p>
+                <p className="mt-1.5 text-[0.8rem] light-muted">لحظات — يتم مطابقة بياناتك مع المتاجر المشاركة</p>
               </div>
             )}
 
-            {/* ── RESULT — premium, map-connected ── */}
+            {/* ── RESULT — editorial, map-connected ── */}
             {step === "result" && (
               <div className="p-6 md:p-7">
                 {prize ? (
                   <div className="space-y-4">
-                    {/* Success header */}
+                    {/* Result header — restrained celebration */}
                     <div className="text-center">
-                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(222 58% 42% / 0.08)", border: "1px solid hsl(222 58% 42% / 0.12)" }}>
-                        <Gift className="h-6 w-6" style={{ color: "hsl(222 58% 42%)" }} />
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-secondary" style={{ boxShadow: "var(--shadow-card)" }}>
+                        <Gift className="h-6 w-6 text-primary" />
                       </div>
-                      <h2 className="mt-3 text-lg font-bold text-foreground">مبروك — ربحت مكافأة</h2>
-                      <p className="mt-1 text-[0.92rem] font-bold" style={{ color: "hsl(222 58% 42%)" }}>{prize.title_ar}</p>
+                      <h2 className="mt-4 text-[1.05rem] font-extrabold light-heading">حصلت على مكافأة</h2>
+                      <p className="mt-1 text-[0.92rem] font-bold text-primary">{prize.title_ar}</p>
                     </div>
 
-                    {/* Sponsor store — if linked */}
+                    {/* Sponsor store — linked to map */}
                     {sponsorStore && (
-                      <div className="flex items-center gap-3 rounded-xl p-3.5" style={{ background: "hsl(222 36% 96%)", border: "1px solid hsl(222 30% 90%)" }}>
-                        <Store className="h-4 w-4 shrink-0" style={{ color: "hsl(222 58% 42%)" }} />
+                      <div className="flex items-center gap-3 rounded-xl border border-border p-3.5" style={{ background: "hsl(var(--secondary) / 0.3)" }}>
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-card">
+                          <Store className="h-4 w-4 text-primary" />
+                        </div>
                         <div>
-                          <p className="text-[0.82rem] font-bold text-foreground">{sponsorStore.name_ar}</p>
+                          <p className="text-[0.84rem] font-bold light-heading">{sponsorStore.name_ar}</p>
                           {sponsorStore.unit_code && (
-                            <p className="font-poppins text-[0.7rem] text-muted-foreground">{sponsorStore.unit_code}</p>
+                            <p className="font-poppins text-[0.72rem] light-muted">{sponsorStore.unit_code}</p>
                           )}
                         </div>
                       </div>
@@ -354,54 +302,56 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
 
                     {/* Claim rules */}
                     {prize.claim_rules_ar && (
-                      <div className="rounded-xl p-3.5" style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}>
-                        <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">كيفية الاستلام</p>
-                        <p className="text-[0.82rem] leading-7 text-foreground">{prize.claim_rules_ar}</p>
+                      <div className="rounded-xl border border-border p-4">
+                        <p className="mb-2 text-[0.68rem] font-bold uppercase tracking-[0.15em] light-muted">كيفية الاستلام</p>
+                        <p className="text-[0.84rem] leading-7 light-body">{prize.claim_rules_ar}</p>
                       </div>
                     )}
 
-                    {/* Steps — clean checklist */}
-                    <div className="space-y-1.5">
+                    {/* Steps — clean, professional */}
+                    <div className="space-y-1">
                       {[
-                        "احفظ لقطة شاشة لهذه الصفحة",
+                        "احفظ لقطة شاشة لهذه الصفحة كإثبات",
                         "أحضرها يوم الافتتاح لاستلام المكافأة",
                         "تابع صفحاتنا الرسمية على مواقع التواصل",
                       ].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-[0.75rem] text-muted-foreground">
-                          <Check className="h-3 w-3 shrink-0" style={{ color: "hsl(222 58% 42%)" }} />
-                          <span>{item}</span>
+                        <div key={item} className="flex items-center gap-2.5 rounded-lg px-3 py-2" style={{ background: "hsl(var(--secondary) / 0.3)" }}>
+                          <Check className="h-3 w-3 shrink-0 text-primary" />
+                          <span className="text-[0.78rem] light-body">{item}</span>
                         </div>
                       ))}
                     </div>
 
-                    {/* Map-aware CTAs */}
+                    {/* Map-connected CTAs */}
                     <div className="space-y-2 pt-1">
                       {sponsorStore?.unit_code ? (
-                        <Button variant="cta" className="h-10 w-full rounded-xl text-[0.85rem] font-bold" onClick={handleViewOnMap}>
+                        <Button variant="cta" className="h-11 w-full rounded-xl text-[0.88rem] font-bold" onClick={handleViewOnMap}>
                           <MapPin className="ml-2 h-4 w-4" />
                           شاهد المتجر على الخريطة
                         </Button>
                       ) : (
-                        <Button variant="cta" className="h-10 w-full rounded-xl text-[0.85rem] font-bold" onClick={handleExploreCategory}>
+                        <Button variant="cta" className="h-11 w-full rounded-xl text-[0.88rem] font-bold" onClick={handleExploreCategory}>
                           <Layers className="ml-2 h-4 w-4" />
                           اكتشف المتاجر المشاركة
                         </Button>
                       )}
-                      <button onClick={handleClose} className="w-full text-center text-[0.75rem] text-muted-foreground hover:text-foreground transition-colors py-1">
-                        إغلاق
+                      <button onClick={handleClose} className="flex w-full items-center justify-center gap-1.5 py-2 text-[0.78rem] font-semibold light-muted transition-colors hover:text-foreground">
+                        <ArrowLeft className="h-3 w-3" />
+                        العودة إلى الخريطة
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <div className="text-center py-4">
-                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(var(--secondary) / 0.6)", border: "1px solid hsl(var(--border))" }}>
+                  /* No prize — graceful, not disappointing */
+                  <div className="py-6 text-center">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-secondary">
                       <Gift className="h-6 w-6 text-muted-foreground" />
                     </div>
-                    <h2 className="mt-4 text-lg font-bold text-foreground">شكرًا لمشاركتك</h2>
-                    <p className="mx-auto mt-2 max-w-xs text-[0.85rem] leading-7 text-muted-foreground">
-                      لم يحالفك الحظ هذه المرة — لكن هناك عروض وفعاليات بانتظارك يوم الافتتاح.
+                    <h2 className="mt-4 text-[1.05rem] font-extrabold light-heading">شكرًا لمشاركتك</h2>
+                    <p className="mx-auto mt-2 max-w-xs text-[0.86rem] leading-7 light-body">
+                      لم تتوفر مكافأة هذه المرة — لكن عروض وفعاليات الافتتاح بانتظارك.
                     </p>
-                    <Button variant="secondary" className="mt-5 h-10 w-full rounded-xl text-[0.85rem]" onClick={handleClose}>
+                    <Button variant="secondary" className="mt-5 h-10 w-full rounded-xl text-[0.86rem] font-bold" onClick={handleClose}>
                       العودة إلى الخريطة
                     </Button>
                   </div>
