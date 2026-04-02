@@ -467,10 +467,10 @@ const About = () => (
       <div className="container max-w-[800px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2 className="text-[1.8rem] font-bold leading-[1.1] text-foreground md:text-[2.5rem]">
-            ابدأ الآن — استكشف المول رقميًا.
+            ابدأ من هنا — اكتشف المول رقميًا الآن.
           </h2>
           <p className="mx-auto mt-4 max-w-[28rem] text-base leading-8 text-muted-foreground md:text-lg">
-            الخريطة التفاعلية، دليل المتاجر، وصفحة التأجير — كل ما تحتاجه لتبدأ.
+            الدليل التفاعلي، دليل المتاجر، وصفحة التأجير — كل أدوات القرار في مكان واحد.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/map">
