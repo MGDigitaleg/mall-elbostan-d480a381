@@ -247,16 +247,16 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </p>
 
                 {/* trust signals */}
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-2.5 sm:grid-cols-3">
                   {[
-                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري يمتد لأكثر من عقد كامل." },
-                    { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "هيكل تجاري دقيق", desc: "تصنيف واضح يختصر مسار الشراء." },
+                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري لأكثر من عقد." },
+                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء مختصر ومنظّم." },
                   ].map((c) => (
-                    <div key={c.title} className="card-architectural rounded-xl p-5">
-                      <c.icon className="mb-3 h-5 w-5 text-primary" />
-                      <p className="text-[0.95rem] font-bold light-heading">{c.title}</p>
-                      <p className="mt-1.5 text-[0.86rem] leading-7 light-body">{c.desc}</p>
+                    <div key={c.title} className="card-architectural rounded-lg p-4">
+                      <c.icon className="mb-2 h-4 w-4 text-primary" />
+                      <p className="text-[0.88rem] font-bold light-heading">{c.title}</p>
+                      <p className="mt-1 text-[0.82rem] leading-6 light-body">{c.desc}</p>
                     </div>
                   ))}
                 </div>
