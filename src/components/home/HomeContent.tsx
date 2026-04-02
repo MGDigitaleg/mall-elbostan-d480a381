@@ -306,18 +306,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   {[
                     {
                       icon: Building2,
-                      title: "حضور راسخ",
-                      desc: "سنوات من الثقة في سوق الإلكترونيات.",
+                      title: "مكانة مبنية بالتكرار",
+                      desc: "ثقة تراكمية من سنوات التعامل المباشر.",
                     },
                     {
                       icon: MapPin,
-                      title: "موقع استراتيجي",
-                      desc: "قلب القاهرة الجديدة بين مدينتي والرحاب.",
+                      title: "موقع يصنع الفارق",
+                      desc: "يخدم القاهرة الجديدة ومدينتي والرحاب.",
                     },
                     {
                       icon: Layers,
-                      title: "تنظيم واضح",
-                      desc: "فئات متخصصة تسهّل الوصول السريع.",
+                      title: "تصنيف دقيق",
+                      desc: "فئات متخصصة تختصر المسار من الدخول للقرار.",
                     },
                   ].map((c) => (
                     <div key={c.title} className="section-shell rounded-xl p-5">
