@@ -365,7 +365,6 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           >
             {atriumHovered ? atriumLabel : ""}
           </text>
-          </text>
         </g>
 
         {/* ── Elevator area ── */}
