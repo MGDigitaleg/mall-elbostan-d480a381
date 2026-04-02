@@ -98,7 +98,7 @@ type HomeContentProps = {
 
 export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
   const totalUnits = allMapUnits.length;
-  const floorLabels = Object.fromEntries(floorMapData.map((f) => [f.id, f.label]));
+  
   const categoryStories = exploreNeeds.map((need) => ({
     key: need, name: needCategoryLabels[need],
     icon: categoryMeta[need].icon, brief: categoryBriefs[need],
