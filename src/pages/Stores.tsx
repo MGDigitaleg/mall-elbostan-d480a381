@@ -495,7 +495,7 @@ const Stores = () => {
                 { n: "02", title: "دليل المتاجر", active: true },
                 { n: "03", title: "السوق الرقمي", active: false },
               ].map((phase) => (
-                <div key={phase.n} className="heritage-card rounded-xl p-5 text-center">
+                <div key={phase.n} className="rounded-xl border border-white/8 bg-white/[0.03] p-5 text-center">
                   <span className={`font-poppins text-sm font-bold ${phase.active ? "text-primary" : "text-primary/40"}`}>{phase.n}</span>
                   <p className="mt-2 text-[0.92rem] font-bold text-white">{phase.title}</p>
                   {phase.active && (
