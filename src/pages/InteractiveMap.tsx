@@ -246,9 +246,9 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="py-4 md:py-5" style={{ background: "#FAFAF8" }}>
+      <section className="py-3 md:py-4" style={{ background: "#F5F2EC" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="grid gap-5 lg:grid-cols-[1fr_360px] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[1fr_380px] lg:items-start">
             {/* Map */}
             <div ref={mapRef}>
               <MallFloorMap
@@ -262,9 +262,9 @@ const InteractiveMap = () => {
               />
             </div>
 
-            {/* Details panel — wider, more premium */}
+            {/* Details panel — wider, premium, anchored */}
             {!isMobile && (
-              <aside className="lg:sticky lg:top-[180px]">
+              <aside className="lg:sticky lg:top-[172px]">
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
               </aside>
             )}
