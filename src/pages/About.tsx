@@ -120,7 +120,7 @@ const About = () => (
     <section className="page-section overflow-hidden" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
 
             {/* editorial diptych — entrance (main) + facade (architectural detail) */}
             <div className="order-2 lg:order-1">
