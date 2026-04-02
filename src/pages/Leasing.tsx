@@ -162,7 +162,7 @@ const Leasing = () => {
               { icon: Layers, title: "منظومة متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد." },
               { icon: TrendingUp, title: "نمو مخطّط", desc: "التواجد المبكّر يمنحك أفضلية." },
             ].map((item) => (
-              <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
+              <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-4">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
                   <item.icon className="h-4.5 w-4.5 text-primary" />
                 </div>
