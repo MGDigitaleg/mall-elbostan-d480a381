@@ -233,7 +233,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ DIRECTORY — SEARCH + FILTERS + GRID ═══════════ */}
-      <section id="directory" className="heritage-section page-section scroll-mt-20">
+      <section id="directory" className="heritage-deep page-section scroll-mt-20">
         <div className="container max-w-[1200px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             {/* header */}
