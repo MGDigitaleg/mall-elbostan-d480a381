@@ -154,11 +154,11 @@ const Contact = () => {
                 <div className="mb-5">
                   <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">أرسل رسالتك</h2>
                   <p className="mt-1 text-[0.82rem] light-muted">
-                    {inquiryType === "general" && "اكتب سؤالك أو ملاحظتك — الفريق هيرد عليك في أسرع وقت."}
-                    {inquiryType === "leasing" && "أرسل بياناتك وتفاصيل الوحدة اللي بتدوّر عليها."}
-                    {inquiryType === "partnership" && "وضّح فكرة التعاون — الفريق التجاري هيراجعها ويرد عليك."}
-                    {inquiryType === "media" && "أرسل طلبك الإعلامي وهنوفرلك البيانات المطلوبة."}
-                    {inquiryType === "careers" && "أرسل بياناتك والوظيفة اللي بتدوّر عليها."}
+                    {inquiryType === "general" && "اكتب سؤالك أو ملاحظتك — سيصلك الرد في أقرب وقت."}
+                    {inquiryType === "leasing" && "أرسل بياناتك وتفاصيل الوحدة التي تبحث عنها."}
+                    {inquiryType === "partnership" && "وضّح فكرة التعاون — الفريق التجاري سيراجعها ويتواصل معك."}
+                    {inquiryType === "media" && "أرسل طلبك الإعلامي وسنوفر لك البيانات المطلوبة."}
+                    {inquiryType === "careers" && "أرسل بياناتك والوظيفة التي تبحث عنها."}
                   </p>
                 </div>
 
