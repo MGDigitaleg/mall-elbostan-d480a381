@@ -13,6 +13,8 @@ type Reward = {
   reward_type: string;
   claim_rules_ar: string | null;
   sponsor_store_id: string | null;
+  stock: number;
+  probability_weight: number;
 };
 
 type Props = {
