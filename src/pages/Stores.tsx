@@ -319,9 +319,9 @@ const Stores = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: Math.min(i * 0.04, 0.4), duration: 0.4 }}
                     >
-                      <Link
+                    <Link
                         to={`/stores/${store.slug}`}
-                        className="heritage-card group flex flex-col rounded-xl p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_24px_hsl(221_83%_53%/0.08)]"
+                        className="group flex flex-col rounded-xl border border-white/6 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/25 hover:bg-white/[0.05]"
                       >
                         {/* top row: logo + name + status */}
                         <div className="flex items-start justify-between gap-3">
