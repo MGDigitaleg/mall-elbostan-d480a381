@@ -439,18 +439,17 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-10 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+            <div className="mb-6 grid items-end gap-4 lg:grid-cols-[1fr_auto]">
               <div>
                 <p className="section-kicker">الخريطة التجارية</p>
-                <h2 className="section-title max-w-[28rem]">استكشف المول بالكامل — قبل أن تصل.</h2>
-                <p className="mt-4 text-[1rem] leading-8 light-body">
+                <h2 className="section-title max-w-[24rem]">استكشف المول — قبل أن تصل.</h2>
+                <p className="mt-3 text-[0.92rem] leading-7 light-body">
                   الدليل التفاعلي يعرض كل دور بوحداته وحالاتها الفعلية.
-                  تعرف ما هو متاح وما هو مشغول وما هو قادم — برابط مباشر للتأجير أو تفاصيل المتجر.
                 </p>
               </div>
-              <div className="hidden lg:flex lg:gap-2.5">
-                <Link to="/map"><Button variant="cta" size="lg" className="h-12 rounded-xl px-8 text-[0.92rem] font-bold">افتح الدليل الكامل</Button></Link>
-                <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8 text-[0.92rem]">استفسر عن وحدة</Button></Link>
+              <div className="hidden lg:flex lg:gap-2">
+                <Link to="/map"><Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold">افتح الدليل</Button></Link>
+                <Link to="/leasing"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">استفسر عن وحدة</Button></Link>
               </div>
             </div>
 
