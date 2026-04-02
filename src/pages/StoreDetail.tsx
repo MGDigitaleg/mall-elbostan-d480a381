@@ -223,6 +223,7 @@ const StoreDetail = () => {
 
             {/* Category Story */}
             {activeStory && (
+              <motion.div variants={fadeChild}>
               <article className="card-architectural p-6 md:p-8">
                 <div className="flex items-start gap-3">
                   <Layers3 className="mt-1 h-5 w-5 shrink-0 text-primary" />
@@ -233,6 +234,7 @@ const StoreDetail = () => {
                   </div>
                 </div>
               </article>
+              </motion.div>
             )}
 
             {/* Gallery */}
