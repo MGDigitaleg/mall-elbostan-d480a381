@@ -543,12 +543,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <div className="chapter-shell pt-6">
                   <p className="section-kicker">الدليل التفاعلي</p>
                   <h2 className="section-title">
-                    خريطة رقمية دقيقة لكل دور ووحدة.
+                    كل وحدة ظاهرة — كل دور واضح — قبل أن تصل.
                   </h2>
                 </div>
                 <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                  قبل أن تزور المول — اعرف أين كل متجر، أي الوحدات متاحة، وما الفئة الأقرب لاحتياجك.
-                  الدليل التفاعلي هو القلب الرقمي لتجربة مول البستان.
+                  الدليل التفاعلي يعرض المول كاملًا بأدواره ووحداته وحالاتها — متاح، مشغول، أو
+                  قادم. أداة تخطيط حقيقية للزائر والتاجر على حد سواء.
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {[
