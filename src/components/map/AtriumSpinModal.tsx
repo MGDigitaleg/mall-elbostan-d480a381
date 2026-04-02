@@ -58,12 +58,12 @@ export function AtriumSpinModal({ open, onClose, onWin }: Props) {
 
   const pickWeightedPrize = useCallback(() => {
     if (!rewards || rewards.length === 0) return null;
-    const available = rewards.filter((r: { stock: number }) => r.stock > 0);
+    const available = rewards.filter((r) => r.stock > 0);
     if (available.length === 0) return null;
-    const totalWeight = available.reduce((sum: number, r: { probability_weight: number }) => sum + r.probability_weight, 0);
+    const totalWeight = available.reduce((sum, r) => sum + r.probability_weight, 0);
     let random = Math.random() * totalWeight;
     for (const reward of available) {
-      random -= (reward as { probability_weight: number }).probability_weight;
+      random -= reward.probability_weight;
       if (random <= 0) return reward;
     }
     return available[available.length - 1];
