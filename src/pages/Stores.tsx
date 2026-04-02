@@ -374,7 +374,7 @@ const Stores = () => {
               </div>
             ) : (
               /* premium empty state */
-              <div className="heritage-card rounded-2xl p-12 text-center">
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-12 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                   <Layers3 className="h-7 w-7 text-primary" />
                 </div>
