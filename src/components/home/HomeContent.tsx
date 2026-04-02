@@ -356,9 +356,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-8 max-w-[30rem]">
               <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
+              <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-3 text-[0.92rem] leading-7 light-body">
-                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره وحركته الخاصة.
+                كل قسم بمتاجره وجمهوره وحركته الخاصة.
               </p>
             </div>
 
