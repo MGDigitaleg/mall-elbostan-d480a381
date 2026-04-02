@@ -129,7 +129,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   return (
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+      <section className="relative overflow-hidden bg-[hsl(222_34%_6%)]">
         {/* fine grid */}
         <div
           className="absolute inset-0 opacity-[0.02]"
@@ -147,7 +147,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           }}
         />
         {/* bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_44%_5%)] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_34%_6%)] to-transparent" />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="grid min-h-[94vh] items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 lg:py-0">
@@ -243,7 +243,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       loading="eager"
                     />
                     {/* editorial gradient wash — bottom to top */}
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.6) 0%, transparent 40%, hsl(222 44% 5% / 0.15) 100%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.6) 0%, transparent 40%, hsl(222 34% 6% / 0.15) 100%)" }} />
                   </div>
                 </div>
                 {/* floating accent — interior detail */}
@@ -256,7 +256,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       style={{ filter: "contrast(1.05) saturate(0.9)" }}
                       loading="lazy"
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.35) 0%, transparent 50%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.35) 0%, transparent 50%)" }} />
                   </div>
                 </div>
                 {/* architectural frame accent */}
@@ -589,7 +589,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       </section>
 
       {/* ════════════════ 6 · LEASING (Heritage dark) ════════════════ */}
-      <section className="heritage-section page-section">
+      <section className="section-stone page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
@@ -606,7 +606,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
-                <p className="text-base leading-8 md:text-lg" style={{ color: "hsl(220 12% 68%)" }}>
+                <p className="text-base leading-8 text-muted-foreground md:text-lg">
                   ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
                   التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
@@ -614,9 +614,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 {/* floor availability */}
                 <div className="grid grid-cols-3 gap-3">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="rounded-xl px-4 py-4 text-center" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}>
-                      <p className="text-xl font-bold text-white">{f.count}</p>
-                      <p className="mt-0.5 text-[0.74rem]" style={{ color: "hsl(220 12% 62%)" }}>{f.label}</p>
+                    <div key={f.id} className="section-shell rounded-xl px-4 py-4 text-center">
+                      <p className="text-xl font-bold text-foreground">{f.count}</p>
+                      <p className="mt-0.5 text-[0.74rem] text-muted-foreground">{f.label}</p>
                     </div>
                   ))}
                 </div>
@@ -628,7 +628,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     </Button>
                   </Link>
                   <Link to="/map">
-                    <Button size="lg" className="h-12 rounded-xl border border-white/12 bg-white/6 px-8 text-white hover:bg-white/12">
+                    <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">
                       شاهد الوحدات على الخريطة
                     </Button>
                   </Link>
@@ -641,26 +641,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link
                     key={unit.unit_id}
                     to="/map"
-                    className="group flex flex-col rounded-xl p-5 transition-all duration-200 hover:border-orange/30"
-                    style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}
+                    className="group flex flex-col rounded-xl border border-border bg-card p-5 transition-all duration-200 hover:border-orange/30 hover:shadow-[var(--shadow-card)]"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
-                        <p className="mt-1 text-sm" style={{ color: "hsl(220 12% 62%)" }}>{needCategoryLabels[unit.category]}</p>
+                        <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{needCategoryLabels[unit.category]}</p>
                       </div>
                       <span className="rounded-full border border-orange/25 bg-orange/12 px-3 py-1 text-[0.75rem] font-semibold text-orange">
                         متاحة
                       </span>
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2.5">
-                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
-                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>الدور</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">{floorLabels[unit.floor_id]}</p>
+                      <div className="rounded-lg bg-secondary px-3 py-2.5">
+                        <p className="text-[0.72rem] text-muted-foreground">الدور</p>
+                        <p className="mt-0.5 text-sm font-semibold text-foreground">{floorLabels[unit.floor_id]}</p>
                       </div>
-                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
-                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>المساحة</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">{unit.area_m2} م²</p>
+                      <div className="rounded-lg bg-secondary px-3 py-2.5">
+                        <p className="text-[0.72rem] text-muted-foreground">المساحة</p>
+                        <p className="mt-0.5 text-sm font-semibold text-foreground">{unit.area_m2} م²</p>
                       </div>
                     </div>
                   </Link>

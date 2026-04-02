@@ -10,80 +10,82 @@
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
     --font-poppins: 'Inter', sans-serif;
 
-    /* ─── Premium heritage palette ─── */
-    --background: 40 12% 97%;
-    --foreground: 222 42% 10%;
+    /* ─── Premium heritage palette — balanced warmth ─── */
+    --background: 38 16% 97%;
+    --foreground: 222 32% 13%;
 
-    --card: 42 18% 99%;
-    --card-foreground: 222 42% 10%;
+    --card: 36 18% 99%;
+    --card-foreground: 222 32% 13%;
 
-    --popover: 42 18% 99%;
-    --popover-foreground: 222 42% 10%;
+    --popover: 36 18% 99%;
+    --popover-foreground: 222 32% 13%;
 
-    --primary: 220 68% 38%;
+    --primary: 222 58% 42%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 38 12% 93%;
-    --secondary-foreground: 222 42% 10%;
+    --secondary: 34 14% 94%;
+    --secondary-foreground: 222 32% 13%;
 
-    --muted: 36 10% 90%;
-    --muted-foreground: 220 8% 44%;
+    --muted: 220 10% 89%;
+    --muted-foreground: 220 10% 44%;
 
-    --accent: 192 62% 36%;
+    --accent: 192 48% 38%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 68% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --orange: 24 88% 50%;
+    --orange: 24 85% 50%;
     --orange-foreground: 0 0% 100%;
 
-    --success: 160 60% 38%;
+    --success: 160 55% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 36 10% 84%;
-    --input: 36 10% 84%;
-    --ring: 220 68% 38%;
+    --border: 34 12% 85%;
+    --input: 34 12% 85%;
+    --ring: 222 58% 42%;
 
     --radius: 0.625rem;
 
-    /* Heritage navy */
-    --navy: 222 42% 10%;
-    --navy-foreground: 40 12% 96%;
+    /* ─── Heritage navy — deep midnight anchor ─── */
+    --navy: 222 36% 11%;
+    --navy-foreground: 38 14% 95%;
 
-    /* ─── Warm heritage accent ─── */
-    --warm-sand: 36 28% 92%;
-    --warm-sand-foreground: 30 12% 38%;
+    /* ─── Warm heritage tones ─── */
+    --warm-sand: 34 22% 91%;
+    --warm-sand-foreground: 30 14% 36%;
+    --warm-stone: 36 16% 95%;
+    --bronze: 30 20% 52%;
 
-    --neutral-light: 40 12% 97%;
+    --neutral-light: 38 16% 97%;
 
     /* ─── Premium gradients ─── */
-    --gradient-blue: linear-gradient(135deg, hsl(220 68% 38%), hsl(222 52% 48%));
-    --gradient-hero: linear-gradient(168deg, hsl(222 44% 6%), hsl(222 38% 11%));
-    --gradient-card: linear-gradient(180deg, hsl(42 18% 99%), hsl(38 14% 96%));
-    --gradient-section: linear-gradient(180deg, hsl(38 14% 96%), hsl(36 12% 93%));
-    --gradient-warm: linear-gradient(180deg, hsl(36 14% 94%), hsl(38 14% 96%));
-    --gradient-ivory: linear-gradient(180deg, hsl(40 16% 97%), hsl(38 12% 94%));
+    --gradient-blue: linear-gradient(135deg, hsl(222 58% 42%), hsl(222 48% 50%));
+    --gradient-hero: linear-gradient(168deg, hsl(222 38% 7%), hsl(222 32% 12%));
+    --gradient-card: linear-gradient(180deg, hsl(36 18% 99%), hsl(34 14% 96%));
+    --gradient-section: linear-gradient(180deg, hsl(34 14% 96%), hsl(34 12% 93%));
+    --gradient-warm: linear-gradient(180deg, hsl(34 16% 95%), hsl(36 14% 97%));
+    --gradient-ivory: linear-gradient(180deg, hsl(38 18% 97%), hsl(36 14% 95%));
 
     /* ─── Architectural shadows ─── */
-    --shadow-blue: 0 8px 28px hsl(220 68% 38% / 0.10);
-    --shadow-card: 0 1px 2px hsl(222 42% 10% / 0.025), 0 4px 14px hsl(222 42% 10% / 0.02);
-    --shadow-elevated: 0 2px 6px hsl(222 42% 10% / 0.035), 0 12px 36px hsl(222 42% 10% / 0.04);
-    --shadow-soft: 0 1px 2px hsl(222 42% 10% / 0.015);
-    --shadow-premium: 0 1px 2px hsl(222 42% 10% / 0.025), 0 8px 24px hsl(222 42% 10% / 0.035);
-    --shadow-inset: inset 0 1px 2px hsl(222 42% 10% / 0.04);
-    --shadow-hero-card: 0 2px 4px hsl(222 42% 10% / 0.06), 0 16px 48px hsl(222 42% 10% / 0.08);
-    --shadow-deep: 0 4px 6px hsl(222 42% 10% / 0.04), 0 20px 60px hsl(222 42% 10% / 0.06);
+    --shadow-blue: 0 8px 28px hsl(222 58% 42% / 0.10);
+    --shadow-card: 0 1px 2px hsl(222 32% 13% / 0.02), 0 4px 14px hsl(222 32% 13% / 0.018);
+    --shadow-elevated: 0 2px 6px hsl(222 32% 13% / 0.03), 0 12px 36px hsl(222 32% 13% / 0.035);
+    --shadow-soft: 0 1px 2px hsl(222 32% 13% / 0.012);
+    --shadow-premium: 0 1px 2px hsl(222 32% 13% / 0.02), 0 8px 24px hsl(222 32% 13% / 0.03);
+    --shadow-inset: inset 0 1px 2px hsl(222 32% 13% / 0.035);
+    --shadow-hero-card: 0 2px 4px hsl(222 32% 13% / 0.05), 0 16px 48px hsl(222 32% 13% / 0.07);
+    --shadow-deep: 0 4px 6px hsl(222 32% 13% / 0.035), 0 20px 60px hsl(222 32% 13% / 0.05);
 
     /* ─── Sidebar (admin) ─── */
-    --sidebar-background: 222 42% 10%;
-    --sidebar-foreground: 40 12% 96%;
-    --sidebar-primary: 220 68% 38%;
+    --sidebar-background: 222 36% 11%;
+    --sidebar-foreground: 38 14% 95%;
+    --sidebar-primary: 222 58% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 28% 16%;
-    --sidebar-accent-foreground: 40 12% 96%;
-    --sidebar-border: 222 20% 20%;
-    --sidebar-ring: 220 68% 38%;
+    --sidebar-accent: 222 24% 17%;
+    --sidebar-accent-foreground: 38 14% 95%;
+    --sidebar-border: 222 18% 20%;
+    --sidebar-ring: 222 58% 42%;
   }
 }
 
@@ -259,8 +261,8 @@
 
   /* ── Heritage surface with depth ── */
   .heritage-surface {
-    background: hsl(222 44% 8%);
-    border: 1px solid hsl(220 16% 18%);
+    background: hsl(222 36% 9%);
+    border: 1px solid hsl(222 18% 18%);
     border-radius: calc(var(--radius) * 0.7);
     box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.03);
   }
@@ -304,8 +306,9 @@
 
   /* ── Section background modifiers ── */
   .section-soft { background: hsl(var(--secondary)); }
-  .section-warm { background: hsl(38 12% 94%); }
+  .section-warm { background: hsl(34 16% 95%); }
   .section-ivory { background: var(--gradient-ivory); }
+  .section-stone { background: hsl(var(--warm-stone)); }
 
   /* ── Heritage dark sections ── */
   .heritage-section {
@@ -321,15 +324,18 @@
     background: hsl(var(--warm-sand));
   }
 
+  /* ── Bronze accent for heritage elements ── */
+  .text-bronze { color: hsl(var(--bronze)); }
+
   .heritage-card {
-    background: hsl(222 36% 13%);
-    border: 1px solid hsl(220 16% 20%);
+    background: hsl(222 30% 14%);
+    border: 1px solid hsl(222 16% 20%);
     border-radius: calc(var(--radius) * 0.8);
   }
 
   /* ── Heritage deep (darker variant) ── */
   .heritage-deep {
-    background: hsl(222 44% 6%);
+    background: hsl(222 34% 7%);
     color: hsl(var(--navy-foreground));
   }
 
