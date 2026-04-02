@@ -47,7 +47,7 @@ const About = () => (
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 70% 50%, #2D6BFF06, transparent 65%)" }} />
 
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className="grid min-h-[68vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid min-h-[58vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
           {/* text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
