@@ -27,7 +27,9 @@ import exteriorImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
 import entranceImage from "@/assets/mall-entrance.jpg";
-import downtownImage from "@/assets/downtown-branch.jpg";
+import downtownImage from "@/assets/downtown-exterior.jpg";
+import downtownNight from "@/assets/downtown-night.jpg";
+import downtownInterior from "@/assets/downtown-interior-1.jpg";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
@@ -174,7 +176,7 @@ const About = () => (
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] dark-body max-w-[26rem]">
-                افتتح عام 1990 ليصبح أول مركز تقنية متخصص في مصر. ارتبط بالاستيراد والتجارة والصيانة، وأصبح مرجعًا لكل من يبحث عن حلول تقنية في القاهرة.
+                في عام 1990، تم افتتاح مول البستان كمركز تجاري يجمع بين العديد من الأنشطة التجارية تحت سقف واحد. ليصبح الوجهة الرئيسية لعشاق التكنولوجيا والإلكترونيات، وتحوّل إلى معلم رئيسي من معالم القاهرة. إحدى مشروعات مجموعة العباسي.
               </p>
 
               <div className="space-y-2.5">
@@ -212,7 +214,15 @@ const About = () => (
 
             <div className="space-y-3 lg:sticky lg:top-24">
               <div className="frame-cinematic overflow-hidden rounded-lg">
-                <img src={downtownImage} alt="فرع وسط البلد — مول البستان" className="img-grade-warm aspect-[4/3] max-h-[200px] w-full object-cover object-[center_40%]" loading="lazy" width={800} height={600} />
+                <img src={downtownImage} alt="الواجهة الرئيسية — مول البستان وسط البلد" className="img-grade-warm aspect-[4/3] max-h-[200px] w-full object-cover object-center" loading="lazy" />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="frame-heritage overflow-hidden rounded-lg">
+                  <img src={downtownNight} alt="مول البستان ليلًا" className="img-grade aspect-[4/3] max-h-[90px] w-full object-cover object-center" loading="lazy" />
+                </div>
+                <div className="frame-heritage overflow-hidden rounded-lg">
+                  <img src={downtownInterior} alt="داخل مول البستان" className="img-grade aspect-[4/3] max-h-[90px] w-full object-cover object-center" loading="lazy" />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
