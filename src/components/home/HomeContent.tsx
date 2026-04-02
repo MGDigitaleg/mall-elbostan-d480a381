@@ -589,7 +589,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
             </div>
 
-            <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
+            <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
                 { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة شاملة لكل دور.", active: true },
                 { n: "02", icon: ShoppingBag, label: "دليل المتاجر", desc: "تفاصيل كل علامة تجارية.", active: true },
