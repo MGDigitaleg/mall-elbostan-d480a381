@@ -255,7 +255,7 @@ const StoreDetail = () => {
           </motion.div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
             {/* Contact Card */}
             <aside className="card-editorial p-6 md:p-8">
               <p className="section-kicker">معلومات الاتصال</p>
