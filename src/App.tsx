@@ -34,6 +34,7 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
+import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
@@ -94,6 +95,10 @@ function AppLayout() {
           <Route path="/admin/tenant-assets" element={<AdminTenantAssets />} />
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/product-categories" element={<AdminProductCategories />} />
+          <Route path="/admin/competition-stores" element={<AdminCompetitionStores />} />
+          <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
+          <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
+          <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

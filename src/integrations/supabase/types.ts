@@ -77,6 +77,41 @@ export type Database = {
         }
         Relationships: []
       }
+      competition_stores: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          participation_note: string | null
+          store_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          participation_note?: string | null
+          store_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          participation_note?: string | null
+          store_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competition_stores_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: true
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       deals: {
         Row: {
           created_at: string
@@ -561,6 +596,143 @@ export type Database = {
             columns: ["prize_id"]
             isOneToOne: false
             referencedRelation: "rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      spin_sessions: {
+        Row: {
+          claim_code: string | null
+          claim_status: string
+          competition_store_id: string | null
+          created_at: string
+          email: string | null
+          expires_at: string | null
+          full_name: string
+          id: string
+          phone: string
+          phone_hash: string
+          prize_id: string | null
+          qr_data: string | null
+          redeemed_at: string | null
+          redeemed_by: string | null
+          spin_date: string
+        }
+        Insert: {
+          claim_code?: string | null
+          claim_status?: string
+          competition_store_id?: string | null
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          full_name: string
+          id?: string
+          phone: string
+          phone_hash: string
+          prize_id?: string | null
+          qr_data?: string | null
+          redeemed_at?: string | null
+          redeemed_by?: string | null
+          spin_date?: string
+        }
+        Update: {
+          claim_code?: string | null
+          claim_status?: string
+          competition_store_id?: string | null
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          full_name?: string
+          id?: string
+          phone?: string
+          phone_hash?: string
+          prize_id?: string | null
+          qr_data?: string | null
+          redeemed_at?: string | null
+          redeemed_by?: string | null
+          spin_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "spin_sessions_competition_store_id_fkey"
+            columns: ["competition_store_id"]
+            isOneToOne: false
+            referencedRelation: "competition_stores"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "spin_sessions_prize_id_fkey"
+            columns: ["prize_id"]
+            isOneToOne: false
+            referencedRelation: "store_prizes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      store_prizes: {
+        Row: {
+          active_from: string | null
+          active_to: string | null
+          category: string | null
+          competition_store_id: string
+          created_at: string
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name_ar: string
+          name_en: string | null
+          probability_weight: number
+          redemption_rules_ar: string | null
+          redemption_rules_en: string | null
+          remaining_stock: number
+          total_quantity: number
+          updated_at: string
+          validity_days: number | null
+        }
+        Insert: {
+          active_from?: string | null
+          active_to?: string | null
+          category?: string | null
+          competition_store_id: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name_ar: string
+          name_en?: string | null
+          probability_weight?: number
+          redemption_rules_ar?: string | null
+          redemption_rules_en?: string | null
+          remaining_stock?: number
+          total_quantity?: number
+          updated_at?: string
+          validity_days?: number | null
+        }
+        Update: {
+          active_from?: string | null
+          active_to?: string | null
+          category?: string | null
+          competition_store_id?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name_ar?: string
+          name_en?: string | null
+          probability_weight?: number
+          redemption_rules_ar?: string | null
+          redemption_rules_en?: string | null
+          remaining_stock?: number
+          total_quantity?: number
+          updated_at?: string
+          validity_days?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_prizes_competition_store_id_fkey"
+            columns: ["competition_store_id"]
+            isOneToOne: false
+            referencedRelation: "competition_stores"
             referencedColumns: ["id"]
           },
         ]

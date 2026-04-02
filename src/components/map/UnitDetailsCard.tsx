@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
-import type { SpinReward } from "./AtriumSpinModal";
+export type ActiveRewardContext = {
+  prizeName: string;
+  claimRules?: string | null;
+  storeName?: string;
+  isCategory?: boolean;
+};
 
 const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
   occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
   available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E" },
   coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8" },
-};
-
-export type ActiveRewardContext = {
-  reward: SpinReward;
-  storeName?: string;
-  isCategory?: boolean;
 };
 
 function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
@@ -24,9 +23,9 @@ function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
         <Gift className="h-3 w-3" />
         مكافأة نشطة
       </div>
-      <p className="mt-1 text-[0.84rem] font-bold light-heading">{ctx.reward.title_ar}</p>
+      <p className="mt-1 text-[0.84rem] font-bold light-heading">{ctx.prizeName}</p>
       {ctx.storeName && <p className="mt-0.5 text-[0.76rem] light-body">من {ctx.storeName}</p>}
-      {ctx.reward.claim_rules_ar && <p className="mt-1.5 text-[0.72rem] leading-5 light-body">{ctx.reward.claim_rules_ar}</p>}
+      {ctx.claimRules && <p className="mt-1.5 text-[0.72rem] leading-5 light-body">{ctx.claimRules}</p>}
       {ctx.isCategory && <p className="mt-1.5 text-[0.68rem] font-bold" style={{ color: "#3B52CC" }}>جميع المتاجر المُظلّلة مشاركة</p>}
     </div>
   );

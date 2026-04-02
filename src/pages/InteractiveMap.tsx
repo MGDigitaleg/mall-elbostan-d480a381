@@ -93,35 +93,36 @@ const InteractiveMap = () => {
     setTimeout(() => { mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 200);
   }, []);
 
-  const handleSpinWin = useCallback((result: SpinWinResult | null) => {
-    if (!result) return;
+  const handleSpinWin = useCallback((result: SpinWinResult) => {
+    if (!result.won || !result.result) return;
     setLastWinResult(result);
-    const { reward, sponsorStore } = result;
+    const { result: spinData } = result;
+    const store = spinData.store;
+    const prizeName = spinData.prize.name_ar;
 
-    if (sponsorStore?.unit_code) {
-      const unitCode = sponsorStore.unit_code;
-      const targetUnit = allMallUnits.find((u) => u.code === unitCode);
+    if (store?.unit_code) {
+      const targetUnit = allMallUnits.find((u) => u.code === store.unit_code);
       if (targetUnit) {
         setSelectedFloor(targetUnit.floor);
         setSelectedUnit(targetUnit);
         setHighlightedUnitIds(new Set([targetUnit.id]));
-        setActiveRewardCtx({ reward, storeName: sponsorStore.name_ar });
+        setActiveRewardCtx({ prizeName, storeName: store.name_ar ?? undefined });
       } else {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
-        setActiveRewardCtx({ reward, storeName: sponsorStore.name_ar });
+        setActiveRewardCtx({ prizeName, storeName: store.name_ar ?? undefined });
       }
     } else {
-      const mapCat = resolveMapCategory(sponsorStore?.category ?? null);
+      const mapCat = resolveMapCategory(store?.category ?? null);
       if (mapCat) {
         const matchingIds = new Set(allMallUnits.filter((u) => u.category === mapCat && u.status === "occupied").map((u) => u.id));
         setHighlightedUnitIds(matchingIds);
         setCategoryFilter(mapCat);
-        setActiveRewardCtx({ reward, isCategory: true });
+        setActiveRewardCtx({ prizeName, isCategory: true });
       } else {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
-        setActiveRewardCtx({ reward, isCategory: true });
+        setActiveRewardCtx({ prizeName, isCategory: true });
       }
     }
     setTimeout(() => clearRewardState(), 15000);
@@ -455,8 +456,15 @@ const InteractiveMap = () => {
         open={spinModalOpen}
         onClose={() => setSpinModalOpen(false)}
         onWin={handleSpinWin}
-        onViewOnMap={handleViewOnMap}
-        onExploreCategory={handleExploreCategory}
+        onViewOnMap={(unitCode: string) => {
+          const targetUnit = allMallUnits.find((u) => u.code === unitCode);
+          if (targetUnit) {
+            setSelectedFloor(targetUnit.floor);
+            setSelectedUnit(targetUnit);
+            setHighlightedUnitIds(new Set([targetUnit.id]));
+            scrollToMap();
+          }
+        }}
       />
     </MainLayout>
   );
