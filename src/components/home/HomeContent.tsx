@@ -237,8 +237,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </div>
 
                 <p className="text-[0.95rem] leading-[1.95] light-body">
-                  مول البستان يملك ما لا يُشترى: سمعة بنتها سنوات من التعامل المباشر.
-                  الزائر يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا.
+                  سمعة بنتها سنوات من التعامل المباشر — الزائر يعرف أنه سيجد ما يبحث عنه.
                 </p>
 
                 {/* trust signals */}
