@@ -59,19 +59,19 @@ const About = () => (
             className="order-1 space-y-6"
           >
             <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-              عن مول البستان
+              من نحن
             </span>
 
             <h1 className="max-w-[30rem] text-[2.2rem] font-extrabold leading-[1.06] text-white md:text-[3.2rem] lg:text-[3.8rem]">
-              اسم بُنيت حوله
+              مول بنته الثقة
               <br className="hidden sm:block" />
-              ثقة سوق كامل.
+              قبل أن يبنيه الحجر.
             </h1>
 
             <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
-              مول البستان ليس مشروعًا جديدًا يبحث عن هويته — إنه عنوان قائم بنى مكانته في سوق
-              الإلكترونيات المصري عبر سنوات من التعامل المباشر بين التاجر والزائر. اليوم، يتجدد
-              رقميًا بنفس المبدأ: وضوح وثقة ونظام.
+              مول البستان ليس مشروعًا يبدأ من الصفر — إنه امتداد لتاريخ تجاري حقيقي في سوق
+              الإلكترونيات المصري. اليوم يتجدد رقميًا ومعماريًا بنفس المبادئ التي أسّسته:
+              وضوح التعامل، تنظيم السوق، واحترام العلاقة بين التاجر والمشتري.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-1">
@@ -133,19 +133,19 @@ const About = () => (
               <div className="chapter-shell pt-6">
                 <p className="section-kicker">لماذا مول البستان</p>
                 <h2 className="section-title max-w-[26rem]">
-                  ليس مجرد مول — بل وجهة بناها السوق نفسه.
+                  ليس مجرد مول — بل وجهة اختارها السوق.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
-                في سوق مزدحم بالخيارات، مول البستان يتميز بشيء لا يمكن بناؤه بين ليلة وضحاها:
-                الثقة. سنوات من التعامل المباشر جعلت الاسم مرجعًا عند شريحة واسعة من المشترين
-                والتجار في القاهرة الجديدة.
+                في سوق ممتلئ بالخيارات، مول البستان يملك ما لا يُبنى بحملة إعلانية:
+                سمعة تراكمت من سنوات التعامل الحقيقي. المشتري يعرفه لأنه وجد ما يحتاجه،
+                والتاجر يثق به لأن الجمهور المناسب يأتي إليه.
               </p>
               <div className="space-y-4">
                 {[
-                  "سوق متخصص بالتقنية — ليس مجمعًا عامًا بلا هوية.",
-                  "موقع يخدم منطقة طلب حقيقي ومتنامٍ.",
-                  "تجربة منظمة تختصر الوقت بين الدخول والقرار.",
+                  "سوق متخصص بالتقنية — لا مجمّع عام بلا هوية.",
+                  "موقع يخدم منطقة طلب حقيقي ومتنامٍ في القاهرة الجديدة.",
+                  "تجربة منظمة تختصر الطريق من الدخول إلى اتخاذ القرار.",
                 ].map((point) => (
                   <div key={point} className="flex items-start gap-3">
                     <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
@@ -164,13 +164,13 @@ const About = () => (
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto mb-14 max-w-[36rem] text-center">
-            <p className="section-kicker">تاريخ وتجارة</p>
+            <p className="section-kicker">سيرة تجارية</p>
             <h2 className="section-title">
-              مكانة بُنيت بالتعامل لا بالإعلان.
+              مكانة لم تُبنَ بالإعلان — بل بتكرار التجربة.
             </h2>
             <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50 md:text-lg">
-              مول البستان لم يحتج حملات ضخمة ليُعرف — سمعته بناها التجار والزوار أنفسهم، زيارة بعد
-              زيارة وصفقة بعد صفقة.
+              مول البستان لم يحتج حملات ضخمة ليصبح معروفًا — الزوّار والتجار هم من صنعوا
+              سمعته، صفقة بعد صفقة وزيارة بعد زيارة.
             </p>
           </div>
 
@@ -182,26 +182,26 @@ const About = () => (
             <div className="space-y-8 lg:space-y-14">
               {[
                 {
-                  title: "وجهة معروفة",
-                  desc: "مول البستان أصبح اسمًا مألوفًا في سوق الإلكترونيات بالقاهرة الجديدة — مكان يعرفه المشتري والتاجر على حد سواء.",
+                  title: "وجهة راسخة",
+                  desc: "اسم مألوف في سوق الإلكترونيات بالقاهرة الجديدة — يعرفه المشتري والتاجر على حد سواء ويعود إليه بثقة.",
                   icon: Building2,
                   align: "right" as const,
                 },
                 {
-                  title: "تنوّع تجاري حقيقي",
-                  desc: "من اللابتوب والإكسسوارات إلى الشبكات وأنظمة المراقبة — المول يغطي طيفًا واسعًا من الاحتياج التقني تحت سقف واحد.",
+                  title: "تغطية شاملة",
+                  desc: "من الأجهزة المحمولة والإكسسوارات إلى الشبكات وأنظمة المراقبة — طيف واسع من الاحتياج التقني في مكان واحد.",
                   icon: Layers,
                   align: "left" as const,
                 },
                 {
-                  title: "ثقة مبنية بالتكرار",
-                  desc: "الزائر يعود لأنه وجد ما يحتاجه بسرعة. التاجر يبقى لأن الجمهور المستهدف يأتي إليه. هذه الدورة هي أساس المكانة.",
+                  title: "ثقة تتجدد بالعودة",
+                  desc: "الزائر يعود لأنه وجد ما يحتاجه بسرعة، والتاجر يبقى لأن الجمهور المستهدف يصل إليه فعلًا. دورة نجاح متكررة.",
                   icon: Users,
                   align: "right" as const,
                 },
                 {
                   title: "التجدد الرقمي",
-                  desc: "اليوم يتجدد المول بدليل تفاعلي رقمي وتجربة استكشاف حديثة — بنفس مبدأ الوضوح والثقة الذي بُني عليه.",
+                  desc: "المول يتجدد اليوم بدليل تفاعلي رقمي وتجربة استكشاف حديثة — بنفس القيم: وضوح، ثقة، ونظام.",
                   icon: Globe,
                   align: "left" as const,
                 },
@@ -242,22 +242,22 @@ const About = () => (
               <div className="chapter-shell pt-6">
                 <p className="section-kicker">تجربة الزائر</p>
                 <h2 className="section-title max-w-[24rem]">
-                  زيارة منظّمة من أول خطوة.
+                  زيارة منظّمة تبدأ قبل أن تدخل.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
-                بدل أن تدخل مولًا مزدحمًا وتبحث عشوائيًا — هنا كل شيء مصنّف ومرتّب. فئات واضحة،
-                أدوار منطقية، وخريطة تفاعلية تعرض كل وحدة بحالتها قبل أن تصل.
+                المول مقسّم بتصنيف دقيق — فئات واضحة، أدوار منطقية، وخريطة تفاعلية تعرض كل
+                وحدة بحالتها الفعلية. الزائر يعرف وجهته قبل أن يصل.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
-                  { icon: Smartphone, title: "الهواتف والإكسسوارات", desc: "ملحقات يومية ضمن مسار سريع." },
-                  { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أجهزة للدراسة والعمل والأداء." },
-                  { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع ومكوّنات لأداء مخصّص." },
-                  { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات مراقبة وحلول حماية." },
-                  { icon: Wrench, title: "الصيانة والدعم", desc: "خدمة مباشرة وحلول سريعة." },
-                  { icon: Globe, title: "الشبكات والطباعة", desc: "حلول مهنية متخصصة." },
+                  { icon: Smartphone, title: "الهواتف والإكسسوارات", desc: "تشكيلة شاملة للأجهزة المحمولة وملحقاتها." },
+                  { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أجهزة مكتبية ومحمولة للأداء والإنتاجية." },
+                  { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع غيار ومكوّنات لتجميعات احترافية." },
+                  { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات مراقبة وحلول حماية متكاملة." },
+                  { icon: Wrench, title: "الصيانة والدعم", desc: "خدمة صيانة معتمدة ودعم فني فوري." },
+                  { icon: Globe, title: "الشبكات والطباعة", desc: "بنية تحتية رقمية وحلول طباعة مهنية." },
                 ].map((cat) => (
                   <div key={cat.title} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/15 hover:shadow-[var(--shadow-card)]">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
@@ -304,15 +304,15 @@ const About = () => (
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div className="space-y-6">
               <div className="chapter-shell pt-6">
-                <p className="section-kicker">الفرصة التجارية</p>
+                <p className="section-kicker">الموقع التجاري</p>
                 <h2 className="section-title max-w-[26rem]">
                   لماذا يختار التاجر مول البستان.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
-                الموقع وحده لا يكفي — ما يجعل المول فرصة تجارية حقيقية هو الجمهور المتخصص الذي يأتي
-                إليه تحديدًا بحثًا عن التقنية. هذا يعني زيارات ذات نية شراء واضحة، وبيئة تجارية
-                تدعم النشاط بدل أن تشتته.
+                الموقع الجغرافي ميزة — لكن الميزة الحقيقية هي الجمهور المتخصص الذي يقصد المول
+                بحثًا عن التقنية تحديدًا. كل زيارة تحمل نية شراء، وهذا ما يجعل الوحدة التجارية
+                هنا أكثر من مجرد مساحة — إنها موقع في سوق فعّال.
               </p>
 
               <div className="space-y-3">
@@ -397,13 +397,13 @@ const About = () => (
       <div className="container max-w-[1000px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="text-center">
-            <p className="section-kicker">الفصل التالي</p>
+            <p className="section-kicker">المرحلة التالية</p>
             <h2 className="section-title mx-auto max-w-[28rem]">
-              من وجهة تقنية إلى تجربة رقمية متصلة.
+              من وجهة راسخة إلى منصة رقمية متصلة.
             </h2>
             <p className="mx-auto mt-5 max-w-[34rem] text-base leading-8 text-white/50 md:text-lg">
-              المول يتجدد — دليل تفاعلي يعرض كل وحدة وحالتها، ودليل متاجر رقمي يسهّل الاستكشاف
-              قبل الزيارة. والمرحلة التالية: سوق رقمي يمتد من المتاجر ليخدم المستخدمين في أي مكان.
+              المول يتطور — دليل تفاعلي يعمل الآن، ودليل متاجر رقمي يسهّل الاستكشاف.
+              المرحلة القادمة: سوق إلكتروني يمتد من واجهات المتاجر ليصل لأي مستخدم.
             </p>
           </div>
 
@@ -412,7 +412,7 @@ const About = () => (
               {
                 n: "01",
                 title: "الدليل التفاعلي",
-                desc: "خريطة دقيقة لكل دور ووحدة وحالة — تعمل الآن.",
+                desc: "خريطة المول بكل وحداتها وحالاتها — يعمل الآن.",
                 active: true,
               },
               {
@@ -467,10 +467,10 @@ const About = () => (
       <div className="container max-w-[800px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <h2 className="text-[1.8rem] font-bold leading-[1.1] text-foreground md:text-[2.5rem]">
-            ابدأ الآن — استكشف المول رقميًا.
+            ابدأ من هنا — اكتشف المول رقميًا الآن.
           </h2>
           <p className="mx-auto mt-4 max-w-[28rem] text-base leading-8 text-muted-foreground md:text-lg">
-            الخريطة التفاعلية، دليل المتاجر، وصفحة التأجير — كل ما تحتاجه لتبدأ.
+            الدليل التفاعلي، دليل المتاجر، وصفحة التأجير — كل أدوات القرار في مكان واحد.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/map">

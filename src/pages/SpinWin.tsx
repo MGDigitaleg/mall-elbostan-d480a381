@@ -97,7 +97,7 @@ const SpinWin = () => {
       <SEOHead title="أدر واربح" titleEn="Spin & Win" description="شارك في لعبة أدر واربح واحصل على جوائز فورية من مول البستان يوم الافتتاح!" descriptionEn="Spin the wheel and win prizes at Mall Elbostan's grand opening!" breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]} />
       <div className="container py-20 max-w-2xl text-center">
         <h1 className="text-4xl font-bold text-gradient-blue mb-4">أدر واربح</h1>
-        <p className="text-muted-foreground mb-10">سجّل بياناتك وأدر العجلة للفوز بجوائز قيّمة يوم الافتتاح!</p>
+        <p className="text-muted-foreground mb-10">سجّل بياناتك وأدر العجلة — مكافآت حقيقية مرتبطة بمتاجر المول تنتظرك يوم الافتتاح.</p>
 
         {step === "register" && (
           <form onSubmit={handleSpin} className="card-premium p-8 space-y-4 text-right">
@@ -124,24 +124,24 @@ const SpinWin = () => {
           <div className="card-premium p-8">
             {prize ? (
               <>
-                <h2 className="text-2xl font-bold text-success mb-4">مبروك! لقد فزت</h2>
+                <h2 className="text-2xl font-bold text-success mb-4">مبروك — فزت بمكافأة</h2>
                 <p className="text-xl font-bold text-foreground mb-4">{prize.title_ar}</p>
                 {prize.claim_rules_ar && (
                   <div className="bg-secondary/50 p-4 rounded-lg text-sm text-muted-foreground mt-4 text-right">
-                    <p className="font-bold text-foreground mb-2">كيفية الاستلام:</p>
+                    <p className="font-bold text-foreground mb-2">آلية الاستلام:</p>
                     <p>{prize.claim_rules_ar}</p>
                   </div>
                 )}
                 <div className="bg-accent/10 p-4 rounded-lg mt-4 text-sm text-accent">
-                  <p>احفظ لقطة شاشة لهذه الصفحة</p>
-                  <p>أحضرها يوم الافتتاح لاستلام جائزتك</p>
-                  <p>تابع صفحاتنا الرسمية على مواقع التواصل</p>
+                  <p>احفظ لقطة شاشة لهذه الصفحة كإثبات</p>
+                  <p>أحضرها يوم الافتتاح لاستلام المكافأة</p>
+                  <p>تابع حساباتنا الرسمية للتحديثات</p>
                 </div>
               </>
             ) : (
               <>
-                <h2 className="text-2xl font-bold text-foreground mb-4">شكراً لمشاركتك</h2>
-                <p className="text-muted-foreground">لم يحالفك الحظ هذه المرة، لكن لا تقلق — هناك عروض وفعاليات رائعة بانتظارك يوم الافتتاح!</p>
+                <h2 className="text-2xl font-bold text-foreground mb-4">شكرًا لمشاركتك</h2>
+                <p className="text-muted-foreground">لم يحالفك الحظ هذه المرة — لكن عروض وفعاليات الافتتاح بانتظارك. تابع التحديثات.</p>
               </>
             )}
           </div>

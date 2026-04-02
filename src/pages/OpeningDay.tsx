@@ -29,10 +29,10 @@ const OpeningDay = () => {
               <Calendar className="h-4 w-4 text-primary" />
               برنامج الإطلاق والعد التنازلي
             </div>
-            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">يوم الافتتاح بخطة واضحة من الترقب إلى الحضور</h1>
-            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على الموعد، الفعاليات، وخطوات المشاركة في الجوائز بصورة مختصرة وواضحة.</p>
+            <h1 className="mb-5 max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">الافتتاح الكبير — برنامج واضح من الترقب إلى الحضور</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">الموعد، الفعاليات، وآلية المشاركة في المكافآت — كل ما تحتاج معرفته قبل يوم الافتتاح.</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              {["عد تنازلي للإطلاق", "فعاليات مرتقبة", "جوائز مرتبطة بالحضور"].map((item) => (
+              {["العد التنازلي للافتتاح", "فعاليات مرتقبة", "مكافآت مرتبطة بالحضور"].map((item) => (
                 <div key={item} className="editorial-panel rounded-[1.4rem] p-4 text-sm font-semibold text-foreground">{item}</div>
               ))}
             </div>
@@ -46,9 +46,9 @@ const OpeningDay = () => {
         <section className="mb-16">
           <div className="mb-8 grid gap-4 md:grid-cols-3">
               {[
-                "راجع الفعاليات وحدد زيارتك.",
-                "شارك في الجوائز واحتفظ بالنتيجة.",
-                "تابع الصفحة لمعرفة البرنامج النهائي.",
+                "اطّلع على الفعاليات وخطّط زيارتك.",
+                "شارك في المكافآت واحتفظ بنتيجتك.",
+                "تابع هذه الصفحة لمعرفة البرنامج النهائي.",
             ].map((item, index) => (
               <div key={item} className="section-shell p-5">
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">0{index + 1}</p>
@@ -72,7 +72,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-8"><EmptyState title="جدول الفعاليات هيتعلن قريب" /></div>}
+          ) : <div className="section-shell p-8"><EmptyState title="برنامج الفعاليات قيد الإعداد — سيُعلن قريبًا" /></div>}
         </section>
 
         <section className="mb-16">
@@ -87,7 +87,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف ستتوفر قريبًا</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل الضيوف قيد التأكيد — ستتوفر قريبًا</div>}
         </section>
 
         <section className="mb-16">
@@ -102,12 +102,12 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل مسابقات الألعاب ستتوفر قريبًا</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل المسابقات قيد الإعداد — ستُعلن مع اقتراب الافتتاح</div>}
         </section>
 
         <section>
           <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Award className="h-6 w-6 text-primary" /> الرعاة</h2>
-          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة ستتحدث قريبًا</div>
+          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة قيد التأكيد — ستُحدّث قريبًا</div>
         </section>
       </div>
     </MainLayout>

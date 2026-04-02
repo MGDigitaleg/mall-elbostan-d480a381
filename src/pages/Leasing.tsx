@@ -62,13 +62,13 @@ const Leasing = () => {
               <Building className="h-4 w-4 text-orange" />
               فرص تجارية داخل وجهة تقنية متخصصة
             </div>
-            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">التأجير هنا أوضح وأقرب لاتخاذ القرار</h1>
-            <p className="max-w-2xl leading-7 text-muted-foreground">تعرف على قيمة المكان، شكل الحضور، وكيف تبدأ استفسارك بخطوات مباشرة.</p>
+            <h1 className="max-w-3xl text-4xl font-bold text-foreground md:text-[3.3rem]">فرص تجارية في وجهة يقصدها الجمهور المناسب</h1>
+            <p className="max-w-2xl leading-7 text-muted-foreground">اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.</p>
             <div className="grid gap-4 sm:grid-cols-3">
               {[
-                { icon: Store, title: "حضور تجاري متخصص" },
-                { icon: MapPin, title: "موقع يخدم الحركة" },
-                { icon: Sparkles, title: "افتتاح يرفع الزخم" },
+                { icon: Store, title: "جمهور متخصص بالتقنية" },
+                { icon: MapPin, title: "موقع في منطقة طلب فعلي" },
+                { icon: Sparkles, title: "افتتاح يرفع الحركة والزخم" },
               ].map((item) => (
                 <div key={item.title} className="editorial-panel rounded-[1.4rem] p-4">
                   <item.icon className="icon-shell mb-3 h-10 w-10 p-2.5" />
@@ -92,9 +92,9 @@ const Leasing = () => {
 
         <section className="mb-10 grid gap-4 md:grid-cols-3">
             {[
-              { title: "عرض وحدات أوضح", desc: "راجع الوحدات المتاحة بسرعة." },
-              { title: "طرح تجاري مباشر", desc: "معلومات مختصرة بدون مبالغة." },
-              { title: "ربط بالخريطة", desc: "انتقل من الوحدة إلى مكانها بسهولة." },
+              { title: "وحدات واضحة المعالم", desc: "حالة كل وحدة ظاهرة بالمساحة والموقع." },
+              { title: "معلومات بلا مبالغة", desc: "بيانات مختصرة تساعدك على تقييم الفرصة." },
+              { title: "ربط مباشر بالخريطة", desc: "من الوحدة لموقعها الفعلي بضغطة واحدة." },
           ].map((item) => (
             <div key={item.title} className="section-shell p-5 md:p-6">
               <h2 className="text-lg font-bold text-foreground">{item.title}</h2>
@@ -105,8 +105,8 @@ const Leasing = () => {
 
         <section className="grid grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="section-shell rounded-[2rem] p-8">
-            <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك</h2>
-            <p className="mb-6 text-sm leading-7 text-muted-foreground">أرسل بياناتك الأساسية، وسيتواصل معك الفريق بمعلومات أوضح عن الوحدات المناسبة.</p>
+            <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك الآن</h2>
+            <p className="mb-6 text-sm leading-7 text-muted-foreground">أرسل بياناتك الأساسية وسيتواصل معك فريق التأجير بمعلومات تفصيلية عن الوحدات المناسبة.</p>
             {submitted ? (
               <div className="py-10 text-center">
                 <CheckCircle2 className="mx-auto mb-2 h-10 w-10 text-success" />

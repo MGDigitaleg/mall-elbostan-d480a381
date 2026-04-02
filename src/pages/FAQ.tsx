@@ -24,8 +24,8 @@ const FAQ = () => {
           <div className="grid gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div>
               <p className="section-kicker">الأسئلة الشائعة</p>
-              <h1 className="mb-3 text-4xl font-bold text-foreground md:text-[3rem]">إجابات واضحة قبل الزيارة أو الاستفسار</h1>
-              <p className="max-w-2xl leading-7 text-muted-foreground">محتوى مباشر ومختصر يساعدك تصل للمعلومة بسرعة.</p>
+              <h1 className="mb-3 text-4xl font-bold text-foreground md:text-[3rem]">ما يحتاج الزائر والتاجر معرفته</h1>
+              <p className="max-w-2xl leading-7 text-muted-foreground">إجابات مباشرة ومختصرة على الأسئلة الأكثر تكرارًا حول المول والتأجير والزيارة.</p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
               {[
@@ -65,7 +65,7 @@ const FAQ = () => {
           </Accordion>
         )}
 
-        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">الأسئلة دي هتتحدث قريب مع إضافة محتوى أكتر</div>}
+        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">الأسئلة الشائعة قيد التحديث — سيتم إضافة محتوى تفصيلي قريبًا.</div>}
       </div>
     </MainLayout>
   );

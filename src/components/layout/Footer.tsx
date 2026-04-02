@@ -46,7 +46,7 @@ export function Footer() {
           <div className="space-y-5">
             <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[136px]" />
             <p className="max-w-[260px] text-[0.9rem] leading-7 text-white/40">
-              وجهة مصر التقنية الأولى — تاريخ من الثقة وتجربة تسوّق منظّمة في القاهرة الجديدة.
+              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات في القاهرة الجديدة.
             </p>
             <div className="flex gap-2.5">
               <Link to="/map">
@@ -110,7 +110,7 @@ export function Footer() {
         {/* divider & bottom */}
         <div className="mt-12 border-t border-white/8 pt-6">
           <div className="flex flex-col gap-3 text-[0.78rem] text-white/25 md:flex-row md:items-center md:justify-between">
-            <p>مول البستان — وجهة تقنية مصرية راسخة تقترب من الافتتاح.</p>
+            <p>مول البستان — وجهة تقنية مصرية راسخة. الافتتاح الكبير — مايو 2026.</p>
             <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
           </div>
         </div>

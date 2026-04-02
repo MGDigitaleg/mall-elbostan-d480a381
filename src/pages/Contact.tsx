@@ -44,8 +44,8 @@ const Contact = () => {
         <div className="brand-shell mb-12 grid max-w-6xl gap-8 overflow-hidden rounded-[2.4rem] px-6 py-8 md:px-8 md:py-10 lg:mx-auto lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
           <div className="space-y-5">
             <div className="eyebrow-chip">تواصل معنا</div>
-            <h1 className="text-4xl font-bold text-foreground md:text-5xl">قناة تواصل أكثر وضوحًا واحترافية مع فريق مول البستان</h1>
-            <p className="max-w-2xl leading-8 text-muted-foreground">إذا كانت لديك استفسارات حول المشروع، الشراكات، أو فرص التعاون، يمكنك استخدام هذه الصفحة لبدء تواصل مباشر مع الفريق ضمن تجربة أخف وأكثر اتساقًا مع الهوية العامة للموقع.</p>
+            <h1 className="text-4xl font-bold text-foreground md:text-5xl">تواصل مباشر مع فريق مول البستان</h1>
+            <p className="max-w-2xl leading-8 text-muted-foreground">استفسارات المشروع، الشراكات، أو فرص التعاون — أرسل رسالتك هنا ويتابعها الفريق المختص مباشرة.</p>
           </div>
           <div className="image-shell overflow-hidden rounded-[2rem] border border-border/70 shadow-[var(--shadow-elevated)]">
             <img src={entranceImage} alt="مدخل مول البستان" className="h-[320px] w-full object-cover object-center" />

@@ -54,8 +54,8 @@ const Careers = () => {
       <div className="container py-20">
         <div className="text-center mb-12">
           <Briefcase className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h1 className="text-4xl font-bold text-gradient-blue mb-4">الوظائف</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">انضم إلى فريق عمل مول البستان واكتشف فرصاً مهنية مميزة في قطاع التكنولوجيا والتجزئة.</p>
+          <h1 className="text-4xl font-bold text-gradient-blue mb-4">فرص العمل</h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">فرص مهنية في بيئة تجارية متخصصة — انضم لفريق مول البستان وكن جزءًا من وجهة تقنية رائدة.</p>
         </div>
 
         {isLoading ? <LoadingGrid count={3} /> : jobs && jobs.length > 0 ? (
@@ -71,7 +71,7 @@ const Careers = () => {
               </div>
             ))}
           </div>
-        ) : <EmptyState title="لا توجد وظائف شاغرة حالياً" description="تابعنا للتحديثات" />}
+        ) : <EmptyState title="لا توجد فرص شاغرة حاليًا" description="تابعنا لمعرفة الفرص الجديدة فور إعلانها." />}
 
         {/* Application Form */}
         <div className="max-w-xl mx-auto">

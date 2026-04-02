@@ -52,22 +52,22 @@ const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
 };
 
 const categoryBriefs: Record<NeedCategory, string> = {
-  Accessories: "ملحقات وإكسسوارات يومية سريعة الوصول.",
-  Laptops: "أجهزة لابتوب وكمبيوتر للدراسة والعمل.",
-  Components: "مكوّنات وتجميعات لأداء مخصّص.",
-  Networking: "حلول شبكات وطباعة مهنية.",
-  Maintenance: "صيانة ودعم فني مباشر.",
-  "Security Systems": "كاميرات مراقبة وأنظمة أمنية.",
+  Accessories: "تشكيلة واسعة من الملحقات والإكسسوارات لجميع الأجهزة.",
+  Laptops: "أجهزة محمولة ومكتبية من العلامات الرائدة عالميًا.",
+  Components: "قطع غيار ومكوّنات لأداء احترافي ومخصّص.",
+  Networking: "بنية تحتية رقمية وحلول طباعة للمؤسسات والأفراد.",
+  Maintenance: "مركز صيانة معتمد وخدمة دعم فني فورية.",
+  "Security Systems": "أنظمة مراقبة وحلول أمنية متكاملة.",
 };
 
 /* ─── FAQ fallback ─── */
 const fallbackFaqs = [
-  { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "المشروع يخدم القاهرة الجديدة ومحيطها، ويمكنك متابعة صفحة التواصل للحصول على تفاصيل الوصول فور اعتمادها." },
-  { id: "faq-2", question_ar: "متى الافتتاح؟", answer_ar: "الافتتاح المستهدف في 1 مايو 2026، مع تحديثات مستمرة على صفحة الافتتاح والحملة." },
-  { id: "faq-3", question_ar: "هل توجد وحدات متاحة للتأجير؟", answer_ar: "نعم، ويمكنك مراجعة الخريطة التفاعلية وصفحة التأجير لمعرفة الوحدات المتاحة حاليًا." },
-  { id: "faq-4", question_ar: "كيف أبحث عن متجر داخل المول؟", answer_ar: "من خلال الخريطة التفاعلية وصفحة المتاجر، مع إمكانية التصفية حسب الفئة والدور." },
-  { id: "faq-5", question_ar: "هل يمكن متابعة المتاجر لاحقًا رقميًا؟", answer_ar: "هذا جزء من المرحلة التالية للمشروع، وسيتم تقديمه كامتداد رقمي مرتبط بالمتاجر المشاركة." },
-  { id: "faq-6", question_ar: "كيف أتواصل للاستفسار التجاري؟", answer_ar: "يمكنك إرسال طلبك مباشرة من صفحة التأجير أو صفحة التواصل وسيتم متابعته من الفريق المختص." },
+  { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "يقع المول في قلب القاهرة الجديدة، ضمن موقع استراتيجي يخدم مدينتي والرحاب والمناطق المحيطة. تفاصيل الوصول ستتوفر عبر صفحة التواصل." },
+  { id: "faq-2", question_ar: "متى موعد الافتتاح الرسمي؟", answer_ar: "الافتتاح الكبير مقرر في 1 مايو 2026. تابع صفحة الافتتاح لمعرفة البرنامج الكامل والفعاليات المصاحبة." },
+  { id: "faq-3", question_ar: "هل تتوفر وحدات تجارية للتأجير؟", answer_ar: "نعم، تتوفر وحدات متعددة المساحات والفئات. يمكنك استعراضها عبر الخريطة التفاعلية وتقديم استفسار مباشر من صفحة التأجير." },
+  { id: "faq-4", question_ar: "كيف أجد متجرًا محددًا داخل المول؟", answer_ar: "استخدم الخريطة التفاعلية أو دليل المتاجر مع إمكانية التصفية حسب الفئة والدور والحالة — كل متجر مرتبط بموقعه الفعلي." },
+  { id: "faq-5", question_ar: "هل سيتوفر تسوّق إلكتروني من متاجر المول؟", answer_ar: "السوق الرقمي مرحلة قادمة ضمن رؤية المول الشاملة — امتداد طبيعي من التجربة الفعلية إلى التسوّق عن بُعد." },
+  { id: "faq-6", question_ar: "كيف أتقدم باستفسار تجاري أو شراكة؟", answer_ar: "من خلال صفحة التأجير أو صفحة التواصل — يصل طلبك مباشرة للفريق المختص ويتم الرد خلال أيام العمل." },
 ];
 
 /* ─── animation helpers ─── */
@@ -151,19 +151,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-1 space-y-7"
             >
               <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                القاهرة الجديدة · افتتاح مايو 2026
+                القاهرة الجديدة · الافتتاح الكبير — مايو 2026
               </span>
 
               <h1 className="max-w-[34rem] text-[2.4rem] font-extrabold leading-[1.06] text-white md:text-[3.5rem] lg:text-[4rem]">
-                الوجهة التقنية
+                وجهة التقنية
                 <br className="hidden sm:block" />
-                الأعرق في مصر
+                التي بناها السوق
               </h1>
 
               <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
-                مول البستان ليس مجرد مركز تجاري — إنه عنوان راسخ بنى سمعته على سنوات من خدمة
-                المستخدمين والتجار في سوق الإلكترونيات المصري. أكثر من {totalUnits} وحدة تجارية متخصصة
-                تحت سقف واحد.
+                مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
+                مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
+                صُنع ليخدم القرار لا التجوّل.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
@@ -252,7 +252,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       <section className="border-b border-border bg-card py-5 md:py-7">
         <div className="container flex flex-col items-center gap-3 md:flex-row md:justify-between">
           <p className="text-sm font-semibold text-muted-foreground">
-            العد التنازلي لافتتاح مول البستان
+            الافتتاح الكبير — العد التنازلي
           </p>
           <CountdownTimer compact />
         </div>
@@ -292,32 +292,32 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* text */}
               <div className="order-1 space-y-6 lg:order-2">
                 <div className="chapter-shell pt-6">
-                  <p className="section-kicker">الهوية والتاريخ</p>
+                <p className="section-kicker">الهوية والمكانة</p>
                   <h2 className="section-title max-w-[28rem]">
-                    اسم بنى مكانته في سوق التقنية المصري.
+                    اسم لم يحتج حملات ليُعرف — بناه السوق نفسه.
                   </h2>
                 </div>
                 <p className="text-[1.05rem] leading-[2] text-muted-foreground md:text-lg">
-                  منذ سنوات ومول البستان يُعرف كوجهة أساسية لكل من يبحث عن أجهزة إلكترونية
-                  وملحقات وخدمات تقنية في القاهرة الجديدة — ثقة تجارية حقيقية بناها التعامل
-                  المباشر بين التاجر والزائر.
+                  مول البستان ليس مشروعًا يبحث عن جمهور — إنه وجهة بناها الجمهور بتكرار
+                  الزيارة والثقة في التعامل. سنوات من الحضور المتواصل في سوق الإلكترونيات
+                  جعلت منه مرجعًا حقيقيًا في القاهرة الجديدة.
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
                     {
                       icon: Building2,
-                      title: "حضور راسخ",
-                      desc: "سنوات من الثقة في سوق الإلكترونيات.",
+                      title: "مكانة مبنية بالتكرار",
+                      desc: "ثقة تراكمية من سنوات التعامل المباشر.",
                     },
                     {
                       icon: MapPin,
-                      title: "موقع استراتيجي",
-                      desc: "قلب القاهرة الجديدة بين مدينتي والرحاب.",
+                      title: "موقع يصنع الفارق",
+                      desc: "يخدم القاهرة الجديدة ومدينتي والرحاب.",
                     },
                     {
                       icon: Layers,
-                      title: "تنظيم واضح",
-                      desc: "فئات متخصصة تسهّل الوصول السريع.",
+                      title: "تصنيف دقيق",
+                      desc: "فئات متخصصة تختصر المسار من الدخول للقرار.",
                     },
                   ].map((c) => (
                     <div key={c.title} className="section-shell rounded-xl p-5">
@@ -334,7 +334,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     variant="ghost"
                     className="mt-1 px-0 text-primary hover:text-primary/80"
                   >
-                    اعرف المزيد عن المول
+                    تعرّف على قصة المول
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
                   </Button>
                 </Link>
@@ -354,13 +354,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mx-auto mb-12 max-w-[38rem] text-center">
-              <p className="section-kicker">ما يقدّمه المول</p>
+              <p className="section-kicker">القيمة الحقيقية</p>
               <h2 className="section-title">
-                تجربة مصمّمة لكل من يدخل المول.
+                مول مصمّم ليخدم — لا ليُبهر فقط.
               </h2>
               <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50">
-                سواء كنت زائرًا يبحث عن منتج، أو تاجرًا يبحث عن موقع، أو مستثمرًا يبحث عن فرصة —
-                المول مصمّم ليخدمك.
+                سواء كنت مشتريًا يبحث عن منتج بعينه، أو تاجرًا يبحث عن موقع فعّال، أو مستثمرًا
+                يقيّم فرصة — كل تفصيلة في المول مصمّمة لتقصير المسافة بين الدخول والقرار.
               </p>
             </div>
 
@@ -368,29 +368,29 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {[
                 {
                   icon: Users,
-                  title: "للزوار والمشترين",
+                  title: "للمشترين والزوّار",
                   points: [
-                    "تصنيف واضح يوصّلك للمتجر المناسب بسرعة.",
-                    "خريطة تفاعلية تعرض كل وحدة وحالتها فوريًا.",
-                    "عروض ومكافآت مرتبطة بتجربة الزيارة.",
+                    "تصنيف دقيق يوصّلك للمنتج المناسب بأقل وقت.",
+                    "خريطة تفاعلية تكشف حالة كل وحدة قبل الوصول.",
+                    "مكافآت وعروض مرتبطة بتجربة الزيارة الفعلية.",
                   ],
                 },
                 {
                   icon: Store,
-                  title: "للتجار وأصحاب المتاجر",
+                  title: "للتجار وأصحاب العلامات",
                   points: [
-                    "حضور رقمي واضح لكل متجر داخل الدليل.",
-                    "جمهور مستهدف يبحث عن التقنية تحديدًا.",
-                    "بيئة تجارية منظمة تدعم الثقة بين التاجر والزائر.",
+                    "حضور رقمي واضح لكل متجر في الدليل والخريطة.",
+                    "جمهور متخصص يأتي بنية الشراء لا بنية التجوّل.",
+                    "بيئة تجارية منظّمة ترفع من قيمة الموقع.",
                   ],
                 },
                 {
                   icon: TrendingUp,
                   title: "للمستثمرين والمستأجرين",
                   points: [
-                    "وحدات متنوعة المساحات بحالة واضحة.",
-                    "موقع تجاري في منطقة طلب متنامٍ.",
-                    "استفسار مباشر وتحويل سريع من الخريطة.",
+                    "وحدات متنوعة المساحات بحالة وتسعير شفّاف.",
+                    "موقع تجاري في منطقة طلب حقيقي ومتنامٍ.",
+                    "مسار استفسار مباشر من الخريطة لفريق التأجير.",
                   ],
                 },
               ].map((card, i) => (
@@ -434,10 +434,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mb-10 max-w-[36rem]">
-              <p className="section-kicker">اكتشف المتاجر</p>
-              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج.</h2>
+              <p className="section-kicker">دليل الفئات</p>
+              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج حقيقي.</h2>
               <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
-                تصنيف واضح يختصر الوقت ويسهّل الوصول — سواء كنت تبحث عن جهاز، ملحق، أو خدمة.
+                ليس تصنيفًا عشوائيًا — كل فئة تمثل نمط شراء فعلي ومسار وصول مباشر.
               </p>
             </div>
 
@@ -543,12 +543,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <div className="chapter-shell pt-6">
                   <p className="section-kicker">الدليل التفاعلي</p>
                   <h2 className="section-title">
-                    خريطة رقمية دقيقة لكل دور ووحدة.
+                    كل وحدة ظاهرة — كل دور واضح — قبل أن تصل.
                   </h2>
                 </div>
                 <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                  قبل أن تزور المول — اعرف أين كل متجر، أي الوحدات متاحة، وما الفئة الأقرب لاحتياجك.
-                  الدليل التفاعلي هو القلب الرقمي لتجربة مول البستان.
+                  الدليل التفاعلي يعرض المول كاملًا بأدواره ووحداته وحالاتها — متاح، مشغول، أو
+                  قادم. أداة تخطيط حقيقية للزائر والتاجر على حد سواء.
                 </p>
                 <div className="grid grid-cols-3 gap-3">
                   {[
@@ -605,14 +605,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* text */}
               <div className="space-y-6">
                 <div className="chapter-shell border-primary/40 pt-6">
-                  <p className="section-kicker">التأجير والفرص التجارية</p>
+                  <p className="section-kicker">الفرصة التجارية</p>
                   <h2 className="section-title max-w-[26rem]">
-                    موقعك التجاري في أكبر وجهة تقنية بالقاهرة الجديدة.
+                    موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
                 <p className="text-base leading-8 text-white/50 md:text-lg">
-                  وحدات متنوعة المساحات في ثلاثة أدوار — كل واحدة مرتبطة مباشرة بالخريطة التفاعلية
-                  وبيانات الحالة والمساحة والفئة. الاستفسار يبدأ من هنا ويصل للفريق المختص فورًا.
+                  ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
+                  التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
 
                 {/* floor availability */}
@@ -700,18 +700,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
                 {/* text */}
                 <div className="space-y-5 p-7 md:p-10">
-                  <p className="section-kicker">المكافآت والتجربة</p>
+                  <p className="section-kicker">حملة الافتتاح</p>
                   <h2 className="section-title max-w-[26rem]">
-                    افتتاح يستحق المشاركة.
+                    افتتاح يُكافئ الحضور — لا مجرد احتفال.
                   </h2>
                   <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                    حملة أدر واربح مرتبطة بمتاجر حقيقية ومكافآت فعلية — ليست مجرد ترويج عابر بل
-                    جزء من تجربة الافتتاح الكبير لمول البستان.
+                    حملة أدر واربح مرتبطة بمتاجر حقيقية ومكافآت محددة — جزء أصيل من تجربة
+                    الافتتاح الكبير، وليست عرضًا تسويقيًا عابرًا.
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      { step: "01", title: "استكشف", desc: "ابدأ بالخريطة التفاعلية." },
-                      { step: "02", title: "شارك", desc: "جرّب أدر واربح واحفظ نتيجتك." },
+                      { step: "01", title: "استكشف", desc: "ابدأ من الدليل التفاعلي." },
+                      { step: "02", title: "شارك", desc: "أدر العجلة واحفظ نتيجتك." },
                       { step: "03", title: "احضر", desc: "استلم مكافأتك يوم الافتتاح." },
                     ].map((s) => (
                       <div key={s.step} className="rounded-xl border border-border bg-secondary/40 p-4">
@@ -768,23 +768,23 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <p className="section-kicker">الرؤية المستقبلية</p>
+            <p className="section-kicker">المرحلة التالية</p>
             <h2 className="section-title mx-auto max-w-[30rem]">
-              من وجهة تقنية إلى سوق رقمي متصل.
+              من وجهة تقنية راسخة إلى سوق رقمي بلا حدود.
             </h2>
             <p className="mx-auto mt-4 max-w-[34rem] text-base leading-8 text-muted-foreground md:text-lg">
-              الخطوة التالية بعد الافتتاح — سوق رقمي يمتد من متاجر المول ليخدم المستخدمين في أي
-              مكان. المنتج الأساسي أولاً، ثم الامتداد الرقمي.
+              المنتج الأساسي يعمل الآن — الدليل التفاعلي ودليل المتاجر. المرحلة القادمة
+              تفتح سوقًا رقميًا يمتد من المتاجر الفعلية ليصل لأي مستخدم في أي مكان.
             </p>
 
             <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
               {[
-                { n: "1", label: "الدليل التفاعلي", desc: "استكشف المول رقميًا الآن." },
-                { n: "2", label: "المتاجر والعروض", desc: "تصفّح واستفد من العروض." },
+                { n: "1", label: "الدليل التفاعلي", desc: "خريطة المول كاملة — تعمل الآن." },
+                { n: "2", label: "المتاجر والعروض", desc: "استكشاف وتصفّح بالفئة والعرض." },
                 {
                   n: "3",
                   label: "السوق الرقمي",
-                  desc: "تسوّق إلكتروني قريبًا.",
+                  desc: "تسوّق إلكتروني مباشر — قريبًا.",
                 },
               ].map((item, i) => (
                 <div
@@ -830,11 +830,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <p className="section-kicker">أسئلة شائعة</p>
                   <h2 className="text-[1.8rem] font-bold leading-[1.08] text-foreground md:text-[2.5rem]">
                     <HelpCircle className="ml-2 hidden h-6 w-6 text-primary md:inline-block" />
-                    إجابات سريعة
+                    أسئلة متكررة
                   </h2>
                 </div>
                 <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
-                  الأسئلة الأكثر تكرارًا حول المول والتأجير والافتتاح.
+                  ما يحتاج الزائر والتاجر معرفته قبل الزيارة أو الاستفسار.
                 </p>
                 <Link to="/faq" className="mt-4 inline-flex">
                   <Button

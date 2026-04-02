@@ -30,7 +30,7 @@ const NewCairoBranch = () => (
 
     <div className="container py-16 max-w-4xl">
         <div className="space-y-6 text-foreground/90 leading-relaxed">
-        <p>يقع فرع القاهرة الجديدة في موقع استراتيجي يخدم سكان القاهرة الجديدة ومدينتي والرحاب والمناطق المحيطة.</p>
+        <p>يقع الفرع في موقع استراتيجي بقلب القاهرة الجديدة — يخدم سكان مدينتي والرحاب والتجمعات المحيطة ضمن منطقة طلب متنامٍ على التقنية.</p>
         <div className="surface-panel mt-8 rounded-[1.75rem] p-8">
           <h2 className="text-xl font-bold text-foreground mb-6">معلومات الفرع</h2>
           <div className="space-y-4 text-muted-foreground">

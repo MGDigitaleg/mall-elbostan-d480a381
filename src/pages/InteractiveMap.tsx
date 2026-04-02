@@ -236,10 +236,10 @@ const InteractiveMap = () => {
               </span>
 
               <h1 className="mt-5 text-[1.8rem] font-extrabold leading-[1.1] text-white md:text-[2.6rem] lg:text-[3rem]">
-                خريطة دقيقة لكل وحدة في المول.
+                دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
               <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/45 md:text-[1.05rem]">
-                استكشف الأدوار، حدد حالة كل وحدة، وانتقل مباشرة من الخريطة إلى التأجير أو تفاصيل المتجر.
+                تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
               {/* stats row */}
@@ -387,9 +387,9 @@ const InteractiveMap = () => {
       {/* ═══════════ CTA STRIP ═══════════ */}
       <section className="heritage-section page-section !py-10">
         <div className="container max-w-[900px] text-center">
-          <h2 className="text-xl font-bold text-white md:text-2xl">مهتم بوحدة تجارية؟</h2>
+          <h2 className="text-xl font-bold text-white md:text-2xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
           <p className="mx-auto mt-2 max-w-sm text-[0.9rem] text-white/40">
-            انتقل مباشرة من الخريطة إلى صفحة التأجير وابدأ استفسارك.
+            من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">

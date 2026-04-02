@@ -30,13 +30,13 @@ import interiorImage from "@/assets/mall-interior.jpg";
 
 /* ─── category metadata ─── */
 const categoryMeta: Record<string, { icon: typeof Store; label: string; desc: string }> = {
-  "الهواتف والإكسسوارات": { icon: Smartphone, label: "احتياج يومي سريع", desc: "أجهزة هواتف، إكسسوارات، وحلول تقنية يومية." },
-  "الكمبيوتر والأجهزة": { icon: Monitor, label: "حلول مكتبية", desc: "لابتوبات، ملحقات، وأجهزة للعمل والدراسة." },
-  "الألعاب والترفيه": { icon: CircuitBoard, label: "جيمينج وترفيه", desc: "أجهزة ألعاب، ملحقات، وتجربة ترفيه رقمية." },
-  "الطباعة والتصوير": { icon: Globe, label: "خدمات مهنية", desc: "طباعة، تصوير، وحلول للأعمال والطلاب." },
-  "الشبكات والأنظمة الأمنية": { icon: Shield, label: "بنية تحتية", desc: "شبكات، كاميرات مراقبة، وأنظمة حماية." },
-  "الشبكات والحماية": { icon: Shield, label: "بنية تحتية", desc: "شبكات، كاميرات مراقبة، وأنظمة حماية." },
-  "الصيانة والدعم الفني": { icon: Wrench, label: "دعم فني", desc: "صيانة أجهزة، إصلاح، ودعم تقني مباشر." },
+  "الهواتف والإكسسوارات": { icon: Smartphone, label: "احتياج يومي مباشر", desc: "تشكيلة شاملة من الهواتف والملحقات والحلول التقنية اليومية." },
+  "الكمبيوتر والأجهزة": { icon: Monitor, label: "أداء واحتراف", desc: "أجهزة محمولة ومكتبية من علامات رائدة — للعمل والدراسة والإنتاجية." },
+  "الألعاب والترفيه": { icon: CircuitBoard, label: "عالم الجيمنج", desc: "أجهزة ألعاب وملحقات وتجربة ترفيه رقمية متكاملة." },
+  "الطباعة والتصوير": { icon: Globe, label: "خدمات مهنية", desc: "حلول طباعة وتصوير للمؤسسات والطلاب وأصحاب الأعمال." },
+  "الشبكات والأنظمة الأمنية": { icon: Shield, label: "بنية تحتية", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
+  "الشبكات والحماية": { icon: Shield, label: "بنية تحتية", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
+  "الصيانة والدعم الفني": { icon: Wrench, label: "دعم فني معتمد", desc: "مراكز صيانة متخصصة وخدمة إصلاح فورية." },
 };
 
 const statusLabel: Record<string, { text: string; cls: string }> = {
@@ -123,12 +123,12 @@ const Stores = () => {
               </span>
 
               <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.08] text-white md:text-[2.8rem] lg:text-[3.4rem]">
-                كل متجر تقني تحتاجه — في مكان واحد منظّم.
+                دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
               </h1>
 
               <p className="max-w-[28rem] text-[1rem] leading-[2] text-white/50 md:text-[1.1rem]">
-                دليل شامل لمتاجر مول البستان — مصنّف بالفئة والحالة. ابحث، استكشف، واعرف موقع كل
-                متجر على الخريطة التفاعلية قبل زيارتك.
+                كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
+                ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
               </p>
 
               {/* quick stats */}
@@ -191,8 +191,8 @@ const Stores = () => {
         <div className="container max-w-[1200px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto mb-10 max-w-[34rem] text-center">
-              <p className="section-kicker">الفئات التقنية</p>
-              <h2 className="section-title">تصنيف دقيق يختصر طريقك لما تبحث عنه.</h2>
+              <p className="section-kicker">التصنيف التقني</p>
+              <h2 className="section-title">فئات دقيقة تختصر المسار لما تبحث عنه.</h2>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -346,7 +346,7 @@ const Stores = () => {
 
                         {/* description */}
                         <p className="mt-3 flex-1 text-[0.82rem] leading-6 text-white/35">
-                          {store.short_description_ar ?? "متجر تقني ضمن دليل مول البستان — سيتم تحديث التفاصيل قريبًا."}
+                          {store.short_description_ar ?? "متجر ضمن دليل مول البستان التقني — التفاصيل قيد التحديث."}
                         </p>
 
                         {/* footer */}
@@ -377,9 +377,9 @@ const Stores = () => {
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                   <Layers3 className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج مطابقة</h3>
+                <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج ضمن هذا التصفية</h3>
                 <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 text-white/40">
-                  جرّب تغيير الفلتر أو البحث بكلمة مختلفة. الدليل يتم تحديثه باستمرار مع انضمام متاجر جديدة.
+                  عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتم تحديثه مع انضمام متاجر جديدة.
                 </p>
                 <button
                   onClick={() => { setSearch(""); setSelectedCategory(""); setSelectedStatus(""); }}
@@ -398,8 +398,8 @@ const Stores = () => {
         <section className="page-section">
           <div className="container max-w-[1200px]">
             <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-              <p className="section-kicker">متاجر مميّزة</p>
-              <h2 className="section-title mb-8">وجهات تقنية بارزة داخل المول.</h2>
+              <p className="section-kicker">وجهات بارزة</p>
+              <h2 className="section-title mb-8">علامات تقنية رائدة داخل المول.</h2>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 {featuredStores.slice(0, 4).map((store) => (
@@ -431,11 +431,11 @@ const Stores = () => {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
               <div className="space-y-5">
-                <p className="section-kicker">الخريطة والدليل</p>
-                <h2 className="section-title max-w-[24rem]">كل متجر موجود على الخريطة — اعرف موقعه قبل الزيارة.</h2>
+                <p className="section-kicker">الربط بالخريطة</p>
+                <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه الفعلي — اعرف مكانه قبل الزيارة.</h2>
                 <p className="text-[0.95rem] leading-[2] text-muted-foreground">
-                  الخريطة التفاعلية تعرض كل وحدة بحالتها وفئتها — من المتاجر النشطة إلى الوحدات
-                  المتاحة. اضغط على أي متجر في الدليل لمعرفة موقعه على الدور المحدد.
+                  الخريطة التفاعلية تعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
+                  اضغط على أي متجر لتنتقل مباشرة لموقعه الدقيق في الدور المحدد.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
@@ -481,11 +481,11 @@ const Stores = () => {
       <section className="heritage-section page-section">
         <div className="container max-w-[900px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="section-kicker">قريبًا</p>
-            <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متصل.</h2>
+            <p className="section-kicker">المرحلة القادمة</p>
+            <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متكامل.</h2>
             <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/45">
-              الدليل الحالي هو الخطوة الأولى — المرحلة التالية تتيح للزوار تصفّح منتجات المتاجر،
-              متابعة العروض، والتسوّق رقميًا من أي مكان.
+              الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة،
+              متابعة العروض، والشراء إلكترونيًا من متاجر المول.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[36rem] gap-4 sm:grid-cols-3">

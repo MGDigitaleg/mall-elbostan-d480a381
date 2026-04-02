@@ -35,8 +35,8 @@ const Index = () => {
       <SEOHead
         title="الرئيسية"
         titleEn="Home"
-        description="مول البستان - وجهة التكنولوجيا الأولى في القاهرة الجديدة. أكثر من 150 متجراً للتكنولوجيا والإلكترونيات. افتتاح 1 مايو 2026."
-        descriptionEn="Mall Elbostan - Egypt's premier technology mall in New Cairo. 150+ stores. Grand opening May 1, 2026."
+        description="مول البستان — وجهة التقنية الراسخة في القاهرة الجديدة. أكثر من 150 وحدة تجارية متخصصة. الافتتاح الكبير — مايو 2026."
+        descriptionEn="Mall Elbostan — Egypt's established technology retail destination in New Cairo. 150+ specialized units. Grand opening May 2026."
         jsonLd={[organizationLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
       />
 
