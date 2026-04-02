@@ -341,11 +341,10 @@ const Stores = () => {
               <div className="space-y-6">
                 <div className="chapter-shell pt-7">
                   <p className="section-kicker">الخريطة التجارية</p>
-                  <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه — استكشفه على الخريطة قبل الزيارة.</h2>
+                  <h2 className="section-title max-w-[24rem]">استكشف المتاجر على الخريطة.</h2>
                 </div>
                 <p className="text-[1rem] leading-8 light-body">
-                  الخريطة التفاعلية تعرض كل وحدة بحالتها الفعلية — نشطة، متاحة، أو قادمة.
-                  اضغط على أي متجر لتنتقل مباشرة إلى موقعه في الدور المحدد.
+                  كل وحدة بحالتها الفعلية — اضغط لتنتقل لموقعها.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
