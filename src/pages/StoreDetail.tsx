@@ -42,6 +42,7 @@ const sectionReveal = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y:
 const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
 const fadeChild = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
 
+const StoreDetail = () => {
 
   const { slug } = useParams<{ slug: string }>();
 
