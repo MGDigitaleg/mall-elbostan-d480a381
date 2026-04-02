@@ -73,7 +73,7 @@ const Leasing = () => {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 70% 50%, hsl(24 85% 50% / 0.04), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[62vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
+          <div className="grid min-h-[52vh] items-center gap-8 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-0">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-5">
               <div className="flex items-center gap-3">
                 <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
@@ -138,10 +138,10 @@ const Leasing = () => {
       <div className="band-primary" />
 
       {/* ═══════════ WHY LEASE HERE — strategic persuasion ═══════════ */}
-      <section className="py-12 md:py-16" style={{ background: "#FAFAF8" }}>
+       <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
-            <div className="mb-8 flex items-center gap-3">
+            <div className="mb-6 flex items-center gap-3">
               <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
               <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
                 لماذا هنا
@@ -155,14 +155,14 @@ const Leasing = () => {
             </p>
           </motion.div>
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: MapPin, title: "موقع محوري", desc: "القاهرة الجديدة — حركة مرور يومية مستهدفة." },
               { icon: Users, title: "جمهور بنيّة شراء", desc: "زوّار يحملون قرار شراء واضح." },
               { icon: Layers, title: "منظومة متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد." },
               { icon: TrendingUp, title: "نمو مخطّط", desc: "التواجد المبكّر يمنحك أفضلية." },
             ].map((item) => (
-              <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
+              <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-4">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
                   <item.icon className="h-4.5 w-4.5 text-primary" />
                 </div>
@@ -175,7 +175,7 @@ const Leasing = () => {
       </section>
 
       {/* ═══════════ AUDIENCE & CATEGORY FIT ═══════════ */}
-      <section className="py-12 md:py-16" style={{ background: "#F5F2EC" }}>
+      <section className="py-8 md:py-10" style={{ background: "#F5F2EC" }}>
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
             <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">

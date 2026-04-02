@@ -119,14 +119,14 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[75vh] items-center lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid min-h-[65vh] items-center lg:grid-cols-[1.15fr_0.85fr]">
 
             {/* ── text column ── */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-20 lg:pr-16 xl:pr-20"
+              className="order-1 space-y-5 px-6 py-12 md:px-12 lg:py-16 lg:pr-16 xl:pr-20"
             >
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8 rounded-full" style={{ background: "#64748B" }} />
@@ -224,7 +224,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           2 · HERITAGE & IDENTITY — why this place matters
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-10 md:py-14 overflow-hidden" style={{ background: "#FAFAF8" }}>
+      <section className="py-8 md:py-10 overflow-hidden" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
@@ -284,10 +284,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           3 · VALUE PROPOSITION — who benefits and why
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep py-10 md:py-14 relative overflow-hidden">
+      <section className="heritage-deep py-8 md:py-10 relative overflow-hidden">
         <div className="relative container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-8 max-w-[32rem]">
+            <div className="mb-6 max-w-[32rem]">
               <p className="section-kicker dark-kicker">القيمة الحقيقية</p>
               <h2 className="section-title dark-heading">جمهور بنيّة شراء واضحة.</h2>
               <p className="mt-3 text-[0.95rem] leading-[1.9] dark-body">
@@ -354,7 +354,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-8 max-w-[30rem]">
+            <div className="mb-6 max-w-[30rem]">
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-3 text-[0.92rem] leading-7 light-body">
@@ -384,8 +384,8 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             </div>
 
             {featuredStores.length > 0 && (
-              <div className="mt-12 rounded-2xl border border-border bg-card p-6 md:p-8">
-                <div className="mb-6 flex items-center justify-between">
+              <div className="mt-8 rounded-2xl border border-border bg-card p-5 md:p-6">
+                <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-[1.05rem] font-bold light-heading">علامات رائدة داخل المول</h3>
                   <Link to="/stores">
                     <Button variant="ghost" size="sm" className="gap-1 text-[0.84rem] font-bold text-primary">
@@ -581,7 +581,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           8 · DIGITAL EXTENSION — the future layer
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep relative overflow-hidden py-10 md:py-14">
+      <section className="heritage-deep relative overflow-hidden py-8 md:py-10">
         <div className="relative container max-w-4xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[30rem] text-center">
@@ -589,7 +589,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
             </div>
 
-            <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
+            <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
                 { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة شاملة لكل دور.", active: true },
                 { n: "02", icon: ShoppingBag, label: "دليل المتاجر", desc: "تفاصيل كل علامة تجارية.", active: true },
@@ -660,7 +660,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           FINAL CTA STRIP
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-10 md:py-14" style={{ background: "#071326" }}>
+      <section className="py-8 md:py-10" style={{ background: "#071326" }}>
         <div className="container max-w-[800px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="flex items-center justify-center gap-2.5 mb-4">

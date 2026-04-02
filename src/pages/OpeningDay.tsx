@@ -45,8 +45,8 @@ const OpeningDay = () => {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 55% at 70% 45%, hsl(222 58% 42% / 0.06), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
+          <div className="grid min-h-[50vh] items-center gap-8 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-0">
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-5">
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
                 <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>

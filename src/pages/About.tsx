@@ -47,13 +47,13 @@ const About = () => (
       <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 70% 50%, #2D6BFF06, transparent 65%)" }} />
 
       <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className="grid min-h-[68vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid min-h-[58vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
           {/* text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-20 lg:pr-16 xl:pr-20"
+            className="order-1 space-y-5 px-6 py-12 md:px-12 lg:py-14 lg:pr-16 xl:pr-20"
           >
             <div className="flex items-center gap-3">
               <div className="h-[2px] w-10 rounded-full" style={{ background: "#CDBB9A" }} />
@@ -120,7 +120,7 @@ const About = () => (
     <section className="page-section overflow-hidden" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
 
             {/* editorial diptych — entrance (main) + facade (architectural detail) */}
             <div className="order-2 lg:order-1">
@@ -136,8 +136,8 @@ const About = () => (
             </div>
 
             {/* text */}
-            <div className="order-1 space-y-6 lg:order-2">
-              <div className="chapter-shell pt-7">
+            <div className="order-1 space-y-4 lg:order-2">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">لماذا هذا المول</p>
                 <h2 className="section-title max-w-[24rem]">
                   اسم يسبق التعريف في سوق الإلكترونيات.
@@ -154,8 +154,8 @@ const About = () => (
                   { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة والمحيط." },
                   { icon: Layers, title: "بنية دقيقة", desc: "تصنيف يختصر مسار الشراء." },
                 ].map((c) => (
-                  <div key={c.title} className="card-architectural rounded-xl p-5">
-                    <c.icon className="mb-3 h-5 w-5 text-primary" />
+                  <div key={c.title} className="card-architectural rounded-xl p-4">
+                    <c.icon className="mb-2 h-4 w-4 text-primary" />
                     <p className="text-[0.92rem] font-bold light-heading">{c.title}</p>
                     <p className="mt-1.5 text-[0.84rem] leading-7 light-body">{c.desc}</p>
                   </div>
@@ -171,8 +171,8 @@ const About = () => (
     <section className="heritage-deep page-section relative overflow-hidden">
       <div className="relative container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            <div className="space-y-7">
+          <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+            <div className="space-y-5">
               <div>
                 <p className="section-kicker dark-kicker">السيرة التجارية</p>
                 <h2 className="section-title dark-heading max-w-[26rem]">
@@ -184,7 +184,7 @@ const About = () => (
                 آلاف الزيارات التي انتهت بشراء حقيقي — ومئات التجّار الذين اختاروا البقاء.
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
                   {
                     icon: Building2, title: "وجهة راسخة",
@@ -209,7 +209,7 @@ const About = () => (
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08, duration: 0.45 }}
-                    className="heritage-surface flex items-start gap-4 p-5"
+                    className="heritage-surface flex items-start gap-3.5 p-4"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ border: "1px solid #2D6BFF30", background: "#2D6BFF14" }}>
                       <item.icon className="h-5 w-5" style={{ color: "#5B9AFF" }} />
@@ -224,7 +224,7 @@ const About = () => (
             </div>
 
             {/* editorial image + stats panel */}
-            <div className="space-y-5 lg:sticky lg:top-28">
+             <div className="space-y-4 lg:sticky lg:top-24">
               {/* interior — cinematic vertical crop, architectural emphasis */}
               <div className="frame-cinematic overflow-hidden">
                 <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-arch aspect-[16/9] max-h-[260px] w-full object-cover object-[center_50%]" loading="lazy" />
@@ -253,9 +253,9 @@ const About = () => (
     <section className="page-section" style={{ background: "#F5F2EC" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-            <div className="space-y-6">
-              <div className="chapter-shell pt-7">
+           <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+            <div className="space-y-4">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">تجربة الاستكشاف</p>
                 <h2 className="section-title max-w-[24rem]">
                   زيارة مُنظّمة تبدأ قبل الوصول.
@@ -319,9 +319,9 @@ const About = () => (
     <section className="page-section" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
-            <div className="space-y-6">
-              <div className="chapter-shell pt-7">
+           <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+            <div className="space-y-4">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">الموقع التجاري</p>
                 <h2 className="section-title max-w-[26rem]">
                   لماذا يختار التاجر مول البستان.
@@ -361,10 +361,10 @@ const About = () => (
             </div>
 
             {/* stats panel */}
-            <div className="space-y-5 lg:sticky lg:top-28">
-              <div className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
+            <div className="space-y-4 lg:sticky lg:top-24">
+               <div className="rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
                 <p className="text-[0.88rem] font-bold light-muted">أرقام المول</p>
-                <div className="mt-5 grid grid-cols-2 gap-3">
+                <div className="mt-4 grid grid-cols-2 gap-2.5">
                   {[
                     { v: "3", l: "أدوار تجارية" },
                     { v: "50+", l: "وحدة تجارية" },
@@ -391,7 +391,7 @@ const About = () => (
     <div className="band-primary" />
 
     {/* ═══════════ 6 · DIGITAL FUTURE ═══════════ */}
-    <section className="heritage-deep relative overflow-hidden py-16 md:py-24">
+    <section className="heritage-deep relative overflow-hidden py-10 md:py-14">
       <div className="relative container max-w-4xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto max-w-[34rem] text-center">
@@ -404,13 +404,13 @@ const About = () => (
               </p>
           </div>
 
-          <div className="mx-auto mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">
+          <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
             {[
               { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة المول بكل وحداتها وحالاتها.", active: true },
               { n: "02", icon: Store, label: "دليل المتاجر", desc: "تصفّح المتاجر وفئاتها وتفاصيلها.", active: true },
               { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني من متاجر المول — قريبًا.", active: false },
             ].map((item) => (
-              <div key={item.n} className="heritage-surface rounded-xl p-6 text-center">
+              <div key={item.n} className="heritage-surface rounded-xl p-5 text-center">
                 <span className="font-poppins text-[0.7rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
                 <div className="mx-auto mt-3 mb-3 flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: item.active ? "#2D6BFF14" : "#ffffff08", border: `1px solid ${item.active ? "#2D6BFF30" : "#ffffff10"}` }}>
                   <item.icon className="h-5 w-5" style={{ color: item.active ? "#5B9AFF" : "#7C8BA1" }} />
@@ -426,7 +426,7 @@ const About = () => (
             ))}
           </div>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/map">
               <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">افتح الدليل التفاعلي</Button>
             </Link>
@@ -441,10 +441,10 @@ const About = () => (
     </section>
 
     {/* ═══════════ CLOSING CTA ═══════════ */}
-    <section className="py-16 md:py-20" style={{ background: "#F5F2EC" }}>
+     <section className="py-10 md:py-12" style={{ background: "#F5F2EC" }}>
       <div className="container max-w-[900px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="flex items-center justify-center gap-3 mb-5">
+          <div className="flex items-center justify-center gap-3 mb-4">
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
             <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase light-muted">ابدأ من هنا</span>
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
@@ -455,7 +455,7 @@ const About = () => (
           <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
             كل أدوات القرار في مكان واحد.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/map">
               <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">
                 <Compass className="ml-2 h-4 w-4" /> الخريطة التفاعلية

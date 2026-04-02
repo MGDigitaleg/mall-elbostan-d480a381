@@ -166,7 +166,7 @@ const InteractiveMap = () => {
       {/* ═══════════ HERO — compact, operational ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="py-7 md:py-9">
+          <div className="py-5 md:py-7">
             <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
               <div className="md:text-right">
                 <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>

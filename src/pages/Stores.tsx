@@ -113,9 +113,9 @@ const Stores = () => {
       {/* ═══════════ HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "#071326" }}>
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[58vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
+           <div className="grid min-h-[48vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-6 px-6 py-14 md:px-12 lg:py-16 lg:pr-16 xl:pr-20">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-5 px-6 py-10 md:px-12 lg:py-12 lg:pr-16 xl:pr-20">
               <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                 Store Directory
               </p>
