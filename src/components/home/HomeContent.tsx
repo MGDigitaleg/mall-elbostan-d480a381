@@ -455,9 +455,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
 
             <MapTeaserPreview />
 
-            <div className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:hidden">
-              <Link to="/map"><Button variant="cta" size="lg" className="h-12 w-full rounded-xl text-[0.92rem]">افتح الدليل الكامل</Button></Link>
-              <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-xl text-[0.92rem]">استفسر عن وحدة</Button></Link>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:hidden">
+              <Link to="/map"><Button variant="cta" className="h-10 w-full rounded-lg text-[0.85rem]">افتح الدليل</Button></Link>
+              <Link to="/leasing"><Button variant="outline-blue" className="h-10 w-full rounded-lg text-[0.85rem]">استفسر عن وحدة</Button></Link>
             </div>
           </motion.div>
         </div>
