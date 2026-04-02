@@ -646,7 +646,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             <div className="mt-10 text-center">
               <Link to="/stores">
                 <Button size="lg" className="h-12 rounded-xl border px-8 text-[0.95rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
-                  استعرض المتاجر الحالية
+                  استعرض دليل المتاجر
                 </Button>
               </Link>
             </div>
