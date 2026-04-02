@@ -115,71 +115,44 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "#071326" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 55% at 40% 50%, #2D6BFF08, transparent 70%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 65% 50%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[48vh] items-center gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid min-h-[46vh] items-center lg:grid-cols-2">
 
-            {/* ── LEFT: Map-led visual (primary) ── */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="order-2 lg:order-1 px-4 py-6 md:px-8 lg:py-8 lg:ps-10 xl:ps-14"
-            >
-              <div className="grid grid-cols-[1fr_auto] gap-2.5 items-end">
-                {/* The map — hero's primary visual */}
-                <div className="min-w-0">
-                  <HeroMiniMap />
-                </div>
-
-                {/* Supporting architectural photo — small, contextual */}
-                <div className="hidden md:block w-[110px] xl:w-[130px] shrink-0">
-                  <div className="overflow-hidden rounded-lg" style={{ border: "1px solid #1E293B" }}>
-                    <img
-                      src={heroImage}
-                      alt="الواجهة الرئيسية لمول البستان"
-                      className="aspect-[3/4] w-full object-cover object-[center_30%] img-grade-dark"
-                      loading="eager"
-                    />
-                  </div>
-                  <div className="mt-1.5 rounded px-2 py-1.5" style={{ background: "#ffffff08", border: "1px solid #ffffff10" }}>
-                    <p className="font-poppins text-[0.42rem] font-bold uppercase tracking-[0.2em]" style={{ color: "#475569" }}>New Cairo</p>
-                    <p className="text-[0.54rem] font-bold" style={{ color: "#94A3B8" }}>منذ ٢٠١٠</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* ── RIGHT: Text block (compact) ── */}
+            {/* ── RIGHT: Copy block ── */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.05 }}
-              className="order-1 lg:order-2 space-y-3 px-5 py-8 md:px-10 lg:py-10 lg:pr-12 xl:pr-16"
+              transition={{ duration: 0.4 }}
+              className="order-1 space-y-3 px-5 py-8 md:px-10 lg:py-10 lg:pr-12 xl:pr-16"
             >
+              {/* Kicker */}
               <div className="flex items-center gap-2">
                 <div className="h-[2px] w-5 rounded-full" style={{ background: "#475569" }} />
                 <span className="font-poppins text-[0.5rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
-                  Est. 2010 — New Cairo
+                  Since 2010 — New Cairo
                 </span>
               </div>
 
-              <h1 className="max-w-[18rem] text-[1.25rem] leading-[1.14] md:text-[1.4rem] lg:text-[1.55rem]" style={{ color: "#F8FAFC" }}>
-                وجهتك التقنية.
+              {/* Headline — compact, heritage-driven */}
+              <h1 className="max-w-[19rem] text-[1.3rem] leading-[1.12] md:text-[1.45rem] lg:text-[1.55rem]" style={{ color: "#F8FAFC" }}>
+                وجهة يعرفها السوق
                 <br />
-                <span className="block mt-0.5" style={{ color: "#CDBB9A" }}>ابحث، حدّد، وصل.</span>
+                <span style={{ color: "#CDBB9A" }}>قبل أن تسأل.</span>
               </h1>
 
-              <p className="max-w-[20rem] text-[0.76rem] leading-[1.65]" style={{ color: "#94A3B8" }}>
-                خريطة تفاعلية تقودك مباشرة لكل متجر ووحدة — اكتشف المكان قبل أن تصل.
+              {/* Supporting — one sentence */}
+              <p className="max-w-[21rem] text-[0.76rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+                أكثر من عقد في خدمة قرارات الشراء الذكية — موقع راسخ، متاجر متخصصة، ودليل تفاعلي واضح.
               </p>
 
+              {/* CTAs */}
               <div className="flex flex-wrap gap-2">
                 <Link to="/map">
                   <Button variant="cta" className="h-9 min-w-[8rem] rounded-lg px-4 text-[0.78rem] font-bold shadow-[var(--shadow-blue)]">
                     <Compass className="ml-1 h-3.5 w-3.5" />
-                    افتح الدليل
+                    استكشف الدليل
                   </Button>
                 </Link>
                 <Link to="/stores">
@@ -189,21 +162,62 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </Link>
               </div>
 
-              {/* Trust stats */}
-              <div className="flex items-center gap-4 pt-2.5" style={{ borderTop: "1px solid #1E293B" }}>
+              {/* ── Trust cards — three pillars ── */}
+              <div className="grid grid-cols-3 gap-2 pt-3" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
-                  { v: `+${totalUnits}`, l: "وحدة" },
-                  { v: `${floorMapData.length}`, l: "أدوار" },
-                  { v: `${categoryStories.length}`, l: "تخصصات" },
-                ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-4">
-                    <div className="text-center">
-                      <p className="font-poppins text-[0.9rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                      <p className="mt-0.5 text-[0.5rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                  { icon: MapPin, stat: `+${totalUnits}`, title: "وجهة معروفة", desc: "وحدة تجارية في ٣ أدوار" },
+                  { icon: Layers, stat: `${categoryStories.length}`, title: "تخصصات واضحة", desc: "أقسام تقنية متكاملة" },
+                  { icon: Compass, stat: "دليل حي", title: "خريطة تفاعلية", desc: "تصفّح كل وحدة مباشرة" },
+                ].map((card) => (
+                  <div
+                    key={card.title}
+                    className="rounded-lg p-2.5"
+                    style={{ background: "#ffffff06", border: "1px solid #ffffff0A" }}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <card.icon className="h-3 w-3" style={{ color: "#CDBB9A" }} />
+                      <span className="font-poppins text-[0.7rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{card.stat}</span>
                     </div>
-                    {i < 2 && <div className="h-5 w-px" style={{ background: "#1E293B" }} />}
+                    <p className="mt-1 text-[0.64rem] font-bold" style={{ color: "#E2E8F0" }}>{card.title}</p>
+                    <p className="mt-0.5 text-[0.52rem] font-medium" style={{ color: "#64748B" }}>{card.desc}</p>
                   </div>
                 ))}
+              </div>
+            </motion.div>
+
+            {/* ── LEFT: Architectural diptych ── */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="relative order-2 hidden self-center py-8 pe-6 lg:block xl:pe-10"
+            >
+              <div className="grid grid-cols-[1fr_0.45fr] gap-2.5 items-stretch">
+                {/* Primary — exterior */}
+                <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #1E293B" }}>
+                  <img
+                    src={heroImage}
+                    alt="الواجهة الرئيسية لمول البستان"
+                    className="h-full max-h-[280px] w-full object-cover object-[center_30%] img-grade-dark"
+                    loading="eager"
+                  />
+                </div>
+
+                {/* Secondary column — interior crop + brand tag */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex-1 overflow-hidden rounded-xl" style={{ border: "1px solid #1E293B" }}>
+                    <img
+                      src={interiorImage}
+                      alt="التصميم الداخلي"
+                      className="h-full max-h-[220px] w-full object-cover object-[center_45%] img-grade-dark"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="rounded-lg px-2.5 py-2" style={{ background: "#ffffff08", border: "1px solid #ffffff10" }}>
+                    <p className="font-poppins text-[0.44rem] font-bold uppercase tracking-[0.2em]" style={{ color: "#475569" }}>Mall Elbostan</p>
+                    <p className="mt-0.5 text-[0.6rem] font-bold" style={{ color: "#CBD5E1" }}>وجهة تقنية راسخة</p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
