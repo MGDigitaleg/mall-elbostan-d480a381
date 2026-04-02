@@ -15,7 +15,7 @@ export function FloorTabs({ selected, onChange }: Props) {
           <button
             key={f.id}
             onClick={() => onChange(f.id)}
-            className={`relative rounded-md px-5 py-2 text-[0.78rem] font-bold transition-all ${
+            className={`relative rounded-md px-4 py-1.5 text-[0.74rem] font-bold transition-all ${
               isActive
                 ? "bg-primary text-primary-foreground shadow-sm"
                 : "text-foreground/50 hover:bg-card hover:text-foreground"
