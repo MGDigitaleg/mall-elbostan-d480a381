@@ -115,105 +115,98 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           1 · HERO — full-screen immersive with editorial image
           ════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen overflow-hidden" style={{ background: "#071326" }}>
-        {/* subtle radial warmth */}
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF08, transparent 70%)" }} />
+      <section className="relative min-h-[88vh] overflow-hidden lg:min-h-screen" style={{ background: "#071326" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-screen items-center lg:grid-cols-2">
+          <div className="grid min-h-[88vh] items-center lg:min-h-screen lg:grid-cols-2">
 
             {/* ── text column ── */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="order-1 space-y-8 px-6 py-20 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
+              transition={{ duration: 0.5 }}
+              className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
             >
-              {/* heritage kicker */}
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-10 rounded-full" style={{ background: "#64748B" }} />
-                <span className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+                <div className="h-[2px] w-8 rounded-full" style={{ background: "#64748B" }} />
+                <span className="font-poppins text-[0.6rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                   Est. 2010 — New Cairo
                 </span>
               </div>
 
-              <h1 className="max-w-[24rem] text-[2.4rem] leading-[1.06] md:text-[3.4rem] lg:text-[4rem]" style={{ color: "#F8FAFC" }}>
+              <h1 className="max-w-[22rem] text-[2rem] leading-[1.08] md:text-[2.8rem] lg:text-[3.2rem]" style={{ color: "#F8FAFC" }}>
                 المكان الذي بناه
                 <br />
                 <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
               </h1>
 
-              <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.04rem]" style={{ color: "#94A3B8" }}>
-                مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات التي
-                انتهت بقرار شراء حقيقي. من يعرف سوق الإلكترونيات في القاهرة الجديدة
-                يعرف هذا المكان.
+              <p className="max-w-[26rem] text-[0.92rem] leading-[1.9] md:text-[0.96rem]" style={{ color: "#94A3B8" }}>
+                مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات
+                التي انتهت بقرار شراء حقيقي.
               </p>
 
-              {/* CTA pair */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="h-[3.2rem] min-w-[12rem] rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
+                  <Button variant="cta" size="lg" className="h-11 min-w-[11rem] rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Compass className="ml-2 h-4 w-4" />
                     استكشف دليل المول
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button size="lg" className="h-[3.2rem] min-w-[9rem] rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+                  <Button size="lg" className="h-11 rounded-lg border px-6 text-[0.85rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     تصفّح المتاجر
                   </Button>
                 </Link>
               </div>
 
-              {/* stats — anchored authority strip */}
-              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #1E293B" }}>
+              <div className="flex items-center gap-6 pt-4" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${categoryStories.length}`, l: "أقسام متخصصة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-6">
+                  <div key={s.l} className="flex items-center gap-5">
                     <div>
-                      <p className="font-poppins text-[1.5rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                      <p className="font-poppins text-[1.3rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="text-[0.64rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-8 w-px" style={{ background: "#1E293B" }} />}
+                    {i < 2 && <div className="h-7 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* ── image column — editorial architectural composition ── */}
+            {/* ── image column ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative order-2 hidden h-screen lg:block"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative order-2 hidden h-full lg:block"
             >
-              {/* full-bleed hero — exterior, cropped for geometry */}
               <img
                 src={heroImage}
                 alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
                 className="h-full w-full object-cover object-[center_30%] img-grade-dark"
+                style={{ maxHeight: "100vh" }}
                 loading="eager"
               />
-              {/* editorial gradient overlay */}
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 35%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 22%, transparent 50%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
 
-              {/* bottom info bar — anchored to image */}
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
                 <div>
-                  <p className="font-poppins text-[0.65rem] font-bold tracking-[0.2em] uppercase dark-accent">Mall Elbostan</p>
-                  <p className="mt-1 text-[0.95rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
+                  <p className="font-poppins text-[0.6rem] font-bold tracking-[0.2em] uppercase dark-accent">Mall Elbostan</p>
+                  <p className="mt-0.5 text-[0.85rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
                 </div>
-                <div className="rounded-lg px-3.5 py-2" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                  <p className="text-[0.72rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
+                <div className="rounded-md px-3 py-1.5" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
+                  <p className="text-[0.68rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
                 </div>
               </div>
 
-              {/* architectural detail inset — interior, square symmetry crop */}
-              <div className="absolute bottom-14 left-8 w-[26%]">
-                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 20px 50px #07132680" }}>
+              {/* detail inset — smaller, tighter */}
+              <div className="absolute bottom-12 left-6 w-[22%]">
+                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 16px 40px #07132680" }}>
                   <img src={interiorImage} alt="التفاصيل الداخلية" className="aspect-[1/1] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
                 </div>
               </div>
