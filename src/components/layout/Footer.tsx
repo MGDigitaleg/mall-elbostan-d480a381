@@ -46,7 +46,7 @@ export function Footer() {
           <div className="space-y-5">
             <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[136px]" />
             <p className="max-w-[260px] text-[0.9rem] leading-7 text-white/40">
-              وجهة مصر التقنية الأولى — تاريخ من الثقة وتجربة تسوّق منظّمة في القاهرة الجديدة.
+              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات في القاهرة الجديدة.
             </p>
             <div className="flex gap-2.5">
               <Link to="/map">
