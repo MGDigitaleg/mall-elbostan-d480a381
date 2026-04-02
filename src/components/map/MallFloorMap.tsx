@@ -68,7 +68,9 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#06B6D4",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, highlightedUnitIds, className }: Props) {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [atriumHovered, setAtriumHovered] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
