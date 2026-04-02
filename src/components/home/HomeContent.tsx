@@ -229,22 +229,21 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           2 · HERITAGE & IDENTITY — why this place matters
           ════════════════════════════════════════════════════════════ */}
-      <section className="page-section overflow-hidden" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 overflow-hidden" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+            <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
 
               {/* text */}
-              <div className="order-1 space-y-7">
-                <div className="chapter-shell pt-7">
+              <div className="order-1 space-y-5">
+                <div className="chapter-shell pt-6">
                   <p className="section-kicker">مكانة وتاريخ</p>
-                  <h2 className="section-title max-w-[22rem]">اسم يسبق التعريف في سوق التقنية.</h2>
+                  <h2 className="section-title max-w-[20rem]">اسم يسبق التعريف في سوق التقنية.</h2>
                 </div>
 
-                <p className="text-[1.04rem] leading-[2.1] light-body md:text-[1.08rem]">
-                  في سوق تتنافس فيه عشرات الوجهات، مول البستان يملك ما لا يُشترى:
-                  سمعة بنتها سنوات من التعامل المباشر. الزائر لا يأتي لأنه رأى إعلانًا —
-                  يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا، بالسعر والجودة التي يتوقعها.
+                <p className="text-[0.95rem] leading-[1.95] light-body">
+                  مول البستان يملك ما لا يُشترى: سمعة بنتها سنوات من التعامل المباشر.
+                  الزائر يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا.
                 </p>
 
                 {/* trust signals */}
