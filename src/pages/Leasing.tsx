@@ -328,7 +328,7 @@ const Leasing = () => {
                   <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">
                     وحدات <span style={{ color: "#E8740E" }}>متاحة الآن</span>
                   </h2>
-                  <p className="text-[0.84rem] leading-7 dark-body">عيّنة من الوحدات البارزة — شوف التفاصيل الكاملة على الخريطة.</p>
+                  <p className="text-[0.84rem] leading-7 dark-body">عيّنة من الوحدات البارزة — التفاصيل الكاملة على الخريطة التفاعلية.</p>
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
