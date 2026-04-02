@@ -434,10 +434,10 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mb-10 max-w-[36rem]">
-              <p className="section-kicker">اكتشف المتاجر</p>
-              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج.</h2>
+              <p className="section-kicker">دليل الفئات</p>
+              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج حقيقي.</h2>
               <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
-                تصنيف واضح يختصر الوقت ويسهّل الوصول — سواء كنت تبحث عن جهاز، ملحق، أو خدمة.
+                ليس تصنيفًا عشوائيًا — كل فئة تمثل نمط شراء فعلي ومسار وصول مباشر.
               </p>
             </div>
 
