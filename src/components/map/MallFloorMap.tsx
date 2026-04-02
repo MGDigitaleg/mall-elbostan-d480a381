@@ -134,24 +134,26 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   return (
     <div className={cn("relative overflow-hidden rounded-2xl", className)} style={{ background: "#F0EBE3", border: "1px solid #C8C3BB", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}>
       {/* Zoom controls */}
-      <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
-        {[
-          { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
-          { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
-          { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط" },
-        ].map((btn) => (
-          <button
-            key={btn.label}
-            onClick={btn.action}
-            disabled={btn.disabled}
-            className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25"
-            style={{ background: "hsl(0 0% 100% / 0.92)", border: "1px solid #C8C3BB", boxShadow: "0 1px 4px hsl(0 0% 0% / 0.08)" }}
-            aria-label={btn.label}
-          >
-            <btn.icon className="h-4 w-4" style={{ color: "#4A4540" }} />
-          </button>
-        ))}
-      </div>
+      {!hideControls && (
+        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
+          {[
+            { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
+            { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
+            { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط" },
+          ].map((btn) => (
+            <button
+              key={btn.label}
+              onClick={btn.action}
+              disabled={btn.disabled}
+              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25"
+              style={{ background: "hsl(0 0% 100% / 0.92)", border: "1px solid #C8C3BB", boxShadow: "0 1px 4px hsl(0 0% 0% / 0.08)" }}
+              aria-label={btn.label}
+            >
+              <btn.icon className="h-4 w-4" style={{ color: "#4A4540" }} />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Zoom badge */}
       {zoom > 1 && (
