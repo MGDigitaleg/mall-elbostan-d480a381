@@ -209,6 +209,7 @@ const StoreDetail = () => {
           {/* Main column */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-8">
             {/* About */}
+            <motion.div variants={fadeChild}>
             <article className="card-editorial p-6 md:p-8">
               <div className="chapter-shell">
                 <p className="section-kicker">عن المتجر</p>
