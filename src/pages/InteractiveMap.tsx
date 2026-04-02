@@ -456,8 +456,15 @@ const InteractiveMap = () => {
         open={spinModalOpen}
         onClose={() => setSpinModalOpen(false)}
         onWin={handleSpinWin}
-        onViewOnMap={handleViewOnMap}
-        onExploreCategory={handleExploreCategory}
+        onViewOnMap={(unitCode: string) => {
+          const targetUnit = allMallUnits.find((u) => u.code === unitCode);
+          if (targetUnit) {
+            setSelectedFloor(targetUnit.floor);
+            setSelectedUnit(targetUnit);
+            setHighlightedUnitIds(new Set([targetUnit.id]));
+            scrollToMap();
+          }
+        }}
       />
     </MainLayout>
   );
