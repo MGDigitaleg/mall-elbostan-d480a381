@@ -479,17 +479,17 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
         onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ffffff12"; e.currentTarget.style.background = "#ffffff06"; }}
       >
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             {store.logo_url ? (
-              <img src={store.logo_url} alt={store.name_ar} className="h-9 w-9 rounded-lg object-cover" style={{ border: "1px solid #ffffff14" }} loading="lazy" />
+              <img src={store.logo_url} alt={store.name_ar} className="h-14 w-14 rounded-xl object-contain bg-white/5 p-1.5" style={{ border: "1px solid #ffffff18" }} loading="lazy" />
             ) : (
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
-                <Store className="h-4 w-4" style={{ color: "#5B9AFF" }} />
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
+                <Store className="h-5 w-5" style={{ color: "#5B9AFF" }} />
               </div>
             )}
             <div>
-              <h3 className="text-[0.88rem] font-bold dark-heading transition-colors group-hover:text-primary">{store.name_ar}</h3>
-              {store.category && <span className="mt-0.5 inline-block text-[0.68rem] dark-muted">{store.category}</span>}
+              <h3 className="text-[0.9rem] font-bold dark-heading transition-colors group-hover:text-primary">{store.name_ar}</h3>
+              {store.category && <span className="mt-0.5 inline-block text-[0.7rem] dark-muted">{store.category}</span>}
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[0.62rem] font-bold" style={{ border: "1px solid #ffffff14", color: "#94A3B8" }}>
