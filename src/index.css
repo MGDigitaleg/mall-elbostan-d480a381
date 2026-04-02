@@ -12,22 +12,22 @@
 
     /* ─── Premium heritage palette — warm, high-contrast ─── */
     --background: 38 16% 97%;
-    --foreground: 222 32% 11%;
+    --foreground: 222 36% 8%;
 
     --card: 36 18% 99%;
-    --card-foreground: 222 32% 11%;
+    --card-foreground: 222 36% 8%;
 
     --popover: 36 18% 99%;
-    --popover-foreground: 222 32% 11%;
+    --popover-foreground: 222 36% 8%;
 
-    --primary: 222 58% 42%;
+    --primary: 222 58% 38%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 34 14% 93%;
-    --secondary-foreground: 222 32% 11%;
+    --secondary-foreground: 222 36% 8%;
 
     --muted: 220 10% 88%;
-    --muted-foreground: 220 12% 38%;
+    --muted-foreground: 220 14% 34%;
 
     --accent: 192 48% 38%;
     --accent-foreground: 0 0% 100%;
@@ -41,51 +41,51 @@
     --success: 160 55% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 34 12% 84%;
-    --input: 34 12% 84%;
-    --ring: 222 58% 42%;
+    --border: 34 12% 82%;
+    --input: 34 12% 82%;
+    --ring: 222 58% 38%;
 
     --radius: 0.625rem;
 
     /* ─── Heritage navy — deep midnight anchor ─── */
-    --navy: 222 36% 11%;
+    --navy: 222 38% 9%;
     --navy-foreground: 38 14% 95%;
 
     /* ─── Warm heritage tones ─── */
     --warm-sand: 34 22% 91%;
     --warm-sand-foreground: 30 14% 36%;
     --warm-stone: 36 16% 95%;
-    --bronze: 30 20% 52%;
+    --bronze: 30 22% 48%;
 
     --neutral-light: 38 16% 97%;
 
     /* ─── Premium gradients ─── */
-    --gradient-blue: linear-gradient(135deg, hsl(222 58% 42%), hsl(222 48% 50%));
-    --gradient-hero: linear-gradient(168deg, hsl(222 38% 7%), hsl(222 32% 12%));
+    --gradient-blue: linear-gradient(135deg, hsl(222 58% 38%), hsl(222 48% 46%));
+    --gradient-hero: linear-gradient(168deg, hsl(222 40% 6%), hsl(222 34% 10%));
     --gradient-card: linear-gradient(180deg, hsl(36 18% 99%), hsl(34 14% 96%));
     --gradient-section: linear-gradient(180deg, hsl(34 14% 96%), hsl(34 12% 93%));
     --gradient-warm: linear-gradient(180deg, hsl(34 16% 95%), hsl(36 14% 97%));
     --gradient-ivory: linear-gradient(180deg, hsl(38 18% 97%), hsl(36 14% 95%));
 
     /* ─── Architectural shadows ─── */
-    --shadow-blue: 0 8px 28px hsl(222 58% 42% / 0.10);
-    --shadow-card: 0 1px 3px hsl(222 32% 11% / 0.03), 0 6px 20px hsl(222 32% 11% / 0.025);
-    --shadow-elevated: 0 2px 6px hsl(222 32% 11% / 0.04), 0 16px 44px hsl(222 32% 11% / 0.05);
-    --shadow-soft: 0 1px 3px hsl(222 32% 11% / 0.02);
-    --shadow-premium: 0 1px 3px hsl(222 32% 11% / 0.03), 0 10px 32px hsl(222 32% 11% / 0.04);
-    --shadow-inset: inset 0 1px 3px hsl(222 32% 11% / 0.04);
-    --shadow-hero-card: 0 2px 6px hsl(222 32% 11% / 0.06), 0 20px 56px hsl(222 32% 11% / 0.08);
-    --shadow-deep: 0 4px 8px hsl(222 32% 11% / 0.04), 0 24px 64px hsl(222 32% 11% / 0.06);
+    --shadow-blue: 0 8px 28px hsl(222 58% 38% / 0.12);
+    --shadow-card: 0 1px 3px hsl(222 36% 8% / 0.04), 0 6px 20px hsl(222 36% 8% / 0.03);
+    --shadow-elevated: 0 2px 6px hsl(222 36% 8% / 0.05), 0 16px 44px hsl(222 36% 8% / 0.06);
+    --shadow-soft: 0 1px 3px hsl(222 36% 8% / 0.03);
+    --shadow-premium: 0 1px 3px hsl(222 36% 8% / 0.04), 0 10px 32px hsl(222 36% 8% / 0.05);
+    --shadow-inset: inset 0 1px 3px hsl(222 36% 8% / 0.05);
+    --shadow-hero-card: 0 2px 6px hsl(222 36% 8% / 0.08), 0 20px 56px hsl(222 36% 8% / 0.1);
+    --shadow-deep: 0 4px 8px hsl(222 36% 8% / 0.05), 0 24px 64px hsl(222 36% 8% / 0.07);
 
     /* ─── Sidebar (admin) ─── */
-    --sidebar-background: 222 36% 11%;
+    --sidebar-background: 222 38% 9%;
     --sidebar-foreground: 38 14% 95%;
-    --sidebar-primary: 222 58% 42%;
+    --sidebar-primary: 222 58% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 24% 17%;
+    --sidebar-accent: 222 24% 15%;
     --sidebar-accent-foreground: 38 14% 95%;
-    --sidebar-border: 222 18% 20%;
-    --sidebar-ring: 222 58% 42%;
+    --sidebar-border: 222 18% 18%;
+    --sidebar-ring: 222 58% 38%;
   }
 }
 
@@ -110,25 +110,25 @@
   /* ── Editorial heading system ── */
   h1 {
     font-family: var(--font-arabic-display);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.03em;
-    line-height: 1.04;
+    line-height: 1.02;
     text-wrap: balance;
   }
 
   h2 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
+    letter-spacing: -0.025em;
+    line-height: 1.06;
     text-wrap: balance;
   }
 
   h3 {
     font-family: var(--font-arabic-display);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.015em;
-    line-height: 1.16;
+    line-height: 1.14;
     text-wrap: balance;
   }
 
@@ -136,7 +136,7 @@
     font-family: var(--font-cairo);
     font-weight: 700;
     letter-spacing: -0.005em;
-    line-height: 1.28;
+    line-height: 1.24;
   }
 
   p {
@@ -145,8 +145,8 @@
 
   /* Refined selection */
   ::selection {
-    background: hsl(220 68% 38% / 0.14);
-    color: hsl(222 42% 8%);
+    background: hsl(222 58% 38% / 0.16);
+    color: hsl(222 42% 6%);
   }
 }
 
@@ -222,7 +222,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: hsl(var(--primary) / 0.22);
+    background: hsl(var(--primary) / 0.25);
     border-radius: 2px 0 0 2px;
   }
 
@@ -249,7 +249,7 @@
     inset-inline-start: 0;
     inset-inline-end: 0;
     height: 2px;
-    background: linear-gradient(90deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.06));
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.35), hsl(var(--primary) / 0.06));
   }
 
   .soft-card {
@@ -261,10 +261,10 @@
 
   /* ── Heritage surface — dark section cards ── */
   .heritage-surface {
-    background: hsl(222 30% 11%);
-    border: 1px solid hsl(222 16% 20%);
+    background: hsl(222 32% 12%);
+    border: 1px solid hsl(222 18% 20%);
     border-radius: calc(var(--radius) * 0.7);
-    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.04);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.03);
   }
 
   /* ── Editorial elements ── */
@@ -285,8 +285,8 @@
     inset-inline-start: 0;
     top: 0;
     width: 2.5rem;
-    height: 2px;
-    background: hsl(var(--primary) / 0.45);
+    height: 3px;
+    background: hsl(var(--primary) / 0.5);
     border-radius: 1px;
   }
 
@@ -316,7 +316,7 @@
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-section .section-kicker { color: hsl(220 62% 58%); }
+  .heritage-section .section-kicker { color: hsl(220 55% 62%); }
   .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
 
   /* ── Warm sand interlude ── */
@@ -328,23 +328,23 @@
   .text-bronze { color: hsl(var(--bronze)); }
 
   .heritage-card {
-    background: hsl(222 30% 14%);
-    border: 1px solid hsl(222 16% 20%);
+    background: hsl(222 32% 13%);
+    border: 1px solid hsl(222 18% 19%);
     border-radius: calc(var(--radius) * 0.8);
   }
 
   /* ── Heritage deep (darker variant) ── */
   .heritage-deep {
-    background: hsl(222 30% 8%);
+    background: hsl(222 34% 7%);
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-deep .section-kicker { color: hsl(220 62% 58%); }
+  .heritage-deep .section-kicker { color: hsl(220 55% 62%); }
 
   /* ── Architectural band — a narrow colored strip ── */
   .band-primary {
     height: 3px;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.35), transparent);
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent);
   }
 
   /* ── Chips & Labels ── */
@@ -358,18 +358,18 @@
 
   .eyebrow-chip {
     @apply inline-flex items-center gap-2 rounded-md border px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
-    border-color: hsl(var(--primary) / 0.15);
-    background-color: hsl(var(--primary) / 0.04);
+    border-color: hsl(var(--primary) / 0.18);
+    background-color: hsl(var(--primary) / 0.05);
   }
 
   .section-kicker {
-    @apply mb-3 text-[0.72rem] font-semibold tracking-[0.2em] uppercase;
-    color: hsl(var(--primary) / 0.7);
+    @apply mb-3 text-[0.72rem] font-bold tracking-[0.22em] uppercase;
+    color: hsl(var(--primary) / 0.75);
     font-family: var(--font-poppins);
   }
 
   .section-title {
-    @apply text-[1.75rem] font-bold leading-[1.06] text-foreground md:text-[2.5rem] lg:text-[3rem];
+    @apply text-[1.85rem] font-bold leading-[1.04] text-foreground md:text-[2.6rem] lg:text-[3.1rem];
   }
 
   /* ── Spacing system ── */
@@ -400,17 +400,17 @@
     content: "";
     position: absolute;
     inset: 0;
-    border: 1px solid hsl(var(--foreground) / 0.05);
+    border: 1px solid hsl(var(--foreground) / 0.06);
     border-radius: inherit;
     pointer-events: none;
   }
 
   /* ── Editorial image grade — consistent warm desaturation ── */
   .img-grade {
-    filter: contrast(1.06) saturate(0.85) brightness(1.0);
+    filter: contrast(1.08) saturate(0.82) brightness(1.0);
   }
   .img-grade-dark {
-    filter: contrast(1.08) saturate(0.78) brightness(0.92);
+    filter: contrast(1.1) saturate(0.75) brightness(0.88);
   }
 
   /* ── Editorial frame — thin accent border for image authority ── */
@@ -424,7 +424,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    border: 1px solid hsl(var(--foreground) / 0.07);
+    border: 1px solid hsl(var(--foreground) / 0.08);
     border-radius: inherit;
     pointer-events: none;
   }
@@ -460,7 +460,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(0deg, hsl(222 30% 8% / 0.55) 0%, transparent 45%, hsl(222 30% 8% / 0.12) 100%);
+    background: linear-gradient(0deg, hsl(222 34% 7% / 0.6) 0%, transparent 45%, hsl(222 34% 7% / 0.15) 100%);
     pointer-events: none;
     z-index: 1;
   }
@@ -472,8 +472,8 @@
 
   .stat-block-dark {
     @apply rounded-lg px-4 py-4 text-center;
-    border: 1px solid hsl(220 20% 22%);
-    background-color: hsl(220 25% 14%);
+    border: 1px solid hsl(220 20% 20%);
+    background-color: hsl(220 28% 13%);
   }
 
   /* ── Divider ── */
@@ -485,8 +485,8 @@
   /* ── Accent line decorator ── */
   .accent-line {
     width: 3rem;
-    height: 2px;
-    background: hsl(var(--primary) / 0.4);
+    height: 3px;
+    background: hsl(var(--primary) / 0.45);
     border-radius: 1px;
   }
 
@@ -502,4 +502,11 @@
     box-shadow: var(--shadow-premium), inset 0 1px 0 hsl(0 0% 100% / 0.4);
     overflow: hidden;
   }
+
+  /* ── Dark text helpers — strict high-contrast for dark sections ── */
+  .dark-heading { color: hsl(38 14% 96%); }
+  .dark-body { color: hsl(220 12% 74%); }
+  .dark-muted { color: hsl(220 10% 58%); }
+  .dark-kicker { color: hsl(220 55% 62%); }
+  .dark-accent { color: hsl(30 22% 58%); }
 }
