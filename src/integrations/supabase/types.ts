@@ -328,6 +328,134 @@ export type Database = {
         }
         Relationships: []
       }
+      product_categories: {
+        Row: {
+          created_at: string
+          icon: string | null
+          id: string
+          name_ar: string
+          name_en: string | null
+          parent_id: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name_ar: string
+          name_en?: string | null
+          parent_id?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          icon?: string | null
+          id?: string
+          name_ar?: string
+          name_en?: string | null
+          parent_id?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "product_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          brand: string | null
+          category_id: string | null
+          created_at: string
+          external_buy_url: string | null
+          featured: boolean
+          gallery: Json | null
+          id: string
+          image_url: string | null
+          long_description_ar: string | null
+          name_ar: string
+          name_en: string | null
+          price: number | null
+          price_note: string | null
+          short_description_ar: string | null
+          short_description_en: string | null
+          sku: string | null
+          slug: string
+          status: string
+          store_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          brand?: string | null
+          category_id?: string | null
+          created_at?: string
+          external_buy_url?: string | null
+          featured?: boolean
+          gallery?: Json | null
+          id?: string
+          image_url?: string | null
+          long_description_ar?: string | null
+          name_ar: string
+          name_en?: string | null
+          price?: number | null
+          price_note?: string | null
+          short_description_ar?: string | null
+          short_description_en?: string | null
+          sku?: string | null
+          slug: string
+          status?: string
+          store_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          brand?: string | null
+          category_id?: string | null
+          created_at?: string
+          external_buy_url?: string | null
+          featured?: boolean
+          gallery?: Json | null
+          id?: string
+          image_url?: string | null
+          long_description_ar?: string | null
+          name_ar?: string
+          name_en?: string | null
+          price?: number | null
+          price_note?: string | null
+          short_description_ar?: string | null
+          short_description_en?: string | null
+          sku?: string | null
+          slug?: string
+          status?: string
+          store_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "product_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rewards: {
         Row: {
           active_from: string | null
