@@ -116,6 +116,7 @@
     letter-spacing: -0.025em;
     line-height: 1.1;
     text-wrap: balance;
+    color: hsl(var(--foreground)); /* #0F172A */
   }
 
   h2 {
@@ -124,6 +125,7 @@
     letter-spacing: -0.02em;
     line-height: 1.12;
     text-wrap: balance;
+    color: hsl(var(--foreground));
   }
 
   h3 {
@@ -132,6 +134,7 @@
     letter-spacing: -0.012em;
     line-height: 1.18;
     text-wrap: balance;
+    color: #1E293B; /* secondary heading */
   }
 
   h4 {
@@ -139,6 +142,7 @@
     font-weight: 700;
     letter-spacing: -0.005em;
     line-height: 1.24;
+    color: #1E293B;
   }
 
   p {
