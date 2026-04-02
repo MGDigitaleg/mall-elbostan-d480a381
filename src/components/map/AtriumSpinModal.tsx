@@ -19,7 +19,6 @@ export type SpinReward = {
 
 export type SpinWinResult = {
   reward: SpinReward;
-  /** resolved from stores table if sponsor_store_id is set */
   sponsorStore: {
     id: string;
     name_ar: string;
@@ -37,18 +36,19 @@ type Props = {
   onExploreCategory?: () => void;
 };
 
+// Premium wheel segments — restrained palette, not casino
 const WHEEL_SEGMENTS = [
-  { label: "خصم متجر", color: "hsl(221 83% 53%)" },
-  { label: "هدية مجانية", color: "hsl(192 91% 36%)" },
-  { label: "قسيمة شراء", color: "hsl(221 83% 48%)" },
-  { label: "عرض حصري", color: "hsl(192 91% 42%)" },
-  { label: "زيارة مميّزة", color: "hsl(221 83% 58%)" },
-  { label: "مفاجأة", color: "hsl(192 91% 32%)" },
+  { label: "خصم متجر",    color: "hsl(222 40% 28%)" },
+  { label: "هدية مجانية",  color: "hsl(222 35% 35%)" },
+  { label: "قسيمة شراء",  color: "hsl(222 40% 24%)" },
+  { label: "عرض حصري",    color: "hsl(222 35% 32%)" },
+  { label: "زيارة مميّزة", color: "hsl(222 40% 26%)" },
+  { label: "مكافأة",       color: "hsl(222 35% 30%)" },
 ];
 
 export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCategory }: Props) {
   const { toast } = useToast();
-  const [step, setStep] = useState<"intro" | "register" | "spinning" | "result">("intro");
+  const [step, setStep] = useState<"register" | "spinning" | "result">("register");
   const [form, setForm] = useState({ full_name: "", phone: "", email: "" });
   const [loading, setLoading] = useState(false);
   const [prize, setPrize] = useState<SpinReward | null>(null);
@@ -130,7 +130,6 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
       } else {
         setPrize(won);
 
-        // Resolve sponsor store if linked
         let resolved: SpinWinResult["sponsorStore"] = null;
         if (won?.sponsor_store_id) {
           resolved = await resolveSponsorStore(won.sponsor_store_id);
@@ -146,7 +145,7 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
   const handleClose = () => {
     onClose();
     setTimeout(() => {
-      setStep("intro");
+      setStep("register");
       setForm({ full_name: "", phone: "", email: "" });
       setPrize(null);
       setSponsorStore(null);
@@ -169,194 +168,243 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap, onExploreCa
     <AnimatePresence>
       {open && (
         <>
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50"
+            style={{ background: "hsl(222 36% 6% / 0.75)", backdropFilter: "blur(8px)" }}
           />
 
+          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            initial={{ opacity: 0, scale: 0.97, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-4 top-[10vh] z-50 mx-auto max-w-[480px] max-h-[80vh] overflow-y-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-elevated)] md:inset-x-auto"
+            exit={{ opacity: 0, scale: 0.97, y: 16 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-4 top-[8vh] z-50 mx-auto max-w-[460px] max-h-[84vh] overflow-y-auto rounded-2xl bg-card md:inset-x-auto"
+            style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 20px 60px hsl(222 36% 6% / 0.3), 0 4px 16px hsl(222 36% 6% / 0.15)" }}
           >
+            {/* Close */}
             <button
               onClick={handleClose}
-              className="absolute left-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-secondary/80 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="absolute left-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </button>
 
-            {/* ── INTRO ── */}
-            {step === "intro" && (
-              <div className="p-8 text-center">
-                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 ring-1 ring-primary/15">
-                  <Gift className="h-9 w-9 text-primary" />
-                </div>
-                <h2 className="mt-6 text-xl font-bold text-foreground md:text-2xl">مركز العروض والمكافآت</h2>
-                <p className="mx-auto mt-3 max-w-xs text-[0.9rem] leading-7 text-muted-foreground">
-                  من قلب الأتريوم — اكتشف مكافآت حصرية من متاجر مول البستان. سجّل وأدر العجلة للفوز.
-                </p>
-                <div className="mx-auto mt-6 grid max-w-[280px] gap-2">
-                  {["خصومات من متاجر حقيقية", "هدايا وإكسسوارات مجانية", "قسائم شراء فورية"].map((item) => (
-                    <div key={item} className="flex items-center gap-2 rounded-lg border border-border bg-secondary/30 px-3 py-2 text-[0.78rem]">
-                      <Check className="h-3.5 w-3.5 shrink-0 text-primary" />
-                      <span className="text-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-                <Button onClick={() => setStep("register")} variant="cta" className="mt-7 h-12 w-full rounded-xl px-8 text-[0.95rem] font-bold">
-                  سجّل وابدأ
-                </Button>
-                <p className="mt-3 text-[0.7rem] text-muted-foreground">مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح</p>
-              </div>
-            )}
-
-            {/* ── REGISTER ── */}
+            {/* ── REGISTER — clean form, premium feel ── */}
             {step === "register" && (
-              <form onSubmit={handleSpin} className="p-8">
-                <div className="mb-6 text-center">
-                  <h2 className="text-lg font-bold text-foreground">سجّل بياناتك</h2>
-                  <p className="mt-1 text-[0.82rem] text-muted-foreground">أدخل بياناتك للمشاركة في عجلة المكافآت</p>
+              <form onSubmit={handleSpin} className="p-6 md:p-7">
+                {/* Header */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "hsl(222 58% 42% / 0.08)", border: "1px solid hsl(222 58% 42% / 0.12)" }}>
+                      <Gift className="h-5 w-5" style={{ color: "hsl(222 58% 42%)" }} />
+                    </div>
+                    <div>
+                      <h2 className="text-[0.95rem] font-bold text-foreground">مكافآت مول البستان</h2>
+                      <p className="text-[0.72rem] text-muted-foreground">سجّل للحصول على مكافأة حقيقية</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl p-3.5" style={{ background: "hsl(222 36% 96%)", border: "1px solid hsl(222 30% 90%)" }}>
+                    <p className="text-[0.78rem] leading-6 text-muted-foreground">
+                      المكافآت مقدّمة من متاجر المول. بعد الفوز، يظهر موقع المتجر مباشرة على الخريطة التفاعلية.
+                    </p>
+                  </div>
                 </div>
+
+                {/* Form fields */}
                 <div className="space-y-3">
                   <div>
-                    <label className="mb-1 block text-[0.78rem] font-semibold text-foreground">الاسم الكامل *</label>
-                    <Input value={form.full_name} onChange={(e) => setForm({ ...form, full_name: e.target.value })} className="h-11 rounded-lg border-border bg-secondary/40" required />
+                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">الاسم الكامل *</label>
+                    <Input
+                      value={form.full_name}
+                      onChange={(e) => setForm({ ...form, full_name: e.target.value })}
+                      className="h-10 rounded-lg border-border bg-background"
+                      required
+                    />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.78rem] font-semibold text-foreground">رقم الهاتف *</label>
-                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="h-11 rounded-lg border-border bg-secondary/40" required dir="ltr" />
+                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">رقم الهاتف *</label>
+                    <Input
+                      value={form.phone}
+                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      className="h-10 rounded-lg border-border bg-background"
+                      required
+                      dir="ltr"
+                    />
                   </div>
                   <div>
-                    <label className="mb-1 block text-[0.78rem] font-semibold text-foreground">البريد الإلكتروني (اختياري)</label>
-                    <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="h-11 rounded-lg border-border bg-secondary/40" dir="ltr" />
+                    <label className="mb-1 block text-[0.75rem] font-semibold text-foreground">البريد الإلكتروني <span className="text-muted-foreground font-normal">(اختياري)</span></label>
+                    <Input
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="h-10 rounded-lg border-border bg-background"
+                      dir="ltr"
+                    />
                   </div>
                 </div>
-                <Button type="submit" variant="cta" className="mt-6 h-12 w-full rounded-xl font-bold" disabled={loading}>
+
+                <Button type="submit" variant="cta" className="mt-5 h-11 w-full rounded-xl text-[0.88rem] font-bold" disabled={loading}>
                   {loading ? "جاري التحميل..." : "أدر العجلة"}
                 </Button>
-                <button type="button" onClick={() => setStep("intro")} className="mt-3 w-full text-center text-[0.78rem] text-muted-foreground hover:text-foreground">
-                  رجوع
-                </button>
+                <p className="mt-2 text-center text-[0.68rem] text-muted-foreground">
+                  مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح
+                </p>
               </form>
             )}
 
-            {/* ── SPINNING ── */}
+            {/* ── SPINNING — restrained, branded wheel ── */}
             {step === "spinning" && (
-              <div className="px-8 py-14 text-center">
-                <div className="relative mx-auto h-52 w-52">
-                  <div className="absolute inset-0 rounded-full border-[3px] border-primary/20" />
+              <div className="px-6 py-12 text-center">
+                <div className="relative mx-auto h-48 w-48">
+                  {/* Outer ring */}
+                  <div className="absolute inset-0 rounded-full" style={{ border: "2px solid hsl(222 30% 80%)" }} />
+
                   <svg
                     viewBox="0 0 200 200"
                     className="h-full w-full"
-                    style={{ transform: `rotate(${rotation}deg)`, transition: "transform 3.8s cubic-bezier(0.17, 0.67, 0.12, 0.99)" }}
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      transition: "transform 3.8s cubic-bezier(0.17, 0.67, 0.12, 0.99)",
+                    }}
                   >
                     {WHEEL_SEGMENTS.map((seg, i) => {
-                      const angle = (360 / WHEEL_SEGMENTS.length) * i;
+                      const segAngle = 360 / WHEEL_SEGMENTS.length;
+                      const angle = segAngle * i;
                       const rad1 = (angle * Math.PI) / 180;
-                      const rad2 = ((angle + 360 / WHEEL_SEGMENTS.length) * Math.PI) / 180;
-                      const x1 = 100 + 90 * Math.cos(rad1);
-                      const y1 = 100 + 90 * Math.sin(rad1);
-                      const x2 = 100 + 90 * Math.cos(rad2);
-                      const y2 = 100 + 90 * Math.sin(rad2);
-                      const midAngle = angle + 360 / WHEEL_SEGMENTS.length / 2;
-                      const midRad = (midAngle * Math.PI) / 180;
-                      const tx = 100 + 55 * Math.cos(midRad);
-                      const ty = 100 + 55 * Math.sin(midRad);
+                      const rad2 = ((angle + segAngle) * Math.PI) / 180;
+                      const x1 = 100 + 88 * Math.cos(rad1);
+                      const y1 = 100 + 88 * Math.sin(rad1);
+                      const x2 = 100 + 88 * Math.cos(rad2);
+                      const y2 = 100 + 88 * Math.sin(rad2);
+                      const midRad = ((angle + segAngle / 2) * Math.PI) / 180;
+                      const tx = 100 + 54 * Math.cos(midRad);
+                      const ty = 100 + 54 * Math.sin(midRad);
                       return (
                         <g key={i}>
-                          <path d={`M100,100 L${x1},${y1} A90,90 0 0,1 ${x2},${y2} Z`} fill={seg.color} stroke="hsl(0 0% 100% / 0.15)" strokeWidth="0.5" />
-                          <text x={tx} y={ty} textAnchor="middle" dominantBaseline="middle" fill="white" fontSize="7" fontWeight="600" transform={`rotate(${midAngle}, ${tx}, ${ty})`}>
+                          <path
+                            d={`M100,100 L${x1},${y1} A88,88 0 0,1 ${x2},${y2} Z`}
+                            fill={seg.color}
+                            stroke="hsl(222 30% 18%)"
+                            strokeWidth="0.5"
+                          />
+                          <text
+                            x={tx} y={ty}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="hsl(0 0% 90%)"
+                            fontSize="6.5"
+                            fontWeight="600"
+                            transform={`rotate(${angle + segAngle / 2}, ${tx}, ${ty})`}
+                          >
                             {seg.label}
                           </text>
                         </g>
                       );
                     })}
-                    <circle cx="100" cy="100" r="16" fill="hsl(0 0% 100%)" />
-                    <circle cx="100" cy="100" r="12" fill="hsl(222 47% 11%)" />
-                    <circle cx="100" cy="100" r="4" fill="hsl(221 83% 53%)" />
+                    {/* Center hub */}
+                    <circle cx="100" cy="100" r="14" fill="hsl(0 0% 97%)" />
+                    <circle cx="100" cy="100" r="10" fill="hsl(222 36% 11%)" />
+                    <circle cx="100" cy="100" r="3.5" fill="hsl(222 58% 42%)" />
                   </svg>
+
+                  {/* Pointer — subtle, architectural */}
                   <div className="absolute -top-1 left-1/2 -translate-x-1/2">
-                    <div className="h-4 w-4 rotate-45 rounded-sm bg-foreground shadow-md" />
+                    <div className="h-3.5 w-3.5 rotate-45 rounded-[2px]" style={{ background: "hsl(222 36% 11%)" }} />
                   </div>
                 </div>
-                <p className="mt-8 text-lg font-bold text-foreground">جاري الدوران...</p>
-                <p className="mt-1 text-[0.82rem] text-muted-foreground">لحظات وتعرف مكافأتك</p>
+
+                <p className="mt-7 text-[0.95rem] font-bold text-foreground">جاري تحديد مكافأتك...</p>
+                <p className="mt-1 text-[0.78rem] text-muted-foreground">لحظات</p>
               </div>
             )}
 
-            {/* ── RESULT ── */}
+            {/* ── RESULT — premium, map-connected ── */}
             {step === "result" && (
-              <div className="p-8 text-center">
+              <div className="p-6 md:p-7">
                 {prize ? (
-                  <>
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/20">
-                      <Gift className="h-7 w-7 text-primary" />
+                  <div className="space-y-4">
+                    {/* Success header */}
+                    <div className="text-center">
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(222 58% 42% / 0.08)", border: "1px solid hsl(222 58% 42% / 0.12)" }}>
+                        <Gift className="h-6 w-6" style={{ color: "hsl(222 58% 42%)" }} />
+                      </div>
+                      <h2 className="mt-3 text-lg font-bold text-foreground">مبروك — ربحت مكافأة</h2>
+                      <p className="mt-1 text-[0.92rem] font-bold" style={{ color: "hsl(222 58% 42%)" }}>{prize.title_ar}</p>
                     </div>
-                    <h2 className="mt-5 text-xl font-bold text-foreground">مبروك!</h2>
-                    <p className="mt-2 text-lg font-bold text-primary">{prize.title_ar}</p>
 
-                    {/* Sponsor store info */}
+                    {/* Sponsor store — if linked */}
                     {sponsorStore && (
-                      <div className="mx-auto mt-4 flex max-w-sm items-center justify-center gap-2 rounded-lg border border-primary/15 bg-primary/5 px-4 py-2.5">
-                        <Store className="h-4 w-4 shrink-0 text-primary" />
-                        <span className="text-[0.85rem] font-semibold text-foreground">{sponsorStore.name_ar}</span>
-                        {sponsorStore.unit_code && (
-                          <span className="rounded-md bg-secondary px-2 py-0.5 text-[0.7rem] text-muted-foreground">{sponsorStore.unit_code}</span>
-                        )}
+                      <div className="flex items-center gap-3 rounded-xl p-3.5" style={{ background: "hsl(222 36% 96%)", border: "1px solid hsl(222 30% 90%)" }}>
+                        <Store className="h-4 w-4 shrink-0" style={{ color: "hsl(222 58% 42%)" }} />
+                        <div>
+                          <p className="text-[0.82rem] font-bold text-foreground">{sponsorStore.name_ar}</p>
+                          {sponsorStore.unit_code && (
+                            <p className="font-poppins text-[0.7rem] text-muted-foreground">{sponsorStore.unit_code}</p>
+                          )}
+                        </div>
                       </div>
                     )}
 
+                    {/* Claim rules */}
                     {prize.claim_rules_ar && (
-                      <div className="mx-auto mt-4 max-w-sm rounded-xl border border-border bg-secondary/30 p-4 text-right">
-                        <p className="text-[0.72rem] font-semibold uppercase tracking-widest text-muted-foreground">كيفية الاستلام</p>
-                        <p className="mt-2 text-[0.85rem] leading-7 text-foreground">{prize.claim_rules_ar}</p>
+                      <div className="rounded-xl p-3.5" style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}>
+                        <p className="text-[0.7rem] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5">كيفية الاستلام</p>
+                        <p className="text-[0.82rem] leading-7 text-foreground">{prize.claim_rules_ar}</p>
                       </div>
                     )}
 
-                    <div className="mx-auto mt-4 max-w-sm space-y-1.5">
-                      {["احفظ لقطة شاشة لهذه الصفحة", "أحضرها يوم الافتتاح لاستلام جائزتك", "تابع صفحاتنا الرسمية على مواقع التواصل"].map((item) => (
-                        <div key={item} className="flex items-center gap-2 text-[0.78rem] text-muted-foreground">
-                          <Check className="h-3 w-3 shrink-0 text-primary" />
+                    {/* Steps — clean checklist */}
+                    <div className="space-y-1.5">
+                      {[
+                        "احفظ لقطة شاشة لهذه الصفحة",
+                        "أحضرها يوم الافتتاح لاستلام المكافأة",
+                        "تابع صفحاتنا الرسمية على مواقع التواصل",
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-2 text-[0.75rem] text-muted-foreground">
+                          <Check className="h-3 w-3 shrink-0" style={{ color: "hsl(222 58% 42%)" }} />
                           <span>{item}</span>
                         </div>
                       ))}
                     </div>
 
                     {/* Map-aware CTAs */}
-                    <div className="mt-6 flex flex-col gap-2">
+                    <div className="space-y-2 pt-1">
                       {sponsorStore?.unit_code ? (
-                        <Button variant="cta" className="h-11 w-full rounded-xl font-bold" onClick={handleViewOnMap}>
+                        <Button variant="cta" className="h-10 w-full rounded-xl text-[0.85rem] font-bold" onClick={handleViewOnMap}>
                           <MapPin className="ml-2 h-4 w-4" />
                           شاهد المتجر على الخريطة
                         </Button>
                       ) : (
-                        <Button variant="cta" className="h-11 w-full rounded-xl font-bold" onClick={handleExploreCategory}>
+                        <Button variant="cta" className="h-10 w-full rounded-xl text-[0.85rem] font-bold" onClick={handleExploreCategory}>
                           <Layers className="ml-2 h-4 w-4" />
                           اكتشف المتاجر المشاركة
                         </Button>
                       )}
-                      <button onClick={handleClose} className="text-[0.78rem] text-muted-foreground hover:text-foreground">إغلاق</button>
+                      <button onClick={handleClose} className="w-full text-center text-[0.75rem] text-muted-foreground hover:text-foreground transition-colors py-1">
+                        إغلاق
+                      </button>
                     </div>
-                  </>
+                  </div>
                 ) : (
-                  <>
-                    <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary ring-1 ring-border">
-                      <Gift className="h-7 w-7 text-muted-foreground" />
+                  <div className="text-center py-4">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(var(--secondary) / 0.6)", border: "1px solid hsl(var(--border))" }}>
+                      <Gift className="h-6 w-6 text-muted-foreground" />
                     </div>
-                    <h2 className="mt-5 text-xl font-bold text-foreground">شكرًا لمشاركتك</h2>
-                    <p className="mx-auto mt-2 max-w-xs text-[0.9rem] leading-7 text-muted-foreground">
+                    <h2 className="mt-4 text-lg font-bold text-foreground">شكرًا لمشاركتك</h2>
+                    <p className="mx-auto mt-2 max-w-xs text-[0.85rem] leading-7 text-muted-foreground">
                       لم يحالفك الحظ هذه المرة — لكن هناك عروض وفعاليات بانتظارك يوم الافتتاح.
                     </p>
-                    <Button variant="secondary" className="mt-6 h-11 w-full rounded-xl" onClick={handleClose}>
+                    <Button variant="secondary" className="mt-5 h-10 w-full rounded-xl text-[0.85rem]" onClick={handleClose}>
                       العودة إلى الخريطة
                     </Button>
-                  </>
+                  </div>
                 )}
               </div>
             )}
