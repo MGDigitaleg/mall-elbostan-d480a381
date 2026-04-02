@@ -176,10 +176,9 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-10 max-w-[34rem]">
               <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
+              <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-4 text-[0.98rem] leading-8 light-body">
-                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره
-                وحركته الخاصة. اختر القسم وابدأ الاستكشاف.
+                اختر القسم وابدأ الاستكشاف.
               </p>
             </div>
 
@@ -342,11 +341,10 @@ const Stores = () => {
               <div className="space-y-6">
                 <div className="chapter-shell pt-7">
                   <p className="section-kicker">الخريطة التجارية</p>
-                  <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه — استكشفه على الخريطة قبل الزيارة.</h2>
+                  <h2 className="section-title max-w-[24rem]">استكشف المتاجر على الخريطة.</h2>
                 </div>
                 <p className="text-[1rem] leading-8 light-body">
-                  الخريطة التفاعلية تعرض كل وحدة بحالتها الفعلية — نشطة، متاحة، أو قادمة.
-                  اضغط على أي متجر لتنتقل مباشرة إلى موقعه في الدور المحدد.
+                  كل وحدة بحالتها الفعلية — اضغط لتنتقل لموقعها.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
@@ -391,10 +389,9 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mx-auto max-w-[34rem] text-center">
               <p className="section-kicker dark-kicker">المرحلة القادمة</p>
-              <h2 className="section-title dark-heading">من دليل متاجر إلى سوق رقمي متكامل.</h2>
+              <h2 className="section-title dark-heading">من دليل متاجر إلى سوق رقمي.</h2>
               <p className="mx-auto mt-5 text-[1rem] leading-8 dark-body">
-                الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة
-                والشراء إلكترونيًا من متاجر المول.
+                الدليل يعمل الآن — والسوق الرقمي قادم.
               </p>
             </div>
 
@@ -444,7 +441,7 @@ const Stores = () => {
               المول جاهز — والقرار بيدك.
             </h2>
             <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
-              الدليل والخريطة وصفحة التأجير — كل أدوات القرار في مكان واحد.
+              كل أدوات القرار في مكان واحد.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/map">
@@ -548,8 +545,7 @@ function EcosystemGrowingState() {
         </div>
         <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر في الطريق.</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-8 dark-body">
-          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح الكبير.
-          الدليل يتحدّث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
+          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to="/map">
@@ -605,9 +601,9 @@ function DirectoryEmpty({ onReset }: { onReset: () => void }) {
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
         <Search className="h-6 w-6" style={{ color: "#5B9AFF" }} />
       </div>
-      <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج ضمن هذا البحث</h3>
+      <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتحدّث باستمرار مع انضمام متاجر جديدة.
+        عدّل الفلتر أو جرّب كلمة بحث مختلفة.
       </p>
       <button onClick={onReset} className="mt-5 rounded-xl px-6 py-2.5 text-[0.88rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
         إعادة ضبط الفلاتر

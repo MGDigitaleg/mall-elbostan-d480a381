@@ -87,7 +87,7 @@ const Leasing = () => {
               </h1>
 
               <p className="max-w-[30rem] text-[0.92rem] leading-[1.9] dark-body">
-                مول البستان وجهة تقنية راسخة في القاهرة الجديدة — جمهور متخصص بنيّة شراء واضحة، حركة تجارية مستمرة، وبنية جاهزة للتشغيل. الفرصة مفتوحة لمتاجر التقنية والخدمات المكمّلة.
+                جمهور متخصص، حركة تجارية مستمرة، وبنية جاهزة للتشغيل.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
@@ -151,16 +151,16 @@ const Leasing = () => {
               لماذا تختار مول البستان لوحدتك
             </h2>
             <p className="mt-3 max-w-[36rem] text-[0.88rem] leading-[1.9] light-body">
-              المول ليس مجرد موقع — بل وجهة يقصدها جمهور بنيّة شراء محددة. الزبون الذي يدخل يحمل قرارًا — وهذا ما يصنع الفرق في أداء الوحدة تجاريًا.
+              الزبون الذي يدخل يحمل قرار شراء — وهذا ما يصنع الفرق.
             </p>
           </motion.div>
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب بحركة مرور يومية مستهدفة." },
-              { icon: Users, title: "جمهور بنيّة شراء", desc: "طلاب جامعات، مطورون، شركات تقنية — زوّار يحملون قرار شراء واضح." },
-              { icon: Layers, title: "منظومة تجارية متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد — الزائر يجد كل ما يحتاجه." },
-              { icon: TrendingUp, title: "نمو مستمر ومخطّط", desc: "المول يتوسّع رقميًا وتجاريًا — التواجد المبكّر يمنحك أفضلية حقيقية." },
+              { icon: MapPin, title: "موقع محوري", desc: "القاهرة الجديدة — حركة مرور يومية مستهدفة." },
+              { icon: Users, title: "جمهور بنيّة شراء", desc: "زوّار يحملون قرار شراء واضح." },
+              { icon: Layers, title: "منظومة متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد." },
+              { icon: TrendingUp, title: "نمو مخطّط", desc: "التواجد المبكّر يمنحك أفضلية." },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
@@ -191,7 +191,7 @@ const Leasing = () => {
                   من يزور المول — ولماذا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  ليس زائرًا عشوائيًا — بل جمهور يقصد المول تحديدًا لأنه يحتاج منتجًا أو خدمة تقنية بعينها.
+                  جمهور يقصد المول لأنه يحتاج منتجًا أو خدمة تقنية.
                 </p>
 
                 <div className="mt-6 space-y-2">
@@ -224,7 +224,7 @@ const Leasing = () => {
                   الفئات التي تحقق نتائج هنا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  المول متخصص — وهذا يعني أن كل فئة تدعم الأخرى وتُضاعف قيمة تجربة الزائر.
+                  كل فئة تدعم الأخرى وتُضاعف قيمة التجربة.
                 </p>
 
                 <div className="mt-6 grid grid-cols-2 gap-2">
@@ -243,7 +243,7 @@ const Leasing = () => {
                 </div>
 
                 <p className="mt-4 text-[0.8rem] leading-7 light-muted">
-                  إذا كان نشاطك التجاري يكمّل أيًا من هذه الفئات — فهذا هو الموقع المناسب.
+                  نشاطك يكمّل هذه الفئات؟ هذا هو الموقع.
                 </p>
               </div>
             </div>
@@ -413,14 +413,14 @@ const Leasing = () => {
               وجهة تجارية مبنية على طلب حقيقي
             </h2>
             <p className="mx-auto mt-3 max-w-[34rem] text-[0.88rem] leading-[1.9] light-body">
-              المول ليس مساحة إيجارية فارغة — بل بيئة تجارية منظّمة تخدم شريحة واضحة من السوق. وجودك هنا يضعك في المكان الذي يبحث فيه الزبون فعلًا.
+              بيئة تجارية منظّمة تخدم شريحة واضحة من السوق.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[42rem] gap-3 sm:grid-cols-3">
               {[
-                { title: "موقع استراتيجي", desc: "في قلب القاهرة الجديدة — قريب من المدينتي والرحاب" },
-                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة — وليس مجرد تصفّح" },
-                { title: "بنية جاهزة", desc: "وحدات مجهزة وقابلة للتشغيل الفوري" },
+                { title: "موقع استراتيجي", desc: "القاهرة الجديدة — المدينتي والرحاب" },
+                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة" },
+                { title: "بنية جاهزة", desc: "وحدات قابلة للتشغيل الفوري" },
               ].map((item) => (
                 <div key={item.title} className="rounded-xl border border-border bg-card p-5 text-center">
                   <h3 className="text-[0.88rem] font-bold light-heading">{item.title}</h3>

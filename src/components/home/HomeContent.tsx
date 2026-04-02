@@ -55,12 +55,12 @@ const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
 };
 
 const categoryBriefs: Record<NeedCategory, string> = {
-  Accessories: "ملحقات وإكسسوارات لجميع الأجهزة — من أغطية الهواتف لشواحن الأجهزة.",
-  Laptops: "أجهزة من العلامات الرائدة عالميًا — للعمل والدراسة والإبداع.",
-  Components: "قطع غيار ومكوّنات احترافية — لكل من يبني أو يُحدّث جهازه.",
-  Networking: "بنية تحتية رقمية وحلول شبكات — للمنازل والشركات.",
-  Maintenance: "صيانة معتمدة ودعم فني فوري — بمتخصصين يعرفهم السوق.",
-  "Security Systems": "أنظمة مراقبة وحلول أمنية — من الكاميرا للنظام المتكامل.",
+  Accessories: "أغطية، شواحن، سماعات، وملحقات لكل الأجهزة.",
+  Laptops: "أجهزة للعمل والدراسة من علامات رائدة.",
+  Components: "قطع غيار ومكوّنات للتجميع والتحديث.",
+  Networking: "حلول شبكات للمنازل والشركات.",
+  Maintenance: "صيانة متخصصة ودعم فني فوري.",
+  "Security Systems": "كاميرات مراقبة وأنظمة حماية متكاملة.",
 };
 
 const fallbackFaqs = [
@@ -237,16 +237,15 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </div>
 
                 <p className="text-[0.95rem] leading-[1.95] light-body">
-                  مول البستان يملك ما لا يُشترى: سمعة بنتها سنوات من التعامل المباشر.
-                  الزائر يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا.
+                  سمعة بنتها سنوات من التعامل المباشر — الزائر يعرف أنه سيجد ما يبحث عنه.
                 </p>
 
                 {/* trust signals */}
                 <div className="grid gap-2.5 sm:grid-cols-3">
                   {[
-                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري لأكثر من عقد." },
-                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء مختصر ومنظّم." },
+                    { icon: Award, title: "إرث سوقي", desc: "أكثر من عقد في السوق." },
+                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة والمحيط." },
+                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء منظّم." },
                   ].map((c) => (
                     <div key={c.title} className="card-architectural rounded-lg p-4">
                       <c.icon className="mb-2 h-4 w-4 text-primary" />
@@ -290,40 +289,39 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-8 max-w-[32rem]">
               <p className="section-kicker dark-kicker">القيمة الحقيقية</p>
-              <h2 className="section-title dark-heading">وجهة يقصدها جمهور بنيّة شراء واضحة.</h2>
+              <h2 className="section-title dark-heading">جمهور بنيّة شراء واضحة.</h2>
               <p className="mt-3 text-[0.95rem] leading-[1.9] dark-body">
-                ما يميّز المول طبيعة زوّاره: مشترٍ يعرف ما يريد، وتاجر يثق
-                في الموقع لأن حركته مبنية على طلب حقيقي.
+                مشترٍ يعرف ما يريد، وتاجر يثق في الموقع.
               </p>
             </div>
 
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
-                  icon: Users, title: "للمشتري والزائر",
-                  lead: "مسار أقصر للمنتج الصحيح بالسعر المناسب.",
+                  icon: Users, title: "للمشتري",
+                  lead: "مسار أقصر للمنتج الصحيح.",
                   points: [
-                    "تصنيف تجاري دقيق يوصلك لما تبحث عنه مباشرة.",
-                    "خريطة تفاعلية تكشف كل وحدة بحالتها الفعلية قبل الزيارة.",
-                    "مكافآت حقيقية مرتبطة بمتاجر فعلية داخل المول.",
+                    "تصنيف دقيق يوصلك مباشرة.",
+                    "خريطة تفاعلية بحالات الوحدات.",
+                    "مكافآت مرتبطة بمتاجر فعلية.",
                   ],
                 },
                 {
-                  icon: Store, title: "للتاجر وصاحب العلامة",
-                  lead: "حضور تجاري في موقع يصل إليه الجمهور المستهدف فعلًا.",
+                  icon: Store, title: "للتاجر",
+                  lead: "حضور في موقع يصل إليه جمهورك.",
                   points: [
-                    "ظهور مباشر في الدليل التفاعلي والخريطة التجارية.",
-                    "جمهور متخصص يدخل المول بقرار شراء محدد.",
-                    "بيئة منظّمة ترفع من قيمة كل وحدة تجارية.",
+                    "ظهور في الدليل والخريطة.",
+                    "جمهور بقرار شراء محدد.",
+                    "بيئة منظّمة ترفع القيمة.",
                   ],
                 },
                 {
-                  icon: TrendingUp, title: "للمستثمر والمستأجر",
-                  lead: "وحدة في مكان أثبت حركته التجارية عمليًا.",
+                  icon: TrendingUp, title: "للمستثمر",
+                  lead: "وحدة في مكان مُثبت تجاريًا.",
                   points: [
-                    "وحدات متنوعة بمساحات وتصنيفات وأسعار شفّافة.",
-                    "موقع في منطقة طلب حقيقي ومتنامٍ سنويًا.",
-                    "استفسار مباشر من الخريطة لفريق التأجير.",
+                    "مساحات وتصنيفات متنوعة.",
+                    "منطقة طلب متنامٍ سنويًا.",
+                    "استفسار مباشر لفريق التأجير.",
                   ],
                 },
               ].map((card, i) => (
@@ -358,9 +356,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-8 max-w-[30rem]">
               <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
+              <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-3 text-[0.92rem] leading-7 light-body">
-                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره وحركته الخاصة.
+                كل قسم بمتاجره وجمهوره وحركته الخاصة.
               </p>
             </div>
 
@@ -469,8 +467,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                   <h2 className="section-title max-w-[22rem]">وحدتك في موقع مُثبت تجاريًا.</h2>
                 </div>
                 <p className="text-[0.92rem] leading-[1.9] light-body">
-                  وجهة يقصدها الجمهور بالفعل. وحدات بمساحات متنوعة،
-                  في منطقة طلب حقيقي، واستفسار مباشر لفريق التأجير.
+                  وحدات بمساحات متنوعة في منطقة طلب حقيقي.
                 </p>
 
                 <div className="grid grid-cols-3 gap-2.5">
@@ -543,7 +540,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                   <p className="section-kicker">حملة الافتتاح</p>
                   <h2 className="section-title max-w-[22rem]">افتتاح يكافئ من يحضر.</h2>
                   <p className="text-[0.92rem] leading-7 light-body">
-                    مكافآت حقيقية مرتبطة بمتاجر فعلية — شارك الآن واستلم يوم الافتتاح.
+                    شارك الآن واستلم مكافأتك يوم الافتتاح.
                   </p>
 
                   <div className="flex flex-wrap gap-6 border-t border-border pt-5">
@@ -590,9 +587,6 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             <div className="mx-auto max-w-[30rem] text-center">
               <p className="section-kicker dark-kicker">التطوّر الرقمي</p>
               <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
-              <p className="mx-auto mt-3 text-[0.92rem] leading-7 dark-body">
-                دليل المتاجر والخريطة التفاعلية يعملان الآن — والسوق الرقمي قادم.
-              </p>
             </div>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
@@ -677,9 +671,6 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-bold leading-[1.15] md:text-[1.6rem] dark-heading">
               المول جاهز — والقرار بيدك.
             </h2>
-            <p className="mx-auto mt-3 max-w-sm text-[0.88rem] leading-6 dark-body">
-              كل الأدوات أمامك — سواء تبحث عن منتج أو تفكّر في وحدة تجارية.
-            </p>
             <div className="mt-6 flex flex-wrap justify-center gap-2.5">
               <Link to="/map">
                 <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
