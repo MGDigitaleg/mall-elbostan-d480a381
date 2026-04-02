@@ -309,7 +309,7 @@ const StoreDetail = () => {
                 <Button variant="cta" size="lg" className="w-full">استعلم عن الوحدات المتاحة</Button>
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </MainLayout>
