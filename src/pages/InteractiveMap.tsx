@@ -8,6 +8,7 @@ import {
   MapPin,
   Phone,
   TrendingUp,
+  Users,
 } from "lucide-react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
