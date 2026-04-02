@@ -45,12 +45,15 @@ import {
   ENTRANCE_MARKER,
 } from "@/lib/mallFloorGeometry";
 
+import type { AtriumConfig } from "./AtriumHubModal";
+
 type Props = {
   floor: MallFloor;
   selectedUnitId: string | null;
   mutedUnitIds: Set<string>;
   onSelectUnit: (unit: MallUnit) => void;
   onAtriumClick?: () => void;
+  atriumConfig?: AtriumConfig;
   highlightedUnitIds?: Set<string>;
   className?: string;
 };
