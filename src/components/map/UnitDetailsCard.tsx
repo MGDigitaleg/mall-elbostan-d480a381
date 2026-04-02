@@ -1,63 +1,86 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ArrowLeft, Building2, MapPin, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
 
-const statusTone: Record<MallUnitStatus, string> = {
-  occupied: "text-foreground",
-  available: "text-orange",
-  coming_soon: "text-accent",
+const statusStyle: Record<MallUnitStatus, string> = {
+  occupied: "border-primary/20 bg-primary/8 text-primary",
+  available: "border-orange/20 bg-orange/8 text-orange",
+  coming_soon: "border-accent/20 bg-accent/8 text-accent",
 };
 
 function UnitDetail({ unit }: { unit: MallUnit }) {
   return (
-    <div className="space-y-4 text-sm text-muted-foreground">
-      <div className="rounded-[1.5rem] border border-border bg-card p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs text-muted-foreground">رقم الوحدة</p>
-            <p className="text-lg font-bold text-foreground">{unit.code}</p>
+    <div className="space-y-4">
+      {/* header */}
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[0.72rem] font-semibold uppercase tracking-widest text-muted-foreground">رقم الوحدة</p>
+          <p className="mt-1 text-xl font-bold text-foreground">{unit.code}</p>
+        </div>
+        <span className={`shrink-0 rounded-full border px-3 py-1 text-[0.72rem] font-semibold ${statusStyle[unit.status]}`}>
+          {statusLabelsAr[unit.status]}
+        </span>
+      </div>
+
+      {/* meta grid */}
+      <div className="grid grid-cols-2 gap-2">
+        {[
+          { icon: Ruler, label: "المساحة", value: `${unit.area} م²` },
+          { icon: Building2, label: "الدور", value: floorLabelsAr[unit.floor] },
+          { icon: Tag, label: "الفئة", value: categoryLabelsAr[unit.category] },
+          { icon: MapPin, label: "الموقع", value: unit.code },
+        ].map((item) => (
+          <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-3">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <item.icon className="h-3.5 w-3.5" />
+              <span className="text-[0.7rem]">{item.label}</span>
+            </div>
+            <p className="mt-1 text-[0.85rem] font-semibold text-foreground">{item.value}</p>
           </div>
-          <Badge variant="outline" className={statusTone[unit.status]}>
-            {statusLabelsAr[unit.status]}
-          </Badge>
-        </div>
-        <p className="mt-2 text-sm">{floorLabelsAr[unit.floor]}</p>
+        ))}
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-[1.25rem] border border-border bg-card p-4">
-          <p className="text-xs">المساحة</p>
-          <p className="mt-1 text-base font-semibold text-foreground">{unit.area} م²</p>
-        </div>
-        <div className="rounded-[1.25rem] border border-border bg-card p-4">
-          <p className="text-xs">الفئة</p>
-          <p className="mt-1 text-base font-semibold text-foreground">{categoryLabelsAr[unit.category]}</p>
-        </div>
-      </div>
+
+      {/* description */}
       {unit.description && (
-        <div className="rounded-[1.25rem] border border-border bg-card p-4">
-          <p className="text-xs">نبذة سريعة</p>
-          <p className="mt-2 leading-7">{unit.description}</p>
+        <div className="rounded-lg border border-border bg-secondary/30 p-3">
+          <p className="text-[0.78rem] leading-6 text-muted-foreground">{unit.description}</p>
         </div>
       )}
-      <div className="flex flex-wrap gap-2">
+
+      {/* CTAs */}
+      <div className="space-y-2">
         {unit.status === "available" ? (
           <>
-            <Link to="/leasing">
-              <Button variant="orange" size="sm" className="h-11 rounded-[1rem] px-4">ابدأ الاستفسار التجاري</Button>
+            <Link to="/leasing" className="block">
+              <Button variant="orange" className="h-11 w-full rounded-xl font-bold">
+                استفسر عن الوحدة
+              </Button>
             </Link>
-            <Link to="/leasing">
-              <Button variant="outline-blue" size="sm" className="h-11 rounded-[1rem] px-4">اطلب معاينة</Button>
+            <Link to="/leasing" className="block">
+              <Button variant="outline-blue" className="h-11 w-full rounded-xl">
+                اطلب معاينة
+              </Button>
             </Link>
           </>
         ) : unit.status === "occupied" ? (
-          <Link to="/stores">
-            <Button variant="outline-blue" size="sm" className="h-11 rounded-[1rem] px-4">استعرض بيانات المتجر</Button>
-          </Link>
+          <>
+            <Link to="/stores" className="block">
+              <Button variant="default" className="h-11 w-full rounded-xl">
+                <Store className="ml-2 h-4 w-4" />
+                اعرف المتجر
+              </Button>
+            </Link>
+            <Link to="/stores" className="block">
+              <Button variant="secondary" className="h-11 w-full rounded-xl">
+                تواصل مع المتجر
+              </Button>
+            </Link>
+          </>
         ) : (
-          <Button variant="secondary" size="sm" className="h-11 rounded-[1rem] px-4" disabled>
-            تابع التحديثات القادمة
+          <Button variant="secondary" className="h-11 w-full rounded-xl" disabled>
+            قريبًا — تابع التحديثات
           </Button>
         )}
       </div>
@@ -65,26 +88,36 @@ function UnitDetail({ unit }: { unit: MallUnit }) {
   );
 }
 
-function EmptyState() {
+function EmptyPanel() {
   return (
-    <div className="space-y-4 text-sm text-muted-foreground">
-      <p className="leading-7">اختر وحدة من الخريطة لعرض حالتها، موقعها داخل الدور، والإجراء الأنسب بعدها.</p>
-      <div className="grid gap-2">
-        <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
-          <span>مشغولة</span>
-          <span className="text-xs">استعرض بيانات المتجر</span>
-        </div>
-        <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
-          <span className="text-orange">متاحة</span>
-          <span className="text-xs">ابدأ الاستفسار التجاري</span>
-        </div>
-        <div className="flex items-center justify-between rounded-[1rem] border border-border bg-card px-4 py-3">
-          <span className="text-accent">قريبًا</span>
-          <span className="text-xs">تابع التحديثات القادمة</span>
-        </div>
+    <div className="space-y-4">
+      <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-secondary/40">
+        <MapPin className="h-6 w-6 text-muted-foreground" />
       </div>
-      <div className="rounded-[1rem] border border-dashed border-border px-4 py-3 text-xs">
-        تلميح سريع: استخدم الفلاتر لتضييق النتائج ثم اختر الوحدة مباشرة من المخطط.
+      <div>
+        <p className="text-[0.95rem] font-bold text-foreground">اختر وحدة من الخريطة</p>
+        <p className="mt-1 text-[0.82rem] leading-6 text-muted-foreground">
+          اضغط على أي وحدة لعرض تفاصيلها، حالتها، والإجراء المناسب.
+        </p>
+      </div>
+
+      <div className="space-y-2">
+        {[
+          { color: "bg-foreground/60", label: "مشغولة", action: "اعرف المتجر" },
+          { color: "bg-orange", label: "متاحة", action: "استفسر عن الوحدة" },
+          { color: "bg-accent", label: "قريبًا", action: "تابع التحديثات" },
+        ].map((item) => (
+          <div key={item.label} className="flex items-center justify-between rounded-lg border border-border px-3.5 py-2.5 text-[0.78rem]">
+            <div className="flex items-center gap-2">
+              <span className={`h-2 w-2 rounded-full ${item.color}`} />
+              <span className="text-foreground">{item.label}</span>
+            </div>
+            <div className="flex items-center gap-1 text-muted-foreground">
+              <span>{item.action}</span>
+              <ArrowLeft className="h-3 w-3" />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -96,9 +129,11 @@ type Props = {
 
 export function UnitDetailsCard({ unit }: Props) {
   return (
-    <div className="surface-panel rounded-[1.5rem] p-4 md:p-5">
-      <h2 className="mb-4 text-xl font-bold text-foreground">تفاصيل الوحدة</h2>
-      {unit ? <UnitDetail unit={unit} /> : <EmptyState />}
+    <div className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-card)]">
+      <h2 className="mb-4 text-[0.78rem] font-semibold uppercase tracking-widest text-muted-foreground">
+        {unit ? "تفاصيل الوحدة" : "لوحة التفاصيل"}
+      </h2>
+      {unit ? <UnitDetail unit={unit} /> : <EmptyPanel />}
     </div>
   );
 }
