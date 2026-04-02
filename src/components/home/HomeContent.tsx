@@ -130,59 +130,47 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
       <section className="relative overflow-hidden bg-[hsl(222_34%_6%)]">
-        {/* fine grid */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage:
-              "linear-gradient(hsl(0 0% 100% / 0.025) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.025) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-        {/* radial glow */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 60% 55% at 75% 45%, hsl(220 68% 38% / 0.08), transparent 70%)",
-          }}
-        />
-        {/* bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_34%_6%)] to-transparent" />
+        {/* ambient background — subtle depth, no gimmicks */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 80% 40%, hsl(222 58% 42% / 0.07), transparent 70%)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[hsl(222_34%_6%)] to-transparent" />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[94vh] items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 lg:py-0">
-            {/* ── text ── */}
+          <div className="grid min-h-[92vh] items-center gap-12 py-20 lg:grid-cols-[1.25fr_0.75fr] lg:gap-16 lg:py-0">
+            {/* ── text column — tight, confident hierarchy ── */}
             <motion.div
-              initial={{ opacity: 0, y: 36 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="order-1 space-y-8"
+              className="order-1 space-y-7"
             >
+              {/* kicker — restrained, anchored */}
               <div className="flex items-center gap-3">
-                <div className="h-px w-10 bg-primary/40" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 60% 68%)" }}>
+                <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
+                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
                   القاهرة الجديدة — الافتتاح مايو 2026
                 </span>
               </div>
 
-              <h1 className="max-w-[34rem] text-[2.8rem] font-extrabold leading-[1.02] text-white md:text-[4rem] lg:text-[4.6rem]">
+              {/* headline — dominant, unmissable */}
+              <h1 className="max-w-[32rem] text-[2.6rem] font-extrabold leading-[1.04] text-white md:text-[3.8rem] lg:text-[4.4rem]">
                 وجهة التقنية
-                <br className="hidden sm:block" />
+                <br />
                 <span className="text-gradient-blue">التي بناها السوق</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1rem] leading-[2.1] md:text-[1.12rem]" style={{ color: "hsl(220 15% 72%)" }}>
+              {/* lead paragraph */}
+              <p className="max-w-[30rem] text-[1.02rem] leading-[2] md:text-[1.1rem]" style={{ color: "hsl(220 14% 72%)" }}>
                 مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
-                مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
-                صُنع ليخدم القرار لا التجوّل.
+                مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد.
               </p>
 
+              {/* CTAs — two clear actions, no clutter */}
               <div className="flex flex-wrap gap-3 pt-1">
                 <Link to="/map">
                   <Button
                     variant="cta"
                     size="lg"
-                    className="h-[3.4rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[0_4px_20px_hsl(220_68%_38%/0.25)]"
+                    className="h-[3.25rem] min-w-[12rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[0_4px_20px_hsl(222_58%_42%/0.25)]"
                   >
                     <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف الخريطة
@@ -191,50 +179,42 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/stores">
                   <Button
                     size="lg"
-                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/12"
+                    className="h-[3.25rem] min-w-[10rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/12"
                   >
                     تصفّح المتاجر
                   </Button>
                 </Link>
-                <Link to="/leasing">
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold hover:bg-white/5"
-                    style={{ color: "hsl(220 15% 65%)" }}
-                  >
-                    فرص التأجير
-                    <ArrowLeft className="mr-1.5 h-4 w-4" />
-                  </Button>
-                </Link>
               </div>
 
-              {/* stats */}
-              <div className="grid max-w-[28rem] grid-cols-3 gap-3 pt-3">
+              {/* stats — integrated inline bar, not floating blocks */}
+              <div className="flex items-center gap-6 border-t border-white/8 pt-6">
                 {[
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
                   { v: `${categoryStories.length}`, l: "فئات متخصصة" },
-                ].map((s) => (
-                  <div key={s.l} className="stat-block-dark px-4 py-3.5">
-                    <p className="font-poppins text-[1.5rem] font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "hsl(220 15% 60%)" }}>{s.l}</p>
+                ].map((s, i) => (
+                  <div key={s.l} className="flex items-center gap-5">
+                    <div>
+                      <p className="font-poppins text-[1.6rem] font-bold text-white">{s.v}</p>
+                      <p className="text-[0.72rem] font-medium" style={{ color: "hsl(220 14% 58%)" }}>{s.l}</p>
+                    </div>
+                    {i < 2 && <div className="h-8 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* ── hero image composite — editorial layered composition ── */}
+            {/* ── image column — single strong architectural image ── */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.12 }}
-              className="order-2 flex items-center justify-center"
+              transition={{ duration: 0.8, delay: 0.15 }}
+              className="order-2 hidden lg:flex lg:items-center lg:justify-center"
             >
-              <div className="relative w-full max-w-[480px] lg:max-w-none">
-                {/* primary: tall architectural crop — facade authority */}
-                <div className="editorial-frame-dark overflow-hidden rounded-2xl lg:rounded-3xl">
-                  <div className="image-shell img-wash-dark aspect-[3/4] lg:aspect-[4/5]">
+              <div className="relative w-full max-w-[440px]">
+                {/* primary image — tall, authoritative */}
+                <div className="editorial-frame-dark overflow-hidden rounded-2xl">
+                  <div className="image-shell img-wash-dark aspect-[3/4]">
                     <img
                       src={heroImage}
                       alt="الواجهة الرئيسية لمول البستان"
@@ -244,25 +224,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                 </div>
 
-                {/* secondary: floating interior detail — texture & atmosphere */}
-                <div className="absolute -bottom-5 -right-5 hidden w-[42%] md:block lg:-bottom-7 lg:-right-7">
-                  <div className="editorial-frame-dark overflow-hidden rounded-xl lg:rounded-2xl">
+                {/* supporting detail — small, anchored, intentional */}
+                <div className="absolute -bottom-4 -right-4 w-[36%]">
+                  <div className="editorial-frame-dark overflow-hidden rounded-xl">
                     <div className="image-shell img-wash-dark aspect-[1/1]">
                       <img
                         src={interiorImage}
-                        alt="المشهد الداخلي لمول البستان"
-                        className="img-grade-dark h-full w-full object-cover object-center"
+                        alt="المشهد الداخلي"
+                        className="img-grade-dark h-full w-full object-cover"
                         loading="lazy"
                       />
                     </div>
                   </div>
                 </div>
-
-                {/* architectural accent line — vertical precision mark */}
-                <div className="absolute -left-4 top-10 hidden h-24 w-[3px] rounded-full lg:block" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.4), transparent)" }} />
-
-                {/* architectural accent line — horizontal base mark */}
-                <div className="absolute -bottom-2 left-8 hidden h-[3px] w-16 rounded-full lg:block" style={{ background: "linear-gradient(90deg, hsl(222 58% 50% / 0.3), transparent)" }} />
               </div>
             </motion.div>
           </div>
