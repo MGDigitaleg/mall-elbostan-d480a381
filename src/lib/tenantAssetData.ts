@@ -219,9 +219,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "games-to-egypt",
     providedName: "Games to Egypt",
     normalizedName: "Games to Egypt",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Await official brand asset before adding to the directory.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/games-to-egypt.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Games-to-Egypt",
   },
   {
