@@ -209,7 +209,7 @@ const About = () => (
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.08, duration: 0.45 }}
-                    className="heritage-surface flex items-start gap-4 p-5"
+                    className="heritage-surface flex items-start gap-3.5 p-4"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ border: "1px solid #2D6BFF30", background: "#2D6BFF14" }}>
                       <item.icon className="h-5 w-5" style={{ color: "#5B9AFF" }} />
