@@ -390,8 +390,8 @@ const About = () => (
                 </div>
               </div>
 
-              <div className="editorial-frame overflow-hidden rounded-2xl">
-                <img src={exteriorImage} alt="مول البستان من الخارج" className="img-grade aspect-[4/3] w-full object-cover" loading="lazy" />
+              <div className="frame-heritage overflow-hidden">
+                <img src={entranceImage} alt="مول البستان — المدخل" className="img-grade aspect-[4/3] w-full object-cover object-[center_35%]" loading="lazy" />
               </div>
             </div>
           </div>
