@@ -12,12 +12,15 @@ import {
   Layers3,
   MapPin,
   Monitor,
+  Phone,
   Search,
   Shield,
   Smartphone,
   Store,
   TrendingUp,
+  Users,
   Wrench,
+  Zap,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -28,15 +31,18 @@ import entranceImage from "@/assets/mall-entrance.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 
 /* ─── category metadata ─── */
-const categoryMeta: Record<string, { icon: typeof Store; label: string; desc: string }> = {
-  "الهواتف والإكسسوارات": { icon: Smartphone, label: "احتياج يومي سريع", desc: "تشكيلة شاملة من الهواتف والملحقات والحلول التقنية اليومية." },
-  "الكمبيوتر والأجهزة": { icon: Monitor, label: "أداء واحتراف", desc: "أجهزة محمولة ومكتبية من علامات رائدة — للعمل والدراسة والإنتاجية." },
-  "الألعاب والترفيه": { icon: CircuitBoard, label: "عالم الجيمنج", desc: "أجهزة ألعاب وملحقات وتجربة ترفيه رقمية متكاملة." },
-  "الطباعة والتصوير": { icon: Globe, label: "حلول مكتبية", desc: "حلول طباعة وتصوير للمؤسسات والطلاب وأصحاب الأعمال." },
-  "الشبكات والأنظمة الأمنية": { icon: Shield, label: "بنية تحتية", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
-  "الشبكات والحماية": { icon: Shield, label: "بنية تحتية", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
-  "الصيانة والدعم الفني": { icon: Wrench, label: "دعم فني معتمد", desc: "مراكز صيانة متخصصة وخدمة إصلاح فورية." },
+const categoryMeta: Record<string, { icon: typeof Store; label: string; brief: string; desc: string }> = {
+  "الهواتف والإكسسوارات": { icon: Smartphone, label: "احتياج يومي سريع", brief: "أغطية، شواحن، سماعات، وكل ما يلزم جهازك.", desc: "تشكيلة شاملة من الهواتف والملحقات والحلول التقنية اليومية." },
+  "الكمبيوتر والأجهزة": { icon: Monitor, label: "أداء واحتراف", brief: "لابتوبات، شاشات، أجهزة مكتبية من علامات رائدة.", desc: "أجهزة محمولة ومكتبية من علامات رائدة — للعمل والدراسة والإنتاجية." },
+  "الألعاب والترفيه": { icon: CircuitBoard, label: "عالم الجيمنج", brief: "أجهزة ألعاب، ملحقات، وتجربة ترفيه رقمية.", desc: "أجهزة ألعاب وملحقات وتجربة ترفيه رقمية متكاملة." },
+  "الطباعة والتصوير": { icon: Globe, label: "حلول مكتبية", brief: "طابعات، ماسحات، وحلول تصوير مهنية.", desc: "حلول طباعة وتصوير للمؤسسات والطلاب وأصحاب الأعمال." },
+  "الشبكات والأنظمة الأمنية": { icon: Shield, label: "بنية تحتية", brief: "كاميرات، شبكات، وأنظمة حماية متكاملة.", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
+  "الشبكات والحماية": { icon: Shield, label: "بنية تحتية", brief: "كاميرات، شبكات، وأنظمة حماية متكاملة.", desc: "شبكات وكاميرات مراقبة وأنظمة حماية متقدمة." },
+  "الصيانة والدعم الفني": { icon: Wrench, label: "دعم فني معتمد", brief: "صيانة متخصصة وإصلاح فوري لكل الأجهزة.", desc: "مراكز صيانة متخصصة وخدمة إصلاح فورية." },
 };
+
+/* deduplicated category keys for display (skip alias) */
+const primaryCategories = Object.keys(categoryMeta).filter((k) => k !== "الشبكات والحماية");
 
 const statusConfig: Record<string, { text: string; dot: string }> = {
   leased: { text: "نشط", dot: "bg-primary" },
@@ -47,6 +53,14 @@ const statusConfig: Record<string, { text: string; dot: string }> = {
 const reveal = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+  }),
 };
 
 const Stores = () => {
@@ -84,6 +98,7 @@ const Stores = () => {
   const featuredStores = useMemo(() => stores?.filter((s) => s.featured) ?? [], [stores]);
   const totalStores = stores?.length ?? 0;
   const activeCount = stores?.filter((s) => s.status === "leased").length ?? 0;
+  const hasStores = totalStores > 0;
 
   return (
     <MainLayout>
@@ -95,118 +110,123 @@ const Stores = () => {
         breadcrumbs={[{ name: "المتاجر", url: "/stores" }]}
       />
 
-      {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, #2D6BFF0F, transparent 70%)" }} />
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative min-h-[68vh] overflow-hidden" style={{ background: "#071326" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 72% 48%, #2D6BFF08, transparent 65%)" }} />
 
-        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[58vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-7">
+        <div className="relative mx-auto w-full max-w-[1440px]">
+          <div className="grid min-h-[68vh] items-center lg:grid-cols-2">
+
+            {/* text */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-7 px-6 py-16 md:px-12 lg:py-0 lg:pr-16 xl:pr-20">
               <div className="flex items-center gap-3">
-                <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(30 22% 48%)" }} />
-                <span className="font-poppins text-[0.72rem] font-bold tracking-[0.2em] uppercase dark-accent">
+                <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
+                <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
                   دليل المتاجر التقنية
                 </span>
               </div>
 
-              <h1 className="max-w-[26rem] text-[2.4rem] leading-[1.02] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
-                دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
+              <h1 className="max-w-[22rem] text-[2.4rem] leading-[1.04] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
+                اعرف كل متجر
+                <br />
+                <span style={{ color: "#CDBB9A" }}>قبل ما تنزل.</span>
               </h1>
 
-              <p className="max-w-[28rem] text-[0.98rem] leading-[2] dark-body">
-                كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
-                ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
+              <p className="max-w-[28rem] text-[1rem] leading-[2] dark-body">
+                دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته.
+                ابحث بالاسم أو الفئة، وشوف التفاصيل قبل الزيارة.
               </p>
 
-              <div className="flex flex-wrap gap-3 pt-1">
+              <div className="flex flex-wrap gap-3">
                 <a href="#directory">
-                  <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
+                  <Button variant="cta" size="lg" className="h-[3.2rem] gap-2 rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
                     <Search className="h-4 w-4" /> ابدأ التصفح
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl border px-8 font-semibold" style={{ borderColor: "hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.06)", color: "hsl(38 14% 92%)" }}>
+                  <Button size="lg" className="h-[3.2rem] gap-2 rounded-xl border px-8 text-[0.95rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
 
-              <div className="flex items-center gap-6 border-t pt-6" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
+              {/* stats strip */}
+              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #ffffff14" }}>
                 {[
-                  { v: `${totalStores}+`, l: "متجر" },
-                  { v: `${categories.length}`, l: "فئة تقنية" },
-                  { v: "3", l: "أدوار" },
+                  { v: "50+", l: "وحدة تجارية" },
+                  { v: `${primaryCategories.length}`, l: "فئة متخصصة" },
+                  { v: "3", l: "أدوار تجارية" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-5">
+                  <div key={s.l} className="flex items-center gap-6">
                     <div>
                       <p className="font-poppins text-[1.5rem] font-extrabold dark-heading">{s.v}</p>
                       <p className="text-[0.72rem] font-semibold dark-muted">{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-8 w-px" style={{ background: "hsl(0 0% 100% / 0.1)" }} />}
+                    {i < 2 && <div className="h-8 w-px" style={{ background: "#ffffff14" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* image */}
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="hidden lg:flex lg:items-center lg:justify-center">
-              <div className="relative w-full max-w-[400px]">
-                <div className="editorial-frame-dark overflow-hidden rounded-2xl">
-                  <div className="image-shell img-wash-dark aspect-[3/4]">
-                    <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
-                  </div>
-                </div>
-                <div className="absolute -bottom-5 -right-5 w-[34%]">
-                  <div className="editorial-frame-dark overflow-hidden rounded-xl">
-                    <div className="image-shell img-wash-dark aspect-[1/1]">
-                      <img src={interiorImage} alt="متاجر المول من الداخل" className="img-grade-dark h-full w-full object-cover" loading="lazy" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* image — edge-to-edge */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.15 }} className="relative order-2 hidden h-[68vh] lg:block">
+              <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover img-grade-dark" loading="eager" />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="band-primary" />
-
-      {/* ═══ CATEGORIES ═══ */}
-      <section className="section-ivory page-section">
+      {/* ═══════════ CATEGORIES — discovery layer ═══════════ */}
+      <section className="page-section" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mx-auto mb-10 max-w-[34rem] text-center">
-              <p className="section-kicker">التصنيف التقني</p>
-              <h2 className="section-title">فئات دقيقة تختصر المسار لما تبحث عنه.</h2>
+            <div className="mb-10 max-w-[34rem]">
+              <p className="section-kicker">أقسام المول</p>
+              <h2 className="section-title">كل قسم — سوق متخصص قائم بذاته.</h2>
+              <p className="mt-4 text-[0.98rem] leading-8 light-body">
+                ستة أقسام رئيسية — كل قسم فيه متاجر ومنتجات يعرفها السوق.
+                اختار القسم وابدأ الاستكشاف.
+              </p>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(categoryMeta).map(([cat, meta]) => {
+              {primaryCategories.map((cat, i) => {
+                const meta = categoryMeta[cat];
                 const Icon = meta.icon;
                 const count = stores?.filter((s) => s.category === cat).length ?? 0;
                 const isActive = selectedCategory === cat;
                 return (
-                  <button
-                    key={cat}
-                    onClick={() => {
-                      setSelectedCategory(isActive ? "" : cat);
-                      document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className={`card-architectural group flex items-start gap-4 p-5 text-right transition-all ${isActive ? "shadow-[var(--shadow-elevated)]" : "hover:shadow-[var(--shadow-card)]"}`}
-                    style={isActive ? { borderColor: "hsl(var(--primary) / 0.3)", background: "hsl(var(--primary) / 0.04)" } : {}}
-                  >
-                    <div className="icon-shell h-11 w-11 shrink-0">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-[0.95rem] font-bold text-foreground">{cat}</p>
-                      <p className="mt-1 text-[0.82rem] leading-6 text-muted-foreground">{meta.desc}</p>
-                      <div className="mt-2.5 flex items-center gap-2">
-                        <span className="mini-chip text-[0.68rem]">{meta.label}</span>
-                        {count > 0 && <span className="text-[0.74rem] font-bold text-primary">{count} متجر</span>}
+                  <motion.div key={cat} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                    <button
+                      onClick={() => {
+                        setSelectedCategory(isActive ? "" : cat);
+                        document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className={`group flex w-full items-start gap-4 rounded-xl border bg-card p-5 text-right transition-all duration-200 ${
+                        isActive
+                          ? "border-primary/30 shadow-[var(--shadow-elevated)]"
+                          : "border-border hover:border-primary/15 hover:shadow-[var(--shadow-card)]"
+                      }`}
+                      style={isActive ? { background: "hsl(var(--primary) / 0.04)" } : {}}
+                    >
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
+                        <Icon className="h-5 w-5" />
                       </div>
-                    </div>
-                  </button>
+                      <div className="flex-1">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <h3 className="text-[0.95rem] font-bold light-heading">{cat}</h3>
+                          <span className="font-poppins text-[0.68rem] font-bold light-meta">0{i + 1}</span>
+                        </div>
+                        <p className="mt-1 text-[0.84rem] leading-7 light-body">{meta.brief}</p>
+                        <div className="mt-2.5 flex items-center gap-2">
+                          <span className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[0.68rem] font-bold light-muted">{meta.label}</span>
+                          {count > 0 && <span className="text-[0.74rem] font-bold text-primary">{count} متجر</span>}
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
                 );
               })}
             </div>
@@ -214,7 +234,9 @@ const Stores = () => {
         </div>
       </section>
 
-      {/* ═══ DIRECTORY ═══ */}
+      <div className="band-primary" />
+
+      {/* ═══════════ DIRECTORY — the core ═══════════ */}
       <section id="directory" className="heritage-deep page-section scroll-mt-20">
         <div className="container max-w-[1200px]">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
@@ -226,10 +248,12 @@ const Stores = () => {
                   {filtered ? ` (${filtered.length})` : ""}
                 </h2>
               </div>
-              <div className="flex items-center gap-2 text-[0.84rem] dark-muted">
-                <Building2 className="h-4 w-4" />
-                <span>{activeCount} متجر نشط من أصل {totalStores}</span>
-              </div>
+              {hasStores && (
+                <div className="flex items-center gap-2 text-[0.84rem] dark-muted">
+                  <Building2 className="h-4 w-4" />
+                  <span>{activeCount} متجر نشط من أصل {totalStores}</span>
+                </div>
+              )}
             </div>
 
             {/* search + filters */}
@@ -242,9 +266,9 @@ const Stores = () => {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="h-13 w-full rounded-xl pr-12 pl-4 text-[0.95rem] outline-none transition-colors"
-                  style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(38 14% 95%)" }}
+                  style={{ border: "1px solid #ffffff14", background: "#ffffff08", color: "#F8FAFC" }}
                   onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.4)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "#ffffff14"; }}
                 />
               </div>
 
@@ -256,7 +280,7 @@ const Stores = () => {
                     {cat}
                   </FilterChip>
                 ))}
-                <span className="mx-1 h-4 w-px" style={{ background: "hsl(0 0% 100% / 0.1)" }} />
+                <span className="mx-1 h-4 w-px" style={{ background: "#ffffff14" }} />
                 {Object.entries(statusConfig).map(([key, val]) => (
                   <FilterChip key={key} active={selectedStatus === key} onClick={() => setSelectedStatus(selectedStatus === key ? "" : key)}>
                     {val.text}
@@ -265,7 +289,7 @@ const Stores = () => {
               </div>
             </div>
 
-            {/* store grid */}
+            {/* store grid or ecosystem state */}
             {isLoading ? (
               <LoadingGrid count={6} />
             ) : filtered && filtered.length > 0 ? (
@@ -274,6 +298,8 @@ const Stores = () => {
                   <StoreCard key={store.id} store={store} index={i} />
                 ))}
               </div>
+            ) : totalStores === 0 ? (
+              <EcosystemGrowingState />
             ) : (
               <DirectoryEmpty onReset={() => { setSearch(""); setSelectedCategory(""); setSelectedStatus(""); }} />
             )}
@@ -281,27 +307,33 @@ const Stores = () => {
         </div>
       </section>
 
-      {/* ═══ FEATURED ═══ */}
+      {/* ═══════════ FEATURED STORES ═══════════ */}
       {featuredStores.length > 0 && (
-        <section className="page-section">
+        <section className="page-section" style={{ background: "#F5F2EC" }}>
           <div className="container max-w-[1200px]">
             <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-              <p className="section-kicker">وجهات بارزة</p>
-              <h2 className="section-title mb-8">علامات تقنية رائدة داخل المول.</h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {featuredStores.slice(0, 4).map((store) => (
+              <div className="mb-8">
+                <p className="section-kicker">وجهات بارزة</p>
+                <h2 className="section-title">علامات تقنية رائدة داخل المول.</h2>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {featuredStores.slice(0, 8).map((store) => (
                   <Link
                     key={store.id}
                     to={`/stores/${store.slug}`}
-                    className="card-editorial group flex flex-col items-center gap-3 p-6 text-center transition-all hover:shadow-[var(--shadow-elevated)]"
+                    className="group flex items-center gap-3.5 rounded-xl border border-border bg-card p-5 transition-all hover:border-primary/15 hover:shadow-[var(--shadow-card)]"
                   >
                     {store.logo_url ? (
-                      <img src={store.logo_url} alt={store.name_ar} className="h-14 w-14 rounded-xl object-cover" loading="lazy" />
+                      <img src={store.logo_url} alt={store.name_ar} className="h-12 w-12 rounded-lg border border-border object-contain" loading="lazy" />
                     ) : (
-                      <div className="icon-shell h-14 w-14"><Store className="h-6 w-6" /></div>
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
+                        <Store className="h-5 w-5" />
+                      </div>
                     )}
-                    <h3 className="text-[0.95rem] font-bold text-foreground group-hover:text-primary">{store.name_ar}</h3>
-                    {store.category && <span className="text-[0.72rem] text-muted-foreground">{store.category}</span>}
+                    <div>
+                      <h3 className="text-[0.95rem] font-bold light-heading group-hover:text-primary">{store.name_ar}</h3>
+                      {store.category && <p className="mt-0.5 text-[0.74rem] light-muted">{store.category}</p>}
+                    </div>
                   </Link>
                 ))}
               </div>
@@ -310,17 +342,19 @@ const Stores = () => {
         </section>
       )}
 
-      {/* ═══ MAP CONNECTION ═══ */}
-      <section className="section-soft page-section">
+      {/* ═══════════ MAP CONNECTION ═══════════ */}
+      <section className="page-section" style={{ background: featuredStores.length > 0 ? "#FAFAF8" : "#F5F2EC" }}>
         <div className="container max-w-[1200px]">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
               <div className="space-y-6">
-                <p className="section-kicker">الربط بالخريطة</p>
-                <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه الفعلي — اعرف مكانه قبل الزيارة.</h2>
-                <p className="text-[0.98rem] leading-[2] text-muted-foreground">
-                  الخريطة التفاعلية تعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
-                  اضغط على أي متجر لتنتقل مباشرة لموقعه الدقيق في الدور المحدد.
+                <div className="chapter-shell pt-7">
+                  <p className="section-kicker">الربط بالخريطة</p>
+                  <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه — شوفه على الخريطة قبل الزيارة.</h2>
+                </div>
+                <p className="text-[1rem] leading-8 light-body">
+                  الخريطة التفاعلية بتعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
+                  اضغط على أي متجر وهتنتقل لموقعه في الدور المحدد.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
@@ -334,22 +368,22 @@ const Stores = () => {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-2.5">
                   {[
-                    { icon: Building2, v: "3 أدوار", l: "خريطة تفاعلية لكل دور" },
-                    { icon: TrendingUp, v: `${activeCount}+`, l: "متجر نشط حاليًا" },
-                    { icon: MapPin, v: "50+", l: "وحدة تجارية" },
+                    { icon: Building2, v: "3 أدوار", l: "خريطة لكل دور" },
+                    { icon: TrendingUp, v: "50+", l: "وحدة تجارية" },
+                    { icon: MapPin, v: `${primaryCategories.length}`, l: "فئة متخصصة" },
                   ].map((item) => (
-                    <div key={item.l} className="stat-block">
+                    <div key={item.l} className="rounded-xl border border-border bg-card px-4 py-4 text-center">
                       <item.icon className="mx-auto h-5 w-5 text-primary" />
-                      <p className="mt-2 text-sm font-bold text-foreground">{item.v}</p>
-                      <p className="mt-0.5 text-[0.72rem] text-muted-foreground">{item.l}</p>
+                      <p className="mt-2 text-[0.88rem] font-bold light-heading">{item.v}</p>
+                      <p className="mt-0.5 text-[0.72rem] light-muted">{item.l}</p>
                     </div>
                   ))}
                 </div>
-                <div className="image-architectural aspect-[16/9] overflow-hidden">
-                  <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade h-full w-full object-cover" loading="lazy" />
+                <div className="editorial-frame overflow-hidden rounded-2xl">
+                  <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade aspect-[16/9] w-full object-cover" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -357,28 +391,36 @@ const Stores = () => {
         </div>
       </section>
 
-      {/* ═══ FUTURE MARKETPLACE ═══ */}
-      <section className="heritage-deep page-section">
-        <div className="container max-w-[900px] text-center">
-          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="section-kicker dark-kicker">المرحلة القادمة</p>
-            <h2 className="section-title mx-auto max-w-[26rem] dark-heading">من دليل متاجر إلى سوق رقمي متكامل.</h2>
-            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 dark-body">
-              الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة،
-              متابعة العروض، والشراء إلكترونيًا من متاجر المول.
-            </p>
+      <div className="band-primary" />
 
-            <div className="mx-auto mt-8 grid max-w-[36rem] gap-4 sm:grid-cols-3">
+      {/* ═══════════ DIGITAL FUTURE ═══════════ */}
+      <section className="heritage-deep relative overflow-hidden py-16 md:py-24">
+        <div className="relative container max-w-4xl">
+          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className="mx-auto max-w-[34rem] text-center">
+              <p className="section-kicker dark-kicker">المرحلة القادمة</p>
+              <h2 className="section-title dark-heading">من دليل متاجر إلى سوق رقمي متكامل.</h2>
+              <p className="mx-auto mt-5 text-[1rem] leading-8 dark-body">
+                الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة
+                والشراء إلكترونيًا من متاجر المول.
+              </p>
+            </div>
+
+            <div className="mx-auto mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
               {[
-                { n: "01", title: "الدليل التفاعلي", active: true },
-                { n: "02", title: "دليل المتاجر", active: true },
-                { n: "03", title: "السوق الرقمي", active: false },
-              ].map((phase) => (
-                <div key={phase.n} className="heritage-surface p-5 text-center">
-                  <span className="font-poppins text-sm font-bold" style={{ color: phase.active ? "hsl(220 55% 62%)" : "hsl(220 12% 38%)" }}>{phase.n}</span>
-                  <p className="mt-2 text-[0.92rem] font-bold dark-heading">{phase.title}</p>
-                  {phase.active && (
-                    <span className="mt-3 inline-flex rounded-full px-2.5 py-0.5 text-[0.68rem] font-bold" style={{ border: "1px solid hsl(220 50% 42% / 0.2)", background: "hsl(220 50% 42% / 0.12)", color: "hsl(220 55% 62%)" }}>
+                { n: "01", icon: Compass, title: "الدليل التفاعلي", desc: "خريطة المول بكل وحداتها.", active: true },
+                { n: "02", icon: Store, title: "دليل المتاجر", desc: "تصفّح المتاجر وفئاتها.", active: true },
+                { n: "03", icon: Zap, title: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
+              ].map((item) => (
+                <div key={item.n} className="heritage-surface rounded-xl p-6 text-center">
+                  <span className="font-poppins text-[0.7rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
+                  <div className="mx-auto mt-3 mb-3 flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: item.active ? "#2D6BFF14" : "#ffffff08", border: `1px solid ${item.active ? "#2D6BFF30" : "#ffffff10"}` }}>
+                    <item.icon className="h-5 w-5" style={{ color: item.active ? "#5B9AFF" : "#7C8BA1" }} />
+                  </div>
+                  <p className="text-[0.95rem] font-bold dark-heading">{item.title}</p>
+                  <p className="mt-1.5 text-[0.84rem] leading-6 dark-muted">{item.desc}</p>
+                  {item.active && (
+                    <span className="mt-4 inline-flex rounded-full px-3 py-1 text-[0.7rem] font-bold" style={{ background: "#2D6BFF14", color: "#5B9AFF", border: "1px solid #2D6BFF25" }}>
                       متاح الآن
                     </span>
                   )}
@@ -386,9 +428,44 @@ const Stores = () => {
               ))}
             </div>
 
-            <Link to="/" className="mt-8 inline-block">
-              <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">اكتشف رؤية المول الكاملة</Button>
-            </Link>
+            <div className="mt-10 text-center">
+              <Link to="/">
+                <Button size="lg" className="h-12 rounded-xl border px-8 text-[0.95rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                  اكتشف رؤية المول الكاملة
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════ CLOSING CTA ═══════════ */}
+      <section className="py-14 md:py-18" style={{ background: "#F5F2EC" }}>
+        <div className="container max-w-[900px] text-center">
+          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
+              <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase light-muted">ابدأ من هنا</span>
+              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
+            </div>
+            <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.15] md:text-[1.8rem] light-heading">
+              المول جاهز — دورك تستكشفه.
+            </h2>
+            <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
+              الدليل والخريطة وصفحة التأجير — كل اللي محتاجه في مكان واحد.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <Link to="/map">
+                <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">
+                  <Compass className="ml-2 h-4 w-4" /> الخريطة التفاعلية
+                </Button>
+              </Link>
+              <Link to="/leasing">
+                <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
+                  <Phone className="ml-2 h-4 w-4" /> استفسر عن التأجير
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -396,7 +473,9 @@ const Stores = () => {
   );
 };
 
-/* ── Sub-components ── */
+/* ══════════════════════════════════════════════════════════
+   Sub-components
+   ══════════════════════════════════════════════════════════ */
 
 function FilterChip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -404,8 +483,8 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       onClick={onClick}
       className="rounded-full px-3.5 py-1.5 text-[0.8rem] font-bold transition-all"
       style={active
-        ? { border: "1px solid hsl(var(--primary) / 0.35)", background: "hsl(var(--primary) / 0.14)", color: "hsl(220 55% 62%)" }
-        : { border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(220 12% 70%)" }
+        ? { border: "1px solid #2D6BFF50", background: "#2D6BFF22", color: "#5B9AFF" }
+        : { border: "1px solid #ffffff14", background: "#ffffff08", color: "#94A3B8" }
       }
     >
       {children}
@@ -420,25 +499,25 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
       <Link
         to={`/stores/${store.slug}`}
         className="group flex flex-col rounded-xl p-5 transition-all duration-300"
-        style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.03)" }}
-        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.25)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.055)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.03)"; }}
+        style={{ border: "1px solid #ffffff12", background: "#ffffff06" }}
+        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#2D6BFF40"; e.currentTarget.style.background = "#ffffff0A"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#ffffff12"; e.currentTarget.style.background = "#ffffff06"; }}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             {store.logo_url ? (
-              <img src={store.logo_url} alt={store.name_ar} className="h-11 w-11 rounded-lg object-cover" style={{ border: "1px solid hsl(0 0% 100% / 0.1)" }} loading="lazy" />
+              <img src={store.logo_url} alt={store.name_ar} className="h-11 w-11 rounded-lg object-cover" style={{ border: "1px solid #ffffff14" }} loading="lazy" />
             ) : (
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg" style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
-                <Store className="h-5 w-5" style={{ color: "hsl(220 55% 62%)" }} />
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
+                <Store className="h-5 w-5" style={{ color: "#5B9AFF" }} />
               </div>
             )}
             <div>
-              <h3 className="text-[0.95rem] font-bold transition-colors dark-heading group-hover:text-primary">{store.name_ar}</h3>
+              <h3 className="text-[0.95rem] font-bold dark-heading transition-colors group-hover:text-primary">{store.name_ar}</h3>
               {store.category && <span className="mt-0.5 inline-block text-[0.74rem] dark-muted">{store.category}</span>}
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-bold" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", color: "hsl(220 12% 74%)" }}>
+          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-bold" style={{ border: "1px solid #ffffff14", color: "#94A3B8" }}>
             <span className={`h-1.5 w-1.5 rounded-full ${st.dot}`} />
             {st.text}
           </div>
@@ -448,35 +527,97 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
           {store.short_description_ar ?? "متجر ضمن دليل مول البستان التقني — التفاصيل قيد التحديث."}
         </p>
 
-        <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}>
+        <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid #ffffff0A" }}>
           <div className="flex items-center gap-3 text-[0.74rem] dark-muted">
             {store.unit_code && (
               <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{store.unit_code}</span>
             )}
             {store.featured && (
-              <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-bold" style={{ border: "1px solid hsl(220 50% 42% / 0.2)", background: "hsl(220 50% 42% / 0.1)", color: "hsl(220 55% 62%)" }}>
+              <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-bold" style={{ border: "1px solid #2D6BFF25", background: "#2D6BFF14", color: "#5B9AFF" }}>
                 مميّز
               </span>
             )}
           </div>
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 dark-muted group-hover:-translate-x-1 group-hover:text-primary" />
+          <ArrowLeft className="h-3.5 w-3.5 dark-muted transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-primary" />
         </div>
       </Link>
     </motion.div>
   );
 }
 
+/* ── Premium empty state when no stores exist at all ── */
+function EcosystemGrowingState() {
+  return (
+    <div className="space-y-6">
+      {/* main message */}
+      <div className="heritage-surface rounded-2xl p-8 text-center md:p-12">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF30" }}>
+          <Store className="h-7 w-7" style={{ color: "#5B9AFF" }} />
+        </div>
+        <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر على الطريق.</h3>
+        <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-8 dark-body">
+          المتاجر بتنضم تدريجيًا مع اقتراب الافتتاح الكبير.
+          الدليل هيتحدث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link to="/map">
+            <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
+              <Compass className="h-4 w-4" /> شوف الوحدات على الخريطة
+            </Button>
+          </Link>
+          <Link to="/leasing">
+            <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">استفسر عن التأجير</Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* expected categories grid */}
+      <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+        {primaryCategories.map((cat) => {
+          const meta = categoryMeta[cat];
+          const Icon = meta.icon;
+          return (
+            <div key={cat} className="heritage-surface flex items-center gap-3.5 rounded-xl p-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF25" }}>
+                <Icon className="h-4.5 w-4.5" style={{ color: "#5B9AFF" }} />
+              </div>
+              <div>
+                <p className="text-[0.92rem] font-bold dark-heading">{cat}</p>
+                <p className="mt-0.5 text-[0.78rem] dark-muted">{meta.brief}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* confidence strip */}
+      <div className="flex items-center justify-center gap-6 pt-2">
+        {[
+          { icon: Users, text: "متاجر تنضم تدريجيًا" },
+          { icon: TrendingUp, text: "دليل يتحدث تلقائيًا" },
+          { icon: Layers3, text: "تصنيف جاهز ومنظّم" },
+        ].map((c) => (
+          <div key={c.text} className="flex items-center gap-2">
+            <c.icon className="h-4 w-4" style={{ color: "#5B9AFF" }} />
+            <span className="text-[0.82rem] font-semibold dark-subheading">{c.text}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function DirectoryEmpty({ onReset }: { onReset: () => void }) {
   return (
-    <div className="heritage-surface p-12 text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
-        <Layers3 className="h-7 w-7" style={{ color: "hsl(220 55% 62%)" }} />
+    <div className="heritage-surface rounded-2xl p-10 text-center md:p-14">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
+        <Search className="h-6 w-6" style={{ color: "#5B9AFF" }} />
       </div>
-      <h3 className="mt-5 text-xl font-bold dark-heading">لا توجد نتائج ضمن هذا التصفية</h3>
+      <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج ضمن هذا البحث</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتم تحديثه مع انضمام متاجر جديدة.
+        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل بيتحدث باستمرار مع انضمام متاجر جديدة.
       </p>
-      <button onClick={onReset} className="mt-5 rounded-lg px-5 py-2 text-[0.85rem] font-bold transition-colors" style={{ border: "1px solid hsl(0 0% 100% / 0.14)", background: "hsl(0 0% 100% / 0.06)", color: "hsl(220 12% 76%)" }}>
+      <button onClick={onReset} className="mt-5 rounded-xl px-6 py-2.5 text-[0.88rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
         إعادة ضبط الفلاتر
       </button>
     </div>
