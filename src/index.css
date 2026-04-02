@@ -313,12 +313,12 @@
 
   /* ── Heritage dark sections ── */
   .heritage-section {
-    background: hsl(var(--navy));
-    color: hsl(var(--navy-foreground));
+    background: #071326;
+    color: #F8FAFC;
   }
 
-  .heritage-section .section-kicker { color: hsl(220 55% 62%); }
-  .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
+  .heritage-section .section-kicker { color: #5B9AFF; }
+  .heritage-section .section-title { color: #F8FAFC; }
 
   /* ── Warm sand interlude ── */
   .section-sand {
