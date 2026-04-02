@@ -111,9 +111,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "print-show",
     providedName: "برنت شو",
     normalizedName: "برنت شو",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Logo still unresolved.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/print-show.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Print-Show",
   },
   {
