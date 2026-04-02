@@ -165,9 +165,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "express-home",
     providedName: "اكسبريس هوم",
     normalizedName: "اكسبريس هوم",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Keep separate from XPRS until brand confirmation arrives.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/express-home.png",
+    executionNote: "Logo extracted from composite source. Keep separate from XPRS.",
     exportSlug: "Express-Home",
   },
   {
