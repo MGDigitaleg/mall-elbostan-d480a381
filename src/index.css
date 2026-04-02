@@ -340,7 +340,9 @@
   }
 
   .eyebrow-chip {
-    @apply inline-flex items-center gap-2 rounded-md border border-primary/12 bg-primary/4 px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
+    @apply inline-flex items-center gap-2 rounded-md border px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
+    border-color: hsl(var(--primary) / 0.12);
+    background-color: hsl(var(--primary) / 0.04);
   }
 
   .section-kicker {
