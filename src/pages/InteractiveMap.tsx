@@ -167,50 +167,42 @@ const InteractiveMap = () => {
       />
 
       {/* ═══════════ COMPACT HERO ═══════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
+      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+        <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.5px, transparent 0)", backgroundSize: "36px 36px" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[hsl(222_44%_5%)] to-transparent" />
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="py-12 md:py-14 lg:py-16">
+          <div className="py-10 md:py-12 lg:py-14">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mx-auto max-w-[48rem] text-center"
+              className="mx-auto max-w-[44rem] text-center"
             >
-              <div className="mx-auto mb-4 flex items-center justify-center gap-3">
-                <div className="accent-line bg-primary/40" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+              <div className="mx-auto mb-3 flex items-center justify-center gap-3">
+                <div className="h-px w-8 bg-primary/35" />
+                <span className="text-[0.68rem] font-semibold tracking-[0.2em] text-white/30 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
                   الدليل التفاعلي
                 </span>
-                <div className="accent-line bg-primary/40" />
+                <div className="h-px w-8 bg-primary/35" />
               </div>
 
-              <h1 className="mt-4 text-[1.8rem] font-extrabold leading-[1.08] text-white md:text-[2.6rem] lg:text-[3rem]">
+              <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.06] text-white md:text-[2.4rem] lg:text-[2.8rem]">
                 دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
-              <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/38 md:text-[1.05rem]">
+              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] text-white/32 md:text-[1rem]">
                 تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
-              {/* stats row */}
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
                 {[
                   { icon: Building2, v: `${mallFloors.length}`, l: "أدوار" },
                   { icon: Layers, v: `${allMallUnits.length}`, l: "وحدة" },
                   { icon: TrendingUp, v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s) => (
-                  <div key={s.l} className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3">
-                    <s.icon className="h-4 w-4 text-primary/60" />
-                    <div className="text-right">
-                      <span className="font-poppins text-lg font-bold text-white">{s.v}</span>
-                      <span className="mr-1.5 text-[0.72rem] text-white/35">{s.l}</span>
-                    </div>
+                  <div key={s.l} className="flex items-center gap-2.5 stat-block-dark px-4 py-2.5">
+                    <s.icon className="h-3.5 w-3.5 text-primary/50" />
+                    <span className="font-poppins text-base font-bold text-white">{s.v}</span>
+                    <span className="text-[0.68rem] text-white/28">{s.l}</span>
                   </div>
                 ))}
               </div>
@@ -218,6 +210,9 @@ const InteractiveMap = () => {
           </div>
         </div>
       </section>
+
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ═══════════ CONTROL PANEL ═══════════ */}
       <section className="border-b border-border bg-card py-4">
@@ -250,9 +245,9 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="section-warm py-6">
+      <section className="section-ivory py-5 md:py-6">
         <div className="container max-w-[1400px]">
-          <div className="grid gap-5 lg:grid-cols-[1fr_340px] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
             {/* Map */}
             <motion.div
               ref={mapRef}
@@ -260,7 +255,7 @@ const InteractiveMap = () => {
               initial="hidden"
               animate="visible"
             >
-              <div className="card-layered overflow-hidden rounded-2xl p-2">
+              <div className="map-frame p-2">
                 <MallFloorMap
                   floor={floor}
                   selectedUnitId={activeUnit?.id ?? null}
@@ -340,20 +335,20 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="heritage-deep page-section !py-12">
+      <section className="heritage-deep page-section !py-10">
         <div className="container max-w-[900px] text-center">
-          <h2 className="text-xl font-bold text-white md:text-2xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.9rem] text-white/35">
+          <h2 className="text-lg font-bold text-white md:text-xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
+          <p className="mx-auto mt-2 max-w-sm text-[0.85rem] text-white/30">
             من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">
-              <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
+              <Button variant="orange" size="lg" className="h-11 rounded-xl px-8 font-bold">
                 ابدأ استفسار التأجير
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-12 rounded-xl border border-white/12 bg-white/6 px-8 font-semibold text-white hover:bg-white/12">
+              <Button size="lg" className="h-11 rounded-xl border border-white/10 bg-white/5 px-8 font-semibold text-white hover:bg-white/10">
                 تصفّح المتاجر
               </Button>
             </Link>
