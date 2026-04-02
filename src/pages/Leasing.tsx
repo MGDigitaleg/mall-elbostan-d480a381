@@ -157,10 +157,10 @@ const Leasing = () => {
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب والمنطقة المحيطة بحركة مرور يومية." },
-              { icon: Users, title: "جمهور متخصص", desc: "طلاب جامعات، مطورون، شركات تقنية — زوار عندهم قرار شراء واضح." },
-              { icon: Layers, title: "منظومة متكاملة", desc: "6 فئات تقنية في مكان واحد — الزائر يلاقي كل اللي محتاجه تحت سقف واحد." },
-              { icon: TrendingUp, title: "نمو مستمر", desc: "المول بيتوسّع رقميًا ومادّيًا — وجودك هنا دلوقتي يديك أفضلية مبكّرة." },
+              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب بحركة مرور يومية مستهدفة." },
+              { icon: Users, title: "جمهور بنيّة شراء", desc: "طلاب جامعات، مطورون، شركات تقنية — زوّار يحملون قرار شراء واضح." },
+              { icon: Layers, title: "منظومة تجارية متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد — الزائر يجد كل ما يحتاجه." },
+              { icon: TrendingUp, title: "نمو مستمر ومخطّط", desc: "المول يتوسّع رقميًا وتجاريًا — التواجد المبكّر يمنحك أفضلية حقيقية." },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
