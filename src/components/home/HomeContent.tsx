@@ -148,21 +148,21 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.45)" }} />
                 <span className="font-poppins text-[0.7rem] font-semibold tracking-[0.22em] uppercase" style={{ color: "hsl(220 45% 65%)" }}>
-                  القاهرة الجديدة — الافتتاح مايو 2026
+                  القاهرة الجديدة — منذ سنوات في خدمة السوق
                 </span>
               </div>
 
               {/* headline */}
               <h1 className="max-w-[30rem] text-[2.5rem] font-extrabold leading-[1.06] text-white md:text-[3.6rem] lg:text-[4.2rem]">
-                وجهة التقنية
+                المكان الذي يعرفه
                 <br />
-                <span className="text-gradient-blue">التي بناها السوق</span>
+                <span className="text-gradient-blue">كل من دخل السوق</span>
               </h1>
 
               {/* lead */}
               <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.06rem]" style={{ color: "hsl(220 14% 70%)" }}>
-                أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد.
-                مكانة بناها التجار والمشترون عبر سنوات من الثقة والتعامل المباشر.
+                مول البستان وجهة تجارية راسخة في القاهرة الجديدة — أكثر من {totalUnits} وحدة
+                متخصصة ومكانة بناها التجار والزوّار بالتكرار والثقة عبر السنوات.
               </p>
 
               {/* CTAs */}
@@ -191,7 +191,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="flex items-center gap-5 border-t pt-5" style={{ borderColor: "hsl(0 0% 100% / 0.07)" }}>
                 {[
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
-                  { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
+                  { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${categoryStories.length}`, l: "فئات متخصصة" },
                 ].map((s, i) => (
                   <div key={s.l} className="flex items-center gap-4">
@@ -269,22 +269,22 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* text — right side in RTL */}
               <div className="order-1 space-y-5">
                 <div className="chapter-shell pt-6">
-                  <p className="section-kicker">الهوية والمكانة</p>
+                  <p className="section-kicker">تاريخ ومكانة</p>
                   <h2 className="section-title max-w-[26rem]">
-                    اسم لم يحتج حملات ليُعرف.
+                    اسم يعرفه السوق قبل أن تسأل عنه.
                   </h2>
                 </div>
                 <p className="max-w-[34rem] text-[1rem] leading-[2] text-muted-foreground md:text-[1.06rem]">
-                  مول البستان ليس مشروعًا يبحث عن جمهور — إنه وجهة بناها الجمهور بالثقة
-                  والتكرار. سنوات من الحضور المتواصل في سوق الإلكترونيات جعلت منه مرجعًا
-                  حقيقيًا في القاهرة الجديدة.
+                  مول البستان ليس افتتاحًا جديدًا — إنه وجهة تجارية راسخة عرفها سوق
+                  الإلكترونيات في القاهرة الجديدة منذ سنوات. مكان يأتي إليه الناس لأنهم
+                  يعرفونه ويثقون فيه — واليوم يتجدد معماريًا ورقميًا بنفس القيم.
                 </p>
 
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
-                    { icon: Building2, title: "مكانة تراكمية", desc: "ثقة بُنيت بالتعامل لا بالإعلان." },
-                    { icon: MapPin, title: "موقع استراتيجي", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "تصنيف دقيق", desc: "كل فئة تختصر المسار للقرار." },
+                    { icon: Building2, title: "وجهة راسخة", desc: "سنوات من الحضور التجاري الحقيقي." },
+                    { icon: MapPin, title: "معلم تجاري معروف", desc: "يقصده سكان القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "سوق منظّم", desc: "تصنيف واضح يختصر وقت البحث والشراء." },
                   ].map((c) => (
                     <div key={c.title} className="card-architectural rounded-xl p-4">
                       <c.icon className="mb-2.5 h-4.5 w-4.5 text-primary" />
@@ -347,13 +347,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           >
             {/* header — left-aligned, tighter */}
             <div className="mb-10 max-w-[34rem]">
-              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>القيمة الحقيقية</p>
+              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>لماذا مول البستان</p>
               <h2 className="section-title text-white">
-                مول مصمّم ليخدم — لا ليُبهر فقط.
+                مكان يعرف جمهوره — وجمهوره يعرفه.
               </h2>
               <p className="mt-3 max-w-[30rem] text-[0.95rem] leading-8" style={{ color: "hsl(220 12% 65%)" }}>
-                سواء كنت مشتريًا أو تاجرًا أو مستثمرًا — كل تفصيلة مصمّمة
-                لتقصير المسافة بين الدخول والقرار.
+                المول الذي يأتي إليه المشترون بنية الشراء، والتجار بثقة في الموقع،
+                والمستثمرون بوضوح في الفرصة.
               </p>
             </div>
 
@@ -427,10 +427,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mb-10 max-w-[34rem]">
-              <p className="section-kicker">دليل الفئات</p>
-              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج.</h2>
+              <p className="section-kicker">أقسام المول</p>
+              <h2 className="section-title">كل قسم يمثل سوقًا قائمًا بذاته.</h2>
               <p className="mt-3 text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                كل فئة تمثل نمط شراء فعلي ومسار وصول مباشر.
+                ستة أقسام متخصصة — كل قسم يضم متاجر ومنتجات يعرفها السوق.
               </p>
             </div>
 
@@ -524,13 +524,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           >
             {/* section header — full width, establishing */}
             <div className="mb-8 max-w-[36rem]">
-              <p className="section-kicker">الدليل التفاعلي</p>
+              <p className="section-kicker">دليل المول</p>
               <h2 className="section-title">
-                كل وحدة ظاهرة — كل دور واضح — قبل أن تصل.
+                اعرف مكان كل متجر — قبل أن تصل.
               </h2>
               <p className="mt-3 text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                ليست خريطة عرض — بل أداة تخطيط حقيقية للزائر والتاجر.
-                اكتشف المتاجر بالفئة، تحقق من الوحدات المتاحة، وقدّم استفسارك مباشرة.
+                الدليل التفاعلي يعرض المول كما هو فعليًا — الأدوار والمتاجر والوحدات
+                المتاحة. أداة عملية للزائر الذي يريد التخطيط قبل الوصول.
               </p>
             </div>
 
@@ -606,14 +606,14 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* text */}
               <div className="space-y-5">
                 <div className="chapter-shell border-primary/40 pt-6">
-                  <p className="section-kicker">الفرصة التجارية</p>
+                  <p className="section-kicker">التأجير والاستثمار</p>
                   <h2 className="section-title max-w-[24rem]">
-                    موقعك في وجهة يقصدها الجمهور المناسب.
+                    وحدتك في مكان يقصده الناس فعلًا.
                   </h2>
                 </div>
                 <p className="max-w-[32rem] text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                  ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا
-                  بحثًا عن التقنية. وحدات بمساحات متعددة واستفسار يصل للفريق مباشرة.
+                  مول البستان ليس موقعًا جديدًا يحتاج إثبات — إنه وجهة مثبتة بحركة
+                  تجارية حقيقية. وحدات جاهزة بمساحات مختلفة واستفسار مباشر.
                 </p>
 
                 {/* floor availability — compact */}
@@ -772,22 +772,22 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mx-auto max-w-[34rem] text-center">
-              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>المرحلة التالية</p>
+              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>الامتداد الرقمي</p>
               <h2 className="section-title text-white">
-                من وجهة تقنية راسخة إلى سوق رقمي.
+                نفس المكان — بأدوات جديدة تخدمك أكثر.
               </h2>
               <p className="mx-auto mt-3 max-w-[30rem] text-[0.95rem] leading-8" style={{ color: "hsl(220 12% 65%)" }}>
-                الأساس يعمل الآن — الدليل التفاعلي ودليل المتاجر. المرحلة القادمة
-                تفتح سوقًا رقميًا يصل لأي مستخدم في أي مكان.
+                المول الذي تعرفه أصبح متاحًا رقميًا. دليل المتاجر والخريطة
+                التفاعلية يعملان الآن — والمزيد قادم.
               </p>
             </div>
 
             {/* timeline — 3 phases, clear progression */}
             <div className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
               {[
-                { n: "1", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة المول كاملة.", active: true },
-                { n: "2", icon: ShoppingBag, label: "المتاجر والعروض", desc: "استكشاف وتصفّح مباشر.", active: true },
-                { n: "3", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
+                { n: "1", icon: Compass, label: "دليل المول", desc: "خريطة تفاعلية كاملة.", active: true },
+                { n: "2", icon: ShoppingBag, label: "المتاجر والعروض", desc: "تصفّح واكتشف.", active: true },
+                { n: "3", icon: Zap, label: "التسوّق عن بُعد", desc: "اشترِ من المول أينما كنت.", active: false },
               ].map((item) => (
                 <div
                   key={item.n}
