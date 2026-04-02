@@ -245,9 +245,9 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="section-warm py-6">
+      <section className="section-ivory py-5 md:py-6">
         <div className="container max-w-[1400px]">
-          <div className="grid gap-5 lg:grid-cols-[1fr_340px] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
             {/* Map */}
             <motion.div
               ref={mapRef}
@@ -255,7 +255,7 @@ const InteractiveMap = () => {
               initial="hidden"
               animate="visible"
             >
-              <div className="card-layered overflow-hidden rounded-2xl p-2">
+              <div className="map-frame p-2">
                 <MallFloorMap
                   floor={floor}
                   selectedUnitId={activeUnit?.id ?? null}
