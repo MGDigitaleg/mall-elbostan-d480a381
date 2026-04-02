@@ -30,6 +30,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
+import { HeroSlider } from "@/components/home/HeroSlider";
+import { HeroMiniMap } from "@/components/home/HeroMiniMap";
 
 import {
   allMapUnits,
@@ -40,8 +42,6 @@ import {
   needCategoryLabels,
   type NeedCategory,
 } from "@/lib/floorMapData";
-import heroImage from "@/assets/mall-exterior.jpg";
-import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
 import entranceImage from "@/assets/mall-entrance.jpg";
 
@@ -185,39 +185,19 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               </div>
             </motion.div>
 
-            {/* ── LEFT: Architectural diptych ── */}
+            {/* ── LEFT: Editorial slider + mini map ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               className="relative order-2 hidden self-center py-8 pe-6 lg:block xl:pe-10"
             >
-              <div className="grid grid-cols-[1fr_0.45fr] gap-2.5 items-stretch">
-                {/* Primary — exterior */}
-                <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #1E293B" }}>
-                  <img
-                    src={heroImage}
-                    alt="الواجهة الرئيسية لمول البستان"
-                    className="h-full max-h-[280px] w-full object-cover object-[center_30%] img-grade-dark"
-                    loading="eager"
-                  />
-                </div>
+              <div className="grid grid-rows-[1fr_auto] gap-2.5">
+                {/* Curated image slider */}
+                <HeroSlider />
 
-                {/* Secondary column — interior crop + brand tag */}
-                <div className="flex flex-col gap-2">
-                  <div className="flex-1 overflow-hidden rounded-xl" style={{ border: "1px solid #1E293B" }}>
-                    <img
-                      src={interiorImage}
-                      alt="التصميم الداخلي"
-                      className="h-full max-h-[220px] w-full object-cover object-[center_45%] img-grade-dark"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="rounded-lg px-2.5 py-2" style={{ background: "#ffffff08", border: "1px solid #ffffff10" }}>
-                    <p className="font-poppins text-[0.44rem] font-bold uppercase tracking-[0.2em]" style={{ color: "#475569" }}>Mall Elbostan</p>
-                    <p className="mt-0.5 text-[0.6rem] font-bold" style={{ color: "#CBD5E1" }}>وجهة تقنية راسخة</p>
-                  </div>
-                </div>
+                {/* Mini map teaser */}
+                <HeroMiniMap />
               </div>
             </motion.div>
           </div>
