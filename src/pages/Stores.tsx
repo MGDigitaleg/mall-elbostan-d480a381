@@ -139,7 +139,7 @@ const Stores = () => {
                   { v: `${categories.length}`, l: "فئة تقنية" },
                   { v: "3", l: "أدوار" },
                 ].map((s) => (
-                  <div key={s.l} className="heritage-card rounded-xl px-5 py-3 text-center">
+                  <div key={s.l} className="rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3 text-center">
                     <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
                     <p className="mt-0.5 text-[0.72rem] text-white/40">{s.l}</p>
                   </div>
