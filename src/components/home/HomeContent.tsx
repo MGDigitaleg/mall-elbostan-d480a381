@@ -641,26 +641,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link
                     key={unit.unit_id}
                     to="/map"
-                    className="group flex flex-col rounded-xl p-5 transition-all duration-200 hover:border-orange/30"
-                    style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}
+                    className="group flex flex-col rounded-xl border border-border bg-card p-5 transition-all duration-200 hover:border-orange/30 hover:shadow-[var(--shadow-card)]"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
-                        <p className="mt-1 text-sm" style={{ color: "hsl(220 12% 62%)" }}>{needCategoryLabels[unit.category]}</p>
+                        <p className="text-lg font-bold text-foreground">وحدة {unit.unit_id}</p>
+                        <p className="mt-1 text-sm text-muted-foreground">{needCategoryLabels[unit.category]}</p>
                       </div>
                       <span className="rounded-full border border-orange/25 bg-orange/12 px-3 py-1 text-[0.75rem] font-semibold text-orange">
                         متاحة
                       </span>
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2.5">
-                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
-                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>الدور</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">{floorLabels[unit.floor_id]}</p>
+                      <div className="rounded-lg bg-secondary px-3 py-2.5">
+                        <p className="text-[0.72rem] text-muted-foreground">الدور</p>
+                        <p className="mt-0.5 text-sm font-semibold text-foreground">{floorLabels[unit.floor_id]}</p>
                       </div>
-                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
-                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>المساحة</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">{unit.area_m2} م²</p>
+                      <div className="rounded-lg bg-secondary px-3 py-2.5">
+                        <p className="text-[0.72rem] text-muted-foreground">المساحة</p>
+                        <p className="mt-0.5 text-sm font-semibold text-foreground">{unit.area_m2} م²</p>
                       </div>
                     </div>
                   </Link>
