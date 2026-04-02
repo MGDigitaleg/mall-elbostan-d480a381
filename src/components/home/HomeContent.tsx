@@ -347,13 +347,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
           >
             {/* header — left-aligned, tighter */}
             <div className="mb-10 max-w-[34rem]">
-              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>القيمة الحقيقية</p>
+              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>لماذا مول البستان</p>
               <h2 className="section-title text-white">
-                مول مصمّم ليخدم — لا ليُبهر فقط.
+                مكان يعرف جمهوره — وجمهوره يعرفه.
               </h2>
               <p className="mt-3 max-w-[30rem] text-[0.95rem] leading-8" style={{ color: "hsl(220 12% 65%)" }}>
-                سواء كنت مشتريًا أو تاجرًا أو مستثمرًا — كل تفصيلة مصمّمة
-                لتقصير المسافة بين الدخول والقرار.
+                المول الذي يأتي إليه المشترون بنية الشراء، والتجار بثقة في الموقع،
+                والمستثمرون بوضوح في الفرصة.
               </p>
             </div>
 
