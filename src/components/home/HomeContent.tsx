@@ -641,13 +641,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-              <div className="lg:sticky lg:top-28">
-                <div className="chapter-shell pt-7">
+            <div className="grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+              <div className="lg:sticky lg:top-24">
+                <div className="chapter-shell pt-5">
                   <p className="section-kicker">أسئلة شائعة</p>
-                  <h2 className="text-[1.85rem] font-bold leading-[1.06] light-heading md:text-[2.5rem]">ما يجب معرفته</h2>
+                  <h2 className="text-[1.5rem] font-bold leading-[1.08] light-heading md:text-[1.85rem]">ما يجب معرفته</h2>
                 </div>
-                <p className="mt-4 text-[1rem] leading-8 light-body">أبرز الأسئلة التي يطرحها الزوّار والتجّار قبل الزيارة.</p>
+                <p className="mt-3 text-[0.9rem] leading-7 light-body">أبرز الأسئلة قبل الزيارة.</p>
                 <Link to="/faq" className="mt-5 inline-flex">
                   <Button variant="ghost" className="gap-1.5 px-0 font-bold text-primary hover:text-primary/80">جميع الأسئلة <ArrowLeft className="h-4 w-4" /></Button>
                 </Link>
