@@ -143,10 +143,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1.02rem] leading-[2] md:text-[1.08rem] dark-body">
+              <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.04rem]" style={{ color: "#94A3B8" }}>
                 مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات التي
                 انتهت بقرار شراء حقيقي. من يعرف سوق الإلكترونيات في القاهرة الجديدة
-                يعرف هذا المكان. اليوم يتوسّع رقميًا — بنفس المصداقية التي بدأ بها.
+                يعرف هذا المكان.
               </p>
 
               {/* CTA pair */}
