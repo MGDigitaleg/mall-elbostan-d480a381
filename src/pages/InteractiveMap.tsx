@@ -166,32 +166,32 @@ const InteractiveMap = () => {
       {/* ═══════════ HERO — minimal, operational ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="py-4 md:py-5">
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div className="py-3.5 md:py-4">
+            <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
               <div className="md:text-right">
-                <p className="font-poppins text-[0.56rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
+                <p className="font-poppins text-[0.52rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
                   Interactive Directory
                 </p>
-                <h1 className="mt-1 text-[1.2rem] leading-[1.12] md:text-[1.4rem] lg:text-[1.6rem]" style={{ color: "#F8FAFC" }}>
+                <h1 className="mt-0.5 text-[1.1rem] leading-[1.15] md:text-[1.3rem]" style={{ color: "#F8FAFC" }}>
                   الدليل التفاعلي لمول البستان
                 </h1>
-                <p className="mt-1 max-w-[24rem] text-[0.78rem] leading-6" style={{ color: "#94A3B8" }}>
+                <p className="mt-0.5 max-w-[22rem] text-[0.74rem] leading-5" style={{ color: "#94A3B8" }}>
                   تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3.5">
+              <div className="flex items-center gap-3">
                 {[
                   { v: `${mallFloors.length}`, l: "أدوار" },
                   { v: `${allMallUnits.length}`, l: "وحدة" },
-                  { v: `${availableMallUnits.length}`, l: "متاحة" },
+                  { v: `${availableMallUnits.length}`, l: "متاحة", highlight: true },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-3.5">
+                  <div key={s.l} className="flex items-center gap-3">
                     <div className="text-center">
-                      <span className="font-poppins text-[1.05rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</span>
-                      <p className="text-[0.58rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                      <span className="font-poppins text-[0.95rem] font-extrabold" style={{ color: s.highlight ? "#E8740E" : "#F8FAFC" }}>{s.v}</span>
+                      <p className="text-[0.54rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-4 w-px" style={{ background: "#1E293B" }} />}
+                    {i < 2 && <div className="h-3.5 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
@@ -203,32 +203,29 @@ const InteractiveMap = () => {
       {/* ═══════════ CONTROL BAR ═══════════ */}
       <section className="sticky top-[60px] z-30 border-b bg-card/95 backdrop-blur-sm md:top-[68px] xl:top-[72px]" style={{ borderColor: "#D8DEE8" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="flex flex-wrap items-center justify-between gap-2.5 py-2.5">
+          <div className="flex flex-wrap items-center justify-between gap-2 py-2">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <MapLegend />
-              <div className="hidden items-center gap-1.5 text-[0.72rem] md:flex" style={{ borderRight: "1px solid #D8DEE8", paddingRight: "10px" }}>
-                <span className="font-bold light-heading">{floor.units.length}</span>
-                <span className="light-muted">وحدة</span>
+              <div className="hidden items-center gap-1.5 text-[0.7rem] md:flex" style={{ borderRight: "1px solid #D8DEE8", paddingRight: "8px" }}>
+                <span className="font-bold" style={{ color: "#334155" }}>{floor.units.length}</span>
+                <span style={{ color: "#64748B" }}>وحدة</span>
                 <span className="mx-0.5 h-3 w-px bg-border" />
                 <span className="font-bold" style={{ color: "#E8740E" }}>{floorAvailable}</span>
-                <span className="light-muted">متاحة</span>
-                <span className="mx-0.5 h-3 w-px bg-border" />
-                <span className="font-bold light-heading">{floorOccupied}</span>
-                <span className="light-muted">مشغولة</span>
+                <span style={{ color: "#64748B" }}>متاحة</span>
                 {floorComingSoon > 0 && (
                   <>
                     <span className="mx-0.5 h-3 w-px bg-border" />
                     <span className="font-bold" style={{ color: "#0A9AB8" }}>{floorComingSoon}</span>
-                    <span className="light-muted">قريبًا</span>
+                    <span style={{ color: "#64748B" }}>قريبًا</span>
                   </>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="pb-2.5">
+          <div className="pb-2">
             <MapFilters
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
