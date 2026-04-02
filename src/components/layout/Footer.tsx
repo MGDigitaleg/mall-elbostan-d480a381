@@ -64,7 +64,7 @@ export function Footer() {
           {/* link columns */}
           {footerColumns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-4 text-[0.82rem] font-bold tracking-[0.08em] uppercase" style={{ color: "hsl(220 15% 72%)" }}>
+              <h4 className="mb-4 text-[0.82rem] font-bold tracking-[0.08em] uppercase dark-subheading">
                 {col.title}
               </h4>
               <ul className="space-y-3">
