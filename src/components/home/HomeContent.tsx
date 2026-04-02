@@ -565,17 +565,17 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="grid lg:grid-cols-[1.4fr_0.6fr]">
                 <div className="space-y-6 p-7 md:p-10">
                   <p className="section-kicker">حملة الافتتاح الكبير</p>
-                  <h2 className="section-title max-w-[24rem]">افتتاح يكافئ الحضور — مش مجرد عروض.</h2>
+                  <h2 className="section-title max-w-[24rem]">افتتاح يكافئ من يحضر — وليس مجرد عروض عابرة.</h2>
                   <p className="text-[1rem] leading-8 light-body md:text-[1.04rem]">
-                    مكافآت حقيقية من متاجر المول — كل مكافأة مرتبطة بمتجر حقيقي
-                    وموقعه ظاهر على الخريطة. شارك قبل الافتتاح واستلم يوم الزيارة.
+                    مكافآت حقيقية مرتبطة بمتاجر فعلية داخل المول — كل مكافأة
+                    ظاهرة بموقعها على الخريطة. شارك الآن واستلم يوم الافتتاح.
                   </p>
 
                   <div className="flex flex-wrap gap-8 border-t border-border pt-7">
                     {[
-                      { n: "01", title: "استكشف", desc: "ابدأ من دليل المول وتعرّف على المتاجر." },
-                      { n: "02", title: "شارك", desc: "أدر العجلة واحفظ نتيجتك." },
-                      { n: "03", title: "احضر", desc: "استلم مكافأتك يوم الافتتاح." },
+                      { n: "01", title: "استكشف", desc: "تعرّف على المتاجر والأقسام من الدليل." },
+                      { n: "02", title: "شارك", desc: "سجّل بياناتك واحفظ نتيجتك." },
+                      { n: "03", title: "احضر واستلم", desc: "قدّم إثبات مشاركتك يوم الافتتاح." },
                     ].map((s) => (
                       <div key={s.n} className="min-w-[8rem]">
                         <span className="font-poppins text-[0.74rem] font-bold text-primary">{s.n}</span>
