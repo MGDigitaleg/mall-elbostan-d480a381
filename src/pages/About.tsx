@@ -59,19 +59,19 @@ const About = () => (
             className="order-1 space-y-6"
           >
             <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-              عن مول البستان
+              من نحن
             </span>
 
             <h1 className="max-w-[30rem] text-[2.2rem] font-extrabold leading-[1.06] text-white md:text-[3.2rem] lg:text-[3.8rem]">
-              اسم بُنيت حوله
+              مول بنته الثقة
               <br className="hidden sm:block" />
-              ثقة سوق كامل.
+              قبل أن يبنيه الحجر.
             </h1>
 
             <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
-              مول البستان ليس مشروعًا جديدًا يبحث عن هويته — إنه عنوان قائم بنى مكانته في سوق
-              الإلكترونيات المصري عبر سنوات من التعامل المباشر بين التاجر والزائر. اليوم، يتجدد
-              رقميًا بنفس المبدأ: وضوح وثقة ونظام.
+              مول البستان ليس مشروعًا يبدأ من الصفر — إنه امتداد لتاريخ تجاري حقيقي في سوق
+              الإلكترونيات المصري. اليوم يتجدد رقميًا ومعماريًا بنفس المبادئ التي أسّسته:
+              وضوح التعامل، تنظيم السوق، واحترام العلاقة بين التاجر والمشتري.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-1">
