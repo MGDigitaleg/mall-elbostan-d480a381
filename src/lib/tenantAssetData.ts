@@ -66,9 +66,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "go-plus",
     providedName: "Go plus",
     normalizedName: "Go Plus",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Need official logo file before cleanup/export.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/go-plus.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Go-Plus",
   },
   {
