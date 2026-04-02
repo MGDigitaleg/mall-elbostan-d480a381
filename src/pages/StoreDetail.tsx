@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin, Phone, Store } from "lucide-react";
+import { ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin, Phone, Store, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -51,7 +51,6 @@ const StoreDetail = () => {
     queryKey: ["related-stores", store?.category, store?.id],
     queryFn: async () => {
       if (!store?.category) return [];
-
       const { data } = await supabase
         .from("stores")
         .select("id, slug, name_ar, logo_url")
@@ -59,7 +58,6 @@ const StoreDetail = () => {
         .neq("id", store.id)
         .neq("status", "hidden")
         .limit(3);
-
       return data ?? [];
     },
     enabled: !!store?.category && !!store?.id,
@@ -73,151 +71,255 @@ const StoreDetail = () => {
   const activeStory = store?.category ? categoryStory[store.category] : null;
   const heroImage = store?.cover_image_url ?? gallery[0] ?? fallbackCover;
 
-  if (isLoading) return <MainLayout><div className="container py-20 text-center text-muted-foreground">جاري التحميل...</div></MainLayout>;
-  if (!store) return <MainLayout><div className="container py-20 text-center"><h1 className="mb-4 text-2xl font-bold text-foreground">المتجر غير موجود</h1><Link to="/stores"><Button variant="outline-blue">العودة للمتاجر</Button></Link></div></MainLayout>;
+  if (isLoading) {
+    return (
+      <MainLayout>
+        <div className="container max-w-5xl py-24">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.85fr]">
+            <div className="space-y-5">
+              <div className="h-6 w-32 animate-pulse rounded bg-muted" />
+              <div className="h-10 w-3/4 animate-pulse rounded bg-muted" />
+              <div className="h-4 w-full animate-pulse rounded bg-muted" />
+              <div className="h-4 w-2/3 animate-pulse rounded bg-muted" />
+            </div>
+            <div className="aspect-[4/3] animate-pulse rounded-lg bg-muted" />
+          </div>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  if (!store) {
+    return (
+      <MainLayout>
+        <div className="container max-w-5xl py-24 text-center">
+          <div className="card-editorial mx-auto max-w-md p-10">
+            <Store className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
+            <h1 className="mb-3 text-2xl font-bold text-foreground">المتجر غير موجود</h1>
+            <p className="mb-6 text-sm text-muted-foreground">لم يتم العثور على المتجر المطلوب ضمن دليل مول البستان</p>
+            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المتاجر</Button></Link>
+          </div>
+        </div>
+      </MainLayout>
+    );
+  }
 
   return (
     <MainLayout>
-      <SEOHead title={store.name_ar} description={store.short_description_ar ?? `${store.name_ar} في مول البستان`} breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]} />
-      <div className="container max-w-6xl py-8 md:py-12">
-        <Link to="/stores" className="mb-6 flex items-center gap-1 text-sm text-primary hover:underline">
-          <ArrowLeft className="h-4 w-4" /> العودة لدليل المتاجر
-        </Link>
+      <SEOHead
+        title={store.name_ar}
+        description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
+        breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+      />
 
-        <section className="brand-shell overflow-hidden rounded-[2.6rem] px-6 py-8 md:px-8 md:py-10">
-          <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
-            <div className="space-y-5">
+      {/* ── Hero Band ── */}
+      <section className="heritage-section">
+        <div className="container max-w-6xl px-5 pb-12 pt-8 md:px-8 md:pb-16 md:pt-10">
+          {/* Breadcrumb */}
+          <Link to="/stores" className="mb-8 inline-flex items-center gap-1.5 text-[0.8rem] font-medium transition-colors" style={{ color: 'hsl(var(--primary) / 0.6)' }}>
+            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المتاجر
+          </Link>
+
+          <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+            {/* Text */}
+            <div className="space-y-6">
               <div className="flex items-center gap-5">
                 {store.logo_url ? (
-                  <img src={store.logo_url} alt={store.name_ar} className="h-24 w-24 rounded-[1.4rem] object-cover shadow-[var(--shadow-soft)]" />
+                  <div className="heritage-surface flex h-20 w-20 items-center justify-center p-2">
+                    <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded object-contain" />
+                  </div>
                 ) : (
-                  <div className="flex h-24 w-24 items-center justify-center rounded-[1.4rem] bg-primary/10 shadow-[var(--shadow-soft)]"><Store className="h-10 w-10 text-primary" /></div>
+                  <div className="heritage-surface flex h-20 w-20 items-center justify-center">
+                    <Store className="h-8 w-8" style={{ color: 'hsl(var(--primary) / 0.5)' }} />
+                  </div>
                 )}
                 <div>
-                  <h1 className="text-4xl font-black text-foreground md:text-5xl">{store.name_ar}</h1>
-                  {store.name_en && <p className="mt-2 font-poppins text-base text-muted-foreground">{store.name_en}</p>}
-                  {store.category && <span className="mt-3 inline-block rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">{store.category}</span>}
+                  <h1 className="text-[2.4rem] font-bold leading-[1.05] md:text-[3.2rem]" style={{ color: 'hsl(var(--navy-foreground))' }}>
+                    {store.name_ar}
+                  </h1>
+                  {store.name_en && (
+                    <p className="mt-1.5 font-poppins text-sm font-medium" style={{ color: 'hsl(0 0% 100% / 0.4)' }}>
+                      {store.name_en}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+              {store.category && (
+                <span className="eyebrow-chip" style={{ borderColor: 'hsl(var(--primary) / 0.2)', background: 'hsl(var(--primary) / 0.08)', color: 'hsl(200 60% 70%)' }}>
+                  {store.category}
+                </span>
+              )}
+
+              <p className="max-w-xl text-base leading-[1.9]" style={{ color: 'hsl(0 0% 100% / 0.55)' }}>
                 {store.short_description_ar ?? "صفحة تفصيلية تقدّم هذا المتجر ضمن تجربة مول البستان التقنية، مع عرض أوضح للفئة، بيانات التواصل، ومسار الزيارة داخل المنظومة."}
               </p>
 
-              <div className="grid gap-4 sm:grid-cols-3">
-                <div className="soft-card p-4">
-                  <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">الفئة</p>
-                  <p className="mt-2 text-base font-bold text-foreground">{store.category ?? "متجر داخل المول"}</p>
-                </div>
-                <div className="soft-card p-4">
-                  <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">حالة الظهور</p>
-                  <p className="mt-2 text-base font-bold text-foreground">{store.status === "available" ? "فرصة متاحة" : "متجر ضمن المنظومة"}</p>
-                </div>
-                <div className="soft-card p-4">
-                  <p className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">المسار التالي</p>
-                  <p className="mt-2 text-base font-bold text-foreground">الخريطة أو التواصل</p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <Link to="/map"><Button variant="outline-blue" size="lg">استكشف موقعه على الخريطة</Button></Link>
-                {store.whatsapp ? (
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Link to="/map">
+                  <Button variant="outline-blue" size="lg" className="gap-2">
+                    <MapPin className="h-4 w-4" /> موقعه على الخريطة
+                  </Button>
+                </Link>
+                {store.whatsapp && (
                   <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
                     <Button variant="cta" size="lg">تواصل عبر واتساب</Button>
                   </a>
-                ) : null}
+                )}
               </div>
             </div>
 
-            <div className="section-shell overflow-hidden rounded-[2.2rem] p-3 shadow-[var(--shadow-elevated)]">
-              <div className="image-shell aspect-[16/11] overflow-hidden rounded-[1.8rem]">
-                <img src={heroImage} alt={store.name_ar} className="h-full w-full object-cover object-center" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/28 via-transparent to-background/10" />
-              </div>
-              <div className="glass absolute bottom-7 right-7 max-w-xs rounded-[1.4rem] p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">Store Profile</p>
-                <p className="mt-2 text-base font-bold text-foreground">صفحة متجر مصممة لتكون امتدادًا متناسقًا لهوية Mall Elbostan</p>
-              </div>
+            {/* Hero Image */}
+            <div className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
+              <img src={heroImage} alt={store.name_ar} className="h-full w-full object-cover object-center" loading="eager" />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, hsl(222 44% 6% / 0.4), transparent 50%)' }} />
+              {store.unit_code && (
+                <div className="absolute bottom-4 left-4 glass-warm rounded-md px-3 py-1.5">
+                  <span className="text-xs font-semibold text-foreground">وحدة {store.unit_code}</span>
+                </div>
+              )}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="space-y-6">
-            <section className="section-shell p-6 md:p-8">
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <div>
-                  <p className="section-kicker">عن المتجر</p>
-                  <h2 className="text-2xl font-bold text-foreground">قراءة أوضح لدور المتجر داخل المنظومة</h2>
-                </div>
-                <Layers3 className="h-5 w-5 text-primary" />
+      {/* ── Compact info strip ── */}
+      <div className="border-b border-border">
+        <div className="container max-w-6xl">
+          <div className="grid grid-cols-2 divide-x divide-border md:grid-cols-4" style={{ direction: 'ltr' }}>
+            <InfoCell label="الفئة" value={store.category ?? "متجر داخل المول"} />
+            <InfoCell label="الحالة" value={store.status === "available" ? "فرصة متاحة" : "ضمن المنظومة"} />
+            <InfoCell label="الوحدة" value={store.unit_code ?? "—"} />
+            <InfoCell label="الموقع" value="مول البستان" />
+          </div>
+        </div>
+      </div>
+
+      {/* ── Content Grid ── */}
+      <div className="container max-w-6xl py-10 md:py-14">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          {/* Main column */}
+          <div className="space-y-8">
+            {/* About */}
+            <article className="card-editorial p-6 md:p-8">
+              <div className="chapter-shell">
+                <p className="section-kicker">عن المتجر</p>
+                <h2 className="mb-4 text-xl font-bold text-foreground md:text-2xl">قراءة أوضح لدور المتجر داخل المنظومة</h2>
               </div>
-              <p className="text-base leading-8 text-muted-foreground">
+              <p className="text-[0.95rem] leading-[2] text-muted-foreground">
                 {store.long_description_ar ?? store.short_description_ar ?? "سيتم تحديث وصف هذا المتجر قريبًا بمحتوى تفصيلي يوضح نوع المنتجات أو الخدمات التي يقدّمها داخل مول البستان."}
               </p>
-            </section>
+            </article>
 
-            {activeStory ? (
-              <section className="section-shell p-6 md:p-8">
-                <p className="section-kicker">سرد الفئة</p>
-                <h2 className="text-2xl font-bold text-foreground">{activeStory.title}</h2>
-                <p className="mt-4 text-base leading-8 text-muted-foreground">{activeStory.description}</p>
-              </section>
-            ) : null}
+            {/* Category Story */}
+            {activeStory && (
+              <article className="card-architectural p-6 md:p-8">
+                <div className="flex items-start gap-3">
+                  <Layers3 className="mt-1 h-5 w-5 shrink-0 text-primary" />
+                  <div>
+                    <p className="section-kicker">سرد الفئة</p>
+                    <h2 className="mb-3 text-xl font-bold text-foreground">{activeStory.title}</h2>
+                    <p className="text-[0.95rem] leading-[2] text-muted-foreground">{activeStory.description}</p>
+                  </div>
+                </div>
+              </article>
+            )}
 
-            {gallery.length > 1 ? (
-              <section className="section-shell p-6 md:p-8">
+            {/* Gallery */}
+            {gallery.length > 1 && (
+              <section className="editorial-panel p-6 md:p-8">
                 <p className="section-kicker">معرض بصري</p>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2">
                   {gallery.slice(0, 4).map((image, index) => (
-                    <div key={`${image}-${index}`} className="image-shell aspect-[4/3] rounded-[1.4rem]">
+                    <div key={`${image}-${index}`} className="image-architectural aspect-[4/3]">
                       <img src={image} alt={`${store.name_ar} ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
                     </div>
                   ))}
                 </div>
               </section>
-            ) : null}
+            )}
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-6">
-            <section className="section-shell p-6 md:p-8">
-              <p className="section-kicker">معلومات المتجر</p>
-              <h2 className="mb-4 text-2xl font-bold text-foreground">معلومات الاتصال والزيارة</h2>
-              <div className="space-y-4 text-muted-foreground">
-                {store.phone ? <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> <span dir="ltr">{store.phone}</span></p> : null}
-                {store.email ? <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> {store.email}</p> : null}
-                {store.website ? <p className="flex items-center gap-2"><Globe className="h-4 w-4 text-primary" /> <a href={store.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">{store.website}</a></p> : null}
-                {store.opening_hours ? <p className="flex items-center gap-2"><Clock3 className="h-4 w-4 text-primary" /> {store.opening_hours}</p> : null}
-                {store.unit_code ? <p className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> وحدة {store.unit_code}</p> : null}
+            {/* Contact Card */}
+            <aside className="card-editorial p-6 md:p-8">
+              <p className="section-kicker">معلومات الاتصال</p>
+              <h3 className="mb-5 text-lg font-bold text-foreground">تواصل مع المتجر أو قم بزيارته</h3>
+              <div className="space-y-4">
+                {store.phone && <ContactRow icon={Phone} text={store.phone} dir="ltr" />}
+                {store.email && <ContactRow icon={Mail} text={store.email} />}
+                {store.website && (
+                  <a href={store.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-muted-foreground transition-colors hover:text-primary">
+                    <span className="icon-shell h-8 w-8"><Globe className="h-3.5 w-3.5" /></span>
+                    <span className="truncate">{store.website}</span>
+                    <ExternalLink className="mr-auto h-3 w-3 shrink-0 text-primary" />
+                  </a>
+                )}
+                {store.opening_hours && <ContactRow icon={Clock3} text={store.opening_hours} />}
+                {store.unit_code && <ContactRow icon={MapPin} text={`وحدة ${store.unit_code}`} />}
               </div>
-            </section>
+            </aside>
 
-            {relatedStores && relatedStores.length > 0 ? (
-              <section className="section-shell p-6 md:p-8">
+            {/* Related Stores */}
+            {relatedStores && relatedStores.length > 0 && (
+              <aside className="section-shell p-6 md:p-8">
                 <p className="section-kicker">متاجر مرتبطة</p>
-                <h2 className="mb-4 text-2xl font-bold text-foreground">اكتشف متاجر أخرى ضمن نفس الفئة</h2>
-                <div className="space-y-3">
+                <h3 className="mb-4 text-lg font-bold text-foreground">اكتشف متاجر أخرى ضمن نفس الفئة</h3>
+                <div className="space-y-2.5">
                   {relatedStores.map((related) => (
-                    <Link key={related.id} to={`/stores/${related.slug}`} className="flex items-center justify-between rounded-[1.2rem] border border-border/70 bg-card/70 p-4 transition-colors hover:border-primary/30 hover:bg-card">
-                      <div className="flex items-center gap-3">
-                        {related.logo_url ? (
-                          <img src={related.logo_url} alt={related.name_ar} className="h-12 w-12 rounded-[0.9rem] object-cover" loading="lazy" />
-                        ) : (
-                          <div className="flex h-12 w-12 items-center justify-center rounded-[0.9rem] bg-primary/10"><Store className="h-5 w-5 text-primary" /></div>
-                        )}
-                        <span className="font-semibold text-foreground">{related.name_ar}</span>
-                      </div>
-                      <ArrowLeft className="h-4 w-4 text-primary" />
+                    <Link
+                      key={related.id}
+                      to={`/stores/${related.slug}`}
+                      className="card-premium flex items-center gap-3 p-3.5 transition-all hover:shadow-[var(--shadow-elevated)]"
+                    >
+                      {related.logo_url ? (
+                        <img src={related.logo_url} alt={related.name_ar} className="h-11 w-11 rounded-md object-cover" loading="lazy" />
+                      ) : (
+                        <div className="icon-shell h-11 w-11"><Store className="h-4.5 w-4.5" /></div>
+                      )}
+                      <span className="flex-1 text-sm font-semibold text-foreground">{related.name_ar}</span>
+                      <ArrowLeft className="h-3.5 w-3.5 text-primary" />
                     </Link>
                   ))}
                 </div>
-              </section>
-            ) : null}
+              </aside>
+            )}
+
+            {/* CTA */}
+            <div className="card-layered p-6 text-center md:p-8">
+              <p className="section-kicker">هل تريد وحدة مجاورة؟</p>
+              <h3 className="mb-3 text-lg font-bold text-foreground">امتلك أو أجّر وحدتك في مول البستان</h3>
+              <p className="mx-auto mb-5 max-w-xs text-sm text-muted-foreground">انضم لمنظومة التقنية الأولى في القاهرة الجديدة</p>
+              <Link to="/leasing">
+                <Button variant="cta" size="lg" className="w-full">استعلم عن الوحدات المتاحة</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </MainLayout>
   );
 };
+
+/* ── Helper components ── */
+
+function InfoCell({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="px-5 py-4 text-center" style={{ direction: 'rtl' }}>
+      <p className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{label}</p>
+      <p className="mt-1 text-sm font-bold text-foreground">{value}</p>
+    </div>
+  );
+}
+
+function ContactRow({ icon: Icon, text, dir }: { icon: React.ComponentType<{ className?: string }>; text: string; dir?: string }) {
+  return (
+    <div className="flex items-center gap-3 text-sm text-muted-foreground">
+      <span className="icon-shell h-8 w-8"><Icon className="h-3.5 w-3.5" /></span>
+      <span dir={dir}>{text}</span>
+    </div>
+  );
+}
 
 export default StoreDetail;
