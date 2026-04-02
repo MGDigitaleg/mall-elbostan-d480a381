@@ -785,9 +785,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             {/* timeline — 3 phases, clear progression */}
             <div className="mx-auto mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
               {[
-                { n: "1", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة المول كاملة.", active: true },
-                { n: "2", icon: ShoppingBag, label: "المتاجر والعروض", desc: "استكشاف وتصفّح مباشر.", active: true },
-                { n: "3", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
+                { n: "1", icon: Compass, label: "دليل المول", desc: "خريطة تفاعلية كاملة.", active: true },
+                { n: "2", icon: ShoppingBag, label: "المتاجر والعروض", desc: "تصفّح واكتشف.", active: true },
+                { n: "3", icon: Zap, label: "التسوّق عن بُعد", desc: "اشترِ من المول أينما كنت.", active: false },
               ].map((item) => (
                 <div
                   key={item.n}
