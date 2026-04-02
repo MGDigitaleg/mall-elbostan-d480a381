@@ -127,14 +127,14 @@ const Stores = () => {
               </div>
 
               <h1 className="max-w-[22rem] text-[2.4rem] leading-[1.04] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
-                اعرف كل متجر
+                تعرّف على كل متجر
                 <br />
-                <span style={{ color: "#CDBB9A" }}>قبل ما تنزل.</span>
+                <span style={{ color: "#CDBB9A" }}>قبل أن تصل.</span>
               </h1>
 
               <p className="max-w-[28rem] text-[1rem] leading-[2] dark-body">
-                دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته.
-                ابحث بالاسم أو الفئة، وشوف التفاصيل قبل الزيارة.
+                دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته الفعلية.
+                ابحث بالاسم أو الفئة واطّلع على التفاصيل قبل الزيارة.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -183,11 +183,11 @@ const Stores = () => {
         <div className="container max-w-[1200px]">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-10 max-w-[34rem]">
-              <p className="section-kicker">أقسام المول</p>
-              <h2 className="section-title">كل قسم — سوق متخصص قائم بذاته.</h2>
+              <p className="section-kicker">التصنيف التجاري</p>
+              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
               <p className="mt-4 text-[0.98rem] leading-8 light-body">
-                ستة أقسام رئيسية — كل قسم فيه متاجر ومنتجات يعرفها السوق.
-                اختار القسم وابدأ الاستكشاف.
+                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره
+                وحركته الخاصة. اختر القسم وابدأ الاستكشاف.
               </p>
             </div>
 
@@ -349,12 +349,12 @@ const Stores = () => {
             <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
               <div className="space-y-6">
                 <div className="chapter-shell pt-7">
-                  <p className="section-kicker">الربط بالخريطة</p>
-                  <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه — شوفه على الخريطة قبل الزيارة.</h2>
+                  <p className="section-kicker">الخريطة التجارية</p>
+                  <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه — استكشفه على الخريطة قبل الزيارة.</h2>
                 </div>
                 <p className="text-[1rem] leading-8 light-body">
-                  الخريطة التفاعلية بتعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
-                  اضغط على أي متجر وهتنتقل لموقعه في الدور المحدد.
+                  الخريطة التفاعلية تعرض كل وحدة بحالتها الفعلية — نشطة، متاحة، أو قادمة.
+                  اضغط على أي متجر لتنتقل مباشرة إلى موقعه في الدور المحدد.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
@@ -449,10 +449,10 @@ const Stores = () => {
               <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
             </div>
             <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.15] md:text-[1.8rem] light-heading">
-              المول جاهز — دورك تستكشفه.
+              المول جاهز — والقرار بيدك.
             </h2>
             <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
-              الدليل والخريطة وصفحة التأجير — كل اللي محتاجه في مكان واحد.
+              الدليل والخريطة وصفحة التأجير — كل أدوات القرار في مكان واحد.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/map">
@@ -554,15 +554,15 @@ function EcosystemGrowingState() {
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF30" }}>
           <Store className="h-7 w-7" style={{ color: "#5B9AFF" }} />
         </div>
-        <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر على الطريق.</h3>
+        <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر في الطريق.</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-8 dark-body">
-          المتاجر بتنضم تدريجيًا مع اقتراب الافتتاح الكبير.
-          الدليل هيتحدث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
+          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح الكبير.
+          الدليل يتحدّث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to="/map">
             <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
-              <Compass className="h-4 w-4" /> شوف الوحدات على الخريطة
+              <Compass className="h-4 w-4" /> استعرض الوحدات على الخريطة
             </Button>
           </Link>
           <Link to="/leasing">
@@ -615,7 +615,7 @@ function DirectoryEmpty({ onReset }: { onReset: () => void }) {
       </div>
       <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج ضمن هذا البحث</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل بيتحدث باستمرار مع انضمام متاجر جديدة.
+        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتحدّث باستمرار مع انضمام متاجر جديدة.
       </p>
       <button onClick={onReset} className="mt-5 rounded-xl px-6 py-2.5 text-[0.88rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
         إعادة ضبط الفلاتر

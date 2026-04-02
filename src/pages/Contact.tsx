@@ -89,7 +89,7 @@ const Contact = () => {
                 تواصل مع فريق مول البستان
               </h1>
               <p className="mt-3 max-w-[32rem] text-[0.9rem] leading-[1.9] dark-body">
-                سواء عندك سؤال عن المتاجر، بتفكّر تأجّر وحدة، أو عايز تتعاون معانا — الفريق هنا ومتابع.
+                سواء لديك سؤال عن المتاجر، تفكّر في استئجار وحدة، أو ترغب في التعاون — الفريق جاهز ومتابع.
               </p>
             </motion.div>
           </div>
@@ -103,8 +103,8 @@ const Contact = () => {
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mb-5">
-              <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">إيه نوع استفسارك؟</h2>
-              <p className="mt-1 text-[0.84rem] light-muted">اختار النوع عشان رسالتك توصل للفريق المناسب مباشرة.</p>
+              <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">ما نوع استفسارك؟</h2>
+              <p className="mt-1 text-[0.84rem] light-muted">اختر النوع المناسب لتصل رسالتك مباشرة للفريق المختص.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
@@ -154,11 +154,11 @@ const Contact = () => {
                 <div className="mb-5">
                   <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">أرسل رسالتك</h2>
                   <p className="mt-1 text-[0.82rem] light-muted">
-                    {inquiryType === "general" && "اكتب سؤالك أو ملاحظتك — الفريق هيرد عليك في أسرع وقت."}
-                    {inquiryType === "leasing" && "أرسل بياناتك وتفاصيل الوحدة اللي بتدوّر عليها."}
-                    {inquiryType === "partnership" && "وضّح فكرة التعاون — الفريق التجاري هيراجعها ويرد عليك."}
-                    {inquiryType === "media" && "أرسل طلبك الإعلامي وهنوفرلك البيانات المطلوبة."}
-                    {inquiryType === "careers" && "أرسل بياناتك والوظيفة اللي بتدوّر عليها."}
+                    {inquiryType === "general" && "اكتب سؤالك أو ملاحظتك — سيصلك الرد في أقرب وقت."}
+                    {inquiryType === "leasing" && "أرسل بياناتك وتفاصيل الوحدة التي تبحث عنها."}
+                    {inquiryType === "partnership" && "وضّح فكرة التعاون — الفريق التجاري سيراجعها ويتواصل معك."}
+                    {inquiryType === "media" && "أرسل طلبك الإعلامي وسنوفر لك البيانات المطلوبة."}
+                    {inquiryType === "careers" && "أرسل بياناتك والوظيفة التي تبحث عنها."}
                   </p>
                 </div>
 
@@ -168,7 +168,7 @@ const Contact = () => {
                       <CheckCircle2 className="h-7 w-7 text-success" />
                     </div>
                     <p className="text-[1.05rem] font-extrabold light-heading">تم إرسال رسالتك</p>
-                    <p className="mt-2 text-[0.86rem] light-body">الفريق المختص هيتواصل معاك خلال يوم عمل.</p>
+                    <p className="mt-2 text-[0.86rem] light-body">الفريق المختص سيتواصل معك خلال يوم عمل.</p>
                     <Button
                       variant="secondary"
                       className="mt-5 h-10 rounded-xl px-6 font-bold"
@@ -285,9 +285,9 @@ const Contact = () => {
                 <p className="mb-3 text-[0.76rem] font-bold uppercase tracking-wide light-muted">ماذا تتوقع بعد الإرسال</p>
                 <div className="space-y-2">
                   {[
-                    "رسالتك بتوصل مباشرة للفريق المختص حسب نوع الاستفسار",
-                    "الرد المتوقع خلال يوم عمل واحد",
-                    "استفسارات التأجير بتتحول لفريق التأجير تلقائيًا",
+                    "رسالتك تصل مباشرة للفريق المختص حسب نوع الاستفسار.",
+                    "الرد المتوقع خلال يوم عمل واحد.",
+                    "استفسارات التأجير تتحول لفريق التأجير تلقائيًا.",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
@@ -320,7 +320,7 @@ const Contact = () => {
             </span>
             <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
           </div>
-          <h2 className="text-[1.1rem] font-extrabold dark-heading md:text-[1.3rem]">ممكن تلاقي اللي بتدوّر عليه هنا</h2>
+          <h2 className="text-[1.1rem] font-extrabold dark-heading md:text-[1.3rem]">قد تجد ما تبحث عنه هنا</h2>
           <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {[
               { label: "التأجير", href: "/leasing" },

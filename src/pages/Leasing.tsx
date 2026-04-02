@@ -267,7 +267,7 @@ const Leasing = () => {
                 </div>
                 <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">ابدأ استفسارك</h2>
                 <p className="mb-5 text-[0.84rem] leading-7 dark-body">
-                  أرسل بياناتك — فريق التأجير هيتواصل معاك بتفاصيل الوحدات والأسعار.
+                  أرسل بياناتك — فريق التأجير سيتواصل معك بتفاصيل الوحدات والأسعار.
                 </p>
 
                 {submitted ? (
@@ -276,7 +276,7 @@ const Leasing = () => {
                       <CheckCircle2 className="h-7 w-7 text-success" />
                     </div>
                     <p className="text-[1.05rem] font-extrabold dark-heading">تم إرسال طلبك</p>
-                    <p className="mt-2 text-[0.86rem] dark-body">فريق التأجير هيتواصل معاك في أقرب وقت بتفاصيل الوحدات المناسبة.</p>
+                    <p className="mt-2 text-[0.86rem] dark-body">فريق التأجير سيتواصل معك في أقرب وقت بتفاصيل الوحدات المناسبة.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3.5">
@@ -328,7 +328,7 @@ const Leasing = () => {
                   <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">
                     وحدات <span style={{ color: "#E8740E" }}>متاحة الآن</span>
                   </h2>
-                  <p className="text-[0.84rem] leading-7 dark-body">عيّنة من الوحدات البارزة — شوف التفاصيل الكاملة على الخريطة.</p>
+                  <p className="text-[0.84rem] leading-7 dark-body">عيّنة من الوحدات البارزة — التفاصيل الكاملة على الخريطة التفاعلية.</p>
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
@@ -413,13 +413,13 @@ const Leasing = () => {
               وجهة تجارية مبنية على طلب حقيقي
             </h2>
             <p className="mx-auto mt-3 max-w-[34rem] text-[0.88rem] leading-[1.9] light-body">
-              المول مش مساحة إيجارية فارغة — ده بيئة تجارية منظّمة بتخدم شريحة واضحة من السوق. وجودك هنا بيحطّك في المكان اللي الزبون بيدوّر فيه.
+              المول ليس مساحة إيجارية فارغة — بل بيئة تجارية منظّمة تخدم شريحة واضحة من السوق. وجودك هنا يضعك في المكان الذي يبحث فيه الزبون فعلًا.
             </p>
 
             <div className="mx-auto mt-8 grid max-w-[42rem] gap-3 sm:grid-cols-3">
               {[
                 { title: "موقع استراتيجي", desc: "في قلب القاهرة الجديدة — قريب من المدينتي والرحاب" },
-                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة مش مجرد تصفّح" },
+                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة — وليس مجرد تصفّح" },
                 { title: "بنية جاهزة", desc: "وحدات مجهزة وقابلة للتشغيل الفوري" },
               ].map((item) => (
                 <div key={item.title} className="rounded-xl border border-border bg-card p-5 text-center">
