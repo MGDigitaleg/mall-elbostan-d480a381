@@ -336,11 +336,11 @@
 
   /* ── Heritage deep (darker variant) ── */
   .heritage-deep {
-    background: hsl(222 34% 7%);
-    color: hsl(var(--navy-foreground));
+    background: #071326;
+    color: #F8FAFC;
   }
 
-  .heritage-deep .section-kicker { color: hsl(220 55% 62%); }
+  .heritage-deep .section-kicker { color: #5B9AFF; }
 
   /* ── Architectural band — a narrow colored strip ── */
   .band-primary {
