@@ -371,9 +371,9 @@
   }
 
   .section-title {
-    @apply text-[1.75rem] font-bold leading-[1.06] md:text-[2.4rem] lg:text-[2.8rem];
+    @apply text-[1.55rem] font-bold leading-[1.08] md:text-[1.85rem] lg:text-[2.15rem];
     color: #0F172A;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
 
   /* ── Spacing system ── */
