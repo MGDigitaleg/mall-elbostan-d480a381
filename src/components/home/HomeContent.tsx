@@ -660,7 +660,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           FINAL CTA STRIP
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-10 md:py-14" style={{ background: "#071326" }}>
+      <section className="py-8 md:py-10" style={{ background: "#071326" }}>
         <div className="container max-w-[800px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="flex items-center justify-center gap-2.5 mb-4">
