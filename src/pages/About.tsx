@@ -264,14 +264,15 @@ const About = () => (
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <div className="space-y-6">
               <div className="chapter-shell pt-7">
-                <p className="section-kicker">تجربة الزائر</p>
+                <p className="section-kicker">تجربة الاستكشاف</p>
                 <h2 className="section-title max-w-[24rem]">
-                  زيارة منظّمة تبدأ قبل ما تنزل.
+                  زيارة مُنظّمة تبدأ قبل الوصول.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                المول مقسّم بتصنيف واضح — فئات محددة، أدوار منطقية، وخريطة تفاعلية
-                بتعرضلك كل وحدة بحالتها الفعلية. تعرف وجهتك قبل ما توصل.
+                المول مصنّف بتخصصات واضحة — أقسام محددة، أدوار منطقية،
+                وخريطة تفاعلية تعرض كل وحدة بحالتها الفعلية.
+                تعرف وجهتك وتوفّر وقتك قبل أن تصل.
               </p>
 
               <div className="grid gap-2.5 sm:grid-cols-2">
