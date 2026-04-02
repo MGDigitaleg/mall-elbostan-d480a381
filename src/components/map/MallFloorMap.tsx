@@ -70,7 +70,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#0A9AB8",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, hideControls, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
   const pulseColor = atriumConfig?.pulseColor;
