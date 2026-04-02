@@ -184,7 +184,7 @@ const About = () => (
                 آلاف الزيارات التي انتهت بشراء حقيقي — ومئات التجّار الذين اختاروا البقاء.
               </p>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {[
                   {
                     icon: Building2, title: "وجهة راسخة",
