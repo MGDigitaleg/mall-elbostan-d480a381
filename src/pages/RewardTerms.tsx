@@ -5,7 +5,7 @@ const RewardTerms = () => (
   <MainLayout>
     <SEOHead title="شروط المكافآت" titleEn="Reward Terms" description="شروط وأحكام المكافآت والجوائز في مول البستان." descriptionEn="Reward terms and conditions at Mall Elbostan." breadcrumbs={[{ name: "شروط المكافآت", url: "/reward-terms" }]} />
     <div className="container py-20 max-w-3xl">
-      <h1 className="text-4xl font-bold text-gradient-blue mb-8">شروط المكافآت</h1>
+      <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">شروط المكافآت</h1>
       <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">
         <h2 className="text-lg font-bold text-foreground">شروط المشاركة في أدر واربح</h2>
         <ul className="list-disc list-inside space-y-2">

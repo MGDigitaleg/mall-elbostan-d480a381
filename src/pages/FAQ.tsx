@@ -24,7 +24,7 @@ const FAQ = () => {
           <div className="grid gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
             <div>
               <p className="section-kicker">الأسئلة الشائعة</p>
-              <h1 className="mb-3 text-4xl font-bold text-foreground md:text-[3rem]">ما يحتاج الزائر والتاجر معرفته</h1>
+              <h1 className="mb-3 text-2xl font-bold text-foreground md:text-[2.2rem]">ما يحتاج الزائر والتاجر معرفته</h1>
               <p className="max-w-2xl leading-7 text-muted-foreground">إجابات مباشرة ومختصرة على الأسئلة الأكثر تكرارًا حول المول والتأجير والزيارة.</p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3">
