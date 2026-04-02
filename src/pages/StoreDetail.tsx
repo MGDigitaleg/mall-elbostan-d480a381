@@ -207,7 +207,7 @@ const StoreDetail = () => {
       <div className="container max-w-6xl py-10 md:py-14">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Main column */}
-          <div className="space-y-8">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-8">
             {/* About */}
             <article className="card-editorial p-6 md:p-8">
               <div className="chapter-shell">
