@@ -309,7 +309,7 @@
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-section .section-kicker { @apply text-primary/55; }
+  .heritage-section .section-kicker { color: hsl(var(--primary) / 0.55); }
   .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
 
   .heritage-card {
