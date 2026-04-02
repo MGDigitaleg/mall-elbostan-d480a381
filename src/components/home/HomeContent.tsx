@@ -259,10 +259,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
+
       {/* ════════ countdown divider ════════ */}
-      <section className="border-b border-border bg-card py-5 md:py-7">
+      <section className="border-b border-border/60 bg-card py-4 md:py-5">
         <div className="container flex flex-col items-center gap-3 md:flex-row md:justify-between">
-          <p className="text-sm font-semibold text-muted-foreground">
+          <p className="text-[0.82rem] font-semibold text-muted-foreground">
             الافتتاح الكبير — العد التنازلي
           </p>
           <CountdownTimer compact />
