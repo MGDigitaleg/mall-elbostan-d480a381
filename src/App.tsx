@@ -49,7 +49,7 @@ function AppLayout() {
   return (
     <>
       {!isAdmin && <Header />}
-      <main className={!isAdmin ? "flex-1 pt-11 md:pt-12" : "flex-1"}>
+      <main className={!isAdmin ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
         <Routes>
           {/* Public */}
           <Route path="/" element={<Index />} />
