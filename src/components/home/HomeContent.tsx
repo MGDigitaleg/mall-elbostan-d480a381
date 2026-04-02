@@ -151,19 +151,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-1 space-y-7"
             >
               <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                القاهرة الجديدة · افتتاح مايو 2026
+                القاهرة الجديدة · الافتتاح الكبير — مايو 2026
               </span>
 
               <h1 className="max-w-[34rem] text-[2.4rem] font-extrabold leading-[1.06] text-white md:text-[3.5rem] lg:text-[4rem]">
-                الوجهة التقنية
+                وجهة التقنية
                 <br className="hidden sm:block" />
-                الأعرق في مصر
+                التي بناها السوق
               </h1>
 
               <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
-                مول البستان ليس مجرد مركز تجاري — إنه عنوان راسخ بنى سمعته على سنوات من خدمة
-                المستخدمين والتجار في سوق الإلكترونيات المصري. أكثر من {totalUnits} وحدة تجارية متخصصة
-                تحت سقف واحد.
+                مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
+                مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
+                صُنع ليخدم القرار لا التجوّل.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
