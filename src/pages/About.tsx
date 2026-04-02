@@ -142,23 +142,23 @@ const About = () => (
             {/* text */}
             <div className="order-1 space-y-6 lg:order-2">
               <div className="chapter-shell pt-7">
-                <p className="section-kicker">لماذا مول البستان</p>
+                <p className="section-kicker">لماذا هذا المول</p>
                 <h2 className="section-title max-w-[24rem]">
-                  اسم لا يحتاج تعريف في سوق التقنية.
+                  اسم يسبق التعريف في سوق الإلكترونيات.
                 </h2>
               </div>
 
               <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                في سوق مليان خيارات، مول البستان عنده حاجة مش بتتشرى بالإعلانات:
-                سمعة اتبنت من سنين التعامل الحقيقي. الناس بتيجي هنا مش عشان شافت إعلان —
-                بتيجي عشان عارفة إن اللي بتدوّر عليه هتلاقيه.
+                في سوق تتكاثر فيه الخيارات، مول البستان يملك ما لا يُكتسب بالإعلان:
+                مكانة بنتها سنوات من التعامل الموثوق. الزائر لا يأتي لأنه سمع عن المول —
+                بل لأنه يعلم أن ما يبحث عنه متوفر هنا بالفعل.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
-                  { icon: Award, title: "سمعة سوقية", desc: "أكثر من عقد في خدمة سوق الإلكترونيات." },
-                  { icon: MapPin, title: "موقع يُقصد", desc: "في قلب القاهرة الجديدة — يخدم مدينتي والرحاب." },
-                  { icon: Layers, title: "تصنيف دقيق", desc: "أقسام منظّمة تختصر وقت البحث." },
+                  { icon: Award, title: "إرث تجاري", desc: "حضور مستمر في سوق التقنية منذ أكثر من عقد." },
+                  { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب والمحيط." },
+                  { icon: Layers, title: "بنية تجارية دقيقة", desc: "تصنيف واضح يختصر مسار الشراء." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-xl p-5">
                     <c.icon className="mb-3 h-5 w-5 text-primary" />
