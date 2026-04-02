@@ -180,7 +180,7 @@ const InteractiveMap = () => {
             >
               <div className="mx-auto mb-3 flex items-center justify-center gap-3">
                 <div className="h-px w-8 bg-primary/35" />
-                <span className="text-[0.68rem] font-semibold tracking-[0.2em] text-white/30 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                <span className="text-[0.68rem] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 60% 65%)" }}>
                   الدليل التفاعلي
                 </span>
                 <div className="h-px w-8 bg-primary/35" />
@@ -189,7 +189,7 @@ const InteractiveMap = () => {
               <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.06] text-white md:text-[2.4rem] lg:text-[2.8rem]">
                 دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
-              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] text-white/32 md:text-[1rem]">
+              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] md:text-[1rem]" style={{ color: "hsl(220 12% 70%)" }}>
                 تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
@@ -200,9 +200,9 @@ const InteractiveMap = () => {
                   { icon: TrendingUp, v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s) => (
                   <div key={s.l} className="flex items-center gap-2.5 stat-block-dark px-4 py-2.5">
-                    <s.icon className="h-3.5 w-3.5 text-primary/50" />
+                    <s.icon className="h-3.5 w-3.5" style={{ color: "hsl(220 60% 60%)" }} />
                     <span className="font-poppins text-base font-bold text-white">{s.v}</span>
-                    <span className="text-[0.68rem] text-white/28">{s.l}</span>
+                    <span className="text-[0.72rem]" style={{ color: "hsl(220 12% 60%)" }}>{s.l}</span>
                   </div>
                 ))}
               </div>
