@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Building2, Compass, MapPin, Phone, Ruler, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
+import { FloorTabs } from "@/components/map/FloorTabs";
 import { MapLegend } from "@/components/map/MapLegend";
 import {
   mallFloors,
@@ -15,17 +16,17 @@ import {
 } from "@/lib/mallFloorGeometry";
 
 const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
-  occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
+  occupied: { bg: "hsl(var(--muted))", border: "hsl(var(--border))", text: "hsl(var(--muted-foreground))", dot: "#9B9488" },
   available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E" },
   coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8" },
 };
 
 /**
- * Homepage map teaser — compact, one-floor preview with featured unit card.
- * Same visual system as /map but constrained to a single section.
+ * Homepage map teaser — compact single-section preview.
+ * Uses exact same MallFloorMap + FloorTabs as the real /map page.
  */
 export function MapTeaserPreview() {
-  const [selectedFloor] = useState<MallFloorId>("ground");
+  const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
 
   const floor = useMemo(
     () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
@@ -50,21 +51,24 @@ export function MapTeaserPreview() {
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
 
   return (
-    <div className="grid items-start gap-4 lg:grid-cols-[1fr_280px]">
+    <div className="grid items-start gap-3 lg:grid-cols-[1fr_260px]">
       {/* ── Compact map ── */}
-      <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #C8C3BB" }}>
-        {/* Mini stats bar */}
-        <div className="flex items-center justify-between px-3 py-1.5" style={{ background: "#F5F2EC", borderBottom: "1px solid #D8DEE8" }}>
-          <div className="flex items-center gap-2">
-            <MapLegend />
-          </div>
-          <div className="flex items-center gap-1.5 text-[0.66rem]">
+      <div className="overflow-hidden rounded-xl border border-border" style={{ background: "#F0EBE3" }}>
+        {/* Control bar — mirrors /map page */}
+        <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-1.5" style={{ background: "hsl(var(--card))" }}>
+          <FloorTabs selected={selectedFloor} onChange={(id) => { setSelectedFloor(id); setSelectedUnit(null); }} />
+          <div className="hidden items-center gap-1.5 text-[0.64rem] sm:flex">
             <span className="font-bold" style={{ color: "#E8740E" }}>{floorAvailable}</span>
-            <span style={{ color: "#64748B" }}>متاحة</span>
-            <span className="mx-0.5 h-3 w-px" style={{ background: "#D8DEE8" }} />
-            <span className="font-bold" style={{ color: "#334155" }}>{floor.units.length}</span>
-            <span style={{ color: "#64748B" }}>وحدة</span>
+            <span className="text-muted-foreground">متاحة</span>
+            <span className="mx-0.5 h-3 w-px bg-border" />
+            <span className="font-bold text-foreground">{floor.units.length}</span>
+            <span className="text-muted-foreground">وحدة</span>
           </div>
+        </div>
+
+        {/* Legend strip */}
+        <div className="flex items-center justify-between border-b border-border px-3 py-1" style={{ background: "#F5F2EC" }}>
+          <MapLegend />
         </div>
 
         <MallFloorMap
@@ -72,35 +76,34 @@ export function MapTeaserPreview() {
           selectedUnitId={activeUnit.id}
           mutedUnitIds={mutedUnitIds}
           onSelectUnit={setSelectedUnit}
-          className="min-h-[220px] md:min-h-[280px]"
+          className="max-h-[320px] min-h-[200px] md:max-h-[360px] md:min-h-[240px]"
         />
       </div>
 
-      {/* ── Featured unit card — matches UnitDetailsCard visual language ── */}
-      <div className="space-y-3">
+      {/* ── Side panel — mirrors UnitDetailsCard visual language ── */}
+      <div className="space-y-2.5">
         <div
-          className="rounded-xl border transition-all"
+          className="rounded-xl border bg-card transition-all"
           style={{
             borderColor: badge.dot + "50",
-            background: "#FFFFFF",
             boxShadow: `0 0 0 1px ${badge.dot}20, 0 4px 16px hsl(0 0% 0% / 0.05)`,
           }}
         >
-          {/* Panel header */}
-          <div className="flex items-center gap-2 border-b px-3.5 py-1.5" style={{ borderColor: badge.dot + "20" }}>
+          {/* Panel header — same as UnitDetailsCard */}
+          <div className="flex items-center gap-2 border-b px-3 py-1.5" style={{ borderColor: badge.dot + "20" }}>
             <div className="h-[3px] w-3 rounded-full" style={{ background: badge.dot }} />
-            <span className="text-[0.58rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>تفاصيل الوحدة</span>
+            <span className="text-[0.58rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">تفاصيل الوحدة</span>
           </div>
 
-          <div className="space-y-2.5 p-3">
+          <div className="space-y-2 p-3">
             {/* Code + status */}
             <div className="flex items-start justify-between gap-2">
               <div>
-                <p className="text-[1.1rem] font-extrabold" style={{ color: "#0F172A" }}>{activeUnit.code}</p>
-                <p className="mt-0.5 text-[0.64rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[activeUnit.floor]}</p>
+                <p className="text-[1rem] font-extrabold text-foreground">{activeUnit.code}</p>
+                <p className="mt-0.5 text-[0.62rem] font-medium text-muted-foreground">{floorLabelsAr[activeUnit.floor]}</p>
               </div>
               <span
-                className="flex items-center gap-1 shrink-0 rounded-md px-1.5 py-0.5 text-[0.6rem] font-bold"
+                className="flex items-center gap-1 shrink-0 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
                 style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
               >
                 <span className="h-1.5 w-1.5 rounded-full" style={{ background: badge.dot }} />
@@ -108,7 +111,7 @@ export function MapTeaserPreview() {
               </span>
             </div>
 
-            {/* Meta grid */}
+            {/* Meta grid — same 2x2 as UnitDetailsCard */}
             <div className="grid grid-cols-2 gap-1">
               {[
                 { icon: Ruler, label: "المساحة", value: `${activeUnit.area} م²` },
@@ -116,12 +119,12 @@ export function MapTeaserPreview() {
                 { icon: Tag, label: "الفئة", value: categoryLabelsAr[activeUnit.category] },
                 { icon: MapPin, label: "الموقع", value: activeUnit.code },
               ].map((item) => (
-                <div key={item.label} className="rounded-md p-1.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                <div key={item.label} className="rounded-md border border-border bg-secondary/50 p-1.5">
                   <div className="flex items-center gap-1">
-                    <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
-                    <span className="text-[0.54rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
+                    <item.icon className="h-2.5 w-2.5 text-muted-foreground" />
+                    <span className="text-[0.52rem] font-semibold text-muted-foreground">{item.label}</span>
                   </div>
-                  <p className="mt-0.5 text-[0.72rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
+                  <p className="mt-0.5 text-[0.7rem] font-bold text-foreground">{item.value}</p>
                 </div>
               ))}
             </div>
@@ -129,14 +132,14 @@ export function MapTeaserPreview() {
             {/* CTAs */}
             <div className="space-y-1 pt-0.5">
               <Link to="/map" className="block">
-                <Button variant="cta" className="h-8 w-full rounded-lg text-[0.74rem] font-bold">
+                <Button variant="cta" className="h-8 w-full rounded-lg text-[0.72rem] font-bold">
                   <Compass className="ml-1 h-3 w-3" />
                   افتح الدليل الكامل
                 </Button>
               </Link>
               {activeUnit.status === "available" && (
                 <Link to="/leasing" className="block">
-                  <Button variant="outline-blue" className="h-8 w-full rounded-lg text-[0.72rem]">
+                  <Button variant="outline-blue" className="h-8 w-full rounded-lg text-[0.7rem]">
                     <Phone className="ml-1 h-3 w-3" /> استفسر عن الوحدة
                   </Button>
                 </Link>
@@ -145,14 +148,14 @@ export function MapTeaserPreview() {
           </div>
         </div>
 
-        {/* Mini stats */}
+        {/* Floor availability stats — mirrors /map available units strip */}
         <div className="grid grid-cols-3 gap-1.5">
           {mallFloors.map((f) => {
             const avail = f.units.filter((u) => u.status === "available").length;
             return (
-              <div key={f.id} className="rounded-lg border border-border bg-card px-2 py-2 text-center">
-                <p className="font-poppins text-[0.88rem] font-extrabold" style={{ color: "#0F172A" }}>{avail}</p>
-                <p className="text-[0.56rem] font-semibold" style={{ color: "#64748B" }}>{f.label}</p>
+              <div key={f.id} className="rounded-lg border border-border bg-card px-2 py-1.5 text-center">
+                <p className="font-poppins text-[0.82rem] font-extrabold text-foreground">{avail}</p>
+                <p className="text-[0.52rem] font-semibold text-muted-foreground">{f.label}</p>
               </div>
             );
           })}
