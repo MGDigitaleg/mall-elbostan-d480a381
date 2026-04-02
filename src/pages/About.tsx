@@ -1,63 +1,110 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Layers3, MapPin, Sparkles, Store } from "lucide-react";
+import {
+  ArrowLeft,
+  Building2,
+  CircuitBoard,
+  Compass,
+  Globe,
+  Layers,
+  MapPin,
+  Monitor,
+  Shield,
+  Smartphone,
+  Store,
+  TrendingUp,
+  Users,
+  Wrench,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import interiorImage from "@/assets/mall-interior.jpg";
 import exteriorImage from "@/assets/mall-exterior.jpg";
+import interiorImage from "@/assets/mall-interior.jpg";
+import facadeImage from "@/assets/mall-facade.jpg";
+import entranceImage from "@/assets/mall-entrance.jpg";
+
+const sectionReveal = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const About = () => (
   <MainLayout>
-    <SEOHead title="عن المول" titleEn="About" description="تعرف على رؤية مول البستان كوجهة تقنية مصرية راقية في القاهرة الجديدة." descriptionEn="Learn about Mall Elbostan as a premium Egyptian technology mall in New Cairo." breadcrumbs={[{ name: "عن المول", url: "/about" }]} />
+    <SEOHead
+      title="عن المول"
+      titleEn="About"
+      description="تعرف على مول البستان — الوجهة التقنية الأعرق في مصر. تاريخ من الثقة في سوق الإلكترونيات وتجربة تسوّق منظّمة في القاهرة الجديدة."
+      descriptionEn="Learn about Mall Elbostan — Egypt's most established technology retail destination with a legacy of trust and organized shopping."
+      breadcrumbs={[{ name: "عن المول", url: "/about" }]}
+    />
 
-    <section className="relative overflow-hidden bg-card pb-2 pt-4 md:pb-8 md:pt-8 lg:pb-16 lg:pt-12">
-      <div className="relative mx-auto w-full max-w-7xl px-4 md:px-8 lg:px-12 xl:px-16">
-        <div className="grid min-h-[auto] gap-4 py-3.5 md:gap-6 lg:grid-cols-2 lg:items-center lg:gap-8 lg:min-h-[70vh] lg:py-0">
-          {/* Text block — right side in RTL */}
-          <div className="order-1 space-y-3 text-right lg:space-y-5">
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-              <div className="eyebrow-chip mb-3 text-[0.72rem] md:mb-4 md:text-sm">عن المشروع</div>
-              <h1 className="text-[1.7rem] font-black leading-[1.05] text-foreground md:text-[3rem] lg:text-[3.4rem]">
-                مول البستان مشروع تقني بهوية أوضح وتنظيم أسهل.
-              </h1>
-              <p className="mt-2.5 max-w-[20rem] text-[0.92rem] font-semibold leading-[1.4] text-foreground/90 md:mt-3 md:max-w-[30rem] md:text-[1.3rem] lg:max-w-[26rem] lg:text-[1.25rem]">
-                هذه الصفحة تشرح الفكرة، موقع القيمة، وكيف ترتبط التجربة المعمارية بالزيارة والاستفسار التجاري.
-              </p>
-            </motion.div>
+    {/* ═══════════ 1 · HERO — WHO WE ARE ═══════════ */}
+    <section className="heritage-section relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-hero" />
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
-            <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }} className="space-y-3 lg:space-y-4">
-              <div className="rounded-[1rem] border border-border bg-background px-3 py-3 md:rounded-[1.25rem] md:px-4 md:py-3.5 lg:px-5 lg:py-4">
-                <div className="grid grid-cols-3 gap-2.5">
-                  {[
-                    { icon: Layers3, title: "الهوية", desc: "مشروع موجه بوضوح للفئات التقنية." },
-                    { icon: MapPin, title: "الموقع", desc: "يخدم شرق القاهرة ومناطق الطلب المحيطة." },
-                    { icon: Store, title: "الوظيفة", desc: "يربط الاستكشاف الفعلي بالقرار التجاري بسرعة." },
-                  ].map((item) => (
-                    <div key={item.title} className="flex min-h-[3.5rem] flex-col items-center justify-center rounded-xl border border-border/60 bg-card px-2 py-3 text-center md:min-h-[5rem] md:px-3 md:py-4 lg:min-h-[5.5rem]">
-                      <item.icon className="mb-1.5 h-5 w-5 text-primary md:h-6 md:w-6" />
-                      <p className="text-[0.72rem] font-bold text-foreground md:text-sm">{item.title}</p>
-                      <p className="mt-0.5 text-[0.6rem] leading-4 text-muted-foreground md:text-xs md:leading-5">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+      <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
+        <div className="grid min-h-[80vh] items-center gap-10 py-20 lg:grid-cols-2 lg:gap-16 lg:py-0">
+          <motion.div
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="order-1 space-y-6"
+          >
+            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
+              عن مول البستان
+            </span>
 
-              <Link to="/stores" className="inline-flex">
-                <Button variant="cta" size="lg" className="h-11 min-w-[11rem] rounded-[1rem] px-6">
-                  استكشف المتاجر
-                  <ArrowLeft className="h-4 w-4" />
+            <h1 className="max-w-[30rem] text-[2.2rem] font-extrabold leading-[1.06] text-white md:text-[3.2rem] lg:text-[3.8rem]">
+              اسم بُنيت حوله
+              <br className="hidden sm:block" />
+              ثقة سوق كامل.
+            </h1>
+
+            <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
+              مول البستان ليس مشروعًا جديدًا يبحث عن هويته — إنه عنوان قائم بنى مكانته في سوق
+              الإلكترونيات المصري عبر سنوات من التعامل المباشر بين التاجر والزائر. اليوم، يتجدد
+              رقميًا بنفس المبدأ: وضوح وثقة ونظام.
+            </p>
+
+            <div className="flex flex-wrap gap-3 pt-1">
+              <Link to="/map">
+                <Button variant="cta" size="lg" className="h-[3.25rem] rounded-xl px-7 text-[0.95rem] font-bold">
+                  <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
+                  استكشف الخريطة
                 </Button>
               </Link>
-            </motion.div>
-          </div>
+              <Link to="/stores">
+                <Button size="lg" className="h-[3.25rem] rounded-xl border border-white/15 bg-white/8 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/14">
+                  تصفّح المتاجر
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
 
-          {/* Image block — left side in RTL, 85% height centered */}
-          <motion.div initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45 }} className="order-2 flex w-full items-center justify-center">
-            <div className="relative mx-auto w-[85%] lg:w-[85%]">
-              <div className="section-shell overflow-hidden rounded-2xl p-1.5 md:rounded-[1.75rem] lg:p-2">
-                <div className="image-shell aspect-[3/4] overflow-hidden rounded-xl bg-card md:rounded-2xl">
-                  <img src={exteriorImage} alt="الواجهة المعمارية لمول البستان" className="h-full w-full object-cover object-[center_30%]" loading="eager" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.12 }}
+            className="order-2 flex items-center justify-center"
+          >
+            <div className="relative w-full max-w-[480px] lg:max-w-none">
+              <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:rounded-3xl">
+                <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
+                  <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover" loading="eager" />
+                  <div className="image-wash absolute inset-0" />
+                </div>
+              </div>
+              <div className="absolute -bottom-5 -right-5 hidden w-[38%] overflow-hidden rounded-xl ring-1 ring-white/10 md:block lg:rounded-2xl">
+                <div className="image-shell aspect-[3/4]">
+                  <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="h-full w-full object-cover" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -66,50 +113,386 @@ const About = () => (
       </div>
     </section>
 
-    <div className="container max-w-6xl py-4 md:py-8">
-      <div className="mb-12 grid gap-4 lg:grid-cols-3 lg:items-start">
-        {[
-          { title: "رؤية المول", desc: "تقديم وجهة تقنية مفهومة من أول نظرة دون تشتيت أو مبالغة في الرسائل." },
-          { title: "للزائر", desc: "وصول أسرع للفئات والمتاجر ومسار أوضح قبل الزيارة وأثناءها." },
-          { title: "للنشاط التجاري", desc: "عرض أوضح للموقع والوحدة مع انتقال مباشر إلى الاستفسار التجاري." },
-        ].map((item) => (
-          <div key={item.title} className="section-shell rounded-[1.6rem] p-5 md:p-6">
-            <p className="text-lg font-bold text-foreground">{item.title}</p>
-            <p className="mt-2 text-sm leading-7 text-muted-foreground">{item.desc}</p>
-          </div>
-        ))}
-      </div>
+    {/* ═══════════ 2 · WHY MALL EL BOSTAN MATTERS ═══════════ */}
+    <section className="page-section overflow-hidden">
+      <div className="container max-w-[1200px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="order-2 lg:order-1">
+              <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
+                <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+                <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl ring-1 ring-border md:block">
+                  <img src={interiorImage} alt="الأتريوم الداخلي" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="section-shell relative mb-12 overflow-hidden rounded-[2rem] p-3 shadow-[var(--shadow-elevated)]"
-      >
-        <div className="grid gap-3 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
-          <img src={interiorImage} alt="الأتريوم الداخلي لمول البستان" className="h-[320px] w-full rounded-[1.4rem] object-cover md:h-[400px]" />
-          <div className="rounded-[1.4rem] border border-border/80 bg-card/90 p-5 md:p-6">
-            <p className="text-sm font-semibold text-muted-foreground">التجربة المعمارية</p>
-            <p className="mt-2 text-2xl font-bold text-foreground">المشهد الداخلي يدعم الحركة والعرض بدل أن ينافسهما.</p>
-            <p className="mt-3 text-sm leading-7 text-muted-foreground">الهدف ليس الإبهار فقط، بل تقديم بيئة أوضح للفئات والمتاجر والزائر من أول مرور.</p>
+            <div className="order-1 space-y-6 lg:order-2">
+              <div className="chapter-shell pt-6">
+                <p className="section-kicker">لماذا مول البستان</p>
+                <h2 className="section-title max-w-[26rem]">
+                  ليس مجرد مول — بل وجهة بناها السوق نفسه.
+                </h2>
+              </div>
+              <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
+                في سوق مزدحم بالخيارات، مول البستان يتميز بشيء لا يمكن بناؤه بين ليلة وضحاها:
+                الثقة. سنوات من التعامل المباشر جعلت الاسم مرجعًا عند شريحة واسعة من المشترين
+                والتجار في القاهرة الجديدة.
+              </p>
+              <div className="space-y-4">
+                {[
+                  "سوق متخصص بالتقنية — ليس مجمعًا عامًا بلا هوية.",
+                  "موقع يخدم منطقة طلب حقيقي ومتنامٍ.",
+                  "تجربة منظمة تختصر الوقت بين الدخول والقرار.",
+                ].map((point) => (
+                  <div key={point} className="flex items-start gap-3">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                    <p className="text-[0.95rem] leading-7 text-foreground/80">{point}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </motion.div>
-
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        {[
-          { icon: Store, title: "فئات أوضح", desc: "تصنيف مباشر يسهّل فهم طبيعة المتاجر والخدمات." },
-          { icon: Sparkles, title: "حملة أكثر انضباطًا", desc: "الافتتاح والحملة الترويجية جزء من مسار واحد واضح." },
-          { icon: MapPin, title: "ارتباط بالمكان", desc: "التجربة الرقمية تدعم الزيارة الفعلية ولا تنفصل عنها." },
-        ].map((item) => (
-          <div key={item.title} className="section-shell p-5">
-            <item.icon className="icon-shell mb-3 h-11 w-11 p-2.5" />
-            <h3 className="mb-2 font-bold text-foreground">{item.title}</h3>
-            <p className="text-sm leading-7 text-muted-foreground">{item.desc}</p>
-          </div>
-        ))}
+        </motion.div>
       </div>
-    </div>
+    </section>
+
+    {/* ═══════════ 3 · LEGACY IN TECH RETAIL ═══════════ */}
+    <section className="heritage-section page-section">
+      <div className="container max-w-[1200px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="mx-auto mb-14 max-w-[36rem] text-center">
+            <p className="section-kicker">تاريخ وتجارة</p>
+            <h2 className="section-title">
+              مكانة بُنيت بالتعامل لا بالإعلان.
+            </h2>
+            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50 md:text-lg">
+              مول البستان لم يحتج حملات ضخمة ليُعرف — سمعته بناها التجار والزوار أنفسهم، زيارة بعد
+              زيارة وصفقة بعد صفقة.
+            </p>
+          </div>
+
+          {/* timeline-style legacy moments */}
+          <div className="relative">
+            {/* vertical line */}
+            <div className="absolute right-1/2 top-0 hidden h-full w-px bg-white/10 lg:block" />
+
+            <div className="space-y-8 lg:space-y-14">
+              {[
+                {
+                  title: "وجهة معروفة",
+                  desc: "مول البستان أصبح اسمًا مألوفًا في سوق الإلكترونيات بالقاهرة الجديدة — مكان يعرفه المشتري والتاجر على حد سواء.",
+                  icon: Building2,
+                  align: "right" as const,
+                },
+                {
+                  title: "تنوّع تجاري حقيقي",
+                  desc: "من اللابتوب والإكسسوارات إلى الشبكات وأنظمة المراقبة — المول يغطي طيفًا واسعًا من الاحتياج التقني تحت سقف واحد.",
+                  icon: Layers,
+                  align: "left" as const,
+                },
+                {
+                  title: "ثقة مبنية بالتكرار",
+                  desc: "الزائر يعود لأنه وجد ما يحتاجه بسرعة. التاجر يبقى لأن الجمهور المستهدف يأتي إليه. هذه الدورة هي أساس المكانة.",
+                  icon: Users,
+                  align: "right" as const,
+                },
+                {
+                  title: "التجدد الرقمي",
+                  desc: "اليوم يتجدد المول بدليل تفاعلي رقمي وتجربة استكشاف حديثة — بنفس مبدأ الوضوح والثقة الذي بُني عليه.",
+                  icon: Globe,
+                  align: "left" as const,
+                },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className={`flex flex-col gap-5 lg:flex-row lg:items-start lg:gap-12 ${item.align === "left" ? "lg:flex-row-reverse" : ""}`}
+                >
+                  <div className={`flex-1 ${item.align === "left" ? "lg:text-left" : "lg:text-right"}`}>
+                    <div className={`heritage-card inline-flex p-6 md:p-8 ${item.align === "left" ? "lg:ml-0 lg:mr-auto" : "lg:ml-auto lg:mr-0"}`}>
+                      <div className="space-y-3">
+                        <item.icon className="h-6 w-6 text-primary" />
+                        <h3 className="text-[1.2rem] font-bold text-white md:text-xl">{item.title}</h3>
+                        <p className="max-w-[22rem] text-[0.92rem] leading-7 text-white/45">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="hidden w-px lg:block" /> {/* spacer for center line */}
+                  <div className="hidden flex-1 lg:block" /> {/* empty side */}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ═══════════ 4 · ORGANIZED VISITOR EXPERIENCE ═══════════ */}
+    <section className="page-section">
+      <div className="container max-w-[1200px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+            <div className="space-y-6">
+              <div className="chapter-shell pt-6">
+                <p className="section-kicker">تجربة الزائر</p>
+                <h2 className="section-title max-w-[24rem]">
+                  زيارة منظّمة من أول خطوة.
+                </h2>
+              </div>
+              <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
+                بدل أن تدخل مولًا مزدحمًا وتبحث عشوائيًا — هنا كل شيء مصنّف ومرتّب. فئات واضحة،
+                أدوار منطقية، وخريطة تفاعلية تعرض كل وحدة بحالتها قبل أن تصل.
+              </p>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  { icon: Smartphone, title: "الهواتف والإكسسوارات", desc: "ملحقات يومية ضمن مسار سريع." },
+                  { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أجهزة للدراسة والعمل والأداء." },
+                  { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع ومكوّنات لأداء مخصّص." },
+                  { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات مراقبة وحلول حماية." },
+                  { icon: Wrench, title: "الصيانة والدعم", desc: "خدمة مباشرة وحلول سريعة." },
+                  { icon: Globe, title: "الشبكات والطباعة", desc: "حلول مهنية متخصصة." },
+                ].map((cat) => (
+                  <div key={cat.title} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/15 hover:shadow-[var(--shadow-card)]">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
+                      <cat.icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <p className="text-[0.9rem] font-bold text-foreground">{cat.title}</p>
+                      <p className="mt-0.5 text-[0.82rem] text-muted-foreground">{cat.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <Link to="/stores">
+                <Button variant="ghost" className="mt-1 px-0 text-primary hover:text-primary/80">
+                  تصفّح جميع المتاجر
+                  <ArrowLeft className="mr-1.5 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
+                <img src={interiorImage} alt="المشهد الداخلي المنظّم لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
+                  <img src={facadeImage} alt="واجهة معمارية" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
+                  <img src={entranceImage} alt="مدخل المول" className="h-full w-full object-cover" loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ═══════════ 5 · COMMERCIAL OPPORTUNITY ═══════════ */}
+    <section className="section-soft page-section">
+      <div className="container max-w-[1200px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
+            <div className="space-y-6">
+              <div className="chapter-shell pt-6">
+                <p className="section-kicker">الفرصة التجارية</p>
+                <h2 className="section-title max-w-[26rem]">
+                  لماذا يختار التاجر مول البستان.
+                </h2>
+              </div>
+              <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
+                الموقع وحده لا يكفي — ما يجعل المول فرصة تجارية حقيقية هو الجمهور المتخصص الذي يأتي
+                إليه تحديدًا بحثًا عن التقنية. هذا يعني زيارات ذات نية شراء واضحة، وبيئة تجارية
+                تدعم النشاط بدل أن تشتته.
+              </p>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    icon: TrendingUp,
+                    title: "منطقة طلب متنامٍ",
+                    desc: "القاهرة الجديدة ومحيطها تشهد نموًا مستمرًا في الطلب على التقنية.",
+                  },
+                  {
+                    icon: Users,
+                    title: "جمهور مستهدف ومتخصص",
+                    desc: "الزائر يأتي للمول بحثًا عن الإلكترونيات تحديدًا — ليس للتنزه.",
+                  },
+                  {
+                    icon: Store,
+                    title: "حضور رقمي واضح لكل متجر",
+                    desc: "كل وحدة ظاهرة بموقعها وفئتها على الخريطة التفاعلية والدليل الرقمي.",
+                  },
+                  {
+                    icon: MapPin,
+                    title: "استفسار مباشر وسريع",
+                    desc: "من الخريطة إلى صفحة التأجير — مسار واحد واضح بدون تعقيد.",
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="flex items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:shadow-[var(--shadow-card)]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-[0.95rem] font-bold text-foreground">{item.title}</p>
+                      <p className="mt-1 text-[0.88rem] leading-7 text-muted-foreground">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Link to="/leasing">
+                  <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
+                    ابدأ استفسار التأجير
+                  </Button>
+                </Link>
+                <Link to="/map">
+                  <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">
+                    شاهد الوحدات المتاحة
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            {/* stats panel */}
+            <div className="space-y-5 lg:sticky lg:top-28">
+              <div className="section-shell rounded-2xl p-7">
+                <p className="text-sm font-semibold text-muted-foreground">أرقام المول</p>
+                <div className="mt-5 grid grid-cols-2 gap-4">
+                  {[
+                    { v: "3", l: "أدوار" },
+                    { v: "50+", l: "وحدة تجارية" },
+                    { v: "6", l: "فئات متخصصة" },
+                    { v: "2026", l: "سنة الافتتاح" },
+                  ].map((s) => (
+                    <div key={s.l} className="rounded-xl border border-border bg-secondary/40 px-4 py-4 text-center">
+                      <p className="font-poppins text-2xl font-bold text-foreground">{s.v}</p>
+                      <p className="mt-1 text-[0.78rem] text-muted-foreground">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
+                <img src={exteriorImage} alt="مول البستان من الخارج" className="h-full w-full object-cover" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ═══════════ 6 · NEXT CHAPTER: DIGITAL FUTURE ═══════════ */}
+    <section className="heritage-section page-section">
+      <div className="container max-w-[1000px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="text-center">
+            <p className="section-kicker">الفصل التالي</p>
+            <h2 className="section-title mx-auto max-w-[28rem]">
+              من وجهة تقنية إلى تجربة رقمية متصلة.
+            </h2>
+            <p className="mx-auto mt-5 max-w-[34rem] text-base leading-8 text-white/50 md:text-lg">
+              المول يتجدد — دليل تفاعلي يعرض كل وحدة وحالتها، ودليل متاجر رقمي يسهّل الاستكشاف
+              قبل الزيارة. والمرحلة التالية: سوق رقمي يمتد من المتاجر ليخدم المستخدمين في أي مكان.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-12 grid max-w-[48rem] gap-5 sm:grid-cols-3">
+            {[
+              {
+                n: "01",
+                title: "الدليل التفاعلي",
+                desc: "خريطة دقيقة لكل دور ووحدة وحالة — تعمل الآن.",
+                active: true,
+              },
+              {
+                n: "02",
+                title: "دليل المتاجر",
+                desc: "تصفّح واستكشف المتاجر وفئاتها وعروضها.",
+                active: true,
+              },
+              {
+                n: "03",
+                title: "السوق الرقمي",
+                desc: "تسوّق إلكتروني من متاجر المول — قريبًا.",
+                active: false,
+              },
+            ].map((phase) => (
+              <div
+                key={phase.n}
+                className={`heritage-card rounded-xl p-6 text-center transition-all ${phase.active ? "" : "border-primary/20"}`}
+              >
+                <span className={`font-poppins text-sm font-bold ${phase.active ? "text-primary" : "text-primary/50"}`}>
+                  {phase.n}
+                </span>
+                <p className="mt-3 text-[1.02rem] font-bold text-white">{phase.title}</p>
+                <p className="mt-2 text-[0.85rem] leading-6 text-white/40">{phase.desc}</p>
+                {phase.active && (
+                  <span className="mt-4 inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[0.72rem] font-semibold text-primary">
+                    متاح الآن
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <Link to="/map">
+              <Button variant="cta" size="lg" className="h-12 rounded-xl px-8">
+                افتح الدليل التفاعلي
+              </Button>
+            </Link>
+            <Link to="/stores">
+              <Button size="lg" className="h-12 rounded-xl border border-white/15 bg-white/8 px-8 text-white hover:bg-white/14">
+                تصفّح المتاجر
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
+    {/* ═══════════ CLOSING CTA ═══════════ */}
+    <section className="page-section">
+      <div className="container max-w-[800px] text-center">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <h2 className="text-[1.8rem] font-bold leading-[1.1] text-foreground md:text-[2.5rem]">
+            ابدأ الآن — استكشف المول رقميًا.
+          </h2>
+          <p className="mx-auto mt-4 max-w-[28rem] text-base leading-8 text-muted-foreground md:text-lg">
+            الخريطة التفاعلية، دليل المتاجر، وصفحة التأجير — كل ما تحتاجه لتبدأ.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Link to="/map">
+              <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">
+                <Compass className="ml-2 h-4 w-4" />
+                الخريطة التفاعلية
+              </Button>
+            </Link>
+            <Link to="/stores">
+              <Button variant="secondary" size="lg" className="h-12 rounded-xl px-8">
+                دليل المتاجر
+              </Button>
+            </Link>
+            <Link to="/leasing">
+              <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">
+                فرص التأجير
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   </MainLayout>
 );
 
