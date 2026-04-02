@@ -71,7 +71,6 @@ const statusStroke: Record<MallUnitStatus, string> = {
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, highlightedUnitIds, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [atriumHovered, setAtriumHovered] = useState(false);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
