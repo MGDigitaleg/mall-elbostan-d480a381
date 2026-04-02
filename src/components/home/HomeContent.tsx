@@ -243,7 +243,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       loading="eager"
                     />
                     {/* editorial gradient wash — bottom to top */}
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.6) 0%, transparent 40%, hsl(222 44% 5% / 0.15) 100%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.6) 0%, transparent 40%, hsl(222 34% 6% / 0.15) 100%)" }} />
                   </div>
                 </div>
                 {/* floating accent — interior detail */}
