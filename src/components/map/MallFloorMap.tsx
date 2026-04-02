@@ -533,6 +533,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           );
         })()}
       </svg>
+      </div>
     </div>
   );
 }
