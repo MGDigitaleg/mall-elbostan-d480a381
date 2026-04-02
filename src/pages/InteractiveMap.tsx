@@ -387,9 +387,9 @@ const InteractiveMap = () => {
       {/* ═══════════ CTA STRIP ═══════════ */}
       <section className="heritage-section page-section !py-10">
         <div className="container max-w-[900px] text-center">
-          <h2 className="text-xl font-bold text-white md:text-2xl">مهتم بوحدة تجارية؟</h2>
+          <h2 className="text-xl font-bold text-white md:text-2xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
           <p className="mx-auto mt-2 max-w-sm text-[0.9rem] text-white/40">
-            انتقل مباشرة من الخريطة إلى صفحة التأجير وابدأ استفسارك.
+            من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">

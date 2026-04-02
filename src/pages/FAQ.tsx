@@ -65,7 +65,7 @@ const FAQ = () => {
           </Accordion>
         )}
 
-        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">الأسئلة دي هتتحدث قريب مع إضافة محتوى أكتر</div>}
+        {(!faqs || faqs.length === 0) && <div className="section-shell p-8 text-center text-muted-foreground">الأسئلة الشائعة قيد التحديث — سيتم إضافة محتوى تفصيلي قريبًا.</div>}
       </div>
     </MainLayout>
   );

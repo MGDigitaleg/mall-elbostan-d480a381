@@ -105,8 +105,8 @@ const Leasing = () => {
 
         <section className="grid grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="section-shell rounded-[2rem] p-8">
-            <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك</h2>
-            <p className="mb-6 text-sm leading-7 text-muted-foreground">أرسل بياناتك الأساسية، وسيتواصل معك الفريق بمعلومات أوضح عن الوحدات المناسبة.</p>
+            <h2 className="mb-2 text-2xl font-bold">ابدأ استفسارك الآن</h2>
+            <p className="mb-6 text-sm leading-7 text-muted-foreground">أرسل بياناتك الأساسية وسيتواصل معك فريق التأجير بمعلومات تفصيلية عن الوحدات المناسبة.</p>
             {submitted ? (
               <div className="py-10 text-center">
                 <CheckCircle2 className="mx-auto mb-2 h-10 w-10 text-success" />
