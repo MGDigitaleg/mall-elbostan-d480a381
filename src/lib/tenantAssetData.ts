@@ -39,9 +39,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "static",
     providedName: "ستاتيك",
     normalizedName: "ستاتيك",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "No confirmed source asset yet.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/static.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Static",
   },
   {
