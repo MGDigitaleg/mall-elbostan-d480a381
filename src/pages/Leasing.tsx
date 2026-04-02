@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Building2, CheckCircle2, Compass, MapPin, Phone, Shield, Store, TrendingUp } from "lucide-react";
+import {
+  Building2, CheckCircle2, Compass, MapPin, Phone, Shield, Store,
+  TrendingUp, Users, Layers, Target, ArrowLeft,
+} from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import facadeImage from "@/assets/mall-facade.jpg";
 
@@ -62,34 +63,33 @@ const Leasing = () => {
       <SEOHead
         title="التأجير"
         titleEn="Leasing"
-        description="استفسر عن الوحدات التجارية في مول البستان داخل وجهة تقنية مصرية راقية."
-        descriptionEn="Enquire about commercial units at Mall Elbostan, a premium Egyptian technology mall."
+        description="استفسر عن الوحدات التجارية في مول البستان — وجهة تقنية راسخة في القاهرة الجديدة."
+        descriptionEn="Enquire about commercial units at Mall Elbostan, a trusted technology destination in New Cairo."
         breadcrumbs={[{ name: "التأجير", url: "/leasing" }]}
       />
 
-      {/* ═══ HERO ═══ */}
+      {/* ═══════════ HERO — authoritative commercial proposition ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 70% 50%, hsl(24 85% 50% / 0.04), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
+          <div className="grid min-h-[62vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-5">
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-8" style={{ background: "hsl(24 85% 50% / 0.5)" }} />
-                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
-                  فرص تجارية
+                <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+                <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: "hsl(var(--heritage))" }}>
+                  Commercial Leasing
                 </span>
               </div>
 
-              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
-                فرص تجارية في وجهة يقصدها الجمهور المناسب
+              <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.06] dark-heading md:text-[2.8rem] lg:text-[3.2rem]">
+                وحدتك في المكان اللي الجمهور بيقصده
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 14% 72%)" }}>
-                اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.
+              <p className="max-w-[30rem] text-[0.92rem] leading-[1.9] dark-body">
+                مول البستان وجهة تقنية راسخة في القاهرة الجديدة — جمهور متخصص، حركة مرور مستمرة، وبنية تجارية جاهزة. الفرصة مفتوحة لمتاجر التقنية والخدمات المكمّلة.
               </p>
 
-              {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-1">
                 <a href="#inquiry">
                   <Button variant="orange" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
@@ -97,23 +97,23 @@ const Leasing = () => {
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl border border-white/12 bg-white/6 px-7 font-semibold text-white hover:bg-white/12">
+                  <Button size="lg" className="h-12 gap-2 rounded-xl px-7 font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.06)", color: "#E2E8F0" }}>
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
 
-              {/* inline stats bar */}
-              <div className="flex items-center gap-6 border-t border-white/8 pt-5">
+              {/* Stats bar */}
+              <div className="flex items-center gap-6 border-t pt-5" style={{ borderColor: "hsl(0 0% 100% / 0.08)" }}>
                 {[
                   { v: "6+", l: "فئات تقنية" },
-                  { v: "3", l: "أدوار" },
-                  { v: "50+", l: "وحدة متاحة" },
+                  { v: "3", l: "أدوار تجارية" },
+                  { v: "50+", l: "وحدة" },
                 ].map((s, i) => (
                   <div key={s.l} className="flex items-center gap-5">
                     <div>
-                      <p className="font-poppins text-[1.4rem] font-bold text-white">{s.v}</p>
-                      <p className="text-[0.7rem] font-medium" style={{ color: "hsl(220 14% 58%)" }}>{s.l}</p>
+                      <p className="font-poppins text-[1.3rem] font-extrabold dark-heading">{s.v}</p>
+                      <p className="text-[0.7rem] font-semibold dark-muted">{s.l}</p>
                     </div>
                     {i < 2 && <div className="h-7 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
                   </div>
@@ -121,7 +121,7 @@ const Leasing = () => {
               </div>
             </motion.div>
 
-            {/* image */}
+            {/* Image */}
             <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="hidden lg:flex lg:items-center lg:justify-center">
               <div className="w-full max-w-[400px]">
                 <div className="editorial-frame-dark overflow-hidden rounded-2xl">
@@ -137,91 +137,224 @@ const Leasing = () => {
 
       <div className="band-primary" />
 
-      {/* ═══ VALUE STRIP ═══ */}
-      <section className="section-ivory py-10 md:py-14">
-        <div className="container max-w-[1200px]">
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="grid gap-4 md:grid-cols-3">
+      {/* ═══════════ WHY LEASE HERE — strategic persuasion ═══════════ */}
+      <section className="py-12 md:py-16" style={{ background: "#FAFAF8" }}>
+        <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
+          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
+            <div className="mb-8 flex items-center gap-3">
+              <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+              <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                لماذا هنا
+              </span>
+            </div>
+            <h2 className="max-w-[26rem] text-[1.4rem] font-extrabold leading-[1.1] light-heading md:text-[1.8rem]">
+              ليه تأجّر في مول البستان
+            </h2>
+            <p className="mt-3 max-w-[36rem] text-[0.88rem] leading-[1.9] light-body">
+              المول مش بس موقع — ده وجهة بيقصدها الجمهور المهتم فعلًا. الزبون اللي بيدخل عنده نيّة شراء واضحة، وده اللي بيفرق في معدل التحويل.
+            </p>
+          </motion.div>
+
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Building2, title: "وحدات واضحة المعالم", desc: "حالة كل وحدة ظاهرة بالمساحة والموقع." },
-              { icon: Shield, title: "معلومات بلا مبالغة", desc: "بيانات مختصرة تساعدك على تقييم الفرصة." },
-              { icon: Compass, title: "ربط مباشر بالخريطة", desc: "من الوحدة لموقعها الفعلي بضغطة واحدة." },
+              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب والمنطقة المحيطة بحركة مرور يومية." },
+              { icon: Users, title: "جمهور متخصص", desc: "طلاب جامعات، مطورون، شركات تقنية — زوار عندهم قرار شراء واضح." },
+              { icon: Layers, title: "منظومة متكاملة", desc: "6 فئات تقنية في مكان واحد — الزائر يلاقي كل اللي محتاجه تحت سقف واحد." },
+              { icon: TrendingUp, title: "نمو مستمر", desc: "المول بيتوسّع رقميًا ومادّيًا — وجودك هنا دلوقتي يديك أفضلية مبكّرة." },
             ].map((item) => (
-              <motion.div key={item.title} variants={fadeChild} className="card-architectural p-5">
-                <div className="mb-3 icon-shell h-9 w-9">
-                  <item.icon className="h-4 w-4" />
+              <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
+                  <item.icon className="h-4.5 w-4.5 text-primary" />
                 </div>
-                <h2 className="text-[0.95rem] font-bold text-foreground">{item.title}</h2>
-                <p className="mt-2 text-[0.85rem] leading-7 text-muted-foreground">{item.desc}</p>
+                <h3 className="text-[0.9rem] font-bold light-heading">{item.title}</h3>
+                <p className="mt-2 text-[0.82rem] leading-7 light-body">{item.desc}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* ═══ INQUIRY + UNITS ═══ */}
-      <section id="inquiry" className="heritage-deep page-section scroll-mt-20">
-        <div className="container max-w-[1200px]">
+      {/* ═══════════ AUDIENCE & CATEGORY FIT ═══════════ */}
+      <section className="py-12 md:py-16" style={{ background: "#F5F2EC" }}>
+        <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
+          <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
+            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
+              {/* Left: audience fit */}
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="h-[3px] w-6 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+                  <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                    Audience Fit
+                  </span>
+                </div>
+                <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
+                  الجمهور اللي بيزور المول
+                </h2>
+                <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
+                  مش زائر عشوائي — ده جمهور بيقصد المول تحديدًا عشان محتاج منتج أو خدمة تقنية.
+                </p>
+
+                <div className="mt-6 space-y-2">
+                  {[
+                    { label: "طلاب الجامعات", sub: "أجهزة لابتوب، إكسسوارات، طباعة" },
+                    { label: "لاعبون ومحبّو التقنية", sub: "أجهزة جيمينج، كمبيوتر، قطع غيار" },
+                    { label: "أصحاب مشاريع", sub: "شبكات، أنظمة أمنية، صيانة" },
+                    { label: "شركات ومؤسسات", sub: "أجهزة بالجملة، خدمات دعم فني" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-start gap-3 rounded-lg border border-border bg-card p-3.5">
+                      <Target className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <div>
+                        <p className="text-[0.86rem] font-bold light-heading">{item.label}</p>
+                        <p className="mt-0.5 text-[0.78rem] light-muted">{item.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: category fit */}
+              <div>
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="h-[3px] w-6 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+                  <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                    Category Fit
+                  </span>
+                </div>
+                <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
+                  الفئات اللي بتنجح هنا
+                </h2>
+                <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
+                  المول متخصص — ده بيخلي كل فئة بتدعم التانية ويزوّد من قيمة التجربة للزائر.
+                </p>
+
+                <div className="mt-6 grid grid-cols-2 gap-2">
+                  {[
+                    "الهواتف والإكسسوارات",
+                    "الكمبيوتر والأجهزة",
+                    "الألعاب والترفيه",
+                    "الطباعة والتصوير",
+                    "الصيانة والدعم الفني",
+                    "الشبكات والأنظمة الأمنية",
+                  ].map((cat) => (
+                    <div key={cat} className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                      <p className="text-[0.82rem] font-bold light-heading">{cat}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-4 text-[0.8rem] leading-7 light-muted">
+                  لو نشاطك التجاري مكمّل لأي من الفئات دي — ده المكان الصح.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══════════ INQUIRY + AVAILABLE UNITS ═══════════ */}
+      <section id="inquiry" className="py-12 md:py-16 scroll-mt-20" style={{ background: "#071326" }}>
+        <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-              {/* Form */}
-              <div className="heritage-surface p-7 md:p-8">
-                <p className="section-kicker" style={{ color: "hsl(var(--orange) / 0.7)" }}>استفسار</p>
-                <h2 className="mb-2 text-2xl font-bold text-white">ابدأ استفسارك الآن</h2>
-                <p className="mb-6 text-sm leading-7" style={{ color: "hsl(220 15% 70%)" }}>
-                  أرسل بياناتك الأساسية وسيتواصل معك فريق التأجير بمعلومات تفصيلية عن الوحدات المناسبة.
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+
+              {/* ── FORM ── */}
+              <div className="rounded-2xl p-6 md:p-8" style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
+                <div className="mb-2 flex items-center gap-2.5">
+                  <div className="h-[3px] w-6 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+                  <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                    Inquiry
+                  </span>
+                </div>
+                <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">ابدأ استفسارك</h2>
+                <p className="mb-5 text-[0.84rem] leading-7 dark-body">
+                  أرسل بياناتك — فريق التأجير هيتواصل معاك بتفاصيل الوحدات والأسعار.
                 </p>
 
                 {submitted ? (
                   <div className="py-10 text-center">
-                    <CheckCircle2 className="mx-auto mb-3 h-12 w-12 text-success" />
-                    <p className="text-lg font-bold text-white">تم إرسال طلبك بنجاح</p>
-                    <p className="mt-2 text-sm" style={{ color: "hsl(220 15% 70%)" }}>هنرجع لك في أقرب وقت</p>
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(152 69% 31% / 0.15)", border: "1px solid hsl(152 69% 31% / 0.2)" }}>
+                      <CheckCircle2 className="h-7 w-7 text-success" />
+                    </div>
+                    <p className="text-[1.05rem] font-extrabold dark-heading">تم إرسال طلبك</p>
+                    <p className="mt-2 text-[0.86rem] dark-body">فريق التأجير هيتواصل معاك في أقرب وقت بتفاصيل الوحدات المناسبة.</p>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <FormInput placeholder="الاسم الكامل *" value={form.full_name} onChange={(v) => setForm({ ...form, full_name: v })} required />
-                    <FormInput placeholder="اسم الشركة" value={form.company} onChange={(v) => setForm({ ...form, company: v })} />
-                    <FormInput placeholder="رقم الهاتف *" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} required dir="ltr" />
-                    <FormInput placeholder="البريد الإلكتروني" value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" dir="ltr" />
-                    <textarea
-                      placeholder="رسالتك أو تفاصيل إضافية..."
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      rows={4}
-                      className="w-full rounded-lg px-4 py-3 text-sm text-white outline-none transition-colors"
-                      style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)" }}
-                      onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--orange) / 0.35)"; }}
-                      onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)"; }}
-                    />
-                    <Button type="submit" variant="orange" className="w-full h-12 rounded-xl font-bold" disabled={loading}>
+                  <form onSubmit={handleSubmit} className="space-y-3.5">
+                    <div>
+                      <label className="mb-1.5 block text-[0.74rem] font-bold dark-heading">الاسم الكامل *</label>
+                      <FormInput value={form.full_name} onChange={(v) => setForm({ ...form, full_name: v })} required />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.74rem] font-bold dark-heading">اسم الشركة أو النشاط</label>
+                      <FormInput value={form.company} onChange={(v) => setForm({ ...form, company: v })} />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.74rem] font-bold dark-heading">رقم الهاتف *</label>
+                      <FormInput value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} required dir="ltr" />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.74rem] font-bold dark-heading">البريد الإلكتروني</label>
+                      <FormInput value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" dir="ltr" />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.74rem] font-bold dark-heading">رسالتك أو تفاصيل إضافية</label>
+                      <textarea
+                        value={form.message}
+                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        rows={3}
+                        className="w-full rounded-lg px-4 py-3 text-[0.88rem] outline-none transition-colors"
+                        style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "#F8FAFC" }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--orange) / 0.35)"; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; }}
+                      />
+                    </div>
+                    <Button type="submit" variant="orange" className="h-12 w-full rounded-xl text-[0.9rem] font-bold" disabled={loading}>
                       {loading ? "جاري الإرسال..." : "إرسال الطلب"}
                     </Button>
+                    <p className="text-center text-[0.7rem] dark-muted">الرد خلال يوم عمل واحد</p>
                   </form>
                 )}
               </div>
 
-              {/* Units */}
+              {/* ── AVAILABLE UNITS ── */}
               <div className="space-y-5">
                 <div>
-                  <p className="section-kicker" style={{ color: "hsl(var(--orange) / 0.7)" }}>وحدات مميزة</p>
-                  <h2 className="mb-1 text-2xl font-bold text-white">وحدات <span className="text-orange">متاحة الآن</span></h2>
-                  <p className="text-sm leading-7" style={{ color: "hsl(220 12% 62%)" }}>عينة من الوحدات البارزة — تابع التفاصيل على الخريطة.</p>
+                  <div className="mb-2 flex items-center gap-2.5">
+                    <div className="h-[3px] w-6 rounded-full" style={{ background: "#E8740E" }} />
+                    <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "#E8740E" }}>
+                      Available Units
+                    </span>
+                  </div>
+                  <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">
+                    وحدات <span style={{ color: "#E8740E" }}>متاحة الآن</span>
+                  </h2>
+                  <p className="text-[0.84rem] leading-7 dark-body">عيّنة من الوحدات البارزة — شوف التفاصيل الكاملة على الخريطة.</p>
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
-                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-3">
+                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-2.5">
                     {availableUnits.map((unit) => (
-                      <motion.div key={unit.id} variants={fadeChild} className="heritage-surface p-5">
+                      <motion.div
+                        key={unit.id}
+                        variants={fadeChild}
+                        className="rounded-xl p-4 transition-colors hover:bg-white/[0.06]"
+                        style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+                      >
                         <div className="flex items-start justify-between gap-4">
                           <div>
-                            <h3 className="font-bold text-orange">وحدة {unit.unit_code}</h3>
-                            <div className="mt-1 flex flex-wrap gap-3 text-sm" style={{ color: "hsl(220 15% 70%)" }}>
+                            <h3 className="text-[0.92rem] font-bold" style={{ color: "#E8740E" }}>وحدة {unit.unit_code}</h3>
+                            <div className="mt-1 flex flex-wrap gap-3 text-[0.82rem] dark-body">
                               {unit.area_sqm && <span>{unit.area_sqm} م²</span>}
-                              {unit.activity_suggestion && <span>{unit.activity_suggestion}</span>}
+                              {unit.activity_suggestion && (
+                                <>
+                                  <span className="dark-muted">—</span>
+                                  <span>{unit.activity_suggestion}</span>
+                                </>
+                              )}
                             </div>
                           </div>
                           {unit.price_note && (
-                            <span className="shrink-0 rounded-full px-2.5 py-1 text-[0.72rem] font-semibold text-orange" style={{ border: "1px solid hsl(var(--orange) / 0.2)", background: "hsl(var(--orange) / 0.08)" }}>
+                            <span className="shrink-0 rounded-full px-2.5 py-1 text-[0.72rem] font-bold" style={{ border: "1px solid hsl(24 85% 50% / 0.2)", background: "hsl(24 85% 50% / 0.08)", color: "#E8740E" }}>
                               {unit.price_note}
                             </span>
                           )}
@@ -230,49 +363,84 @@ const Leasing = () => {
                     ))}
                   </motion.div>
                 ) : (
-                  <div className="heritage-surface p-8 text-center">
-                    <Store className="mx-auto mb-3 h-7 w-7" style={{ color: "hsl(var(--orange) / 0.4)" }} />
-                    <p className="text-sm font-semibold text-white">سيتم عرض الوحدات المتاحة قريبًا</p>
+                  <div className="rounded-xl border border-dashed p-8 text-center" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
+                    <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: "hsl(24 85% 50% / 0.08)" }}>
+                      <Store className="h-5 w-5" style={{ color: "#E8740E40" }} />
+                    </div>
+                    <p className="text-[0.86rem] font-bold dark-heading">الوحدات المتاحة ستظهر هنا قريبًا</p>
+                    <p className="mt-1 text-[0.78rem] dark-muted">تابع الخريطة التفاعلية لأحدث التحديثات</p>
                   </div>
                 )}
 
                 <Link to="/map" className="block">
-                  <Button variant="outline-blue" className="h-11 w-full gap-2 rounded-xl">
+                  <Button variant="outline-blue" className="h-11 w-full gap-2 rounded-xl font-bold">
                     <Compass className="h-4 w-4" /> عرض الخريطة التفاعلية
                   </Button>
                 </Link>
+
+                {/* Trust strip */}
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  {[
+                    { icon: Shield, label: "عقود واضحة" },
+                    { icon: Building2, label: "وحدات جاهزة" },
+                    { icon: Phone, label: "رد سريع" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2 rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.06)" }}>
+                      <item.icon className="h-3.5 w-3.5 dark-muted" />
+                      <span className="text-[0.74rem] font-bold dark-body">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ═══ WHY LEASING ═══ */}
-      <section className="page-section">
-        <div className="container max-w-[900px] text-center">
+      {/* ═══════════ COMMERCIAL CONFIDENCE — what makes this work ═══════════ */}
+      <section className="py-12 md:py-16" style={{ background: "#FAFAF8" }}>
+        <div className="mx-auto w-full max-w-[1000px] px-5 md:px-8 lg:px-14 text-center">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="section-kicker">لماذا مول البستان</p>
-            <h2 className="section-title mx-auto max-w-[24rem]">وجهة تجارية مبنية على الطلب الحقيقي</h2>
-            <p className="mx-auto mt-4 max-w-[32rem] text-[0.95rem] leading-[2] text-muted-foreground">
-              أكثر من 50 وحدة تجارية في موقع يخدم القاهرة الجديدة والمدن المحيطة — مع جمهور تقني جاهز ومستوى حركة مرتفع.
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+              <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
+                Commercial Value
+              </span>
+              <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
+            </div>
+
+            <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
+              وجهة تجارية مبنية على طلب حقيقي
+            </h2>
+            <p className="mx-auto mt-3 max-w-[34rem] text-[0.88rem] leading-[1.9] light-body">
+              المول مش مساحة إيجارية فارغة — ده بيئة تجارية منظّمة بتخدم شريحة واضحة من السوق. وجودك هنا بيحطّك في المكان اللي الزبون بيدوّر فيه.
             </p>
 
-            <div className="mx-auto mt-8 grid max-w-[40rem] gap-4 sm:grid-cols-3">
+            <div className="mx-auto mt-8 grid max-w-[42rem] gap-3 sm:grid-cols-3">
               {[
-                { title: "موقع استراتيجي", desc: "في قلب القاهرة الجديدة بالقرب من المدينتي والرحاب" },
-                { title: "جمهور متخصص", desc: "طلاب ومهنيون وشركات في قطاع التقنية" },
-                { title: "بنية تحتية جاهزة", desc: "وحدات مجهزة وجاهزة للتشغيل الفوري" },
+                { title: "موقع استراتيجي", desc: "في قلب القاهرة الجديدة — قريب من المدينتي والرحاب" },
+                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة مش مجرد تصفّح" },
+                { title: "بنية جاهزة", desc: "وحدات مجهزة وقابلة للتشغيل الفوري" },
               ].map((item) => (
-                <div key={item.title} className="card-editorial p-5 text-center">
-                  <h3 className="text-sm font-bold text-foreground">{item.title}</h3>
-                  <p className="mt-2 text-[0.82rem] leading-6 text-muted-foreground">{item.desc}</p>
+                <div key={item.title} className="rounded-xl border border-border bg-card p-5 text-center">
+                  <h3 className="text-[0.88rem] font-bold light-heading">{item.title}</h3>
+                  <p className="mt-2 text-[0.8rem] leading-6 light-body">{item.desc}</p>
                 </div>
               ))}
             </div>
 
-            <Link to="/contact" className="mt-8 inline-block">
-              <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">تواصل مع فريق التأجير</Button>
-            </Link>
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <a href="#inquiry">
+                <Button variant="orange" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
+                  <Phone className="h-4 w-4" /> ابدأ الاستفسار
+                </Button>
+              </a>
+              <Link to="/contact">
+                <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8 font-bold">
+                  تواصل مع الفريق
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -281,19 +449,18 @@ const Leasing = () => {
 };
 
 /* ── Dark form input ── */
-function FormInput({ placeholder, value, onChange, required, type = "text", dir }: { placeholder: string; value: string; onChange: (v: string) => void; required?: boolean; type?: string; dir?: string }) {
+function FormInput({ value, onChange, required, type = "text", dir }: { value: string; onChange: (v: string) => void; required?: boolean; type?: string; dir?: string }) {
   return (
     <input
       type={type}
-      placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required={required}
       dir={dir}
-      className="h-12 w-full rounded-lg px-4 text-sm text-white outline-none transition-colors"
-      style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)" }}
+      className="h-11 w-full rounded-lg px-4 text-[0.88rem] outline-none transition-colors"
+      style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "#F8FAFC" }}
       onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--orange) / 0.35)"; }}
-      onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)"; }}
+      onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; }}
     />
   );
 }
