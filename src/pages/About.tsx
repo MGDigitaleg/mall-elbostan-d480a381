@@ -304,15 +304,15 @@ const About = () => (
           <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div className="space-y-6">
               <div className="chapter-shell pt-6">
-                <p className="section-kicker">الفرصة التجارية</p>
+                <p className="section-kicker">الموقع التجاري</p>
                 <h2 className="section-title max-w-[26rem]">
                   لماذا يختار التاجر مول البستان.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
-                الموقع وحده لا يكفي — ما يجعل المول فرصة تجارية حقيقية هو الجمهور المتخصص الذي يأتي
-                إليه تحديدًا بحثًا عن التقنية. هذا يعني زيارات ذات نية شراء واضحة، وبيئة تجارية
-                تدعم النشاط بدل أن تشتته.
+                الموقع الجغرافي ميزة — لكن الميزة الحقيقية هي الجمهور المتخصص الذي يقصد المول
+                بحثًا عن التقنية تحديدًا. كل زيارة تحمل نية شراء، وهذا ما يجعل الوحدة التجارية
+                هنا أكثر من مجرد مساحة — إنها موقع في سوق فعّال.
               </p>
 
               <div className="space-y-3">
