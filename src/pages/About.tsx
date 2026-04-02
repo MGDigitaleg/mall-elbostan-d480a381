@@ -300,20 +300,20 @@ const About = () => (
               </Link>
             </div>
 
-            {/* structured diptych — exterior widescreen + facade detail */}
+            {/* single constrained image + stat chip */}
             <div className="space-y-2.5">
               <div className="frame-cinematic overflow-hidden">
-                <img src={exteriorImage} alt="الواجهة الخارجية" className="img-grade-warm aspect-[16/9] w-full object-cover object-[center_40%]" loading="lazy" />
+                <img src={exteriorImage} alt="الواجهة الخارجية" className="img-grade-warm aspect-[16/9] max-h-[220px] w-full object-cover object-[center_40%]" loading="lazy" />
               </div>
-              <div className="grid grid-cols-[0.55fr_0.45fr] gap-2.5">
-                <div className="frame-geometric overflow-hidden">
-                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[4/3] w-full object-cover object-[center_45%]" loading="lazy" />
-                </div>
-                <div className="flex items-center justify-center rounded-md border border-border bg-card p-4">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center justify-center rounded-md border border-border bg-card p-3">
                   <div className="text-center">
-                    <p className="font-poppins text-[1.4rem] font-extrabold light-heading">6</p>
-                    <p className="mt-0.5 text-[0.72rem] font-bold light-muted">أقسام تقنية متخصصة</p>
+                    <p className="font-poppins text-[1.2rem] font-extrabold light-heading">6</p>
+                    <p className="mt-0.5 text-[0.68rem] font-bold light-muted">أقسام تقنية متخصصة</p>
                   </div>
+                </div>
+                <div className="frame-geometric overflow-hidden">
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[4/3] max-h-[110px] w-full object-cover object-[center_45%]" loading="lazy" />
                 </div>
               </div>
             </div>
