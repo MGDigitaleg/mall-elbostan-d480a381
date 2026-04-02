@@ -79,7 +79,7 @@ export function Footer() {
                 </a>
               ))}
               <a
-                href="https://tiktok.com/@mallelbostan"
+                href="https://www.tiktok.com/@mallelbostan"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
