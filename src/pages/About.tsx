@@ -463,7 +463,7 @@ const About = () => (
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
           </div>
           <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.15] md:text-[1.8rem] light-heading">
-            المول جاهز — دورك تستكشفه.
+            المول جاهز — والقرار بيدك.
           </h2>
           <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
             الدليل التفاعلي، دليل المتاجر، وصفحة التأجير — كل أدوات القرار في مكان واحد.
