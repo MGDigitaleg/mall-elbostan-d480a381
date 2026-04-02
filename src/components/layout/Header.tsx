@@ -8,6 +8,7 @@ const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
   { label: "عن المول", path: "/about" },
   { label: "المتاجر", path: "/stores" },
+  { label: "المنتجات", path: "/products" },
   { label: "الخريطة", path: "/map" },
 ];
 
@@ -20,9 +21,11 @@ const secondaryNavItems = [
 const mobileNavItems = [
   ...primaryNavItems,
   ...secondaryNavItems,
+  { label: "فرع وسط البلد", path: "/downtown-branch" },
+  { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
+  { label: "انضم للسوق", path: "/join-marketplace" },
   { label: "الوظائف", path: "/careers" },
   { label: "المدونة", path: "/blog" },
-  { label: "السوق قريباً", path: "/#marketplace" },
 ];
 
 function HeaderMenuSheet({

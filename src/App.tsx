@@ -8,8 +8,12 @@ import { useGA4 } from "@/hooks/useGA4";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import NewCairoBranch from "./pages/NewCairoBranch";
+import DowntownBranch from "./pages/DowntownBranch";
 import Stores from "./pages/Stores";
 import StoreDetail from "./pages/StoreDetail";
+import Products from "./pages/Products";
+import ProductDetail from "./pages/ProductDetail";
+import JoinMarketplace from "./pages/JoinMarketplace";
 import InteractiveMap from "./pages/InteractiveMap";
 import Leasing from "./pages/Leasing";
 import SpinWin from "./pages/SpinWin";
@@ -29,7 +33,7 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
-import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs } from "./pages/admin/AdminPages";
+import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
@@ -55,8 +59,12 @@ function AppLayout() {
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
+          <Route path="/downtown-branch" element={<DowntownBranch />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:slug" element={<StoreDetail />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:slug" element={<ProductDetail />} />
+          <Route path="/join-marketplace" element={<JoinMarketplace />} />
           <Route path="/map" element={<InteractiveMap />} />
           <Route path="/leasing" element={<Leasing />} />
           <Route path="/spin-win" element={<SpinWin />} />
@@ -84,6 +92,8 @@ function AppLayout() {
           <Route path="/admin/faqs" element={<AdminFaqs />} />
           <Route path="/admin/leads" element={<AdminLeads />} />
           <Route path="/admin/tenant-assets" element={<AdminTenantAssets />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          <Route path="/admin/product-categories" element={<AdminProductCategories />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
