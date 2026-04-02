@@ -244,22 +244,22 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* text */}
               <div className="order-1 space-y-7">
                 <div className="chapter-shell pt-7">
-                  <p className="section-kicker">تاريخ ومكانة</p>
-                  <h2 className="section-title max-w-[22rem]">اسم لا يحتاج تعريف في سوق التقنية.</h2>
+                  <p className="section-kicker">مكانة وتاريخ</p>
+                  <h2 className="section-title max-w-[22rem]">اسم يسبق التعريف في سوق التقنية.</h2>
                 </div>
 
                 <p className="text-[1.04rem] leading-[2.1] light-body md:text-[1.08rem]">
-                  مول البستان مش مجرد مبنى تجاري — ده المكان اللي بنى سمعته من حركة السوق نفسها.
-                  الناس تيجي هنا لأنها عارفاه من سنين — سواء بتدوّر على لابتوب، قطعة غيار،
-                  أو محل صيانة تثق فيه. واليوم المول بيتجدد معماريًا ورقميًا — لكن الهوية واحدة.
+                  في سوق تتنافس فيه عشرات الوجهات، مول البستان يملك ما لا يُشترى:
+                  سمعة بنتها سنوات من التعامل المباشر. الزائر لا يأتي لأنه رأى إعلانًا —
+                  يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا، بالسعر والجودة التي يتوقعها.
                 </p>
 
                 {/* trust signals */}
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
-                    { icon: Award, title: "سمعة سوقية", desc: "أكثر من عقد في خدمة سوق الإلكترونيات." },
-                    { icon: MapPin, title: "موقع يقصده الناس", desc: "في قلب القاهرة الجديدة — يخدم مدينتي والرحاب." },
-                    { icon: Layers, title: "تصنيف واضح", desc: "أقسام منظّمة تختصر وقت البحث." },
+                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري يمتد لأكثر من عقد كامل." },
+                    { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "هيكل تجاري دقيق", desc: "تصنيف واضح يختصر مسار الشراء." },
                   ].map((c) => (
                     <div key={c.title} className="card-architectural rounded-xl p-5">
                       <c.icon className="mb-3 h-5 w-5 text-primary" />
