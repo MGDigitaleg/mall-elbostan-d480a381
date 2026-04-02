@@ -186,7 +186,7 @@ const Stores = () => {
       <div className="band-primary" />
 
       {/* ═══════════ CATEGORIES OVERVIEW ═══════════ */}
-      <section className="page-section">
+      <section className="section-ivory page-section">
         <div className="container max-w-[1200px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto mb-10 max-w-[34rem] text-center">
