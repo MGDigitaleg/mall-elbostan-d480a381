@@ -545,8 +545,7 @@ function EcosystemGrowingState() {
         </div>
         <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر في الطريق.</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-8 dark-body">
-          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح الكبير.
-          الدليل يتحدّث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
+          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to="/map">
