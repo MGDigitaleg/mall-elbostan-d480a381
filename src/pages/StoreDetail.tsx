@@ -178,7 +178,7 @@ const StoreDetail = () => {
             </motion.div>
 
             {/* Hero Image */}
-            <div className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
+            <motion.div variants={heroImage} initial="hidden" animate="visible" className="image-architectural aspect-[4/3] overflow-hidden shadow-[var(--shadow-deep)]">
               <img src={heroImage} alt={store.name_ar} className="h-full w-full object-cover object-center" loading="eager" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, hsl(222 44% 6% / 0.4), transparent 50%)' }} />
               {store.unit_code && (
