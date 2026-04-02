@@ -443,19 +443,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            className="mx-auto max-w-[46rem]"
+            className="mx-auto max-w-[54rem]"
           >
-            <div className="rounded-2xl border border-border bg-card px-4 py-4 md:px-5 md:py-5">
-              <div className="mb-3 space-y-1">
-                <p className="section-kicker">الدليل التفاعلي</p>
-                <h2 className="section-title max-w-[16rem]">لمحة سريعة قبل الزيارة.</h2>
-                <p className="max-w-[24rem] text-[0.8rem] leading-6 text-muted-foreground">
-                  شاهد وحدة واحدة بسرعة، ثم افتح الدليل الكامل لباقي التفاصيل.
-                </p>
-              </div>
-
-              <MapTeaserPreview />
-            </div>
+            <MapTeaserPreview />
           </motion.div>
         </div>
       </section>
