@@ -389,10 +389,9 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mx-auto max-w-[34rem] text-center">
               <p className="section-kicker dark-kicker">المرحلة القادمة</p>
-              <h2 className="section-title dark-heading">من دليل متاجر إلى سوق رقمي متكامل.</h2>
+              <h2 className="section-title dark-heading">من دليل متاجر إلى سوق رقمي.</h2>
               <p className="mx-auto mt-5 text-[1rem] leading-8 dark-body">
-                الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة
-                والشراء إلكترونيًا من متاجر المول.
+                الدليل يعمل الآن — والسوق الرقمي قادم.
               </p>
             </div>
 
