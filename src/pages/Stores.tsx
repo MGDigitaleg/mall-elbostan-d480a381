@@ -127,14 +127,14 @@ const Stores = () => {
               </div>
 
               <h1 className="max-w-[22rem] text-[2.4rem] leading-[1.04] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
-                اعرف كل متجر
+                تعرّف على كل متجر
                 <br />
-                <span style={{ color: "#CDBB9A" }}>قبل ما تنزل.</span>
+                <span style={{ color: "#CDBB9A" }}>قبل أن تصل.</span>
               </h1>
 
               <p className="max-w-[28rem] text-[1rem] leading-[2] dark-body">
-                دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته.
-                ابحث بالاسم أو الفئة، وشوف التفاصيل قبل الزيارة.
+                دليل منظّم لكل متجر في مول البستان — بفئته، موقعه، وحالته الفعلية.
+                ابحث بالاسم أو الفئة واطّلع على التفاصيل قبل الزيارة.
               </p>
 
               <div className="flex flex-wrap gap-3">
