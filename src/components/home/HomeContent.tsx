@@ -768,23 +768,23 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <p className="section-kicker">الرؤية المستقبلية</p>
+            <p className="section-kicker">المرحلة التالية</p>
             <h2 className="section-title mx-auto max-w-[30rem]">
-              من وجهة تقنية إلى سوق رقمي متصل.
+              من وجهة تقنية راسخة إلى سوق رقمي بلا حدود.
             </h2>
             <p className="mx-auto mt-4 max-w-[34rem] text-base leading-8 text-muted-foreground md:text-lg">
-              الخطوة التالية بعد الافتتاح — سوق رقمي يمتد من متاجر المول ليخدم المستخدمين في أي
-              مكان. المنتج الأساسي أولاً، ثم الامتداد الرقمي.
+              المنتج الأساسي يعمل الآن — الدليل التفاعلي ودليل المتاجر. المرحلة القادمة
+              تفتح سوقًا رقميًا يمتد من المتاجر الفعلية ليصل لأي مستخدم في أي مكان.
             </p>
 
             <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
               {[
-                { n: "1", label: "الدليل التفاعلي", desc: "استكشف المول رقميًا الآن." },
-                { n: "2", label: "المتاجر والعروض", desc: "تصفّح واستفد من العروض." },
+                { n: "1", label: "الدليل التفاعلي", desc: "خريطة المول كاملة — تعمل الآن." },
+                { n: "2", label: "المتاجر والعروض", desc: "استكشاف وتصفّح بالفئة والعرض." },
                 {
                   n: "3",
                   label: "السوق الرقمي",
-                  desc: "تسوّق إلكتروني قريبًا.",
+                  desc: "تسوّق إلكتروني مباشر — قريبًا.",
                 },
               ].map((item, i) => (
                 <div
