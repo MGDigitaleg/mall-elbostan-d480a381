@@ -91,7 +91,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <div className="band-primary" />
+      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #1E3A5F, transparent)" }} />
 
       {/* ═══════════ INQUIRY TYPE SELECTOR ═══════════ */}
       <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>

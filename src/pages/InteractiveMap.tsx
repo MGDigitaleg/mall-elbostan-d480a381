@@ -321,25 +321,21 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="py-12 md:py-14" style={{ background: "#071326" }}>
-        <div className="mx-auto max-w-[900px] px-5 text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-            <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>فرص التأجير</span>
-            <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-          </div>
-          <h2 className="text-[1.2rem] font-bold md:text-[1.5rem] dark-heading">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-            من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
+      <section className="py-10 md:py-12" style={{ background: "#071326" }}>
+        <div className="mx-auto max-w-[800px] px-5 text-center">
+          <p className="font-poppins text-[0.6rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>Commercial Leasing</p>
+          <h2 className="mt-2 text-[1.15rem] font-bold md:text-[1.4rem]" style={{ color: "#F8FAFC" }}>تبحث عن وحدة تجارية في موقع فعّال؟</h2>
+          <p className="mx-auto mt-2 max-w-sm text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>
+            من الخريطة مباشرة لصفحة التأجير — استفسر الآن.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">
-              <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
+              <Button variant="orange" size="lg" className="h-11 rounded-lg px-7 font-bold">
                 <Phone className="ml-2 h-4 w-4" /> ابدأ استفسار التأجير
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-12 rounded-xl border px-8 font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+              <Button size="lg" className="h-11 rounded-lg border px-7 font-bold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                 تصفّح المتاجر
               </Button>
             </Link>

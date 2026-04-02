@@ -61,19 +61,19 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       </div>
 
       {/* Meta grid — tight, informative */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-1.5">
         {[
           { icon: Ruler, label: "المساحة", value: `${unit.area} م²` },
           { icon: Building2, label: "الدور", value: floorLabelsAr[unit.floor] },
           { icon: Tag, label: "الفئة", value: categoryLabelsAr[unit.category] },
           { icon: MapPin, label: "الموقع", value: unit.code },
         ].map((item) => (
-          <div key={item.label} className="rounded-lg border border-border bg-secondary/50 p-3">
+          <div key={item.label} className="rounded-md p-2.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
             <div className="flex items-center gap-1.5">
-              <item.icon className="h-3 w-3 text-primary" />
-              <span className="text-[0.68rem] font-semibold light-muted">{item.label}</span>
+              <item.icon className="h-3 w-3" style={{ color: "#64748B" }} />
+              <span className="text-[0.64rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
             </div>
-            <p className="mt-0.5 text-[0.88rem] font-bold light-heading">{item.value}</p>
+            <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
           </div>
         ))}
       </div>
