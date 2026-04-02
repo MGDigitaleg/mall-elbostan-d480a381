@@ -36,7 +36,6 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
-/** Map a store category string to MallCategory for map filtering */
 const storeCategoryToMapCategory: Record<string, MallCategory> = {
   "phones": "Accessories",
   "accessories": "Accessories",
@@ -76,22 +75,12 @@ const InteractiveMap = () => {
 
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
-  const handleAtriumClick = useCallback(() => {
-    setHubModalOpen(true);
-  }, []);
-
-  const handleOpenSpinWheel = useCallback(() => {
-    setSpinModalOpen(true);
-  }, []);
+  const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
+  const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);
 
   const handleHubFilterCategory = useCallback((cat: MallCategory) => {
     setCategoryFilter(cat);
-    // Highlight all occupied units in that category
-    const matchingIds = new Set(
-      allMallUnits
-        .filter((u) => u.category === cat && u.status === "occupied")
-        .map((u) => u.id)
-    );
+    const matchingIds = new Set(allMallUnits.filter((u) => u.category === cat && u.status === "occupied").map((u) => u.id));
     setHighlightedUnitIds(matchingIds);
     scrollToMap();
     setTimeout(() => setHighlightedUnitIds(new Set()), 12000);
@@ -104,79 +93,47 @@ const InteractiveMap = () => {
   }, []);
 
   const scrollToMap = useCallback(() => {
-    setTimeout(() => {
-      mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 200);
+    setTimeout(() => { mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }, 200);
   }, []);
 
   const handleSpinWin = useCallback((result: SpinWinResult | null) => {
     if (!result) return;
     setLastWinResult(result);
-
     const { reward, sponsorStore } = result;
 
     if (sponsorStore?.unit_code) {
-      // ── Specific store reward: find exact unit, switch floor, select it, highlight it
       const unitCode = sponsorStore.unit_code;
       const targetUnit = allMallUnits.find((u) => u.code === unitCode);
-
       if (targetUnit) {
         setSelectedFloor(targetUnit.floor);
         setSelectedUnit(targetUnit);
         setHighlightedUnitIds(new Set([targetUnit.id]));
-        setActiveRewardCtx({
-          reward,
-          storeName: sponsorStore.name_ar,
-        });
+        setActiveRewardCtx({ reward, storeName: sponsorStore.name_ar });
       } else {
-        // Fallback: highlight all occupied
-        const occupiedIds = new Set(
-          mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
-        );
+        const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ reward, storeName: sponsorStore.name_ar });
       }
     } else {
-      // ── Category-based reward: highlight all stores matching the category
       const mapCat = resolveMapCategory(sponsorStore?.category ?? null);
-      
       if (mapCat) {
-        const matchingIds = new Set(
-          allMallUnits
-            .filter((u) => u.category === mapCat && u.status === "occupied")
-            .map((u) => u.id)
-        );
+        const matchingIds = new Set(allMallUnits.filter((u) => u.category === mapCat && u.status === "occupied").map((u) => u.id));
         setHighlightedUnitIds(matchingIds);
         setCategoryFilter(mapCat);
         setActiveRewardCtx({ reward, isCategory: true });
       } else {
-        // General reward: highlight all occupied stores
-        const occupiedIds = new Set(
-          mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
-        );
+        const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ reward, isCategory: true });
       }
     }
-
-    // Auto-clear highlights after 15 seconds
     setTimeout(() => clearRewardState(), 15000);
   }, [clearRewardState]);
 
-  /** Called when user clicks "View on map" in result screen */
-  const handleViewOnMap = useCallback(() => {
-    scrollToMap();
-  }, [scrollToMap]);
+  const handleViewOnMap = useCallback(() => { scrollToMap(); }, [scrollToMap]);
+  const handleExploreCategory = useCallback(() => { scrollToMap(); }, [scrollToMap]);
 
-  /** Called when user clicks "Explore category" in result screen */
-  const handleExploreCategory = useCallback(() => {
-    scrollToMap();
-  }, [scrollToMap]);
-
-  const floor = useMemo(
-    () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
-    [selectedFloor],
-  );
+  const floor = useMemo(() => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0], [selectedFloor]);
 
   const filteredUnits = useMemo(() => {
     return floor.units.filter((unit) => {
@@ -197,10 +154,7 @@ const InteractiveMap = () => {
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
 
-  const handleFloorChange = (id: MallFloorId) => {
-    setSelectedFloor(id);
-    setSelectedUnit(null);
-  };
+  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); };
 
   return (
     <MainLayout>
@@ -212,33 +166,35 @@ const InteractiveMap = () => {
         breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
       />
 
-      {/* ═══════════ HERO INTRO ═══════════ */}
-      <section className="heritage-section relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero" />
+      {/* ═══════════ COMPACT HERO ═══════════ */}
+      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
         <div
-          className="absolute inset-0 opacity-[0.015]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.6px, transparent 0)",
-            backgroundSize: "32px 32px",
+            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="py-14 md:py-16 lg:py-20">
+          <div className="py-12 md:py-14 lg:py-16">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="mx-auto max-w-[48rem] text-center"
             >
-              <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                <Compass className="h-4 w-4" />
-                الدليل التفاعلي
-              </span>
+              <div className="mx-auto mb-4 flex items-center justify-center gap-3">
+                <div className="accent-line bg-primary/40" />
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                  الدليل التفاعلي
+                </span>
+                <div className="accent-line bg-primary/40" />
+              </div>
 
-              <h1 className="mt-5 text-[1.8rem] font-extrabold leading-[1.1] text-white md:text-[2.6rem] lg:text-[3rem]">
+              <h1 className="mt-4 text-[1.8rem] font-extrabold leading-[1.08] text-white md:text-[2.6rem] lg:text-[3rem]">
                 دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
-              <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/45 md:text-[1.05rem]">
+              <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/38 md:text-[1.05rem]">
                 تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
@@ -249,11 +205,11 @@ const InteractiveMap = () => {
                   { icon: Layers, v: `${allMallUnits.length}`, l: "وحدة" },
                   { icon: TrendingUp, v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s) => (
-                  <div key={s.l} className="heritage-card flex items-center gap-3 rounded-xl px-5 py-3">
-                    <s.icon className="h-4 w-4 text-primary" />
+                  <div key={s.l} className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3">
+                    <s.icon className="h-4 w-4 text-primary/60" />
                     <div className="text-right">
                       <span className="font-poppins text-lg font-bold text-white">{s.v}</span>
-                      <span className="mr-1.5 text-[0.72rem] text-white/40">{s.l}</span>
+                      <span className="mr-1.5 text-[0.72rem] text-white/35">{s.l}</span>
                     </div>
                   </div>
                 ))}
@@ -264,14 +220,12 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CONTROL PANEL ═══════════ */}
-      <section className="page-section !pt-8 !pb-0">
+      <section className="border-b border-border bg-card py-4">
         <div className="container max-w-[1400px]">
-          {/* Floor tabs + legend row */}
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-4">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
             <div className="flex items-center gap-4">
               <MapLegend />
-              {/* floor mini-stats */}
               <div className="hidden items-center gap-3 text-[0.78rem] md:flex">
                 <span className="text-muted-foreground">{floor.units.length} وحدة</span>
                 <span className="h-3 w-px bg-border" />
@@ -282,7 +236,6 @@ const InteractiveMap = () => {
             </div>
           </div>
 
-          {/* Filters */}
           <MapFilters
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -297,7 +250,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="!pt-4 !pb-0">
+      <section className="section-warm py-6">
         <div className="container max-w-[1400px]">
           <div className="grid gap-5 lg:grid-cols-[1fr_340px] lg:items-start">
             {/* Map */}
@@ -307,15 +260,17 @@ const InteractiveMap = () => {
               initial="hidden"
               animate="visible"
             >
-              <MallFloorMap
-                floor={floor}
-                selectedUnitId={activeUnit?.id ?? null}
-                mutedUnitIds={mutedUnitIds}
-                onSelectUnit={setSelectedUnit}
-                onAtriumClick={handleAtriumClick}
-                atriumConfig={atriumConfig}
-                highlightedUnitIds={highlightedUnitIds}
-              />
+              <div className="card-layered overflow-hidden rounded-2xl p-2">
+                <MallFloorMap
+                  floor={floor}
+                  selectedUnitId={activeUnit?.id ?? null}
+                  mutedUnitIds={mutedUnitIds}
+                  onSelectUnit={setSelectedUnit}
+                  onAtriumClick={handleAtriumClick}
+                  atriumConfig={atriumConfig}
+                  highlightedUnitIds={highlightedUnitIds}
+                />
+              </div>
             </motion.div>
 
             {/* Details panel — desktop */}
@@ -352,8 +307,8 @@ const InteractiveMap = () => {
                   <button
                     key={unit.id}
                     onClick={() => setSelectedUnit(unit)}
-                    className={`group rounded-xl border bg-card p-4 text-right transition-all hover:border-orange/40 hover:shadow-[var(--shadow-card)] ${
-                      activeUnit?.id === unit.id ? "border-orange shadow-[var(--shadow-card)]" : "border-border"
+                    className={`group card-layered rounded-xl p-4 text-right transition-all hover:border-orange/40 hover:shadow-[var(--shadow-elevated)] ${
+                      activeUnit?.id === unit.id ? "border-orange shadow-[var(--shadow-elevated)]" : ""
                     }`}
                   >
                     <div className="flex items-start justify-between">
@@ -376,7 +331,7 @@ const InteractiveMap = () => {
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-dashed border-border bg-card px-6 py-10 text-center">
+              <div className="card-layered rounded-xl border-dashed px-6 py-10 text-center">
                 <p className="text-sm text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
               </div>
             )}
@@ -385,10 +340,10 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="heritage-section page-section !py-10">
+      <section className="heritage-deep page-section !py-12">
         <div className="container max-w-[900px] text-center">
           <h2 className="text-xl font-bold text-white md:text-2xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.9rem] text-white/40">
+          <p className="mx-auto mt-2 max-w-sm text-[0.9rem] text-white/35">
             من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -398,7 +353,7 @@ const InteractiveMap = () => {
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-12 rounded-xl border border-white/15 bg-white/8 px-8 font-semibold text-white hover:bg-white/14">
+              <Button size="lg" className="h-12 rounded-xl border border-white/12 bg-white/6 px-8 font-semibold text-white hover:bg-white/12">
                 تصفّح المتاجر
               </Button>
             </Link>
