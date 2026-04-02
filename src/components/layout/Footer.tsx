@@ -9,6 +9,7 @@ const footerColumns = [
     links: [
       { label: "عن المول", path: "/about" },
       { label: "فرع وسط البلد", path: "/downtown-branch" },
+      { label: "دليل محلات وسط البلد", path: "/downtown-directory" },
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
       { label: "المتاجر", path: "/stores" },
       { label: "الخريطة التفاعلية", path: "/map" },

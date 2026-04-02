@@ -274,11 +274,14 @@ const DowntownBranch = () => (
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/downtown-directory">
+                <Button variant="cta">دليل محلات الفرع</Button>
+              </Link>
               <Link to="/contact">
                 <Button variant="outline-blue">تواصل معنا</Button>
               </Link>
               <Link to="/new-cairo-branch">
-                <Button variant="cta">فرع القاهرة الجديدة</Button>
+                <Button variant="outline-blue">فرع القاهرة الجديدة</Button>
               </Link>
             </div>
           </div>

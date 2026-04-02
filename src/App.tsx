@@ -28,6 +28,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
 import NotFound from "./pages/NotFound";
+import DowntownDirectory from "./pages/DowntownDirectory";
 
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -35,6 +36,7 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
 import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
+import { AdminDowntownMerchants } from "./pages/admin/AdminDowntownPages";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
@@ -79,6 +81,7 @@ function AppLayout() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reward-terms" element={<RewardTerms />} />
+          <Route path="/downtown-directory" element={<DowntownDirectory />} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -99,6 +102,7 @@ function AppLayout() {
           <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
           <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
           <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
+          <Route path="/admin/downtown-merchants" element={<AdminDowntownMerchants />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
