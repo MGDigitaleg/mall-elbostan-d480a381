@@ -15,6 +15,7 @@ import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import { UnitDetailsCard } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
+import { AtriumSpinModal } from "@/components/map/AtriumSpinModal";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
