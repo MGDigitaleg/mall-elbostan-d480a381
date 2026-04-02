@@ -99,13 +99,12 @@ const Stores = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="heritage-section relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero" />
+      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
         <div
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
-            backgroundSize: "40px 40px",
+            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
           }}
         />
 
@@ -117,10 +116,12 @@ const Stores = () => {
               transition={{ duration: 0.65 }}
               className="space-y-6"
             >
-              <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                <Store className="h-4 w-4" />
-                دليل المتاجر التقنية
-              </span>
+              <div className="flex items-center gap-3">
+                <div className="accent-line bg-primary/40" />
+                <span className="text-[0.76rem] font-semibold tracking-[0.14em] text-white/40 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                  دليل المتاجر التقنية
+                </span>
+              </div>
 
               <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.08] text-white md:text-[2.8rem] lg:text-[3.4rem]">
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
@@ -138,7 +139,7 @@ const Stores = () => {
                   { v: `${categories.length}`, l: "فئة تقنية" },
                   { v: "3", l: "أدوار" },
                 ].map((s) => (
-                  <div key={s.l} className="heritage-card rounded-xl px-5 py-3 text-center">
+                  <div key={s.l} className="rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3 text-center">
                     <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
                     <p className="mt-0.5 text-[0.72rem] text-white/40">{s.l}</p>
                   </div>
@@ -232,7 +233,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ DIRECTORY — SEARCH + FILTERS + GRID ═══════════ */}
-      <section id="directory" className="heritage-section page-section scroll-mt-20">
+      <section id="directory" className="heritage-deep page-section scroll-mt-20">
         <div className="container max-w-[1200px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             {/* header */}
@@ -318,9 +319,9 @@ const Stores = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: Math.min(i * 0.04, 0.4), duration: 0.4 }}
                     >
-                      <Link
+                    <Link
                         to={`/stores/${store.slug}`}
-                        className="heritage-card group flex flex-col rounded-xl p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_0_24px_hsl(221_83%_53%/0.08)]"
+                        className="group flex flex-col rounded-xl border border-white/6 bg-white/[0.03] p-5 transition-all duration-300 hover:border-primary/25 hover:bg-white/[0.05]"
                       >
                         {/* top row: logo + name + status */}
                         <div className="flex items-start justify-between gap-3">
@@ -373,7 +374,7 @@ const Stores = () => {
               </div>
             ) : (
               /* premium empty state */
-              <div className="heritage-card rounded-2xl p-12 text-center">
+              <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-12 text-center">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 ring-1 ring-white/10">
                   <Layers3 className="h-7 w-7 text-primary" />
                 </div>
@@ -478,7 +479,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ FUTURE MARKETPLACE ═══════════ */}
-      <section className="heritage-section page-section">
+      <section className="heritage-deep page-section">
         <div className="container max-w-[900px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="section-kicker">المرحلة القادمة</p>
@@ -494,7 +495,7 @@ const Stores = () => {
                 { n: "02", title: "دليل المتاجر", active: true },
                 { n: "03", title: "السوق الرقمي", active: false },
               ].map((phase) => (
-                <div key={phase.n} className="heritage-card rounded-xl p-5 text-center">
+                <div key={phase.n} className="rounded-xl border border-white/8 bg-white/[0.03] p-5 text-center">
                   <span className={`font-poppins text-sm font-bold ${phase.active ? "text-primary" : "text-primary/40"}`}>{phase.n}</span>
                   <p className="mt-2 text-[0.92rem] font-bold text-white">{phase.title}</p>
                   {phase.active && (

@@ -38,7 +38,7 @@ const footerColumns = [
 
 export function Footer() {
   return (
-    <footer className="heritage-section border-t border-white/8">
+    <footer className="border-t border-white/6 bg-[hsl(222_44%_7%)] text-white">
       <div className="container pt-16 pb-8 md:pt-20 md:pb-10">
         {/* top grid */}
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8">

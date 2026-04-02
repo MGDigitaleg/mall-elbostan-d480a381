@@ -129,20 +129,26 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   return (
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
-      <section className="heritage-section relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero" />
-        {/* subtle dot grid */}
+      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
+        {/* architectural grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
-            backgroundSize: "40px 40px",
+              "linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
+          }}
+        />
+        {/* subtle radial glow */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "radial-gradient(ellipse 70% 50% at 70% 50%, hsl(220 68% 40% / 0.06), transparent)",
           }}
         />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[90vh] items-center gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-0">
+          <div className="grid min-h-[92vh] items-center gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-0">
             {/* ── text ── */}
             <motion.div
               initial={{ opacity: 0, y: 36 }}
@@ -150,17 +156,20 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               transition={{ duration: 0.7 }}
               className="order-1 space-y-7"
             >
-              <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
-                القاهرة الجديدة · الافتتاح الكبير — مايو 2026
-              </span>
+              <div className="flex items-center gap-3">
+                <div className="accent-line bg-primary/50" />
+                <span className="text-[0.76rem] font-semibold tracking-[0.14em] text-white/45 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                  القاهرة الجديدة — الافتتاح مايو 2026
+                </span>
+              </div>
 
-              <h1 className="max-w-[34rem] text-[2.4rem] font-extrabold leading-[1.06] text-white md:text-[3.5rem] lg:text-[4rem]">
+              <h1 className="max-w-[36rem] text-[2.6rem] font-extrabold leading-[1.04] text-white md:text-[3.8rem] lg:text-[4.4rem]">
                 وجهة التقنية
                 <br className="hidden sm:block" />
-                التي بناها السوق
+                <span className="text-gradient-blue">التي بناها السوق</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
+              <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/45 md:text-[1.15rem]">
                 مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
                 مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
                 صُنع ليخدم القرار لا التجوّل.
@@ -171,7 +180,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Button
                     variant="cta"
                     size="lg"
-                    className="h-[3.25rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold"
+                    className="h-[3.4rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold shadow-[0_4px_20px_hsl(220_68%_40%/0.25)]"
                   >
                     <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف الخريطة
@@ -180,7 +189,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/stores">
                   <Button
                     size="lg"
-                    className="h-[3.25rem] min-w-[11rem] rounded-xl border border-white/15 bg-white/8 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/14"
+                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/12"
                   >
                     تصفّح المتاجر
                   </Button>
@@ -189,7 +198,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Button
                     variant="ghost"
                     size="lg"
-                    className="h-[3.25rem] px-5 text-[0.95rem] font-semibold text-white/60 hover:bg-white/8 hover:text-white"
+                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold text-white/50 hover:bg-white/6 hover:text-white"
                   >
                     فرص التأجير
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
@@ -198,15 +207,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
 
               {/* stats */}
-              <div className="grid max-w-[28rem] grid-cols-3 gap-3 pt-3">
+              <div className="grid max-w-[30rem] grid-cols-3 gap-3 pt-4">
                 {[
-                  { v: `${floorMapData.length}`, l: "أدوار" },
+                  { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
                   { v: `${categoryStories.length}`, l: "فئات متخصصة" },
                 ].map((s) => (
-                  <div key={s.l} className="heritage-card px-4 py-4 text-center">
-                    <p className="font-poppins text-[1.6rem] font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.74rem] font-medium text-white/40">{s.l}</p>
+                  <div key={s.l} className="rounded-xl border border-white/8 bg-white/4 px-4 py-4 text-center backdrop-blur-sm">
+                    <p className="font-poppins text-[1.7rem] font-bold text-white">{s.v}</p>
+                    <p className="mt-0.5 text-[0.72rem] font-medium text-white/35">{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -220,7 +229,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-2 flex items-center justify-center"
             >
               <div className="relative w-full max-w-[500px] lg:max-w-none">
-                <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:rounded-3xl">
+                <div className="overflow-hidden rounded-2xl ring-1 ring-white/8 lg:rounded-3xl">
                   <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
                     <img
                       src={heroImage}
@@ -232,7 +241,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   </div>
                 </div>
                 {/* floating accent image */}
-                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
+                <div className="absolute -bottom-5 -right-5 hidden w-[42%] overflow-hidden rounded-xl shadow-[var(--shadow-hero-card)] ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
                   <div className="image-shell aspect-[3/4]">
                     <img
                       src={interiorImage}
@@ -271,19 +280,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* imagery */}
               <div className="order-2 lg:order-1">
                 <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
-                  <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
+                  <div className="image-architectural overflow-hidden rounded-2xl">
                     <img
                       src={entranceImage}
                       alt="مدخل مول البستان"
-                      className="h-full w-full object-cover"
+                      className="aspect-[4/3] h-full w-full object-cover"
                       loading="lazy"
                     />
                   </div>
-                  <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl ring-1 ring-border md:block">
+                  <div className="image-architectural hidden overflow-hidden rounded-2xl md:block">
                     <img
                       src={facadeImage}
                       alt="واجهة معمارية لمول البستان"
-                      className="h-full w-full object-cover"
+                      className="aspect-[3/5] h-full w-full object-cover"
                       loading="lazy"
                     />
                   </div>
@@ -292,7 +301,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* text */}
               <div className="order-1 space-y-6 lg:order-2">
                 <div className="chapter-shell pt-6">
-                <p className="section-kicker">الهوية والمكانة</p>
+                  <p className="section-kicker">الهوية والمكانة</p>
                   <h2 className="section-title max-w-[28rem]">
                     اسم لم يحتج حملات ليُعرف — بناه السوق نفسه.
                   </h2>
@@ -304,36 +313,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
-                    {
-                      icon: Building2,
-                      title: "مكانة مبنية بالتكرار",
-                      desc: "ثقة تراكمية من سنوات التعامل المباشر.",
-                    },
-                    {
-                      icon: MapPin,
-                      title: "موقع يصنع الفارق",
-                      desc: "يخدم القاهرة الجديدة ومدينتي والرحاب.",
-                    },
-                    {
-                      icon: Layers,
-                      title: "تصنيف دقيق",
-                      desc: "فئات متخصصة تختصر المسار من الدخول للقرار.",
-                    },
+                    { icon: Building2, title: "مكانة مبنية بالتكرار", desc: "ثقة تراكمية من سنوات التعامل المباشر." },
+                    { icon: MapPin, title: "موقع يصنع الفارق", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "تصنيف دقيق", desc: "فئات متخصصة تختصر المسار من الدخول للقرار." },
                   ].map((c) => (
-                    <div key={c.title} className="section-shell rounded-xl p-5">
+                    <div key={c.title} className="card-architectural rounded-xl p-5 pr-7">
                       <c.icon className="mb-3 h-5 w-5 text-primary" />
                       <p className="text-[0.95rem] font-bold text-foreground">{c.title}</p>
-                      <p className="mt-1.5 text-[0.85rem] leading-6 text-muted-foreground">
-                        {c.desc}
-                      </p>
+                      <p className="mt-1.5 text-[0.85rem] leading-6 text-muted-foreground">{c.desc}</p>
                     </div>
                   ))}
                 </div>
                 <Link to="/about">
-                  <Button
-                    variant="ghost"
-                    className="mt-1 px-0 text-primary hover:text-primary/80"
-                  >
+                  <Button variant="ghost" className="mt-1 px-0 text-primary hover:text-primary/80">
                     تعرّف على قصة المول
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
                   </Button>
@@ -344,8 +336,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
+      {/* ── divider ── */}
+      <div className="section-divider container" />
+
       {/* ════════════════ 3 · VALUE PROPOSITION ════════════════ */}
-      <section className="heritage-section page-section">
+      <section className="heritage-deep page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
@@ -353,12 +348,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="mx-auto mb-12 max-w-[38rem] text-center">
-              <p className="section-kicker">القيمة الحقيقية</p>
-              <h2 className="section-title">
+            <div className="mx-auto mb-14 max-w-[40rem] text-center">
+              <p className="section-kicker text-primary/50">القيمة الحقيقية</p>
+              <h2 className="section-title text-white">
                 مول مصمّم ليخدم — لا ليُبهر فقط.
               </h2>
-              <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50">
+              <p className="mx-auto mt-5 max-w-[32rem] text-[1.05rem] leading-8 text-white/40">
                 سواء كنت مشتريًا يبحث عن منتج بعينه، أو تاجرًا يبحث عن موقع فعّال، أو مستثمرًا
                 يقيّم فرصة — كل تفصيلة في المول مصمّمة لتقصير المسافة بين الدخول والقرار.
               </p>
@@ -402,16 +397,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="heritage-card flex h-full flex-col p-7">
-                    <card.icon className="mb-5 h-6 w-6 text-primary" />
+                  <div className="flex h-full flex-col rounded-2xl border border-white/6 bg-white/[0.03] p-7 backdrop-blur-sm">
+                    <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-primary/20 bg-primary/8">
+                      <card.icon className="h-5 w-5 text-primary" />
+                    </div>
                     <h3 className="text-[1.15rem] font-bold text-white">{card.title}</h3>
                     <ul className="mt-4 space-y-3">
                       {card.points.map((p) => (
-                        <li
-                          key={p}
-                          className="flex items-start gap-2.5 text-[0.9rem] leading-7 text-white/50"
-                        >
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
+                        <li key={p} className="flex items-start gap-2.5 text-[0.9rem] leading-7 text-white/42">
+                          <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-primary/50" />
                           {p}
                         </li>
                       ))}
@@ -433,7 +427,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="mb-10 max-w-[36rem]">
+            <div className="mb-12 max-w-[36rem]">
               <p className="section-kicker">دليل الفئات</p>
               <h2 className="section-title">ست فئات تقنية تغطي كل احتياج حقيقي.</h2>
               <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
@@ -451,19 +445,17 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-[var(--shadow-elevated)]">
+                  <div className="card-layered group flex h-full min-h-[12rem] flex-col p-6 transition-all duration-300 hover:shadow-[var(--shadow-elevated)]">
                     <div className="mb-4 flex items-start justify-between">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:bg-primary/5">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
                         <cat.icon className="h-5 w-5" />
                       </div>
-                      <span className="font-poppins text-[0.8rem] font-medium text-muted-foreground/35">
+                      <span className="font-poppins text-[0.8rem] font-medium text-muted-foreground/30">
                         0{i + 1}
                       </span>
                     </div>
                     <h3 className="text-[1.05rem] font-bold text-foreground">{cat.name}</h3>
-                    <p className="mt-2 text-[0.88rem] leading-7 text-muted-foreground">
-                      {cat.brief}
-                    </p>
+                    <p className="mt-2 text-[0.88rem] leading-7 text-muted-foreground">{cat.brief}</p>
                   </div>
                 </motion.div>
               ))}
@@ -471,7 +463,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
             {/* featured stores if available */}
             {featuredStores.length > 0 && (
-              <div className="mt-8 rounded-2xl border border-border bg-secondary/40 p-6 md:p-8">
+              <div className="mt-10 card-layered p-6 md:p-8">
                 <div className="mb-5 flex items-center justify-between">
                   <h3 className="text-lg font-bold text-foreground">متاجر مميزة</h3>
                   <Link to="/stores">
@@ -489,11 +481,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       className="flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-[var(--shadow-card)]"
                     >
                       {store.logo_url ? (
-                        <img
-                          src={store.logo_url}
-                          alt={store.name_ar}
-                          className="h-10 w-10 rounded-lg border border-border object-contain"
-                        />
+                        <img src={store.logo_url} alt={store.name_ar} className="h-10 w-10 rounded-lg border border-border object-contain" />
                       ) : (
                         <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
                           <Store className="h-4 w-4" />
@@ -502,9 +490,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       <div>
                         <p className="text-sm font-bold text-foreground">{store.name_ar}</p>
                         {store.category && (
-                          <p className="mt-0.5 text-[0.75rem] text-muted-foreground">
-                            {store.category}
-                          </p>
+                          <p className="mt-0.5 text-[0.75rem] text-muted-foreground">{store.category}</p>
                         )}
                       </div>
                     </Link>
@@ -513,13 +499,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               </div>
             )}
 
-            <div className="mt-8 flex justify-center">
+            <div className="mt-10 flex justify-center">
               <Link to="/stores">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="h-12 rounded-xl px-8 font-semibold"
-                >
+                <Button variant="secondary" size="lg" className="h-12 rounded-xl px-8 font-semibold">
                   تصفّح جميع المتاجر
                 </Button>
               </Link>
@@ -528,8 +510,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
+      {/* ── divider ── */}
+      <div className="section-divider container" />
+
       {/* ════════════════ 5 · INTERACTIVE MAP ════════════════ */}
-      <section className="section-soft page-section">
+      <section className="section-warm page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
@@ -564,20 +549,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </div>
                 <div className="grid gap-2.5 sm:grid-cols-2">
                   <Link to="/map">
-                    <Button
-                      variant="cta"
-                      size="lg"
-                      className="h-12 w-full rounded-xl"
-                    >
+                    <Button variant="cta" size="lg" className="h-12 w-full rounded-xl">
                       افتح الدليل الكامل
                     </Button>
                   </Link>
                   <Link to="/leasing">
-                    <Button
-                      variant="outline-blue"
-                      size="lg"
-                      className="h-12 w-full rounded-xl"
-                    >
+                    <Button variant="outline-blue" size="lg" className="h-12 w-full rounded-xl">
                       استفسر عن وحدة
                     </Button>
                   </Link>
@@ -610,7 +587,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
-                <p className="text-base leading-8 text-white/50 md:text-lg">
+                <p className="text-base leading-8 text-white/42 md:text-lg">
                   ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
                   التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
@@ -618,28 +595,21 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 {/* floor availability */}
                 <div className="grid grid-cols-3 gap-3">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="heritage-card px-4 py-4 text-center">
+                    <div key={f.id} className="rounded-xl border border-white/8 bg-white/[0.03] px-4 py-4 text-center">
                       <p className="text-xl font-bold text-white">{f.count}</p>
-                      <p className="mt-0.5 text-[0.74rem] text-white/40">{f.label}</p>
+                      <p className="mt-0.5 text-[0.74rem] text-white/35">{f.label}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-wrap gap-3 pt-1">
                   <Link to="/leasing">
-                    <Button
-                      variant="orange"
-                      size="lg"
-                      className="h-12 rounded-xl px-8 font-bold"
-                    >
+                    <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
                       ابدأ استفسار التأجير
                     </Button>
                   </Link>
                   <Link to="/map">
-                    <Button
-                      size="lg"
-                      className="h-12 rounded-xl border border-white/15 bg-white/8 px-8 text-white hover:bg-white/14"
-                    >
+                    <Button size="lg" className="h-12 rounded-xl border border-white/12 bg-white/6 px-8 text-white hover:bg-white/12">
                       شاهد الوحدات على الخريطة
                     </Button>
                   </Link>
@@ -652,14 +622,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link
                     key={unit.unit_id}
                     to="/map"
-                    className="heritage-card group flex flex-col p-5 transition-all duration-200 hover:border-orange/35"
+                    className="group flex flex-col rounded-xl border border-white/8 bg-white/[0.03] p-5 transition-all duration-200 hover:border-orange/30 hover:bg-white/[0.05]"
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
-                        <p className="mt-1 text-sm text-white/40">
-                          {needCategoryLabels[unit.category]}
-                        </p>
+                        <p className="mt-1 text-sm text-white/35">{needCategoryLabels[unit.category]}</p>
                       </div>
                       <span className="rounded-full border border-orange/25 bg-orange/12 px-3 py-1 text-[0.75rem] font-semibold text-orange">
                         متاحة
@@ -667,16 +635,12 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2.5">
                       <div className="rounded-lg bg-white/5 px-3 py-2.5">
-                        <p className="text-[0.72rem] text-white/35">الدور</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">
-                          {floorLabels[unit.floor_id]}
-                        </p>
+                        <p className="text-[0.72rem] text-white/30">الدور</p>
+                        <p className="mt-0.5 text-sm font-semibold text-white">{floorLabels[unit.floor_id]}</p>
                       </div>
                       <div className="rounded-lg bg-white/5 px-3 py-2.5">
-                        <p className="text-[0.72rem] text-white/35">المساحة</p>
-                        <p className="mt-0.5 text-sm font-semibold text-white">
-                          {unit.area_m2} م²
-                        </p>
+                        <p className="text-[0.72rem] text-white/30">المساحة</p>
+                        <p className="mt-0.5 text-sm font-semibold text-white">{unit.area_m2} م²</p>
                       </div>
                     </div>
                   </Link>
@@ -696,7 +660,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="section-shell overflow-hidden">
+            <div className="card-layered overflow-hidden">
               <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
                 {/* text */}
                 <div className="space-y-5 p-7 md:p-10">
@@ -714,10 +678,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       { step: "02", title: "شارك", desc: "أدر العجلة واحفظ نتيجتك." },
                       { step: "03", title: "احضر", desc: "استلم مكافأتك يوم الافتتاح." },
                     ].map((s) => (
-                      <div key={s.step} className="rounded-xl border border-border bg-secondary/40 p-4">
-                        <span className="font-poppins text-xs font-bold text-primary">
-                          {s.step}
-                        </span>
+                      <div key={s.step} className="card-architectural rounded-xl p-4 pr-6">
+                        <span className="font-poppins text-xs font-bold text-primary">{s.step}</span>
                         <p className="mt-2 text-[0.92rem] font-bold text-foreground">{s.title}</p>
                         <p className="mt-1 text-[0.82rem] text-muted-foreground">{s.desc}</p>
                       </div>
@@ -731,18 +693,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       </Button>
                     </Link>
                     <Link to="/opening-day">
-                      <Button
-                        variant="outline-blue"
-                        size="lg"
-                        className="h-12 rounded-xl px-7"
-                      >
+                      <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-7">
                         تفاصيل يوم الافتتاح
                       </Button>
                     </Link>
                   </div>
                 </div>
                 {/* side panel */}
-                <div className="hidden border-r border-border bg-secondary/30 p-8 lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-center">
+                <div className="hidden border-r border-border bg-secondary/40 p-8 lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-center">
                   <div className="section-shell rounded-2xl p-6">
                     <p className="text-sm font-semibold text-muted-foreground">التاريخ المنتظر</p>
                     <p className="mt-2 text-2xl font-bold text-foreground">
@@ -759,8 +717,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
+      {/* ── divider ── */}
+      <div className="section-divider container" />
+
       {/* ════════════════ 8 · FUTURE VISION ════════════════ */}
-      <section className="section-soft page-section">
+      <section className="section-warm page-section">
         <div className="container max-w-5xl text-center">
           <motion.div
             variants={sectionReveal}
@@ -779,34 +740,31 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
             <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
               {[
-                { n: "1", label: "الدليل التفاعلي", desc: "خريطة المول كاملة — تعمل الآن." },
-                { n: "2", label: "المتاجر والعروض", desc: "استكشاف وتصفّح بالفئة والعرض." },
-                {
-                  n: "3",
-                  label: "السوق الرقمي",
-                  desc: "تسوّق إلكتروني مباشر — قريبًا.",
-                },
-              ].map((item, i) => (
+                { n: "1", label: "الدليل التفاعلي", desc: "خريطة المول كاملة — تعمل الآن.", active: true },
+                { n: "2", label: "المتاجر والعروض", desc: "استكشاف وتصفّح بالفئة والعرض.", active: true },
+                { n: "3", label: "السوق الرقمي", desc: "تسوّق إلكتروني مباشر — قريبًا.", active: false },
+              ].map((item) => (
                 <div
                   key={item.n}
-                  className={`section-shell rounded-xl p-6 transition-all ${i === 2 ? "border-primary/20" : ""}`}
+                  className={`card-layered rounded-xl p-6 transition-all ${!item.active ? "border-primary/15" : ""}`}
                 >
-                  <span className="font-poppins text-3xl font-bold text-primary/70">
+                  <span className={`font-poppins text-3xl font-bold ${item.active ? "text-primary/70" : "text-primary/30"}`}>
                     {item.n}
                   </span>
                   <p className="mt-3 text-[1rem] font-bold text-foreground">{item.label}</p>
                   <p className="mt-1.5 text-[0.85rem] text-muted-foreground">{item.desc}</p>
+                  {item.active && (
+                    <span className="mt-3 inline-flex rounded-full border border-primary/15 bg-primary/5 px-2.5 py-0.5 text-[0.68rem] font-semibold text-primary">
+                      متاح الآن
+                    </span>
+                  )}
                 </div>
               ))}
             </div>
 
             <div className="mt-8">
               <Link to="/stores">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="h-12 rounded-xl px-8"
-                >
+                <Button variant="secondary" size="lg" className="h-12 rounded-xl px-8">
                   استعرض المتاجر الحالية
                 </Button>
               </Link>
@@ -837,27 +795,19 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   ما يحتاج الزائر والتاجر معرفته قبل الزيارة أو الاستفسار.
                 </p>
                 <Link to="/faq" className="mt-4 inline-flex">
-                  <Button
-                    variant="ghost"
-                    className="px-0 text-primary hover:text-primary/80"
-                  >
+                  <Button variant="ghost" className="px-0 text-primary hover:text-primary/80">
                     جميع الأسئلة
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
                   </Button>
                 </Link>
               </div>
 
-              <Accordion
-                type="single"
-                collapsible
-                defaultValue={faqItems[0]?.id}
-                className="space-y-2.5"
-              >
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
                 {faqItems.map((faq) => (
                   <AccordionItem
                     key={faq.id}
                     value={faq.id}
-                    className="section-shell overflow-hidden rounded-xl px-5"
+                    className="card-layered overflow-hidden rounded-xl px-5"
                   >
                     <AccordionTrigger className="min-h-[4rem] py-4 text-right text-[0.95rem] font-semibold text-foreground hover:text-primary md:text-base">
                       {faq.question_ar}
