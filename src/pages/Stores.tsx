@@ -310,10 +310,10 @@ const Stores = () => {
                     className="group flex items-center gap-3 rounded-lg border border-border bg-card p-3.5 transition-all hover:border-primary/15 hover:shadow-[var(--shadow-card)]"
                   >
                     {store.logo_url ? (
-                      <img src={store.logo_url} alt={store.name_ar} className="h-10 w-10 rounded-lg border border-border object-contain" loading="lazy" />
+                      <img src={store.logo_url} alt={store.name_ar} className="h-12 w-12 rounded-xl border border-border object-contain p-1" loading="lazy" />
                     ) : (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
-                        <Store className="h-4 w-4" />
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
+                        <Store className="h-5 w-5" />
                       </div>
                     )}
                     <div>
