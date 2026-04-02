@@ -438,22 +438,23 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ═══════════ 5 · MAP PREVIEW ═══════════ */}
       <section className="py-6 md:py-8" style={{ background: "#FAFAF8" }}>
         <div className="container">
-          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-2.5 flex items-end justify-between gap-3">
-              <div>
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            className="mx-auto max-w-[46rem]"
+          >
+            <div className="rounded-2xl border border-border bg-card px-4 py-4 md:px-5 md:py-5">
+              <div className="mb-3 space-y-1">
                 <p className="section-kicker">الدليل التفاعلي</p>
-                <h2 className="section-title max-w-[18rem]">تصفّح المول — قبل أن تصل.</h2>
+                <h2 className="section-title max-w-[16rem]">لمحة سريعة قبل الزيارة.</h2>
+                <p className="max-w-[24rem] text-[0.8rem] leading-6 text-muted-foreground">
+                  شاهد وحدة واحدة بسرعة، ثم افتح الدليل الكامل لباقي التفاصيل.
+                </p>
               </div>
-              <Link to="/map" className="hidden lg:inline-flex">
-                <Button variant="ghost" className="gap-1 text-[0.78rem] font-bold text-primary">افتح الدليل <ArrowLeft className="h-3 w-3" /></Button>
-              </Link>
-            </div>
 
-            <MapTeaserPreview />
-
-            <div className="mt-2.5 grid gap-2 sm:grid-cols-2 lg:hidden">
-              <Link to="/map"><Button variant="cta" className="h-9 w-full rounded-lg text-[0.78rem] font-bold">افتح الدليل الكامل</Button></Link>
-              <Link to="/leasing"><Button variant="outline-blue" className="h-9 w-full rounded-lg text-[0.78rem]">استفسر عن وحدة</Button></Link>
+              <MapTeaserPreview />
             </div>
           </motion.div>
         </div>
