@@ -452,7 +452,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   whileInView="visible"
                   viewport={{ once: true }}
                 >
-                  <div className="card-layered group flex h-full min-h-[12rem] flex-col p-6 transition-all duration-300 hover:shadow-[var(--shadow-elevated)]">
+                  <div className="card-editorial group flex h-full min-h-[12rem] flex-col p-6 transition-all duration-300 hover:shadow-[var(--shadow-elevated)]">
                     <div className="mb-4 flex items-start justify-between">
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
                         <cat.icon className="h-5 w-5" />
