@@ -561,23 +561,20 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
 
       <div className="band-primary" />
 
-      {/* ═══════════ 8 · DIGITAL EXTENSION ═══════════ */}
+      {/* ═══════════ 8 · DIGITAL ROADMAP ═══════════ */}
       <section className="heritage-deep relative overflow-hidden py-8 md:py-10">
         <div className="relative container max-w-3xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[22rem] text-center">
-              <p className="section-kicker dark-kicker">التطوّر الرقمي</p>
-              <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
-              <p className="mx-auto mt-1.5 text-[0.82rem] leading-[1.65] dark-body max-w-[20rem]">
-                أدوات تخدم الزائر والتاجر — قبل وبعد الزيارة.
-              </p>
+              <p className="section-kicker dark-kicker">خارطة التطوّر</p>
+              <h2 className="section-title dark-heading">من مول إلى منصة رقمية متكاملة.</h2>
             </div>
 
             <div className="mx-auto mt-5 grid max-w-2xl gap-2.5 sm:grid-cols-3">
               {[
                 { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور — بالحالة الفعلية.", active: true },
-                { n: "02", icon: ShoppingBag, label: "دليل المتاجر", desc: "كل علامة تجارية في مكان واحد.", active: true },
-                { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
+                { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح منتجات المتاجر مباشرة.", active: true },
+                { n: "03", icon: Zap, label: "الماركتبليس الكامل", desc: "شراء وسلة ودفع — قريبًا.", active: false },
               ].map((item) => (
                 <div key={item.n} className="heritage-surface rounded-lg p-4 text-center">
                   <span className="font-poppins text-[0.58rem] font-bold dark-kicker">{item.n}</span>
@@ -595,10 +592,15 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               ))}
             </div>
 
-            <div className="mt-5 text-center">
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5">
+              <Link to="/products">
+                <Button variant="cta" className="h-10 rounded-lg px-5 text-[0.82rem] font-bold">
+                  <ShoppingBag className="ml-1.5 h-3.5 w-3.5" /> تصفّح المنتجات
+                </Button>
+              </Link>
               <Link to="/stores">
-                <Button className="h-10 rounded-lg border px-6 text-[0.82rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
-                  استعرض دليل المتاجر
+                <Button className="h-10 rounded-lg border px-5 text-[0.82rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                  دليل المتاجر
                 </Button>
               </Link>
             </div>
