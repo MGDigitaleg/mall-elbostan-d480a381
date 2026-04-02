@@ -182,18 +182,18 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               </div>
             </motion.div>
 
-            {/* ── image column — edge-to-edge editorial composition ── */}
+            {/* ── image column — editorial architectural composition ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.15 }}
               className="relative order-2 hidden h-screen lg:block"
             >
-              {/* full-bleed hero image */}
+              {/* full-bleed hero — exterior, cropped for geometry */}
               <img
                 src={heroImage}
                 alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
-                className="h-full w-full object-cover img-grade-dark"
+                className="h-full w-full object-cover object-[center_30%] img-grade-dark"
                 loading="eager"
               />
               {/* editorial gradient overlay */}
@@ -211,10 +211,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </div>
               </div>
 
-              {/* interior detail crop — overlapping composition */}
-              <div className="absolute bottom-12 left-8 w-[28%]">
-                <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #ffffff14", boxShadow: "0 20px 50px #07132680" }}>
-                  <img src={interiorImage} alt="المتاجر من الداخل" className="aspect-square w-full object-cover img-grade-dark" loading="lazy" />
+              {/* architectural detail inset — interior, square symmetry crop */}
+              <div className="absolute bottom-14 left-8 w-[26%]">
+                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 20px 50px #07132680" }}>
+                  <img src={interiorImage} alt="التفاصيل الداخلية" className="aspect-[1/1] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
                 </div>
               </div>
             </motion.div>
