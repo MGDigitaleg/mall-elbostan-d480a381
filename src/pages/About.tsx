@@ -242,12 +242,12 @@ const About = () => (
               <div className="chapter-shell pt-6">
                 <p className="section-kicker">تجربة الزائر</p>
                 <h2 className="section-title max-w-[24rem]">
-                  زيارة منظّمة من أول خطوة.
+                  زيارة منظّمة تبدأ قبل أن تدخل.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2] text-muted-foreground md:text-[1.08rem]">
-                بدل أن تدخل مولًا مزدحمًا وتبحث عشوائيًا — هنا كل شيء مصنّف ومرتّب. فئات واضحة،
-                أدوار منطقية، وخريطة تفاعلية تعرض كل وحدة بحالتها قبل أن تصل.
+                المول مقسّم بتصنيف دقيق — فئات واضحة، أدوار منطقية، وخريطة تفاعلية تعرض كل
+                وحدة بحالتها الفعلية. الزائر يعرف وجهته قبل أن يصل.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-2">
