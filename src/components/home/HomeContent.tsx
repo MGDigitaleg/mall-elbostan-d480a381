@@ -292,15 +292,15 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               {/* text */}
               <div className="order-1 space-y-6 lg:order-2">
                 <div className="chapter-shell pt-6">
-                  <p className="section-kicker">الهوية والتاريخ</p>
+                <p className="section-kicker">الهوية والمكانة</p>
                   <h2 className="section-title max-w-[28rem]">
-                    اسم بنى مكانته في سوق التقنية المصري.
+                    اسم لم يحتج حملات ليُعرف — بناه السوق نفسه.
                   </h2>
                 </div>
                 <p className="text-[1.05rem] leading-[2] text-muted-foreground md:text-lg">
-                  منذ سنوات ومول البستان يُعرف كوجهة أساسية لكل من يبحث عن أجهزة إلكترونية
-                  وملحقات وخدمات تقنية في القاهرة الجديدة — ثقة تجارية حقيقية بناها التعامل
-                  المباشر بين التاجر والزائر.
+                  مول البستان ليس مشروعًا يبحث عن جمهور — إنه وجهة بناها الجمهور بتكرار
+                  الزيارة والثقة في التعامل. سنوات من الحضور المتواصل في سوق الإلكترونيات
+                  جعلت منه مرجعًا حقيقيًا في القاهرة الجديدة.
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
