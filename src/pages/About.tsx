@@ -282,16 +282,19 @@ const About = () => (
               </Link>
             </div>
 
+            {/* editorial image composition — modular blocks */}
             <div className="space-y-3">
-              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                <img src={interiorImage} alt="المشهد الداخلي المنظّم لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+              {/* wide: interior panoramic — spatial understanding */}
+              <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                <img src={interiorImage} alt="المشهد الداخلي المنظّم لمول البستان" className="img-grade aspect-[16/9] h-full w-full object-cover" loading="lazy" />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
-                  <img src={facadeImage} alt="واجهة معمارية" className="h-full w-full object-cover" loading="lazy" />
+              {/* pair: facade + entrance — asymmetric detail crops */}
+              <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
+                <div className="editorial-frame overflow-hidden rounded-xl">
+                  <img src={facadeImage} alt="واجهة معمارية" className="img-grade aspect-[3/2] h-full w-full object-cover object-[center_40%]" loading="lazy" />
                 </div>
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-border">
-                  <img src={entranceImage} alt="مدخل المول" className="h-full w-full object-cover" loading="lazy" />
+                <div className="editorial-frame overflow-hidden rounded-xl">
+                  <img src={entranceImage} alt="مدخل المول" className="img-grade aspect-[3/2] h-full w-full object-cover object-[50%_30%]" loading="lazy" />
                 </div>
               </div>
             </div>
