@@ -354,13 +354,13 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mx-auto mb-12 max-w-[38rem] text-center">
-              <p className="section-kicker">ما يقدّمه المول</p>
+              <p className="section-kicker">القيمة الحقيقية</p>
               <h2 className="section-title">
-                تجربة مصمّمة لكل من يدخل المول.
+                مول مصمّم ليخدم — لا ليُبهر فقط.
               </h2>
               <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50">
-                سواء كنت زائرًا يبحث عن منتج، أو تاجرًا يبحث عن موقع، أو مستثمرًا يبحث عن فرصة —
-                المول مصمّم ليخدمك.
+                سواء كنت مشتريًا يبحث عن منتج بعينه، أو تاجرًا يبحث عن موقع فعّال، أو مستثمرًا
+                يقيّم فرصة — كل تفصيلة في المول مصمّمة لتقصير المسافة بين الدخول والقرار.
               </p>
             </div>
 
