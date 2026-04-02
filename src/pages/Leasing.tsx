@@ -276,7 +276,7 @@ const Leasing = () => {
                       <CheckCircle2 className="h-7 w-7 text-success" />
                     </div>
                     <p className="text-[1.05rem] font-extrabold dark-heading">تم إرسال طلبك</p>
-                    <p className="mt-2 text-[0.86rem] dark-body">فريق التأجير هيتواصل معاك في أقرب وقت بتفاصيل الوحدات المناسبة.</p>
+                    <p className="mt-2 text-[0.86rem] dark-body">فريق التأجير سيتواصل معك في أقرب وقت بتفاصيل الوحدات المناسبة.</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-3.5">
