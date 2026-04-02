@@ -589,7 +589,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       </section>
 
       {/* ════════════════ 6 · LEASING (Heritage dark) ════════════════ */}
-      <section className="heritage-section page-section">
+      <section className="section-stone page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
