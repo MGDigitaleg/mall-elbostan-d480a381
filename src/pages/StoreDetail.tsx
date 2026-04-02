@@ -248,7 +248,7 @@ const StoreDetail = () => {
                 </div>
               </section>
             )}
-          </div>
+          </motion.div>
 
           {/* Sidebar */}
           <div className="space-y-6">
