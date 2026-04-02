@@ -369,14 +369,14 @@
   }
 
   .section-kicker {
-    @apply mb-3 text-[0.68rem] font-bold tracking-[0.25em] uppercase;
+    @apply mb-2 text-[0.6rem] font-bold tracking-[0.25em] uppercase;
     color: hsl(var(--primary));
     font-family: var(--font-poppins);
-    letter-spacing: 0.25em;
+    letter-spacing: 0.22em;
   }
 
   .section-title {
-    @apply text-[1.35rem] font-bold leading-[1.12] md:text-[1.55rem] lg:text-[1.75rem];
+    @apply text-[1.15rem] font-bold leading-[1.12] md:text-[1.35rem] lg:text-[1.5rem];
     color: #0F172A;
     letter-spacing: -0.018em;
   }
