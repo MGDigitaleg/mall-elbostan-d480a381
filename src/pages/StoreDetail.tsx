@@ -36,7 +36,13 @@ const categoryStory: Record<string, { title: string; description: string }> = {
   },
 };
 
-const StoreDetail = () => {
+const heroText = { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const heroImage = { hidden: { opacity: 0, scale: 0.97 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6, delay: 0.1 } } };
+const sectionReveal = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
+const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
+const fadeChild = { hidden: { opacity: 0, y: 14 }, visible: { opacity: 1, y: 0, transition: { duration: 0.4 } } };
+
+
   const { slug } = useParams<{ slug: string }>();
 
   const { data: store, isLoading } = useQuery({
