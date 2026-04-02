@@ -72,7 +72,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-8"><EmptyState title="جدول الفعاليات هيتعلن قريب" /></div>}
+          ) : <div className="section-shell p-8"><EmptyState title="برنامج الفعاليات قيد الإعداد — سيُعلن قريبًا" /></div>}
         </section>
 
         <section className="mb-16">
