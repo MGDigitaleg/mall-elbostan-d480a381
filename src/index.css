@@ -613,4 +613,7 @@
   .light-body { color: #334155; }
   .light-muted { color: #64748B; }
   .light-meta { color: #94A3B8; }
+
+  /* ── Heritage section variable ── */
+  :root { --heritage: 37 28% 70%; }
 }

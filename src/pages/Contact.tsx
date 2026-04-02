@@ -320,7 +320,7 @@ const Contact = () => {
             </span>
             <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
           </div>
-          <h2 className="text-[1.1rem] font-extrabold dark-heading md:text-[1.3rem]">ممكن تلاقي اللي بتدوّر عليه هنا</h2>
+          <h2 className="text-[1.1rem] font-extrabold dark-heading md:text-[1.3rem]">قد تجد ما تبحث عنه هنا</h2>
           <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
             {[
               { label: "التأجير", href: "/leasing" },

@@ -615,7 +615,7 @@ function DirectoryEmpty({ onReset }: { onReset: () => void }) {
       </div>
       <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج ضمن هذا البحث</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل بيتحدث باستمرار مع انضمام متاجر جديدة.
+        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتحدّث باستمرار مع انضمام متاجر جديدة.
       </p>
       <button onClick={onReset} className="mt-5 rounded-xl px-6 py-2.5 text-[0.88rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
         إعادة ضبط الفلاتر
