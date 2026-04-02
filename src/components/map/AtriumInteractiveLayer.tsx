@@ -1,20 +1,11 @@
 /**
- * AtriumInteractiveLayer – self-contained SVG <g> element that renders
- * the branded engagement zone at the centre of the mall floor map.
- *
- * States:
- *   idle    → subtle branded pulse, no label
- *   hover   → soft highlight, tooltip, enlarged rings
- *   active  → ring glow after click (briefly)
- *
- * Modes (visual theming only — content is in AtriumHubModal):
- *   spin | offers | featured | events | categories | campaign
+ * AtriumInteractiveLayer – toned-down, architecturally integrated atrium zone.
+ * Subtle presence, not visually dominant over surrounding commercial units.
  */
 import { useState, useCallback } from "react";
 import { ATRIUM_CENTER, ATRIUM_OCTAGON, ATRIUM_INNER, ATRIUM_VERTICES } from "@/lib/mallFloorGeometry";
 import type { AtriumMode } from "./AtriumHubModal";
 
-/* ── Mode visual config ── */
 const MODE_VISUALS: Record<AtriumMode, { color: string; label: string; icon: string }> = {
   spin:       { color: "#2563EB", label: "أدر واربح",      icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
   offers:     { color: "#F57C20", label: "عروض اليوم",      icon: "M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z M7 7h.01" },
@@ -50,58 +41,31 @@ export function AtriumInteractiveLayer({ mode, customColor, customLabel, onClick
 
   return (
     <g id="atrium-interactive-layer">
-      {/* ── Architectural atrium base ── */}
-      {/* Outer octagon glass */}
-      <polygon
-        points={ATRIUM_OCTAGON}
-        fill="url(#atriumGlass)"
-        stroke="#7BAEC4"
-        strokeWidth="2"
-      />
-      <polygon
-        points={ATRIUM_OCTAGON}
-        fill="url(#glassHatch)"
-        opacity="0.35"
-      />
-      {/* Inner octagon ring */}
-      <polygon
-        points={ATRIUM_INNER}
-        fill="none"
-        stroke="#7BAEC4"
-        strokeWidth="1"
-        opacity="0.45"
-      />
+      {/* Octagon glass — subtle, architectural */}
+      <polygon points={ATRIUM_OCTAGON} fill="url(#atriumGlass)" stroke="#9BB8C8" strokeWidth="1.5" />
+      <polygon points={ATRIUM_OCTAGON} fill="url(#glassHatch)" opacity="0.2" />
+      <polygon points={ATRIUM_INNER} fill="none" stroke="#9BB8C8" strokeWidth="0.8" opacity="0.3" />
 
-      {/* ── Radial web lines ── */}
+      {/* Radial lines — very subtle */}
       {ATRIUM_VERTICES.map(([vx, vy], i) => (
-        <line
-          key={`ray-${i}`}
-          x1={cx} y1={cy} x2={vx} y2={vy}
-          stroke="#7BAEC4"
-          strokeWidth="0.8"
-          opacity="0.35"
-        />
+        <line key={`ray-${i}`} x1={cx} y1={cy} x2={vx} y2={vy} stroke="#9BB8C8" strokeWidth="0.5" opacity="0.2" />
       ))}
 
-      {/* ── Branded pulse rings (always visible, subtle) ── */}
-      <circle cx={cx} cy={cy} r="42" fill="none" stroke={color} strokeWidth="1.2" opacity="0.12">
-        <animate attributeName="r" values="42;54;42" dur="4s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.12;0.03;0.12" dur="4s" repeatCount="indefinite" />
-      </circle>
-      <circle cx={cx} cy={cy} r="34" fill="none" stroke={color} strokeWidth="0.8" opacity="0.08">
-        <animate attributeName="r" values="34;46;34" dur="4s" begin="2s" repeatCount="indefinite" />
-        <animate attributeName="opacity" values="0.08;0.02;0.08" dur="4s" begin="2s" repeatCount="indefinite" />
+      {/* Single subtle pulse — NOT dominant */}
+      <circle cx={cx} cy={cy} r="32" fill="none" stroke={color} strokeWidth="0.8" opacity="0.08">
+        <animate attributeName="r" values="32;42;32" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.08;0.02;0.08" dur="5s" repeatCount="indefinite" />
       </circle>
 
-      {/* ── Active / pressed glow ring ── */}
+      {/* Press feedback */}
       {pressed && (
-        <circle cx={cx} cy={cy} r="52" fill="none" stroke={color} strokeWidth="2.5" opacity="0.35">
-          <animate attributeName="r" values="30;60" dur="0.5s" fill="freeze" />
-          <animate attributeName="opacity" values="0.4;0" dur="0.5s" fill="freeze" />
+        <circle cx={cx} cy={cy} r="40" fill="none" stroke={color} strokeWidth="1.5" opacity="0.3">
+          <animate attributeName="r" values="25;50" dur="0.4s" fill="freeze" />
+          <animate attributeName="opacity" values="0.3;0" dur="0.4s" fill="freeze" />
         </circle>
       )}
 
-      {/* ── Interactive hit area ── */}
+      {/* Hit area */}
       <g
         className="cursor-pointer"
         onClick={handleClick}
@@ -112,87 +76,45 @@ export function AtriumInteractiveLayer({ mode, customColor, customLabel, onClick
         aria-label={label}
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleClick(); } }}
       >
-        {/* Invisible hit circle (generous tap target) */}
-        <circle cx={cx} cy={cy} r="58" fill="transparent" />
+        <circle cx={cx} cy={cy} r="50" fill="transparent" />
 
-        {/* Hover highlight ring */}
+        {/* Hover ring */}
         <circle
-          cx={cx} cy={cy} r="48"
+          cx={cx} cy={cy} r="40"
           fill="none"
           stroke={color}
-          strokeWidth={hovered ? "2" : "0"}
-          opacity={hovered ? 0.45 : 0}
+          strokeWidth={hovered ? "1.5" : "0"}
+          opacity={hovered ? 0.3 : 0}
           style={{ transition: "stroke-width 0.3s, opacity 0.3s" }}
         />
 
-        {/* Hover fill glow */}
-        <circle
-          cx={cx} cy={cy} r="36"
-          fill={hovered ? `${color}10` : "transparent"}
-          style={{ transition: "fill 0.3s" }}
-        />
-
-        {/* Center branded dot */}
+        {/* Center dot — small, subtle */}
         <circle
           cx={cx} cy={cy}
-          r={hovered ? "6" : "4"}
+          r={hovered ? "5" : "3"}
           fill={color}
-          opacity={hovered ? 0.7 : 0.4}
+          opacity={hovered ? 0.5 : 0.25}
           style={{ transition: "r 0.3s, opacity 0.3s" }}
         />
 
-        {/* Mode icon (scaled SVG path) */}
+        {/* Mode icon on hover */}
         <g
           transform={`translate(${cx - 8}, ${cy - 8}) scale(0.67)`}
-          opacity={hovered ? 0.7 : 0}
+          opacity={hovered ? 0.5 : 0}
           style={{ transition: "opacity 0.3s" }}
         >
           <path d={vis.icon} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </g>
       </g>
 
-      {/* ── Hover tooltip ── */}
+      {/* Tooltip on hover */}
       {hovered && (
         <g pointerEvents="none">
-          <rect
-            x={cx - 60}
-            y={cy - 72}
-            width="120"
-            height="28"
-            rx="8"
-            fill="hsl(222 42% 10%)"
-            opacity="0.92"
-          />
-          {/* tooltip arrow */}
-          <polygon
-            points={`${cx - 5},${cy - 44} ${cx + 5},${cy - 44} ${cx},${cy - 38}`}
-            fill="hsl(222 42% 10%)"
-            opacity="0.92"
-          />
-          <text
-            x={cx}
-            y={cy - 54}
-            textAnchor="middle"
-            className="text-[11px] font-bold"
-            fill="#fff"
-          >
-            {label}
-          </text>
+          <rect x={cx - 50} y={cy - 62} width="100" height="24" rx="6" fill="hsl(222 36% 11%)" opacity="0.9" />
+          <polygon points={`${cx - 4},${cy - 38} ${cx + 4},${cy - 38} ${cx},${cy - 33}`} fill="hsl(222 36% 11%)" opacity="0.9" />
+          <text x={cx} y={cy - 47} textAnchor="middle" className="text-[10px] font-bold" fill="#F4F0EA">{label}</text>
         </g>
       )}
-
-      {/* ── Subtle mode label (always visible, very subtle) ── */}
-      <text
-        x={cx}
-        y={cy + 64}
-        textAnchor="middle"
-        className="text-[9px] font-semibold"
-        fill={color}
-        opacity={hovered ? 0.6 : 0.2}
-        style={{ transition: "opacity 0.3s" }}
-      >
-        {label}
-      </text>
     </g>
   );
 }
