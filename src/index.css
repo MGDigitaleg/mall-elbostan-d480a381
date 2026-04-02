@@ -10,24 +10,25 @@
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
     --font-poppins: 'Inter', sans-serif;
 
-    /* ─── Premium heritage palette — warm, high-contrast ─── */
+    /* ─── Strict contrast palette ─── */
+    /* Light surface text — mapped from user spec */
     --background: 38 16% 97%;
-    --foreground: 222 36% 8%;
+    --foreground: 222 47% 11%;          /* #0F172A */
 
     --card: 36 18% 99%;
-    --card-foreground: 222 36% 8%;
+    --card-foreground: 222 47% 11%;     /* #0F172A */
 
     --popover: 36 18% 99%;
-    --popover-foreground: 222 36% 8%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 222 58% 38%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 34 14% 93%;
-    --secondary-foreground: 222 36% 8%;
+    --secondary-foreground: 222 47% 11%;
 
     --muted: 220 10% 88%;
-    --muted-foreground: 220 14% 34%;
+    --muted-foreground: 215 16% 47%;    /* #64748B */
 
     --accent: 192 48% 38%;
     --accent-foreground: 0 0% 100%;
