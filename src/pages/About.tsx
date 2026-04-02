@@ -319,9 +319,9 @@ const About = () => (
     <section className="page-section" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
-            <div className="space-y-6">
-              <div className="chapter-shell pt-7">
+           <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
+            <div className="space-y-4">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">الموقع التجاري</p>
                 <h2 className="section-title max-w-[26rem]">
                   لماذا يختار التاجر مول البستان.
