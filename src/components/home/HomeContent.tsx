@@ -517,8 +517,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ── divider ── */}
-      <div className="section-divider container" />
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ════════════════ 5 · INTERACTIVE MAP ════════════════ */}
       <section className="section-warm page-section">
