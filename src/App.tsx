@@ -101,7 +101,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <GA4Init />
-        <div className="min-h-screen flex flex-col bg-[linear-gradient(180deg,hsl(var(--background)),hsl(210_34%_97%))]">
+        <div className="min-h-screen flex flex-col bg-background">
           <AppLayout />
         </div>
       </BrowserRouter>
