@@ -335,10 +335,10 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="heritage-deep page-section !py-10">
+      <section className="heritage-section page-section !py-10">
         <div className="container max-w-[900px] text-center">
           <h2 className="text-lg font-bold text-white md:text-xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.85rem] text-white/30">
+          <p className="mx-auto mt-2 max-w-sm text-[0.85rem]" style={{ color: "hsl(220 12% 65%)" }}>
             من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
@@ -348,7 +348,7 @@ const InteractiveMap = () => {
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-11 rounded-xl border border-white/10 bg-white/5 px-8 font-semibold text-white hover:bg-white/10">
+              <Button size="lg" className="h-11 rounded-xl border border-white/12 bg-white/6 px-8 font-semibold text-white hover:bg-white/12">
                 تصفّح المتاجر
               </Button>
             </Link>
