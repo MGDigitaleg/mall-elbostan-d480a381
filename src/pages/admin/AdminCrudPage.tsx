@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Plus, Pencil, Trash2 } from "lucide-react";
 
 interface CrudPageProps {
-  table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs";
+  table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
   title: string;
   nameField: string;
   fields: { key: string; label: string; type?: string }[];

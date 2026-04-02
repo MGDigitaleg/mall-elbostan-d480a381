@@ -48,3 +48,19 @@ export const AdminFaqs = () => <AdminCrudPage table="faqs" title="الأسئلة
   { key: "question_en", label: "السؤال بالإنجليزية" }, { key: "answer_en", label: "الجواب بالإنجليزية", type: "textarea" },
   { key: "category", label: "الفئة" }, { key: "sort_order", label: "الترتيب", type: "number" },
 ]} />;
+export const AdminProductCategories = () => <AdminCrudPage table="product_categories" title="فئات المنتجات" nameField="name_ar" fields={[
+  { key: "name_ar", label: "الاسم بالعربية" }, { key: "name_en", label: "الاسم بالإنجليزية" },
+  { key: "slug", label: "الرابط (slug)" }, { key: "icon", label: "الأيقونة" },
+  { key: "sort_order", label: "الترتيب", type: "number" },
+]} />;
+export const AdminProducts = () => <AdminCrudPage table="products" title="المنتجات" nameField="name_ar" fields={[
+  { key: "name_ar", label: "الاسم بالعربية" }, { key: "name_en", label: "الاسم بالإنجليزية" },
+  { key: "slug", label: "الرابط (slug)" }, { key: "brand", label: "العلامة التجارية" },
+  { key: "short_description_ar", label: "وصف قصير", type: "textarea" },
+  { key: "long_description_ar", label: "وصف تفصيلي", type: "textarea" },
+  { key: "price", label: "السعر", type: "number" }, { key: "price_note", label: "ملاحظة السعر" },
+  { key: "sku", label: "SKU" }, { key: "image_url", label: "رابط الصورة" },
+  { key: "external_buy_url", label: "رابط الشراء الخارجي" },
+  { key: "status", label: "الحالة (draft/published/hidden)" },
+  { key: "featured", label: "مميز (true/false)" },
+]} />;
