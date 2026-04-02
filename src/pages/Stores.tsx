@@ -143,18 +143,21 @@ const Stores = () => {
               </div>
             </motion.div>
 
-            {/* hero image composition */}
+            {/* hero image — editorial layered composition */}
             <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }} className="hidden items-center justify-center lg:flex">
               <div className="relative w-full max-w-[420px]">
-                <div className="image-architectural aspect-[4/5] overflow-hidden shadow-[var(--shadow-deep)]" style={{ border: "1px solid hsl(0 0% 100% / 0.06)" }}>
-                  <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover" loading="eager" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(222 44% 6% / 0.5), transparent 50%)" }} />
+                {/* primary: tall entrance shot — authority */}
+                <div className="editorial-frame-dark img-wash-dark overflow-hidden">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-dark aspect-[4/5] w-full object-cover" loading="eager" />
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-[38%] overflow-hidden rounded-lg shadow-[var(--shadow-deep)]" style={{ border: "1px solid hsl(0 0% 100% / 0.08)" }}>
-                  <div className="image-shell aspect-[3/4]">
-                    <img src={interiorImage} alt="متاجر المول من الداخل" className="h-full w-full object-cover" loading="lazy" />
+                {/* secondary: square interior crop — atmosphere */}
+                <div className="absolute -bottom-5 -right-5 w-[40%]">
+                  <div className="editorial-frame-dark img-wash-dark overflow-hidden rounded-xl">
+                    <img src={interiorImage} alt="متاجر المول من الداخل" className="img-grade-dark aspect-[1/1] w-full object-cover" loading="lazy" />
                   </div>
                 </div>
+                {/* vertical accent */}
+                <div className="absolute -left-3 top-8 h-16 w-[3px] rounded-full" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.3), transparent)" }} />
               </div>
             </motion.div>
           </div>

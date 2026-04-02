@@ -389,8 +389,8 @@ const About = () => (
                 </div>
               </div>
 
-              <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                <img src={exteriorImage} alt="مول البستان من الخارج" className="h-full w-full object-cover" loading="lazy" />
+              <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                <img src={exteriorImage} alt="مول البستان من الخارج" className="img-grade aspect-[4/3] w-full object-cover" loading="lazy" />
               </div>
             </div>
           </div>
