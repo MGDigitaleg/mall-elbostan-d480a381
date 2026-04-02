@@ -1,42 +1,66 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Building2, HelpCircle, Layers, MapPin, Monitor, Shield, Smartphone, Store, Wrench } from "lucide-react";
+import {
+  ArrowLeft,
+  Building2,
+  CircuitBoard,
+  Compass,
+  Gift,
+  Globe,
+  HelpCircle,
+  Layers,
+  MapPin,
+  Monitor,
+  Shield,
+  Smartphone,
+  Store,
+  TrendingUp,
+  Users,
+  Wrench,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
-import { allMapUnits, availableMapUnits, exploreNeeds, floorMapData, homepageLeasingUnits, needCategoryDescriptions, needCategoryLabels, type NeedCategory } from "@/lib/floorMapData";
+import {
+  allMapUnits,
+  availableMapUnits,
+  exploreNeeds,
+  floorMapData,
+  homepageLeasingUnits,
+  needCategoryLabels,
+  type NeedCategory,
+} from "@/lib/floorMapData";
 import heroImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
 import facadeImage from "@/assets/mall-facade.jpg";
+import entranceImage from "@/assets/mall-entrance.jpg";
 
+/* ─── category icon map ─── */
 const categoryMeta: Record<NeedCategory, { icon: typeof Smartphone }> = {
   Accessories: { icon: Smartphone },
   Laptops: { icon: Monitor },
-  Components: { icon: Monitor },
-  Networking: { icon: Monitor },
+  Components: { icon: CircuitBoard },
+  Networking: { icon: Globe },
   Maintenance: { icon: Wrench },
   "Security Systems": { icon: Shield },
 };
 
-const categorySupportLabels: Record<NeedCategory, string> = {
-  Accessories: "احتياج يومي سريع",
-  Laptops: "دراسة وعمل",
-  Components: "أداء وتجميع",
-  Networking: "حلول مكتبية",
-  Maintenance: "خدمة مباشرة",
-  "Security Systems": "مراقبة وحماية",
+const categoryBriefs: Record<NeedCategory, string> = {
+  Accessories: "ملحقات وإكسسوارات يومية سريعة الوصول.",
+  Laptops: "أجهزة لابتوب وكمبيوتر للدراسة والعمل.",
+  Components: "مكوّنات وتجميعات لأداء مخصّص.",
+  Networking: "حلول شبكات وطباعة مهنية.",
+  Maintenance: "صيانة ودعم فني مباشر.",
+  "Security Systems": "كاميرات مراقبة وأنظمة أمنية.",
 };
 
-const mobileCategorySummaries: Record<NeedCategory, string> = {
-  Accessories: "ملحقات سريعة وواضحة.",
-  Laptops: "أجهزة للدراسة والعمل.",
-  Components: "مكوّنات وتجميعات أداء.",
-  Networking: "حلول شبكات للمكاتب.",
-  Maintenance: "صيانة مباشرة وسريعة.",
-  "Security Systems": "مراقبة وحماية واضحة.",
-};
-
+/* ─── FAQ fallback ─── */
 const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "المشروع يخدم القاهرة الجديدة ومحيطها، ويمكنك متابعة صفحة التواصل للحصول على تفاصيل الوصول فور اعتمادها." },
   { id: "faq-2", question_ar: "متى الافتتاح؟", answer_ar: "الافتتاح المستهدف في 1 مايو 2026، مع تحديثات مستمرة على صفحة الافتتاح والحملة." },
@@ -46,107 +70,176 @@ const fallbackFaqs = [
   { id: "faq-6", question_ar: "كيف أتواصل للاستفسار التجاري؟", answer_ar: "يمكنك إرسال طلبك مباشرة من صفحة التأجير أو صفحة التواصل وسيتم متابعته من الفريق المختص." },
 ];
 
+/* ─── animation helpers ─── */
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (index: number) => ({
-    opacity: 1, y: 0,
-    transition: { delay: index * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+  hidden: { opacity: 0, y: 28 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.09, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
-type HomeContentProps = {
-  faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
-  featuredStores: Array<{ id: string; name_ar: string; category: string | null; slug: string; logo_url: string | null; short_description_ar: string | null }>;
-  upcomingEvents: Array<{ id: string; title_ar: string; description_ar: string | null; image_url: string | null; event_date: string | null }>;
+const sectionReveal = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
+/* ─── types ─── */
+type HomeContentProps = {
+  faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
+  featuredStores: Array<{
+    id: string;
+    name_ar: string;
+    category: string | null;
+    slug: string;
+    logo_url: string | null;
+    short_description_ar: string | null;
+  }>;
+  upcomingEvents: Array<{
+    id: string;
+    title_ar: string;
+    description_ar: string | null;
+    image_url: string | null;
+    event_date: string | null;
+  }>;
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME CONTENT
+   ═══════════════════════════════════════════════════════════════ */
 export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeContentProps) {
   const totalUnits = allMapUnits.length;
   const availableUnits = availableMapUnits;
-  const floorLabels = Object.fromEntries(floorMapData.map((floor) => [floor.id, floor.label]));
+  const floorLabels = Object.fromEntries(floorMapData.map((f) => [f.id, f.label]));
   const categoryStories = exploreNeeds.map((need) => ({
     key: need,
     name: needCategoryLabels[need],
     icon: categoryMeta[need].icon,
-    desc: needCategoryDescriptions[need],
-    supportLabel: categorySupportLabels[need],
+    brief: categoryBriefs[need],
   }));
-  const faqItems = (faqs.length >= 6 ? faqs : fallbackFaqs).slice(0, 6);
+  const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
   const launchEvent = upcomingEvents[0] ?? null;
-  const availableByFloor = floorMapData.map((floor) => ({
-    id: floor.id,
-    label: floor.label,
-    count: floor.units.filter((unit) => unit.status === "available").length,
+  const availableByFloor = floorMapData.map((f) => ({
+    id: f.id,
+    label: f.label,
+    count: f.units.filter((u) => u.status === "available").length,
   }));
 
   return (
     <>
-      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      {/* ════════════════ 1 · HERO ════════════════ */}
       <section className="heritage-section relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero" />
-        {/* Subtle architectural pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 1px, transparent 0)', backgroundSize: '48px 48px' }} />
+        {/* subtle dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
+            backgroundSize: "40px 40px",
+          }}
+        />
 
-        <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8 lg:px-12">
-          <div className="grid min-h-[85vh] items-center gap-8 py-16 md:py-20 lg:grid-cols-2 lg:gap-12 lg:py-0">
-            {/* Text — right side RTL */}
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="order-1 space-y-6 text-right lg:space-y-8">
-              <div className="space-y-5">
-                <div className="eyebrow-chip border-primary/30 bg-primary/10 text-[0.78rem] text-primary-foreground/80">
-                  القاهرة الجديدة • افتتاح مايو 2026
-                </div>
-                <h1 className="text-[2.2rem] font-extrabold leading-[1.08] text-white md:text-[3.2rem] lg:text-[3.8rem]">
-                  وجهة مصر الأولى
-                  <br />
-                  <span className="text-gradient-blue">للتكنولوجيا والإلكترونيات</span>
-                </h1>
-                <p className="max-w-[28rem] text-[1.05rem] leading-[1.85] text-white/65 md:text-lg lg:text-[1.15rem]">
-                  مول البستان — تاريخ من الثقة في عالم التقنية، وتجربة تسوّق منظّمة تجمع أكثر من {totalUnits} متجرًا متخصصًا تحت سقف واحد.
-                </p>
-              </div>
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
+          <div className="grid min-h-[90vh] items-center gap-10 py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:py-0">
+            {/* ── text ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="order-1 space-y-7"
+            >
+              <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
+                القاهرة الجديدة · افتتاح مايو 2026
+              </span>
 
-              <div className="flex flex-wrap gap-3">
+              <h1 className="max-w-[34rem] text-[2.4rem] font-extrabold leading-[1.06] text-white md:text-[3.5rem] lg:text-[4rem]">
+                الوجهة التقنية
+                <br className="hidden sm:block" />
+                الأعرق في مصر
+              </h1>
+
+              <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
+                مول البستان ليس مجرد مركز تجاري — إنه عنوان راسخ بنى سمعته على سنوات من خدمة
+                المستخدمين والتجار في سوق الإلكترونيات المصري. أكثر من {totalUnits} وحدة تجارية متخصصة
+                تحت سقف واحد.
+              </p>
+
+              <div className="flex flex-wrap gap-3 pt-1">
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="h-12 min-w-[12rem] rounded-xl px-7 text-[0.95rem]">
+                  <Button
+                    variant="cta"
+                    size="lg"
+                    className="h-[3.25rem] min-w-[13rem] rounded-xl px-7 text-[0.95rem] font-bold"
+                  >
+                    <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف الخريطة
-                    <ArrowLeft className="mr-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/stores">
+                  <Button
+                    size="lg"
+                    className="h-[3.25rem] min-w-[11rem] rounded-xl border border-white/15 bg-white/8 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/14"
+                  >
+                    تصفّح المتاجر
                   </Button>
                 </Link>
                 <Link to="/leasing">
-                  <Button size="lg" className="h-12 min-w-[12rem] rounded-xl border border-white/20 bg-white/10 px-7 text-[0.95rem] text-white backdrop-blur-sm hover:bg-white/15">
-                    استفسر عن وحدة
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="h-[3.25rem] px-5 text-[0.95rem] font-semibold text-white/60 hover:bg-white/8 hover:text-white"
+                  >
+                    فرص التأجير
+                    <ArrowLeft className="mr-1.5 h-4 w-4" />
                   </Button>
                 </Link>
               </div>
 
-              {/* Stats row */}
-              <div className="grid grid-cols-3 gap-3 pt-2">
+              {/* stats */}
+              <div className="grid max-w-[28rem] grid-cols-3 gap-3 pt-3">
                 {[
-                  { value: `${floorMapData.length}`, label: "أدوار" },
-                  { value: `${availableUnits.length}+`, label: "وحدة متاحة" },
-                  { value: `${categoryStories.length}`, label: "فئات متخصصة" },
-                ].map((stat) => (
-                  <div key={stat.label} className="heritage-card px-4 py-4 text-center">
-                    <p className="text-2xl font-bold text-white md:text-3xl">{stat.value}</p>
-                    <p className="mt-1 text-[0.78rem] font-medium text-white/50">{stat.label}</p>
+                  { v: `${floorMapData.length}`, l: "أدوار" },
+                  { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
+                  { v: `${categoryStories.length}`, l: "فئات متخصصة" },
+                ].map((s) => (
+                  <div key={s.l} className="heritage-card px-4 py-4 text-center">
+                    <p className="font-poppins text-[1.6rem] font-bold text-white">{s.v}</p>
+                    <p className="mt-0.5 text-[0.74rem] font-medium text-white/40">{s.l}</p>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Hero image */}
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="order-2 flex items-center justify-center">
-              <div className="relative w-full max-w-[520px] lg:max-w-none">
-                <div className="overflow-hidden rounded-2xl shadow-2xl lg:rounded-3xl">
+            {/* ── hero image composite ── */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.12 }}
+              className="order-2 flex items-center justify-center"
+            >
+              <div className="relative w-full max-w-[500px] lg:max-w-none">
+                <div className="overflow-hidden rounded-2xl ring-1 ring-white/10 lg:rounded-3xl">
                   <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
-                    <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover" loading="eager" />
+                    <img
+                      src={heroImage}
+                      alt="الواجهة الرئيسية لمول البستان"
+                      className="h-full w-full object-cover"
+                      loading="eager"
+                    />
                     <div className="image-wash absolute inset-0" />
                   </div>
                 </div>
-                {/* Floating interior preview */}
-                <div className="absolute -bottom-4 -right-4 hidden w-[42%] overflow-hidden rounded-xl border-2 border-white/10 shadow-xl md:block lg:rounded-2xl">
+                {/* floating accent image */}
+                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
                   <div className="image-shell aspect-[3/4]">
-                    <img src={interiorImage} alt="مشهد داخلي من مول البستان" className="h-full w-full object-cover" loading="lazy" />
+                    <img
+                      src={interiorImage}
+                      alt="المشهد الداخلي لمول البستان"
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
               </div>
@@ -155,284 +248,628 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ═══════════════════════ COUNTDOWN STRIP ═══════════════════════ */}
-      <section className="border-b border-border bg-card py-6 md:py-8">
-        <div className="container">
-          <div className="flex flex-col items-center gap-3 md:flex-row md:justify-between">
-            <div className="text-center md:text-right">
-              <p className="text-sm font-semibold text-muted-foreground">العد التنازلي لافتتاح مول البستان</p>
-            </div>
-            <CountdownTimer compact />
-          </div>
+      {/* ════════ countdown divider ════════ */}
+      <section className="border-b border-border bg-card py-5 md:py-7">
+        <div className="container flex flex-col items-center gap-3 md:flex-row md:justify-between">
+          <p className="text-sm font-semibold text-muted-foreground">
+            العد التنازلي لافتتاح مول البستان
+          </p>
+          <CountdownTimer compact />
         </div>
       </section>
 
-      {/* ═══════════════════════ LEGACY & IDENTITY ═══════════════════════ */}
-      <section className="page-section">
+      {/* ════════════════ 2 · HERITAGE & IDENTITY ════════════════ */}
+      <section className="page-section overflow-hidden">
         <div className="container">
-          <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="order-2 lg:order-1">
-              <div className="grid gap-3 md:grid-cols-[1fr_0.45fr]">
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl">
-                  <img src={interiorImage} alt="داخل مول البستان" className="h-full w-full object-cover" loading="lazy" />
-                </div>
-                <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl md:block">
-                  <img src={facadeImage} alt="واجهة مول البستان" className="h-full w-full object-cover" loading="lazy" />
-                </div>
-              </div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="order-1 space-y-5 lg:order-2">
-              <div className="chapter-shell pt-5">
-                <p className="section-kicker">عن المول</p>
-                <h2 className="section-title">تاريخ من الثقة في سوق التقنية المصري.</h2>
-              </div>
-              <p className="text-base leading-[1.9] text-muted-foreground md:text-lg md:leading-8">
-                مول البستان ليس مجرد مركز تجاري — إنه وجهة تقنية بنت سمعتها على مدار سنوات من خدمة المستخدمين والتجار والشركات في سوق الإلكترونيات المصري.
-              </p>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {[
-                  { icon: Building2, title: "هوية راسخة", desc: "حضور حقيقي في سوق التقنية." },
-                  { icon: MapPin, title: "موقع استراتيجي", desc: "قلب القاهرة الجديدة." },
-                  { icon: Layers, title: "تنظيم واضح", desc: "فئات متخصصة غير متداخلة." },
-                ].map((item) => (
-                  <div key={item.title} className="section-shell rounded-xl p-4">
-                    <item.icon className="mb-3 h-5 w-5 text-primary" />
-                    <p className="text-[0.95rem] font-bold text-foreground">{item.title}</p>
-                    <p className="mt-1 text-sm text-muted-foreground">{item.desc}</p>
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              {/* imagery */}
+              <div className="order-2 lg:order-1">
+                <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
+                  <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
+                    <img
+                      src={entranceImage}
+                      alt="مدخل مول البستان"
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
-                ))}
-              </div>
-              <Link to="/about">
-                <Button variant="ghost" className="mt-2 px-0 text-primary hover:text-primary/80">
-                  اعرف المزيد عن المول
-                  <ArrowLeft className="mr-1.5 h-4 w-4" />
-                </Button>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ CATEGORIES ═══════════════════════ */}
-      <section className="section-soft page-section">
-        <div className="container">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-8 max-w-[36rem] md:mb-12">
-            <p className="section-kicker">الفئات المتخصصة</p>
-            <h2 className="section-title">ست فئات أساسية تغطي كل احتياج تقني.</h2>
-            <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">تصنيف واضح يسهّل الوصول للمتجر المناسب من أول خطوة.</p>
-          </motion.div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {categoryStories.map((category, index) => (
-              <motion.div key={category.key} custom={index} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                <div className="group relative flex h-full min-h-[14rem] flex-col rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-card)] transition-all duration-300 hover:border-primary/25 hover:shadow-[var(--shadow-elevated)]">
-                  <div className="mb-5 flex items-start justify-between">
-                    <div className="icon-shell h-12 w-12 rounded-xl p-3 transition-colors group-hover:bg-primary/5">
-                      <category.icon className="h-full w-full" />
-                    </div>
-                    <span className="font-poppins text-sm font-medium text-muted-foreground/40">0{index + 1}</span>
-                  </div>
-                  <h3 className="text-lg font-bold text-foreground">{category.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{mobileCategorySummaries[category.key]}</p>
-                  <div className="mt-auto pt-5">
-                    <span className="inline-flex items-center rounded-full border border-border bg-secondary px-3 py-1 text-[0.75rem] font-semibold text-muted-foreground">{category.supportLabel}</span>
+                  <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl ring-1 ring-border md:block">
+                    <img
+                      src={facadeImage}
+                      alt="واجهة معمارية لمول البستان"
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ INTERACTIVE MAP TEASER ═══════════════════════ */}
-      <section className="page-section">
-        <div className="container">
-          <div className="grid items-start gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-5 lg:sticky lg:top-28">
-              <div className="chapter-shell pt-5">
-                <p className="section-kicker">الخريطة التفاعلية</p>
-                <h2 className="section-title">دليل المول التفاعلي.</h2>
               </div>
-              <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                كل وحدة ظاهرة بحالتها ومساحتها وموقعها — ابدأ الاستكشاف قبل الزيارة.
-              </p>
-              <div className="grid grid-cols-3 gap-2.5">
-                {[
-                  { value: `${floorMapData.length}`, label: "أدوار" },
-                  { value: `${availableUnits.length}`, label: "متاحة" },
-                  { value: `${totalUnits}`, label: "إجمالي" },
-                ].map((stat) => (
-                  <div key={stat.label} className="section-shell rounded-xl px-4 py-3.5 text-center">
-                    <p className="text-xl font-bold text-foreground">{stat.value}</p>
-                    <p className="mt-0.5 text-[0.75rem] font-medium text-muted-foreground">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="grid gap-2.5 sm:grid-cols-2">
-                <Link to="/map"><Button variant="cta" size="lg" className="h-12 w-full rounded-xl">افتح الدليل الكامل</Button></Link>
-                <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-xl">استفسر عن وحدة</Button></Link>
-              </div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              <MapTeaserPreview />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ LEASING ═══════════════════════ */}
-      <section className="heritage-section page-section">
-        <div className="container">
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-5">
-              <p className="section-kicker">التأجير والاستثمار</p>
-              <h2 className="section-title">فرصتك التجارية في أكبر وجهة تقنية.</h2>
-              <p className="text-base leading-8 text-white/55 md:text-lg">
-                وحدات متنوعة المساحات جاهزة للاستفسار — كل وحدة مرتبطة مباشرة بالخريطة التفاعلية وبيانات الدور والحالة.
-              </p>
-              <div className="grid grid-cols-3 gap-2.5">
-                {availableByFloor.map((floor) => (
-                  <div key={floor.id} className="heritage-card px-4 py-3.5 text-center">
-                    <p className="text-lg font-bold text-white">{floor.count}</p>
-                    <p className="mt-0.5 text-[0.75rem] text-white/45">{floor.label}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-3 pt-2">
-                <Link to="/leasing"><Button variant="orange" size="lg" className="h-12 rounded-xl px-8">ابدأ استفسار التأجير</Button></Link>
-                <Link to="/map"><Button size="lg" className="h-12 rounded-xl border border-white/20 bg-white/10 px-8 text-white hover:bg-white/15">شاهد على الخريطة</Button></Link>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="space-y-3">
-              {homepageLeasingUnits.slice(0, 3).map((unit) => (
-                <Link key={unit.unit_id} to="/map" className="heritage-card group flex flex-col p-5 transition-all hover:border-orange/40">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
-                      <p className="mt-1 text-sm text-white/50">{needCategoryLabels[unit.category]}</p>
-                    </div>
-                    <span className="rounded-full border border-orange/30 bg-orange/15 px-3 py-1 text-[0.75rem] font-semibold text-orange">متاحة</span>
-                  </div>
-                  <div className="mt-3 grid grid-cols-2 gap-2">
-                    <div className="rounded-lg bg-white/5 px-3 py-2">
-                      <p className="text-[0.72rem] text-white/40">الدور</p>
-                      <p className="mt-0.5 text-sm font-semibold text-white">{floorLabels[unit.floor_id]}</p>
-                    </div>
-                    <div className="rounded-lg bg-white/5 px-3 py-2">
-                      <p className="text-[0.72rem] text-white/40">المساحة</p>
-                      <p className="mt-0.5 text-sm font-semibold text-white">{unit.area_m2} م²</p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════ OPENING DAY & CAMPAIGN ═══════════════════════ */}
-      <section className="page-section">
-        <div className="container">
-          <div className="section-shell page-shell overflow-hidden">
-            <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-              <div className="space-y-5">
-                <p className="section-kicker">الافتتاح والحملة</p>
-                <h2 className="section-title">افتتاح كبير يستحق الحضور.</h2>
-                <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                  {launchEvent?.description_ar ?? "يوم الافتتاح تجربة متكاملة — من الاستكشاف إلى المشاركة في الحملة الترويجية والحصول على مكافآت حصرية."}
+              {/* text */}
+              <div className="order-1 space-y-6 lg:order-2">
+                <div className="chapter-shell pt-6">
+                  <p className="section-kicker">الهوية والتاريخ</p>
+                  <h2 className="section-title max-w-[28rem]">
+                    اسم بنى مكانته في سوق التقنية المصري.
+                  </h2>
+                </div>
+                <p className="text-[1.05rem] leading-[2] text-muted-foreground md:text-lg">
+                  منذ سنوات ومول البستان يُعرف كوجهة أساسية لكل من يبحث عن أجهزة إلكترونية
+                  وملحقات وخدمات تقنية في القاهرة الجديدة — ثقة تجارية حقيقية بناها التعامل
+                  المباشر بين التاجر والزائر.
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
-                    { step: "01", title: "استكشف", desc: "ابدأ بالخريطة واعرف الوحدات." },
-                    { step: "02", title: "شارك", desc: "جرّب أدر واربح واحفظ نتيجتك." },
-                    { step: "03", title: "احضر", desc: "كمّل تجربتك يوم الافتتاح." },
-                  ].map((item) => (
-                    <div key={item.step} className="section-shell rounded-xl p-4">
-                      <span className="font-poppins text-xs font-semibold text-primary">{item.step}</span>
-                      <p className="mt-2 text-[0.95rem] font-bold text-foreground">{item.title}</p>
-                      <p className="mt-1 text-sm text-muted-foreground">{item.desc}</p>
+                    {
+                      icon: Building2,
+                      title: "حضور راسخ",
+                      desc: "سنوات من الثقة في سوق الإلكترونيات.",
+                    },
+                    {
+                      icon: MapPin,
+                      title: "موقع استراتيجي",
+                      desc: "قلب القاهرة الجديدة بين مدينتي والرحاب.",
+                    },
+                    {
+                      icon: Layers,
+                      title: "تنظيم واضح",
+                      desc: "فئات متخصصة تسهّل الوصول السريع.",
+                    },
+                  ].map((c) => (
+                    <div key={c.title} className="section-shell rounded-xl p-5">
+                      <c.icon className="mb-3 h-5 w-5 text-primary" />
+                      <p className="text-[0.95rem] font-bold text-foreground">{c.title}</p>
+                      <p className="mt-1.5 text-[0.85rem] leading-6 text-muted-foreground">
+                        {c.desc}
+                      </p>
                     </div>
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-3">
-                  <Link to="/spin-win"><Button variant="cta" size="lg" className="h-12 rounded-xl px-7">جرّب أدر واربح</Button></Link>
-                  <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-7">تفاصيل يوم الافتتاح</Button></Link>
+                <Link to="/about">
+                  <Button
+                    variant="ghost"
+                    className="mt-1 px-0 text-primary hover:text-primary/80"
+                  >
+                    اعرف المزيد عن المول
+                    <ArrowLeft className="mr-1.5 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 3 · VALUE PROPOSITION ════════════════ */}
+      <section className="heritage-section page-section">
+        <div className="container">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="mx-auto mb-12 max-w-[38rem] text-center">
+              <p className="section-kicker">ما يقدّمه المول</p>
+              <h2 className="section-title">
+                تجربة مصمّمة لكل من يدخل المول.
+              </h2>
+              <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50">
+                سواء كنت زائرًا يبحث عن منتج، أو تاجرًا يبحث عن موقع، أو مستثمرًا يبحث عن فرصة —
+                المول مصمّم ليخدمك.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {[
+                {
+                  icon: Users,
+                  title: "للزوار والمشترين",
+                  points: [
+                    "تصنيف واضح يوصّلك للمتجر المناسب بسرعة.",
+                    "خريطة تفاعلية تعرض كل وحدة وحالتها فوريًا.",
+                    "عروض ومكافآت مرتبطة بتجربة الزيارة.",
+                  ],
+                },
+                {
+                  icon: Store,
+                  title: "للتجار وأصحاب المتاجر",
+                  points: [
+                    "حضور رقمي واضح لكل متجر داخل الدليل.",
+                    "جمهور مستهدف يبحث عن التقنية تحديدًا.",
+                    "بيئة تجارية منظمة تدعم الثقة بين التاجر والزائر.",
+                  ],
+                },
+                {
+                  icon: TrendingUp,
+                  title: "للمستثمرين والمستأجرين",
+                  points: [
+                    "وحدات متنوعة المساحات بحالة واضحة.",
+                    "موقع تجاري في منطقة طلب متنامٍ.",
+                    "استفسار مباشر وتحويل سريع من الخريطة.",
+                  ],
+                },
+              ].map((card, i) => (
+                <motion.div
+                  key={card.title}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="heritage-card flex h-full flex-col p-7">
+                    <card.icon className="mb-5 h-6 w-6 text-primary" />
+                    <h3 className="text-[1.15rem] font-bold text-white">{card.title}</h3>
+                    <ul className="mt-4 space-y-3">
+                      {card.points.map((p) => (
+                        <li
+                          key={p}
+                          className="flex items-start gap-2.5 text-[0.9rem] leading-7 text-white/50"
+                        >
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 4 · STORE DISCOVERY ════════════════ */}
+      <section className="page-section">
+        <div className="container">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="mb-10 max-w-[36rem]">
+              <p className="section-kicker">اكتشف المتاجر</p>
+              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج.</h2>
+              <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
+                تصنيف واضح يختصر الوقت ويسهّل الوصول — سواء كنت تبحث عن جهاز، ملحق، أو خدمة.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {categoryStories.map((cat, i) => (
+                <motion.div
+                  key={cat.key}
+                  custom={i}
+                  variants={fadeUp}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                >
+                  <div className="group flex h-full min-h-[12rem] flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-[var(--shadow-elevated)]">
+                    <div className="mb-4 flex items-start justify-between">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:bg-primary/5">
+                        <cat.icon className="h-5 w-5" />
+                      </div>
+                      <span className="font-poppins text-[0.8rem] font-medium text-muted-foreground/35">
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="text-[1.05rem] font-bold text-foreground">{cat.name}</h3>
+                    <p className="mt-2 text-[0.88rem] leading-7 text-muted-foreground">
+                      {cat.brief}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* featured stores if available */}
+            {featuredStores.length > 0 && (
+              <div className="mt-8 rounded-2xl border border-border bg-secondary/40 p-6 md:p-8">
+                <div className="mb-5 flex items-center justify-between">
+                  <h3 className="text-lg font-bold text-foreground">متاجر مميزة</h3>
+                  <Link to="/stores">
+                    <Button variant="ghost" size="sm" className="text-primary">
+                      عرض الكل
+                      <ArrowLeft className="mr-1 h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {featuredStores.slice(0, 6).map((store) => (
+                    <Link
+                      key={store.id}
+                      to={`/stores/${store.slug}`}
+                      className="flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-[var(--shadow-card)]"
+                    >
+                      {store.logo_url ? (
+                        <img
+                          src={store.logo_url}
+                          alt={store.name_ar}
+                          className="h-10 w-10 rounded-lg border border-border object-contain"
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
+                          <Store className="h-4 w-4" />
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-sm font-bold text-foreground">{store.name_ar}</p>
+                        {store.category && (
+                          <p className="mt-0.5 text-[0.75rem] text-muted-foreground">
+                            {store.category}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
-              <div className="hidden lg:block">
-                <div className="section-shell rounded-2xl p-6 text-center">
-                  <p className="text-sm font-semibold text-muted-foreground">التاريخ المنتظر</p>
-                  <p className="mt-2 text-3xl font-bold text-foreground">{launchEvent?.event_date ?? "1 مايو 2026"}</p>
-                  <div className="mt-5">
-                    <CountdownTimer compact />
+            )}
+
+            <div className="mt-8 flex justify-center">
+              <Link to="/stores">
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="h-12 rounded-xl px-8 font-semibold"
+                >
+                  تصفّح جميع المتاجر
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 5 · INTERACTIVE MAP ════════════════ */}
+      <section className="section-soft page-section">
+        <div className="container">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="grid items-start gap-10 lg:grid-cols-[2fr_3fr] lg:gap-12">
+              {/* text panel */}
+              <div className="space-y-6 lg:sticky lg:top-28">
+                <div className="chapter-shell pt-6">
+                  <p className="section-kicker">الدليل التفاعلي</p>
+                  <h2 className="section-title">
+                    خريطة رقمية دقيقة لكل دور ووحدة.
+                  </h2>
+                </div>
+                <p className="text-base leading-8 text-muted-foreground md:text-lg">
+                  قبل أن تزور المول — اعرف أين كل متجر، أي الوحدات متاحة، وما الفئة الأقرب لاحتياجك.
+                  الدليل التفاعلي هو القلب الرقمي لتجربة مول البستان.
+                </p>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { v: `${floorMapData.length}`, l: "أدوار" },
+                    { v: `${availableUnits.length}`, l: "متاحة" },
+                    { v: `${totalUnits}`, l: "إجمالي الوحدات" },
+                  ].map((s) => (
+                    <div key={s.l} className="section-shell rounded-xl px-4 py-4 text-center">
+                      <p className="text-xl font-bold text-foreground">{s.v}</p>
+                      <p className="mt-0.5 text-[0.74rem] text-muted-foreground">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-2.5 sm:grid-cols-2">
+                  <Link to="/map">
+                    <Button
+                      variant="cta"
+                      size="lg"
+                      className="h-12 w-full rounded-xl"
+                    >
+                      افتح الدليل الكامل
+                    </Button>
+                  </Link>
+                  <Link to="/leasing">
+                    <Button
+                      variant="outline-blue"
+                      size="lg"
+                      className="h-12 w-full rounded-xl"
+                    >
+                      استفسر عن وحدة
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              {/* map preview */}
+              <div>
+                <MapTeaserPreview />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 6 · LEASING ════════════════ */}
+      <section className="heritage-section page-section">
+        <div className="container">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
+              {/* text */}
+              <div className="space-y-6">
+                <div className="chapter-shell border-primary/40 pt-6">
+                  <p className="section-kicker">التأجير والفرص التجارية</p>
+                  <h2 className="section-title max-w-[26rem]">
+                    موقعك التجاري في أكبر وجهة تقنية بالقاهرة الجديدة.
+                  </h2>
+                </div>
+                <p className="text-base leading-8 text-white/50 md:text-lg">
+                  وحدات متنوعة المساحات في ثلاثة أدوار — كل واحدة مرتبطة مباشرة بالخريطة التفاعلية
+                  وبيانات الحالة والمساحة والفئة. الاستفسار يبدأ من هنا ويصل للفريق المختص فورًا.
+                </p>
+
+                {/* floor availability */}
+                <div className="grid grid-cols-3 gap-3">
+                  {availableByFloor.map((f) => (
+                    <div key={f.id} className="heritage-card px-4 py-4 text-center">
+                      <p className="text-xl font-bold text-white">{f.count}</p>
+                      <p className="mt-0.5 text-[0.74rem] text-white/40">{f.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <Link to="/leasing">
+                    <Button
+                      variant="orange"
+                      size="lg"
+                      className="h-12 rounded-xl px-8 font-bold"
+                    >
+                      ابدأ استفسار التأجير
+                    </Button>
+                  </Link>
+                  <Link to="/map">
+                    <Button
+                      size="lg"
+                      className="h-12 rounded-xl border border-white/15 bg-white/8 px-8 text-white hover:bg-white/14"
+                    >
+                      شاهد الوحدات على الخريطة
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
+              {/* unit cards */}
+              <div className="space-y-3">
+                {homepageLeasingUnits.slice(0, 3).map((unit) => (
+                  <Link
+                    key={unit.unit_id}
+                    to="/map"
+                    className="heritage-card group flex flex-col p-5 transition-all duration-200 hover:border-orange/35"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
+                        <p className="mt-1 text-sm text-white/40">
+                          {needCategoryLabels[unit.category]}
+                        </p>
+                      </div>
+                      <span className="rounded-full border border-orange/25 bg-orange/12 px-3 py-1 text-[0.75rem] font-semibold text-orange">
+                        متاحة
+                      </span>
+                    </div>
+                    <div className="mt-3 grid grid-cols-2 gap-2.5">
+                      <div className="rounded-lg bg-white/5 px-3 py-2.5">
+                        <p className="text-[0.72rem] text-white/35">الدور</p>
+                        <p className="mt-0.5 text-sm font-semibold text-white">
+                          {floorLabels[unit.floor_id]}
+                        </p>
+                      </div>
+                      <div className="rounded-lg bg-white/5 px-3 py-2.5">
+                        <p className="text-[0.72rem] text-white/35">المساحة</p>
+                        <p className="mt-0.5 text-sm font-semibold text-white">
+                          {unit.area_m2} م²
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 7 · ENGAGEMENT / SPIN & WIN ════════════════ */}
+      <section className="page-section">
+        <div className="container">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="section-shell overflow-hidden">
+              <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
+                {/* text */}
+                <div className="space-y-5 p-7 md:p-10">
+                  <p className="section-kicker">المكافآت والتجربة</p>
+                  <h2 className="section-title max-w-[26rem]">
+                    افتتاح يستحق المشاركة.
+                  </h2>
+                  <p className="text-base leading-8 text-muted-foreground md:text-lg">
+                    حملة أدر واربح مرتبطة بمتاجر حقيقية ومكافآت فعلية — ليست مجرد ترويج عابر بل
+                    جزء من تجربة الافتتاح الكبير لمول البستان.
+                  </p>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    {[
+                      { step: "01", title: "استكشف", desc: "ابدأ بالخريطة التفاعلية." },
+                      { step: "02", title: "شارك", desc: "جرّب أدر واربح واحفظ نتيجتك." },
+                      { step: "03", title: "احضر", desc: "استلم مكافأتك يوم الافتتاح." },
+                    ].map((s) => (
+                      <div key={s.step} className="rounded-xl border border-border bg-secondary/40 p-4">
+                        <span className="font-poppins text-xs font-bold text-primary">
+                          {s.step}
+                        </span>
+                        <p className="mt-2 text-[0.92rem] font-bold text-foreground">{s.title}</p>
+                        <p className="mt-1 text-[0.82rem] text-muted-foreground">{s.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex flex-wrap gap-3 pt-1">
+                    <Link to="/spin-win">
+                      <Button variant="cta" size="lg" className="h-12 rounded-xl px-7">
+                        <Gift className="ml-2 h-4 w-4" />
+                        جرّب أدر واربح
+                      </Button>
+                    </Link>
+                    <Link to="/opening-day">
+                      <Button
+                        variant="outline-blue"
+                        size="lg"
+                        className="h-12 rounded-xl px-7"
+                      >
+                        تفاصيل يوم الافتتاح
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+                {/* side panel */}
+                <div className="hidden border-r border-border bg-secondary/30 p-8 lg:flex lg:flex-col lg:items-center lg:justify-center lg:text-center">
+                  <div className="section-shell rounded-2xl p-6">
+                    <p className="text-sm font-semibold text-muted-foreground">التاريخ المنتظر</p>
+                    <p className="mt-2 text-2xl font-bold text-foreground">
+                      {launchEvent?.event_date ?? "1 مايو 2026"}
+                    </p>
+                    <div className="mt-5">
+                      <CountdownTimer compact />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ═══════════════════════ MARKETPLACE VISION ═══════════════════════ */}
-      <section id="marketplace" className="section-soft page-section">
-        <div className="container max-w-5xl">
-          <div className="text-center">
-            <p className="section-kicker">الامتداد الرقمي</p>
-            <h2 className="section-title mx-auto max-w-[30rem]">من المول إلى السوق الرقمي.</h2>
-            <p className="mx-auto mt-4 max-w-[32rem] text-base leading-8 text-muted-foreground md:text-lg">
-              الخطوة التالية بعد تثبيت التجربة الأساسية — سوق رقمي يمتد من المتاجر الموجودة داخل المول ليخدم المستخدمين عن بُعد.
+      {/* ════════════════ 8 · FUTURE VISION ════════════════ */}
+      <section className="section-soft page-section">
+        <div className="container max-w-5xl text-center">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <p className="section-kicker">الرؤية المستقبلية</p>
+            <h2 className="section-title mx-auto max-w-[30rem]">
+              من وجهة تقنية إلى سوق رقمي متصل.
+            </h2>
+            <p className="mx-auto mt-4 max-w-[34rem] text-base leading-8 text-muted-foreground md:text-lg">
+              الخطوة التالية بعد الافتتاح — سوق رقمي يمتد من متاجر المول ليخدم المستخدمين في أي
+              مكان. المنتج الأساسي أولاً، ثم الامتداد الرقمي.
             </p>
-          </div>
-          <div className="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
-            {[
-              { step: "1", label: "الدليل التفاعلي" },
-              { step: "2", label: "المتاجر والعروض" },
-              { step: "3", label: "السوق الرقمي" },
-            ].map((item, i) => (
-              <div key={item.step} className={`section-shell rounded-xl p-5 text-center ${i === 2 ? "border-primary/20" : ""}`}>
-                <span className="font-poppins text-2xl font-bold text-primary">{item.step}</span>
-                <p className="mt-2 text-[0.95rem] font-bold text-foreground">{item.label}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <Link to="/stores"><Button variant="secondary" size="lg" className="h-12 rounded-xl px-8">استعرض المتاجر الحالية</Button></Link>
-          </div>
-        </div>
-      </section>
 
-      {/* ═══════════════════════ FAQ ═══════════════════════ */}
-      <section className="page-section">
-        <div className="container max-w-5xl">
-          <div className="grid items-start gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-28">
-              <div className="chapter-shell pt-5">
-                <p className="section-kicker">الأسئلة الشائعة</p>
-                <h2 className="text-[1.8rem] font-bold leading-[1.1] text-foreground md:text-[2.5rem]">
-                  إجابات سريعة قبل الزيارة
-                </h2>
-              </div>
-              <p className="mt-3 text-base leading-7 text-muted-foreground md:text-lg">الأسئلة الأكثر تكرارًا حول المول والتأجير والافتتاح.</p>
-              <Link to="/faq" className="mt-4 inline-flex">
-                <Button variant="ghost" className="px-0 text-primary hover:text-primary/80">
-                  جميع الأسئلة
-                  <ArrowLeft className="mr-1.5 h-4 w-4" />
+            <div className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-3">
+              {[
+                { n: "1", label: "الدليل التفاعلي", desc: "استكشف المول رقميًا الآن." },
+                { n: "2", label: "المتاجر والعروض", desc: "تصفّح واستفد من العروض." },
+                {
+                  n: "3",
+                  label: "السوق الرقمي",
+                  desc: "تسوّق إلكتروني قريبًا.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={item.n}
+                  className={`section-shell rounded-xl p-6 transition-all ${i === 2 ? "border-primary/20" : ""}`}
+                >
+                  <span className="font-poppins text-3xl font-bold text-primary/70">
+                    {item.n}
+                  </span>
+                  <p className="mt-3 text-[1rem] font-bold text-foreground">{item.label}</p>
+                  <p className="mt-1.5 text-[0.85rem] text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8">
+              <Link to="/stores">
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  className="h-12 rounded-xl px-8"
+                >
+                  استعرض المتاجر الحالية
                 </Button>
               </Link>
-            </motion.div>
-            <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
-              {faqItems.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id} className="section-shell overflow-hidden rounded-xl px-5">
-                  <AccordionTrigger className="min-h-[4rem] py-4 text-right text-[0.95rem] font-semibold text-foreground hover:text-primary md:text-base">
-                    {faq.question_ar}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
-                    {faq.answer_ar}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ════════════════ 9 · FAQ ════════════════ */}
+      <section className="page-section">
+        <div className="container max-w-5xl">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+              <div className="lg:sticky lg:top-28">
+                <div className="chapter-shell pt-6">
+                  <p className="section-kicker">أسئلة شائعة</p>
+                  <h2 className="text-[1.8rem] font-bold leading-[1.08] text-foreground md:text-[2.5rem]">
+                    <HelpCircle className="ml-2 hidden h-6 w-6 text-primary md:inline-block" />
+                    إجابات سريعة
+                  </h2>
+                </div>
+                <p className="mt-3 text-base leading-8 text-muted-foreground md:text-lg">
+                  الأسئلة الأكثر تكرارًا حول المول والتأجير والافتتاح.
+                </p>
+                <Link to="/faq" className="mt-4 inline-flex">
+                  <Button
+                    variant="ghost"
+                    className="px-0 text-primary hover:text-primary/80"
+                  >
+                    جميع الأسئلة
+                    <ArrowLeft className="mr-1.5 h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
+
+              <Accordion
+                type="single"
+                collapsible
+                defaultValue={faqItems[0]?.id}
+                className="space-y-2.5"
+              >
+                {faqItems.map((faq) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={faq.id}
+                    className="section-shell overflow-hidden rounded-xl px-5"
+                  >
+                    <AccordionTrigger className="min-h-[4rem] py-4 text-right text-[0.95rem] font-semibold text-foreground hover:text-primary md:text-base">
+                      {faq.question_ar}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-5 text-sm leading-7 text-muted-foreground md:text-base md:leading-8">
+                      {faq.answer_ar}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </motion.div>
         </div>
       </section>
     </>
