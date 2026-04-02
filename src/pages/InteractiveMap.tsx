@@ -167,50 +167,42 @@ const InteractiveMap = () => {
       />
 
       {/* ═══════════ COMPACT HERO ═══════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
+      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+        <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.5px, transparent 0)", backgroundSize: "36px 36px" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[hsl(222_44%_5%)] to-transparent" />
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="py-12 md:py-14 lg:py-16">
+          <div className="py-10 md:py-12 lg:py-14">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mx-auto max-w-[48rem] text-center"
+              className="mx-auto max-w-[44rem] text-center"
             >
-              <div className="mx-auto mb-4 flex items-center justify-center gap-3">
-                <div className="accent-line bg-primary/40" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+              <div className="mx-auto mb-3 flex items-center justify-center gap-3">
+                <div className="h-px w-8 bg-primary/35" />
+                <span className="text-[0.68rem] font-semibold tracking-[0.2em] text-white/30 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
                   الدليل التفاعلي
                 </span>
-                <div className="accent-line bg-primary/40" />
+                <div className="h-px w-8 bg-primary/35" />
               </div>
 
-              <h1 className="mt-4 text-[1.8rem] font-extrabold leading-[1.08] text-white md:text-[2.6rem] lg:text-[3rem]">
+              <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.06] text-white md:text-[2.4rem] lg:text-[2.8rem]">
                 دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
-              <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/38 md:text-[1.05rem]">
+              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] text-white/32 md:text-[1rem]">
                 تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
-              {/* stats row */}
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
                 {[
                   { icon: Building2, v: `${mallFloors.length}`, l: "أدوار" },
                   { icon: Layers, v: `${allMallUnits.length}`, l: "وحدة" },
                   { icon: TrendingUp, v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s) => (
-                  <div key={s.l} className="flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3">
-                    <s.icon className="h-4 w-4 text-primary/60" />
-                    <div className="text-right">
-                      <span className="font-poppins text-lg font-bold text-white">{s.v}</span>
-                      <span className="mr-1.5 text-[0.72rem] text-white/35">{s.l}</span>
-                    </div>
+                  <div key={s.l} className="flex items-center gap-2.5 stat-block-dark px-4 py-2.5">
+                    <s.icon className="h-3.5 w-3.5 text-primary/50" />
+                    <span className="font-poppins text-base font-bold text-white">{s.v}</span>
+                    <span className="text-[0.68rem] text-white/28">{s.l}</span>
                   </div>
                 ))}
               </div>
@@ -218,6 +210,9 @@ const InteractiveMap = () => {
           </div>
         </div>
       </section>
+
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ═══════════ CONTROL PANEL ═══════════ */}
       <section className="border-b border-border bg-card py-4">
