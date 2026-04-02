@@ -11,7 +11,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import facadeImage from "@/assets/mall-facade.jpg";
+import entranceImage from "@/assets/mall-entrance.jpg";
 
 const reveal = {
   hidden: { opacity: 0, y: 22 },
