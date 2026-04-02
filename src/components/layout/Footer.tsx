@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoWhite from "@/assets/logo-white.png";
+import logoWhite from "@/assets/logo-white.svg";
 import { Button } from "@/components/ui/button";
 
 const footerColumns = [
