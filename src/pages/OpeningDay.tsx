@@ -47,7 +47,7 @@ const OpeningDay = () => {
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
                 <div className="accent-line" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(0 0% 100% / 0.35)" }}>
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
                   1 مايو 2026 — الافتتاح الكبير
                 </span>
               </div>
@@ -56,7 +56,7 @@ const OpeningDay = () => {
                 الافتتاح الكبير — برنامج واضح من الترقب إلى الحضور
               </h1>
 
-              <p className="max-w-[30rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(0 0% 100% / 0.42)" }}>
+              <p className="max-w-[30rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 72%)" }}>
                 الموعد، الفعاليات، وآلية المشاركة في المكافآت — كل ما تحتاج معرفته قبل يوم الافتتاح.
               </p>
 
@@ -90,7 +90,7 @@ const OpeningDay = () => {
             {/* Countdown */}
             <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
               <div className="heritage-surface p-6 md:p-8">
-                <p className="section-kicker" style={{ color: "hsl(var(--primary) / 0.55)" }}>العد التنازلي</p>
+                <p className="section-kicker" style={{ color: "hsl(220 60% 65%)" }}>العد التنازلي</p>
                 <h2 className="mb-5 text-xl font-bold text-white">الوقت المتبقي حتى الافتتاح</h2>
                 <CountdownTimer />
               </div>
@@ -145,7 +145,7 @@ const OpeningDay = () => {
                       </div>
                     )}
                     <h3 className="mb-2 text-lg font-bold text-white">{event.title_ar}</h3>
-                    {event.description_ar && <p className="mb-3 text-[0.85rem] leading-7" style={{ color: "hsl(0 0% 100% / 0.4)" }}>{event.description_ar}</p>}
+                    {event.description_ar && <p className="mb-3 text-[0.85rem] leading-7" style={{ color: "hsl(220 15% 70%)" }}>{event.description_ar}</p>}
                     <div className="flex gap-4 text-xs font-semibold text-accent">
                       {event.start_time && <span>{event.start_time}</span>}
                       {event.event_date && <span>{event.event_date}</span>}
@@ -157,7 +157,7 @@ const OpeningDay = () => {
               <div className="heritage-surface p-10 text-center">
                 <Calendar className="mx-auto mb-3 h-8 w-8" style={{ color: "hsl(var(--primary) / 0.4)" }} />
                 <p className="text-[0.95rem] font-semibold text-white">برنامج الفعاليات قيد الإعداد</p>
-                <p className="mx-auto mt-1 max-w-xs text-sm" style={{ color: "hsl(0 0% 100% / 0.35)" }}>سيُعلن مع اقتراب موعد الافتتاح</p>
+                <p className="mx-auto mt-1 max-w-xs text-sm" style={{ color: "hsl(220 12% 62%)" }}>سيُعلن مع اقتراب موعد الافتتاح</p>
               </div>
             )}
           </motion.div>
@@ -243,7 +243,7 @@ const OpeningDay = () => {
             </div>
             <p className="section-kicker">شراكات</p>
             <h2 className="section-title mx-auto max-w-[22rem]">الرعاة والشركاء</h2>
-            <p className="mx-auto mt-3 max-w-md text-[0.92rem] leading-7" style={{ color: "hsl(0 0% 100% / 0.38)" }}>
+            <p className="mx-auto mt-3 max-w-md text-[0.92rem] leading-7" style={{ color: "hsl(220 15% 70%)" }}>
               تفاصيل الرعاة قيد التأكيد — ستُحدّث هذه المنطقة مع اقتراب موعد الافتتاح.
             </p>
             <Link to="/contact" className="mt-6 inline-block">

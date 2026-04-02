@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import { Button } from "@/components/ui/button";
 
@@ -45,7 +44,7 @@ export function Footer() {
           {/* brand column */}
           <div className="space-y-5">
             <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[136px]" />
-            <p className="max-w-[260px] text-[0.9rem] leading-7 text-white/40">
+            <p className="max-w-[260px] text-[0.9rem] leading-7" style={{ color: "hsl(220 15% 65%)" }}>
               وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات في القاهرة الجديدة.
             </p>
             <div className="flex gap-2.5">
@@ -65,7 +64,7 @@ export function Footer() {
           {/* link columns */}
           {footerColumns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-4 text-[0.82rem] font-bold tracking-[0.08em] text-white/60 uppercase">
+              <h4 className="mb-4 text-[0.82rem] font-bold tracking-[0.08em] uppercase" style={{ color: "hsl(220 15% 72%)" }}>
                 {col.title}
               </h4>
               <ul className="space-y-3">
@@ -73,7 +72,8 @@ export function Footer() {
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-[0.88rem] text-white/35 transition-colors hover:text-white/65"
+                      className="text-[0.88rem] transition-colors hover:text-white"
+                      style={{ color: "hsl(220 12% 58%)" }}
                     >
                       {link.label}
                     </Link>
@@ -88,7 +88,7 @@ export function Footer() {
         <div className="mt-8 grid grid-cols-2 gap-8 lg:hidden">
           {footerColumns.slice(0, 2).map((col) => (
             <div key={col.title}>
-              <h4 className="mb-3 text-[0.78rem] font-bold tracking-[0.08em] text-white/50 uppercase">
+              <h4 className="mb-3 text-[0.78rem] font-bold tracking-[0.08em] uppercase" style={{ color: "hsl(220 15% 68%)" }}>
                 {col.title}
               </h4>
               <ul className="space-y-2.5">
@@ -96,7 +96,8 @@ export function Footer() {
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-[0.85rem] text-white/35 transition-colors hover:text-white/60"
+                      className="text-[0.85rem] transition-colors hover:text-white"
+                      style={{ color: "hsl(220 12% 58%)" }}
                     >
                       {link.label}
                     </Link>
@@ -109,7 +110,7 @@ export function Footer() {
 
         {/* divider & bottom */}
         <div className="mt-12 border-t border-white/8 pt-6">
-          <div className="flex flex-col gap-3 text-[0.78rem] text-white/25 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-3 text-[0.78rem] md:flex-row md:items-center md:justify-between" style={{ color: "hsl(220 12% 50%)" }}>
             <p>مول البستان — وجهة تقنية مصرية راسخة. الافتتاح الكبير — مايو 2026.</p>
             <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
           </div>

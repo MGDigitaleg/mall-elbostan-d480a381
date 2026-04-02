@@ -53,7 +53,7 @@ const About = () => (
             transition={{ duration: 0.7 }}
             className="order-1 space-y-6"
           >
-            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
+            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-[hsl(220_15%_80%)]">
               من نحن
             </span>
 
@@ -63,7 +63,7 @@ const About = () => (
               قبل أن يبنيه الحجر.
             </h1>
 
-            <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-white/55 md:text-[1.15rem]">
+            <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-[hsl(220_15%_72%)] md:text-[1.15rem]">
               مول البستان ليس مشروعًا يبدأ من الصفر — إنه امتداد لتاريخ تجاري حقيقي في سوق
               الإلكترونيات المصري. اليوم يتجدد رقميًا ومعماريًا بنفس المبادئ التي أسّسته:
               وضوح التعامل، تنظيم السوق، واحترام العلاقة بين التاجر والمشتري.
@@ -163,7 +163,7 @@ const About = () => (
             <h2 className="section-title">
               مكانة لم تُبنَ بالإعلان — بل بتكرار التجربة.
             </h2>
-            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50 md:text-lg">
+            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-[hsl(220_15%_72%)] md:text-lg">
               مول البستان لم يحتج حملات ضخمة ليصبح معروفًا — الزوّار والتجار هم من صنعوا
               سمعته، صفقة بعد صفقة وزيارة بعد زيارة.
             </p>
@@ -214,7 +214,7 @@ const About = () => (
                       <div className="space-y-3">
                         <item.icon className="h-6 w-6 text-primary" />
                         <h3 className="text-[1.2rem] font-bold text-white md:text-xl">{item.title}</h3>
-                        <p className="max-w-[22rem] text-[0.92rem] leading-7 text-white/45">{item.desc}</p>
+                        <p className="max-w-[22rem] text-[0.92rem] leading-7 text-[hsl(220_15%_70%)]">{item.desc}</p>
                       </div>
                     </div>
                   </div>
@@ -396,7 +396,7 @@ const About = () => (
             <h2 className="section-title mx-auto max-w-[28rem]">
               من وجهة راسخة إلى منصة رقمية متصلة.
             </h2>
-            <p className="mx-auto mt-5 max-w-[34rem] text-base leading-8 text-white/50 md:text-lg">
+            <p className="mx-auto mt-5 max-w-[34rem] text-base leading-8 text-[hsl(220_15%_72%)] md:text-lg">
               المول يتطور — دليل تفاعلي يعمل الآن، ودليل متاجر رقمي يسهّل الاستكشاف.
               المرحلة القادمة: سوق إلكتروني يمتد من واجهات المتاجر ليصل لأي مستخدم.
             </p>
@@ -431,7 +431,7 @@ const About = () => (
                   {phase.n}
                 </span>
                 <p className="mt-3 text-[1.02rem] font-bold text-white">{phase.title}</p>
-                <p className="mt-2 text-[0.85rem] leading-6 text-white/40">{phase.desc}</p>
+                <p className="mt-2 text-[0.85rem] leading-6 text-[hsl(220_15%_68%)]">{phase.desc}</p>
                 {phase.active && (
                   <span className="mt-4 inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[0.72rem] font-semibold text-primary">
                     متاح الآن

@@ -102,7 +102,7 @@ const Stores = () => {
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
                 <div className="accent-line" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(0 0% 100% / 0.35)" }}>
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
                   دليل المتاجر التقنية
                 </span>
               </div>
@@ -111,7 +111,7 @@ const Stores = () => {
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(0 0% 100% / 0.4)" }}>
+              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 70%)" }}>
                 كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
                 ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
               </p>
@@ -124,7 +124,7 @@ const Stores = () => {
                 ].map((s) => (
                   <div key={s.l} className="stat-block-dark min-w-[5.5rem] px-4 py-3">
                     <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(0 0% 100% / 0.3)" }}>{s.l}</p>
+                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(220 12% 58%)" }}>{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -218,7 +218,7 @@ const Stores = () => {
                   {filtered ? ` (${filtered.length})` : ""}
                 </h2>
               </div>
-              <div className="flex items-center gap-2 text-[0.82rem]" style={{ color: "hsl(0 0% 100% / 0.35)" }}>
+              <div className="flex items-center gap-2 text-[0.82rem]" style={{ color: "hsl(220 12% 62%)" }}>
                 <Building2 className="h-4 w-4" />
                 <span>{activeCount} متجر نشط من أصل {totalStores}</span>
               </div>
@@ -227,7 +227,7 @@ const Stores = () => {
             {/* search + filters */}
             <div className="mb-6 space-y-4">
               <div className="relative">
-                <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "hsl(0 0% 100% / 0.25)" }} />
+                <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "hsl(220 12% 52%)" }} />
                 <input
                   type="text"
                   placeholder="ابحث باسم المتجر أو الفئة..."
@@ -241,7 +241,7 @@ const Stores = () => {
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                <Filter className="h-4 w-4" style={{ color: "hsl(0 0% 100% / 0.25)" }} />
+                <Filter className="h-4 w-4" style={{ color: "hsl(220 12% 52%)" }} />
                 <FilterChip active={!selectedCategory} onClick={() => setSelectedCategory("")}>الكل</FilterChip>
                 {categories.map((cat) => (
                   <FilterChip key={cat} active={selectedCategory === cat} onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat!)}>
@@ -355,7 +355,7 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="section-kicker">المرحلة القادمة</p>
             <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متكامل.</h2>
-            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8" style={{ color: "hsl(0 0% 100% / 0.4)" }}>
+            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8" style={{ color: "hsl(220 15% 70%)" }}>
               الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة،
               متابعة العروض، والشراء إلكترونيًا من متاجر المول.
             </p>
@@ -397,7 +397,7 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       className="rounded-full px-3.5 py-1.5 text-[0.78rem] font-semibold transition-all"
       style={active
         ? { border: "1px solid hsl(var(--primary) / 0.3)", background: "hsl(var(--primary) / 0.12)", color: "hsl(var(--primary))" }
-        : { border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)", color: "hsl(0 0% 100% / 0.45)" }
+        : { border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)", color: "hsl(220 12% 65%)" }
       }
     >
       {children}
@@ -427,21 +427,21 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
             )}
             <div>
               <h3 className="text-[0.95rem] font-bold text-white transition-colors group-hover:text-primary">{store.name_ar}</h3>
-              {store.category && <span className="mt-0.5 inline-block text-[0.72rem]" style={{ color: "hsl(0 0% 100% / 0.3)" }}>{store.category}</span>}
+              {store.category && <span className="mt-0.5 inline-block text-[0.72rem]" style={{ color: "hsl(220 12% 58%)" }}>{store.category}</span>}
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.08)", color: "hsl(0 0% 100% / 0.5)" }}>
+          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.08)", color: "hsl(220 12% 70%)" }}>
             <span className={`h-1.5 w-1.5 rounded-full ${st.dot}`} />
             {st.text}
           </div>
         </div>
 
-        <p className="mt-3 flex-1 text-[0.82rem] leading-6" style={{ color: "hsl(0 0% 100% / 0.3)" }}>
+        <p className="mt-3 flex-1 text-[0.82rem] leading-6" style={{ color: "hsl(220 12% 58%)" }}>
           {store.short_description_ar ?? "متجر ضمن دليل مول البستان التقني — التفاصيل قيد التحديث."}
         </p>
 
         <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid hsl(0 0% 100% / 0.05)" }}>
-          <div className="flex items-center gap-3 text-[0.72rem]" style={{ color: "hsl(0 0% 100% / 0.25)" }}>
+          <div className="flex items-center gap-3 text-[0.72rem]" style={{ color: "hsl(220 12% 52%)" }}>
             {store.unit_code && (
               <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{store.unit_code}</span>
             )}
@@ -451,7 +451,7 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
               </span>
             )}
           </div>
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-primary" style={{ color: "hsl(0 0% 100% / 0.2)" }} />
+          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-primary" style={{ color: "hsl(220 12% 48%)" }} />
         </div>
       </Link>
     </motion.div>
@@ -465,10 +465,10 @@ function DirectoryEmpty({ onReset }: { onReset: () => void }) {
         <Layers3 className="h-7 w-7 text-primary" />
       </div>
       <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج ضمن هذا التصفية</h3>
-      <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7" style={{ color: "hsl(0 0% 100% / 0.35)" }}>
+      <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7" style={{ color: "hsl(220 12% 62%)" }}>
         عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتم تحديثه مع انضمام متاجر جديدة.
       </p>
-      <button onClick={onReset} className="mt-5 rounded-lg px-5 py-2 text-[0.85rem] font-semibold transition-colors" style={{ border: "1px solid hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(0 0% 100% / 0.55)" }}>
+      <button onClick={onReset} className="mt-5 rounded-lg px-5 py-2 text-[0.85rem] font-semibold transition-colors" style={{ border: "1px solid hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(220 12% 72%)" }}>
         إعادة ضبط الفلاتر
       </button>
     </div>
