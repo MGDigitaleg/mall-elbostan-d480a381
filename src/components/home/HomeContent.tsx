@@ -304,7 +304,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
                   icon: Users, title: "للمشتري والزائر",
