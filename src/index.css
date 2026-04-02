@@ -262,8 +262,8 @@
 
   /* ── Heritage surface — dark section cards ── */
   .heritage-surface {
-    background: hsl(222 32% 12%);
-    border: 1px solid hsl(222 18% 20%);
+    background: #0F2140;
+    border: 1px solid #1A3158;
     border-radius: calc(var(--radius) * 0.7);
     box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.03);
   }
