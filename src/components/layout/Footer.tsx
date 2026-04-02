@@ -110,7 +110,7 @@ export function Footer() {
         {/* divider & bottom */}
         <div className="mt-12 border-t border-white/8 pt-6">
           <div className="flex flex-col gap-3 text-[0.78rem] text-white/25 md:flex-row md:items-center md:justify-between">
-            <p>مول البستان — وجهة تقنية مصرية راسخة تقترب من الافتتاح.</p>
+            <p>مول البستان — وجهة تقنية مصرية راسخة. الافتتاح الكبير — مايو 2026.</p>
             <p>© {new Date().getFullYear()} مول البستان. جميع الحقوق محفوظة.</p>
           </div>
         </div>

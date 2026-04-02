@@ -107,7 +107,7 @@ const OpeningDay = () => {
 
         <section>
           <h2 className="mb-8 flex items-center gap-2 text-2xl font-bold"><Award className="h-6 w-6 text-primary" /> الرعاة</h2>
-          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة ستتحدث قريبًا</div>
+          <div className="section-shell p-6 text-muted-foreground">تفاصيل الرعاة قيد التأكيد — ستُحدّث قريبًا</div>
         </section>
       </div>
     </MainLayout>

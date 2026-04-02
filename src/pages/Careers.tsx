@@ -71,7 +71,7 @@ const Careers = () => {
               </div>
             ))}
           </div>
-        ) : <EmptyState title="لا توجد وظائف شاغرة حالياً" description="تابعنا للتحديثات" />}
+        ) : <EmptyState title="لا توجد فرص شاغرة حاليًا" description="تابعنا لمعرفة الفرص الجديدة فور إعلانها." />}
 
         {/* Application Form */}
         <div className="max-w-xl mx-auto">
