@@ -53,7 +53,7 @@ const About = () => (
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-20 lg:pr-16 xl:pr-20"
+            className="order-1 space-y-5 px-6 py-12 md:px-12 lg:py-14 lg:pr-16 xl:pr-20"
           >
             <div className="flex items-center gap-3">
               <div className="h-[2px] w-10 rounded-full" style={{ background: "#CDBB9A" }} />
