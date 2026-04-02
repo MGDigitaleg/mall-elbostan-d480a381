@@ -120,7 +120,7 @@ const Stores = () => {
                 Store Directory
               </p>
 
-              <h1 className="max-w-[20rem] text-[2rem] leading-[1.08] md:text-[2.6rem] lg:text-[3rem]" style={{ color: "#F8FAFC" }}>
+              <h1 className="max-w-[20rem] text-[1.65rem] leading-[1.1] md:text-[2.1rem] lg:text-[2.4rem]" style={{ color: "#F8FAFC" }}>
                 دليل المتاجر
                 <br />
                 <span style={{ color: "#CDBB9A" }}>التقنية.</span>

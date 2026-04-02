@@ -54,7 +54,7 @@ const OpeningDay = () => {
                 </span>
               </div>
 
-              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
+              <h1 className="max-w-[26rem] text-[1.75rem] font-extrabold leading-[1.08] text-white md:text-[2.2rem] lg:text-[2.5rem]">
                 الافتتاح الكبير — برنامج واضح من الترقب إلى الحضور
               </h1>
 

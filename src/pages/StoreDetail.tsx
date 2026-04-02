@@ -142,7 +142,7 @@ const StoreDetail = () => {
                   </div>
                 )}
                 <div>
-                  <h1 className="text-[2.4rem] font-bold leading-[1.05] md:text-[3.2rem]" style={{ color: 'hsl(var(--navy-foreground))' }}>
+                  <h1 className="text-[1.85rem] font-bold leading-[1.1] md:text-[2.4rem]" style={{ color: 'hsl(var(--navy-foreground))' }}>
                     {store.name_ar}
                   </h1>
                   {store.name_en && (
