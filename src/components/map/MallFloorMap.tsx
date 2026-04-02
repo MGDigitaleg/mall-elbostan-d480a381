@@ -130,7 +130,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   );
 
   return (
-    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#F4F0EA] p-3 md:p-4", className)}>
+    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#EDE8E0] p-3 md:p-4", className)}>
       {/* Zoom controls */}
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
         <button
