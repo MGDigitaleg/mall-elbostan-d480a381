@@ -284,10 +284,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           3 · VALUE PROPOSITION — who benefits and why
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep py-10 md:py-14 relative overflow-hidden">
+      <section className="heritage-deep py-8 md:py-10 relative overflow-hidden">
         <div className="relative container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-8 max-w-[32rem]">
+            <div className="mb-6 max-w-[32rem]">
               <p className="section-kicker dark-kicker">القيمة الحقيقية</p>
               <h2 className="section-title dark-heading">جمهور بنيّة شراء واضحة.</h2>
               <p className="mt-3 text-[0.95rem] leading-[1.9] dark-body">
