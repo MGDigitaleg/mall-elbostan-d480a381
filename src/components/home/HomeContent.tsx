@@ -34,7 +34,6 @@ import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
 import {
   allMapUnits,
   exploreNeeds,
-  floorMapData,
   needCategoryLabels,
   type NeedCategory,
 } from "@/lib/floorMapData";
