@@ -341,8 +341,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ── divider ── */}
-      <div className="section-divider container" />
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ════════════════ 3 · VALUE PROPOSITION ════════════════ */}
       <section className="heritage-deep page-section">
