@@ -205,11 +205,18 @@ const About = () => (
                 ))}
               </div>
 
-              <Link to="/downtown-branch">
-                <Button variant="ghost" className="gap-1.5 px-0 text-[0.84rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
-                  تعرّف أكثر على فرع وسط البلد <ArrowLeft className="h-4 w-4" />
-                </Button>
-              </Link>
+              <div className="flex flex-wrap gap-3">
+                <Link to="/downtown-branch">
+                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.84rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
+                    تعرّف أكثر على فرع وسط البلد <ArrowLeft className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/downtown-directory">
+                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.84rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
+                    دليل محلات وسط البلد <ArrowLeft className="h-4 w-4" />
+                  </Button>
+                </Link>
+              </div>
             </div>
 
             <div className="space-y-3 lg:sticky lg:top-24">
