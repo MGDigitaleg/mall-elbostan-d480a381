@@ -3,18 +3,17 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
-import type { SpinReward } from "./AtriumSpinModal";
+export type ActiveRewardContext = {
+  prizeName: string;
+  claimRules?: string | null;
+  storeName?: string;
+  isCategory?: boolean;
+};
 
 const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
   occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
   available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E" },
   coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8" },
-};
-
-export type ActiveRewardContext = {
-  reward: SpinReward;
-  storeName?: string;
-  isCategory?: boolean;
 };
 
 function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
