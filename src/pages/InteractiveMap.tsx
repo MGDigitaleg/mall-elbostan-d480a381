@@ -418,6 +418,15 @@ const InteractiveMap = () => {
         </DrawerContent>
       </Drawer>
 
+      {/* ── Atrium Hub Modal ── */}
+      <AtriumHubModal
+        open={hubModalOpen}
+        onClose={() => setHubModalOpen(false)}
+        config={atriumConfig}
+        onOpenSpinWheel={handleOpenSpinWheel}
+        onFilterCategory={handleHubFilterCategory}
+      />
+
       {/* ── Atrium Spin Modal ── */}
       <AtriumSpinModal
         open={spinModalOpen}
