@@ -273,27 +273,19 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ AVAILABLE UNITS — continuation of map ═══════════ */}
-      <section className="py-6 md:py-8" style={{ background: "#F5F2EC" }}>
+      <section className="py-5 md:py-7" style={{ background: "#FAFAF8", borderTop: "1px solid #D8DEE8" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="h-[3px] w-6 rounded-full" style={{ background: "#E8740E" }} />
-              <div>
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8740E" }}>الوحدات المتاحة للتأجير</p>
-                <h2 className="mt-0.5 text-[1.1rem] font-bold leading-tight light-heading md:text-[1.3rem]">
-                  {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة
-                </h2>
-              </div>
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.25em]" style={{ color: "#B85C08" }}>Available Units</p>
+              <h2 className="mt-1 text-[1.05rem] font-bold leading-tight md:text-[1.2rem]" style={{ color: "#0F172A" }}>
+                {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة للتأجير
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <Link to="/leasing">
-                <Button variant="orange" size="sm" className="h-9 rounded-xl px-5 text-[0.82rem] font-bold">
-                  <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر عن التأجير
-                </Button>
-              </Link>
-              <Link to="/leasing" className="hidden md:inline-flex">
-                <Button variant="outline-blue" size="sm" className="h-9 rounded-xl px-5 text-[0.82rem]">
-                  صفحة التأجير
+                <Button variant="orange" size="sm" className="h-9 rounded-lg px-5 text-[0.8rem] font-bold">
+                  <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر الآن
                 </Button>
               </Link>
             </div>
