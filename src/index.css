@@ -306,8 +306,9 @@
 
   /* ── Section background modifiers ── */
   .section-soft { background: hsl(var(--secondary)); }
-  .section-warm { background: hsl(38 12% 94%); }
+  .section-warm { background: hsl(34 16% 95%); }
   .section-ivory { background: var(--gradient-ivory); }
+  .section-stone { background: hsl(var(--warm-stone)); }
 
   /* ── Heritage dark sections ── */
   .heritage-section {
