@@ -20,7 +20,7 @@ const adminSections = [
   { title: "الأسئلة الشائعة", icon: HelpCircle, path: "/admin/faqs", desc: "إدارة الأسئلة والأجوبة" },
   { title: "العملاء المحتملون", icon: Users, path: "/admin/leads", desc: "عرض طلبات التواصل والتأجير وانضمام التجار" },
   { title: "أصول المستأجرين", icon: FolderTree, path: "/admin/tenant-assets", desc: "إدارة قائمة الشعارات والمطابقة والتصدير النهائي" },
-  { title: "محلات وسط البلد", icon: Building, path: "/admin/downtown-merchants", desc: "إدارة دليل محلات فرع وسط البلد" },
+  { title: "محلات وسط البلد", icon: Building2, path: "/admin/downtown-merchants", desc: "إدارة دليل محلات فرع وسط البلد" },
 ];
 
 const AdminDashboard = () => {
