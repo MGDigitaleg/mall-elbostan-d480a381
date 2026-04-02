@@ -28,6 +28,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
 import NotFound from "./pages/NotFound";
+import DowntownDirectory from "./pages/DowntownDirectory";
 
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
