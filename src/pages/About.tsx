@@ -119,14 +119,17 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <div className="order-2 lg:order-1">
-              <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
-                <div className="image-shell aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-border">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover" loading="lazy" />
+              <div className="grid gap-3 md:grid-cols-[1.15fr_0.55fr]">
+                {/* wide: entrance — scale & context */}
+                <div className="editorial-frame img-wash-warm overflow-hidden rounded-2xl">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[4/3] h-full w-full object-cover object-[center_35%]" loading="lazy" />
                 </div>
-                <div className="image-shell hidden aspect-[3/5] overflow-hidden rounded-2xl ring-1 ring-border md:block">
-                  <img src={interiorImage} alt="الأتريوم الداخلي" className="h-full w-full object-cover" loading="lazy" />
+                {/* narrow: interior — atmosphere & depth */}
+                <div className="editorial-frame hidden overflow-hidden rounded-2xl md:block">
+                  <img src={interiorImage} alt="الأتريوم الداخلي" className="img-grade aspect-[2/3] h-full w-full object-cover" loading="lazy" />
                 </div>
               </div>
+              <div className="mt-3 h-[2px] w-16 rounded-full" style={{ background: "linear-gradient(90deg, hsl(30 20% 52% / 0.3), transparent)" }} />
             </div>
 
             <div className="order-1 space-y-6 lg:order-2">
