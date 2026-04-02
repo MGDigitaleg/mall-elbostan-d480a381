@@ -198,6 +198,8 @@ const InteractiveMap = () => {
                 selectedUnitId={activeUnit?.id ?? null}
                 mutedUnitIds={mutedUnitIds}
                 onSelectUnit={setSelectedUnit}
+                onAtriumClick={handleAtriumClick}
+                highlightedUnitIds={highlightedUnitIds}
               />
             </motion.div>
 
