@@ -313,8 +313,13 @@
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-section .section-kicker { color: hsl(var(--primary) / 0.55); }
+  .heritage-section .section-kicker { color: hsl(220 68% 60%); }
   .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
+
+  /* ── Warm sand interlude ── */
+  .section-sand {
+    background: hsl(var(--warm-sand));
+  }
 
   .heritage-card {
     background: hsl(222 36% 13%);
