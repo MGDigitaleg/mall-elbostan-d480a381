@@ -267,7 +267,7 @@ const Leasing = () => {
                 </div>
                 <h2 className="mb-1.5 text-[1.3rem] font-extrabold dark-heading md:text-[1.5rem]">ابدأ استفسارك</h2>
                 <p className="mb-5 text-[0.84rem] leading-7 dark-body">
-                  أرسل بياناتك — فريق التأجير هيتواصل معاك بتفاصيل الوحدات والأسعار.
+                  أرسل بياناتك — فريق التأجير سيتواصل معك بتفاصيل الوحدات والأسعار.
                 </p>
 
                 {submitted ? (
