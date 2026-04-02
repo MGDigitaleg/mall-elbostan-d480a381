@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { AtriumInteractiveLayer } from "./AtriumInteractiveLayer";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 
