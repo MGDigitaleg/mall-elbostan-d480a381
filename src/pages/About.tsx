@@ -126,19 +126,17 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
 
-            {/* editorial imagery */}
+            {/* editorial diptych — entrance (main) + facade (architectural detail) */}
             <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="editorial-frame overflow-hidden rounded-2xl">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[4/3] w-full object-cover object-[center_35%]" loading="lazy" />
+              <div className="grid grid-cols-[0.6fr_0.4fr] gap-2.5">
+                <div className="frame-cinematic overflow-hidden">
+                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade aspect-[3/4] w-full object-cover object-[center_35%]" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-5 -left-4 w-[36%] md:-left-6">
-                  <div className="editorial-frame overflow-hidden rounded-xl">
-                    <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade aspect-[3/4] w-full object-cover object-[center_40%]" loading="lazy" />
-                  </div>
+                <div className="frame-heritage overflow-hidden">
+                  <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_40%]" loading="lazy" />
                 </div>
-                <div className="absolute -bottom-2 right-0 h-[3px] w-20 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A80, transparent)" }} />
               </div>
+              <div className="mt-2 h-[2px] w-16 rounded-full" style={{ background: "linear-gradient(90deg, #CDBB9A60, transparent)" }} />
             </div>
 
             {/* text */}
