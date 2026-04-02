@@ -198,6 +198,12 @@ export function Footer() {
               <Link to="/terms" className="transition-colors hover:text-white">الشروط والأحكام</Link>
               <Link to="/privacy" className="transition-colors hover:text-white">سياسة الخصوصية</Link>
               <span>© {new Date().getFullYear()} مول البستان</span>
+              <span className="border-r border-white/10 pr-4 mr-0">
+                Developed by{" "}
+                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-medium text-white/80 transition-colors hover:text-white">
+                  MG Digital
+                </a>
+              </span>
             </div>
           </div>
         </div>
