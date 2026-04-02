@@ -1,6 +1,6 @@
-import { useMemo, useState, useCallback, useRef } from "react";
+import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Building2,
   Compass,
@@ -57,6 +57,7 @@ function resolveMapCategory(storeCategory: string | null): MallCategory | null {
 
 const InteractiveMap = () => {
   const isMobile = useIsMobile();
+  const [searchParams, setSearchParams] = useSearchParams();
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
   const [statusFilter, setStatusFilter] = useState<"all" | MallUnitStatus>("all");
@@ -71,6 +72,29 @@ const InteractiveMap = () => {
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
+
+  // Auto-highlight unit from URL params (e.g. coming from /spin-win)
+  useEffect(() => {
+    const highlightCode = searchParams.get("highlight");
+    const prizeName = searchParams.get("prize");
+    const storeName = searchParams.get("store");
+    if (!highlightCode) return;
+
+    const targetUnit = allMallUnits.find((u) => u.code === highlightCode);
+    if (targetUnit) {
+      setSelectedFloor(targetUnit.floor);
+      setSelectedUnit(targetUnit);
+      setHighlightedUnitIds(new Set([targetUnit.id]));
+      setActiveRewardCtx({ prizeName: prizeName ?? undefined, storeName: storeName ?? undefined });
+      setTimeout(() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 500);
+      setTimeout(() => {
+        setHighlightedUnitIds(new Set());
+        setActiveRewardCtx(undefined);
+      }, 15000);
+    }
+    // Clean URL params
+    setSearchParams({}, { replace: true });
+  }, []);
 
   const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
   const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);

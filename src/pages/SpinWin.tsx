@@ -351,7 +351,7 @@ const SpinWin = () => {
                       transition={{ delay: 0.7 }}
                       className="flex gap-3 pt-2"
                     >
-                      <Link to="/map" className="flex-1">
+                      <Link to={`/map?highlight=${encodeURIComponent(result.result?.store?.unit_code ?? '')}&prize=${encodeURIComponent(result.result?.prize?.name_ar ?? '')}&store=${encodeURIComponent(result.result?.store?.name_ar ?? '')}`} className="flex-1">
                         <Button variant="cta" className="w-full h-11 gap-2">
                           <MapPin className="w-4 h-4" />
                           شاهد المتجر على الخريطة
