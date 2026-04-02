@@ -701,10 +701,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
             </div>
             <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.2] md:text-[1.8rem] dark-heading">
-              المول جاهز — دورك تستكشفه.
+              المول جاهز — والقرار بيدك.
             </h2>
             <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 dark-body">
-              سواء بتدوّر على منتج، عايز تأجّر وحدة، أو حابب تعرف إيه في المول — ابدأ من هنا.
+              سواء تبحث عن منتج، تفكّر في وحدة تجارية، أو تريد معرفة المول من الداخل — كل الأدوات أمامك.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/map">
