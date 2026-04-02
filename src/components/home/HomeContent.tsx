@@ -544,41 +544,40 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-elevated)]">
+            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
               <div className="grid lg:grid-cols-[1.4fr_0.6fr]">
-                <div className="space-y-6 p-7 md:p-10">
-                  <p className="section-kicker">حملة الافتتاح الكبير</p>
-                  <h2 className="section-title max-w-[24rem]">افتتاح يكافئ من يحضر — وليس مجرد عروض عابرة.</h2>
-                  <p className="text-[1rem] leading-8 light-body md:text-[1.04rem]">
-                    مكافآت حقيقية مرتبطة بمتاجر فعلية داخل المول — كل مكافأة
-                    ظاهرة بموقعها على الخريطة. شارك الآن واستلم يوم الافتتاح.
+                <div className="space-y-5 p-6 md:p-8">
+                  <p className="section-kicker">حملة الافتتاح</p>
+                  <h2 className="section-title max-w-[22rem]">افتتاح يكافئ من يحضر.</h2>
+                  <p className="text-[0.92rem] leading-7 light-body">
+                    مكافآت حقيقية مرتبطة بمتاجر فعلية — شارك الآن واستلم يوم الافتتاح.
                   </p>
 
-                  <div className="flex flex-wrap gap-8 border-t border-border pt-7">
+                  <div className="flex flex-wrap gap-6 border-t border-border pt-5">
                     {[
-                      { n: "01", title: "استكشف", desc: "تعرّف على المتاجر والأقسام من الدليل." },
+                      { n: "01", title: "استكشف", desc: "تعرّف على الأقسام من الدليل." },
                       { n: "02", title: "شارك", desc: "سجّل بياناتك واحفظ نتيجتك." },
-                      { n: "03", title: "احضر واستلم", desc: "قدّم إثبات مشاركتك يوم الافتتاح." },
+                      { n: "03", title: "احضر واستلم", desc: "قدّم إثباتك يوم الافتتاح." },
                     ].map((s) => (
-                      <div key={s.n} className="min-w-[8rem]">
-                        <span className="font-poppins text-[0.74rem] font-bold text-primary">{s.n}</span>
-                        <p className="mt-1.5 text-[0.95rem] font-bold light-heading">{s.title}</p>
-                        <p className="mt-1 text-[0.84rem] leading-6 light-body">{s.desc}</p>
+                      <div key={s.n} className="min-w-[7rem]">
+                        <span className="font-poppins text-[0.7rem] font-bold text-primary">{s.n}</span>
+                        <p className="mt-1 text-[0.88rem] font-bold light-heading">{s.title}</p>
+                        <p className="mt-0.5 text-[0.8rem] leading-5 light-body">{s.desc}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3 pt-3">
-                    <Link to="/spin-win"><Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold"><Gift className="ml-2 h-4 w-4" />جرّب أدر واربح</Button></Link>
-                    <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">تفاصيل يوم الافتتاح</Button></Link>
+                  <div className="flex flex-wrap gap-2.5 pt-2">
+                    <Link to="/spin-win"><Button variant="cta" className="h-10 rounded-lg px-6 font-bold text-[0.85rem]"><Gift className="ml-2 h-4 w-4" />أدر واربح</Button></Link>
+                    <Link to="/opening-day"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">تفاصيل الافتتاح</Button></Link>
                   </div>
                 </div>
 
-                <div className="hidden border-r border-border p-8 lg:flex lg:flex-col lg:items-center lg:justify-center" style={{ background: "#F5F2EC" }}>
-                  <div className="rounded-xl border border-border bg-card p-7 text-center shadow-[var(--shadow-soft)]">
-                    <p className="text-[0.84rem] font-bold light-muted">الافتتاح الكبير</p>
-                    <p className="mt-2 text-[1.7rem] font-extrabold light-heading">1 مايو 2026</p>
-                    <div className="mt-5"><CountdownTimer compact /></div>
+                <div className="hidden border-r border-border p-6 lg:flex lg:flex-col lg:items-center lg:justify-center" style={{ background: "#F5F2EC" }}>
+                  <div className="rounded-lg border border-border bg-card p-5 text-center shadow-[var(--shadow-soft)]">
+                    <p className="text-[0.78rem] font-bold light-muted">الافتتاح الكبير</p>
+                    <p className="mt-1.5 text-[1.4rem] font-extrabold light-heading">1 مايو 2026</p>
+                    <div className="mt-4"><CountdownTimer compact /></div>
                   </div>
                 </div>
               </div>
