@@ -115,105 +115,98 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           1 · HERO — full-screen immersive with editorial image
           ════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen overflow-hidden" style={{ background: "#071326" }}>
-        {/* subtle radial warmth */}
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF08, transparent 70%)" }} />
+      <section className="relative min-h-[88vh] overflow-hidden lg:min-h-screen" style={{ background: "#071326" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-screen items-center lg:grid-cols-2">
+          <div className="grid min-h-[88vh] items-center lg:min-h-screen lg:grid-cols-2">
 
             {/* ── text column ── */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="order-1 space-y-8 px-6 py-20 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
+              transition={{ duration: 0.5 }}
+              className="order-1 space-y-6 px-6 py-16 md:px-12 lg:py-0 lg:pr-16 xl:pr-20"
             >
-              {/* heritage kicker */}
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-10 rounded-full" style={{ background: "#64748B" }} />
-                <span className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+                <div className="h-[2px] w-8 rounded-full" style={{ background: "#64748B" }} />
+                <span className="font-poppins text-[0.6rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                   Est. 2010 — New Cairo
                 </span>
               </div>
 
-              <h1 className="max-w-[24rem] text-[2.4rem] leading-[1.06] md:text-[3.4rem] lg:text-[4rem]" style={{ color: "#F8FAFC" }}>
+              <h1 className="max-w-[22rem] text-[2rem] leading-[1.08] md:text-[2.8rem] lg:text-[3.2rem]" style={{ color: "#F8FAFC" }}>
                 المكان الذي بناه
                 <br />
                 <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
               </h1>
 
-              <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.04rem]" style={{ color: "#94A3B8" }}>
-                مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات التي
-                انتهت بقرار شراء حقيقي. من يعرف سوق الإلكترونيات في القاهرة الجديدة
-                يعرف هذا المكان.
+              <p className="max-w-[26rem] text-[0.92rem] leading-[1.9] md:text-[0.96rem]" style={{ color: "#94A3B8" }}>
+                مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات
+                التي انتهت بقرار شراء حقيقي.
               </p>
 
-              {/* CTA pair */}
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2.5">
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="h-[3.2rem] min-w-[12rem] rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
+                  <Button variant="cta" size="lg" className="h-11 min-w-[11rem] rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Compass className="ml-2 h-4 w-4" />
                     استكشف دليل المول
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button size="lg" className="h-[3.2rem] min-w-[9rem] rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+                  <Button size="lg" className="h-11 rounded-lg border px-6 text-[0.85rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     تصفّح المتاجر
                   </Button>
                 </Link>
               </div>
 
-              {/* stats — anchored authority strip */}
-              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #1E293B" }}>
+              <div className="flex items-center gap-6 pt-4" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${categoryStories.length}`, l: "أقسام متخصصة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-6">
+                  <div key={s.l} className="flex items-center gap-5">
                     <div>
-                      <p className="font-poppins text-[1.5rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                      <p className="font-poppins text-[1.3rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="text-[0.64rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-8 w-px" style={{ background: "#1E293B" }} />}
+                    {i < 2 && <div className="h-7 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* ── image column — editorial architectural composition ── */}
+            {/* ── image column ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative order-2 hidden h-screen lg:block"
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="relative order-2 hidden h-full lg:block"
             >
-              {/* full-bleed hero — exterior, cropped for geometry */}
               <img
                 src={heroImage}
                 alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
                 className="h-full w-full object-cover object-[center_30%] img-grade-dark"
+                style={{ maxHeight: "100vh" }}
                 loading="eager"
               />
-              {/* editorial gradient overlay */}
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 25%, transparent 55%)" }} />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 35%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to right, #071326 0%, #07132680 22%, transparent 50%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326CC 0%, transparent 30%)" }} />
 
-              {/* bottom info bar — anchored to image */}
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-8">
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
                 <div>
-                  <p className="font-poppins text-[0.65rem] font-bold tracking-[0.2em] uppercase dark-accent">Mall Elbostan</p>
-                  <p className="mt-1 text-[0.95rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
+                  <p className="font-poppins text-[0.6rem] font-bold tracking-[0.2em] uppercase dark-accent">Mall Elbostan</p>
+                  <p className="mt-0.5 text-[0.85rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
                 </div>
-                <div className="rounded-lg px-3.5 py-2" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                  <p className="text-[0.72rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
+                <div className="rounded-md px-3 py-1.5" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
+                  <p className="text-[0.68rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
                 </div>
               </div>
 
-              {/* architectural detail inset — interior, square symmetry crop */}
-              <div className="absolute bottom-14 left-8 w-[26%]">
-                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 20px 50px #07132680" }}>
+              {/* detail inset — smaller, tighter */}
+              <div className="absolute bottom-12 left-6 w-[22%]">
+                <div className="frame-heritage overflow-hidden" style={{ boxShadow: "0 16px 40px #07132680" }}>
                   <img src={interiorImage} alt="التفاصيل الداخلية" className="aspect-[1/1] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
                 </div>
               </div>
@@ -236,35 +229,34 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           2 · HERITAGE & IDENTITY — why this place matters
           ════════════════════════════════════════════════════════════ */}
-      <section className="page-section overflow-hidden" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 overflow-hidden" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
+            <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
 
               {/* text */}
-              <div className="order-1 space-y-7">
-                <div className="chapter-shell pt-7">
+              <div className="order-1 space-y-5">
+                <div className="chapter-shell pt-6">
                   <p className="section-kicker">مكانة وتاريخ</p>
-                  <h2 className="section-title max-w-[22rem]">اسم يسبق التعريف في سوق التقنية.</h2>
+                  <h2 className="section-title max-w-[20rem]">اسم يسبق التعريف في سوق التقنية.</h2>
                 </div>
 
-                <p className="text-[1.04rem] leading-[2.1] light-body md:text-[1.08rem]">
-                  في سوق تتنافس فيه عشرات الوجهات، مول البستان يملك ما لا يُشترى:
-                  سمعة بنتها سنوات من التعامل المباشر. الزائر لا يأتي لأنه رأى إعلانًا —
-                  يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا، بالسعر والجودة التي يتوقعها.
+                <p className="text-[0.95rem] leading-[1.95] light-body">
+                  مول البستان يملك ما لا يُشترى: سمعة بنتها سنوات من التعامل المباشر.
+                  الزائر يأتي لأنه يعرف أن ما يبحث عنه سيجده هنا.
                 </p>
 
                 {/* trust signals */}
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-2.5 sm:grid-cols-3">
                   {[
-                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري يمتد لأكثر من عقد كامل." },
-                    { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "هيكل تجاري دقيق", desc: "تصنيف واضح يختصر مسار الشراء." },
+                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري لأكثر من عقد." },
+                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء مختصر ومنظّم." },
                   ].map((c) => (
-                    <div key={c.title} className="card-architectural rounded-xl p-5">
-                      <c.icon className="mb-3 h-5 w-5 text-primary" />
-                      <p className="text-[0.95rem] font-bold light-heading">{c.title}</p>
-                      <p className="mt-1.5 text-[0.86rem] leading-7 light-body">{c.desc}</p>
+                    <div key={c.title} className="card-architectural rounded-lg p-4">
+                      <c.icon className="mb-2 h-4 w-4 text-primary" />
+                      <p className="text-[0.88rem] font-bold light-heading">{c.title}</p>
+                      <p className="mt-1 text-[0.82rem] leading-6 light-body">{c.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -276,22 +268,18 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </Link>
               </div>
 
-              {/* editorial diptych — facade main + entrance detail */}
               <div className="order-2">
-                <div className="grid grid-cols-[1.3fr_0.7fr] gap-2.5">
-                  {/* main — facade, architectural geometry crop */}
+                <div className="grid grid-cols-[1.3fr_0.7fr] gap-2">
                   <div className="frame-geometric overflow-hidden">
-                    <img src={facadeImage} alt="الواجهة المعمارية لمول البستان" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_35%]" loading="lazy" />
+                    <img src={facadeImage} alt="الواجهة المعمارية لمول البستان" className="img-grade-arch aspect-[3/4] max-h-[380px] w-full object-cover object-[center_35%]" loading="lazy" />
                   </div>
-                  {/* detail — entrance, vertical symmetry */}
-                  <div className="flex flex-col gap-2.5">
+                  <div className="flex flex-col gap-2">
                     <div className="frame-diptych flex-1 overflow-hidden">
-                      <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-warm h-full w-full object-cover object-[50%_30%]" loading="lazy" />
+                      <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-warm h-full max-h-[340px] w-full object-cover object-[50%_30%]" loading="lazy" />
                     </div>
-                    {/* heritage accent strip */}
-                    <div className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2.5">
-                      <div className="h-[3px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
-                      <span className="text-[0.7rem] font-bold light-muted">بنية معمارية مميزة</span>
+                    <div className="flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2">
+                      <div className="h-[2px] w-4 rounded-full" style={{ background: "#CDBB9A" }} />
+                      <span className="text-[0.66rem] font-bold light-muted">بنية معمارية مميزة</span>
                     </div>
                   </div>
                 </div>
@@ -304,19 +292,19 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           3 · VALUE PROPOSITION — who benefits and why
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep page-section relative overflow-hidden">
+      <section className="heritage-deep py-10 md:py-14 relative overflow-hidden">
         <div className="relative container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-14 max-w-[36rem]">
+            <div className="mb-8 max-w-[32rem]">
               <p className="section-kicker dark-kicker">القيمة الحقيقية</p>
-              <h2 className="section-title dark-heading">ليس مجرد موقع — وجهة يقصدها جمهور بنيّة شراء واضحة.</h2>
-              <p className="mt-5 text-[1.04rem] leading-[2] dark-body">
-                ما يميّز المول ليس مساحته بل طبيعة زوّاره: مشترٍ يعرف ما يريد،
-                وتاجر يثق في الموقع لأن حركته مبنية على طلب حقيقي لا موسمي.
+              <h2 className="section-title dark-heading">وجهة يقصدها جمهور بنيّة شراء واضحة.</h2>
+              <p className="mt-3 text-[0.95rem] leading-[1.9] dark-body">
+                ما يميّز المول طبيعة زوّاره: مشترٍ يعرف ما يريد، وتاجر يثق
+                في الموقع لأن حركته مبنية على طلب حقيقي.
               </p>
             </div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
                   icon: Users, title: "للمشتري والزائر",
@@ -375,12 +363,11 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-12 max-w-[34rem]">
+            <div className="mb-8 max-w-[30rem]">
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
-              <p className="mt-4 text-[1rem] leading-8 light-body">
-                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره
-                وحركته الخاصة. اختر ما يناسبك وابدأ الاستكشاف.
+              <p className="mt-3 text-[0.92rem] leading-7 light-body">
+                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره وحركته الخاصة.
               </p>
             </div>
 
@@ -388,7 +375,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {categoryStories.map((cat, i) => (
                 <motion.div key={cat.key} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                   <Link to="/stores" className="block">
-                    <div className="group flex h-full items-start gap-4 rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:border-primary/20 hover:shadow-[var(--shadow-elevated)]">
+                    <div className="group flex h-full items-start gap-3.5 rounded-lg border border-border bg-card p-5 transition-all duration-200 hover:border-primary/20 hover:shadow-[var(--shadow-card)]">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
                         <cat.icon className="h-5 w-5" />
                       </div>
@@ -452,26 +439,25 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-10 grid items-end gap-6 lg:grid-cols-[1fr_auto]">
+            <div className="mb-6 grid items-end gap-4 lg:grid-cols-[1fr_auto]">
               <div>
                 <p className="section-kicker">الخريطة التجارية</p>
-                <h2 className="section-title max-w-[28rem]">استكشف المول بالكامل — قبل أن تصل.</h2>
-                <p className="mt-4 text-[1rem] leading-8 light-body">
+                <h2 className="section-title max-w-[24rem]">استكشف المول — قبل أن تصل.</h2>
+                <p className="mt-3 text-[0.92rem] leading-7 light-body">
                   الدليل التفاعلي يعرض كل دور بوحداته وحالاتها الفعلية.
-                  تعرف ما هو متاح وما هو مشغول وما هو قادم — برابط مباشر للتأجير أو تفاصيل المتجر.
                 </p>
               </div>
-              <div className="hidden lg:flex lg:gap-2.5">
-                <Link to="/map"><Button variant="cta" size="lg" className="h-12 rounded-xl px-8 text-[0.92rem] font-bold">افتح الدليل الكامل</Button></Link>
-                <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8 text-[0.92rem]">استفسر عن وحدة</Button></Link>
+              <div className="hidden lg:flex lg:gap-2">
+                <Link to="/map"><Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold">افتح الدليل</Button></Link>
+                <Link to="/leasing"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">استفسر عن وحدة</Button></Link>
               </div>
             </div>
 
             <MapTeaserPreview />
 
-            <div className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:hidden">
-              <Link to="/map"><Button variant="cta" size="lg" className="h-12 w-full rounded-xl text-[0.92rem]">افتح الدليل الكامل</Button></Link>
-              <Link to="/leasing"><Button variant="outline-blue" size="lg" className="h-12 w-full rounded-xl text-[0.92rem]">استفسر عن وحدة</Button></Link>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:hidden">
+              <Link to="/map"><Button variant="cta" className="h-10 w-full rounded-lg text-[0.85rem]">افتح الدليل</Button></Link>
+              <Link to="/leasing"><Button variant="outline-blue" className="h-10 w-full rounded-lg text-[0.85rem]">استفسر عن وحدة</Button></Link>
             </div>
           </motion.div>
         </div>
@@ -483,46 +469,43 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-              <div className="space-y-7">
-                <div className="chapter-shell pt-7">
+            <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+              <div className="space-y-5">
+                <div className="chapter-shell pt-5">
                   <p className="section-kicker">الفرصة التجارية</p>
-                  <h2 className="section-title max-w-[24rem]">وحدتك في موقع مُثبت تجاريًا — وليس تجربة جديدة.</h2>
+                  <h2 className="section-title max-w-[22rem]">وحدتك في موقع مُثبت تجاريًا.</h2>
                 </div>
-                <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                  مول البستان ليس مشروعًا يبحث عن جمهور — بل وجهة يقصدها الجمهور بالفعل.
-                  وحدات بمساحات متنوعة، في منطقة طلب حقيقي، واستفسار مباشر من
-                  الخريطة لفريق التأجير.
+                <p className="text-[0.92rem] leading-[1.9] light-body">
+                  وجهة يقصدها الجمهور بالفعل. وحدات بمساحات متنوعة،
+                  في منطقة طلب حقيقي، واستفسار مباشر لفريق التأجير.
                 </p>
 
-                {/* floor availability */}
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2.5">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="rounded-xl border border-border bg-card px-4 py-5 text-center">
-                      <p className="font-poppins text-[1.8rem] font-extrabold light-heading">{f.count}</p>
-                      <p className="mt-1 text-[0.76rem] font-semibold light-muted">{f.label}</p>
+                    <div key={f.id} className="rounded-lg border border-border bg-card px-3 py-4 text-center">
+                      <p className="font-poppins text-[1.5rem] font-extrabold light-heading">{f.count}</p>
+                      <p className="mt-0.5 text-[0.72rem] font-semibold light-muted">{f.label}</p>
                     </div>
                   ))}
                 </div>
 
-                {/* trust chips */}
-                <div className="grid grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-2 gap-2">
                   {[
                     { icon: MapPin, label: "موقع مقصود" },
                     { icon: Users, label: "جمهور بنيّة شراء" },
                     { icon: TrendingUp, label: "طلب متنامٍ سنويًا" },
                     { icon: Layers, label: "تصنيف تجاري دقيق" },
                   ].map((p) => (
-                    <div key={p.label} className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-4 py-3.5">
-                      <p.icon className="h-4 w-4 text-primary" />
-                      <span className="text-[0.88rem] font-bold light-heading">{p.label}</span>
+                    <div key={p.label} className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5">
+                      <p.icon className="h-3.5 w-3.5 text-primary" />
+                      <span className="text-[0.82rem] font-bold light-heading">{p.label}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-3 pt-3">
-                  <Link to="/leasing"><Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">ابدأ استفسار التأجير</Button></Link>
-                  <Link to="/map"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">شاهد الوحدات على الخريطة</Button></Link>
+                <div className="flex flex-wrap gap-2.5 pt-2">
+                  <Link to="/leasing"><Button variant="orange" className="h-10 rounded-lg px-6 font-bold text-[0.85rem]">استفسار التأجير</Button></Link>
+                  <Link to="/map"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">الوحدات على الخريطة</Button></Link>
                 </div>
               </div>
 
@@ -561,41 +544,40 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-elevated)]">
+            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
               <div className="grid lg:grid-cols-[1.4fr_0.6fr]">
-                <div className="space-y-6 p-7 md:p-10">
-                  <p className="section-kicker">حملة الافتتاح الكبير</p>
-                  <h2 className="section-title max-w-[24rem]">افتتاح يكافئ من يحضر — وليس مجرد عروض عابرة.</h2>
-                  <p className="text-[1rem] leading-8 light-body md:text-[1.04rem]">
-                    مكافآت حقيقية مرتبطة بمتاجر فعلية داخل المول — كل مكافأة
-                    ظاهرة بموقعها على الخريطة. شارك الآن واستلم يوم الافتتاح.
+                <div className="space-y-5 p-6 md:p-8">
+                  <p className="section-kicker">حملة الافتتاح</p>
+                  <h2 className="section-title max-w-[22rem]">افتتاح يكافئ من يحضر.</h2>
+                  <p className="text-[0.92rem] leading-7 light-body">
+                    مكافآت حقيقية مرتبطة بمتاجر فعلية — شارك الآن واستلم يوم الافتتاح.
                   </p>
 
-                  <div className="flex flex-wrap gap-8 border-t border-border pt-7">
+                  <div className="flex flex-wrap gap-6 border-t border-border pt-5">
                     {[
-                      { n: "01", title: "استكشف", desc: "تعرّف على المتاجر والأقسام من الدليل." },
+                      { n: "01", title: "استكشف", desc: "تعرّف على الأقسام من الدليل." },
                       { n: "02", title: "شارك", desc: "سجّل بياناتك واحفظ نتيجتك." },
-                      { n: "03", title: "احضر واستلم", desc: "قدّم إثبات مشاركتك يوم الافتتاح." },
+                      { n: "03", title: "احضر واستلم", desc: "قدّم إثباتك يوم الافتتاح." },
                     ].map((s) => (
-                      <div key={s.n} className="min-w-[8rem]">
-                        <span className="font-poppins text-[0.74rem] font-bold text-primary">{s.n}</span>
-                        <p className="mt-1.5 text-[0.95rem] font-bold light-heading">{s.title}</p>
-                        <p className="mt-1 text-[0.84rem] leading-6 light-body">{s.desc}</p>
+                      <div key={s.n} className="min-w-[7rem]">
+                        <span className="font-poppins text-[0.7rem] font-bold text-primary">{s.n}</span>
+                        <p className="mt-1 text-[0.88rem] font-bold light-heading">{s.title}</p>
+                        <p className="mt-0.5 text-[0.8rem] leading-5 light-body">{s.desc}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3 pt-3">
-                    <Link to="/spin-win"><Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold"><Gift className="ml-2 h-4 w-4" />جرّب أدر واربح</Button></Link>
-                    <Link to="/opening-day"><Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">تفاصيل يوم الافتتاح</Button></Link>
+                  <div className="flex flex-wrap gap-2.5 pt-2">
+                    <Link to="/spin-win"><Button variant="cta" className="h-10 rounded-lg px-6 font-bold text-[0.85rem]"><Gift className="ml-2 h-4 w-4" />أدر واربح</Button></Link>
+                    <Link to="/opening-day"><Button variant="outline-blue" className="h-10 rounded-lg px-6 text-[0.85rem]">تفاصيل الافتتاح</Button></Link>
                   </div>
                 </div>
 
-                <div className="hidden border-r border-border p-8 lg:flex lg:flex-col lg:items-center lg:justify-center" style={{ background: "#F5F2EC" }}>
-                  <div className="rounded-xl border border-border bg-card p-7 text-center shadow-[var(--shadow-soft)]">
-                    <p className="text-[0.84rem] font-bold light-muted">الافتتاح الكبير</p>
-                    <p className="mt-2 text-[1.7rem] font-extrabold light-heading">1 مايو 2026</p>
-                    <div className="mt-5"><CountdownTimer compact /></div>
+                <div className="hidden border-r border-border p-6 lg:flex lg:flex-col lg:items-center lg:justify-center" style={{ background: "#F5F2EC" }}>
+                  <div className="rounded-lg border border-border bg-card p-5 text-center shadow-[var(--shadow-soft)]">
+                    <p className="text-[0.78rem] font-bold light-muted">الافتتاح الكبير</p>
+                    <p className="mt-1.5 text-[1.4rem] font-extrabold light-heading">1 مايو 2026</p>
+                    <div className="mt-4"><CountdownTimer compact /></div>
                   </div>
                 </div>
               </div>
@@ -609,33 +591,32 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           8 · DIGITAL EXTENSION — the future layer
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep relative overflow-hidden py-16 md:py-24">
+      <section className="heritage-deep relative overflow-hidden py-10 md:py-14">
         <div className="relative container max-w-4xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mx-auto max-w-[34rem] text-center">
+            <div className="mx-auto max-w-[30rem] text-center">
               <p className="section-kicker dark-kicker">التطوّر الرقمي</p>
-              <h2 className="section-title dark-heading">نفس الوجهة التي تعرفها — بأدوات تخدمك أبعد.</h2>
-              <p className="mx-auto mt-5 text-[1.02rem] leading-8 dark-body">
-                المول الذي تعرفه أصبح متاحًا رقميًا. دليل المتاجر والخريطة التفاعلية
-                يعملان الآن — والمرحلة القادمة تصلك بالمنتجات مباشرة.
+              <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
+              <p className="mx-auto mt-3 text-[0.92rem] leading-7 dark-body">
+                دليل المتاجر والخريطة التفاعلية يعملان الآن — والسوق الرقمي قادم.
               </p>
             </div>
 
-            <div className="mx-auto mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">
+            <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
-                { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة شاملة لكل دور وكل وحدة.", active: true },
-                { n: "02", icon: ShoppingBag, label: "دليل المتاجر", desc: "تصفّح وتفاصيل لكل علامة تجارية.", active: true },
-                { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني من المول — قريبًا.", active: false },
+                { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة شاملة لكل دور.", active: true },
+                { n: "02", icon: ShoppingBag, label: "دليل المتاجر", desc: "تفاصيل كل علامة تجارية.", active: true },
+                { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
               ].map((item) => (
-                <div key={item.n} className="heritage-surface rounded-xl p-6 text-center">
-                  <span className="font-poppins text-[0.7rem] font-bold dark-kicker">{item.n}</span>
-                  <div className="mx-auto mt-3 mb-3 flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: item.active ? "#2D6BFF14" : "#ffffff08", border: `1px solid ${item.active ? "#2D6BFF30" : "#ffffff10"}` }}>
-                    <item.icon className="h-5 w-5" style={{ color: item.active ? "#5B9AFF" : "#7C8BA1" }} />
+                <div key={item.n} className="heritage-surface rounded-lg p-5 text-center">
+                  <span className="font-poppins text-[0.66rem] font-bold dark-kicker">{item.n}</span>
+                  <div className="mx-auto mt-2.5 mb-2.5 flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: item.active ? "#2D6BFF14" : "#ffffff08", border: `1px solid ${item.active ? "#2D6BFF30" : "#ffffff10"}` }}>
+                    <item.icon className="h-4 w-4" style={{ color: item.active ? "#5B9AFF" : "#7C8BA1" }} />
                   </div>
-                  <p className="text-[0.98rem] font-bold dark-heading">{item.label}</p>
-                  <p className="mt-1.5 text-[0.86rem] leading-6 dark-muted">{item.desc}</p>
+                  <p className="text-[0.88rem] font-bold dark-heading">{item.label}</p>
+                  <p className="mt-1 text-[0.8rem] leading-5 dark-muted">{item.desc}</p>
                   {item.active && (
-                    <span className="mt-4 inline-flex rounded-full px-3 py-1 text-[0.7rem] font-bold" style={{ background: "#2D6BFF14", color: "#5B9AFF", border: "1px solid #2D6BFF25" }}>
+                    <span className="mt-3 inline-flex rounded-full px-2.5 py-0.5 text-[0.66rem] font-bold" style={{ background: "#2D6BFF14", color: "#5B9AFF", border: "1px solid #2D6BFF25" }}>
                       متاح الآن
                     </span>
                   )}
@@ -643,9 +624,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               ))}
             </div>
 
-            <div className="mt-10 text-center">
+            <div className="mt-7 text-center">
               <Link to="/stores">
-                <Button size="lg" className="h-12 rounded-xl border px-8 text-[0.95rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                <Button className="h-10 rounded-lg border px-6 text-[0.85rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
                   استعرض دليل المتاجر
                 </Button>
               </Link>
@@ -660,13 +641,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <section className="page-section" style={{ background: "#F5F2EC" }}>
         <div className="container max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-              <div className="lg:sticky lg:top-28">
-                <div className="chapter-shell pt-7">
+            <div className="grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+              <div className="lg:sticky lg:top-24">
+                <div className="chapter-shell pt-5">
                   <p className="section-kicker">أسئلة شائعة</p>
-                  <h2 className="text-[1.85rem] font-bold leading-[1.06] light-heading md:text-[2.5rem]">ما يجب معرفته</h2>
+                  <h2 className="text-[1.5rem] font-bold leading-[1.08] light-heading md:text-[1.85rem]">ما يجب معرفته</h2>
                 </div>
-                <p className="mt-4 text-[1rem] leading-8 light-body">أبرز الأسئلة التي يطرحها الزوّار والتجّار قبل الزيارة.</p>
+                <p className="mt-3 text-[0.9rem] leading-7 light-body">أبرز الأسئلة قبل الزيارة.</p>
                 <Link to="/faq" className="mt-5 inline-flex">
                   <Button variant="ghost" className="gap-1.5 px-0 font-bold text-primary hover:text-primary/80">جميع الأسئلة <ArrowLeft className="h-4 w-4" /></Button>
                 </Link>
@@ -692,34 +673,34 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           FINAL CTA STRIP
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-20" style={{ background: "#071326" }}>
-        <div className="container max-w-[900px] text-center">
+      <section className="py-10 md:py-14" style={{ background: "#071326" }}>
+        <div className="container max-w-[800px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-              <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase dark-accent">ابدأ من هنا</span>
-              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
+            <div className="flex items-center justify-center gap-2.5 mb-4">
+              <div className="h-[2px] w-6 rounded-full" style={{ background: "#CDBB9A" }} />
+              <span className="font-poppins text-[0.62rem] font-bold tracking-[0.22em] uppercase dark-accent">ابدأ من هنا</span>
+              <div className="h-[2px] w-6 rounded-full" style={{ background: "#CDBB9A" }} />
             </div>
-            <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.2] md:text-[1.8rem] dark-heading">
+            <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-bold leading-[1.15] md:text-[1.6rem] dark-heading">
               المول جاهز — والقرار بيدك.
             </h2>
-            <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 dark-body">
-              سواء تبحث عن منتج، تفكّر في وحدة تجارية، أو تريد معرفة المول من الداخل — كل الأدوات أمامك.
+            <p className="mx-auto mt-3 max-w-sm text-[0.88rem] leading-6 dark-body">
+              كل الأدوات أمامك — سواء تبحث عن منتج أو تفكّر في وحدة تجارية.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-6 flex flex-wrap justify-center gap-2.5">
               <Link to="/map">
-                <Button variant="cta" size="lg" className="h-[3.2rem] rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
-                  <Compass className="ml-2 h-4.5 w-4.5" /> استكشف الخريطة
+                <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
+                  <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
                 </Button>
               </Link>
               <Link to="/stores">
-                <Button size="lg" className="h-[3.2rem] rounded-xl border px-8 text-[0.95rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                <Button className="h-10 rounded-lg border px-6 text-[0.85rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
                   تصفّح المتاجر
                 </Button>
               </Link>
               <Link to="/leasing">
-                <Button variant="orange" size="lg" className="h-[3.2rem] rounded-xl px-8 text-[0.95rem] font-bold">
-                  <Phone className="ml-2 h-4 w-4" /> استفسر عن التأجير
+                <Button variant="orange" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold">
+                  <Phone className="ml-2 h-4 w-4" /> استفسار التأجير
                 </Button>
               </Link>
             </div>
