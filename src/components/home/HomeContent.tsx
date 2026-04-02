@@ -113,9 +113,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
   return (
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
-      <section className="relative overflow-hidden" style={{ background: "hsl(222 38% 6%)" }}>
+      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
         {/* Subtle architectural grain */}
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 70% 45%, hsl(222 50% 35% / 0.06), transparent 65%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 70% 45%, #2D6BFF0F, transparent 65%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="grid min-h-[94vh] items-center gap-10 py-20 lg:grid-cols-2 lg:gap-20 lg:py-0">
@@ -193,7 +193,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                     <img src={heroImage} alt="الواجهة الرئيسية لمول البستان" className="h-full w-full object-cover img-grade-dark" loading="eager" />
                   </div>
                   {/* bottom info overlay */}
-                  <div className="absolute inset-x-0 bottom-0 p-6" style={{ background: "linear-gradient(to top, hsl(222 34% 5% / 0.9), hsl(222 34% 5% / 0.4) 60%, transparent)" }}>
+                  <div className="absolute inset-x-0 bottom-0 p-6" style={{ background: "linear-gradient(to top, #071326E6, #07132666 60%, transparent)" }}>
                     <div className="flex items-end justify-between">
                       <div>
                         <p className="font-poppins text-[0.68rem] font-bold tracking-[0.18em] uppercase dark-accent">Mall Elbostan</p>

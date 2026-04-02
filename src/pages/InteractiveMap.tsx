@@ -167,8 +167,8 @@ const InteractiveMap = () => {
       />
 
       {/* ═══════════ COMPACT HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ background: "hsl(222 38% 6%)" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 50% 50%, hsl(222 58% 38% / 0.06), transparent 70%)" }} />
+      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 50% 50%, #2D6BFF0F, transparent 70%)" }} />
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="py-10 md:py-14">
             <motion.div
@@ -341,7 +341,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="py-12" style={{ background: "hsl(222 38% 6%)" }}>
+      <section className="py-12" style={{ background: "#071326" }}>
         <div className="container max-w-[900px] text-center">
           <h2 className="text-lg font-bold md:text-xl dark-heading">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
           <p className="mx-auto mt-2 max-w-sm text-[0.88rem] dark-body">

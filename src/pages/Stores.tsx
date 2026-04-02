@@ -96,8 +96,8 @@ const Stores = () => {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: "hsl(222 38% 6%)" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, hsl(222 58% 38% / 0.06), transparent 70%)" }} />
+      <section className="relative overflow-hidden" style={{ background: "#071326" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, #2D6BFF0F, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="grid min-h-[58vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
