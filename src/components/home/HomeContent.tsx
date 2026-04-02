@@ -436,22 +436,24 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       <div className="band-primary" />
 
       {/* ═══════════ 5 · MAP PREVIEW ═══════════ */}
-      <section className="py-7 md:py-9" style={{ background: "#FAFAF8" }}>
+      <section className="py-6 md:py-8" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="mb-3">
-              <p className="section-kicker">الدليل التفاعلي</p>
-              <h2 className="section-title max-w-[18rem]">تصفّح المول — قبل أن تصل.</h2>
-              <p className="mt-1 text-[0.8rem] leading-[1.6] light-body max-w-[24rem]">
-                اضغط على أي وحدة لمعرفة تفاصيلها — أو افتح الدليل الكامل.
-              </p>
+            <div className="mb-2.5 flex items-end justify-between gap-3">
+              <div>
+                <p className="section-kicker">الدليل التفاعلي</p>
+                <h2 className="section-title max-w-[18rem]">تصفّح المول — قبل أن تصل.</h2>
+              </div>
+              <Link to="/map" className="hidden lg:inline-flex">
+                <Button variant="ghost" className="gap-1 text-[0.78rem] font-bold text-primary">افتح الدليل <ArrowLeft className="h-3 w-3" /></Button>
+              </Link>
             </div>
 
             <MapTeaserPreview />
 
-            <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:hidden">
-              <Link to="/map"><Button variant="cta" className="h-9 w-full rounded-lg text-[0.8rem] font-bold">افتح الدليل الكامل</Button></Link>
-              <Link to="/leasing"><Button variant="outline-blue" className="h-9 w-full rounded-lg text-[0.8rem]">استفسر عن وحدة</Button></Link>
+            <div className="mt-2.5 grid gap-2 sm:grid-cols-2 lg:hidden">
+              <Link to="/map"><Button variant="cta" className="h-9 w-full rounded-lg text-[0.78rem] font-bold">افتح الدليل الكامل</Button></Link>
+              <Link to="/leasing"><Button variant="outline-blue" className="h-9 w-full rounded-lg text-[0.78rem]">استفسر عن وحدة</Button></Link>
             </div>
           </motion.div>
         </div>

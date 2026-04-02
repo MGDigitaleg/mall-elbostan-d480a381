@@ -243,7 +243,7 @@ const InteractiveMap = () => {
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
       <section className="py-2 md:py-2.5" style={{ background: "#F5F2EC" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="grid gap-2.5 lg:grid-cols-[1fr_320px] lg:items-start">
+          <div className="grid gap-3 lg:grid-cols-[1fr_300px] lg:items-start">
             <div ref={mapRef}>
               <MallFloorMap
                 floor={floor}
@@ -257,8 +257,27 @@ const InteractiveMap = () => {
             </div>
 
             {!isMobile && (
-              <aside className="lg:sticky lg:top-[150px]">
+              <aside className="lg:sticky lg:top-[140px] space-y-2.5">
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
+
+                {/* Floor summary strip — commercial context */}
+                <div className="rounded-lg border border-border bg-card p-3">
+                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-muted-foreground mb-2">{floorLabelsAr[selectedFloor]}</p>
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div>
+                      <p className="font-poppins text-[0.9rem] font-extrabold text-foreground">{floorOccupied}</p>
+                      <p className="text-[0.52rem] font-semibold text-muted-foreground">مشغولة</p>
+                    </div>
+                    <div>
+                      <p className="font-poppins text-[0.9rem] font-extrabold" style={{ color: "#E8740E" }}>{floorAvailable}</p>
+                      <p className="text-[0.52rem] font-semibold text-muted-foreground">متاحة</p>
+                    </div>
+                    <div>
+                      <p className="font-poppins text-[0.9rem] font-extrabold" style={{ color: "#0A9AB8" }}>{floorComingSoon}</p>
+                      <p className="text-[0.52rem] font-semibold text-muted-foreground">قريبًا</p>
+                    </div>
+                  </div>
+                </div>
               </aside>
             )}
           </div>
