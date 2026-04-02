@@ -114,88 +114,91 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "#071326" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 70% 50%, #2D6BFF06, transparent 70%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 65% 50%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[50vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid min-h-[46vh] items-center lg:grid-cols-2">
 
+            {/* ── RIGHT: Text block ── */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="order-1 space-y-3.5 px-5 py-10 md:px-10 lg:py-12 lg:pr-12 xl:pr-14"
+              className="order-1 space-y-3 px-5 py-8 md:px-10 lg:py-10 lg:pr-12 xl:pr-16"
             >
-              <div className="flex items-center gap-2.5">
-                <div className="h-[2px] w-6 rounded-full" style={{ background: "#64748B" }} />
-                <span className="font-poppins text-[0.56rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+              <div className="flex items-center gap-2">
+                <div className="h-[2px] w-5 rounded-full" style={{ background: "#475569" }} />
+                <span className="font-poppins text-[0.5rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                   Est. 2010 — New Cairo
                 </span>
               </div>
 
-              <h1 className="max-w-[18rem] text-[1.5rem] leading-[1.1] md:text-[1.75rem] lg:text-[2rem]" style={{ color: "#F8FAFC" }}>
-                المكان الذي بناه
+              <h1 className="max-w-[20rem] text-[1.35rem] leading-[1.12] md:text-[1.5rem] lg:text-[1.65rem]" style={{ color: "#F8FAFC" }}>
+                وجهتك التقنية في القاهرة الجديدة.
                 <br />
-                <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
+                <span className="block mt-0.5" style={{ color: "#CDBB9A" }}>تعرف ما تبحث عنه — ونحن نعرف أين تجده.</span>
               </h1>
 
-              <p className="max-w-[24rem] text-[0.84rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
-                وجهة تقنية راسخة في القاهرة الجديدة — أكثر من عقد من قرارات الشراء الذكية.
+              <p className="max-w-[22rem] text-[0.78rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+                أكثر من عقد من الثقة في عالم الإلكترونيات — متاجر متخصصة، وحدات متنوعة، وخريطة تفاعلية تقودك مباشرة.
               </p>
 
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-2">
                 <Link to="/map">
-                  <Button variant="cta" className="h-10 min-w-[9rem] rounded-lg px-5 text-[0.82rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Compass className="ml-1.5 h-3.5 w-3.5" />
+                  <Button variant="cta" className="h-9 min-w-[8.5rem] rounded-lg px-4 text-[0.78rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Compass className="ml-1 h-3.5 w-3.5" />
                     استكشف الدليل
                   </Button>
                 </Link>
-                <Link to="/stores">
-                  <Button className="h-10 rounded-lg border px-5 text-[0.82rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
-                    تصفّح المتاجر
+                <Link to="/leasing">
+                  <Button className="h-9 rounded-lg border px-4 text-[0.78rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+                    استفسر عن وحدة
                   </Button>
                 </Link>
               </div>
 
-              <div className="flex items-center gap-5 pt-3" style={{ borderTop: "1px solid #1E293B" }}>
+              {/* Stats strip */}
+              <div className="flex items-center gap-4 pt-2.5" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
-                  { v: `${totalUnits}+`, l: "وحدة تجارية" },
-                  { v: `${floorMapData.length}`, l: "أدوار تجارية" },
-                  { v: `${categoryStories.length}`, l: "أقسام متخصصة" },
+                  { v: `+${totalUnits}`, l: "وحدة" },
+                  { v: `${floorMapData.length}`, l: "أدوار" },
+                  { v: `${categoryStories.length}`, l: "تخصصات" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-5">
-                    <div>
-                      <p className="font-poppins text-[1.05rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                      <p className="text-[0.58rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                  <div key={s.l} className="flex items-center gap-4">
+                    <div className="text-center">
+                      <p className="font-poppins text-[0.95rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="mt-0.5 text-[0.52rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-6 w-px" style={{ background: "#1E293B" }} />}
+                    {i < 2 && <div className="h-5 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* image diptych */}
+            {/* ── LEFT: Photo + Mini Map ── */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="relative order-2 hidden self-center py-10 pe-6 lg:block xl:pe-8"
+              className="relative order-2 hidden self-center py-8 pe-6 lg:block xl:pe-10"
             >
-              <div className="grid grid-cols-[1fr_0.4fr] gap-2">
-                <div className="frame-geometric overflow-hidden">
+              <div className="grid grid-cols-[0.55fr_0.45fr] gap-2.5">
+                {/* Architectural photo — supporting, not dominant */}
+                <div className="frame-geometric overflow-hidden rounded-lg" style={{ border: "1px solid #1E293B" }}>
                   <img
                     src={heroImage}
                     alt="الواجهة الرئيسية لمول البستان"
-                    className="aspect-[3/4] max-h-[310px] w-full object-cover object-[center_30%] img-grade-dark"
+                    className="aspect-[4/5] max-h-[260px] w-full object-cover object-[center_30%] img-grade-dark"
                     loading="eager"
                   />
                 </div>
+
+                {/* Real mini map preview */}
                 <div className="flex flex-col gap-2">
-                  <div className="frame-heritage flex-1 overflow-hidden">
-                    <img src={interiorImage} alt="التفاصيل الداخلية" className="h-full max-h-[200px] w-full object-cover object-[center_45%] img-grade-dark" loading="lazy" />
-                  </div>
-                  <div className="rounded-md px-2.5 py-2" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                    <p className="font-poppins text-[0.52rem] font-bold tracking-[0.18em] uppercase dark-accent">Mall Elbostan</p>
-                    <p className="mt-0.5 text-[0.66rem] font-bold dark-subheading">وجهة تقنية منذ 2010+</p>
+                  <HeroMiniMap />
+                  <div className="rounded-md px-2.5 py-2" style={{ background: "#ffffff08", border: "1px solid #ffffff12" }}>
+                    <p className="font-poppins text-[0.48rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#64748B" }}>Mall Elbostan</p>
+                    <p className="mt-0.5 text-[0.62rem] font-bold" style={{ color: "#CBD5E1" }}>وجهة تقنية راسخة منذ ٢٠١٠</p>
                   </div>
                 </div>
               </div>
