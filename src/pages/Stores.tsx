@@ -96,44 +96,42 @@ const Stores = () => {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, hsl(222 58% 42% / 0.06), transparent 70%)" }} />
+      <section className="relative overflow-hidden" style={{ background: "hsl(222 38% 6%)" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, hsl(222 58% 38% / 0.06), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
+          <div className="grid min-h-[58vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
+            <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-7">
               <div className="flex items-center gap-3">
-                <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
-                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
+                <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(30 22% 48%)" }} />
+                <span className="font-poppins text-[0.72rem] font-bold tracking-[0.2em] uppercase dark-accent">
                   دليل المتاجر التقنية
                 </span>
               </div>
 
-              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
+              <h1 className="max-w-[26rem] text-[2.4rem] leading-[1.02] md:text-[3.2rem] lg:text-[3.6rem] dark-heading">
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 14% 72%)" }}>
+              <p className="max-w-[28rem] text-[0.98rem] leading-[2] dark-body">
                 كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
                 ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
               </p>
 
-              {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-1">
                 <a href="#directory">
-                  <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
+                  <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
                     <Search className="h-4 w-4" /> ابدأ التصفح
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl border border-white/12 bg-white/6 px-7 font-semibold text-white hover:bg-white/12">
+                  <Button size="lg" className="h-12 gap-2 rounded-xl border px-8 font-semibold" style={{ borderColor: "hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.06)", color: "hsl(38 14% 92%)" }}>
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
 
-              {/* inline stats bar */}
-              <div className="flex items-center gap-6 border-t border-white/8 pt-5">
+              <div className="flex items-center gap-6 border-t pt-6" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
                 {[
                   { v: `${totalStores}+`, l: "متجر" },
                   { v: `${categories.length}`, l: "فئة تقنية" },
@@ -141,10 +139,10 @@ const Stores = () => {
                 ].map((s, i) => (
                   <div key={s.l} className="flex items-center gap-5">
                     <div>
-                      <p className="font-poppins text-[1.4rem] font-bold text-white">{s.v}</p>
-                      <p className="text-[0.7rem] font-medium" style={{ color: "hsl(220 14% 58%)" }}>{s.l}</p>
+                      <p className="font-poppins text-[1.5rem] font-extrabold dark-heading">{s.v}</p>
+                      <p className="text-[0.72rem] font-semibold dark-muted">{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-7 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
+                    {i < 2 && <div className="h-8 w-px" style={{ background: "hsl(0 0% 100% / 0.1)" }} />}
                   </div>
                 ))}
               </div>
@@ -158,7 +156,7 @@ const Stores = () => {
                     <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-[34%]">
+                <div className="absolute -bottom-5 -right-5 w-[34%]">
                   <div className="editorial-frame-dark overflow-hidden rounded-xl">
                     <div className="image-shell img-wash-dark aspect-[1/1]">
                       <img src={interiorImage} alt="متاجر المول من الداخل" className="img-grade-dark h-full w-full object-cover" loading="lazy" />
@@ -183,7 +181,7 @@ const Stores = () => {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(categoryMeta).map(([cat, meta], idx) => {
+              {Object.entries(categoryMeta).map(([cat, meta]) => {
                 const Icon = meta.icon;
                 const count = stores?.filter((s) => s.category === cat).length ?? 0;
                 const isActive = selectedCategory === cat;
@@ -195,17 +193,17 @@ const Stores = () => {
                       document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
                     }}
                     className={`card-architectural group flex items-start gap-4 p-5 text-right transition-all ${isActive ? "shadow-[var(--shadow-elevated)]" : "hover:shadow-[var(--shadow-card)]"}`}
-                    style={isActive ? { borderColor: "hsl(var(--primary) / 0.25)", background: "hsl(var(--primary) / 0.03)" } : {}}
+                    style={isActive ? { borderColor: "hsl(var(--primary) / 0.3)", background: "hsl(var(--primary) / 0.04)" } : {}}
                   >
-                    <div className="icon-shell h-10 w-10 shrink-0">
+                    <div className="icon-shell h-11 w-11 shrink-0">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="flex-1">
                       <p className="text-[0.95rem] font-bold text-foreground">{cat}</p>
-                      <p className="mt-1 text-[0.8rem] leading-6 text-muted-foreground">{meta.desc}</p>
+                      <p className="mt-1 text-[0.82rem] leading-6 text-muted-foreground">{meta.desc}</p>
                       <div className="mt-2.5 flex items-center gap-2">
                         <span className="mini-chip text-[0.68rem]">{meta.label}</span>
-                        {count > 0 && <span className="text-[0.72rem] font-semibold text-primary">{count} متجر</span>}
+                        {count > 0 && <span className="text-[0.74rem] font-bold text-primary">{count} متجر</span>}
                       </div>
                     </div>
                   </button>
@@ -222,13 +220,13 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div>
-                <p className="section-kicker">دليل المتاجر</p>
-                <h2 className="section-title">
+                <p className="section-kicker dark-kicker">دليل المتاجر</p>
+                <h2 className="section-title dark-heading">
                   {selectedCategory || "جميع المتاجر"}
                   {filtered ? ` (${filtered.length})` : ""}
                 </h2>
               </div>
-              <div className="flex items-center gap-2 text-[0.82rem]" style={{ color: "hsl(220 12% 62%)" }}>
+              <div className="flex items-center gap-2 text-[0.84rem] dark-muted">
                 <Building2 className="h-4 w-4" />
                 <span>{activeCount} متجر نشط من أصل {totalStores}</span>
               </div>
@@ -237,28 +235,28 @@ const Stores = () => {
             {/* search + filters */}
             <div className="mb-6 space-y-4">
               <div className="relative">
-                <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2" style={{ color: "hsl(220 12% 52%)" }} />
+                <Search className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 dark-muted" />
                 <input
                   type="text"
                   placeholder="ابحث باسم المتجر أو الفئة..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-13 w-full rounded-xl pr-12 pl-4 text-[0.95rem] text-white outline-none transition-colors"
-                  style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)", color: "white" }}
-                  onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.35)"; }}
-                  onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)"; }}
+                  className="h-13 w-full rounded-xl pr-12 pl-4 text-[0.95rem] outline-none transition-colors"
+                  style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(38 14% 95%)" }}
+                  onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.4)"; }}
+                  onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; }}
                 />
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                <Filter className="h-4 w-4" style={{ color: "hsl(220 12% 52%)" }} />
+                <Filter className="h-4 w-4 dark-muted" />
                 <FilterChip active={!selectedCategory} onClick={() => setSelectedCategory("")}>الكل</FilterChip>
                 {categories.map((cat) => (
                   <FilterChip key={cat} active={selectedCategory === cat} onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat!)}>
                     {cat}
                   </FilterChip>
                 ))}
-                <span className="mx-1 h-4 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />
+                <span className="mx-1 h-4 w-px" style={{ background: "hsl(0 0% 100% / 0.1)" }} />
                 {Object.entries(statusConfig).map(([key, val]) => (
                   <FilterChip key={key} active={selectedStatus === key} onClick={() => setSelectedStatus(selectedStatus === key ? "" : key)}>
                     {val.text}
@@ -317,21 +315,21 @@ const Stores = () => {
         <div className="container max-w-[1200px]">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
-              <div className="space-y-5">
+              <div className="space-y-6">
                 <p className="section-kicker">الربط بالخريطة</p>
                 <h2 className="section-title max-w-[24rem]">كل متجر مرتبط بموقعه الفعلي — اعرف مكانه قبل الزيارة.</h2>
-                <p className="text-[0.95rem] leading-[2] text-muted-foreground">
+                <p className="text-[0.98rem] leading-[2] text-muted-foreground">
                   الخريطة التفاعلية تعرض كل وحدة بحالتها — نشطة، متاحة، أو قادمة.
                   اضغط على أي متجر لتنتقل مباشرة لموقعه الدقيق في الدور المحدد.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link to="/map">
-                    <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
+                    <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-8 font-bold">
                       <Compass className="h-4 w-4" /> افتح الخريطة
                     </Button>
                   </Link>
                   <Link to="/leasing">
-                    <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-7">فرص التأجير</Button>
+                    <Button variant="outline-blue" size="lg" className="h-12 rounded-xl px-8">فرص التأجير</Button>
                   </Link>
                 </div>
               </div>
@@ -346,12 +344,12 @@ const Stores = () => {
                     <div key={item.l} className="stat-block">
                       <item.icon className="mx-auto h-5 w-5 text-primary" />
                       <p className="mt-2 text-sm font-bold text-foreground">{item.v}</p>
-                      <p className="mt-0.5 text-[0.7rem] text-muted-foreground">{item.l}</p>
+                      <p className="mt-0.5 text-[0.72rem] text-muted-foreground">{item.l}</p>
                     </div>
                   ))}
                 </div>
                 <div className="image-architectural aspect-[16/9] overflow-hidden">
-                  <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="h-full w-full object-cover" loading="lazy" />
+                  <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade h-full w-full object-cover" loading="lazy" />
                 </div>
               </div>
             </div>
@@ -363,9 +361,9 @@ const Stores = () => {
       <section className="heritage-deep page-section">
         <div className="container max-w-[900px] text-center">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="section-kicker">المرحلة القادمة</p>
-            <h2 className="section-title mx-auto max-w-[26rem]">من دليل متاجر إلى سوق رقمي متكامل.</h2>
-            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8" style={{ color: "hsl(220 15% 70%)" }}>
+            <p className="section-kicker dark-kicker">المرحلة القادمة</p>
+            <h2 className="section-title mx-auto max-w-[26rem] dark-heading">من دليل متاجر إلى سوق رقمي متكامل.</h2>
+            <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 dark-body">
               الدليل الحالي هو الأساس — المرحلة التالية تتيح تصفّح المنتجات مباشرة،
               متابعة العروض، والشراء إلكترونيًا من متاجر المول.
             </p>
@@ -377,10 +375,10 @@ const Stores = () => {
                 { n: "03", title: "السوق الرقمي", active: false },
               ].map((phase) => (
                 <div key={phase.n} className="heritage-surface p-5 text-center">
-                  <span className="font-poppins text-sm font-bold" style={{ color: phase.active ? "hsl(var(--primary))" : "hsl(var(--primary) / 0.35)" }}>{phase.n}</span>
-                  <p className="mt-2 text-[0.92rem] font-bold text-white">{phase.title}</p>
+                  <span className="font-poppins text-sm font-bold" style={{ color: phase.active ? "hsl(220 55% 62%)" : "hsl(220 12% 38%)" }}>{phase.n}</span>
+                  <p className="mt-2 text-[0.92rem] font-bold dark-heading">{phase.title}</p>
                   {phase.active && (
-                    <span className="mt-3 inline-flex rounded-full px-2.5 py-0.5 text-[0.68rem] font-semibold text-primary" style={{ border: "1px solid hsl(var(--primary) / 0.2)", background: "hsl(var(--primary) / 0.08)" }}>
+                    <span className="mt-3 inline-flex rounded-full px-2.5 py-0.5 text-[0.68rem] font-bold" style={{ border: "1px solid hsl(220 50% 42% / 0.2)", background: "hsl(220 50% 42% / 0.12)", color: "hsl(220 55% 62%)" }}>
                       متاح الآن
                     </span>
                   )}
@@ -404,10 +402,10 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
   return (
     <button
       onClick={onClick}
-      className="rounded-full px-3.5 py-1.5 text-[0.78rem] font-semibold transition-all"
+      className="rounded-full px-3.5 py-1.5 text-[0.8rem] font-bold transition-all"
       style={active
-        ? { border: "1px solid hsl(var(--primary) / 0.3)", background: "hsl(var(--primary) / 0.12)", color: "hsl(var(--primary))" }
-        : { border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.04)", color: "hsl(220 12% 65%)" }
+        ? { border: "1px solid hsl(var(--primary) / 0.35)", background: "hsl(var(--primary) / 0.14)", color: "hsl(220 55% 62%)" }
+        : { border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(220 12% 70%)" }
       }
     >
       {children}
@@ -422,46 +420,46 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
       <Link
         to={`/stores/${store.slug}`}
         className="group flex flex-col rounded-xl p-5 transition-all duration-300"
-        style={{ border: "1px solid hsl(0 0% 100% / 0.06)", background: "hsl(0 0% 100% / 0.025)" }}
-        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.2)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.045)"; }}
-        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.06)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.025)"; }}
+        style={{ border: "1px solid hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.03)" }}
+        onMouseEnter={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary) / 0.25)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.055)"; }}
+        onMouseLeave={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.08)"; e.currentTarget.style.background = "hsl(0 0% 100% / 0.03)"; }}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
             {store.logo_url ? (
-              <img src={store.logo_url} alt={store.name_ar} className="h-11 w-11 rounded-lg object-cover" style={{ border: "1px solid hsl(0 0% 100% / 0.08)" }} loading="lazy" />
+              <img src={store.logo_url} alt={store.name_ar} className="h-11 w-11 rounded-lg object-cover" style={{ border: "1px solid hsl(0 0% 100% / 0.1)" }} loading="lazy" />
             ) : (
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg" style={{ background: "hsl(0 0% 100% / 0.05)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
-                <Store className="h-5 w-5 text-primary" />
+              <div className="flex h-11 w-11 items-center justify-center rounded-lg" style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
+                <Store className="h-5 w-5" style={{ color: "hsl(220 55% 62%)" }} />
               </div>
             )}
             <div>
-              <h3 className="text-[0.95rem] font-bold text-white transition-colors group-hover:text-primary">{store.name_ar}</h3>
-              {store.category && <span className="mt-0.5 inline-block text-[0.72rem]" style={{ color: "hsl(220 12% 58%)" }}>{store.category}</span>}
+              <h3 className="text-[0.95rem] font-bold transition-colors dark-heading group-hover:text-primary">{store.name_ar}</h3>
+              {store.category && <span className="mt-0.5 inline-block text-[0.74rem] dark-muted">{store.category}</span>}
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.08)", color: "hsl(220 12% 70%)" }}>
+          <div className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.68rem] font-bold" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", color: "hsl(220 12% 74%)" }}>
             <span className={`h-1.5 w-1.5 rounded-full ${st.dot}`} />
             {st.text}
           </div>
         </div>
 
-        <p className="mt-3 flex-1 text-[0.82rem] leading-6" style={{ color: "hsl(220 12% 58%)" }}>
+        <p className="mt-3 flex-1 text-[0.84rem] leading-6 dark-body">
           {store.short_description_ar ?? "متجر ضمن دليل مول البستان التقني — التفاصيل قيد التحديث."}
         </p>
 
-        <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid hsl(0 0% 100% / 0.05)" }}>
-          <div className="flex items-center gap-3 text-[0.72rem]" style={{ color: "hsl(220 12% 52%)" }}>
+        <div className="mt-4 flex items-center justify-between pt-3" style={{ borderTop: "1px solid hsl(0 0% 100% / 0.06)" }}>
+          <div className="flex items-center gap-3 text-[0.74rem] dark-muted">
             {store.unit_code && (
               <span className="flex items-center gap-1"><MapPin className="h-3 w-3" />{store.unit_code}</span>
             )}
             {store.featured && (
-              <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-semibold text-primary" style={{ border: "1px solid hsl(var(--primary) / 0.2)", background: "hsl(var(--primary) / 0.08)" }}>
+              <span className="rounded-full px-2 py-0.5 text-[0.65rem] font-bold" style={{ border: "1px solid hsl(220 50% 42% / 0.2)", background: "hsl(220 50% 42% / 0.1)", color: "hsl(220 55% 62%)" }}>
                 مميّز
               </span>
             )}
           </div>
-          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-primary" style={{ color: "hsl(220 12% 48%)" }} />
+          <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 dark-muted group-hover:-translate-x-1 group-hover:text-primary" />
         </div>
       </Link>
     </motion.div>
@@ -471,14 +469,14 @@ function StoreCard({ store, index }: { store: { id: string; slug: string; name_a
 function DirectoryEmpty({ onReset }: { onReset: () => void }) {
   return (
     <div className="heritage-surface p-12 text-center">
-      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "hsl(0 0% 100% / 0.05)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
-        <Layers3 className="h-7 w-7 text-primary" />
+      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
+        <Layers3 className="h-7 w-7" style={{ color: "hsl(220 55% 62%)" }} />
       </div>
-      <h3 className="mt-5 text-xl font-bold text-white">لا توجد نتائج ضمن هذا التصفية</h3>
-      <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7" style={{ color: "hsl(220 12% 62%)" }}>
+      <h3 className="mt-5 text-xl font-bold dark-heading">لا توجد نتائج ضمن هذا التصفية</h3>
+      <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
         عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتم تحديثه مع انضمام متاجر جديدة.
       </p>
-      <button onClick={onReset} className="mt-5 rounded-lg px-5 py-2 text-[0.85rem] font-semibold transition-colors" style={{ border: "1px solid hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(220 12% 72%)" }}>
+      <button onClick={onReset} className="mt-5 rounded-lg px-5 py-2 text-[0.85rem] font-bold transition-colors" style={{ border: "1px solid hsl(0 0% 100% / 0.14)", background: "hsl(0 0% 100% / 0.06)", color: "hsl(220 12% 76%)" }}>
         إعادة ضبط الفلاتر
       </button>
     </div>
