@@ -224,7 +224,7 @@ const About = () => (
             </div>
 
             {/* editorial image + stats panel */}
-            <div className="space-y-5 lg:sticky lg:top-28">
+             <div className="space-y-4 lg:sticky lg:top-24">
               {/* interior — cinematic vertical crop, architectural emphasis */}
               <div className="frame-cinematic overflow-hidden">
                 <img src={interiorImage} alt="المشهد الداخلي لمول البستان" className="img-grade-arch aspect-[16/9] max-h-[260px] w-full object-cover object-[center_50%]" loading="lazy" />
