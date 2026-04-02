@@ -171,8 +171,8 @@ const About = () => (
     <section className="heritage-deep page-section relative overflow-hidden">
       <div className="relative container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-            <div className="space-y-7">
+          <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+            <div className="space-y-5">
               <div>
                 <p className="section-kicker dark-kicker">السيرة التجارية</p>
                 <h2 className="section-title dark-heading max-w-[26rem]">
