@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo-header.png";
+import logoImage from "@/assets/logo-header.svg";
 
 type BrandLogoProps = {
   className?: string;
