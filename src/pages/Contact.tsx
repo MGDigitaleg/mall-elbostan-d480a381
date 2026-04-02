@@ -168,7 +168,7 @@ const Contact = () => {
                       <CheckCircle2 className="h-7 w-7 text-success" />
                     </div>
                     <p className="text-[1.05rem] font-extrabold light-heading">تم إرسال رسالتك</p>
-                    <p className="mt-2 text-[0.86rem] light-body">الفريق المختص هيتواصل معاك خلال يوم عمل.</p>
+                    <p className="mt-2 text-[0.86rem] light-body">الفريق المختص سيتواصل معك خلال يوم عمل.</p>
                     <Button
                       variant="secondary"
                       className="mt-5 h-10 rounded-xl px-6 font-bold"
