@@ -606,7 +606,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
-                <p className="text-base leading-8 md:text-lg" style={{ color: "hsl(220 12% 68%)" }}>
+                <p className="text-base leading-8 text-muted-foreground md:text-lg">
                   ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
                   التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
@@ -614,9 +614,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 {/* floor availability */}
                 <div className="grid grid-cols-3 gap-3">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="rounded-xl px-4 py-4 text-center" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}>
-                      <p className="text-xl font-bold text-white">{f.count}</p>
-                      <p className="mt-0.5 text-[0.74rem]" style={{ color: "hsl(220 12% 62%)" }}>{f.label}</p>
+                    <div key={f.id} className="section-shell rounded-xl px-4 py-4 text-center">
+                      <p className="text-xl font-bold text-foreground">{f.count}</p>
+                      <p className="mt-0.5 text-[0.74rem] text-muted-foreground">{f.label}</p>
                     </div>
                   ))}
                 </div>
