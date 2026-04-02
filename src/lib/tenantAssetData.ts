@@ -129,9 +129,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "wifi",
     providedName: "Wifi",
     normalizedName: "WiFi",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "No confirmed logo file yet.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/wifi.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "WiFi",
   },
   {
