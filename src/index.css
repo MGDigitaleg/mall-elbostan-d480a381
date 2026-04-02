@@ -365,7 +365,7 @@
 
   .section-kicker {
     @apply mb-3 text-[0.72rem] font-bold tracking-[0.22em] uppercase;
-    color: hsl(var(--primary) / 0.75);
+    color: hsl(var(--primary));
     font-family: var(--font-poppins);
   }
 
