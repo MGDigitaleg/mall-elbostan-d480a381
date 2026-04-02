@@ -77,7 +77,7 @@ const Contact = () => {
       {/* ═══════════ HERO ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="py-8 md:py-11">
+          <div className="py-6 md:py-8">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
               <p className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.28em]" style={{ color: "#64748B" }}>Contact</p>
               <h1 className="mt-2 max-w-[22rem] text-[1.5rem] font-extrabold leading-[1.1] md:text-[1.85rem] lg:text-[2.15rem]" style={{ color: "#F8FAFC" }}>
