@@ -103,8 +103,8 @@ const Contact = () => {
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mb-5">
-              <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">إيه نوع استفسارك؟</h2>
-              <p className="mt-1 text-[0.84rem] light-muted">اختار النوع عشان رسالتك توصل للفريق المناسب مباشرة.</p>
+              <h2 className="text-[1.1rem] font-extrabold light-heading md:text-[1.3rem]">ما نوع استفسارك؟</h2>
+              <p className="mt-1 text-[0.84rem] light-muted">اختر النوع المناسب لتصل رسالتك مباشرة للفريق المختص.</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
