@@ -269,22 +269,22 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               {/* text — right side in RTL */}
               <div className="order-1 space-y-5">
                 <div className="chapter-shell pt-6">
-                  <p className="section-kicker">الهوية والمكانة</p>
+                  <p className="section-kicker">تاريخ ومكانة</p>
                   <h2 className="section-title max-w-[26rem]">
-                    اسم لم يحتج حملات ليُعرف.
+                    اسم يعرفه السوق قبل أن تسأل عنه.
                   </h2>
                 </div>
                 <p className="max-w-[34rem] text-[1rem] leading-[2] text-muted-foreground md:text-[1.06rem]">
-                  مول البستان ليس مشروعًا يبحث عن جمهور — إنه وجهة بناها الجمهور بالثقة
-                  والتكرار. سنوات من الحضور المتواصل في سوق الإلكترونيات جعلت منه مرجعًا
-                  حقيقيًا في القاهرة الجديدة.
+                  مول البستان ليس افتتاحًا جديدًا — إنه وجهة تجارية راسخة عرفها سوق
+                  الإلكترونيات في القاهرة الجديدة منذ سنوات. مكان يأتي إليه الناس لأنهم
+                  يعرفونه ويثقون فيه — واليوم يتجدد معماريًا ورقميًا بنفس القيم.
                 </p>
 
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
-                    { icon: Building2, title: "مكانة تراكمية", desc: "ثقة بُنيت بالتعامل لا بالإعلان." },
-                    { icon: MapPin, title: "موقع استراتيجي", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "تصنيف دقيق", desc: "كل فئة تختصر المسار للقرار." },
+                    { icon: Building2, title: "وجهة راسخة", desc: "سنوات من الحضور التجاري الحقيقي." },
+                    { icon: MapPin, title: "معلم تجاري معروف", desc: "يقصده سكان القاهرة الجديدة ومدينتي والرحاب." },
+                    { icon: Layers, title: "سوق منظّم", desc: "تصنيف واضح يختصر وقت البحث والشراء." },
                   ].map((c) => (
                     <div key={c.title} className="card-architectural rounded-xl p-4">
                       <c.icon className="mb-2.5 h-4.5 w-4.5 text-primary" />
