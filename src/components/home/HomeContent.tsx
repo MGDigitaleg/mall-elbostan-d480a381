@@ -385,7 +385,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
 
             {featuredStores.length > 0 && (
               <div className="mt-8 rounded-2xl border border-border bg-card p-5 md:p-6">
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-[1.05rem] font-bold light-heading">علامات رائدة داخل المول</h3>
                   <Link to="/stores">
                     <Button variant="ghost" size="sm" className="gap-1 text-[0.84rem] font-bold text-primary">
