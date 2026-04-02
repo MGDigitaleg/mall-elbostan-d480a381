@@ -150,9 +150,9 @@ const About = () => (
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
-                  { icon: Award, title: "إرث تجاري", desc: "حضور مستمر في سوق التقنية منذ أكثر من عقد." },
-                  { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب والمحيط." },
-                  { icon: Layers, title: "بنية تجارية دقيقة", desc: "تصنيف واضح يختصر مسار الشراء." },
+                  { icon: Award, title: "إرث تجاري", desc: "أكثر من عقد في السوق." },
+                  { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة والمحيط." },
+                  { icon: Layers, title: "بنية دقيقة", desc: "تصنيف يختصر مسار الشراء." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-xl p-5">
                     <c.icon className="mb-3 h-5 w-5 text-primary" />
