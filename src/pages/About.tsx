@@ -63,15 +63,15 @@ const About = () => (
             </div>
 
             <h1 className="max-w-[22rem] text-[2.5rem] leading-[1.04] md:text-[3.4rem] lg:text-[4rem] dark-heading">
-              المكان اللي
+              المكان الذي
               <br />
-              <span style={{ color: "#CDBB9A" }}>السوق اختاره.</span>
+              <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span>
             </h1>
 
             <p className="max-w-[28rem] text-[1.02rem] leading-[2] md:text-[1.08rem] dark-body">
-              مول البستان مش مشروع جديد بيحاول يثبت نفسه — ده المكان اللي الناس عرفته
-              من سنين وبنى سمعته من حركة السوق نفسها. اللي اشترى لابتوب، أو أصلح جهاز،
-              أو جهّز شبكة — غالبًا عدّى من هنا.
+              مول البستان لم يُبنَ على وعد — بل على سيرة تجارية بدأت قبل أكثر من عقد.
+              من اشترى جهازًا أو أصلح شاشة أو جهّز بنية تقنية في القاهرة الجديدة
+              يعرف هذا العنوان. اليوم يتجدد — بنفس المصداقية التي أسّسته.
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -142,23 +142,23 @@ const About = () => (
             {/* text */}
             <div className="order-1 space-y-6 lg:order-2">
               <div className="chapter-shell pt-7">
-                <p className="section-kicker">لماذا مول البستان</p>
+                <p className="section-kicker">لماذا هذا المول</p>
                 <h2 className="section-title max-w-[24rem]">
-                  اسم لا يحتاج تعريف في سوق التقنية.
+                  اسم يسبق التعريف في سوق الإلكترونيات.
                 </h2>
               </div>
 
               <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                في سوق مليان خيارات، مول البستان عنده حاجة مش بتتشرى بالإعلانات:
-                سمعة اتبنت من سنين التعامل الحقيقي. الناس بتيجي هنا مش عشان شافت إعلان —
-                بتيجي عشان عارفة إن اللي بتدوّر عليه هتلاقيه.
+                في سوق تتكاثر فيه الخيارات، مول البستان يملك ما لا يُكتسب بالإعلان:
+                مكانة بنتها سنوات من التعامل الموثوق. الزائر لا يأتي لأنه سمع عن المول —
+                بل لأنه يعلم أن ما يبحث عنه متوفر هنا بالفعل.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
-                  { icon: Award, title: "سمعة سوقية", desc: "أكثر من عقد في خدمة سوق الإلكترونيات." },
-                  { icon: MapPin, title: "موقع يُقصد", desc: "في قلب القاهرة الجديدة — يخدم مدينتي والرحاب." },
-                  { icon: Layers, title: "تصنيف دقيق", desc: "أقسام منظّمة تختصر وقت البحث." },
+                  { icon: Award, title: "إرث تجاري", desc: "حضور مستمر في سوق التقنية منذ أكثر من عقد." },
+                  { icon: MapPin, title: "وجهة مقصودة", desc: "يخدم القاهرة الجديدة ومدينتي والرحاب والمحيط." },
+                  { icon: Layers, title: "بنية تجارية دقيقة", desc: "تصنيف واضح يختصر مسار الشراء." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-xl p-5">
                     <c.icon className="mb-3 h-5 w-5 text-primary" />
@@ -180,35 +180,35 @@ const About = () => (
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <div className="space-y-7">
               <div>
-                <p className="section-kicker dark-kicker">سيرة تجارية</p>
+                <p className="section-kicker dark-kicker">السيرة التجارية</p>
                 <h2 className="section-title dark-heading max-w-[26rem]">
-                  مكانة صنعها التكرار — مش الإعلان.
+                  مكانة صنعها التكرار — وليس الإعلان.
                 </h2>
               </div>
 
               <p className="text-[1.02rem] leading-[2.1] dark-body md:text-[1.06rem]">
-                مول البستان مش محتاج يقنعك إنه موجود — لأنك غالبًا تعرفه أصلًا.
-                اللي بنى سمعته مش حملات تسويقية — بل آلاف الزيارات اللي انتهت بشراء حقيقي،
-                ومئات التجار اللي فضلوا يثقوا في المكان سنة بعد سنة.
+                مول البستان لا يحتاج أن يقنعك بوجوده — لأنك على الأغلب تعرفه بالفعل.
+                ما بنى سمعته ليس حملات تسويقية — بل آلاف الزيارات التي انتهت بشراء حقيقي،
+                ومئات التجّار الذين اختاروا البقاء في المكان لأن جمهورهم يصل إليهم فعلًا.
               </p>
 
               <div className="space-y-4">
                 {[
                   {
                     icon: Building2, title: "وجهة راسخة",
-                    desc: "اسم مألوف في سوق الإلكترونيات بالقاهرة الجديدة — يعرفه المشتري والتاجر ويعود إليه بثقة.",
+                    desc: "اسم راسخ في سوق الإلكترونيات بالقاهرة الجديدة — يعرفه المشتري والتاجر ويعود إليه بثقة متجددة.",
                   },
                   {
                     icon: Users, title: "ثقة تتجدد بالعودة",
-                    desc: "الزائر يعود لأنه وجد ما يحتاجه بسرعة — والتاجر يبقى لأن الجمهور المستهدف بيوصله فعلًا.",
+                    desc: "الزائر يعود لأنه وجد ما يحتاجه بسرعة — والتاجر يبقى لأن الجمهور المستهدف يصل إليه.",
                   },
                   {
                     icon: Layers, title: "تغطية تقنية شاملة",
-                    desc: "من الأجهزة المحمولة للشبكات وأنظمة المراقبة — طيف واسع من الاحتياج التقني في مكان واحد.",
+                    desc: "من الأجهزة المحمولة إلى الشبكات وأنظمة المراقبة — طيف واسع من الاحتياج التقني في مكان واحد.",
                   },
                   {
                     icon: Globe, title: "التجدد الرقمي",
-                    desc: "المول يتجدد بدليل تفاعلي وتجربة استكشاف حديثة — بنفس القيم: وضوح، ثقة، ونظام.",
+                    desc: "المول يتوسّع بدليل تفاعلي وتجربة استكشاف رقمية — بنفس القيم: وضوح، وثقة، ونظام.",
                   },
                 ].map((item, i) => (
                   <motion.div
@@ -264,14 +264,15 @@ const About = () => (
           <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
             <div className="space-y-6">
               <div className="chapter-shell pt-7">
-                <p className="section-kicker">تجربة الزائر</p>
+                <p className="section-kicker">تجربة الاستكشاف</p>
                 <h2 className="section-title max-w-[24rem]">
-                  زيارة منظّمة تبدأ قبل ما تنزل.
+                  زيارة مُنظّمة تبدأ قبل الوصول.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                المول مقسّم بتصنيف واضح — فئات محددة، أدوار منطقية، وخريطة تفاعلية
-                بتعرضلك كل وحدة بحالتها الفعلية. تعرف وجهتك قبل ما توصل.
+                المول مصنّف بتخصصات واضحة — أقسام محددة، أدوار منطقية،
+                وخريطة تفاعلية تعرض كل وحدة بحالتها الفعلية.
+                تعرف وجهتك وتوفّر وقتك قبل أن تصل.
               </p>
 
               <div className="grid gap-2.5 sm:grid-cols-2">
@@ -333,21 +334,21 @@ const About = () => (
               <div className="chapter-shell pt-7">
                 <p className="section-kicker">الموقع التجاري</p>
                 <h2 className="section-title max-w-[26rem]">
-                  لماذا التاجر يختار مول البستان.
+                  لماذا يختار التاجر مول البستان.
                 </h2>
               </div>
               <p className="text-[1.02rem] leading-[2.1] light-body md:text-[1.06rem]">
-                الموقع الجغرافي ميزة — لكن الميزة الحقيقية هي الجمهور المتخصص اللي بييجي المول
-                عشان التقنية تحديدًا. كل زيارة وراها نية شراء — وده اللي بيخلّي الوحدة هنا
-                أكتر من مجرد مساحة.
+                الموقع الجغرافي ميزة — لكن الميزة الأعمق هي الجمهور المتخصص الذي
+                يقصد المول تحديدًا بحثًا عن التقنية. كل زيارة وراءها قرار شراء —
+                وهذا ما يجعل الوحدة هنا أكثر من مجرد مساحة تجارية.
               </p>
 
               <div className="space-y-2.5">
                 {[
-                  { icon: TrendingUp, title: "منطقة طلب متنامٍ", desc: "القاهرة الجديدة ومحيطها بيشهدوا نمو مستمر في الطلب على التقنية." },
-                  { icon: Users, title: "جمهور متخصص", desc: "الزائر بييجي للمول بحثًا عن الإلكترونيات — مش للتنزه." },
-                  { icon: Store, title: "حضور رقمي واضح", desc: "كل وحدة ظاهرة بموقعها وفئتها على الخريطة والدليل." },
-                  { icon: MapPin, title: "استفسار مباشر", desc: "من الخريطة لصفحة التأجير — مسار واحد واضح." },
+                  { icon: TrendingUp, title: "منطقة طلب متنامٍ", desc: "القاهرة الجديدة ومحيطها يشهدان نموًا مستمرًا في الطلب على التقنية." },
+                  { icon: Users, title: "جمهور بنيّة شراء", desc: "الزائر يأتي للمول بحثًا عن حل تقني محدد — وليس للتجوّل." },
+                  { icon: Store, title: "حضور رقمي مباشر", desc: "كل وحدة ظاهرة بموقعها وفئتها على الدليل التفاعلي والخريطة." },
+                  { icon: MapPin, title: "مسار استفسار واضح", desc: "من الخريطة إلى صفحة التأجير — خطوة واحدة." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:shadow-[var(--shadow-card)]">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
@@ -408,11 +409,11 @@ const About = () => (
           <div className="mx-auto max-w-[34rem] text-center">
             <p className="section-kicker dark-kicker">المرحلة التالية</p>
             <h2 className="section-title dark-heading">
-              نفس المكان اللي تعرفه — بأدوات رقمية تخدمك أكتر.
+              نفس الوجهة التي تعرفها — بأدوات رقمية تخدمك أبعد.
             </h2>
             <p className="mx-auto mt-5 text-[1.02rem] leading-8 dark-body">
-              المول اللي تعرفه أصبح متاح رقميًا. الدليل التفاعلي ودليل المتاجر
-              يعملان الآن — والمرحلة الجاية هتوصّلك بالمنتجات مباشرة.
+              المول الذي تعرفه أصبح متاحًا رقميًا. الدليل التفاعلي ودليل المتاجر
+              يعملان الآن — والمرحلة القادمة تتيح الوصول للمنتجات مباشرة.
             </p>
           </div>
 
@@ -462,7 +463,7 @@ const About = () => (
             <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
           </div>
           <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.15] md:text-[1.8rem] light-heading">
-            المول جاهز — دورك تستكشفه.
+            المول جاهز — والقرار بيدك.
           </h2>
           <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
             الدليل التفاعلي، دليل المتاجر، وصفحة التأجير — كل أدوات القرار في مكان واحد.

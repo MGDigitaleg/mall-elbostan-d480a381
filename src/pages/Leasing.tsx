@@ -83,11 +83,11 @@ const Leasing = () => {
               </div>
 
               <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.06] dark-heading md:text-[2.8rem] lg:text-[3.2rem]">
-                وحدتك في المكان اللي الجمهور بيقصده
+                وحدتك في الوجهة التي يقصدها الجمهور
               </h1>
 
               <p className="max-w-[30rem] text-[0.92rem] leading-[1.9] dark-body">
-                مول البستان وجهة تقنية راسخة في القاهرة الجديدة — جمهور متخصص، حركة مرور مستمرة، وبنية تجارية جاهزة. الفرصة مفتوحة لمتاجر التقنية والخدمات المكمّلة.
+                مول البستان وجهة تقنية راسخة في القاهرة الجديدة — جمهور متخصص بنيّة شراء واضحة، حركة تجارية مستمرة، وبنية جاهزة للتشغيل. الفرصة مفتوحة لمتاجر التقنية والخدمات المكمّلة.
               </p>
 
               <div className="flex flex-wrap gap-3 pt-1">
@@ -148,19 +148,19 @@ const Leasing = () => {
               </span>
             </div>
             <h2 className="max-w-[26rem] text-[1.4rem] font-extrabold leading-[1.1] light-heading md:text-[1.8rem]">
-              ليه تأجّر في مول البستان
+              لماذا تختار مول البستان لوحدتك
             </h2>
             <p className="mt-3 max-w-[36rem] text-[0.88rem] leading-[1.9] light-body">
-              المول مش بس موقع — ده وجهة بيقصدها الجمهور المهتم فعلًا. الزبون اللي بيدخل عنده نيّة شراء واضحة، وده اللي بيفرق في معدل التحويل.
+              المول ليس مجرد موقع — بل وجهة يقصدها جمهور بنيّة شراء محددة. الزبون الذي يدخل يحمل قرارًا — وهذا ما يصنع الفرق في أداء الوحدة تجاريًا.
             </p>
           </motion.div>
 
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب والمنطقة المحيطة بحركة مرور يومية." },
-              { icon: Users, title: "جمهور متخصص", desc: "طلاب جامعات، مطورون، شركات تقنية — زوار عندهم قرار شراء واضح." },
-              { icon: Layers, title: "منظومة متكاملة", desc: "6 فئات تقنية في مكان واحد — الزائر يلاقي كل اللي محتاجه تحت سقف واحد." },
-              { icon: TrendingUp, title: "نمو مستمر", desc: "المول بيتوسّع رقميًا ومادّيًا — وجودك هنا دلوقتي يديك أفضلية مبكّرة." },
+              { icon: MapPin, title: "موقع محوري", desc: "في القاهرة الجديدة — يخدم المدينتي والرحاب بحركة مرور يومية مستهدفة." },
+              { icon: Users, title: "جمهور بنيّة شراء", desc: "طلاب جامعات، مطورون، شركات تقنية — زوّار يحملون قرار شراء واضح." },
+              { icon: Layers, title: "منظومة تجارية متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد — الزائر يجد كل ما يحتاجه." },
+              { icon: TrendingUp, title: "نمو مستمر ومخطّط", desc: "المول يتوسّع رقميًا وتجاريًا — التواجد المبكّر يمنحك أفضلية حقيقية." },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeChild} className="rounded-xl border border-border bg-card p-5">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary">
@@ -188,10 +188,10 @@ const Leasing = () => {
                   </span>
                 </div>
                 <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
-                  الجمهور اللي بيزور المول
+                  من يزور المول — ولماذا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  مش زائر عشوائي — ده جمهور بيقصد المول تحديدًا عشان محتاج منتج أو خدمة تقنية.
+                  ليس زائرًا عشوائيًا — بل جمهور يقصد المول تحديدًا لأنه يحتاج منتجًا أو خدمة تقنية بعينها.
                 </p>
 
                 <div className="mt-6 space-y-2">
@@ -221,10 +221,10 @@ const Leasing = () => {
                   </span>
                 </div>
                 <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
-                  الفئات اللي بتنجح هنا
+                  الفئات التي تحقق نتائج هنا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  المول متخصص — ده بيخلي كل فئة بتدعم التانية ويزوّد من قيمة التجربة للزائر.
+                  المول متخصص — وهذا يعني أن كل فئة تدعم الأخرى وتُضاعف قيمة تجربة الزائر.
                 </p>
 
                 <div className="mt-6 grid grid-cols-2 gap-2">
@@ -243,7 +243,7 @@ const Leasing = () => {
                 </div>
 
                 <p className="mt-4 text-[0.8rem] leading-7 light-muted">
-                  لو نشاطك التجاري مكمّل لأي من الفئات دي — ده المكان الصح.
+                  إذا كان نشاطك التجاري يكمّل أيًا من هذه الفئات — فهذا هو الموقع المناسب.
                 </p>
               </div>
             </div>
