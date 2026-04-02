@@ -188,10 +188,10 @@ const Leasing = () => {
                   </span>
                 </div>
                 <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
-                  الجمهور اللي بيزور المول
+                  من يزور المول — ولماذا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  مش زائر عشوائي — ده جمهور بيقصد المول تحديدًا عشان محتاج منتج أو خدمة تقنية.
+                  ليس زائرًا عشوائيًا — بل جمهور يقصد المول تحديدًا لأنه يحتاج منتجًا أو خدمة تقنية بعينها.
                 </p>
 
                 <div className="mt-6 space-y-2">
