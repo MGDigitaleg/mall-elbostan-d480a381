@@ -99,13 +99,12 @@ const Stores = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="heritage-section relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-hero" />
+      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
         <div
-          className="absolute inset-0 opacity-[0.02]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.8px, transparent 0)",
-            backgroundSize: "40px 40px",
+            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
           }}
         />
 
