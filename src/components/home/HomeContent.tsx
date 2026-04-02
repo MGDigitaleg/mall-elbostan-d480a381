@@ -268,22 +268,18 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 </Link>
               </div>
 
-              {/* editorial diptych — facade main + entrance detail */}
               <div className="order-2">
-                <div className="grid grid-cols-[1.3fr_0.7fr] gap-2.5">
-                  {/* main — facade, architectural geometry crop */}
+                <div className="grid grid-cols-[1.3fr_0.7fr] gap-2">
                   <div className="frame-geometric overflow-hidden">
-                    <img src={facadeImage} alt="الواجهة المعمارية لمول البستان" className="img-grade-arch aspect-[3/4] w-full object-cover object-[center_35%]" loading="lazy" />
+                    <img src={facadeImage} alt="الواجهة المعمارية لمول البستان" className="img-grade-arch aspect-[3/4] max-h-[380px] w-full object-cover object-[center_35%]" loading="lazy" />
                   </div>
-                  {/* detail — entrance, vertical symmetry */}
-                  <div className="flex flex-col gap-2.5">
+                  <div className="flex flex-col gap-2">
                     <div className="frame-diptych flex-1 overflow-hidden">
-                      <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-warm h-full w-full object-cover object-[50%_30%]" loading="lazy" />
+                      <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-warm h-full max-h-[340px] w-full object-cover object-[50%_30%]" loading="lazy" />
                     </div>
-                    {/* heritage accent strip */}
-                    <div className="flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2.5">
-                      <div className="h-[3px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
-                      <span className="text-[0.7rem] font-bold light-muted">بنية معمارية مميزة</span>
+                    <div className="flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-2">
+                      <div className="h-[2px] w-4 rounded-full" style={{ background: "#CDBB9A" }} />
+                      <span className="text-[0.66rem] font-bold light-muted">بنية معمارية مميزة</span>
                     </div>
                   </div>
                 </div>
