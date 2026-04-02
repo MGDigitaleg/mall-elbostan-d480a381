@@ -252,12 +252,12 @@ const About = () => (
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {[
-                  { icon: Smartphone, title: "الهواتف والإكسسوارات", desc: "ملحقات يومية ضمن مسار سريع." },
-                  { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أجهزة للدراسة والعمل والأداء." },
-                  { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع ومكوّنات لأداء مخصّص." },
-                  { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات مراقبة وحلول حماية." },
-                  { icon: Wrench, title: "الصيانة والدعم", desc: "خدمة مباشرة وحلول سريعة." },
-                  { icon: Globe, title: "الشبكات والطباعة", desc: "حلول مهنية متخصصة." },
+                  { icon: Smartphone, title: "الهواتف والإكسسوارات", desc: "تشكيلة شاملة للأجهزة المحمولة وملحقاتها." },
+                  { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أجهزة مكتبية ومحمولة للأداء والإنتاجية." },
+                  { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع غيار ومكوّنات لتجميعات احترافية." },
+                  { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات مراقبة وحلول حماية متكاملة." },
+                  { icon: Wrench, title: "الصيانة والدعم", desc: "خدمة صيانة معتمدة ودعم فني فوري." },
+                  { icon: Globe, title: "الشبكات والطباعة", desc: "بنية تحتية رقمية وحلول طباعة مهنية." },
                 ].map((cat) => (
                   <div key={cat.title} className="flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/15 hover:shadow-[var(--shadow-card)]">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
