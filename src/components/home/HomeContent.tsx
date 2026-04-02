@@ -30,6 +30,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
+import { HeroMiniMap } from "@/components/home/HeroMiniMap";
 import {
   allMapUnits,
   availableMapUnits,
