@@ -131,9 +131,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             >
               {/* heritage kicker */}
               <div className="flex items-center gap-3">
-                <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
-                <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase dark-accent">
-                  وجهة تقنية راسخة في القاهرة الجديدة
+                <div className="h-[2px] w-10 rounded-full" style={{ background: "#64748B" }} />
+                <span className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+                  Est. 2010 — New Cairo
                 </span>
               </div>
 
