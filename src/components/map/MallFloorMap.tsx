@@ -53,6 +53,7 @@ type Props = {
   onAtriumClick?: () => void;
   atriumConfig?: AtriumConfig;
   highlightedUnitIds?: Set<string>;
+  hideControls?: boolean;
   className?: string;
 };
 
