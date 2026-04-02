@@ -346,7 +346,7 @@ const Stores = () => {
 
                         {/* description */}
                         <p className="mt-3 flex-1 text-[0.82rem] leading-6 text-white/35">
-                          {store.short_description_ar ?? "متجر تقني ضمن دليل مول البستان — سيتم تحديث التفاصيل قريبًا."}
+                          {store.short_description_ar ?? "متجر ضمن دليل مول البستان التقني — التفاصيل قيد التحديث."}
                         </p>
 
                         {/* footer */}
