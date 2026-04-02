@@ -148,21 +148,21 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="flex items-center gap-3">
                 <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.45)" }} />
                 <span className="font-poppins text-[0.7rem] font-semibold tracking-[0.22em] uppercase" style={{ color: "hsl(220 45% 65%)" }}>
-                  القاهرة الجديدة — الافتتاح مايو 2026
+                  القاهرة الجديدة — منذ سنوات في خدمة السوق
                 </span>
               </div>
 
               {/* headline */}
               <h1 className="max-w-[30rem] text-[2.5rem] font-extrabold leading-[1.06] text-white md:text-[3.6rem] lg:text-[4.2rem]">
-                وجهة التقنية
+                المكان الذي يعرفه
                 <br />
-                <span className="text-gradient-blue">التي بناها السوق</span>
+                <span className="text-gradient-blue">كل من دخل السوق</span>
               </h1>
 
               {/* lead */}
               <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.06rem]" style={{ color: "hsl(220 14% 70%)" }}>
-                أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد.
-                مكانة بناها التجار والمشترون عبر سنوات من الثقة والتعامل المباشر.
+                مول البستان وجهة تجارية راسخة في القاهرة الجديدة — أكثر من {totalUnits} وحدة
+                متخصصة ومكانة بناها التجار والزوّار بالتكرار والثقة عبر السنوات.
               </p>
 
               {/* CTAs */}
