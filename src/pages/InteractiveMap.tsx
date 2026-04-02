@@ -166,38 +166,32 @@ const InteractiveMap = () => {
       {/* ═══════════ HERO — compact, operational ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="py-8 md:py-10">
-            <div className="flex flex-col items-center gap-5 md:flex-row md:items-end md:justify-between">
-              {/* left: title + desc */}
-              <div className="text-center md:text-right">
-                <div className="mb-2 flex items-center justify-center gap-3 md:justify-start">
-                  <div className="h-[3px] w-10 rounded-full" style={{ background: "#CDBB9A" }} />
-                  <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
-                    الدليل التفاعلي
-                  </span>
-                </div>
-                <h1 className="mt-2 text-[1.6rem] leading-[1.06] md:text-[2rem] lg:text-[2.4rem] dark-heading">
-                  خريطة المول التفاعلية
+          <div className="py-7 md:py-9">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div className="md:text-right">
+                <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
+                  Interactive Directory
+                </p>
+                <h1 className="mt-1.5 text-[1.5rem] leading-[1.08] md:text-[1.85rem] lg:text-[2.2rem]" style={{ color: "#F8FAFC" }}>
+                  الدليل التفاعلي لمول البستان
                 </h1>
-                <p className="mt-2 max-w-[28rem] text-[0.88rem] leading-7 dark-body">
-                  تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل للتأجير أو تفاصيل المتجر مباشرة.
+                <p className="mt-1.5 max-w-[26rem] text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>
+                  تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة عن التأجير.
                 </p>
               </div>
 
-              {/* right: compact stats */}
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-4">
                 {[
-                  { v: `${mallFloors.length}`, l: "أدوار", icon: Building2 },
-                  { v: `${allMallUnits.length}`, l: "وحدة", icon: Layers },
-                  { v: `${availableMallUnits.length}`, l: "متاحة", icon: TrendingUp },
+                  { v: `${mallFloors.length}`, l: "أدوار" },
+                  { v: `${allMallUnits.length}`, l: "وحدة" },
+                  { v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-5">
-                    <div className="flex items-center gap-2">
-                      <s.icon className="h-3.5 w-3.5" style={{ color: "#5B9AFF" }} />
-                      <span className="font-poppins text-[1.1rem] font-extrabold dark-heading">{s.v}</span>
-                      <span className="text-[0.72rem] font-semibold dark-muted">{s.l}</span>
+                  <div key={s.l} className="flex items-center gap-4">
+                    <div className="text-center">
+                      <span className="font-poppins text-[1.2rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</span>
+                      <p className="text-[0.65rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-5 w-px" style={{ background: "#ffffff14" }} />}
+                    {i < 2 && <div className="h-5 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
