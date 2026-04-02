@@ -164,13 +164,13 @@ const About = () => (
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto mb-14 max-w-[36rem] text-center">
-            <p className="section-kicker">تاريخ وتجارة</p>
+            <p className="section-kicker">سيرة تجارية</p>
             <h2 className="section-title">
-              مكانة بُنيت بالتعامل لا بالإعلان.
+              مكانة لم تُبنَ بالإعلان — بل بتكرار التجربة.
             </h2>
             <p className="mx-auto mt-4 max-w-[30rem] text-base leading-8 text-white/50 md:text-lg">
-              مول البستان لم يحتج حملات ضخمة ليُعرف — سمعته بناها التجار والزوار أنفسهم، زيارة بعد
-              زيارة وصفقة بعد صفقة.
+              مول البستان لم يحتج حملات ضخمة ليصبح معروفًا — الزوّار والتجار هم من صنعوا
+              سمعته، صفقة بعد صفقة وزيارة بعد زيارة.
             </p>
           </div>
 
