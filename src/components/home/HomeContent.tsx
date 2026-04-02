@@ -587,9 +587,6 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             <div className="mx-auto max-w-[30rem] text-center">
               <p className="section-kicker dark-kicker">التطوّر الرقمي</p>
               <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
-              <p className="mx-auto mt-3 text-[0.92rem] leading-7 dark-body">
-                دليل المتاجر والخريطة التفاعلية يعملان الآن — والسوق الرقمي قادم.
-              </p>
             </div>
 
             <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
