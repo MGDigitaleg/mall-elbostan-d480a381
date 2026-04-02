@@ -176,10 +176,9 @@ const Stores = () => {
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mb-10 max-w-[34rem]">
               <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">ستة أسواق متخصصة تحت سقف واحد.</h2>
+              <h2 className="section-title">ستة أسواق متخصصة.</h2>
               <p className="mt-4 text-[0.98rem] leading-8 light-body">
-                كل قسم يمثّل تخصصًا تقنيًا مستقلًا — بمتاجره وجمهوره
-                وحركته الخاصة. اختر القسم وابدأ الاستكشاف.
+                اختر القسم وابدأ الاستكشاف.
               </p>
             </div>
 
