@@ -8,24 +8,20 @@ type Props = {
 
 export function FloorTabs({ selected, onChange }: Props) {
   return (
-    <div className="flex gap-1 rounded-xl p-1" style={{ background: "hsl(var(--secondary) / 0.6)", border: "1px solid hsl(var(--border))" }}>
+    <div className="flex gap-0.5 rounded-xl p-1" style={{ background: "#F0EBE3", border: "1px solid #D8DEE8" }}>
       {mallFloors.map((f) => {
         const isActive = selected === f.id;
         return (
           <button
             key={f.id}
             onClick={() => onChange(f.id)}
-            className={`relative rounded-lg px-5 py-2.5 text-[0.82rem] font-semibold transition-all ${
+            className={`relative rounded-lg px-5 py-2.5 text-[0.82rem] font-bold transition-all ${
               isActive
                 ? "bg-primary text-primary-foreground shadow-sm"
-                : "text-muted-foreground hover:bg-card hover:text-foreground"
+                : "text-foreground/60 hover:bg-card hover:text-foreground"
             }`}
           >
             {f.label}
-            {/* Active floor indicator dot */}
-            {isActive && (
-              <span className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-primary-foreground" />
-            )}
           </button>
         );
       })}

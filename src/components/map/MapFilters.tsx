@@ -26,7 +26,7 @@ export function MapFilters({
   availableOnly, onAvailableOnlyChange,
 }: Props) {
   return (
-    <div className="rounded-xl border border-border bg-card/80 p-3 backdrop-blur-sm" style={{ boxShadow: "0 1px 4px hsl(0 0% 0% / 0.04)" }}>
+    <div className="rounded-xl border border-border bg-card p-2.5" style={{ boxShadow: "var(--shadow-soft)" }}>
       <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-[1fr_auto_auto_auto]">
         {/* Search */}
         <div className="relative">
@@ -36,13 +36,13 @@ export function MapFilters({
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="ابحث باسم المتجر أو رقم الوحدة..."
-            className="h-9 w-full rounded-lg border border-border bg-background pr-9 pl-3 text-[0.82rem] text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary/40 focus:ring-2 focus:ring-primary/10"
+            className="h-9 w-full rounded-lg border border-border bg-background pr-9 pl-3 text-[0.84rem] font-medium text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-primary/40 focus:ring-2 focus:ring-primary/10"
           />
         </div>
 
         {/* Category */}
         <Select value={categoryFilter} onValueChange={(v) => onCategoryChange(v as "all" | MallCategory)}>
-          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.82rem]">
+          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.84rem] font-medium">
             <SlidersHorizontal className="ml-1.5 h-3 w-3 text-muted-foreground" />
             <SelectValue placeholder="كل الفئات" />
           </SelectTrigger>
@@ -56,7 +56,7 @@ export function MapFilters({
 
         {/* Status */}
         <Select value={statusFilter} onValueChange={(v) => onStatusChange(v as "all" | MallUnitStatus)}>
-          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.82rem]">
+          <SelectTrigger className="h-9 rounded-lg border-border bg-background text-[0.84rem] font-medium">
             <SelectValue placeholder="كل الحالات" />
           </SelectTrigger>
           <SelectContent>
@@ -69,7 +69,7 @@ export function MapFilters({
 
         {/* Available toggle */}
         <div className="flex h-9 items-center justify-between gap-2.5 rounded-lg border border-border bg-background px-3">
-          <span className="text-[0.78rem] font-semibold text-foreground whitespace-nowrap">المتاحة فقط</span>
+          <span className="text-[0.8rem] font-bold light-heading whitespace-nowrap">المتاحة فقط</span>
           <Switch checked={availableOnly} onCheckedChange={onAvailableOnlyChange} />
         </div>
       </div>
