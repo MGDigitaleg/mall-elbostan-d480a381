@@ -56,6 +56,12 @@ export default {
           foreground: "hsl(var(--success-foreground))",
         },
         bronze: "hsl(var(--bronze))",
+        sand: "hsl(var(--warm-sand))",
+        navy: {
+          DEFAULT: "hsl(var(--navy))",
+          surface: "hsl(var(--navy-surface))",
+          foreground: "hsl(var(--navy-foreground))",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
