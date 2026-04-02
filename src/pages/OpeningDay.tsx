@@ -46,9 +46,9 @@ const OpeningDay = () => {
         <section className="mb-16">
           <div className="mb-8 grid gap-4 md:grid-cols-3">
               {[
-                "راجع الفعاليات وحدد زيارتك.",
-                "شارك في الجوائز واحتفظ بالنتيجة.",
-                "تابع الصفحة لمعرفة البرنامج النهائي.",
+                "اطّلع على الفعاليات وخطّط زيارتك.",
+                "شارك في المكافآت واحتفظ بنتيجتك.",
+                "تابع هذه الصفحة لمعرفة البرنامج النهائي.",
             ].map((item, index) => (
               <div key={item} className="section-shell p-5">
                 <p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">0{index + 1}</p>
