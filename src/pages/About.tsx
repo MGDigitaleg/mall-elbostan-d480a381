@@ -214,7 +214,15 @@ const About = () => (
 
             <div className="space-y-3 lg:sticky lg:top-24">
               <div className="frame-cinematic overflow-hidden rounded-lg">
-                <img src={downtownImage} alt="فرع وسط البلد — مول البستان" className="img-grade-warm aspect-[4/3] max-h-[200px] w-full object-cover object-[center_40%]" loading="lazy" width={800} height={600} />
+                <img src={downtownImage} alt="الواجهة الرئيسية — مول البستان وسط البلد" className="img-grade-warm aspect-[4/3] max-h-[200px] w-full object-cover object-center" loading="lazy" />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="frame-heritage overflow-hidden rounded-lg">
+                  <img src={downtownNight} alt="مول البستان ليلًا" className="img-grade aspect-[4/3] max-h-[90px] w-full object-cover object-center" loading="lazy" />
+                </div>
+                <div className="frame-heritage overflow-hidden rounded-lg">
+                  <img src={downtownInterior} alt="داخل مول البستان" className="img-grade aspect-[4/3] max-h-[90px] w-full object-cover object-center" loading="lazy" />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
