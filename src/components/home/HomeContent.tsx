@@ -427,10 +427,10 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mb-10 max-w-[34rem]">
-              <p className="section-kicker">دليل الفئات</p>
-              <h2 className="section-title">ست فئات تقنية تغطي كل احتياج.</h2>
+              <p className="section-kicker">أقسام المول</p>
+              <h2 className="section-title">كل قسم يمثل سوقًا قائمًا بذاته.</h2>
               <p className="mt-3 text-[0.95rem] leading-8 text-muted-foreground md:text-[1.02rem]">
-                كل فئة تمثل نمط شراء فعلي ومسار وصول مباشر.
+                ستة أقسام متخصصة — كل قسم يضم متاجر ومنتجات يعرفها السوق.
               </p>
             </div>
 
