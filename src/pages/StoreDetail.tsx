@@ -303,6 +303,7 @@ const StoreDetail = () => {
             )}
 
             {/* CTA */}
+            <motion.div variants={fadeChild}>
             <div className="card-layered p-6 text-center md:p-8">
               <p className="section-kicker">هل تريد وحدة مجاورة؟</p>
               <h3 className="mb-3 text-lg font-bold text-foreground">امتلك أو أجّر وحدتك في مول البستان</h3>
@@ -311,6 +312,7 @@ const StoreDetail = () => {
                 <Button variant="cta" size="lg" className="w-full">استعلم عن الوحدات المتاحة</Button>
               </Link>
             </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>
