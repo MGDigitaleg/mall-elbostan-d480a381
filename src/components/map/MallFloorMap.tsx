@@ -50,6 +50,8 @@ type Props = {
   selectedUnitId: string | null;
   mutedUnitIds: Set<string>;
   onSelectUnit: (unit: MallUnit) => void;
+  onAtriumClick?: () => void;
+  highlightedUnitIds?: Set<string>;
   className?: string;
 };
 
@@ -66,8 +68,9 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#06B6D4",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, highlightedUnitIds, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [atriumHovered, setAtriumHovered] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
@@ -294,6 +297,58 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         {/* Center dot */}
         <circle cx={ATRIUM_CENTER.x} cy={ATRIUM_CENTER.y} r="4" fill="#7BAEC4" opacity="0.5" />
 
+        {/* ── Interactive Atrium Engagement Zone ── */}
+        <g
+          className="cursor-pointer"
+          onClick={() => onAtriumClick?.()}
+          onMouseEnter={() => setAtriumHovered(true)}
+          onMouseLeave={() => setAtriumHovered(false)}
+        >
+          {/* hover glow ring */}
+          <circle
+            cx={ATRIUM_CENTER.x}
+            cy={ATRIUM_CENTER.y}
+            r="50"
+            fill="none"
+            stroke={atriumHovered ? "#2563EB" : "transparent"}
+            strokeWidth="2"
+            opacity={atriumHovered ? 0.5 : 0}
+            style={{ transition: "opacity 0.3s, stroke 0.3s" }}
+          />
+          {/* subtle pulse ring */}
+          <circle
+            cx={ATRIUM_CENTER.x}
+            cy={ATRIUM_CENTER.y}
+            r="38"
+            fill="none"
+            stroke="#2563EB"
+            strokeWidth="1.5"
+            opacity="0.2"
+          >
+            <animate attributeName="r" values="38;48;38" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.2;0.05;0.2" dur="3s" repeatCount="indefinite" />
+          </circle>
+          {/* clickable center area */}
+          <circle
+            cx={ATRIUM_CENTER.x}
+            cy={ATRIUM_CENTER.y}
+            r="30"
+            fill={atriumHovered ? "rgba(37,99,235,0.08)" : "transparent"}
+            style={{ transition: "fill 0.3s" }}
+          />
+          {/* icon placeholder */}
+          <text
+            x={ATRIUM_CENTER.x}
+            y={ATRIUM_CENTER.y + 4}
+            textAnchor="middle"
+            className="text-[11px] font-bold"
+            fill={atriumHovered ? "#2563EB" : "#7BAEC4"}
+            style={{ transition: "fill 0.3s" }}
+          >
+            {atriumHovered ? "اكتشف المكافآت" : ""}
+          </text>
+        </g>
+
         {/* ── Elevator area ── */}
         <rect
           x={ELEVATOR_RECT.x}
@@ -359,6 +414,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isSelected = selectedUnitId === unit.id;
             const isHovered = hoveredId === unit.id;
             const isMuted = mutedUnitIds.has(unit.id);
+            const isHighlighted = highlightedUnitIds?.has(unit.id) ?? false;
             const colors = statusFill[unit.status];
             const stroke = statusStroke[unit.status];
 
@@ -373,8 +429,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 }}
                 transition={{ duration: 0.2 }}
                 fill={isSelected ? colors.selected : isHovered ? colors.hover : colors.base}
-                stroke={isSelected ? "#F97316" : stroke}
-                strokeWidth={isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#F97316" : stroke}
+                strokeWidth={isHighlighted ? 3 : isSelected ? 3.5 : isHovered ? 2.5 : 1.5}
                 filter={isSelected ? "url(#selectedGlow)" : "url(#unitShadow)"}
                 className="cursor-pointer outline-none"
                 style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}

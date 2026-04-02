@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -15,6 +15,7 @@ import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import { UnitDetailsCard } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
+import { AtriumSpinModal } from "@/components/map/AtriumSpinModal";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -42,6 +43,22 @@ const InteractiveMap = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [availableOnly, setAvailableOnly] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
+  const [spinModalOpen, setSpinModalOpen] = useState(false);
+  const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
+
+  const handleAtriumClick = useCallback(() => {
+    setSpinModalOpen(true);
+  }, []);
+
+  const handleSpinWin = useCallback(() => {
+    // Highlight occupied stores as "participating" after a win
+    const occupiedIds = new Set(
+      mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
+    );
+    setHighlightedUnitIds(occupiedIds);
+    // Clear highlights after 8 seconds
+    setTimeout(() => setHighlightedUnitIds(new Set()), 8000);
+  }, []);
 
   const floor = useMemo(
     () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
@@ -181,6 +198,8 @@ const InteractiveMap = () => {
                 selectedUnitId={activeUnit?.id ?? null}
                 mutedUnitIds={mutedUnitIds}
                 onSelectUnit={setSelectedUnit}
+                onAtriumClick={handleAtriumClick}
+                highlightedUnitIds={highlightedUnitIds}
               />
             </motion.div>
 
@@ -283,6 +302,13 @@ const InteractiveMap = () => {
           </div>
         </DrawerContent>
       </Drawer>
+
+      {/* ── Atrium Spin Modal ── */}
+      <AtriumSpinModal
+        open={spinModalOpen}
+        onClose={() => setSpinModalOpen(false)}
+        onWin={handleSpinWin}
+      />
     </MainLayout>
   );
 };
