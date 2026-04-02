@@ -673,34 +673,34 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           FINAL CTA STRIP
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-16 md:py-20" style={{ background: "#071326" }}>
-        <div className="container max-w-[900px] text-center">
+      <section className="py-10 md:py-14" style={{ background: "#071326" }}>
+        <div className="container max-w-[800px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div className="flex items-center justify-center gap-3 mb-5">
-              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-              <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase dark-accent">ابدأ من هنا</span>
-              <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
+            <div className="flex items-center justify-center gap-2.5 mb-4">
+              <div className="h-[2px] w-6 rounded-full" style={{ background: "#CDBB9A" }} />
+              <span className="font-poppins text-[0.62rem] font-bold tracking-[0.22em] uppercase dark-accent">ابدأ من هنا</span>
+              <div className="h-[2px] w-6 rounded-full" style={{ background: "#CDBB9A" }} />
             </div>
-            <h2 className="mx-auto max-w-[28rem] text-[1.4rem] font-bold leading-[1.2] md:text-[1.8rem] dark-heading">
+            <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-bold leading-[1.15] md:text-[1.6rem] dark-heading">
               المول جاهز — والقرار بيدك.
             </h2>
-            <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 dark-body">
-              سواء تبحث عن منتج، تفكّر في وحدة تجارية، أو تريد معرفة المول من الداخل — كل الأدوات أمامك.
+            <p className="mx-auto mt-3 max-w-sm text-[0.88rem] leading-6 dark-body">
+              كل الأدوات أمامك — سواء تبحث عن منتج أو تفكّر في وحدة تجارية.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-6 flex flex-wrap justify-center gap-2.5">
               <Link to="/map">
-                <Button variant="cta" size="lg" className="h-[3.2rem] rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
-                  <Compass className="ml-2 h-4.5 w-4.5" /> استكشف الخريطة
+                <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
+                  <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
                 </Button>
               </Link>
               <Link to="/stores">
-                <Button size="lg" className="h-[3.2rem] rounded-xl border px-8 text-[0.95rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+                <Button className="h-10 rounded-lg border px-6 text-[0.85rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
                   تصفّح المتاجر
                 </Button>
               </Link>
               <Link to="/leasing">
-                <Button variant="orange" size="lg" className="h-[3.2rem] rounded-xl px-8 text-[0.95rem] font-bold">
-                  <Phone className="ml-2 h-4 w-4" /> استفسر عن التأجير
+                <Button variant="orange" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold">
+                  <Phone className="ml-2 h-4 w-4" /> استفسار التأجير
                 </Button>
               </Link>
             </div>
