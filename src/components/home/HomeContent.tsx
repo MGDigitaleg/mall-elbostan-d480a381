@@ -256,7 +256,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       style={{ filter: "contrast(1.05) saturate(0.9)" }}
                       loading="lazy"
                     />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.35) 0%, transparent 50%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 34% 6% / 0.35) 0%, transparent 50%)" }} />
                   </div>
                 </div>
                 {/* architectural frame accent */}
