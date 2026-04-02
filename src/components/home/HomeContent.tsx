@@ -670,7 +670,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             </div>
             <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-bold leading-[1.15] md:text-[1.6rem] dark-heading">
               المول جاهز — والقرار بيدك.
-            </p>
+            </h2>
             <div className="mt-6 flex flex-wrap justify-center gap-2.5">
               <Link to="/map">
                 <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.85rem] font-bold shadow-[var(--shadow-blue)]">
