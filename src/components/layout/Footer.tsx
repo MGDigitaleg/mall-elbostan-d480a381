@@ -7,20 +7,20 @@ const footerColumns = [
     title: "المول",
     links: [
       { label: "عن المول", path: "/about" },
+      { label: "فرع وسط البلد", path: "/downtown-branch" },
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
       { label: "المتاجر", path: "/stores" },
       { label: "الخريطة التفاعلية", path: "/map" },
-      { label: "يوم الافتتاح", path: "/opening-day" },
     ],
   },
   {
-    title: "الخدمات",
+    title: "السوق",
     links: [
-      { label: "التأجير", path: "/leasing" },
-      { label: "أدر واربح", path: "/spin-win" },
+      { label: "المنتجات", path: "/products" },
+      { label: "انضم كتاجر", path: "/join-marketplace" },
       { label: "العروض اليومية", path: "/daily-deals" },
-      { label: "الوظائف", path: "/careers" },
-      { label: "تواصل معنا", path: "/contact" },
+      { label: "التأجير", path: "/leasing" },
+      { label: "يوم الافتتاح", path: "/opening-day" },
     ],
   },
   {
@@ -28,9 +28,9 @@ const footerColumns = [
     links: [
       { label: "الأسئلة الشائعة", path: "/faq" },
       { label: "المدونة", path: "/blog" },
+      { label: "الوظائف", path: "/careers" },
+      { label: "تواصل معنا", path: "/contact" },
       { label: "سياسة الخصوصية", path: "/privacy" },
-      { label: "الشروط والأحكام", path: "/terms" },
-      { label: "شروط المكافآت", path: "/reward-terms" },
     ],
   },
 ];
