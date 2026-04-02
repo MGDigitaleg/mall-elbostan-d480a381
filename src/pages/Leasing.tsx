@@ -74,7 +74,7 @@ const Leasing = () => {
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
                 <div className="accent-line" style={{ background: "hsl(var(--orange) / 0.5)" }} />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(0 0% 100% / 0.35)" }}>
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
                   فرص تجارية
                 </span>
               </div>
@@ -83,7 +83,7 @@ const Leasing = () => {
                 فرص تجارية في وجهة يقصدها الجمهور المناسب
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(0 0% 100% / 0.42)" }}>
+              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 72%)" }}>
                 اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.
               </p>
 
@@ -96,7 +96,7 @@ const Leasing = () => {
                   <div key={s.l} className="stat-block-dark px-4 py-3 text-center">
                     <s.icon className="mx-auto mb-1 h-4 w-4 text-orange" />
                     <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(0 0% 100% / 0.3)" }}>{s.l}</p>
+                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(220 12% 58%)" }}>{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -157,7 +157,7 @@ const Leasing = () => {
               <div className="heritage-surface p-7 md:p-8">
                 <p className="section-kicker" style={{ color: "hsl(var(--orange) / 0.7)" }}>استفسار</p>
                 <h2 className="mb-2 text-2xl font-bold text-white">ابدأ استفسارك الآن</h2>
-                <p className="mb-6 text-sm leading-7" style={{ color: "hsl(0 0% 100% / 0.38)" }}>
+                <p className="mb-6 text-sm leading-7" style={{ color: "hsl(220 15% 70%)" }}>
                   أرسل بياناتك الأساسية وسيتواصل معك فريق التأجير بمعلومات تفصيلية عن الوحدات المناسبة.
                 </p>
 
@@ -165,7 +165,7 @@ const Leasing = () => {
                   <div className="py-10 text-center">
                     <CheckCircle2 className="mx-auto mb-3 h-12 w-12 text-success" />
                     <p className="text-lg font-bold text-white">تم إرسال طلبك بنجاح</p>
-                    <p className="mt-2 text-sm" style={{ color: "hsl(0 0% 100% / 0.4)" }}>هنرجع لك في أقرب وقت</p>
+                    <p className="mt-2 text-sm" style={{ color: "hsl(220 15% 70%)" }}>هنرجع لك في أقرب وقت</p>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -195,7 +195,7 @@ const Leasing = () => {
                 <div>
                   <p className="section-kicker" style={{ color: "hsl(var(--orange) / 0.7)" }}>وحدات مميزة</p>
                   <h2 className="mb-1 text-2xl font-bold text-white">وحدات <span className="text-orange">متاحة الآن</span></h2>
-                  <p className="text-sm leading-7" style={{ color: "hsl(0 0% 100% / 0.35)" }}>عينة من الوحدات البارزة — تابع التفاصيل على الخريطة.</p>
+                  <p className="text-sm leading-7" style={{ color: "hsl(220 12% 62%)" }}>عينة من الوحدات البارزة — تابع التفاصيل على الخريطة.</p>
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
@@ -205,7 +205,7 @@ const Leasing = () => {
                         <div className="flex items-start justify-between gap-4">
                           <div>
                             <h3 className="font-bold text-orange">وحدة {unit.unit_code}</h3>
-                            <div className="mt-1 flex flex-wrap gap-3 text-sm" style={{ color: "hsl(0 0% 100% / 0.4)" }}>
+                            <div className="mt-1 flex flex-wrap gap-3 text-sm" style={{ color: "hsl(220 15% 70%)" }}>
                               {unit.area_sqm && <span>{unit.area_sqm} م²</span>}
                               {unit.activity_suggestion && <span>{unit.activity_suggestion}</span>}
                             </div>

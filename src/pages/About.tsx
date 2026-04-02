@@ -53,7 +53,7 @@ const About = () => (
             transition={{ duration: 0.7 }}
             className="order-1 space-y-6"
           >
-            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-white/70">
+            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-[hsl(220_15%_80%)]">
               من نحن
             </span>
 
