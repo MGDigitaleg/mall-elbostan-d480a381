@@ -613,11 +613,11 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
         <div className="relative container max-w-4xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[34rem] text-center">
-              <p className="section-kicker dark-kicker">الامتداد الرقمي</p>
-              <h2 className="section-title dark-heading">نفس المكان اللي تعرفه — بأدوات رقمية تخدمك أكثر.</h2>
+              <p className="section-kicker dark-kicker">التطوّر الرقمي</p>
+              <h2 className="section-title dark-heading">نفس الوجهة التي تعرفها — بأدوات تخدمك أبعد.</h2>
               <p className="mx-auto mt-5 text-[1.02rem] leading-8 dark-body">
-                المول اللي تعرفه أصبح متاح رقميًا. دليل المتاجر والخريطة التفاعلية
-                يعملان الآن — والمرحلة الجاية هتوصّلك بالمنتجات مباشرة.
+                المول الذي تعرفه أصبح متاحًا رقميًا. دليل المتاجر والخريطة التفاعلية
+                يعملان الآن — والمرحلة القادمة تصلك بالمنتجات مباشرة.
               </p>
             </div>
 
