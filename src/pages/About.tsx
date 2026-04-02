@@ -361,7 +361,7 @@ const About = () => (
             </div>
 
             {/* stats panel */}
-            <div className="space-y-5 lg:sticky lg:top-28">
+            <div className="space-y-4 lg:sticky lg:top-24">
               <div className="rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
                 <p className="text-[0.88rem] font-bold light-muted">أرقام المول</p>
                 <div className="mt-5 grid grid-cols-2 gap-3">
