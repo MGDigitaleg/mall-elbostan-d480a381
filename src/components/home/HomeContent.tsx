@@ -33,10 +33,8 @@ import { MapTeaserPreview } from "@/components/home/MapTeaserPreview";
 
 import {
   allMapUnits,
-  availableMapUnits,
   exploreNeeds,
   floorMapData,
-  homepageLeasingUnits,
   needCategoryLabels,
   type NeedCategory,
 } from "@/lib/floorMapData";
