@@ -479,7 +479,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ FUTURE MARKETPLACE ═══════════ */}
-      <section className="heritage-section page-section">
+      <section className="heritage-deep page-section">
         <div className="container max-w-[900px] text-center">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="section-kicker">المرحلة القادمة</p>
