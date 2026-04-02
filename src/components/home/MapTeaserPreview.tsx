@@ -1,117 +1,151 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Building2, MapPin, Phone, Ruler, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FloorPlanSvg } from "@/components/map/FloorPlanSvg";
-import { floorLabelAr, floorMapData, needCategoryLabels, type FloorId, type MapUnitDefinition } from "@/lib/floorMapData";
+import { MallFloorMap } from "@/components/map/MallFloorMap";
+import { FloorTabs } from "@/components/map/FloorTabs";
+import { MapLegend } from "@/components/map/MapLegend";
+import {
+  mallFloors,
+  floorLabelsAr,
+  categoryLabelsAr,
+  statusLabelsAr,
+  type MallFloorId,
+  type MallUnit,
+  type MallUnitStatus,
+} from "@/lib/mallFloorGeometry";
+
+const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
+  occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
+  available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E" },
+  coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8" },
+};
 
 export function MapTeaserPreview() {
-  const [selectedFloor, setSelectedFloor] = useState<FloorId>("ground");
+  const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
 
   const floor = useMemo(
-    () => floorMapData.find((item) => item.id === selectedFloor) ?? floorMapData[0],
+    () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
     [selectedFloor],
   );
 
   const defaultUnit = useMemo(
-    () => floor.units.find((unit) => unit.status === "available") ?? floor.units[0],
+    () => floor.units.find((u) => u.status === "available") ?? floor.units[0],
     [floor.units],
   );
 
-  const [selectedUnit, setSelectedUnit] = useState<MapUnitDefinition | null>(defaultUnit);
+  const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(defaultUnit);
 
   useEffect(() => {
     setSelectedUnit(defaultUnit);
   }, [defaultUnit]);
 
-  const activeUnit = selectedUnit && selectedUnit.floor_id === selectedFloor ? selectedUnit : defaultUnit;
+  const activeUnit = selectedUnit && selectedUnit.floor === selectedFloor ? selectedUnit : defaultUnit;
 
-  const visibleUnitIds = useMemo(
-    () =>
-      new Set([
-        activeUnit.unit_id,
-        ...floor.units
-          .filter((unit) => unit.status === "available")
-          .slice(0, 4)
-          .map((unit) => unit.unit_id),
-      ]),
-    [activeUnit.unit_id, floor.units],
-  );
+  const mutedUnitIds = useMemo(() => new Set<string>(), []);
 
-  const mutedUnitIds = useMemo(
-    () => new Set(floor.units.filter((unit) => !visibleUnitIds.has(unit.unit_id)).map((unit) => unit.unit_id)),
-    [floor.units, visibleUnitIds],
-  );
+  const badge = statusBadge[activeUnit.status];
+
+  const floorAvailable = floor.units.filter((u) => u.status === "available").length;
+  const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
 
   return (
-    <div className="rounded-[1.35rem] min-[768px]:max-[1194px]:brand-shell min-[768px]:max-[1194px]:p-4 md:brand-shell md:p-4">
-      <div className="grid gap-2 min-[768px]:max-[1194px]:grid-cols-[2fr_3fr] min-[768px]:max-[1194px]:items-start xl:grid-cols-[2fr_3fr] xl:items-start">
-        <div className="order-1 space-y-2.5">
-          <div className="grid grid-cols-3 gap-1.5 min-[768px]:max-[1194px]:gap-2">
-            {floorMapData.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => setSelectedFloor(item.id)}
-                className={`inline-flex h-11 items-center justify-center rounded-[1rem] px-2 text-[0.82rem] font-semibold transition-colors min-[768px]:max-[1194px]:h-11 min-[768px]:max-[1194px]:rounded-[1.1rem] ${
-                  selectedFloor === item.id
-                    ? "bg-secondary text-foreground"
-                    : "border border-border bg-card text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+    <div className="overflow-hidden rounded-xl" style={{ border: "1px solid #D8DEE8", boxShadow: "var(--shadow-card)" }}>
+      {/* Control bar — matches real map page */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b px-4 py-2.5" style={{ background: "#FAFAF8", borderColor: "#D8DEE8" }}>
+        <FloorTabs selected={selectedFloor} onChange={setSelectedFloor} />
+        <div className="flex items-center gap-4">
+          <MapLegend />
+          <div className="hidden items-center gap-2 text-[0.72rem] md:flex" style={{ borderRight: "1px solid #D8DEE8", paddingRight: "10px" }}>
+            <span className="font-bold" style={{ color: "#0F172A" }}>{floor.units.length}</span>
+            <span style={{ color: "#64748B" }}>وحدة</span>
+            <span className="mx-1 h-3 w-px" style={{ background: "#D8DEE8" }} />
+            <span className="font-bold" style={{ color: "#E8740E" }}>{floorAvailable}</span>
+            <span style={{ color: "#64748B" }}>متاحة</span>
+            <span className="mx-1 h-3 w-px" style={{ background: "#D8DEE8" }} />
+            <span className="font-bold" style={{ color: "#0F172A" }}>{floorOccupied}</span>
+            <span style={{ color: "#64748B" }}>مشغولة</span>
           </div>
+        </div>
+      </div>
 
-          <FloorPlanSvg
-            className="min-h-[26rem] rounded-[1.3rem] border border-border/80 p-1.5 md:min-h-[24.5rem] md:p-4 min-[768px]:max-[1194px]:min-h-[33rem] min-[768px]:max-[1194px]:rounded-[1.6rem] min-[768px]:max-[1194px]:p-4 lg:min-h-[28rem] lg:p-4"
-            floorId={selectedFloor}
-            units={floor.units}
-            selectedUnitId={activeUnit.unit_id}
+      {/* Map + details panel — same layout as real map page */}
+      <div className="grid lg:grid-cols-[1fr_320px]" style={{ background: "#F5F2EC" }}>
+        {/* Map — uses the real MallFloorMap */}
+        <div className="p-2 md:p-3">
+          <MallFloorMap
+            floor={floor}
+            selectedUnitId={activeUnit.id}
             mutedUnitIds={mutedUnitIds}
             onSelectUnit={setSelectedUnit}
+            className="min-h-[320px] md:min-h-[400px]"
           />
         </div>
 
-        <div className="order-2 space-y-2.5 xl:order-none">
-          <div className="editorial-panel rounded-[1.15rem] p-3.5 md:rounded-[1.45rem] md:p-5 min-[768px]:max-[1194px]:sticky min-[768px]:max-[1194px]:top-24 min-[768px]:max-[1194px]:space-y-0.5">
-            <div className="mb-2.5 flex items-center justify-between gap-3">
-              <p className="text-[0.72rem] font-semibold text-muted-foreground">الوحدة المحددة الآن</p>
-              <span className="rounded-full border border-border bg-card px-2.5 py-1 text-[0.68rem] font-semibold text-muted-foreground">جاهزة للمراجعة</span>
+        {/* Details panel — mirrors UnitDetailsCard visual system */}
+        <div className="border-t p-3 lg:border-t-0 lg:border-r" style={{ borderColor: "#D8DEE8", background: "#FAFAF8" }}>
+          <div
+            className="rounded-xl border transition-all"
+            style={{
+              borderColor: badge.dot + "50",
+              background: "#FFFFFF",
+              boxShadow: `0 0 0 1px ${badge.dot}20, 0 4px 16px hsl(0 0% 0% / 0.05)`,
+            }}
+          >
+            {/* Panel header */}
+            <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: badge.dot + "20" }}>
+              <div className="h-[3px] w-4 rounded-full" style={{ background: badge.dot }} />
+              <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>تفاصيل الوحدة</span>
             </div>
-            <h3 className="mt-1 text-[1.3rem] font-bold text-foreground md:mt-1.5 md:text-2xl">وحدة {activeUnit.unit_id}</h3>
-            <p className="mt-1 text-sm leading-6 text-muted-foreground">اختر الدور ثم اضغط على الوحدة لمراجعة بياناتها بسرعة.</p>
-            <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
-                <span className="text-muted-foreground">الدور</span>
-                <span className="font-semibold text-foreground">{floorLabelAr[activeUnit.floor_id]}</span>
-              </div>
-              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
-                <span className="text-muted-foreground">المساحة</span>
-                <span className="font-semibold text-foreground">{activeUnit.area_m2} م²</span>
-              </div>
-              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
-                <span className="text-muted-foreground">الفئة</span>
-                <span className="font-semibold text-foreground">{needCategoryLabels[activeUnit.category]}</span>
-              </div>
-              <div className="flex items-center justify-between rounded-[0.95rem] border border-border bg-card px-3.5 py-2.5">
-                <span className="text-muted-foreground">الحالة</span>
-                <span className={`font-semibold ${activeUnit.status === "available" ? "text-orange" : activeUnit.status === "coming_soon" ? "text-accent" : "text-foreground"}`}>
-                  {activeUnit.status === "available" ? "متاحة" : activeUnit.status === "coming_soon" ? "قريبًا" : "مشغولة"}
+
+            <div className="space-y-3 p-4">
+              {/* Header */}
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[1.3rem] font-extrabold" style={{ color: "#0F172A" }}>{activeUnit.code}</p>
+                  <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[activeUnit.floor]}</p>
+                </div>
+                <span
+                  className="flex items-center gap-1.5 shrink-0 rounded-md px-2.5 py-1.5 text-[0.7rem] font-bold"
+                  style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
+                >
+                  <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
+                  {statusLabelsAr[activeUnit.status]}
                 </span>
               </div>
+
+              {/* Meta grid */}
+              <div className="grid grid-cols-2 gap-1.5">
+                {[
+                  { icon: Ruler, label: "المساحة", value: `${activeUnit.area} م²` },
+                  { icon: Building2, label: "الدور", value: floorLabelsAr[activeUnit.floor] },
+                  { icon: Tag, label: "الفئة", value: categoryLabelsAr[activeUnit.category] },
+                  { icon: MapPin, label: "الموقع", value: activeUnit.code },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-md p-2" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+                    <div className="flex items-center gap-1.5">
+                      <item.icon className="h-3 w-3" style={{ color: "#64748B" }} />
+                      <span className="text-[0.62rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
+                    </div>
+                    <p className="mt-0.5 text-[0.8rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTAs */}
+              <div className="space-y-1.5 pt-1">
+                <Link to="/map" className="block">
+                  <Button variant="cta" className="h-10 w-full rounded-lg text-[0.84rem] font-bold">افتح الدليل الكامل</Button>
+                </Link>
+                {activeUnit.status === "available" && (
+                  <Link to="/leasing" className="block">
+                    <Button variant="outline-blue" className="h-10 w-full rounded-lg text-[0.84rem]">
+                      <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر عن الوحدة
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-            <div className="rounded-[0.95rem] border border-orange/35 bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-orange">متاح الآن</div>
-            <div className="rounded-[0.95rem] border border-accent/35 bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-accent">قريبًا</div>
-            <div className="rounded-[0.95rem] border border-border bg-card px-3 py-2.5 text-center text-[0.78rem] font-semibold text-foreground">مشغول</div>
-          </div>
-
-          <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1 min-[768px]:max-[1194px]:grid-cols-1">
-            <Link to="/map"><Button variant="cta" className="h-12 w-full rounded-[1rem] px-5">افتح الدليل</Button></Link>
-            <Link to="/leasing"><Button variant="outline-blue" className="h-12 w-full rounded-[1rem] px-5">استفسر عن الوحدة</Button></Link>
           </div>
         </div>
       </div>
