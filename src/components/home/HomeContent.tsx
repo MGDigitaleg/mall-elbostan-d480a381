@@ -772,13 +772,13 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mx-auto max-w-[34rem] text-center">
-              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>المرحلة التالية</p>
+              <p className="section-kicker" style={{ color: "hsl(220 55% 62%)" }}>الامتداد الرقمي</p>
               <h2 className="section-title text-white">
-                من وجهة تقنية راسخة إلى سوق رقمي.
+                نفس المكان — بأدوات جديدة تخدمك أكثر.
               </h2>
               <p className="mx-auto mt-3 max-w-[30rem] text-[0.95rem] leading-8" style={{ color: "hsl(220 12% 65%)" }}>
-                الأساس يعمل الآن — الدليل التفاعلي ودليل المتاجر. المرحلة القادمة
-                تفتح سوقًا رقميًا يصل لأي مستخدم في أي مكان.
+                المول الذي تعرفه أصبح متاحًا رقميًا. دليل المتاجر والخريطة
+                التفاعلية يعملان الآن — والمزيد قادم.
               </p>
             </div>
 
