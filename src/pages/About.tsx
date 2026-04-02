@@ -455,7 +455,7 @@ const About = () => (
           <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
             كل أدوات القرار في مكان واحد.
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link to="/map">
               <Button variant="cta" size="lg" className="h-12 rounded-xl px-8 font-bold">
                 <Compass className="ml-2 h-4 w-4" /> الخريطة التفاعلية
