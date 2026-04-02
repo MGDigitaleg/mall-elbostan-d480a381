@@ -27,11 +27,31 @@ const TENANT_NAMES: Record<string, string> = {
   "F-11": "Prime Technology",
   "F-13": "Digital Plus",
   "F-14": "سبارك",
+  "F-15": "Games to Egypt",
+  "S-01": "Info Max",
   "S-05": "Mix & Apex",
+  "S-06": "i7",
   "S-10": "Quick Fix",
   "S-07": "Compu Marts",
   "S-08": "Compu Marts",
   "S-09": "Compu Marts",
+};
+
+// ── Tenant logos per unit (matched from /logos/tenants/) ──
+const TENANT_LOGOS: Record<string, string> = {
+  "G-01": "/logos/tenants/static.png",
+  "G-02": "/logos/tenants/sharaf.png",
+  "G-05": "/logos/tenants/go-plus.png",
+  "G-08": "/logos/tenants/al-sahaba.png",
+  "G-09": "/logos/tenants/red-line.png",
+  "G-13": "/logos/tenants/hk.png",
+  "G-14": "/logos/tenants/wifi.png",
+  "F-06": "/logos/tenants/express-home.png",
+  "F-14": "/logos/tenants/spark.png",
+  "F-15": "/logos/tenants/games-to-egypt.png",
+  "S-01": "/logos/tenants/info-max.png",
+  "S-06": "/logos/tenants/i7.png",
+  "G-12": "/logos/tenants/print-show.png",
 };
 
 import {
