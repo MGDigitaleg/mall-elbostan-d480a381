@@ -333,6 +333,8 @@
     color: hsl(var(--navy-foreground));
   }
 
+  .heritage-deep .section-kicker { color: hsl(220 68% 60%); }
+
   /* ── Architectural band — a narrow colored strip ── */
   .band-primary {
     height: 3px;
