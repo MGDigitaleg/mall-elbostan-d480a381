@@ -69,12 +69,32 @@ const InteractiveMap = () => {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
   const [spinModalOpen, setSpinModalOpen] = useState(false);
+  const [hubModalOpen, setHubModalOpen] = useState(false);
   const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
   const [activeRewardCtx, setActiveRewardCtx] = useState<ActiveRewardContext | undefined>();
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
+  const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
+
   const handleAtriumClick = useCallback(() => {
+    setHubModalOpen(true);
+  }, []);
+
+  const handleOpenSpinWheel = useCallback(() => {
     setSpinModalOpen(true);
+  }, []);
+
+  const handleHubFilterCategory = useCallback((cat: MallCategory) => {
+    setCategoryFilter(cat);
+    // Highlight all occupied units in that category
+    const matchingIds = new Set(
+      allMallUnits
+        .filter((u) => u.category === cat && u.status === "occupied")
+        .map((u) => u.id)
+    );
+    setHighlightedUnitIds(matchingIds);
+    scrollToMap();
+    setTimeout(() => setHighlightedUnitIds(new Set()), 12000);
   }, []);
 
   const clearRewardState = useCallback(() => {
