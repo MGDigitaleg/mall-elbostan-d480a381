@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
+import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES } from "@/lib/tenantMapLookup";
 export type ActiveRewardContext = {
   prizeName: string;
   claimRules?: string | null;
@@ -38,10 +39,23 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
     <div className="space-y-3">
       {rewardCtx && <RewardBanner ctx={rewardCtx} />}
 
-      {/* Header */}
+      {/* Logo + Header */}
+      {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
+        <div className="flex items-center justify-center rounded-lg p-3" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+          <img
+            src={UNIT_TENANT_LOGOS[unit.id]}
+            alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
+            className="h-10 w-auto max-w-[140px] object-contain"
+          />
+        </div>
+      )}
+
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="text-[1.3rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
+          {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
+            <p className="mt-0.5 text-[0.8rem] font-bold" style={{ color: "#334155" }}>{UNIT_TENANT_NAMES[unit.id]}</p>
+          )}
           <p className="mt-0.5 text-[0.7rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
         </div>
         <span
