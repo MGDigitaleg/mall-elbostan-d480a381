@@ -72,8 +72,7 @@ export function Footer() {
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-[0.88rem] transition-colors hover:text-white"
-                      style={{ color: "hsl(220 12% 58%)" }}
+                      className="text-[0.88rem] transition-colors hover:text-white dark-muted"
                     >
                       {link.label}
                     </Link>
