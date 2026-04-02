@@ -51,6 +51,10 @@
     --navy: 222 42% 10%;
     --navy-foreground: 40 12% 96%;
 
+    /* ─── Warm heritage accent ─── */
+    --warm-sand: 36 28% 92%;
+    --warm-sand-foreground: 30 12% 38%;
+
     --neutral-light: 40 12% 97%;
 
     /* ─── Premium gradients ─── */
@@ -309,8 +313,13 @@
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-section .section-kicker { color: hsl(var(--primary) / 0.55); }
+  .heritage-section .section-kicker { color: hsl(220 68% 60%); }
   .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
+
+  /* ── Warm sand interlude ── */
+  .section-sand {
+    background: hsl(var(--warm-sand));
+  }
 
   .heritage-card {
     background: hsl(222 36% 13%);
@@ -323,6 +332,8 @@
     background: hsl(222 44% 6%);
     color: hsl(var(--navy-foreground));
   }
+
+  .heritage-deep .section-kicker { color: hsl(220 68% 60%); }
 
   /* ── Architectural band — a narrow colored strip ── */
   .band-primary {

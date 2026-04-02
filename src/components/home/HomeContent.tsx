@@ -139,11 +139,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             backgroundSize: "60px 60px",
           }}
         />
-        {/* radial glow — offset right for RTL visual weight */}
+        {/* radial glow */}
         <div
           className="absolute inset-0"
           style={{
-            background: "radial-gradient(ellipse 60% 55% at 75% 45%, hsl(220 68% 38% / 0.07), transparent 70%)",
+            background: "radial-gradient(ellipse 60% 55% at 75% 45%, hsl(220 68% 38% / 0.08), transparent 70%)",
           }}
         />
         {/* bottom fade */}
@@ -160,7 +160,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             >
               <div className="flex items-center gap-3">
                 <div className="h-px w-10 bg-primary/40" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 60% 68%)" }}>
                   القاهرة الجديدة — الافتتاح مايو 2026
                 </span>
               </div>
@@ -171,7 +171,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <span className="text-gradient-blue">التي بناها السوق</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1rem] leading-[2.1] text-white/40 md:text-[1.12rem]">
+              <p className="max-w-[30rem] text-[1rem] leading-[2.1] md:text-[1.12rem]" style={{ color: "hsl(220 15% 72%)" }}>
                 مول البستان عنوان أثبت مكانته في سوق الإلكترونيات المصري عبر سنوات من العمل المباشر
                 مع التجار والمشترين. أكثر من {totalUnits} وحدة تجارية متخصصة تحت سقف واحد — في موقع
                 صُنع ليخدم القرار لا التجوّل.
@@ -191,7 +191,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 <Link to="/stores">
                   <Button
                     size="lg"
-                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/10 bg-white/5 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/10"
+                    className="h-[3.4rem] min-w-[11rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/12"
                   >
                     تصفّح المتاجر
                   </Button>
@@ -200,7 +200,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Button
                     variant="ghost"
                     size="lg"
-                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold text-white/40 hover:bg-white/5 hover:text-white"
+                    className="h-[3.4rem] px-5 text-[0.95rem] font-semibold hover:bg-white/5"
+                    style={{ color: "hsl(220 15% 65%)" }}
                   >
                     فرص التأجير
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
@@ -208,7 +209,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 </Link>
               </div>
 
-              {/* stats — tighter, more refined */}
+              {/* stats */}
               <div className="grid max-w-[28rem] grid-cols-3 gap-3 pt-3">
                 {[
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
@@ -217,7 +218,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 ].map((s) => (
                   <div key={s.l} className="stat-block-dark px-4 py-3.5">
                     <p className="font-poppins text-[1.5rem] font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.68rem] font-medium text-white/28">{s.l}</p>
+                    <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "hsl(220 15% 60%)" }}>{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -231,28 +232,35 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               className="order-2 flex items-center justify-center"
             >
               <div className="relative w-full max-w-[480px] lg:max-w-none">
-                <div className="overflow-hidden rounded-2xl ring-1 ring-white/6 lg:rounded-3xl">
+                {/* main image with editorial crop frame */}
+                <div className="overflow-hidden rounded-2xl ring-1 ring-white/8 lg:rounded-3xl">
                   <div className="image-shell aspect-[3/4] lg:aspect-[4/5]">
                     <img
                       src={heroImage}
                       alt="الواجهة الرئيسية لمول البستان"
                       className="h-full w-full object-cover"
+                      style={{ filter: "contrast(1.04) saturate(0.92)" }}
                       loading="eager"
                     />
-                    <div className="image-wash absolute inset-0" />
+                    {/* editorial gradient wash — bottom to top */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.6) 0%, transparent 40%, hsl(222 44% 5% / 0.15) 100%)" }} />
                   </div>
                 </div>
-                {/* floating accent image */}
-                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl shadow-[var(--shadow-deep)] ring-1 ring-white/8 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
+                {/* floating accent — interior detail */}
+                <div className="absolute -bottom-5 -right-5 hidden w-[40%] overflow-hidden rounded-xl shadow-[var(--shadow-deep)] ring-1 ring-white/10 md:block lg:-bottom-6 lg:-right-6 lg:rounded-2xl">
                   <div className="image-shell aspect-[3/4]">
                     <img
                       src={interiorImage}
                       alt="المشهد الداخلي لمول البستان"
                       className="h-full w-full object-cover"
+                      style={{ filter: "contrast(1.05) saturate(0.9)" }}
                       loading="lazy"
                     />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, hsl(222 44% 5% / 0.35) 0%, transparent 50%)" }} />
                   </div>
                 </div>
+                {/* architectural frame accent */}
+                <div className="absolute -left-3 top-12 hidden h-20 w-[3px] rounded-full lg:block" style={{ background: "hsl(220 68% 50% / 0.35)" }} />
               </div>
             </motion.div>
           </div>
@@ -282,7 +290,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              {/* imagery */}
+              {/* imagery — editorial composition */}
               <div className="order-2 lg:order-1">
                 <div className="grid gap-3 md:grid-cols-[1fr_0.48fr]">
                   <div className="image-architectural overflow-hidden rounded-2xl">
@@ -290,14 +298,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       src={entranceImage}
                       alt="مدخل مول البستان"
                       className="aspect-[4/3] h-full w-full object-cover"
+                      style={{ filter: "contrast(1.03) saturate(0.95)" }}
                       loading="lazy"
                     />
+                    {/* subtle color grade overlay */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 60%, hsl(36 20% 92% / 0.3) 100%)" }} />
                   </div>
                   <div className="image-architectural hidden overflow-hidden rounded-2xl md:block">
                     <img
                       src={facadeImage}
                       alt="واجهة معمارية لمول البستان"
-                      className="aspect-[3/5] h-full w-full object-cover"
+                      className="aspect-[3/5] h-full w-full object-cover object-center"
+                      style={{ filter: "contrast(1.03) saturate(0.95)" }}
                       loading="lazy"
                     />
                   </div>
@@ -356,11 +368,11 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             viewport={{ once: true, margin: "-60px" }}
           >
             <div className="mx-auto mb-12 max-w-[38rem] text-center">
-              <p className="section-kicker text-primary/45">القيمة الحقيقية</p>
+              <p className="section-kicker" style={{ color: "hsl(220 60% 65%)" }}>القيمة الحقيقية</p>
               <h2 className="section-title text-white">
                 مول مصمّم ليخدم — لا ليُبهر فقط.
               </h2>
-              <p className="mx-auto mt-4 max-w-[32rem] text-[1rem] leading-8 text-white/35">
+              <p className="mx-auto mt-4 max-w-[32rem] text-[1rem] leading-8" style={{ color: "hsl(220 12% 68%)" }}>
                 سواء كنت مشتريًا يبحث عن منتج بعينه، أو تاجرًا يبحث عن موقع فعّال، أو مستثمرًا
                 يقيّم فرصة — كل تفصيلة في المول مصمّمة لتقصير المسافة بين الدخول والقرار.
               </p>
@@ -405,14 +417,14 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   viewport={{ once: true }}
                 >
                   <div className="heritage-surface flex h-full flex-col p-7">
-                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg border border-primary/15 bg-primary/8">
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-lg" style={{ border: "1px solid hsl(220 68% 50% / 0.2)", background: "hsl(220 68% 50% / 0.08)" }}>
                       <card.icon className="h-5 w-5 text-primary" />
                     </div>
                     <h3 className="text-[1.1rem] font-bold text-white">{card.title}</h3>
                     <ul className="mt-4 space-y-3">
                       {card.points.map((p) => (
-                        <li key={p} className="flex items-start gap-2.5 text-[0.88rem] leading-7 text-white/38">
-                          <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-primary/40" />
+                        <li key={p} className="flex items-start gap-2.5 text-[0.88rem] leading-7" style={{ color: "hsl(220 12% 68%)" }}>
+                          <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "hsl(220 68% 55% / 0.5)" }} />
                           {p}
                         </li>
                       ))}
@@ -425,7 +437,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ════════════════ 4 · STORE DISCOVERY ════════════════ */}
+      {/* ════════════════ 4 · STORE DISCOVERY (Light) ════════════════ */}
       <section className="section-ivory page-section">
         <div className="container">
           <motion.div
@@ -457,7 +469,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                       <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-secondary text-primary transition-colors group-hover:border-primary/20 group-hover:bg-primary/5">
                         <cat.icon className="h-5 w-5" />
                       </div>
-                      <span className="font-poppins text-[0.8rem] font-medium text-muted-foreground/30">
+                      <span className="font-poppins text-[0.8rem] font-medium text-muted-foreground/40">
                         0{i + 1}
                       </span>
                     </div>
@@ -520,8 +532,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       {/* ── architectural band ── */}
       <div className="band-primary" />
 
-      {/* ════════════════ 5 · INTERACTIVE MAP ════════════════ */}
-      <section className="section-warm page-section">
+      {/* ════════════════ 5 · INTERACTIVE MAP (Warm sand) ════════════════ */}
+      <section className="section-sand page-section">
         <div className="container">
           <motion.div
             variants={sectionReveal}
@@ -576,7 +588,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ════════════════ 6 · LEASING ════════════════ */}
+      {/* ════════════════ 6 · LEASING (Heritage dark) ════════════════ */}
       <section className="heritage-section page-section">
         <div className="container">
           <motion.div
@@ -594,7 +606,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     موقعك في وجهة تقنية يأتي إليها الجمهور المناسب.
                   </h2>
                 </div>
-                <p className="text-base leading-8 text-white/42 md:text-lg">
+                <p className="text-base leading-8 md:text-lg" style={{ color: "hsl(220 12% 68%)" }}>
                   ما يميز مول البستان ليس الموقع فقط — بل الجمهور الذي يقصده تحديدًا بحثًا عن
                   التقنية. وحدات بمساحات متعددة، حالات واضحة، واستفسار يصل للفريق المختص مباشرة.
                 </p>
@@ -602,9 +614,9 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                 {/* floor availability */}
                 <div className="grid grid-cols-3 gap-3">
                   {availableByFloor.map((f) => (
-                    <div key={f.id} className="rounded-xl border border-white/8 bg-white/[0.03] px-4 py-4 text-center">
+                    <div key={f.id} className="rounded-xl px-4 py-4 text-center" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}>
                       <p className="text-xl font-bold text-white">{f.count}</p>
-                      <p className="mt-0.5 text-[0.74rem] text-white/35">{f.label}</p>
+                      <p className="mt-0.5 text-[0.74rem]" style={{ color: "hsl(220 12% 62%)" }}>{f.label}</p>
                     </div>
                   ))}
                 </div>
@@ -629,24 +641,25 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                   <Link
                     key={unit.unit_id}
                     to="/map"
-                    className="group flex flex-col rounded-xl border border-white/8 bg-white/[0.03] p-5 transition-all duration-200 hover:border-orange/30 hover:bg-white/[0.05]"
+                    className="group flex flex-col rounded-xl p-5 transition-all duration-200 hover:border-orange/30"
+                    style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.04)" }}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <p className="text-lg font-bold text-white">وحدة {unit.unit_id}</p>
-                        <p className="mt-1 text-sm text-white/35">{needCategoryLabels[unit.category]}</p>
+                        <p className="mt-1 text-sm" style={{ color: "hsl(220 12% 62%)" }}>{needCategoryLabels[unit.category]}</p>
                       </div>
                       <span className="rounded-full border border-orange/25 bg-orange/12 px-3 py-1 text-[0.75rem] font-semibold text-orange">
                         متاحة
                       </span>
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-2.5">
-                      <div className="rounded-lg bg-white/5 px-3 py-2.5">
-                        <p className="text-[0.72rem] text-white/30">الدور</p>
+                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>الدور</p>
                         <p className="mt-0.5 text-sm font-semibold text-white">{floorLabels[unit.floor_id]}</p>
                       </div>
-                      <div className="rounded-lg bg-white/5 px-3 py-2.5">
-                        <p className="text-[0.72rem] text-white/30">المساحة</p>
+                      <div className="rounded-lg px-3 py-2.5" style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                        <p className="text-[0.72rem]" style={{ color: "hsl(220 12% 55%)" }}>المساحة</p>
                         <p className="mt-0.5 text-sm font-semibold text-white">{unit.area_m2} م²</p>
                       </div>
                     </div>
@@ -658,7 +671,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ════════════════ 7 · ENGAGEMENT / SPIN & WIN ════════════════ */}
+      {/* ════════════════ 7 · ENGAGEMENT / SPIN & WIN (Light) ════════════════ */}
       <section className="page-section">
         <div className="container">
           <motion.div
@@ -727,7 +740,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
       {/* ── architectural band ── */}
       <div className="band-primary" />
 
-      {/* ════════════════ 8 · FUTURE VISION ════════════════ */}
+      {/* ════════════════ 8 · FUTURE VISION (Warm) ════════════════ */}
       <section className="section-warm page-section">
         <div className="container max-w-5xl text-center">
           <motion.div

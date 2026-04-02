@@ -55,11 +55,11 @@ type Props = {
   className?: string;
 };
 
-// ── Status-based fill colors (inline for SVG) ──
+// ── Status-based fill colors — stronger distinction ──
 const statusFill: Record<MallUnitStatus, { base: string; hover: string; selected: string }> = {
-  occupied:    { base: "#CEC5B6", hover: "#BEB5A6", selected: "#B5AC9D" },
-  available:   { base: "#FDE8D0", hover: "#FDDBB5", selected: "#FBCEA0" },
-  coming_soon: { base: "#D4EDF7", hover: "#BFE3F2", selected: "#AAD9ED" },
+  occupied:    { base: "#D6D0C6", hover: "#C8C2B8", selected: "#BBB5AB" },
+  available:   { base: "#FDDBB5", hover: "#FCC98A", selected: "#FBBA6A" },
+  coming_soon: { base: "#BFE3F2", hover: "#A6D8ED", selected: "#8DCDE8" },
 };
 
 const statusStroke: Record<MallUnitStatus, string> = {
@@ -130,7 +130,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   );
 
   return (
-    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#F4F0EA] p-3 md:p-4", className)}>
+    <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#EDE8E0] p-3 md:p-4", className)}>
       {/* Zoom controls */}
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
         <button

@@ -180,7 +180,7 @@ const InteractiveMap = () => {
             >
               <div className="mx-auto mb-3 flex items-center justify-center gap-3">
                 <div className="h-px w-8 bg-primary/35" />
-                <span className="text-[0.68rem] font-semibold tracking-[0.2em] text-white/30 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                <span className="text-[0.68rem] font-semibold tracking-[0.2em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 60% 65%)" }}>
                   الدليل التفاعلي
                 </span>
                 <div className="h-px w-8 bg-primary/35" />
@@ -189,7 +189,7 @@ const InteractiveMap = () => {
               <h1 className="mt-3 text-[1.7rem] font-extrabold leading-[1.06] text-white md:text-[2.4rem] lg:text-[2.8rem]">
                 دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
-              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] text-white/32 md:text-[1rem]">
+              <p className="mx-auto mt-3 max-w-[28rem] text-[0.9rem] leading-[2] md:text-[1rem]" style={{ color: "hsl(220 12% 70%)" }}>
                 تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
@@ -200,9 +200,9 @@ const InteractiveMap = () => {
                   { icon: TrendingUp, v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s) => (
                   <div key={s.l} className="flex items-center gap-2.5 stat-block-dark px-4 py-2.5">
-                    <s.icon className="h-3.5 w-3.5 text-primary/50" />
+                    <s.icon className="h-3.5 w-3.5" style={{ color: "hsl(220 60% 60%)" }} />
                     <span className="font-poppins text-base font-bold text-white">{s.v}</span>
-                    <span className="text-[0.68rem] text-white/28">{s.l}</span>
+                    <span className="text-[0.72rem]" style={{ color: "hsl(220 12% 60%)" }}>{s.l}</span>
                   </div>
                 ))}
               </div>
@@ -335,10 +335,10 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="heritage-deep page-section !py-10">
+      <section className="heritage-section page-section !py-10">
         <div className="container max-w-[900px] text-center">
           <h2 className="text-lg font-bold text-white md:text-xl">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.85rem] text-white/30">
+          <p className="mx-auto mt-2 max-w-sm text-[0.85rem]" style={{ color: "hsl(220 12% 65%)" }}>
             من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-3">
@@ -348,7 +348,7 @@ const InteractiveMap = () => {
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-11 rounded-xl border border-white/10 bg-white/5 px-8 font-semibold text-white hover:bg-white/10">
+              <Button size="lg" className="h-11 rounded-xl border border-white/12 bg-white/6 px-8 font-semibold text-white hover:bg-white/12">
                 تصفّح المتاجر
               </Button>
             </Link>
