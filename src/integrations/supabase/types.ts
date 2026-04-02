@@ -168,6 +168,69 @@ export type Database = {
           },
         ]
       }
+      downtown_merchants: {
+        Row: {
+          address: string | null
+          category: string | null
+          created_at: string
+          floor: string | null
+          id: string
+          is_active: boolean
+          logo_url: string | null
+          name_ar: string
+          name_en: string | null
+          phone: string | null
+          social_url: string | null
+          sort_order: number
+          source_notes: string | null
+          source_url: string | null
+          unit_number: string | null
+          updated_at: string
+          verification_status: string
+          website: string | null
+        }
+        Insert: {
+          address?: string | null
+          category?: string | null
+          created_at?: string
+          floor?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name_ar: string
+          name_en?: string | null
+          phone?: string | null
+          social_url?: string | null
+          sort_order?: number
+          source_notes?: string | null
+          source_url?: string | null
+          unit_number?: string | null
+          updated_at?: string
+          verification_status?: string
+          website?: string | null
+        }
+        Update: {
+          address?: string | null
+          category?: string | null
+          created_at?: string
+          floor?: string | null
+          id?: string
+          is_active?: boolean
+          logo_url?: string | null
+          name_ar?: string
+          name_en?: string | null
+          phone?: string | null
+          social_url?: string | null
+          sort_order?: number
+          source_notes?: string | null
+          source_url?: string | null
+          unit_number?: string | null
+          updated_at?: string
+          verification_status?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           category: string | null
