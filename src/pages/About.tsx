@@ -397,13 +397,13 @@ const About = () => (
       <div className="container max-w-[1000px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="text-center">
-            <p className="section-kicker">الفصل التالي</p>
+            <p className="section-kicker">المرحلة التالية</p>
             <h2 className="section-title mx-auto max-w-[28rem]">
-              من وجهة تقنية إلى تجربة رقمية متصلة.
+              من وجهة راسخة إلى منصة رقمية متصلة.
             </h2>
             <p className="mx-auto mt-5 max-w-[34rem] text-base leading-8 text-white/50 md:text-lg">
-              المول يتجدد — دليل تفاعلي يعرض كل وحدة وحالتها، ودليل متاجر رقمي يسهّل الاستكشاف
-              قبل الزيارة. والمرحلة التالية: سوق رقمي يمتد من المتاجر ليخدم المستخدمين في أي مكان.
+              المول يتطور — دليل تفاعلي يعمل الآن، ودليل متاجر رقمي يسهّل الاستكشاف.
+              المرحلة القادمة: سوق إلكتروني يمتد من واجهات المتاجر ليصل لأي مستخدم.
             </p>
           </div>
 
