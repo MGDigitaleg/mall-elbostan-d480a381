@@ -389,7 +389,7 @@ const About = () => (
               </div>
 
               <div className="frame-heritage overflow-hidden">
-                <img src={entranceImage} alt="مول البستان — المدخل" className="img-grade aspect-[4/3] w-full object-cover object-[center_35%]" loading="lazy" />
+                <img src={entranceImage} alt="مول البستان — المدخل" className="img-grade aspect-[16/9] max-h-[180px] w-full object-cover object-[center_35%]" loading="lazy" />
               </div>
             </div>
           </div>
