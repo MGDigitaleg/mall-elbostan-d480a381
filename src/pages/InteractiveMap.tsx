@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -13,9 +13,9 @@ import { SEOHead } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
 import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
-import { UnitDetailsCard } from "@/components/map/UnitDetailsCard";
+import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
-import { AtriumSpinModal } from "@/components/map/AtriumSpinModal";
+import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -35,8 +35,32 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
+/** Map a store category string to MallCategory for map filtering */
+const storeCategoryToMapCategory: Record<string, MallCategory> = {
+  "phones": "Accessories",
+  "accessories": "Accessories",
+  "computers": "Laptops",
+  "laptops": "Laptops",
+  "gaming": "Components",
+  "components": "Components",
+  "printing": "Networking",
+  "networking": "Networking",
+  "maintenance": "Maintenance",
+  "security": "Security Systems",
+};
+
+function resolveMapCategory(storeCategory: string | null): MallCategory | null {
+  if (!storeCategory) return null;
+  const lower = storeCategory.toLowerCase();
+  for (const [key, val] of Object.entries(storeCategoryToMapCategory)) {
+    if (lower.includes(key)) return val;
+  }
+  return null;
+}
+
 const InteractiveMap = () => {
   const isMobile = useIsMobile();
+  const mapRef = useRef<HTMLDivElement>(null);
   const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
   const [statusFilter, setStatusFilter] = useState<"all" | MallUnitStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
@@ -45,20 +69,88 @@ const InteractiveMap = () => {
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
   const [spinModalOpen, setSpinModalOpen] = useState(false);
   const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
+  const [activeRewardCtx, setActiveRewardCtx] = useState<ActiveRewardContext | undefined>();
+  const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
   const handleAtriumClick = useCallback(() => {
     setSpinModalOpen(true);
   }, []);
 
-  const handleSpinWin = useCallback(() => {
-    // Highlight occupied stores as "participating" after a win
-    const occupiedIds = new Set(
-      mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
-    );
-    setHighlightedUnitIds(occupiedIds);
-    // Clear highlights after 8 seconds
-    setTimeout(() => setHighlightedUnitIds(new Set()), 8000);
+  const clearRewardState = useCallback(() => {
+    setHighlightedUnitIds(new Set());
+    setActiveRewardCtx(undefined);
+    setLastWinResult(null);
   }, []);
+
+  const scrollToMap = useCallback(() => {
+    setTimeout(() => {
+      mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 200);
+  }, []);
+
+  const handleSpinWin = useCallback((result: SpinWinResult | null) => {
+    if (!result) return;
+    setLastWinResult(result);
+
+    const { reward, sponsorStore } = result;
+
+    if (sponsorStore?.unit_code) {
+      // ── Specific store reward: find exact unit, switch floor, select it, highlight it
+      const unitCode = sponsorStore.unit_code;
+      const targetUnit = allMallUnits.find((u) => u.code === unitCode);
+
+      if (targetUnit) {
+        setSelectedFloor(targetUnit.floor);
+        setSelectedUnit(targetUnit);
+        setHighlightedUnitIds(new Set([targetUnit.id]));
+        setActiveRewardCtx({
+          reward,
+          storeName: sponsorStore.name_ar,
+        });
+      } else {
+        // Fallback: highlight all occupied
+        const occupiedIds = new Set(
+          mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
+        );
+        setHighlightedUnitIds(occupiedIds);
+        setActiveRewardCtx({ reward, storeName: sponsorStore.name_ar });
+      }
+    } else {
+      // ── Category-based reward: highlight all stores matching the category
+      const mapCat = resolveMapCategory(sponsorStore?.category ?? null);
+      
+      if (mapCat) {
+        const matchingIds = new Set(
+          allMallUnits
+            .filter((u) => u.category === mapCat && u.status === "occupied")
+            .map((u) => u.id)
+        );
+        setHighlightedUnitIds(matchingIds);
+        setCategoryFilter(mapCat);
+        setActiveRewardCtx({ reward, isCategory: true });
+      } else {
+        // General reward: highlight all occupied stores
+        const occupiedIds = new Set(
+          mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
+        );
+        setHighlightedUnitIds(occupiedIds);
+        setActiveRewardCtx({ reward, isCategory: true });
+      }
+    }
+
+    // Auto-clear highlights after 15 seconds
+    setTimeout(() => clearRewardState(), 15000);
+  }, [clearRewardState]);
+
+  /** Called when user clicks "View on map" in result screen */
+  const handleViewOnMap = useCallback(() => {
+    scrollToMap();
+  }, [scrollToMap]);
+
+  /** Called when user clicks "Explore category" in result screen */
+  const handleExploreCategory = useCallback(() => {
+    scrollToMap();
+  }, [scrollToMap]);
 
   const floor = useMemo(
     () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
