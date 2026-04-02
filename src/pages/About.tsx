@@ -155,7 +155,7 @@ const About = () => (
                   { icon: Layers, title: "بنية دقيقة", desc: "تصنيف يختصر مسار الشراء." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-xl p-4">
-                    <c.icon className="mb-3 h-5 w-5 text-primary" />
+                    <c.icon className="mb-2 h-4 w-4 text-primary" />
                     <p className="text-[0.92rem] font-bold light-heading">{c.title}</p>
                     <p className="mt-1.5 text-[0.84rem] leading-7 light-body">{c.desc}</p>
                   </div>
