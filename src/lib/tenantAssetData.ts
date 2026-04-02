@@ -237,9 +237,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "info-max",
     providedName: "info max",
     normalizedName: "Info Max",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Logo not available in the current asset set.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/info-max.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Info-Max",
   },
   {
