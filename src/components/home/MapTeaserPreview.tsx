@@ -82,8 +82,8 @@ export function MapTeaserPreview() {
           />
         </div>
 
-        {/* Details panel — mirrors UnitDetailsCard visual system */}
-        <div className="border-t p-3 lg:border-t-0 lg:border-r" style={{ borderColor: "#D8DEE8", background: "#FAFAF8" }}>
+        {/* Details panel — matches UnitDetailsCard exactly */}
+        <div className="border-t p-2.5 lg:border-t-0 lg:border-r" style={{ borderColor: "#D8DEE8", background: "#FAFAF8" }}>
           <div
             className="rounded-xl border transition-all"
             style={{
@@ -92,30 +92,27 @@ export function MapTeaserPreview() {
               boxShadow: `0 0 0 1px ${badge.dot}20, 0 4px 16px hsl(0 0% 0% / 0.05)`,
             }}
           >
-            {/* Panel header */}
-            <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: badge.dot + "20" }}>
-              <div className="h-[3px] w-4 rounded-full" style={{ background: badge.dot }} />
-              <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>تفاصيل الوحدة</span>
+            <div className="flex items-center gap-2 border-b px-4 py-2" style={{ borderColor: badge.dot + "20" }}>
+              <div className="h-[3px] w-3.5 rounded-full" style={{ background: badge.dot }} />
+              <span className="text-[0.66rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>تفاصيل الوحدة</span>
             </div>
 
-            <div className="space-y-3 p-4">
-              {/* Header */}
-              <div className="flex items-start justify-between gap-3">
+            <div className="space-y-3 p-3.5">
+              <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="text-[1.3rem] font-extrabold" style={{ color: "#0F172A" }}>{activeUnit.code}</p>
-                  <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[activeUnit.floor]}</p>
+                  <p className="mt-0.5 text-[0.7rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[activeUnit.floor]}</p>
                 </div>
                 <span
-                  className="flex items-center gap-1.5 shrink-0 rounded-md px-2.5 py-1.5 text-[0.7rem] font-bold"
+                  className="flex items-center gap-1.5 shrink-0 rounded-md px-2 py-1 text-[0.68rem] font-bold"
                   style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
                 >
-                  <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: badge.dot }} />
                   {statusLabelsAr[activeUnit.status]}
                 </span>
               </div>
 
-              {/* Meta grid */}
-              <div className="grid grid-cols-2 gap-1.5">
+              <div className="grid grid-cols-2 gap-1">
                 {[
                   { icon: Ruler, label: "المساحة", value: `${activeUnit.area} م²` },
                   { icon: Building2, label: "الدور", value: floorLabelsAr[activeUnit.floor] },
@@ -123,23 +120,22 @@ export function MapTeaserPreview() {
                   { icon: MapPin, label: "الموقع", value: activeUnit.code },
                 ].map((item) => (
                   <div key={item.label} className="rounded-md p-2" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-                    <div className="flex items-center gap-1.5">
-                      <item.icon className="h-3 w-3" style={{ color: "#64748B" }} />
-                      <span className="text-[0.62rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
+                    <div className="flex items-center gap-1">
+                      <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
+                      <span className="text-[0.6rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
                     </div>
                     <p className="mt-0.5 text-[0.8rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
                   </div>
                 ))}
               </div>
 
-              {/* CTAs */}
-              <div className="space-y-1.5 pt-1">
+              <div className="space-y-1.5 pt-0.5">
                 <Link to="/map" className="block">
-                  <Button variant="cta" className="h-10 w-full rounded-lg text-[0.84rem] font-bold">افتح الدليل الكامل</Button>
+                  <Button variant="cta" className="h-9 w-full rounded-lg text-[0.82rem] font-bold">افتح الدليل الكامل</Button>
                 </Link>
                 {activeUnit.status === "available" && (
                   <Link to="/leasing" className="block">
-                    <Button variant="outline-blue" className="h-10 w-full rounded-lg text-[0.84rem]">
+                    <Button variant="outline-blue" className="h-9 w-full rounded-lg text-[0.8rem]">
                       <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر عن الوحدة
                     </Button>
                   </Link>
