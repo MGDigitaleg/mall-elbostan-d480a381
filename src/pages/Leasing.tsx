@@ -221,10 +221,10 @@ const Leasing = () => {
                   </span>
                 </div>
                 <h2 className="max-w-[22rem] text-[1.3rem] font-extrabold leading-[1.1] light-heading md:text-[1.6rem]">
-                  الفئات اللي بتنجح هنا
+                  الفئات التي تحقق نتائج هنا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  المول متخصص — ده بيخلي كل فئة بتدعم التانية ويزوّد من قيمة التجربة للزائر.
+                  المول متخصص — وهذا يعني أن كل فئة تدعم الأخرى وتُضاعف قيمة تجربة الزائر.
                 </p>
 
                 <div className="mt-6 grid grid-cols-2 gap-2">
