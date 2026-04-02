@@ -404,7 +404,7 @@ const About = () => (
               </p>
           </div>
 
-          <div className="mx-auto mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">
+          <div className="mx-auto mt-8 grid max-w-2xl gap-3 sm:grid-cols-3">
             {[
               { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة المول بكل وحداتها وحالاتها.", active: true },
               { n: "02", icon: Store, label: "دليل المتاجر", desc: "تصفّح المتاجر وفئاتها وتفاصيلها.", active: true },
