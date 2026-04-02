@@ -133,20 +133,20 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="flex items-center gap-3">
                 <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
                 <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase dark-accent">
-                  منذ أكثر من ١٠ سنوات في القاهرة الجديدة
+                  وجهة تقنية راسخة في القاهرة الجديدة
                 </span>
               </div>
 
               <h1 className="max-w-[24rem] text-[2.6rem] leading-[1.04] md:text-[3.6rem] lg:text-[4.2rem] dark-heading">
-                الوجهة التي بناها
+                المكان الذي بناه
                 <br />
-                <span style={{ color: "#CDBB9A" }}>سمعة السوق.</span>
+                <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
               </h1>
 
               <p className="max-w-[30rem] text-[1.02rem] leading-[2] md:text-[1.08rem] dark-body">
-                مول البستان ليس مشروعًا جديدًا يحتاج إثبات — إنه المكان الذي يعرفه
-                كل من اشترى جهازًا أو أصلح شاشة أو جهّز مكتبه في القاهرة الجديدة.
-                اليوم يتجدد — بنفس الثقة، وبأدوات رقمية تخدمك أكثر.
+                مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات التي
+                انتهت بقرار شراء حقيقي. من يعرف سوق الإلكترونيات في القاهرة الجديدة
+                يعرف هذا المكان. اليوم يتوسّع رقميًا — بنفس المصداقية التي بدأ بها.
               </p>
 
               {/* CTA pair */}
