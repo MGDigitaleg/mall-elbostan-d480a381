@@ -129,7 +129,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
   return (
     <>
       {/* ════════════════ 1 · HERO ════════════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+      <section className="relative overflow-hidden bg-[hsl(222_34%_6%)]">
         {/* fine grid */}
         <div
           className="absolute inset-0 opacity-[0.02]"
