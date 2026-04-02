@@ -191,8 +191,8 @@ const Stores = () => {
         <div className="container max-w-[1200px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto mb-10 max-w-[34rem] text-center">
-              <p className="section-kicker">الفئات التقنية</p>
-              <h2 className="section-title">تصنيف دقيق يختصر طريقك لما تبحث عنه.</h2>
+              <p className="section-kicker">التصنيف التقني</p>
+              <h2 className="section-title">فئات دقيقة تختصر المسار لما تبحث عنه.</h2>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
