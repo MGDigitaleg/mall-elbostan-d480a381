@@ -73,7 +73,7 @@ const Leasing = () => {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 70% 50%, hsl(24 85% 50% / 0.04), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[62vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
+          <div className="grid min-h-[52vh] items-center gap-8 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-0">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-5">
               <div className="flex items-center gap-3">
                 <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
