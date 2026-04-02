@@ -9,9 +9,9 @@ import downtownNight from "@/assets/downtown-night.jpg";
 import downtownInterior1 from "@/assets/downtown-interior-1.jpg";
 import downtownInterior2 from "@/assets/downtown-interior-2.jpg";
 import downtownInterior3 from "@/assets/downtown-interior-3.jpg";
-import downtownInterior4 from "@/assets/downtown-interior-4.png";
-import downtownInterior5 from "@/assets/downtown-interior-5.png";
-import downtownInterior6 from "@/assets/downtown-interior-6.png";
+import downtownInterior4 from "@/assets/downtown-interior-4.jpg";
+import downtownInterior5 from "@/assets/downtown-interior-5.jpg";
+import downtownInterior6 from "@/assets/downtown-interior-6.jpg";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
