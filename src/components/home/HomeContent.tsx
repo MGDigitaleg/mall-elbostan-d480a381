@@ -470,7 +470,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
 
             {/* featured stores if available */}
             {featuredStores.length > 0 && (
-              <div className="mt-10 card-layered p-6 md:p-8">
+              <div className="mt-10 card-editorial p-6 md:p-8">
                 <div className="mb-5 flex items-center justify-between">
                   <h3 className="text-lg font-bold text-foreground">متاجر مميزة</h3>
                   <Link to="/stores">
