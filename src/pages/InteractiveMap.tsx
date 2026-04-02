@@ -281,6 +281,7 @@ const InteractiveMap = () => {
           <div className="grid gap-5 lg:grid-cols-[1fr_340px] lg:items-start">
             {/* Map */}
             <motion.div
+              ref={mapRef}
               variants={sectionReveal}
               initial="hidden"
               animate="visible"
@@ -298,7 +299,7 @@ const InteractiveMap = () => {
             {/* Details panel — desktop */}
             {!isMobile && (
               <aside className="lg:sticky lg:top-24">
-                <UnitDetailsCard unit={activeUnit} />
+                <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
               </aside>
             )}
           </div>
