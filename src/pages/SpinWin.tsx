@@ -124,7 +124,7 @@ const SpinWin = () => {
           <div className="card-premium p-8">
             {prize ? (
               <>
-                <h2 className="text-2xl font-bold text-success mb-4">مبروك! لقد فزت</h2>
+                <h2 className="text-2xl font-bold text-success mb-4">مبروك — فزت بمكافأة</h2>
                 <p className="text-xl font-bold text-foreground mb-4">{prize.title_ar}</p>
                 {prize.claim_rules_ar && (
                   <div className="bg-secondary/50 p-4 rounded-lg text-sm text-muted-foreground mt-4 text-right">
