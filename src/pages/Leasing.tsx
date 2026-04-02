@@ -155,7 +155,7 @@ const Leasing = () => {
             </p>
           </motion.div>
 
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: MapPin, title: "موقع محوري", desc: "القاهرة الجديدة — حركة مرور يومية مستهدفة." },
               { icon: Users, title: "جمهور بنيّة شراء", desc: "زوّار يحملون قرار شراء واضح." },
