@@ -99,17 +99,12 @@ const Stores = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative overflow-hidden bg-[hsl(222_44%_7%)]">
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: "linear-gradient(hsl(0 0% 100% / 0.02) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100% / 0.02) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
+      <section className="relative overflow-hidden bg-[hsl(222_44%_5%)]">
+        <div className="absolute inset-0 opacity-[0.018]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.5px, transparent 0)", backgroundSize: "36px 36px" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 60% at 80% 50%, hsl(220 68% 38% / 0.05), transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[70vh] items-center gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-0">
+          <div className="grid min-h-[65vh] items-center gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-0">
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
@@ -117,17 +112,17 @@ const Stores = () => {
               className="space-y-6"
             >
               <div className="flex items-center gap-3">
-                <div className="accent-line bg-primary/40" />
-                <span className="text-[0.76rem] font-semibold tracking-[0.14em] text-white/40 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
+                <div className="h-px w-10 bg-primary/35" />
+                <span className="text-[0.72rem] font-semibold tracking-[0.18em] text-white/35 uppercase" style={{ fontFamily: "var(--font-poppins)" }}>
                   دليل المتاجر التقنية
                 </span>
               </div>
 
-              <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.08] text-white md:text-[2.8rem] lg:text-[3.4rem]">
+              <h1 className="max-w-[26rem] text-[2rem] font-extrabold leading-[1.06] text-white md:text-[2.8rem] lg:text-[3.2rem]">
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
               </h1>
 
-              <p className="max-w-[28rem] text-[1rem] leading-[2] text-white/50 md:text-[1.1rem]">
+              <p className="max-w-[28rem] text-[0.95rem] leading-[2] text-white/38 md:text-[1.05rem]">
                 كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
                 ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
               </p>
@@ -139,9 +134,9 @@ const Stores = () => {
                   { v: `${categories.length}`, l: "فئة تقنية" },
                   { v: "3", l: "أدوار" },
                 ].map((s) => (
-                  <div key={s.l} className="rounded-xl border border-white/8 bg-white/[0.03] px-5 py-3 text-center">
+                  <div key={s.l} className="stat-block-dark px-4 py-3">
                     <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.72rem] text-white/40">{s.l}</p>
+                    <p className="mt-0.5 text-[0.68rem] text-white/32">{s.l}</p>
                   </div>
                 ))}
               </div>
@@ -154,7 +149,7 @@ const Stores = () => {
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 rounded-xl border border-white/15 bg-white/8 px-7 font-semibold text-white backdrop-blur-sm hover:bg-white/14">
+                  <Button size="lg" className="h-12 rounded-xl border border-white/10 bg-white/5 px-7 font-semibold text-white backdrop-blur-sm hover:bg-white/10">
                     <Compass className="ml-2 h-4 w-4" />
                     الخريطة التفاعلية
                   </Button>
@@ -169,14 +164,14 @@ const Stores = () => {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="hidden lg:flex items-center justify-center"
             >
-              <div className="relative w-full max-w-[460px]">
-                <div className="overflow-hidden rounded-2xl ring-1 ring-white/10">
+              <div className="relative w-full max-w-[440px]">
+                <div className="overflow-hidden rounded-2xl ring-1 ring-white/6">
                   <div className="image-shell aspect-[4/5]">
                     <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover" loading="eager" />
                     <div className="image-wash absolute inset-0" />
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-[42%] overflow-hidden rounded-xl ring-1 ring-white/10">
+                <div className="absolute -bottom-4 -right-4 w-[40%] overflow-hidden rounded-xl ring-1 ring-white/8 shadow-[var(--shadow-deep)]">
                   <div className="image-shell aspect-[3/4]">
                     <img src={interiorImage} alt="متاجر المول من الداخل" className="h-full w-full object-cover" loading="lazy" />
                   </div>
@@ -186,6 +181,9 @@ const Stores = () => {
           </div>
         </div>
       </section>
+
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ═══════════ CATEGORIES OVERVIEW ═══════════ */}
       <section className="page-section">
