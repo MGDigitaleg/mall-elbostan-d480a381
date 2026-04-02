@@ -285,9 +285,9 @@ const Contact = () => {
                 <p className="mb-3 text-[0.76rem] font-bold uppercase tracking-wide light-muted">ماذا تتوقع بعد الإرسال</p>
                 <div className="space-y-2">
                   {[
-                    "رسالتك بتوصل مباشرة للفريق المختص حسب نوع الاستفسار",
-                    "الرد المتوقع خلال يوم عمل واحد",
-                    "استفسارات التأجير بتتحول لفريق التأجير تلقائيًا",
+                    "رسالتك تصل مباشرة للفريق المختص حسب نوع الاستفسار.",
+                    "الرد المتوقع خلال يوم عمل واحد.",
+                    "استفسارات التأجير تتحول لفريق التأجير تلقائيًا.",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
