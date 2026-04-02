@@ -45,12 +45,15 @@ import {
   ENTRANCE_MARKER,
 } from "@/lib/mallFloorGeometry";
 
+import type { AtriumConfig } from "./AtriumHubModal";
+
 type Props = {
   floor: MallFloor;
   selectedUnitId: string | null;
   mutedUnitIds: Set<string>;
   onSelectUnit: (unit: MallUnit) => void;
   onAtriumClick?: () => void;
+  atriumConfig?: AtriumConfig;
   highlightedUnitIds?: Set<string>;
   className?: string;
 };
@@ -68,9 +71,11 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#06B6D4",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, highlightedUnitIds, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [atriumHovered, setAtriumHovered] = useState(false);
+  const pulseColor = atriumConfig?.pulseColor ?? "#2563EB";
+  const atriumLabel = atriumConfig?.label ?? "اكتشف المكافآت";
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
@@ -310,7 +315,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             cy={ATRIUM_CENTER.y}
             r="50"
             fill="none"
-            stroke={atriumHovered ? "#2563EB" : "transparent"}
+            stroke={atriumHovered ? pulseColor : "transparent"}
             strokeWidth="2"
             opacity={atriumHovered ? 0.5 : 0}
             style={{ transition: "opacity 0.3s, stroke 0.3s" }}
@@ -321,31 +326,44 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             cy={ATRIUM_CENTER.y}
             r="38"
             fill="none"
-            stroke="#2563EB"
+            stroke={pulseColor}
             strokeWidth="1.5"
             opacity="0.2"
           >
             <animate attributeName="r" values="38;48;38" dur="3s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.2;0.05;0.2" dur="3s" repeatCount="indefinite" />
           </circle>
+          {/* second pulse ring (offset timing) */}
+          <circle
+            cx={ATRIUM_CENTER.x}
+            cy={ATRIUM_CENTER.y}
+            r="32"
+            fill="none"
+            stroke={pulseColor}
+            strokeWidth="1"
+            opacity="0.1"
+          >
+            <animate attributeName="r" values="32;44;32" dur="3s" begin="1.5s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="0.1;0.02;0.1" dur="3s" begin="1.5s" repeatCount="indefinite" />
+          </circle>
           {/* clickable center area */}
           <circle
             cx={ATRIUM_CENTER.x}
             cy={ATRIUM_CENTER.y}
             r="30"
-            fill={atriumHovered ? "rgba(37,99,235,0.08)" : "transparent"}
+            fill={atriumHovered ? `${pulseColor}14` : "transparent"}
             style={{ transition: "fill 0.3s" }}
           />
-          {/* icon placeholder */}
+          {/* label */}
           <text
             x={ATRIUM_CENTER.x}
             y={ATRIUM_CENTER.y + 4}
             textAnchor="middle"
             className="text-[11px] font-bold"
-            fill={atriumHovered ? "#2563EB" : "#7BAEC4"}
+            fill={atriumHovered ? pulseColor : "#7BAEC4"}
             style={{ transition: "fill 0.3s" }}
           >
-            {atriumHovered ? "اكتشف المكافآت" : ""}
+            {atriumHovered ? atriumLabel : ""}
           </text>
         </g>
 

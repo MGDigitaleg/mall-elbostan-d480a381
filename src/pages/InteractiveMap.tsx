@@ -16,6 +16,7 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
+import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -68,12 +69,32 @@ const InteractiveMap = () => {
   const [availableOnly, setAvailableOnly] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
   const [spinModalOpen, setSpinModalOpen] = useState(false);
+  const [hubModalOpen, setHubModalOpen] = useState(false);
   const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
   const [activeRewardCtx, setActiveRewardCtx] = useState<ActiveRewardContext | undefined>();
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
+  const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
+
   const handleAtriumClick = useCallback(() => {
+    setHubModalOpen(true);
+  }, []);
+
+  const handleOpenSpinWheel = useCallback(() => {
     setSpinModalOpen(true);
+  }, []);
+
+  const handleHubFilterCategory = useCallback((cat: MallCategory) => {
+    setCategoryFilter(cat);
+    // Highlight all occupied units in that category
+    const matchingIds = new Set(
+      allMallUnits
+        .filter((u) => u.category === cat && u.status === "occupied")
+        .map((u) => u.id)
+    );
+    setHighlightedUnitIds(matchingIds);
+    scrollToMap();
+    setTimeout(() => setHighlightedUnitIds(new Set()), 12000);
   }, []);
 
   const clearRewardState = useCallback(() => {
@@ -292,6 +313,7 @@ const InteractiveMap = () => {
                 mutedUnitIds={mutedUnitIds}
                 onSelectUnit={setSelectedUnit}
                 onAtriumClick={handleAtriumClick}
+                atriumConfig={atriumConfig}
                 highlightedUnitIds={highlightedUnitIds}
               />
             </motion.div>
@@ -395,6 +417,15 @@ const InteractiveMap = () => {
           </div>
         </DrawerContent>
       </Drawer>
+
+      {/* ── Atrium Hub Modal ── */}
+      <AtriumHubModal
+        open={hubModalOpen}
+        onClose={() => setHubModalOpen(false)}
+        config={atriumConfig}
+        onOpenSpinWheel={handleOpenSpinWheel}
+        onFilterCategory={handleHubFilterCategory}
+      />
 
       {/* ── Atrium Spin Modal ── */}
       <AtriumSpinModal
