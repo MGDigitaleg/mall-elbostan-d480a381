@@ -399,10 +399,9 @@ const About = () => (
             <h2 className="section-title dark-heading">
               نفس الوجهة التي تعرفها — بأدوات رقمية تخدمك أبعد.
             </h2>
-            <p className="mx-auto mt-5 text-[1.02rem] leading-8 dark-body">
-              المول الذي تعرفه أصبح متاحًا رقميًا. الدليل التفاعلي ودليل المتاجر
-              يعملان الآن — والمرحلة القادمة تتيح الوصول للمنتجات مباشرة.
-            </p>
+              <p className="mx-auto mt-5 text-[1.02rem] leading-8 dark-body">
+                الدليل التفاعلي ودليل المتاجر يعملان الآن — والسوق الرقمي قادم.
+              </p>
           </div>
 
           <div className="mx-auto mt-12 grid max-w-2xl gap-4 sm:grid-cols-3">
