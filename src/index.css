@@ -10,24 +10,24 @@
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
     --font-poppins: 'Inter', sans-serif;
 
-    /* ─── Refined heritage palette ─── */
-    --background: 38 14% 96%;
+    /* ─── Premium heritage palette ─── */
+    --background: 40 12% 97%;
     --foreground: 222 42% 10%;
 
-    --card: 40 20% 99%;
+    --card: 42 18% 99%;
     --card-foreground: 222 42% 10%;
 
-    --popover: 40 20% 99%;
+    --popover: 42 18% 99%;
     --popover-foreground: 222 42% 10%;
 
-    --primary: 220 68% 40%;
+    --primary: 220 68% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 38 14% 93%;
+    --secondary: 38 12% 93%;
     --secondary-foreground: 222 42% 10%;
 
-    --muted: 36 10% 91%;
-    --muted-foreground: 220 8% 46%;
+    --muted: 36 10% 90%;
+    --muted-foreground: 220 8% 44%;
 
     --accent: 192 62% 36%;
     --accent-foreground: 0 0% 100%;
@@ -41,43 +41,45 @@
     --success: 160 60% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 34 12% 86%;
-    --input: 34 12% 86%;
-    --ring: 220 68% 40%;
+    --border: 36 10% 84%;
+    --input: 36 10% 84%;
+    --ring: 220 68% 38%;
 
     --radius: 0.625rem;
 
     /* Heritage navy */
     --navy: 222 42% 10%;
-    --navy-foreground: 38 14% 96%;
+    --navy-foreground: 40 12% 96%;
 
-    --neutral-light: 38 14% 96%;
+    --neutral-light: 40 12% 97%;
 
-    /* ─── Refined gradients ─── */
-    --gradient-blue: linear-gradient(135deg, hsl(220 68% 40%), hsl(220 52% 50%));
-    --gradient-hero: linear-gradient(168deg, hsl(222 44% 8%), hsl(222 36% 13%));
-    --gradient-card: linear-gradient(180deg, hsl(40 20% 99%), hsl(38 16% 97%));
+    /* ─── Premium gradients ─── */
+    --gradient-blue: linear-gradient(135deg, hsl(220 68% 38%), hsl(222 52% 48%));
+    --gradient-hero: linear-gradient(168deg, hsl(222 44% 6%), hsl(222 38% 11%));
+    --gradient-card: linear-gradient(180deg, hsl(42 18% 99%), hsl(38 14% 96%));
     --gradient-section: linear-gradient(180deg, hsl(38 14% 96%), hsl(36 12% 93%));
     --gradient-warm: linear-gradient(180deg, hsl(36 14% 94%), hsl(38 14% 96%));
+    --gradient-ivory: linear-gradient(180deg, hsl(40 16% 97%), hsl(38 12% 94%));
 
     /* ─── Architectural shadows ─── */
-    --shadow-blue: 0 8px 28px hsl(220 68% 40% / 0.10);
-    --shadow-card: 0 1px 2px hsl(222 42% 10% / 0.03), 0 4px 16px hsl(222 42% 10% / 0.025);
-    --shadow-elevated: 0 2px 8px hsl(222 42% 10% / 0.04), 0 12px 36px hsl(222 42% 10% / 0.045);
-    --shadow-soft: 0 1px 2px hsl(222 42% 10% / 0.02);
-    --shadow-premium: 0 1px 2px hsl(222 42% 10% / 0.03), 0 8px 24px hsl(222 42% 10% / 0.04);
+    --shadow-blue: 0 8px 28px hsl(220 68% 38% / 0.10);
+    --shadow-card: 0 1px 2px hsl(222 42% 10% / 0.025), 0 4px 14px hsl(222 42% 10% / 0.02);
+    --shadow-elevated: 0 2px 6px hsl(222 42% 10% / 0.035), 0 12px 36px hsl(222 42% 10% / 0.04);
+    --shadow-soft: 0 1px 2px hsl(222 42% 10% / 0.015);
+    --shadow-premium: 0 1px 2px hsl(222 42% 10% / 0.025), 0 8px 24px hsl(222 42% 10% / 0.035);
     --shadow-inset: inset 0 1px 2px hsl(222 42% 10% / 0.04);
     --shadow-hero-card: 0 2px 4px hsl(222 42% 10% / 0.06), 0 16px 48px hsl(222 42% 10% / 0.08);
+    --shadow-deep: 0 4px 6px hsl(222 42% 10% / 0.04), 0 20px 60px hsl(222 42% 10% / 0.06);
 
     /* ─── Sidebar (admin) ─── */
     --sidebar-background: 222 42% 10%;
-    --sidebar-foreground: 38 14% 96%;
-    --sidebar-primary: 220 68% 40%;
+    --sidebar-foreground: 40 12% 96%;
+    --sidebar-primary: 220 68% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 222 28% 16%;
-    --sidebar-accent-foreground: 38 14% 96%;
+    --sidebar-accent-foreground: 40 12% 96%;
     --sidebar-border: 222 20% 20%;
-    --sidebar-ring: 220 68% 40%;
+    --sidebar-ring: 220 68% 38%;
   }
 }
 
@@ -103,24 +105,24 @@
   h1 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.06;
+    letter-spacing: -0.03em;
+    line-height: 1.04;
     text-wrap: balance;
   }
 
   h2 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
-    letter-spacing: -0.018em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
     text-wrap: balance;
   }
 
   h3 {
     font-family: var(--font-arabic-display);
     font-weight: 600;
-    letter-spacing: -0.012em;
-    line-height: 1.18;
+    letter-spacing: -0.015em;
+    line-height: 1.16;
     text-wrap: balance;
   }
 
@@ -137,7 +139,7 @@
 
   /* Refined selection */
   ::selection {
-    background: hsl(220 68% 40% / 0.12);
+    background: hsl(220 68% 38% / 0.12);
     color: hsl(222 42% 10%);
   }
 }
@@ -165,7 +167,7 @@
   }
 
   .glass-warm {
-    background: hsl(40 20% 99% / 0.75);
+    background: hsl(42 18% 99% / 0.75);
     backdrop-filter: blur(24px) saturate(1.15);
     border: 1px solid hsl(var(--border) / 0.5);
   }
@@ -201,7 +203,7 @@
 
   .card-architectural {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.6);
+    border: 1px solid hsl(var(--border) / 0.5);
     border-radius: calc(var(--radius) * 0.6);
     box-shadow: var(--shadow-soft);
     position: relative;
@@ -219,23 +221,50 @@
   }
 
   .card-layered {
-    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(36 14% 96%) 100%);
-    border: 1px solid hsl(var(--border) / 0.5);
+    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(38 12% 96%) 100%);
+    border: 1px solid hsl(var(--border) / 0.45);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.15);
+    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.1);
+  }
+
+  .card-editorial {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.35);
+    border-radius: calc(var(--radius) * 0.5);
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-editorial::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    height: 2px;
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.25), hsl(var(--primary) / 0.05));
   }
 
   .soft-card {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.7);
+    border: 1px solid hsl(var(--border) / 0.6);
     border-radius: calc(var(--radius) * 0.8);
     box-shadow: var(--shadow-soft);
+  }
+
+  /* ── Heritage surface with depth ── */
+  .heritage-surface {
+    background: hsl(222 44% 8%);
+    border: 1px solid hsl(220 16% 18%);
+    border-radius: calc(var(--radius) * 0.7);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.03);
   }
 
   /* ── Editorial elements ── */
   .editorial-panel {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.6);
+    border: 1px solid hsl(var(--border) / 0.5);
     box-shadow: var(--shadow-card);
     border-radius: calc(var(--radius) * 0.5);
   }
@@ -271,7 +300,8 @@
 
   /* ── Section background modifiers ── */
   .section-soft { background: hsl(var(--secondary)); }
-  .section-warm { background: hsl(36 14% 94%); }
+  .section-warm { background: hsl(38 12% 94%); }
+  .section-ivory { background: var(--gradient-ivory); }
 
   /* ── Heritage dark sections ── */
   .heritage-section {
@@ -279,12 +309,12 @@
     color: hsl(var(--navy-foreground));
   }
 
-  .heritage-section .section-kicker { @apply text-primary/60; }
+  .heritage-section .section-kicker { @apply text-primary/55; }
   .heritage-section .section-title { color: hsl(var(--navy-foreground)); }
 
   .heritage-card {
     background: hsl(222 36% 13%);
-    border: 1px solid hsl(220 16% 22%);
+    border: 1px solid hsl(220 16% 20%);
     border-radius: calc(var(--radius) * 0.8);
   }
 
@@ -294,21 +324,27 @@
     color: hsl(var(--navy-foreground));
   }
 
+  /* ── Architectural band — a narrow colored strip ── */
+  .band-primary {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.35), transparent);
+  }
+
   /* ── Chips & Labels ── */
   .mini-chip {
-    @apply inline-flex items-center rounded-full border border-border/70 bg-card px-3.5 py-1.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
+    @apply inline-flex items-center rounded-full border border-border/60 bg-card px-3.5 py-1.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
   }
 
   .icon-shell {
-    @apply flex items-center justify-center rounded-lg border border-border/60 bg-card text-primary shadow-[var(--shadow-soft)];
+    @apply flex items-center justify-center rounded-lg border border-border/50 bg-card text-primary shadow-[var(--shadow-soft)];
   }
 
   .eyebrow-chip {
-    @apply inline-flex items-center gap-2 rounded-md border border-primary/15 bg-primary/4 px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
+    @apply inline-flex items-center gap-2 rounded-md border border-primary/12 bg-primary/4 px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
   }
 
   .section-kicker {
-    @apply mb-3 text-[0.72rem] font-semibold tracking-[0.2em] text-primary/70 uppercase;
+    @apply mb-3 text-[0.7rem] font-semibold tracking-[0.22em] text-primary/65 uppercase;
     font-family: var(--font-poppins);
   }
 
@@ -317,7 +353,7 @@
   }
 
   /* ── Spacing system ── */
-  .page-section { @apply py-16 md:py-24 lg:py-32; }
+  .page-section { @apply py-16 md:py-24 lg:py-28; }
 
   .page-shell {
     @apply px-5 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10;
@@ -327,11 +363,11 @@
   .image-shell {
     position: relative;
     overflow: hidden;
-    border-radius: calc(var(--radius) * 0.6);
+    border-radius: calc(var(--radius) * 0.5);
   }
 
   .image-wash {
-    background: linear-gradient(180deg, transparent 50%, hsl(var(--foreground) / 0.4));
+    background: linear-gradient(180deg, transparent 50%, hsl(var(--foreground) / 0.45));
   }
 
   .image-architectural {
@@ -344,9 +380,18 @@
     content: "";
     position: absolute;
     inset: 0;
-    border: 1px solid hsl(var(--foreground) / 0.05);
+    border: 1px solid hsl(var(--foreground) / 0.04);
     border-radius: inherit;
     pointer-events: none;
+  }
+
+  /* ── Stat block ── */
+  .stat-block {
+    @apply rounded-lg border border-border/50 bg-card px-4 py-4 text-center shadow-[var(--shadow-soft)];
+  }
+
+  .stat-block-dark {
+    @apply rounded-lg border border-white/6 bg-white/[0.025] px-4 py-4 text-center;
   }
 
   /* ── Divider ── */
@@ -366,4 +411,13 @@
   /* ── Scrollbar refinement ── */
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ── Map premium frame ── */
+  .map-frame {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.6);
+    border-radius: calc(var(--radius) * 1.2);
+    box-shadow: var(--shadow-premium), inset 0 1px 0 hsl(0 0% 100% / 0.4);
+    overflow: hidden;
+  }
 }
