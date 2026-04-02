@@ -581,7 +581,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           8 · DIGITAL EXTENSION — the future layer
           ════════════════════════════════════════════════════════════ */}
-      <section className="heritage-deep relative overflow-hidden py-10 md:py-14">
+      <section className="heritage-deep relative overflow-hidden py-8 md:py-10">
         <div className="relative container max-w-4xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[30rem] text-center">
