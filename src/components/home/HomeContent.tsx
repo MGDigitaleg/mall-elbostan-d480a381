@@ -724,8 +724,8 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
         </div>
       </section>
 
-      {/* ── divider ── */}
-      <div className="section-divider container" />
+      {/* ── architectural band ── */}
+      <div className="band-primary" />
 
       {/* ════════════════ 8 · FUTURE VISION ════════════════ */}
       <section className="section-warm page-section">
