@@ -34,6 +34,7 @@ import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
+import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
