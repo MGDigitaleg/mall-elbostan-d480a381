@@ -391,7 +391,7 @@ const InteractiveMap = () => {
             <DrawerTitle>{activeUnit ? `وحدة ${activeUnit.code}` : "تفاصيل الوحدة"}</DrawerTitle>
           </DrawerHeader>
           <div className="overflow-y-auto p-4">
-            {activeUnit && <UnitDetailsCard unit={activeUnit} />}
+            {activeUnit && <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />}
           </div>
         </DrawerContent>
       </Drawer>
@@ -401,6 +401,8 @@ const InteractiveMap = () => {
         open={spinModalOpen}
         onClose={() => setSpinModalOpen(false)}
         onWin={handleSpinWin}
+        onViewOnMap={handleViewOnMap}
+        onExploreCategory={handleExploreCategory}
       />
     </MainLayout>
   );
