@@ -700,18 +700,18 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
               <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
                 {/* text */}
                 <div className="space-y-5 p-7 md:p-10">
-                  <p className="section-kicker">المكافآت والتجربة</p>
+                  <p className="section-kicker">حملة الافتتاح</p>
                   <h2 className="section-title max-w-[26rem]">
-                    افتتاح يستحق المشاركة.
+                    افتتاح يُكافئ الحضور — لا مجرد احتفال.
                   </h2>
                   <p className="text-base leading-8 text-muted-foreground md:text-lg">
-                    حملة أدر واربح مرتبطة بمتاجر حقيقية ومكافآت فعلية — ليست مجرد ترويج عابر بل
-                    جزء من تجربة الافتتاح الكبير لمول البستان.
+                    حملة أدر واربح مرتبطة بمتاجر حقيقية ومكافآت محددة — جزء أصيل من تجربة
+                    الافتتاح الكبير، وليست عرضًا تسويقيًا عابرًا.
                   </p>
                   <div className="grid gap-3 sm:grid-cols-3">
                     {[
-                      { step: "01", title: "استكشف", desc: "ابدأ بالخريطة التفاعلية." },
-                      { step: "02", title: "شارك", desc: "جرّب أدر واربح واحفظ نتيجتك." },
+                      { step: "01", title: "استكشف", desc: "ابدأ من الدليل التفاعلي." },
+                      { step: "02", title: "شارك", desc: "أدر العجلة واحفظ نتيجتك." },
                       { step: "03", title: "احضر", desc: "استلم مكافأتك يوم الافتتاح." },
                     ].map((s) => (
                       <div key={s.step} className="rounded-xl border border-border bg-secondary/40 p-4">
