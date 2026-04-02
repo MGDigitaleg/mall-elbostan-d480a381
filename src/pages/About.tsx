@@ -253,9 +253,9 @@ const About = () => (
     <section className="page-section" style={{ background: "#F5F2EC" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
-            <div className="space-y-6">
-              <div className="chapter-shell pt-7">
+           <div className="grid items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+            <div className="space-y-4">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">تجربة الاستكشاف</p>
                 <h2 className="section-title max-w-[24rem]">
                   زيارة مُنظّمة تبدأ قبل الوصول.
