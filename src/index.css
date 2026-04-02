@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,67 +10,73 @@
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
     --font-poppins: 'Inter', sans-serif;
 
-    --background: 220 20% 97%;
-    --foreground: 222 47% 11%;
+    /* ─── Warm heritage palette ─── */
+    --background: 40 18% 97%;
+    --foreground: 222 38% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 40 20% 99%;
+    --card-foreground: 222 38% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 40 20% 99%;
+    --popover-foreground: 222 38% 12%;
 
-    --primary: 221 83% 53%;
+    --primary: 218 72% 42%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 38 16% 94%;
+    --secondary-foreground: 222 38% 12%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 38 12% 93%;
+    --muted-foreground: 220 8% 48%;
 
-    --accent: 192 91% 36%;
+    --accent: 192 62% 38%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --orange: 24 95% 53%;
+    --orange: 24 88% 50%;
     --orange-foreground: 0 0% 100%;
 
-    --success: 160 84% 39%;
+    --success: 160 60% 38%;
     --success-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
+    --border: 36 14% 88%;
+    --input: 36 14% 88%;
+    --ring: 218 72% 42%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
-    /* Heritage navy for premium sections */
-    --navy: 222 47% 11%;
-    --navy-foreground: 220 20% 97%;
+    /* Heritage navy */
+    --navy: 222 38% 12%;
+    --navy-foreground: 40 18% 96%;
 
-    --neutral-light: 220 20% 97%;
+    --neutral-light: 40 18% 97%;
 
-    --gradient-blue: linear-gradient(135deg, hsl(221 83% 53%), hsl(192 91% 36%));
-    --gradient-hero: linear-gradient(168deg, hsl(222 47% 11%), hsl(222 40% 16%));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 100%));
-    --gradient-section: linear-gradient(180deg, hsl(220 20% 97%), hsl(220 18% 95%));
+    /* ─── Refined gradients ─── */
+    --gradient-blue: linear-gradient(135deg, hsl(218 72% 42%), hsl(218 55% 52%));
+    --gradient-hero: linear-gradient(168deg, hsl(222 38% 10%), hsl(222 32% 15%));
+    --gradient-card: linear-gradient(180deg, hsl(40 20% 99%), hsl(38 16% 97%));
+    --gradient-section: linear-gradient(180deg, hsl(40 18% 97%), hsl(38 14% 95%));
+    --gradient-warm: linear-gradient(180deg, hsl(38 16% 95%), hsl(40 18% 97%));
 
-    --shadow-blue: 0 12px 36px hsl(221 83% 53% / 0.15);
-    --shadow-card: 0 1px 3px hsl(222 47% 11% / 0.04), 0 8px 24px hsl(222 47% 11% / 0.03);
-    --shadow-elevated: 0 4px 12px hsl(222 47% 11% / 0.06), 0 20px 48px hsl(222 47% 11% / 0.05);
-    --shadow-soft: 0 1px 2px hsl(222 47% 11% / 0.03);
-    --shadow-premium: 0 1px 3px hsl(222 47% 11% / 0.04), 0 12px 32px hsl(222 47% 11% / 0.05);
+    /* ─── Architectural shadows ─── */
+    --shadow-blue: 0 8px 28px hsl(218 72% 42% / 0.10);
+    --shadow-card: 0 1px 2px hsl(222 38% 12% / 0.03), 0 4px 16px hsl(222 38% 12% / 0.025);
+    --shadow-elevated: 0 2px 8px hsl(222 38% 12% / 0.04), 0 12px 36px hsl(222 38% 12% / 0.045);
+    --shadow-soft: 0 1px 2px hsl(222 38% 12% / 0.02);
+    --shadow-premium: 0 1px 2px hsl(222 38% 12% / 0.03), 0 8px 24px hsl(222 38% 12% / 0.04);
+    --shadow-inset: inset 0 1px 2px hsl(222 38% 12% / 0.04);
 
-    --sidebar-background: 222 47% 11%;
-    --sidebar-foreground: 220 20% 97%;
-    --sidebar-primary: 221 83% 53%;
+    /* ─── Sidebar (admin) ─── */
+    --sidebar-background: 222 38% 12%;
+    --sidebar-foreground: 40 18% 96%;
+    --sidebar-primary: 218 72% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 35% 18%;
-    --sidebar-accent-foreground: 220 20% 97%;
-    --sidebar-border: 222 25% 22%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-accent: 222 28% 18%;
+    --sidebar-accent-foreground: 40 18% 96%;
+    --sidebar-border: 222 20% 22%;
+    --sidebar-ring: 218 72% 42%;
   }
 }
 
@@ -81,29 +87,62 @@
 
   html {
     direction: rtl;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
   }
 
   body {
     @apply bg-background text-foreground font-cairo antialiased;
     text-rendering: optimizeLegibility;
-    line-height: 1.75;
+    line-height: 1.8;
+    font-feature-settings: "ss01" 1, "liga" 1;
   }
 
-  h1, h2, h3, h4 {
+  /* ── Editorial heading system ── */
+  h1 {
+    font-family: var(--font-arabic-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  h2 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
     letter-spacing: -0.015em;
     line-height: 1.12;
     text-wrap: balance;
-    font-feature-settings: "ss01" 1, "liga" 1;
+  }
+
+  h3 {
+    font-family: var(--font-arabic-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  h4 {
+    font-family: var(--font-cairo);
+    font-weight: 700;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
   }
 
   p {
     max-width: 48ch;
   }
+
+  /* Refined selection */
+  ::selection {
+    background: hsl(218 72% 42% / 0.12);
+    color: hsl(222 38% 12%);
+  }
 }
 
 @layer utilities {
+  /* ── Gradients ── */
   .text-gradient-blue {
     background: var(--gradient-blue);
     -webkit-background-clip: text;
@@ -119,34 +158,123 @@
     background: var(--gradient-hero);
   }
 
+  .bg-gradient-warm {
+    background: var(--gradient-warm);
+  }
+
   .glow-blue {
     box-shadow: var(--shadow-blue);
   }
 
+  /* ── Glass & Surface systems ── */
   .glass {
-    background: hsl(var(--background) / 0.82);
-    backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--border) / 0.9);
+    background: hsl(var(--background) / 0.85);
+    backdrop-filter: blur(20px) saturate(1.2);
+    border: 1px solid hsl(var(--border) / 0.6);
     box-shadow: var(--shadow-soft);
   }
 
+  .glass-warm {
+    background: hsl(40 20% 99% / 0.75);
+    backdrop-filter: blur(24px) saturate(1.15);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  .surface-panel {
+    background: hsl(var(--card) / 0.96);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  /* ── Section shells — architectural framing ── */
   .section-shell {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    border-radius: calc(var(--radius) * 1.6);
+    border: 1px solid hsl(var(--border) / 0.7);
+    border-radius: calc(var(--radius) * 1.4);
     box-shadow: var(--shadow-card);
   }
 
   .brand-shell {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
+    border: 1px solid hsl(var(--border) / 0.8);
     box-shadow: var(--shadow-premium);
+  }
+
+  /* ── Card variants — less uniform, more purposeful ── */
+  .card-premium {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.8);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-architectural {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.6);
+    border-radius: calc(var(--radius) * 0.6);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+
+  .card-architectural::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: hsl(var(--primary) / 0.15);
+    border-radius: 2px 0 0 2px;
+  }
+
+  .card-layered {
+    background: linear-gradient(
+      180deg,
+      hsl(var(--card)) 0%,
+      hsl(38 16% 97%) 100%
+    );
+    border: 1px solid hsl(var(--border) / 0.5);
+    border-radius: var(--radius);
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 1px hsl(var(--border) / 0.15);
+  }
+
+  .soft-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.7);
+    border-radius: calc(var(--radius) * 0.8);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ── Editorial elements ── */
+  .editorial-panel {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: var(--shadow-card);
+    border-radius: calc(var(--radius) * 0.5);
+  }
+
+  .chapter-shell {
+    position: relative;
+  }
+
+  .chapter-shell::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    width: 2.5rem;
+    height: 2px;
+    background: hsl(var(--primary) / 0.35);
+    border-radius: 1px;
   }
 
   .brand-mark-frame {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.9);
-    border-radius: calc(var(--radius) * 0.95);
+    border: 1px solid hsl(var(--border) / 0.8);
+    border-radius: calc(var(--radius) * 0.7);
     padding: 0.06rem 0.16rem;
     box-shadow: var(--shadow-soft);
     display: inline-flex;
@@ -160,88 +288,23 @@
     isolation: isolate;
   }
 
-  .chapter-shell {
-    position: relative;
-  }
-
-  .chapter-shell::before {
-    content: "";
-    position: absolute;
-    inset-inline-start: 0;
-    top: 0;
-    width: 3.5rem;
-    height: 2px;
-    background: hsl(var(--primary));
-    border-radius: 1px;
-  }
-
-  .card-premium {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-card);
-  }
-
-  .surface-panel {
-    background: hsl(var(--card) / 0.95);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card);
-  }
-
+  /* ── Section background modifiers ── */
   .section-soft {
     background: hsl(var(--secondary));
   }
 
-  .soft-card {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    border-radius: calc(var(--radius) * 1.1);
-    box-shadow: var(--shadow-soft);
+  .section-warm {
+    background: hsl(38 16% 95%);
   }
 
-  .editorial-panel {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card);
-  }
-
-  .mini-chip {
-    @apply inline-flex items-center rounded-full border border-border bg-card px-3.5 py-1.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
-  }
-
-  .icon-shell {
-    @apply flex items-center justify-center rounded-xl border border-border bg-card text-primary shadow-[var(--shadow-soft)];
-  }
-
-  .eyebrow-chip {
-    @apply inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary;
-  }
-
-  .section-kicker {
-    @apply mb-3 text-sm font-semibold tracking-[0.14em] text-primary uppercase;
-  }
-
-  .section-title {
-    @apply text-3xl font-bold leading-[1.1] text-foreground md:text-[2.75rem] lg:text-[3.25rem];
-  }
-
-  .page-section {
-    @apply py-12 md:py-20 lg:py-24;
-  }
-
-  .page-shell {
-    @apply px-5 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10;
-  }
-
-  /* Dark heritage sections */
+  /* ── Heritage dark sections ── */
   .heritage-section {
     background: hsl(var(--navy));
     color: hsl(var(--navy-foreground));
   }
 
   .heritage-section .section-kicker {
-    @apply text-primary/70;
+    @apply text-primary/60;
   }
 
   .heritage-section .section-title {
@@ -249,17 +312,81 @@
   }
 
   .heritage-card {
-    background: hsl(222 40% 16%);
-    border: 1px solid hsl(220 20% 25%);
-    border-radius: calc(var(--radius) * 1.3);
+    background: hsl(222 32% 15%);
+    border: 1px solid hsl(220 16% 24%);
+    border-radius: calc(var(--radius) * 0.8);
   }
 
+  /* ── Chips & Labels ── */
+  .mini-chip {
+    @apply inline-flex items-center rounded-full border border-border/70 bg-card px-3.5 py-1.5 text-sm font-semibold text-foreground shadow-[var(--shadow-soft)];
+  }
+
+  .icon-shell {
+    @apply flex items-center justify-center rounded-lg border border-border/60 bg-card text-primary shadow-[var(--shadow-soft)];
+  }
+
+  .eyebrow-chip {
+    @apply inline-flex items-center gap-2 rounded-md border border-primary/15 bg-primary/4 px-3.5 py-1.5 text-[0.78rem] font-semibold text-primary;
+  }
+
+  .section-kicker {
+    @apply mb-3 text-[0.72rem] font-semibold tracking-[0.18em] text-primary/70 uppercase;
+    font-family: var(--font-poppins);
+  }
+
+  .section-title {
+    @apply text-[1.75rem] font-bold leading-[1.08] text-foreground md:text-[2.5rem] lg:text-[3rem];
+  }
+
+  /* ── Spacing system ── */
+  .page-section {
+    @apply py-14 md:py-20 lg:py-28;
+  }
+
+  .page-shell {
+    @apply px-5 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10;
+  }
+
+  /* ── Image treatment ── */
   .image-shell {
     position: relative;
     overflow: hidden;
+    border-radius: calc(var(--radius) * 0.6);
   }
 
   .image-wash {
-    background: linear-gradient(180deg, transparent 40%, hsl(var(--foreground) / 0.5));
+    background: linear-gradient(180deg, transparent 50%, hsl(var(--foreground) / 0.4));
   }
+
+  .image-architectural {
+    position: relative;
+    overflow: hidden;
+    border-radius: calc(var(--radius) * 0.4);
+  }
+
+  .image-architectural::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid hsl(var(--foreground) / 0.05);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* ── Divider ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--border)) 20%,
+      hsl(var(--border)) 80%,
+      transparent 100%
+    );
+  }
+
+  /* ── Scrollbar refinement ── */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }
