@@ -331,7 +331,85 @@ const InteractiveMap = () => {
         </div>
       </section>
 
-      {/* ═══════════ CTA STRIP ═══════════ */}
+      {/* ═══════════ COMMERCIAL OPPORTUNITY ═══════════ */}
+      <section className="py-6 md:py-8" style={{ background: "#F5F2EC" }}>
+        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
+          <div className="grid items-start gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
+            <div className="space-y-4">
+              <div>
+                <p className="font-poppins text-[0.52rem] font-bold uppercase tracking-[0.25em]" style={{ color: "#2563EB" }}>الفرصة التجارية</p>
+                <h2 className="mt-1 text-[1rem] font-bold leading-tight md:text-[1.15rem]" style={{ color: "#0F172A" }}>وحدتك في موقع مُثبت.</h2>
+              </div>
+              <p className="text-[0.84rem] leading-[1.7] max-w-[26rem]" style={{ color: "#64748B" }}>
+                وحدات متعددة المساحات — في مكان يعرفه السوق ويقصده.
+              </p>
+
+              <div className="grid grid-cols-3 gap-2">
+                {mallFloors.map((f) => {
+                  const avail = f.units.filter((u) => u.status === "available").length;
+                  return (
+                    <div key={f.id} className="rounded-lg border border-border bg-card px-3 py-3 text-center">
+                      <p className="font-poppins text-[1.15rem] font-extrabold" style={{ color: "#0F172A" }}>{avail}</p>
+                      <p className="mt-0.5 text-[0.64rem] font-semibold" style={{ color: "#64748B" }}>{f.label}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { icon: MapPin, label: "موقع مقصود" },
+                  { icon: Users, label: "جمهور بنيّة شراء" },
+                  { icon: TrendingUp, label: "طلب متنامٍ" },
+                  { icon: Layers, label: "تصنيف دقيق" },
+                ].map((p) => (
+                  <div key={p.label} className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+                    <p.icon className="h-3.5 w-3.5 text-primary" />
+                    <span className="text-[0.78rem] font-bold" style={{ color: "#0F172A" }}>{p.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2.5 pt-1">
+                <Link to="/leasing"><Button variant="orange" className="h-10 rounded-lg px-5 font-bold text-[0.82rem]">استفسار التأجير</Button></Link>
+                <Link to="/stores"><Button variant="outline-blue" className="h-10 rounded-lg px-5 text-[0.82rem]">تصفّح المتاجر</Button></Link>
+              </div>
+            </div>
+
+            {/* Featured available units */}
+            <div className="space-y-2.5">
+              <p className="text-[0.72rem] font-bold tracking-[0.14em] uppercase" style={{ color: "#64748B" }}>وحدات مميزة</p>
+              {availableMallUnits.slice(0, 3).map((unit) => (
+                <button
+                  key={unit.id}
+                  onClick={() => { setSelectedFloor(unit.floor); setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
+                  className="group flex w-full flex-col rounded-lg border border-border bg-card p-4 text-right transition-all duration-200 hover:border-[#E8740E]/25 hover:shadow-sm"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-[0.9rem] font-bold" style={{ color: "#0F172A" }}>وحدة {unit.code}</p>
+                      <p className="mt-0.5 text-[0.78rem]" style={{ color: "#64748B" }}>{unit.category ?? ""}</p>
+                    </div>
+                    <span className="rounded-md border px-2 py-0.5 text-[0.66rem] font-bold" style={{ borderColor: "#E8740E40", background: "#FEF3E2", color: "#B85C08" }}>متاحة</span>
+                  </div>
+                  <div className="mt-2.5 grid grid-cols-2 gap-2">
+                    <div className="rounded-md bg-secondary px-3 py-2">
+                      <p className="text-[0.64rem]" style={{ color: "#64748B" }}>الدور</p>
+                      <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{floorLabelsAr[unit.floor]}</p>
+                    </div>
+                    <div className="rounded-md bg-secondary px-3 py-2">
+                      <p className="text-[0.64rem]" style={{ color: "#64748B" }}>المساحة</p>
+                      <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{unit.area} م²</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       <section className="py-6 md:py-7" style={{ background: "#071326" }}>
         <div className="mx-auto max-w-[640px] px-5 text-center">
           <p className="font-poppins text-[0.52rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>Commercial Leasing</p>
