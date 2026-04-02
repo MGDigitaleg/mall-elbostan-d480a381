@@ -302,6 +302,13 @@ const InteractiveMap = () => {
           </div>
         </DrawerContent>
       </Drawer>
+
+      {/* ── Atrium Spin Modal ── */}
+      <AtriumSpinModal
+        open={spinModalOpen}
+        onClose={() => setSpinModalOpen(false)}
+        onWin={handleSpinWin}
+      />
     </MainLayout>
   );
 };
