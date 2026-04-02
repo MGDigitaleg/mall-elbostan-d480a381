@@ -48,11 +48,11 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       {/* Header — strong visual hierarchy */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] light-muted">رقم الوحدة</p>
-          <p className="mt-1 text-[1.4rem] font-extrabold light-heading">{unit.code}</p>
+          <p className="text-[1.5rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
+          <p className="mt-0.5 text-[0.76rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
         </div>
         <span
-          className="flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-[0.74rem] font-bold"
+          className="flex items-center gap-1.5 shrink-0 rounded-md px-2.5 py-1.5 text-[0.72rem] font-bold"
           style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
         >
           <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
