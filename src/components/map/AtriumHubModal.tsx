@@ -13,32 +13,31 @@ import { categoryLabelsAr } from "@/lib/mallFloorGeometry";
 /* ─────────────────────── Types ─────────────────────── */
 
 export type AtriumMode =
-  | "spin"       // spin & win
-  | "offers"     // today's deals
-  | "featured"   // featured stores
-  | "events"     // upcoming events
-  | "categories" // category discovery
-  | "campaign";  // seasonal / custom campaign
+  | "spin"
+  | "offers"
+  | "featured"
+  | "events"
+  | "categories"
+  | "campaign";
 
 export type AtriumConfig = {
   mode: AtriumMode;
-  label: string;         // shown on hover in SVG
-  pulseColor?: string;   // ring color override
+  label: string;
+  pulseColor?: string;
 };
 
-const MODE_META: Record<AtriumMode, { icon: typeof Gift; label: string; color: string }> = {
-  spin:       { icon: Gift,     label: "أدر واربح",           color: "hsl(221 83% 53%)" },
-  offers:     { icon: Tag,      label: "عروض اليوم",          color: "hsl(25 95% 53%)" },
-  featured:   { icon: Store,    label: "متاجر مميّزة",        color: "hsl(192 91% 36%)" },
-  events:     { icon: Calendar, label: "فعاليات قادمة",       color: "hsl(262 83% 58%)" },
-  categories: { icon: Layers,   label: "اكتشف الفئات",       color: "hsl(192 91% 42%)" },
-  campaign:   { icon: Compass,  label: "حملة الافتتاح",      color: "hsl(221 83% 48%)" },
+const MODE_META: Record<AtriumMode, { icon: typeof Gift; label: string }> = {
+  spin:       { icon: Gift,     label: "المكافآت" },
+  offers:     { icon: Tag,      label: "العروض" },
+  featured:   { icon: Store,    label: "متاجر مميّزة" },
+  events:     { icon: Calendar, label: "الفعاليات" },
+  categories: { icon: Layers,   label: "الفئات" },
+  campaign:   { icon: Compass,  label: "الحملة" },
 };
 
-/* Default config — rotates through modes or sticks to a primary */
 export const DEFAULT_ATRIUM_CONFIG: AtriumConfig = {
   mode: "spin",
-  label: "اكتشف المكافآت",
+  label: "مركز التفاعل",
 };
 
 /* ─────────────────────── Hub Modal ─────────────────────── */
@@ -54,7 +53,6 @@ type Props = {
 export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilterCategory }: Props) {
   const [activeTab, setActiveTab] = useState<AtriumMode>(config.mode);
 
-  // Fetch live data for each tab
   const { data: deals } = useQuery({
     queryKey: ["hub-deals"],
     queryFn: async () => {
@@ -98,7 +96,6 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
   if (!open) return null;
 
   const tabs: AtriumMode[] = ["spin", "offers", "featured", "events", "categories"];
-
   const allCategories: MallCategory[] = [
     "Accessories", "Laptops", "Components", "Networking", "Maintenance", "Security Systems",
   ];
@@ -107,99 +104,136 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
     <AnimatePresence>
       {open && (
         <>
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-foreground/60 backdrop-blur-sm"
+            className="fixed inset-0 z-50"
+            style={{ background: "hsl(222 36% 6% / 0.7)", backdropFilter: "blur(6px)" }}
           />
 
+          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            initial={{ opacity: 0, scale: 0.97, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-4 top-[8vh] z-50 mx-auto max-w-[540px] max-h-[84vh] overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-elevated)] md:inset-x-auto"
+            exit={{ opacity: 0, scale: 0.97, y: 16 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-4 top-[6vh] z-50 mx-auto max-w-[520px] max-h-[88vh] overflow-hidden rounded-2xl bg-card md:inset-x-auto"
+            style={{ border: "1px solid hsl(var(--border))", boxShadow: "0 20px 60px hsl(222 36% 6% / 0.3), 0 4px 16px hsl(222 36% 6% / 0.15)" }}
           >
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute left-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-lg bg-secondary/80 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="absolute left-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </button>
 
-            {/* Header */}
-            <div className="border-b border-border bg-gradient-to-b from-primary/5 to-transparent px-6 pb-4 pt-6 text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 ring-1 ring-primary/15">
-                <Compass className="h-6 w-6 text-primary" />
+            {/* Header — branded, not generic */}
+            <div className="px-6 pb-3 pt-5" style={{ borderBottom: "1px solid hsl(var(--border))" }}>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "hsl(222 58% 42% / 0.08)", border: "1px solid hsl(222 58% 42% / 0.12)" }}>
+                  <Compass className="h-5 w-5" style={{ color: "hsl(222 58% 42%)" }} />
+                </div>
+                <div>
+                  <h2 className="text-[0.95rem] font-bold text-foreground">مركز التفاعل</h2>
+                  <p className="text-[0.72rem] text-muted-foreground">قلب المول — عروض ومكافآت ومتاجر</p>
+                </div>
               </div>
-              <h2 className="mt-3 text-lg font-bold text-foreground">مركز الأتريوم</h2>
-              <p className="mt-1 text-[0.78rem] text-muted-foreground">قلب مول البستان — اكتشف العروض والمكافآت والمتاجر</p>
             </div>
 
-            {/* Tab bar */}
-            <div className="flex gap-1 overflow-x-auto border-b border-border bg-secondary/20 px-4 py-2 scrollbar-hide">
+            {/* Tab bar — refined, compact */}
+            <div className="flex gap-0.5 overflow-x-auto px-4 py-2 scrollbar-hide" style={{ borderBottom: "1px solid hsl(var(--border))", background: "hsl(var(--secondary) / 0.3)" }}>
               {tabs.map((tab) => {
                 const meta = MODE_META[tab];
                 const Icon = meta.icon;
+                const isActive = activeTab === tab;
                 return (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-[0.75rem] font-semibold transition-colors ${
-                      activeTab === tab
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                    className={`flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold transition-all ${
+                      isActive
+                        ? "bg-card text-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
                     }`}
+                    style={isActive ? { border: "1px solid hsl(var(--border))" } : undefined}
                   >
-                    <Icon className="h-3.5 w-3.5" />
+                    <Icon className="h-3 w-3" />
                     {meta.label}
                   </button>
                 );
               })}
             </div>
 
-            {/* Tab content */}
-            <div className="overflow-y-auto p-5" style={{ maxHeight: "calc(84vh - 220px)" }}>
-              {/* ── SPIN ── */}
+            {/* Content */}
+            <div className="overflow-y-auto p-5" style={{ maxHeight: "calc(88vh - 160px)" }}>
+
+              {/* ── SPIN — premium engagement, not casino ── */}
               {activeTab === "spin" && (
-                <div className="text-center">
-                  <Gift className="mx-auto h-10 w-10 text-primary" />
-                  <h3 className="mt-4 text-lg font-bold text-foreground">أدر العجلة واربح</h3>
-                  <p className="mx-auto mt-2 max-w-xs text-[0.85rem] leading-7 text-muted-foreground">
-                    سجّل بياناتك وأدر عجلة المكافآت للحصول على خصومات وهدايا حصرية من متاجر المول.
-                  </p>
+                <div className="space-y-5">
+                  <div className="rounded-xl p-5" style={{ background: "hsl(222 36% 96%)", border: "1px solid hsl(222 30% 90%)" }}>
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ background: "hsl(222 58% 42% / 0.1)" }}>
+                        <Gift className="h-5 w-5" style={{ color: "hsl(222 58% 42%)" }} />
+                      </div>
+                      <div>
+                        <h3 className="text-[0.92rem] font-bold text-foreground">مكافآت مول البستان</h3>
+                        <p className="text-[0.75rem] text-muted-foreground">خصومات وهدايا من متاجر حقيقية</p>
+                      </div>
+                    </div>
+                    <p className="mt-3 text-[0.82rem] leading-7 text-muted-foreground">
+                      سجّل بياناتك وأدر عجلة المكافآت. الجوائز مقدّمة من متاجر المول وترتبط بموقعها على الخريطة.
+                    </p>
+                  </div>
+
+                  {/* Benefits — clean, not flashy */}
+                  <div className="space-y-1.5">
+                    {[
+                      "خصومات مباشرة من متاجر المول",
+                      "هدايا وإكسسوارات مجانية",
+                      "المكافأة مرتبطة بموقع المتجر على الخريطة",
+                    ].map((item) => (
+                      <div key={item} className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-[0.78rem]" style={{ background: "hsl(var(--secondary) / 0.4)" }}>
+                        <div className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "hsl(222 58% 42%)" }} />
+                        <span className="text-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
                   <Button
                     variant="cta"
-                    className="mt-6 h-12 w-full rounded-xl font-bold"
+                    className="h-11 w-full rounded-xl text-[0.88rem] font-bold"
                     onClick={() => { onClose(); onOpenSpinWheel(); }}
                   >
-                    ابدأ الآن
+                    سجّل وابدأ
                   </Button>
-                  <p className="mt-2 text-[0.7rem] text-muted-foreground">مشاركة واحدة لكل رقم هاتف</p>
+                  <p className="text-center text-[0.68rem] text-muted-foreground">مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح</p>
                 </div>
               )}
 
               {/* ── OFFERS ── */}
               {activeTab === "offers" && (
-                <div>
-                  <h3 className="text-[0.95rem] font-bold text-foreground">عروض اليوم</h3>
-                  <p className="mt-1 text-[0.78rem] text-muted-foreground">أحدث العروض والخصومات من متاجر المول</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-[0.92rem] font-bold text-foreground">عروض اليوم</h3>
+                    <p className="mt-0.5 text-[0.75rem] text-muted-foreground">أحدث الخصومات من متاجر المول</p>
+                  </div>
                   {deals && deals.length > 0 ? (
-                    <div className="mt-4 space-y-2.5">
+                    <div className="space-y-2">
                       {deals.map((deal) => (
-                        <div key={deal.id} className="rounded-xl border border-border bg-secondary/30 p-4">
+                        <div key={deal.id} className="rounded-xl p-3.5" style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}>
                           <div className="flex items-start justify-between gap-2">
                             <div>
-                              <p className="text-[0.85rem] font-bold text-foreground">{deal.title_ar}</p>
+                              <p className="text-[0.82rem] font-bold text-foreground">{deal.title_ar}</p>
                               {deal.description_ar && (
-                                <p className="mt-1 text-[0.75rem] leading-5 text-muted-foreground">{deal.description_ar}</p>
+                                <p className="mt-1 text-[0.72rem] leading-5 text-muted-foreground">{deal.description_ar}</p>
                               )}
                             </div>
                             {deal.promo_code && (
-                              <span className="shrink-0 rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1 font-poppins text-[0.7rem] font-bold text-primary">
+                              <span className="shrink-0 rounded-md px-2 py-0.5 font-poppins text-[0.68rem] font-bold" style={{ background: "hsl(222 58% 42% / 0.08)", color: "hsl(222 58% 42%)", border: "1px solid hsl(222 58% 42% / 0.15)" }}>
                                 {deal.promo_code}
                               </span>
                             )}
@@ -208,15 +242,14 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       ))}
                     </div>
                   ) : (
-                    <div className="mt-6 rounded-xl border border-dashed border-border p-6 text-center">
-                      <Tag className="mx-auto h-8 w-8 text-muted-foreground/40" />
-                      <p className="mt-3 text-[0.82rem] text-muted-foreground">العروض ستتوفر قريبًا مع افتتاح المول</p>
+                    <div className="rounded-xl border border-dashed border-border p-6 text-center">
+                      <Tag className="mx-auto h-6 w-6 text-muted-foreground/30" />
+                      <p className="mt-2 text-[0.78rem] text-muted-foreground">العروض ستتوفر قريبًا مع افتتاح المول</p>
                     </div>
                   )}
-                  <Link to="/daily-deals" className="mt-4 block">
-                    <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.82rem]">
-                      جميع العروض
-                      <ArrowLeft className="mr-2 h-3.5 w-3.5" />
+                  <Link to="/daily-deals" className="block">
+                    <Button variant="outline-blue" className="h-9 w-full rounded-xl text-[0.8rem]">
+                      جميع العروض <ArrowLeft className="mr-1.5 h-3 w-3" />
                     </Button>
                   </Link>
                 </div>
@@ -224,37 +257,36 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
 
               {/* ── FEATURED ── */}
               {activeTab === "featured" && (
-                <div>
-                  <h3 className="text-[0.95rem] font-bold text-foreground">متاجر مميّزة</h3>
-                  <p className="mt-1 text-[0.78rem] text-muted-foreground">أبرز العلامات التجارية في المول</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-[0.92rem] font-bold text-foreground">متاجر مميّزة</h3>
+                    <p className="mt-0.5 text-[0.75rem] text-muted-foreground">أبرز العلامات في المول</p>
+                  </div>
                   {featuredStores && featuredStores.length > 0 ? (
-                    <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2">
                       {featuredStores.map((store) => (
                         <Link
                           key={store.id}
                           to={`/stores/${store.slug}`}
-                          className="rounded-xl border border-border bg-secondary/30 p-3.5 transition-colors hover:border-primary/20 hover:bg-primary/5"
+                          className="rounded-xl p-3 transition-colors hover:bg-secondary/60"
+                          style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}
                         >
-                          <p className="text-[0.82rem] font-bold text-foreground">{store.name_ar}</p>
+                          <p className="text-[0.8rem] font-bold text-foreground">{store.name_ar}</p>
                           {store.unit_code && (
-                            <p className="mt-1 font-poppins text-[0.7rem] text-muted-foreground">{store.unit_code}</p>
-                          )}
-                          {store.category && (
-                            <p className="mt-1.5 text-[0.68rem] text-primary">{store.category}</p>
+                            <p className="mt-0.5 font-poppins text-[0.68rem] text-muted-foreground">{store.unit_code}</p>
                           )}
                         </Link>
                       ))}
                     </div>
                   ) : (
-                    <div className="mt-6 rounded-xl border border-dashed border-border p-6 text-center">
-                      <Store className="mx-auto h-8 w-8 text-muted-foreground/40" />
-                      <p className="mt-3 text-[0.82rem] text-muted-foreground">المتاجر المميزة ستظهر هنا قريبًا</p>
+                    <div className="rounded-xl border border-dashed border-border p-6 text-center">
+                      <Store className="mx-auto h-6 w-6 text-muted-foreground/30" />
+                      <p className="mt-2 text-[0.78rem] text-muted-foreground">المتاجر المميزة ستظهر هنا قريبًا</p>
                     </div>
                   )}
-                  <Link to="/stores" className="mt-4 block">
-                    <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.82rem]">
-                      تصفّح جميع المتاجر
-                      <ArrowLeft className="mr-2 h-3.5 w-3.5" />
+                  <Link to="/stores" className="block">
+                    <Button variant="outline-blue" className="h-9 w-full rounded-xl text-[0.8rem]">
+                      جميع المتاجر <ArrowLeft className="mr-1.5 h-3 w-3" />
                     </Button>
                   </Link>
                 </div>
@@ -262,20 +294,22 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
 
               {/* ── EVENTS ── */}
               {activeTab === "events" && (
-                <div>
-                  <h3 className="text-[0.95rem] font-bold text-foreground">فعاليات قادمة</h3>
-                  <p className="mt-1 text-[0.78rem] text-muted-foreground">أحداث مميزة في مول البستان</p>
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-[0.92rem] font-bold text-foreground">فعاليات قادمة</h3>
+                    <p className="mt-0.5 text-[0.75rem] text-muted-foreground">أحداث مميزة في مول البستان</p>
+                  </div>
                   {events && events.length > 0 ? (
-                    <div className="mt-4 space-y-2.5">
+                    <div className="space-y-2">
                       {events.map((event) => (
-                        <div key={event.id} className="flex items-center gap-3 rounded-xl border border-border bg-secondary/30 p-4">
-                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-                            <Calendar className="h-5 w-5 text-primary" />
+                        <div key={event.id} className="flex items-center gap-3 rounded-xl p-3.5" style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}>
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: "hsl(222 58% 42% / 0.08)" }}>
+                            <Calendar className="h-4 w-4" style={{ color: "hsl(222 58% 42%)" }} />
                           </div>
                           <div>
-                            <p className="text-[0.82rem] font-bold text-foreground">{event.title_ar}</p>
+                            <p className="text-[0.8rem] font-bold text-foreground">{event.title_ar}</p>
                             {event.event_date && (
-                              <p className="mt-0.5 font-poppins text-[0.72rem] text-muted-foreground" dir="ltr">
+                              <p className="mt-0.5 font-poppins text-[0.7rem] text-muted-foreground" dir="ltr">
                                 {new Date(event.event_date).toLocaleDateString("ar-EG", { day: "numeric", month: "long" })}
                               </p>
                             )}
@@ -284,9 +318,9 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       ))}
                     </div>
                   ) : (
-                    <div className="mt-6 rounded-xl border border-dashed border-border p-6 text-center">
-                      <Calendar className="mx-auto h-8 w-8 text-muted-foreground/40" />
-                      <p className="mt-3 text-[0.82rem] text-muted-foreground">الفعاليات ستُعلن قريبًا</p>
+                    <div className="rounded-xl border border-dashed border-border p-6 text-center">
+                      <Calendar className="mx-auto h-6 w-6 text-muted-foreground/30" />
+                      <p className="mt-2 text-[0.78rem] text-muted-foreground">الفعاليات ستُعلن قريبًا</p>
                     </div>
                   )}
                 </div>
@@ -294,18 +328,21 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
 
               {/* ── CATEGORIES ── */}
               {activeTab === "categories" && (
-                <div>
-                  <h3 className="text-[0.95rem] font-bold text-foreground">اكتشف حسب الفئة</h3>
-                  <p className="mt-1 text-[0.78rem] text-muted-foreground">اضغط على أي فئة لتمييز متاجرها على الخريطة</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-[0.92rem] font-bold text-foreground">اكتشف حسب الفئة</h3>
+                    <p className="mt-0.5 text-[0.75rem] text-muted-foreground">اختر فئة لتمييز متاجرها على الخريطة</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
                     {allCategories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => { onClose(); onFilterCategory(cat); }}
-                        className="rounded-xl border border-border bg-secondary/30 p-4 text-right transition-colors hover:border-primary/20 hover:bg-primary/5"
+                        className="group rounded-xl p-3.5 text-right transition-all"
+                        style={{ background: "hsl(var(--secondary) / 0.4)", border: "1px solid hsl(var(--border))" }}
                       >
-                        <p className="text-[0.82rem] font-bold text-foreground">{categoryLabelsAr[cat]}</p>
-                        <p className="mt-1 text-[0.68rem] text-muted-foreground">عرض على الخريطة</p>
+                        <p className="text-[0.8rem] font-bold text-foreground">{categoryLabelsAr[cat]}</p>
+                        <p className="mt-1 text-[0.68rem] text-muted-foreground group-hover:text-primary transition-colors">عرض على الخريطة</p>
                       </button>
                     ))}
                   </div>
