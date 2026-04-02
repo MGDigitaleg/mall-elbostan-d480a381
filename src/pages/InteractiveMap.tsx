@@ -236,10 +236,10 @@ const InteractiveMap = () => {
               </span>
 
               <h1 className="mt-5 text-[1.8rem] font-extrabold leading-[1.1] text-white md:text-[2.6rem] lg:text-[3rem]">
-                خريطة دقيقة لكل وحدة في المول.
+                دليل المول التفاعلي — كل وحدة بحالتها الفعلية.
               </h1>
               <p className="mx-auto mt-4 max-w-[30rem] text-[0.95rem] leading-[2] text-white/45 md:text-[1.05rem]">
-                استكشف الأدوار، حدد حالة كل وحدة، وانتقل مباشرة من الخريطة إلى التأجير أو تفاصيل المتجر.
+                تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل من الخريطة مباشرة لصفحة التأجير أو تفاصيل المتجر.
               </p>
 
               {/* stats row */}
