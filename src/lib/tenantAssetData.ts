@@ -255,9 +255,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "i7",
     providedName: "i7",
     normalizedName: "i7",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Need official source before directory export.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/i7.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "i7",
   },
   {
