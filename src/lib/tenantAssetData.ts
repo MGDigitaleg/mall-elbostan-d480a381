@@ -93,9 +93,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "red-line",
     providedName: "ريد لاين",
     normalizedName: "ريد لاين",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "Need storefront capture or original logo file.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/red-line.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Red-Line",
   },
   {
