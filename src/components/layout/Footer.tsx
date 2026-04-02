@@ -87,7 +87,7 @@ export function Footer() {
         <div className="mt-8 grid grid-cols-2 gap-8 lg:hidden">
           {footerColumns.slice(0, 2).map((col) => (
             <div key={col.title}>
-              <h4 className="mb-3 text-[0.78rem] font-bold tracking-[0.08em] uppercase" style={{ color: "hsl(220 15% 68%)" }}>
+              <h4 className="mb-3 text-[0.78rem] font-bold tracking-[0.08em] uppercase dark-subheading">
                 {col.title}
               </h4>
               <ul className="space-y-2.5">
