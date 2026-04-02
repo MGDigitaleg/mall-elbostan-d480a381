@@ -43,6 +43,22 @@ const InteractiveMap = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [availableOnly, setAvailableOnly] = useState(false);
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
+  const [spinModalOpen, setSpinModalOpen] = useState(false);
+  const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
+
+  const handleAtriumClick = useCallback(() => {
+    setSpinModalOpen(true);
+  }, []);
+
+  const handleSpinWin = useCallback(() => {
+    // Highlight occupied stores as "participating" after a win
+    const occupiedIds = new Set(
+      mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id))
+    );
+    setHighlightedUnitIds(occupiedIds);
+    // Clear highlights after 8 seconds
+    setTimeout(() => setHighlightedUnitIds(new Set()), 8000);
+  }, []);
 
   const floor = useMemo(
     () => mallFloors.find((f) => f.id === selectedFloor) ?? mallFloors[0],
