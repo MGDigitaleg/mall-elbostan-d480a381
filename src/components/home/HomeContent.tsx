@@ -224,7 +224,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
       {/* ════════════════════════════════════════════════════════════
           2 · HERITAGE & IDENTITY — why this place matters
           ════════════════════════════════════════════════════════════ */}
-      <section className="py-10 md:py-14 overflow-hidden" style={{ background: "#FAFAF8" }}>
+      <section className="py-8 md:py-10 overflow-hidden" style={{ background: "#FAFAF8" }}>
         <div className="container">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="grid items-center gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12">
