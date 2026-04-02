@@ -119,7 +119,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 72% 48%, #2D6BFF06, transparent 70%)" }} />
 
         <div className="relative mx-auto w-full max-w-[1440px]">
-          <div className="grid min-h-[75vh] items-center lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid min-h-[65vh] items-center lg:grid-cols-[1.15fr_0.85fr]">
 
             {/* ── text column ── */}
             <motion.div
