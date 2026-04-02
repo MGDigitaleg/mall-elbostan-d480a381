@@ -166,38 +166,32 @@ const InteractiveMap = () => {
       {/* ═══════════ HERO — compact, operational ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="py-8 md:py-10">
-            <div className="flex flex-col items-center gap-5 md:flex-row md:items-end md:justify-between">
-              {/* left: title + desc */}
-              <div className="text-center md:text-right">
-                <div className="mb-2 flex items-center justify-center gap-3 md:justify-start">
-                  <div className="h-[3px] w-10 rounded-full" style={{ background: "#CDBB9A" }} />
-                  <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
-                    الدليل التفاعلي
-                  </span>
-                </div>
-                <h1 className="mt-2 text-[1.6rem] leading-[1.06] md:text-[2rem] lg:text-[2.4rem] dark-heading">
-                  خريطة المول التفاعلية
+          <div className="py-7 md:py-9">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div className="md:text-right">
+                <p className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
+                  Interactive Directory
+                </p>
+                <h1 className="mt-1.5 text-[1.5rem] leading-[1.08] md:text-[1.85rem] lg:text-[2.2rem]" style={{ color: "#F8FAFC" }}>
+                  الدليل التفاعلي لمول البستان
                 </h1>
-                <p className="mt-2 max-w-[28rem] text-[0.88rem] leading-7 dark-body">
-                  تنقّل بين الأدوار، حدد حالة كل وحدة، وانتقل للتأجير أو تفاصيل المتجر مباشرة.
+                <p className="mt-1.5 max-w-[26rem] text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>
+                  تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة عن التأجير.
                 </p>
               </div>
 
-              {/* right: compact stats */}
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-4">
                 {[
-                  { v: `${mallFloors.length}`, l: "أدوار", icon: Building2 },
-                  { v: `${allMallUnits.length}`, l: "وحدة", icon: Layers },
-                  { v: `${availableMallUnits.length}`, l: "متاحة", icon: TrendingUp },
+                  { v: `${mallFloors.length}`, l: "أدوار" },
+                  { v: `${allMallUnits.length}`, l: "وحدة" },
+                  { v: `${availableMallUnits.length}`, l: "متاحة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-5">
-                    <div className="flex items-center gap-2">
-                      <s.icon className="h-3.5 w-3.5" style={{ color: "#5B9AFF" }} />
-                      <span className="font-poppins text-[1.1rem] font-extrabold dark-heading">{s.v}</span>
-                      <span className="text-[0.72rem] font-semibold dark-muted">{s.l}</span>
+                  <div key={s.l} className="flex items-center gap-4">
+                    <div className="text-center">
+                      <span className="font-poppins text-[1.2rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</span>
+                      <p className="text-[0.65rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-5 w-px" style={{ background: "#ffffff14" }} />}
+                    {i < 2 && <div className="h-5 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
@@ -252,9 +246,9 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="py-4 md:py-5" style={{ background: "#FAFAF8" }}>
+      <section className="py-3 md:py-4" style={{ background: "#F5F2EC" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="grid gap-5 lg:grid-cols-[1fr_360px] lg:items-start">
+          <div className="grid gap-4 lg:grid-cols-[1fr_380px] lg:items-start">
             {/* Map */}
             <div ref={mapRef}>
               <MallFloorMap
@@ -268,9 +262,9 @@ const InteractiveMap = () => {
               />
             </div>
 
-            {/* Details panel — wider, more premium */}
+            {/* Details panel — wider, premium, anchored */}
             {!isMobile && (
-              <aside className="lg:sticky lg:top-[180px]">
+              <aside className="lg:sticky lg:top-[172px]">
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
               </aside>
             )}
@@ -279,95 +273,69 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ AVAILABLE UNITS — continuation of map ═══════════ */}
-      <section className="py-6 md:py-8" style={{ background: "#F5F2EC" }}>
+      <section className="py-5 md:py-7" style={{ background: "#FAFAF8", borderTop: "1px solid #D8DEE8" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-14">
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="h-[3px] w-6 rounded-full" style={{ background: "#E8740E" }} />
-              <div>
-                <p className="text-[0.7rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#E8740E" }}>الوحدات المتاحة للتأجير</p>
-                <h2 className="mt-0.5 text-[1.1rem] font-bold leading-tight light-heading md:text-[1.3rem]">
-                  {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة
-                </h2>
-              </div>
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.25em]" style={{ color: "#B85C08" }}>Available Units</p>
+              <h2 className="mt-1 text-[1.05rem] font-bold leading-tight md:text-[1.2rem]" style={{ color: "#0F172A" }}>
+                {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة للتأجير
+              </h2>
             </div>
             <div className="flex items-center gap-2">
               <Link to="/leasing">
-                <Button variant="orange" size="sm" className="h-9 rounded-xl px-5 text-[0.82rem] font-bold">
-                  <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر عن التأجير
-                </Button>
-              </Link>
-              <Link to="/leasing" className="hidden md:inline-flex">
-                <Button variant="outline-blue" size="sm" className="h-9 rounded-xl px-5 text-[0.82rem]">
-                  صفحة التأجير
+                <Button variant="orange" size="sm" className="h-9 rounded-lg px-5 text-[0.8rem] font-bold">
+                  <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر الآن
                 </Button>
               </Link>
             </div>
           </div>
 
           {filteredUnits.filter((u) => u.status === "available").length > 0 ? (
-            <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {filteredUnits.filter((u) => u.status === "available").map((unit) => (
                 <button
                   key={unit.id}
                   onClick={() => { setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
-                  className={`group rounded-xl border bg-card p-4 text-right transition-all duration-200 ${
+                  className={`group rounded-lg border p-3.5 text-right transition-all duration-150 ${
                     activeUnit?.id === unit.id
-                      ? "border-[#E8740E] shadow-[0_0_0_2px_#E8740E33,var(--shadow-elevated)]"
-                      : "border-border hover:border-[#E8740E]/40 hover:shadow-[var(--shadow-card)]"
+                      ? "border-[#E8740E] shadow-[0_0_0_1px_#E8740E44]"
+                      : "border-border bg-card hover:border-[#E8740E]/30"
                   }`}
+                  style={activeUnit?.id === unit.id ? { background: "#FEF3E2" } : {}}
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-[0.98rem] font-bold light-heading">وحدة {unit.code}</p>
-                      <p className="mt-0.5 text-[0.78rem] light-muted">{floorLabelsAr[unit.floor]}</p>
-                    </div>
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[0.68rem] font-bold"
-                      style={{ background: "#FDE4C4", border: "1px solid #E8740E40", color: "#B85C08" }}
-                    >
-                      متاحة
-                    </span>
+                  <div className="flex items-center justify-between">
+                    <p className="text-[0.9rem] font-bold" style={{ color: "#0F172A" }}>{unit.code}</p>
+                    <span className="text-[0.72rem] font-bold" style={{ color: "#B85C08" }}>{unit.area} م²</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between">
-                    <span className="text-[0.84rem] font-bold light-heading">{unit.area} م²</span>
-                    <span className="flex items-center gap-1 text-[0.76rem] font-semibold opacity-0 transition-opacity group-hover:opacity-100" style={{ color: "#E8740E" }}>
-                      <MapPin className="h-3 w-3" />
-                      عرض على الخريطة
-                    </span>
-                  </div>
+                  <p className="mt-1 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
                 </button>
               ))}
             </div>
           ) : (
-            <div className="rounded-xl border border-dashed border-border bg-card px-6 py-8 text-center">
-              <p className="text-[0.88rem] font-semibold light-muted">لا توجد وحدات متاحة ضمن الفلاتر الحالية في هذا الدور.</p>
-              <p className="mt-1 text-[0.82rem] light-body">جرّب تغيير الدور أو إعادة ضبط الفلاتر.</p>
+            <div className="rounded-lg border border-dashed border-border bg-card px-6 py-6 text-center">
+              <p className="text-[0.84rem] font-semibold" style={{ color: "#64748B" }}>لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* ═══════════ CTA STRIP ═══════════ */}
-      <section className="py-12 md:py-14" style={{ background: "#071326" }}>
-        <div className="mx-auto max-w-[900px] px-5 text-center">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-            <span className="font-poppins text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>فرص التأجير</span>
-            <div className="h-[3px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-          </div>
-          <h2 className="text-[1.2rem] font-bold md:text-[1.5rem] dark-heading">تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-            من الخريطة مباشرة لصفحة التأجير — استفسر الآن وابدأ حوارًا مع الفريق.
+      <section className="py-10 md:py-12" style={{ background: "#071326" }}>
+        <div className="mx-auto max-w-[800px] px-5 text-center">
+          <p className="font-poppins text-[0.6rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>Commercial Leasing</p>
+          <h2 className="mt-2 text-[1.15rem] font-bold md:text-[1.4rem]" style={{ color: "#F8FAFC" }}>تبحث عن وحدة تجارية في موقع فعّال؟</h2>
+          <p className="mx-auto mt-2 max-w-sm text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>
+            من الخريطة مباشرة لصفحة التأجير — استفسر الآن.
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">
-              <Button variant="orange" size="lg" className="h-12 rounded-xl px-8 font-bold">
+              <Button variant="orange" size="lg" className="h-11 rounded-lg px-7 font-bold">
                 <Phone className="ml-2 h-4 w-4" /> ابدأ استفسار التأجير
               </Button>
             </Link>
             <Link to="/stores">
-              <Button size="lg" className="h-12 rounded-xl border px-8 font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
+              <Button size="lg" className="h-11 rounded-lg border px-7 font-bold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                 تصفّح المتاجر
               </Button>
             </Link>

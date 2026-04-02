@@ -77,18 +77,13 @@ const Contact = () => {
       {/* ═══════════ HERO ═══════════ */}
       <section style={{ background: "#071326" }}>
         <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="py-10 md:py-14">
+          <div className="py-8 md:py-11">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-              <div className="mb-3 flex items-center gap-3">
-                <div className="h-[3px] w-10 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
-                <span className="font-poppins text-[0.68rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
-                  Contact
-                </span>
-              </div>
-              <h1 className="max-w-[24rem] text-[1.8rem] font-extrabold leading-[1.06] dark-heading md:text-[2.4rem] lg:text-[2.8rem]">
+              <p className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.28em]" style={{ color: "#64748B" }}>Contact</p>
+              <h1 className="mt-2 max-w-[22rem] text-[1.7rem] font-extrabold leading-[1.08] md:text-[2.2rem] lg:text-[2.6rem]" style={{ color: "#F8FAFC" }}>
                 تواصل مع فريق مول البستان
               </h1>
-              <p className="mt-3 max-w-[32rem] text-[0.9rem] leading-[1.9] dark-body">
+              <p className="mt-2 max-w-[30rem] text-[0.86rem] leading-[1.9]" style={{ color: "#94A3B8" }}>
                 سواء لديك سؤال عن المتاجر، تفكّر في استئجار وحدة، أو ترغب في التعاون — الفريق جاهز ومتابع.
               </p>
             </motion.div>
@@ -96,7 +91,7 @@ const Contact = () => {
         </div>
       </section>
 
-      <div className="band-primary" />
+      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #1E3A5F, transparent)" }} />
 
       {/* ═══════════ INQUIRY TYPE SELECTOR ═══════════ */}
       <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>

@@ -364,14 +364,16 @@
   }
 
   .section-kicker {
-    @apply mb-3 text-[0.72rem] font-bold tracking-[0.22em] uppercase;
+    @apply mb-3 text-[0.68rem] font-bold tracking-[0.25em] uppercase;
     color: hsl(var(--primary));
     font-family: var(--font-poppins);
+    letter-spacing: 0.25em;
   }
 
   .section-title {
-    @apply text-[1.85rem] font-bold leading-[1.04] md:text-[2.6rem] lg:text-[3.1rem];
-    color: hsl(222 47% 11%); /* #0F172A */
+    @apply text-[1.75rem] font-bold leading-[1.06] md:text-[2.4rem] lg:text-[2.8rem];
+    color: #0F172A;
+    letter-spacing: -0.025em;
   }
 
   /* ── Spacing system ── */

@@ -48,11 +48,11 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       {/* Header — strong visual hierarchy */}
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] light-muted">رقم الوحدة</p>
-          <p className="mt-1 text-[1.4rem] font-extrabold light-heading">{unit.code}</p>
+          <p className="text-[1.5rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
+          <p className="mt-0.5 text-[0.76rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
         </div>
         <span
-          className="flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1.5 text-[0.74rem] font-bold"
+          className="flex items-center gap-1.5 shrink-0 rounded-md px-2.5 py-1.5 text-[0.72rem] font-bold"
           style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
         >
           <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
@@ -61,19 +61,19 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       </div>
 
       {/* Meta grid — tight, informative */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-1.5">
         {[
           { icon: Ruler, label: "المساحة", value: `${unit.area} م²` },
           { icon: Building2, label: "الدور", value: floorLabelsAr[unit.floor] },
           { icon: Tag, label: "الفئة", value: categoryLabelsAr[unit.category] },
           { icon: MapPin, label: "الموقع", value: unit.code },
         ].map((item) => (
-          <div key={item.label} className="rounded-lg border border-border bg-secondary/50 p-3">
+          <div key={item.label} className="rounded-md p-2.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
             <div className="flex items-center gap-1.5">
-              <item.icon className="h-3 w-3 text-primary" />
-              <span className="text-[0.68rem] font-semibold light-muted">{item.label}</span>
+              <item.icon className="h-3 w-3" style={{ color: "#64748B" }} />
+              <span className="text-[0.64rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
             </div>
-            <p className="mt-0.5 text-[0.88rem] font-bold light-heading">{item.value}</p>
+            <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
           </div>
         ))}
       </div>
@@ -178,24 +178,27 @@ type Props = {
 export function UnitDetailsCard({ unit, rewardContext }: Props) {
   return (
     <div
-      className="rounded-xl border bg-card p-5 transition-all duration-300"
+      className="rounded-xl border bg-card transition-all duration-200"
       style={{
-        borderColor: unit ? statusBadge[unit.status].dot + "40" : "#D8DEE8",
+        borderColor: unit ? statusBadge[unit.status].dot + "50" : "#D8DEE8",
         boxShadow: unit
-          ? `0 0 0 1px ${statusBadge[unit.status].dot}15, var(--shadow-elevated)`
+          ? `0 0 0 1px ${statusBadge[unit.status].dot}20, 0 4px 20px hsl(0 0% 0% / 0.06)`
           : "var(--shadow-card)",
       }}
     >
-      <div className="mb-4 flex items-center gap-2">
+      {/* Panel header — anchored */}
+      <div className="flex items-center gap-2 border-b px-5 py-3" style={{ borderColor: unit ? statusBadge[unit.status].dot + "20" : "#D8DEE8" }}>
         <div
-          className="h-[3px] w-5 rounded-full transition-colors"
+          className="h-[3px] w-4 rounded-full transition-colors"
           style={{ background: unit ? statusBadge[unit.status].dot : "#94A3B8" }}
         />
-        <h2 className="text-[0.76rem] font-bold uppercase tracking-[0.18em] light-muted">
+        <h2 className="text-[0.7rem] font-bold uppercase tracking-[0.2em]" style={{ color: "#64748B" }}>
           {unit ? "تفاصيل الوحدة" : "لوحة التفاصيل"}
         </h2>
       </div>
-      {unit ? <UnitDetail unit={unit} rewardCtx={rewardContext} /> : <EmptyPanel />}
+      <div className="p-5">
+        {unit ? <UnitDetail unit={unit} rewardCtx={rewardContext} /> : <EmptyPanel />}
+      </div>
     </div>
   );
 }

@@ -131,52 +131,52 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             >
               {/* heritage kicker */}
               <div className="flex items-center gap-3">
-                <div className="h-[3px] w-12 rounded-full" style={{ background: "#CDBB9A" }} />
-                <span className="font-poppins text-[0.7rem] font-bold tracking-[0.22em] uppercase dark-accent">
-                  وجهة تقنية راسخة في القاهرة الجديدة
+                <div className="h-[2px] w-10 rounded-full" style={{ background: "#64748B" }} />
+                <span className="font-poppins text-[0.62rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
+                  Est. 2010 — New Cairo
                 </span>
               </div>
 
-              <h1 className="max-w-[24rem] text-[2.6rem] leading-[1.04] md:text-[3.6rem] lg:text-[4.2rem] dark-heading">
+              <h1 className="max-w-[24rem] text-[2.4rem] leading-[1.06] md:text-[3.4rem] lg:text-[4rem]" style={{ color: "#F8FAFC" }}>
                 المكان الذي بناه
                 <br />
                 <span style={{ color: "#CDBB9A" }}>تكرار الثقة.</span>
               </h1>
 
-              <p className="max-w-[30rem] text-[1.02rem] leading-[2] md:text-[1.08rem] dark-body">
+              <p className="max-w-[28rem] text-[0.98rem] leading-[2] md:text-[1.04rem]" style={{ color: "#94A3B8" }}>
                 مول البستان لم يصنع اسمه من حملة إعلانية — بل من آلاف الزيارات التي
                 انتهت بقرار شراء حقيقي. من يعرف سوق الإلكترونيات في القاهرة الجديدة
-                يعرف هذا المكان. اليوم يتوسّع رقميًا — بنفس المصداقية التي بدأ بها.
+                يعرف هذا المكان.
               </p>
 
               {/* CTA pair */}
               <div className="flex flex-wrap gap-3">
                 <Link to="/map">
-                  <Button variant="cta" size="lg" className="h-[3.4rem] min-w-[13rem] rounded-xl px-8 text-[0.95rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Compass className="ml-2 h-[1.15rem] w-[1.15rem]" />
+                  <Button variant="cta" size="lg" className="h-[3.2rem] min-w-[12rem] rounded-lg px-7 text-[0.9rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
                     استكشف دليل المول
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button size="lg" className="h-[3.4rem] min-w-[10rem] rounded-xl border px-8 text-[0.95rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
+                  <Button size="lg" className="h-[3.2rem] min-w-[9rem] rounded-lg border px-7 text-[0.9rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
                     تصفّح المتاجر
                   </Button>
                 </Link>
               </div>
 
               {/* stats — anchored authority strip */}
-              <div className="flex items-center gap-8 pt-7" style={{ borderTop: "1px solid #ffffff14" }}>
+              <div className="flex items-center gap-7 pt-6" style={{ borderTop: "1px solid #1E293B" }}>
                 {[
                   { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
                   { v: `${categoryStories.length}`, l: "أقسام متخصصة" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-7">
+                  <div key={s.l} className="flex items-center gap-6">
                     <div>
-                      <p className="font-poppins text-[1.7rem] font-extrabold dark-heading">{s.v}</p>
-                      <p className="text-[0.72rem] font-semibold dark-muted">{s.l}</p>
+                      <p className="font-poppins text-[1.5rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
+                      <p className="text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-9 w-px" style={{ background: "#ffffff14" }} />}
+                    {i < 2 && <div className="h-8 w-px" style={{ background: "#1E293B" }} />}
                   </div>
                 ))}
               </div>
