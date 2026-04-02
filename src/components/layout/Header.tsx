@@ -100,7 +100,7 @@ export function Header() {
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-border/40 bg-card/97 backdrop-blur-2xl">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-border/60 bg-card/[0.97] shadow-[0_1px_3px_hsl(218_72%_9%/0.06)] backdrop-blur-2xl backdrop-saturate-[1.15]">
       <div className="container">
         {/* Desktop */}
         <div className="hidden min-h-[72px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
