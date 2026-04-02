@@ -11,6 +11,7 @@ import {
   Monitor,
   Phone,
   Shield,
+  ShoppingBag,
   Smartphone,
   Store,
   TrendingUp,
@@ -37,8 +38,8 @@ const About = () => (
     <SEOHead
       title="عن المول"
       titleEn="About"
-      description="تعرف على مول البستان — الوجهة التقنية الأعرق في مصر. تاريخ من الثقة في سوق الإلكترونيات وتجربة تسوّق منظّمة في القاهرة الجديدة."
-      descriptionEn="Learn about Mall Elbostan — Egypt's most established technology retail destination with a legacy of trust and organized shopping."
+      description="تعرف على مول البستان — الوجهة التقنية الأعرق في مصر. من وسط البلد منذ 1990 إلى القاهرة الجديدة — قصة ثقة وتوسّع."
+      descriptionEn="Learn about Mall Elbostan — Egypt's most established technology destination. From Downtown since 1990 to New Cairo — a story of trust and growth."
       breadcrumbs={[{ name: "عن المول", url: "/about" }]}
     />
 
@@ -68,7 +69,7 @@ const About = () => (
             </h1>
 
             <p className="max-w-[24rem] text-[0.88rem] leading-[1.85] dark-body">
-              سيرة تجارية بدأت قبل أكثر من عقد — من يعرف سوق التقنية يعرف هذا العنوان.
+              سيرة تجارية بدأت عام 1990 في وسط البلد — وتمتد اليوم إلى القاهرة الجديدة بنفس الثقة ونفس الاسم.
             </p>
 
             <div className="flex flex-wrap gap-2">
@@ -103,10 +104,10 @@ const About = () => (
             <div className="mt-1.5 flex items-end justify-between">
               <div>
                 <p className="font-poppins text-[0.54rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>Mall Elbostan</p>
-                <p className="mt-0.5 text-[0.72rem] font-bold dark-heading">القاهرة الجديدة — مصر</p>
+                <p className="mt-0.5 text-[0.72rem] font-bold dark-heading">فرعان — وسط البلد والقاهرة الجديدة</p>
               </div>
               <div className="rounded-md px-2 py-1" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                <p className="text-[0.62rem] font-bold dark-subheading">منذ 2010+</p>
+                <p className="text-[0.62rem] font-bold dark-subheading">منذ 1990</p>
               </div>
             </div>
           </motion.div>
@@ -114,12 +115,11 @@ const About = () => (
       </div>
     </section>
 
-    {/* ═══════════ 2 · WHY THIS PLACE MATTERS ═══════════ */}
+    {/* ═══════════ 2 · THE BRAND STORY ═══════════ */}
     <section className="py-7 md:py-9 overflow-hidden" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-6 lg:grid-cols-[1fr_1fr] lg:gap-10">
-
             <div className="order-2 lg:order-1">
               <div className="grid grid-cols-[0.55fr_0.45fr] gap-2">
                 <div className="frame-cinematic overflow-hidden">
@@ -133,19 +133,20 @@ const About = () => (
 
             <div className="order-1 space-y-3.5 lg:order-2">
               <div className="chapter-shell pt-4">
-                <p className="section-kicker">لماذا هذا المول</p>
-                <h2 className="section-title max-w-[20rem]">اسم يسبق التعريف.</h2>
+                <p className="section-kicker">قصة العلامة</p>
+                <h2 className="section-title max-w-[20rem]">اسم واحد — فرعان — نفس الثقة.</h2>
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
-                مكانة بنتها سنوات من التعامل الموثوق — الزائر يعرف أنه سيجد ما يبحث عنه.
+                مول البستان ليس مجرد مبنى تجاري — إنه عنوان بناه السوق المصري على مدار أكثر من ثلاثة عقود.
+                من وسط البلد إلى القاهرة الجديدة، الاسم يحمل نفس المعنى: المكان الموثوق لكل ما يخص التقنية.
               </p>
 
               <div className="grid gap-2 sm:grid-cols-3">
                 {[
-                  { icon: Award, title: "إرث تجاري", desc: "أكثر من عقد." },
-                  { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة." },
-                  { icon: Layers, title: "بنية دقيقة", desc: "مسار شراء منظّم." },
+                  { icon: Award, title: "منذ 1990", desc: "إرث تجاري عريق." },
+                  { icon: MapPin, title: "فرعان", desc: "وسط البلد والتجمع." },
+                  { icon: Layers, title: "تجربة متكاملة", desc: "من المول للمنصة الرقمية." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-lg p-3">
                     <c.icon className="mb-1.5 h-4 w-4 text-primary" />
@@ -160,23 +161,27 @@ const About = () => (
       </div>
     </section>
 
-    {/* ═══════════ 3 · THE LEGACY ═══════════ */}
+    {/* ═══════════ 3 · DOWNTOWN BRANCH ═══════════ */}
     <section className="heritage-deep py-7 md:py-9 relative overflow-hidden">
       <div className="relative container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-start gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
             <div className="space-y-4">
               <div>
-                <p className="section-kicker dark-kicker">السيرة التجارية</p>
-                <h2 className="section-title dark-heading max-w-[22rem]">مكانة صنعها التكرار.</h2>
+                <p className="section-kicker dark-kicker">الفرع الأصلي</p>
+                <h2 className="section-title dark-heading max-w-[22rem]">وسط البلد — حيث بدأ كل شيء.</h2>
               </div>
+
+              <p className="text-[0.88rem] leading-[1.85] dark-body max-w-[26rem]">
+                افتتح عام 1990 ليصبح أول مركز تقنية متخصص في مصر. ارتبط بالاستيراد والتجارة والصيانة، وأصبح مرجعًا لكل من يبحث عن حلول تقنية في القاهرة.
+              </p>
 
               <div className="space-y-2.5">
                 {[
-                  { icon: Building2, title: "وجهة راسخة", desc: "اسم يعرفه المشتري والتاجر." },
-                  { icon: Users, title: "ثقة بالعودة", desc: "الزائر يعود لأنه وجد ما يحتاجه." },
-                  { icon: Layers, title: "تغطية شاملة", desc: "من الأجهزة إلى الشبكات والمراقبة." },
-                  { icon: Globe, title: "التجدد الرقمي", desc: "دليل تفاعلي وتجربة استكشاف رقمية." },
+                  { icon: Building2, title: "وجهة راسخة", desc: "ثلاثة عقود من العمل المتواصل في قلب القاهرة." },
+                  { icon: Users, title: "مجتمع التجار", desc: "مئات التجار بنوا أعمالهم داخل هذا المول." },
+                  { icon: Globe, title: "استيراد وتوزيع", desc: "مركز رئيسي لاستيراد وتوزيع الإلكترونيات." },
+                  { icon: Wrench, title: "صيانة ودعم", desc: "خبرات فنية متراكمة في كل التخصصات." },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}
@@ -196,19 +201,21 @@ const About = () => (
                   </motion.div>
                 ))}
               </div>
+
+              <Link to="/downtown-branch">
+                <Button variant="ghost" className="gap-1.5 px-0 text-[0.84rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
+                  تعرّف أكثر على فرع وسط البلد <ArrowLeft className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
 
             <div className="space-y-3 lg:sticky lg:top-24">
-              <div className="frame-cinematic overflow-hidden">
-                <img src={interiorImage} alt="المشهد الداخلي" className="img-grade-arch aspect-[16/9] max-h-[200px] w-full object-cover object-[center_50%]" loading="lazy" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(0deg, #071326CC 0%, transparent 30%)" }} />
-              </div>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { v: "10+", l: "سنوات في السوق" },
-                  { v: "50+", l: "وحدة تجارية" },
-                  { v: "6", l: "أقسام متخصصة" },
-                  { v: "3", l: "أدوار تجارية" },
+                  { v: "1990", l: "سنة التأسيس" },
+                  { v: "30+", l: "عامًا في السوق" },
+                  { v: "مئات", l: "التجار" },
+                  { v: "ملايين", l: "الزوار" },
                 ].map((s) => (
                   <div key={s.l} className="heritage-surface rounded-lg px-3 py-3 text-center">
                     <p className="font-poppins text-[1.25rem] font-extrabold dark-heading">{s.v}</p>
@@ -222,15 +229,26 @@ const About = () => (
       </div>
     </section>
 
-    {/* ═══════════ 4 · VISITOR EXPERIENCE ═══════════ */}
+    {/* ═══════════ 4 · NEW CAIRO BRANCH ═══════════ */}
     <section className="py-7 md:py-9" style={{ background: "#F5F2EC" }}>
       <div className="container max-w-[1200px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="grid items-center gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
             <div className="space-y-3.5">
               <div className="chapter-shell pt-4">
-                <p className="section-kicker">تجربة الاستكشاف</p>
-                <h2 className="section-title max-w-[20rem]">زيارة مُنظّمة تبدأ قبل الوصول.</h2>
+                <p className="section-kicker">الفصل الجديد</p>
+                <h2 className="section-title max-w-[22rem]">القاهرة الجديدة — التوسّع الذكي.</h2>
+              </div>
+
+              <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
+                الفرع الجديد في التجمع الخامس يحمل نفس الاسم والثقة — مع تجربة عصرية تجمع بين المول الفعلي والمنصة الرقمية.
+              </p>
+
+              <div className="rounded-lg border border-border bg-card p-3.5">
+                <p className="text-[0.74rem] font-bold text-muted-foreground mb-1">العنوان</p>
+                <p className="text-[0.88rem] font-bold text-foreground leading-7">
+                  الحى الأول، مركز الخدمات، خلف محكمة القاهرة الجديدة، التجمع الخامس
+                </p>
               </div>
 
               <div className="grid gap-2 sm:grid-cols-2">
@@ -239,8 +257,6 @@ const About = () => (
                   { icon: Monitor, title: "أجهزة الكمبيوتر", desc: "أداء وإنتاجية." },
                   { icon: CircuitBoard, title: "المكوّنات والتجميع", desc: "قطع غيار احترافية." },
                   { icon: Shield, title: "الأنظمة الأمنية", desc: "كاميرات وحماية." },
-                  { icon: Wrench, title: "الصيانة والدعم", desc: "دعم فني فوري." },
-                  { icon: Globe, title: "الشبكات والطباعة", desc: "بنية رقمية وطباعة." },
                 ].map((cat) => (
                   <div key={cat.title} className="flex items-start gap-2.5 rounded-lg border border-border bg-card p-3 transition-all hover:border-primary/15">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary">
@@ -254,16 +270,23 @@ const About = () => (
                 ))}
               </div>
 
-              <Link to="/stores">
-                <Button variant="ghost" className="mt-1 gap-1.5 px-0 text-[0.84rem] font-bold text-primary hover:text-primary/80">
-                  تصفّح المتاجر <ArrowLeft className="h-4 w-4" />
-                </Button>
-              </Link>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/new-cairo-branch">
+                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">
+                    تفاصيل فرع القاهرة الجديدة
+                  </Button>
+                </Link>
+                <Link to="/map">
+                  <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
+                    <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
+                  </Button>
+                </Link>
+              </div>
             </div>
 
             <div className="space-y-2">
               <div className="frame-cinematic overflow-hidden">
-                <img src={exteriorImage} alt="الواجهة الخارجية" className="img-grade-warm aspect-[16/9] max-h-[180px] w-full object-cover object-[center_40%]" loading="lazy" />
+                <img src={exteriorImage} alt="الواجهة الخارجية — فرع القاهرة الجديدة" className="img-grade-warm aspect-[16/9] max-h-[180px] w-full object-cover object-[center_40%]" loading="lazy" />
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex items-center justify-center rounded-md border border-border bg-card p-2.5">
@@ -351,20 +374,25 @@ const About = () => (
 
     <div className="band-primary" />
 
-    {/* ═══════════ 6 · DIGITAL FUTURE ═══════════ */}
+    {/* ═══════════ 6 · DIGITAL FUTURE + MARKETPLACE ═══════════ */}
     <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
       <div className="relative container max-w-3xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto max-w-[26rem] text-center">
             <p className="section-kicker dark-kicker">المرحلة التالية</p>
-            <h2 className="section-title dark-heading">نفس الوجهة — بأدوات رقمية.</h2>
+            <h2 className="section-title dark-heading">من المول إلى المنصة الرقمية.</h2>
           </div>
+
+          <p className="mx-auto mt-3 max-w-[28rem] text-center text-[0.88rem] leading-[1.85] dark-body">
+            لم يعد مول البستان مجرد مبنى — إنه منصة رقمية تربط المتاجر بالمنتجات بالزوار.
+            من الدليل التفاعلي إلى السوق الإلكتروني.
+          </p>
 
           <div className="mx-auto mt-5 grid max-w-2xl gap-2.5 sm:grid-cols-3">
             {[
               { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور.", active: true },
-              { n: "02", icon: Store, label: "دليل المتاجر", desc: "كل علامة تجارية.", active: true },
-              { n: "03", icon: Zap, label: "السوق الرقمي", desc: "تسوّق إلكتروني — قريبًا.", active: false },
+              { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح من المتاجر.", active: true },
+              { n: "03", icon: Zap, label: "الماركتبليس", desc: "تجربة شراء متكاملة — قريبًا.", active: false },
             ].map((item) => (
               <div key={item.n} className="heritage-surface rounded-lg p-4 text-center">
                 <span className="font-poppins text-[0.62rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
@@ -383,12 +411,14 @@ const About = () => (
           </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <Link to="/map">
-              <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">افتح الدليل التفاعلي</Button>
+            <Link to="/products">
+              <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
+                <ShoppingBag className="ml-2 h-4 w-4" /> تصفّح المنتجات
+              </Button>
             </Link>
-            <Link to="/stores">
+            <Link to="/join-marketplace">
               <Button className="h-9 rounded-lg border px-5 text-[0.82rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
-                تصفّح المتاجر
+                انضم كتاجر
               </Button>
             </Link>
           </div>
@@ -414,8 +444,8 @@ const About = () => (
                 <Compass className="ml-2 h-4 w-4" /> الخريطة التفاعلية
               </Button>
             </Link>
-            <Link to="/stores">
-              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">دليل المتاجر</Button>
+            <Link to="/products">
+              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">المنتجات</Button>
             </Link>
             <Link to="/leasing">
               <Button variant="orange" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
