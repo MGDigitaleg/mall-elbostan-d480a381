@@ -210,9 +210,9 @@ export const tenantBrands: TenantBrand[] = [
     key: "spark",
     providedName: "سبارك",
     normalizedName: "Spark",
-    logoStatus: "Missing",
-    matchedAsset: null,
-    executionNote: "No approved logo file available.",
+    logoStatus: "Confirmed",
+    matchedAsset: "/logos/tenants/spark.png",
+    executionNote: "Logo extracted from composite source.",
     exportSlug: "Spark",
   },
   {
