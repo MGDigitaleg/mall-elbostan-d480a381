@@ -50,6 +50,8 @@ type Props = {
   selectedUnitId: string | null;
   mutedUnitIds: Set<string>;
   onSelectUnit: (unit: MallUnit) => void;
+  onAtriumClick?: () => void;
+  highlightedUnitIds?: Set<string>;
   className?: string;
 };
 
