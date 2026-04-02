@@ -40,30 +40,31 @@ const About = () => (
     />
 
     {/* ═══════════ 1 · HERO — WHO WE ARE ═══════════ */}
-    <section className="heritage-section relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-hero" />
-      <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, hsl(0 0% 100%) 0.5px, transparent 0)", backgroundSize: "36px 36px" }} />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 65% 50%, hsl(220 68% 38% / 0.06), transparent 70%)" }} />
+    <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 55% at 75% 45%, hsl(222 58% 42% / 0.06), transparent 70%)" }} />
 
       <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-        <div className="grid min-h-[80vh] items-center gap-10 py-20 lg:grid-cols-2 lg:gap-16 lg:py-0">
+        <div className="grid min-h-[78vh] items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14 lg:py-0">
           <motion.div
-            initial={{ opacity: 0, y: 36 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="order-1 space-y-6"
           >
-            <span className="eyebrow-chip border-white/15 bg-white/8 text-[0.76rem] text-[hsl(220_15%_80%)]">
-              من نحن
-            </span>
+            <div className="flex items-center gap-3">
+              <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
+              <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
+                من نحن
+              </span>
+            </div>
 
-            <h1 className="max-w-[30rem] text-[2.2rem] font-extrabold leading-[1.06] text-white md:text-[3.2rem] lg:text-[3.8rem]">
+            <h1 className="max-w-[28rem] text-[2.4rem] font-extrabold leading-[1.06] text-white md:text-[3.2rem] lg:text-[3.8rem]">
               مول بنته الثقة
               <br className="hidden sm:block" />
               قبل أن يبنيه الحجر.
             </h1>
 
-            <p className="max-w-[30rem] text-[1.05rem] leading-[2] text-[hsl(220_15%_72%)] md:text-[1.15rem]">
+            <p className="max-w-[30rem] text-[1.02rem] leading-[2] md:text-[1.12rem]" style={{ color: "hsl(220 14% 72%)" }}>
               مول البستان ليس مشروعًا يبدأ من الصفر — إنه امتداد لتاريخ تجاري حقيقي في سوق
               الإلكترونيات المصري. اليوم يتجدد رقميًا ومعماريًا بنفس المبادئ التي أسّسته:
               وضوح التعامل، تنظيم السوق، واحترام العلاقة بين التاجر والمشتري.
@@ -72,41 +73,39 @@ const About = () => (
             <div className="flex flex-wrap gap-3 pt-1">
               <Link to="/map">
                 <Button variant="cta" size="lg" className="h-[3.25rem] rounded-xl px-7 text-[0.95rem] font-bold">
-                  <Compass className="ml-2 h-[1.1rem] w-[1.1rem]" />
+                  <Compass className="ml-2 h-[1.05rem] w-[1.05rem]" />
                   استكشف الخريطة
                 </Button>
               </Link>
               <Link to="/stores">
-                <Button size="lg" className="h-[3.25rem] rounded-xl border border-white/15 bg-white/8 px-7 text-[0.95rem] font-semibold text-white backdrop-blur-sm hover:bg-white/14">
+                <Button size="lg" className="h-[3.25rem] rounded-xl border border-white/12 bg-white/6 px-7 text-[0.95rem] font-semibold text-white hover:bg-white/12">
                   تصفّح المتاجر
                 </Button>
               </Link>
             </div>
           </motion.div>
 
+          {/* image — single strong frame, no floating clutter */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.12 }}
-            className="order-2 flex items-center justify-center"
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="order-2 hidden lg:flex lg:items-center lg:justify-center"
           >
-            <div className="relative w-full max-w-[460px] lg:max-w-none">
-              {/* primary: wide architectural establishing shot */}
-              <div className="editorial-frame-dark overflow-hidden rounded-2xl lg:rounded-3xl">
-                <div className="image-shell img-wash-dark aspect-[3/4] lg:aspect-[4/5]">
+            <div className="relative w-full max-w-[420px]">
+              <div className="editorial-frame-dark overflow-hidden rounded-2xl">
+                <div className="image-shell img-wash-dark aspect-[3/4]">
                   <img src={exteriorImage} alt="الواجهة الرئيسية لمول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
                 </div>
               </div>
-              {/* secondary: cropped facade detail — texture */}
-              <div className="absolute -bottom-5 -right-5 hidden w-[40%] md:block lg:-bottom-7 lg:-right-7">
-                <div className="editorial-frame-dark overflow-hidden rounded-xl lg:rounded-2xl">
+              {/* small anchored detail */}
+              <div className="absolute -bottom-4 -right-4 w-[34%]">
+                <div className="editorial-frame-dark overflow-hidden rounded-xl">
                   <div className="image-shell img-wash-dark aspect-[1/1]">
-                    <img src={facadeImage} alt="التفاصيل المعمارية لمول البستان" className="img-grade-dark h-full w-full object-cover object-[center_30%]" loading="lazy" />
+                    <img src={facadeImage} alt="التفاصيل المعمارية" className="img-grade-dark h-full w-full object-cover object-[center_30%]" loading="lazy" />
                   </div>
                 </div>
               </div>
-              {/* vertical accent */}
-              <div className="absolute -left-4 top-8 hidden h-20 w-[3px] rounded-full lg:block" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.35), transparent)" }} />
             </div>
           </motion.div>
         </div>

@@ -96,68 +96,75 @@ const Stores = () => {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="heritage-section">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[62vh] items-center gap-10 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-0">
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 75% 50%, hsl(222 58% 42% / 0.06), transparent 70%)" }} />
+
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
+          <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="accent-line" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
+                <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
+                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
                   دليل المتاجر التقنية
                 </span>
               </div>
 
-              <h1 className="max-w-[24rem] text-[2rem] font-extrabold leading-[1.04] md:text-[2.8rem] lg:text-[3.2rem]" style={{ color: "hsl(var(--navy-foreground))" }}>
+              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
                 دليل المتاجر — منظّم بدقة وجاهز للاستكشاف.
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 70%)" }}>
+              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 14% 72%)" }}>
                 كل متجر في مول البستان ظاهر بفئته وحالته وموقعه على الخريطة.
                 ابحث بالاسم أو الفئة، واعرف التفاصيل قبل الزيارة.
               </p>
 
+              {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-1">
-                {[
-                  { v: `${totalStores}+`, l: "متجر" },
-                  { v: `${categories.length}`, l: "فئة تقنية" },
-                  { v: "3", l: "أدوار" },
-                ].map((s) => (
-                  <div key={s.l} className="stat-block-dark min-w-[5.5rem] px-4 py-3">
-                    <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(220 12% 58%)" }}>{s.l}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3 pt-2">
                 <a href="#directory">
                   <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
                     <Search className="h-4 w-4" /> ابدأ التصفح
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl px-7 font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "white" }}>
+                  <Button size="lg" className="h-12 gap-2 rounded-xl border border-white/12 bg-white/6 px-7 font-semibold text-white hover:bg-white/12">
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
+
+              {/* inline stats bar */}
+              <div className="flex items-center gap-6 border-t border-white/8 pt-5">
+                {[
+                  { v: `${totalStores}+`, l: "متجر" },
+                  { v: `${categories.length}`, l: "فئة تقنية" },
+                  { v: "3", l: "أدوار" },
+                ].map((s, i) => (
+                  <div key={s.l} className="flex items-center gap-5">
+                    <div>
+                      <p className="font-poppins text-[1.4rem] font-bold text-white">{s.v}</p>
+                      <p className="text-[0.7rem] font-medium" style={{ color: "hsl(220 14% 58%)" }}>{s.l}</p>
+                    </div>
+                    {i < 2 && <div className="h-7 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            {/* hero image — editorial layered composition */}
-            <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }} className="hidden items-center justify-center lg:flex">
-              <div className="relative w-full max-w-[420px]">
-                {/* primary: tall entrance shot — authority */}
-                <div className="editorial-frame-dark img-wash-dark overflow-hidden">
-                  <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-dark aspect-[4/5] w-full object-cover" loading="eager" />
-                </div>
-                {/* secondary: square interior crop — atmosphere */}
-                <div className="absolute -bottom-5 -right-5 w-[40%]">
-                  <div className="editorial-frame-dark img-wash-dark overflow-hidden rounded-xl">
-                    <img src={interiorImage} alt="متاجر المول من الداخل" className="img-grade-dark aspect-[1/1] w-full object-cover" loading="lazy" />
+            {/* image */}
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="hidden lg:flex lg:items-center lg:justify-center">
+              <div className="relative w-full max-w-[400px]">
+                <div className="editorial-frame-dark overflow-hidden rounded-2xl">
+                  <div className="image-shell img-wash-dark aspect-[3/4]">
+                    <img src={entranceImage} alt="مدخل مول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
                   </div>
                 </div>
-                {/* vertical accent */}
-                <div className="absolute -left-3 top-8 h-16 w-[3px] rounded-full" style={{ background: "linear-gradient(180deg, hsl(222 58% 50% / 0.3), transparent)" }} />
+                <div className="absolute -bottom-4 -right-4 w-[34%]">
+                  <div className="editorial-frame-dark overflow-hidden rounded-xl">
+                    <div className="image-shell img-wash-dark aspect-[1/1]">
+                      <img src={interiorImage} alt="متاجر المول من الداخل" className="img-grade-dark h-full w-full object-cover" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

@@ -41,56 +41,66 @@ const OpeningDay = () => {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="heritage-section">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 55% at 70% 45%, hsl(222 58% 42% / 0.06), transparent 70%)" }} />
+
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="accent-line" />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
+                <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
+                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
                   1 مايو 2026 — الافتتاح الكبير
                 </span>
               </div>
 
-              <h1 className="max-w-[26rem] text-[2rem] font-extrabold leading-[1.04] md:text-[2.8rem] lg:text-[3.2rem]" style={{ color: "hsl(var(--navy-foreground))" }}>
+              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
                 الافتتاح الكبير — برنامج واضح من الترقب إلى الحضور
               </h1>
 
-              <p className="max-w-[30rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 72%)" }}>
+              <p className="max-w-[30rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 14% 72%)" }}>
                 الموعد، الفعاليات، وآلية المشاركة في المكافآت — كل ما تحتاج معرفته قبل يوم الافتتاح.
               </p>
 
+              {/* CTAs */}
               <div className="flex flex-wrap gap-3 pt-1">
-                {[
-                  { icon: Calendar, text: "جدول فعاليات كامل" },
-                  { icon: Gift, text: "مكافآت مرتبطة بالحضور" },
-                  { icon: MapPin, text: "خطّط زيارتك مسبقًا" },
-                ].map((item) => (
-                  <div key={item.text} className="stat-block-dark flex items-center gap-2.5 px-4 py-3">
-                    <item.icon className="h-4 w-4 text-primary" />
-                    <span className="text-[0.82rem] font-semibold text-white">{item.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3 pt-2">
                 <Link to="/spin-win">
                   <Button variant="cta" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
                     <Sparkles className="h-4 w-4" /> أدر واربح الآن
                   </Button>
                 </Link>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl px-7 font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "white" }}>
+                  <Button size="lg" className="h-12 gap-2 rounded-xl border border-white/12 bg-white/6 px-7 font-semibold text-white hover:bg-white/12">
                     <MapPin className="h-4 w-4" /> خريطة المول
                   </Button>
                 </Link>
               </div>
+
+              {/* inline feature bar */}
+              <div className="flex items-center gap-5 border-t border-white/8 pt-5">
+                {[
+                  { icon: Calendar, text: "جدول فعاليات كامل" },
+                  { icon: Gift, text: "مكافآت مرتبطة بالحضور" },
+                  { icon: MapPin, text: "خطّط زيارتك مسبقًا" },
+                ].map((item, i) => (
+                  <div key={item.text} className="flex items-center gap-5">
+                    <div className="flex items-center gap-2">
+                      <item.icon className="h-4 w-4 text-primary" />
+                      <span className="text-[0.8rem] font-semibold" style={{ color: "hsl(220 14% 75%)" }}>{item.text}</span>
+                    </div>
+                    {i < 2 && <div className="h-5 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            {/* Countdown */}
+            {/* Countdown — premium anchored panel */}
             <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
-              <div className="heritage-surface p-6 md:p-8">
-                <p className="section-kicker" style={{ color: "hsl(220 60% 65%)" }}>العد التنازلي</p>
+              <div className="rounded-2xl p-6 md:p-8" style={{ background: "hsl(222 30% 10%)", border: "1px solid hsl(222 18% 18%)" }}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-[2px] w-6" style={{ background: "hsl(222 58% 55% / 0.4)" }} />
+                  <span className="font-poppins text-[0.7rem] font-semibold tracking-[0.18em] uppercase" style={{ color: "hsl(220 50% 65%)" }}>العد التنازلي</span>
+                </div>
                 <h2 className="mb-5 text-xl font-bold text-white">الوقت المتبقي حتى الافتتاح</h2>
                 <CountdownTimer />
               </div>

@@ -68,61 +68,67 @@ const Leasing = () => {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="heritage-section">
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
-          <div className="grid min-h-[62vh] items-center gap-10 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14 lg:py-0">
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}>
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 50% at 70% 50%, hsl(24 85% 50% / 0.04), transparent 70%)" }} />
+
+        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
+          <div className="grid min-h-[60vh] items-center gap-10 py-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14 lg:py-0">
             <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="accent-line" style={{ background: "hsl(var(--orange) / 0.5)" }} />
-                <span className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase" style={{ fontFamily: "var(--font-poppins)", color: "hsl(220 12% 62%)" }}>
+                <div className="h-[2px] w-8" style={{ background: "hsl(24 85% 50% / 0.5)" }} />
+                <span className="font-poppins text-[0.72rem] font-semibold tracking-[0.2em] uppercase" style={{ color: "hsl(220 50% 68%)" }}>
                   فرص تجارية
                 </span>
               </div>
 
-              <h1 className="max-w-[28rem] text-[2rem] font-extrabold leading-[1.04] md:text-[2.8rem] lg:text-[3.4rem]" style={{ color: "hsl(var(--navy-foreground))" }}>
+              <h1 className="max-w-[26rem] text-[2.2rem] font-extrabold leading-[1.04] text-white md:text-[3rem] lg:text-[3.4rem]">
                 فرص تجارية في وجهة يقصدها الجمهور المناسب
               </h1>
 
-              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 15% 72%)" }}>
+              <p className="max-w-[28rem] text-[0.95rem] leading-[2]" style={{ color: "hsl(220 14% 72%)" }}>
                 اطّلع على الوحدات المتاحة، قيّم الموقع، وابدأ استفسارك بخطوة واحدة مباشرة.
               </p>
 
-              <div className="grid max-w-[26rem] grid-cols-3 gap-3 pt-1">
-                {[
-                  { icon: Store, v: "6+", l: "فئات تقنية" },
-                  { icon: MapPin, v: "3", l: "أدوار" },
-                  { icon: TrendingUp, v: "50+", l: "وحدة متاحة" },
-                ].map((s) => (
-                  <div key={s.l} className="stat-block-dark px-4 py-3 text-center">
-                    <s.icon className="mx-auto mb-1 h-4 w-4 text-orange" />
-                    <p className="font-poppins text-lg font-bold text-white">{s.v}</p>
-                    <p className="mt-0.5 text-[0.68rem]" style={{ color: "hsl(220 12% 58%)" }}>{s.l}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3 pt-2">
+              {/* CTAs */}
+              <div className="flex flex-wrap gap-3 pt-1">
                 <a href="#inquiry">
                   <Button variant="orange" size="lg" className="h-12 gap-2 rounded-xl px-7 font-bold">
                     <Phone className="h-4 w-4" /> ابدأ الاستفسار
                   </Button>
                 </a>
                 <Link to="/map">
-                  <Button size="lg" className="h-12 gap-2 rounded-xl px-7 font-semibold" style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "white" }}>
+                  <Button size="lg" className="h-12 gap-2 rounded-xl border border-white/12 bg-white/6 px-7 font-semibold text-white hover:bg-white/12">
                     <Compass className="h-4 w-4" /> الخريطة التفاعلية
                   </Button>
                 </Link>
               </div>
+
+              {/* inline stats bar */}
+              <div className="flex items-center gap-6 border-t border-white/8 pt-5">
+                {[
+                  { v: "6+", l: "فئات تقنية" },
+                  { v: "3", l: "أدوار" },
+                  { v: "50+", l: "وحدة متاحة" },
+                ].map((s, i) => (
+                  <div key={s.l} className="flex items-center gap-5">
+                    <div>
+                      <p className="font-poppins text-[1.4rem] font-bold text-white">{s.v}</p>
+                      <p className="text-[0.7rem] font-medium" style={{ color: "hsl(220 14% 58%)" }}>{s.l}</p>
+                    </div>
+                    {i < 2 && <div className="h-7 w-px" style={{ background: "hsl(0 0% 100% / 0.08)" }} />}
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.1 }} className="hidden items-center justify-center lg:flex">
-              <div className="relative w-full max-w-[420px]">
-                {/* primary: tall facade — commercial authority */}
-                <div className="editorial-frame-dark img-wash-dark overflow-hidden">
-                  <img src={facadeImage} alt="واجهة مول البستان" className="img-grade-dark aspect-[4/5] w-full object-cover" loading="eager" />
+            {/* image */}
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.1 }} className="hidden lg:flex lg:items-center lg:justify-center">
+              <div className="w-full max-w-[400px]">
+                <div className="editorial-frame-dark overflow-hidden rounded-2xl">
+                  <div className="image-shell img-wash-dark aspect-[3/4]">
+                    <img src={facadeImage} alt="واجهة مول البستان" className="img-grade-dark h-full w-full object-cover" loading="eager" />
+                  </div>
                 </div>
-                {/* architectural accent */}
-                <div className="absolute -left-3 bottom-16 h-20 w-[3px] rounded-full" style={{ background: "linear-gradient(180deg, hsl(24 85% 50% / 0.35), transparent)" }} />
               </div>
             </motion.div>
           </div>
