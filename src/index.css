@@ -10,24 +10,25 @@
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
     --font-poppins: 'Inter', sans-serif;
 
-    /* ─── Premium heritage palette — warm, high-contrast ─── */
+    /* ─── Strict contrast palette ─── */
+    /* Light surface text — mapped from user spec */
     --background: 38 16% 97%;
-    --foreground: 222 36% 8%;
+    --foreground: 222 47% 11%;          /* #0F172A */
 
     --card: 36 18% 99%;
-    --card-foreground: 222 36% 8%;
+    --card-foreground: 222 47% 11%;     /* #0F172A */
 
     --popover: 36 18% 99%;
-    --popover-foreground: 222 36% 8%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 222 58% 38%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 34 14% 93%;
-    --secondary-foreground: 222 36% 8%;
+    --secondary-foreground: 222 47% 11%;
 
     --muted: 220 10% 88%;
-    --muted-foreground: 220 14% 34%;
+    --muted-foreground: 215 16% 47%;    /* #64748B */
 
     --accent: 192 48% 38%;
     --accent-foreground: 0 0% 100%;
@@ -364,12 +365,13 @@
 
   .section-kicker {
     @apply mb-3 text-[0.72rem] font-bold tracking-[0.22em] uppercase;
-    color: hsl(var(--primary) / 0.75);
+    color: hsl(var(--primary));
     font-family: var(--font-poppins);
   }
 
   .section-title {
-    @apply text-[1.85rem] font-bold leading-[1.04] text-foreground md:text-[2.6rem] lg:text-[3.1rem];
+    @apply text-[1.85rem] font-bold leading-[1.04] md:text-[2.6rem] lg:text-[3.1rem];
+    color: hsl(222 47% 11%); /* #0F172A */
   }
 
   /* ── Spacing system ── */
@@ -504,9 +506,18 @@
   }
 
   /* ── Dark text helpers — strict high-contrast for dark sections ── */
-  .dark-heading { color: hsl(38 14% 96%); }
-  .dark-body { color: hsl(220 12% 74%); }
-  .dark-muted { color: hsl(220 10% 58%); }
-  .dark-kicker { color: hsl(220 55% 62%); }
-  .dark-accent { color: hsl(30 22% 58%); }
+  .dark-heading { color: #F8FAFC; }        /* primary heading on dark */
+  .dark-subheading { color: #E2E8F0; }     /* secondary heading on dark */
+  .dark-body { color: #CBD5E1; }           /* body on dark */
+  .dark-muted { color: #94A3B8; }          /* supporting on dark */
+  .dark-meta { color: #7C8BA1; }           /* metadata on dark */
+  .dark-kicker { color: hsl(220 60% 65%); }
+  .dark-accent { color: hsl(30 28% 58%); }
+
+  /* ── Light text helpers — strict hierarchy for light sections ── */
+  .light-heading { color: #0F172A; }       /* primary heading on light */
+  .light-subheading { color: #1E293B; }    /* secondary heading on light */
+  .light-body { color: #334155; }          /* body on light */
+  .light-muted { color: #64748B; }         /* supporting on light */
+  .light-meta { color: #94A3B8; }          /* metadata on light */
 }
