@@ -147,7 +147,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
           }}
         />
         {/* bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_44%_5%)] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[hsl(222_34%_6%)] to-transparent" />
 
         <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-14">
           <div className="grid min-h-[94vh] items-center gap-10 py-20 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20 lg:py-0">
