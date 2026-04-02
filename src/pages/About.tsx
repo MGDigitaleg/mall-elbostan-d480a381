@@ -136,8 +136,8 @@ const About = () => (
             </div>
 
             {/* text */}
-            <div className="order-1 space-y-6 lg:order-2">
-              <div className="chapter-shell pt-7">
+            <div className="order-1 space-y-4 lg:order-2">
+              <div className="chapter-shell pt-5">
                 <p className="section-kicker">لماذا هذا المول</p>
                 <h2 className="section-title max-w-[24rem]">
                   اسم يسبق التعريف في سوق الإلكترونيات.
