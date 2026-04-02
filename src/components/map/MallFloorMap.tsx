@@ -436,7 +436,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 className="text-[11px] font-semibold"
                 fill="#fff"
               >
-                {unit.code} | {unit.area} م²
+                {TENANT_NAMES[unit.id] ? `${TENANT_NAMES[unit.id]} | ${unit.code}` : `${unit.code} | ${unit.area} م²`}
               </text>
             </g>
           );
