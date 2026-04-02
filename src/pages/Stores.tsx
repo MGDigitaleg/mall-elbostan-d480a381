@@ -554,10 +554,10 @@ function EcosystemGrowingState() {
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF30" }}>
           <Store className="h-7 w-7" style={{ color: "#5B9AFF" }} />
         </div>
-        <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر على الطريق.</h3>
+        <h3 className="mt-6 text-[1.2rem] font-bold dark-heading md:text-[1.4rem]">الدليل يتجهّز — والمتاجر في الطريق.</h3>
         <p className="mx-auto mt-3 max-w-md text-[0.95rem] leading-8 dark-body">
-          المتاجر بتنضم تدريجيًا مع اقتراب الافتتاح الكبير.
-          الدليل هيتحدث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
+          المتاجر تنضم تدريجيًا مع اقتراب الافتتاح الكبير.
+          الدليل يتحدّث تلقائيًا بأسماء وتفاصيل كل متجر لحظة تأكيده.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link to="/map">
