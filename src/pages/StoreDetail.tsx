@@ -186,7 +186,7 @@ const StoreDetail = () => {
                   <span className="text-xs font-semibold text-foreground">وحدة {store.unit_code}</span>
                 </div>
               )}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
