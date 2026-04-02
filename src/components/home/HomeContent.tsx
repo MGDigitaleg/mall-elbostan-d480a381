@@ -104,10 +104,6 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
     icon: categoryMeta[need].icon, brief: categoryBriefs[need],
   }));
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
-  const availableByFloor = floorMapData.map((f) => ({
-    id: f.id, label: f.label,
-    count: f.units.filter((u) => u.status === "available").length,
-  }));
 
   return (
     <>
