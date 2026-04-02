@@ -257,6 +257,7 @@ const StoreDetail = () => {
           {/* Sidebar */}
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
             {/* Contact Card */}
+            <motion.div variants={fadeChild}>
             <aside className="card-editorial p-6 md:p-8">
               <p className="section-kicker">معلومات الاتصال</p>
               <h3 className="mb-5 text-lg font-bold text-foreground">تواصل مع المتجر أو قم بزيارته</h3>
@@ -274,6 +275,7 @@ const StoreDetail = () => {
                 {store.unit_code && <ContactRow icon={MapPin} text={`وحدة ${store.unit_code}`} />}
               </div>
             </aside>
+            </motion.div>
 
             {/* Related Stores */}
             {relatedStores && relatedStores.length > 0 && (
