@@ -243,9 +243,9 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
                 {/* trust signals */}
                 <div className="grid gap-2.5 sm:grid-cols-3">
                   {[
-                    { icon: Award, title: "إرث سوقي", desc: "حضور تجاري لأكثر من عقد." },
-                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة ومدينتي والرحاب." },
-                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء مختصر ومنظّم." },
+                    { icon: Award, title: "إرث سوقي", desc: "أكثر من عقد في السوق." },
+                    { icon: MapPin, title: "وجهة مقصودة", desc: "القاهرة الجديدة والمحيط." },
+                    { icon: Layers, title: "تصنيف دقيق", desc: "مسار شراء منظّم." },
                   ].map((c) => (
                     <div key={c.title} className="card-architectural rounded-lg p-4">
                       <c.icon className="mb-2 h-4 w-4 text-primary" />
