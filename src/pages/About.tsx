@@ -333,10 +333,10 @@ const About = () => (
 
               <div className="space-y-2.5">
                 {[
-                  { icon: TrendingUp, title: "منطقة طلب متنامٍ", desc: "القاهرة الجديدة ومحيطها يشهدان نموًا مستمرًا في الطلب على التقنية." },
-                  { icon: Users, title: "جمهور بنيّة شراء", desc: "الزائر يأتي للمول بحثًا عن حل تقني محدد — وليس للتجوّل." },
-                  { icon: Store, title: "حضور رقمي مباشر", desc: "كل وحدة ظاهرة بموقعها وفئتها على الدليل التفاعلي والخريطة." },
-                  { icon: MapPin, title: "مسار استفسار واضح", desc: "من الخريطة إلى صفحة التأجير — خطوة واحدة." },
+                  { icon: TrendingUp, title: "طلب متنامٍ", desc: "نمو مستمر في الطلب على التقنية." },
+                  { icon: Users, title: "جمهور بنيّة شراء", desc: "زائر يبحث عن حل تقني محدد." },
+                  { icon: Store, title: "حضور رقمي", desc: "كل وحدة على الدليل والخريطة." },
+                  { icon: MapPin, title: "مسار واضح", desc: "من الخريطة للتأجير — خطوة واحدة." },
                 ].map((item) => (
                   <div key={item.title} className="flex items-start gap-4 rounded-xl border border-border bg-card p-5 transition-all hover:shadow-[var(--shadow-card)]">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
