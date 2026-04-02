@@ -130,7 +130,7 @@ const StoreDetail = () => {
 
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             {/* Text */}
-            <div className="space-y-6">
+            <motion.div variants={heroText} initial="hidden" animate="visible" className="space-y-6">
               <div className="flex items-center gap-5">
                 {store.logo_url ? (
                   <div className="heritage-surface flex h-20 w-20 items-center justify-center p-2">
