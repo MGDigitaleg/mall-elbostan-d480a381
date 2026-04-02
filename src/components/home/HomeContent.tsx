@@ -334,7 +334,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
                     variant="ghost"
                     className="mt-1 px-0 text-primary hover:text-primary/80"
                   >
-                    اعرف المزيد عن المول
+                    تعرّف على قصة المول
                     <ArrowLeft className="mr-1.5 h-4 w-4" />
                   </Button>
                 </Link>
