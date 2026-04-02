@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 
@@ -67,6 +68,51 @@ const statusStroke: Record<MallUnitStatus, string> = {
 
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const isPanning = useRef(false);
+  const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const MIN_ZOOM = 1;
+  const MAX_ZOOM = 3;
+  const ZOOM_STEP = 0.4;
+
+  const handleZoomIn = () => setZoom((z) => Math.min(z + ZOOM_STEP, MAX_ZOOM));
+  const handleZoomOut = () => {
+    setZoom((z) => {
+      const next = Math.max(z - ZOOM_STEP, MIN_ZOOM);
+      if (next === MIN_ZOOM) setPan({ x: 0, y: 0 });
+      return next;
+    });
+  };
+  const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.preventDefault();
+    const delta = e.deltaY > 0 ? -ZOOM_STEP * 0.5 : ZOOM_STEP * 0.5;
+    setZoom((z) => {
+      const next = Math.min(Math.max(z + delta, MIN_ZOOM), MAX_ZOOM);
+      if (next === MIN_ZOOM) setPan({ x: 0, y: 0 });
+      return next;
+    });
+  }, []);
+
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    if (zoom <= 1) return;
+    isPanning.current = true;
+    panStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  }, [zoom, pan]);
+
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isPanning.current) return;
+    const dx = e.clientX - panStart.current.x;
+    const dy = e.clientY - panStart.current.y;
+    setPan({ x: panStart.current.panX + dx, y: panStart.current.panY + dy });
+  }, []);
+
+  const handlePointerUp = useCallback(() => { isPanning.current = false; }, []);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent, unit: MallUnit) => {
@@ -80,6 +126,51 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
   return (
     <div className={cn("relative overflow-hidden rounded-[1.5rem] border border-border bg-[#F4F0EA] p-3 md:p-4", className)}>
+      {/* Zoom controls */}
+      <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
+        <button
+          onClick={handleZoomIn}
+          disabled={zoom >= MAX_ZOOM}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
+          aria-label="تكبير"
+        >
+          <ZoomIn className="h-4 w-4 text-foreground" />
+        </button>
+        <button
+          onClick={handleZoomOut}
+          disabled={zoom <= MIN_ZOOM}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
+          aria-label="تصغير"
+        >
+          <ZoomOut className="h-4 w-4 text-foreground" />
+        </button>
+        <button
+          onClick={handleReset}
+          disabled={zoom === 1 && pan.x === 0 && pan.y === 0}
+          className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 shadow-md border border-border backdrop-blur-sm transition hover:bg-white disabled:opacity-40"
+          aria-label="إعادة ضبط"
+        >
+          <RotateCcw className="h-4 w-4 text-foreground" />
+        </button>
+      </div>
+
+      {/* Zoom level indicator */}
+      {zoom > 1 && (
+        <div className="absolute top-4 right-4 z-10 rounded-lg bg-white/90 px-2.5 py-1 text-xs font-semibold shadow-md border border-border backdrop-blur-sm text-foreground">
+          {Math.round(zoom * 100)}%
+        </div>
+      )}
+
+      <div
+        ref={containerRef}
+        onWheel={handleWheel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className={cn("touch-none", zoom > 1 && "cursor-grab active:cursor-grabbing")}
+        style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`, transformOrigin: "center center", transition: isPanning.current ? "none" : "transform 0.25s ease-out" }}
+      >
       <svg
         viewBox="-20 -20 1040 1040"
         className="h-full w-full"
@@ -442,6 +533,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           );
         })()}
       </svg>
+      </div>
     </div>
   );
 }
