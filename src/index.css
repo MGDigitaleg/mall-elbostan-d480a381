@@ -345,7 +345,7 @@
   /* ── Architectural band — a narrow colored strip ── */
   .band-primary {
     height: 3px;
-    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.4), transparent);
+    background: linear-gradient(90deg, transparent, #2D6BFF66, transparent);
   }
 
   /* ── Chips & Labels ── */
