@@ -102,7 +102,7 @@ const OpeningDay = () => {
                 </div>
               ))}
             </div>
-          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل مسابقات الألعاب ستتوفر قريبًا</div>}
+          ) : <div className="section-shell p-6 text-muted-foreground">تفاصيل المسابقات قيد الإعداد — ستُعلن مع اقتراب الافتتاح</div>}
         </section>
 
         <section>
