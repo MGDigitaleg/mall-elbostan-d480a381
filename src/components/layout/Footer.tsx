@@ -44,7 +44,7 @@ export function Footer() {
           {/* brand column */}
           <div className="space-y-5">
             <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[136px]" />
-            <p className="max-w-[260px] text-[0.9rem] leading-7" style={{ color: "hsl(220 15% 65%)" }}>
+            <p className="max-w-[260px] text-[0.9rem] leading-7 dark-body">
               وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات في القاهرة الجديدة.
             </p>
             <div className="flex gap-2.5">
