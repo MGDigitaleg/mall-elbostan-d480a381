@@ -670,9 +670,6 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
             </div>
             <h2 className="mx-auto max-w-[24rem] text-[1.3rem] font-bold leading-[1.15] md:text-[1.6rem] dark-heading">
               المول جاهز — والقرار بيدك.
-            </h2>
-            <p className="mx-auto mt-3 max-w-sm text-[0.88rem] leading-6 dark-body">
-              كل الأدوات أمامك — سواء تبحث عن منتج أو تفكّر في وحدة تجارية.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-2.5">
               <Link to="/map">

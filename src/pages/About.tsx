@@ -453,7 +453,7 @@ const About = () => (
             المول جاهز — والقرار بيدك.
           </h2>
           <p className="mx-auto mt-4 max-w-sm text-[0.95rem] leading-7 light-body">
-            الدليل التفاعلي، دليل المتاجر، وصفحة التأجير — كل أدوات القرار في مكان واحد.
+            كل أدوات القرار في مكان واحد.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link to="/map">

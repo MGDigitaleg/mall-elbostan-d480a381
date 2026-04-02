@@ -418,9 +418,9 @@ const Leasing = () => {
 
             <div className="mx-auto mt-8 grid max-w-[42rem] gap-3 sm:grid-cols-3">
               {[
-                { title: "موقع استراتيجي", desc: "في قلب القاهرة الجديدة — قريب من المدينتي والرحاب" },
-                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة — وليس مجرد تصفّح" },
-                { title: "بنية جاهزة", desc: "وحدات مجهزة وقابلة للتشغيل الفوري" },
+                { title: "موقع استراتيجي", desc: "القاهرة الجديدة — المدينتي والرحاب" },
+                { title: "جمهور جاهز", desc: "زوار بنيّة شراء واضحة" },
+                { title: "بنية جاهزة", desc: "وحدات قابلة للتشغيل الفوري" },
               ].map((item) => (
                 <div key={item.title} className="rounded-xl border border-border bg-card p-5 text-center">
                   <h3 className="text-[0.88rem] font-bold light-heading">{item.title}</h3>

@@ -601,9 +601,9 @@ function DirectoryEmpty({ onReset }: { onReset: () => void }) {
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#ffffff0A", border: "1px solid #ffffff14" }}>
         <Search className="h-6 w-6" style={{ color: "#5B9AFF" }} />
       </div>
-      <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج ضمن هذا البحث</h3>
+      <h3 className="mt-5 text-[1.1rem] font-bold dark-heading">لا توجد نتائج</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.9rem] leading-7 dark-body">
-        عدّل الفلتر أو جرّب كلمة بحث مختلفة. الدليل يتحدّث باستمرار مع انضمام متاجر جديدة.
+        عدّل الفلتر أو جرّب كلمة بحث مختلفة.
       </p>
       <button onClick={onReset} className="mt-5 rounded-xl px-6 py-2.5 text-[0.88rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
         إعادة ضبط الفلاتر
