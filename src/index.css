@@ -382,7 +382,7 @@
   }
 
   /* ── Spacing system ── */
-  .page-section { @apply py-8 md:py-12 lg:py-14; }
+  .page-section { @apply py-8 md:py-10 lg:py-12; }
 
   .page-shell {
     @apply px-5 py-5 md:px-8 md:py-6 lg:px-10 lg:py-8;
