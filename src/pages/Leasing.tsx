@@ -224,7 +224,7 @@ const Leasing = () => {
                   الفئات التي تحقق نتائج هنا
                 </h2>
                 <p className="mt-3 max-w-[28rem] text-[0.86rem] leading-[1.9] light-body">
-                  المول متخصص — وهذا يعني أن كل فئة تدعم الأخرى وتُضاعف قيمة تجربة الزائر.
+                  كل فئة تدعم الأخرى وتُضاعف قيمة التجربة.
                 </p>
 
                 <div className="mt-6 grid grid-cols-2 gap-2">
