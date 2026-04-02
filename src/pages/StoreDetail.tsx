@@ -219,6 +219,7 @@ const StoreDetail = () => {
                 {store.long_description_ar ?? store.short_description_ar ?? "سيتم تحديث وصف هذا المتجر قريبًا بمحتوى تفصيلي يوضح نوع المنتجات أو الخدمات التي يقدّمها داخل مول البستان."}
               </p>
             </article>
+            </motion.div>
 
             {/* Category Story */}
             {activeStory && (
