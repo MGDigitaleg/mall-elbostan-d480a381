@@ -23,9 +23,9 @@ function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
         <Gift className="h-3 w-3" />
         مكافأة نشطة
       </div>
-      <p className="mt-1 text-[0.84rem] font-bold light-heading">{ctx.reward.title_ar}</p>
+      <p className="mt-1 text-[0.84rem] font-bold light-heading">{ctx.prizeName}</p>
       {ctx.storeName && <p className="mt-0.5 text-[0.76rem] light-body">من {ctx.storeName}</p>}
-      {ctx.reward.claim_rules_ar && <p className="mt-1.5 text-[0.72rem] leading-5 light-body">{ctx.reward.claim_rules_ar}</p>}
+      {ctx.claimRules && <p className="mt-1.5 text-[0.72rem] leading-5 light-body">{ctx.claimRules}</p>}
       {ctx.isCategory && <p className="mt-1.5 text-[0.68rem] font-bold" style={{ color: "#3B52CC" }}>جميع المتاجر المُظلّلة مشاركة</p>}
     </div>
   );
