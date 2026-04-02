@@ -191,7 +191,7 @@ export function HomeContent({ faqs, featuredStores }: HomeContentProps) {
               <div className="flex items-center gap-5 border-t pt-5" style={{ borderColor: "hsl(0 0% 100% / 0.07)" }}>
                 {[
                   { v: `${floorMapData.length}`, l: "أدوار تجارية" },
-                  { v: `${availableUnits.length}+`, l: "وحدة متاحة" },
+                  { v: `${totalUnits}+`, l: "وحدة تجارية" },
                   { v: `${categoryStories.length}`, l: "فئات متخصصة" },
                 ].map((s, i) => (
                   <div key={s.l} className="flex items-center gap-4">
