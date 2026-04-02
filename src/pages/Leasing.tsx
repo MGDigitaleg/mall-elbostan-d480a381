@@ -175,7 +175,7 @@ const Leasing = () => {
       </section>
 
       {/* ═══════════ AUDIENCE & CATEGORY FIT ═══════════ */}
-      <section className="py-12 md:py-16" style={{ background: "#F5F2EC" }}>
+      <section className="py-8 md:py-10" style={{ background: "#F5F2EC" }}>
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-14">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}>
             <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
