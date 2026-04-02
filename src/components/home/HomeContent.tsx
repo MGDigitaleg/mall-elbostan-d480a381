@@ -667,7 +667,7 @@ export function HomeContent({ faqs, featuredStores, upcomingEvents }: HomeConten
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="card-layered overflow-hidden">
+            <div className="card-editorial overflow-hidden">
               <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
                 {/* text */}
                 <div className="space-y-5 p-7 md:p-10">
