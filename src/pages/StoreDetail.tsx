@@ -154,7 +154,7 @@ const StoreDetail = () => {
         <div className="container relative max-w-6xl px-5 pb-14 pt-8 md:px-8 md:pb-20 md:pt-10">
           {/* Breadcrumb */}
           <Link to="/stores" className="mb-8 inline-flex items-center gap-1.5 text-[0.78rem] font-medium text-white/40 transition-colors hover:text-white/70">
-            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المتاجر
+            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المحلات
           </Link>
 
           <div className="grid items-center gap-10 lg:grid-cols-2">
