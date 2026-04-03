@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { useGA4 } from "@/hooks/useGA4";
 
+import CampaignHome from "./pages/CampaignHome";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import NewCairoBranch from "./pages/NewCairoBranch";
