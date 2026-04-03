@@ -16,16 +16,16 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 /* ── Mall coordinates ── */
-const MALL_LAT = 30.0177;
-const MALL_LNG = 31.4697;
+const MALL_LAT = 30.00688915799785;
+const MALL_LNG = 31.426935129305683;
 const MALL_ADDRESS =
-  "الحى الأول، مركز الخدمات، خلف محكمة القاهرة الجديدة، التجمع الخامس";
+  "الحى الأول، مركز الخدمات، خلف محكمة القاهرة الجديدة، التجمع الخامس، القاهرة";
 const PLUS_CODE = "2C4G+QQV, New Cairo 1, Cairo Governorate, Egypt";
 
 const LANDMARKS = [
   { label: "خلف محكمة القاهرة الجديدة", icon: Landmark },
-  { label: "بجوار مكتبة المعارجي", icon: Landmark },
   { label: "مركز خدمات الحي الأول", icon: MapPin },
+  { label: "التجمع الخامس، القاهرة", icon: MapPin },
 ];
 
 type RouteMode = "driving" | "walking" | "transit";
