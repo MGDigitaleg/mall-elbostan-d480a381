@@ -20,57 +20,56 @@ export function OpeningFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="page-section" style={{ background: "linear-gradient(180deg, #071326 0%, #0D1F3C 100%)" }}>
+    <section className="py-12 md:py-16" style={{ background: "hsl(38 25% 96%)" }}>
       <div className="container max-w-[860px]">
         <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
-          <div className="mb-8 text-center">
-            <div
-              className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl"
-              style={{ background: "hsl(var(--primary) / 0.08)", border: "1px solid hsl(var(--primary) / 0.15)" }}
-            >
+          <div className="mb-10 text-center">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                 style={{ background: "hsl(var(--primary) / 0.06)", border: "1px solid hsl(var(--primary) / 0.12)" }}>
               <HelpCircle className="h-5 w-5 text-primary" />
             </div>
-            <p className="section-kicker">أسئلة شائعة</p>
-            <h2 className="section-title mx-auto max-w-[20rem]" style={{ color: "#F8FAFC" }}>
+            <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary">أسئلة شائعة</p>
+            <h2 className="mt-1.5 text-[1.15rem] font-bold md:text-[1.35rem] text-foreground mx-auto max-w-[22rem]"
+                style={{ fontFamily: "var(--font-arabic-display)" }}>
               كل ما تحتاج معرفته قبل الافتتاح
             </h2>
           </div>
 
           {/* FAQ Items */}
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {faqs.map((faq, i) => {
               const isOpen = openIndex === i;
               return (
                 <div
                   key={i}
-                  className="overflow-hidden rounded-xl transition-colors"
+                  className="overflow-hidden rounded-xl border transition-all"
                   style={{
-                    background: isOpen ? "hsl(220 50% 14% / 0.8)" : "hsl(220 40% 12% / 0.5)",
-                    border: `1px solid ${isOpen ? "hsl(222 60% 35% / 0.3)" : "hsl(220 30% 20% / 0.5)"}`,
-                    backdropFilter: "blur(12px)",
+                    background: isOpen ? "hsl(0 0% 100%)" : "hsl(0 0% 100% / 0.7)",
+                    borderColor: isOpen ? "hsl(var(--primary) / 0.15)" : "hsl(220 20% 88%)",
+                    boxShadow: isOpen ? "0 4px 16px hsl(220 30% 10% / 0.06)" : "none",
                   }}
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : i)}
-                    className="flex w-full items-center gap-4 px-5 py-4 text-right transition-colors hover:bg-white/[0.02]"
+                    className="flex w-full items-center gap-4 px-5 py-4 text-right transition-colors hover:bg-primary/[0.02]"
                   >
                     <span
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-poppins text-[0.65rem] font-bold"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-poppins text-[0.68rem] font-bold transition-colors"
                       style={{
-                        background: isOpen ? "hsl(var(--primary) / 0.15)" : "hsl(var(--primary) / 0.07)",
-                        color: "hsl(var(--primary))",
+                        background: isOpen ? "hsl(var(--primary) / 0.1)" : "hsl(220 20% 95%)",
+                        color: isOpen ? "hsl(var(--primary))" : "hsl(220 15% 50%)",
                       }}
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex-1 text-[0.88rem] font-bold" style={{ color: "#F8FAFC" }}>
+                    <span className="flex-1 text-[0.88rem] font-bold text-foreground">
                       {faq.q}
                     </span>
                     <ChevronDown
                       className="h-4 w-4 shrink-0 transition-transform duration-300"
                       style={{
-                        color: "hsl(220 14% 55%)",
+                        color: isOpen ? "hsl(var(--primary))" : "hsl(220 14% 55%)",
                         transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                       }}
                     />
@@ -80,10 +79,7 @@ export function OpeningFAQ() {
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="overflow-hidden">
-                      <p
-                        className="px-5 pb-5 pr-16 text-[0.84rem] leading-[1.9]"
-                        style={{ color: "hsl(220 14% 68%)" }}
-                      >
+                      <p className="px-5 pb-5 pr-16 text-[0.84rem] leading-[1.9] text-muted-foreground">
                         {faq.a}
                       </p>
                     </div>

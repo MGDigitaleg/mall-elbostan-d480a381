@@ -289,6 +289,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const tenantLogo = TENANT_LOGOS[unit.id];
             const hasName = unit.status === "occupied" && tenantName;
             const isSelected = selectedUnitId === unit.id;
+            const unitColors = statusFill[unit.status];
 
             // Logo dimensions - larger, filling the allocated space
             const logoW = 56;
@@ -307,7 +308,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       width={bgW}
                       height={bgH}
                       rx="4"
-                      fill={isSelected ? colors.selected : colors.base}
+                      fill={isSelected ? unitColors.selected : unitColors.base}
                       opacity="0.85"
                     />
                     {/* Tenant logo — scaled to fill */}
