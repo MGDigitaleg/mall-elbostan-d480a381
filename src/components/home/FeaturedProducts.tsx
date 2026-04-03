@@ -10,7 +10,7 @@ export function FeaturedProducts() {
     queryFn: async () => {
       const { data } = await supabase
         .from("products")
-        .select("id, name_ar, slug, price, price_note, image_url, brand, category_id, store_id, stores(name_ar, slug)")
+        .select("id, name_ar, slug, price, price_note, image_url, brand, category_id, store_id, stores(name_ar, slug, logo_url, category)")
         .eq("status", "published")
         .eq("featured", true)
         .limit(12);
@@ -36,39 +36,71 @@ export function FeaturedProducts() {
         </div>
 
         {hasProducts ? (
-          <div className="grid gap-px bg-border overflow-hidden rounded-lg border border-border grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="grid gap-2.5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
             {products.map((product) => {
               const store = (product as any).stores;
               return (
                 <Link
                   key={product.id}
                   to={`/products/${product.slug}`}
-                  className="group flex flex-col bg-card transition-colors hover:bg-muted/30"
+                  className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden transition-all hover:shadow-[var(--shadow-card)] hover:border-primary/20"
                 >
-                  {product.image_url ? (
-                    <div className="aspect-square overflow-hidden bg-white">
-                      <img src={product.image_url} alt={product.name_ar} className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105" loading="lazy" />
-                    </div>
-                  ) : (
-                    <div className="flex aspect-square items-center justify-center bg-secondary/50">
-                      <ShoppingBag className="h-6 w-6 text-muted-foreground/25" />
-                    </div>
-                  )}
-                  <div className="flex flex-1 flex-col justify-between p-2.5">
+                  {/* Image area */}
+                  <div className="relative aspect-square overflow-hidden bg-white">
+                    {product.image_url ? (
+                      <img
+                        src={product.image_url}
+                        alt={product.name_ar}
+                        className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <ShoppingBag className="h-6 w-6 text-muted-foreground/20" />
+                      </div>
+                    )}
+
+                    {/* Category badge */}
+                    {store?.category && (
+                      <span className="absolute top-1.5 right-1.5 rounded-md bg-primary/90 px-1.5 py-0.5 text-[0.56rem] font-bold text-primary-foreground leading-tight backdrop-blur-sm">
+                        {store.category}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Info area */}
+                  <div className="flex flex-1 flex-col justify-between border-t border-border p-2.5">
                     <div>
-                      <p className="text-[0.75rem] font-bold light-heading line-clamp-2 leading-snug">{product.name_ar}</p>
+                      <p className="text-[0.74rem] font-bold light-heading line-clamp-2 leading-snug">
+                        {product.name_ar}
+                      </p>
+
+                      {/* Store row with logo */}
                       {store && (
-                        <p className="mt-0.5 flex items-center gap-1 text-[0.62rem] light-muted">
-                          <Store className="h-2.5 w-2.5" /> {store.name_ar}
-                        </p>
+                        <div className="mt-1.5 flex items-center gap-1.5">
+                          {store.logo_url ? (
+                            <img
+                              src={store.logo_url}
+                              alt={store.name_ar}
+                              className="h-4 w-4 rounded object-contain border border-border bg-white shrink-0"
+                            />
+                          ) : (
+                            <Store className="h-3 w-3 text-muted-foreground/50 shrink-0" />
+                          )}
+                          <span className="text-[0.62rem] font-semibold text-muted-foreground line-clamp-1">
+                            {store.name_ar}
+                          </span>
+                        </div>
                       )}
                     </div>
+
+                    {/* Price */}
                     {product.price ? (
-                      <p className="mt-1.5 font-poppins text-[0.78rem] font-bold text-primary">
+                      <p className="mt-2 font-poppins text-[0.8rem] font-extrabold text-primary">
                         {Number(product.price).toLocaleString("ar-EG")} جم
                       </p>
                     ) : product.price_note ? (
-                      <p className="mt-1.5 text-[0.68rem] font-semibold text-primary">{product.price_note}</p>
+                      <p className="mt-2 text-[0.68rem] font-bold text-primary">{product.price_note}</p>
                     ) : null}
                   </div>
                 </Link>
