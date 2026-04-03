@@ -5,7 +5,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { useGA4 } from "@/hooks/useGA4";
 
-import CampaignHome from "./pages/CampaignHome";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import NewCairoBranch from "./pages/NewCairoBranch";
@@ -29,7 +28,6 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
 import NotFound from "./pages/NotFound";
-import DowntownDirectory from "./pages/DowntownDirectory";
 
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
@@ -37,7 +35,6 @@ import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
 import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
-import { AdminDowntownMerchants } from "./pages/admin/AdminDowntownPages";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
@@ -53,18 +50,14 @@ const adminPaths = ["/admin"];
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
-  const isCampaignHome = location.pathname === "/";
-  const hideChrome = isAdmin || isCampaignHome;
 
   return (
     <>
-      {!hideChrome && <Header />}
-      <main className={!hideChrome ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
+      {!isAdmin && <Header />}
+      <main className={!isAdmin ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
         <Routes>
           {/* Public */}
-          {/* Temporary campaign homepage — restore <Index /> after opening */}
-          <Route path="/" element={<CampaignHome />} />
-          <Route path="/home-main" element={<Index />} />
+          <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
           <Route path="/downtown-branch" element={<DowntownBranch />} />
@@ -86,7 +79,6 @@ function AppLayout() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reward-terms" element={<RewardTerms />} />
-          <Route path="/downtown-directory" element={<DowntownDirectory />} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -107,13 +99,12 @@ function AppLayout() {
           <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
           <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
           <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
-          <Route path="/admin/downtown-merchants" element={<AdminDowntownMerchants />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {!hideChrome && <Footer />}
-      {!hideChrome && <WhatsAppFab />}
+      {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppFab />}
     </>
   );
 }
