@@ -112,8 +112,8 @@ function AppLayout() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFab />}
+      {!hideChrome && <Footer />}
+      {!hideChrome && <WhatsAppFab />}
     </>
   );
 }
