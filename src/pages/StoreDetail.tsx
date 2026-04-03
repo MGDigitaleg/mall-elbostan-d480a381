@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin, Phone, Store, ExternalLink } from "lucide-react";
+import { ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin, Phone, Store, ExternalLink, ShoppingBag } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -69,6 +69,20 @@ const StoreDetail = () => {
       return data ?? [];
     },
     enabled: !!store?.category && !!store?.id,
+  });
+
+  const { data: storeProducts } = useQuery({
+    queryKey: ["store-products", store?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("id, name_ar, slug, price, price_note, image_url, brand")
+        .eq("store_id", store!.id)
+        .eq("status", "published")
+        .limit(6);
+      return data ?? [];
+    },
+    enabled: !!store?.id,
   });
 
   const gallery = useMemo(() => {
@@ -247,6 +261,47 @@ const StoreDetail = () => {
                     <div key={`${image}-${index}`} className="image-architectural aspect-[4/3]">
                       <img src={image} alt={`${store.name_ar} ${index + 1}`} className="h-full w-full object-cover" loading="lazy" />
                     </div>
+                  ))}
+                </div>
+              </section>
+              </motion.div>
+            )}
+
+            {/* Store Products */}
+            {storeProducts && storeProducts.length > 0 && (
+              <motion.div variants={fadeChild}>
+              <section className="card-editorial p-6 md:p-8">
+                <div className="flex items-center justify-between mb-5">
+                  <div>
+                    <p className="section-kicker">منتجات المتجر</p>
+                    <h2 className="text-xl font-bold text-foreground">منتجات متاحة في {store.name_ar}</h2>
+                  </div>
+                  <Link to="/products" className="text-xs font-medium text-primary hover:underline">عرض الكل</Link>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {storeProducts.map((product) => (
+                    <Link
+                      key={product.id}
+                      to={`/products/${product.slug}`}
+                      className="card-premium flex items-center gap-3 p-3 transition-all hover:shadow-[var(--shadow-elevated)]"
+                    >
+                      {product.image_url ? (
+                        <img src={product.image_url} alt={product.name_ar} className="h-14 w-14 rounded-lg object-cover" loading="lazy" />
+                      ) : (
+                        <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-muted">
+                          <ShoppingBag className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-foreground truncate">{product.name_ar}</p>
+                        {product.brand && <p className="text-xs text-muted-foreground">{product.brand}</p>}
+                        {product.price && (
+                          <p className="mt-0.5 text-sm font-bold text-primary">
+                            {product.price.toLocaleString("ar-EG")} ج.م
+                          </p>
+                        )}
+                      </div>
+                    </Link>
                   ))}
                 </div>
               </section>
