@@ -56,6 +56,9 @@ const NewCairoBranch = () => (
         </div>
       </div>
     </div>
+
+    {/* ═══════════ INTERACTIVE LOCATION MAP ═══════════ */}
+    <LocationMapSection />
   </MainLayout>
 );
 
