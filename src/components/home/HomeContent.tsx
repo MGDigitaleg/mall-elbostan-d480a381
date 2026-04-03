@@ -21,6 +21,7 @@ import { HeroSlider } from "@/components/home/HeroSlider";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { DowntownTeaser } from "@/components/home/DowntownTeaser";
+import { DealsTeaser } from "@/components/home/DealsTeaser";
 
 const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "في قلب القاهرة الجديدة، ضمن موقع يخدم مدينتي والرحاب والمناطق المحيطة." },
