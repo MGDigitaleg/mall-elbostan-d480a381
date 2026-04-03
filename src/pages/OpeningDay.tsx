@@ -40,6 +40,7 @@ const OpeningDay = () => {
       <OpeningSchedule events={schedule} isLoading={isLoading} />
       <OpeningGuests guests={guests} />
       <OpeningGaming competitions={gaming} />
+      <OpeningFAQ />
       <OpeningSponsors />
     </MainLayout>
   );
