@@ -1,13 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { Search, ShoppingBag, Store, SlidersHorizontal, X, Tag } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Search,
+  ShoppingBag,
+  Store,
+  X,
+  Tag,
+  ArrowLeft,
+  SlidersHorizontal,
+  Compass,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { motion } from "framer-motion";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -60,292 +68,378 @@ const Products = () => {
         return sorted.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
       case "newest":
         return sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-      case "featured":
       default:
         return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
   }, [products, sortBy]);
 
-  const activeFiltersCount = [selectedCategory !== "all", selectedStore !== "all", searchTerm.trim().length > 0].filter(Boolean).length;
+  const hasActiveFilters = selectedCategory !== "all" || selectedStore !== "all" || searchTerm.trim().length > 0;
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setSelectedCategory("all");
     setSelectedStore("all");
     setSearchTerm("");
     setSortBy("featured");
-  };
+  }, []);
 
   return (
     <MainLayout>
       <SEOHead
         title="المنتجات"
         titleEn="Products"
-        description="تصفّح منتجات متاجر مول البستان — هواتف، أجهزة، إكسسوارات، وقطع غيار من العلامات التجارية المتوفرة في المول."
-        descriptionEn="Browse products from Mall Elbostan stores — phones, devices, accessories, and components from the mall's brands."
+        description="تصفّح منتجات محلات مول البستان — هواتف، أجهزة، إكسسوارات، وقطع غيار من العلامات التجارية المتوفرة في المول."
+        descriptionEn="Browse products from Mall Elbostan stores — phones, devices, accessories, and components."
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
       />
 
-      {/* Hero */}
-      <section className="bg-primary">
-        <div className="container py-10 md:py-14">
-          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-[2px] w-8 rounded-full bg-accent" />
-              <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase text-accent">
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+        <div className="pointer-events-none absolute inset-0 opacity-30"
+          style={{ background: "radial-gradient(ellipse 50% 80% at 80% 50%, hsl(222 100% 59% / 0.06), transparent)" }} />
+        <div className="container max-w-[1200px]">
+          <div className="py-10 md:py-14 lg:py-16">
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <p className="font-poppins text-[0.56rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
                 Marketplace
-              </span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-primary-foreground max-w-[22rem]">
-              منتجات <span className="text-accent">مول البستان</span>
-            </h1>
-            <p className="mt-2 max-w-[28rem] text-[0.88rem] leading-[1.85] text-primary-foreground/70">
-              تصفّح المنتجات المتوفرة من متاجر المول — اعثر على ما تحتاجه واطلبه مباشرة.
-            </p>
-            {/* Stats bar */}
-            <div className="mt-5 flex items-center gap-5">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <ShoppingBag className="h-3.5 w-3.5 text-accent" />
-                </div>
-                <div>
-                  <p className="font-poppins text-[0.95rem] font-bold text-primary-foreground">{products?.length ?? 0}</p>
-                  <p className="text-[0.62rem] text-primary-foreground/50">منتج متوفر</p>
-                </div>
-              </div>
-              <div className="h-6 w-px bg-primary-foreground/10" />
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <Store className="h-3.5 w-3.5 text-accent" />
-                </div>
-                <div>
-                  <p className="font-poppins text-[0.95rem] font-bold text-primary-foreground">{stores?.length ?? 0}</p>
-                  <p className="text-[0.62rem] text-primary-foreground/50">متجر مشارك</p>
-                </div>
-              </div>
-              <div className="h-6 w-px bg-primary-foreground/10" />
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-foreground/10">
-                  <Tag className="h-3.5 w-3.5 text-accent" />
-                </div>
-                <div>
-                  <p className="font-poppins text-[0.95rem] font-bold text-primary-foreground">{categories?.length ?? 0}</p>
-                  <p className="text-[0.62rem] text-primary-foreground/50">تصنيف</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              </p>
+              <h1 className="mt-2 max-w-[20rem] text-[1.5rem] font-bold leading-[1.15] md:text-[1.8rem]" style={{ color: "#F8FAFC" }}>
+                منتجات <span style={{ color: "hsl(var(--accent))" }}>مول البستان.</span>
+              </h1>
+              <p className="mt-2 max-w-[24rem] text-[0.84rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+                تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات.
+              </p>
 
-      {/* Filters */}
-      <section className="sticky top-[60px] z-30 border-b border-border bg-card/95 backdrop-blur-sm md:top-[68px] xl:top-[72px]">
-        <div className="container py-3">
-          <div className="flex flex-col gap-3">
-            {/* Row 1: Search + Sort */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <div className="relative flex-1 min-w-[180px] max-w-[320px]">
-                <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="ابحث عن منتج أو علامة تجارية..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pr-10 h-9 rounded-lg border-border bg-secondary text-[0.84rem]"
-                />
-              </div>
-
-              {/* Store filter */}
-              <select
-                value={selectedStore}
-                onChange={(e) => setSelectedStore(e.target.value)}
-                className="h-9 rounded-lg border border-border bg-secondary px-3 text-[0.78rem] font-semibold text-foreground outline-none focus:ring-2 focus:ring-ring"
-              >
-                <option value="all">جميع المتاجر</option>
-                {stores?.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name_ar}</option>
+              {/* Quick stats */}
+              <div className="mt-4 flex flex-wrap gap-3">
+                {[
+                  { icon: ShoppingBag, value: products?.length ?? 0, label: "منتج متوفر" },
+                  { icon: Store, value: stores?.length ?? 0, label: "محل مشارك" },
+                  { icon: Tag, value: categories?.length ?? 0, label: "تصنيف" },
+                ].map((stat) => (
+                  <div key={stat.label} className="flex items-center gap-2.5 rounded-lg px-3.5 py-2" style={{ border: "1px solid #ffffff10", background: "#ffffff06" }}>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "#ffffff0A" }}>
+                      <stat.icon className="h-3.5 w-3.5" style={{ color: "hsl(var(--accent))" }} />
+                    </div>
+                    <div>
+                      <span className="font-poppins text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>{stat.value}</span>
+                      <p className="text-[0.62rem]" style={{ color: "#64748B" }}>{stat.label}</p>
+                    </div>
+                  </div>
                 ))}
-              </select>
+              </div>
 
-              {/* Sort */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="h-9 rounded-lg border border-border bg-secondary px-3 text-[0.78rem] font-semibold text-foreground outline-none focus:ring-2 focus:ring-ring"
-              >
-                <option value="featured">الأكثر تميزا</option>
-                <option value="price_asc">السعر: الأقل أولا</option>
-                <option value="price_desc">السعر: الأعلى أولا</option>
-                <option value="newest">الأحدث</option>
-              </select>
-
-              {activeFiltersCount > 0 && (
-                <button
-                  onClick={clearFilters}
-                  className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-destructive/30 bg-destructive/5 px-3 text-[0.76rem] font-semibold text-destructive transition-colors hover:bg-destructive/10"
-                >
-                  <X className="h-3 w-3" /> مسح الفلاتر ({activeFiltersCount})
-                </button>
-              )}
-            </div>
-
-            {/* Row 2: Category chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-              <button
-                onClick={() => setSelectedCategory("all")}
-                className={`inline-flex h-7 shrink-0 items-center rounded-full px-3 text-[0.72rem] font-semibold transition-colors ${
-                  selectedCategory === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                الكل
-              </button>
-              {categories?.map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`inline-flex h-7 shrink-0 items-center rounded-full px-3 text-[0.72rem] font-semibold transition-colors ${
-                    selectedCategory === cat.id ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {cat.name_ar}
-                </button>
-              ))}
-            </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <a href="#products">
+                  <Button variant="cta" className="h-9 gap-2 rounded-lg px-5 text-[0.82rem] font-bold shadow-[var(--shadow-blue)]">
+                    <Search className="h-3.5 w-3.5" /> تصفح المنتجات
+                  </Button>
+                </a>
+                <Link to="/stores">
+                  <Button className="h-9 gap-2 rounded-lg border px-5 text-[0.82rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+                    <Store className="h-3.5 w-3.5" /> دليل المحلات
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section className="py-8 md:py-10 bg-secondary/30">
-        <div className="container">
-          {/* Results count */}
-          {!isLoading && products && products.length > 0 && (
-            <p className="mb-4 text-[0.78rem] text-muted-foreground">
-              عرض <span className="font-bold text-foreground font-poppins">{sortedProducts.length}</span> منتج
-              {selectedCategory !== "all" && categories && (
-                <> في <span className="font-semibold text-primary">{categories.find(c => c.id === selectedCategory)?.name_ar}</span></>
-              )}
-            </p>
-          )}
+      <div className="band-primary" />
 
+      {/* ═══════════ PRODUCTS SECTION ═══════════ */}
+      <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
+        <div className="container max-w-[1200px]">
+
+          {/* Sticky filter bar */}
+          <div className="sticky top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+              {/* Search */}
+              <div className="relative flex-1">
+                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
+                <input
+                  type="text"
+                  placeholder="ابحث عن منتج أو علامة تجارية..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] outline-none transition-all focus:ring-1"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
+                />
+              </div>
+
+              {/* Dropdowns */}
+              <div className="flex items-center gap-2">
+                <select
+                  value={selectedStore}
+                  onChange={(e) => setSelectedStore(e.target.value)}
+                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  <option value="all">جميع المحلات</option>
+                  {stores?.map((s) => (
+                    <option key={s.id} value={s.id}>{s.name_ar}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  <option value="featured">الأكثر تميزا</option>
+                  <option value="price_asc">السعر: الأقل</option>
+                  <option value="price_desc">السعر: الأعلى</option>
+                  <option value="newest">الأحدث</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Category chips */}
+            <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
+              <ChipButton active={selectedCategory === "all"} onClick={() => setSelectedCategory("all")}>الكل</ChipButton>
+              {categories?.map((cat) => (
+                <ChipButton key={cat.id} active={selectedCategory === cat.id} onClick={() => setSelectedCategory(cat.id)}>
+                  {cat.name_ar}
+                </ChipButton>
+              ))}
+            </div>
+
+            {/* Active filter summary */}
+            {hasActiveFilters && (
+              <div className="mt-2.5 flex items-center gap-2 text-[0.72rem]" style={{ color: "#64748B" }}>
+                <span>نتائج البحث: {sortedProducts.length} منتج</span>
+                <button
+                  onClick={clearFilters}
+                  className="flex items-center gap-1 rounded-md px-2 py-0.5 transition-colors hover:text-white"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff06" }}
+                >
+                  <X className="h-3 w-3" /> مسح الفلاتر
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Products grid */}
           {isLoading ? (
-            <div className="grid gap-px bg-border overflow-hidden rounded-xl border border-border grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="animate-pulse bg-card p-3">
-                  <div className="aspect-square rounded-lg bg-secondary mb-2.5" />
-                  <div className="h-3.5 w-3/4 rounded bg-secondary mb-1.5" />
-                  <div className="h-3 w-1/2 rounded bg-secondary" />
+                <div key={i} className="animate-pulse rounded-xl p-3" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
+                  <div className="aspect-square rounded-lg mb-3" style={{ background: "#ffffff08" }} />
+                  <div className="h-3.5 w-3/4 rounded mb-2" style={{ background: "#ffffff08" }} />
+                  <div className="h-3 w-1/2 rounded" style={{ background: "#ffffff08" }} />
                 </div>
               ))}
             </div>
           ) : sortedProducts.length > 0 ? (
-            <div className="grid gap-px bg-border overflow-hidden rounded-xl border border-border grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {sortedProducts.map((product) => {
-                const store = product.stores as { name_ar: string; slug: string; logo_url: string | null } | null;
-                const category = product.product_categories as { name_ar: string; slug: string } | null;
-                return (
-                  <Link
-                    key={product.id}
-                    to={`/products/${product.slug}`}
-                    className="group flex flex-col bg-card transition-colors hover:bg-muted/30"
-                  >
-                    {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-white">
-                      {product.image_url ? (
-                        <img
-                          src={product.image_url}
-                          alt={product.name_ar}
-                          className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <ShoppingBag className="h-7 w-7 text-muted-foreground/20" />
-                        </div>
-                      )}
-                      {product.featured && (
-                        <span className="absolute top-2 right-2 rounded-md bg-primary px-1.5 py-0.5 text-[0.58rem] font-bold text-primary-foreground">
-                          مميز
-                        </span>
-                      )}
-                      {product.brand && (
-                        <span className="absolute bottom-2 left-2 rounded bg-foreground/5 px-1.5 py-0.5 text-[0.56rem] font-semibold text-muted-foreground backdrop-blur-sm">
-                          {product.brand}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Info */}
-                    <div className="flex flex-1 flex-col justify-between p-2.5">
-                      <div>
-                        {category && (
-                          <p className="mb-0.5 text-[0.6rem] font-semibold text-primary/70">{category.name_ar}</p>
-                        )}
-                        <h3 className="text-[0.78rem] font-bold text-foreground line-clamp-2 leading-snug">{product.name_ar}</h3>
-                        {store && (
-                          <p className="mt-1 flex items-center gap-1 text-[0.64rem] text-muted-foreground">
-                            {store.logo_url ? (
-                              <img src={store.logo_url} alt="" className="h-3 w-3 rounded-sm object-contain" />
-                            ) : (
-                              <Store className="h-2.5 w-2.5" />
-                            )}
-                            {store.name_ar}
-                          </p>
-                        )}
-                      </div>
-                      <div className="mt-2">
-                        {product.price ? (
-                          <p className="font-poppins text-[0.82rem] font-bold text-primary">
-                            {Number(product.price).toLocaleString("ar-EG")} <span className="text-[0.62rem]">ج.م</span>
-                          </p>
-                        ) : product.price_note ? (
-                          <p className="text-[0.68rem] font-semibold text-primary">{product.price_note}</p>
-                        ) : null}
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {sortedProducts.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
             </div>
           ) : (
-            /* Empty state */
-            <div className="mx-auto max-w-2xl text-center py-14">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-card">
-                <ShoppingBag className="h-7 w-7 text-muted-foreground/40" />
-              </div>
-              {searchTerm || selectedCategory !== "all" || selectedStore !== "all" ? (
-                <>
-                  <h2 className="text-lg font-bold text-foreground">لا توجد نتائج مطابقة</h2>
-                  <p className="mt-1.5 text-[0.88rem] text-muted-foreground">جرّب تعديل الفلاتر أو البحث بكلمات مختلفة.</p>
-                  <Button variant="outline" className="mt-4 h-9 rounded-lg text-[0.78rem]" onClick={clearFilters}>
-                    مسح جميع الفلاتر
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <h2 className="text-lg font-bold text-foreground">سوق مول البستان الرقمي</h2>
-                  <p className="mt-2 text-[0.88rem] leading-[1.8] text-muted-foreground max-w-[26rem] mx-auto">
-                    نعمل على بناء أول سوق رقمي يجمع منتجات متاجر المول في مكان واحد.
-                    قريبًا ستتمكن من تصفّح المنتجات ومقارنتها والطلب مباشرة.
-                  </p>
-                  <div className="mt-6 flex flex-wrap justify-center gap-2.5">
-                    <Link to="/stores">
-                      <Button variant="cta" className="h-10 rounded-lg px-5">
-                        <Store className="ml-2 h-4 w-4" /> تصفّح المتاجر
-                      </Button>
-                    </Link>
-                    <Link to="/join-marketplace">
-                      <Button variant="outline-blue" className="h-10 rounded-lg px-5">
-                        انضم كتاجر
-                      </Button>
-                    </Link>
-                  </div>
-                </>
-              )}
-            </div>
+            <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
           )}
+        </div>
+      </section>
+
+      {/* ═══════════ CTA ═══════════ */}
+      <section className="py-7 md:py-9" style={{ background: "hsl(var(--background))" }}>
+        <div className="container max-w-[1200px]">
+          <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="section-kicker">انضم للسوق</p>
+                <h2 className="section-title max-w-[20rem]">اعرض منتجاتك في سوق المول.</h2>
+                <p className="mt-1 max-w-[22rem] text-[0.82rem] leading-[1.7] light-body">
+                  أضف منتجاتك للسوق الرقمي واوصل لعملاء أكثر.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Link to="/join-marketplace">
+                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.82rem] font-bold">
+                    انضم كتاجر
+                  </Button>
+                </Link>
+                <Link to="/stores">
+                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">دليل المحلات</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </MainLayout>
   );
 };
+
+/* ══════════════════════════════════════════════════════════
+   Sub-components
+   ══════════════════════════════════════════════════════════ */
+
+function ChipButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold transition-all"
+      style={active
+        ? { border: "1px solid #2D6BFF50", background: "#2D6BFF22", color: "#5B9AFF" }
+        : { border: "1px solid #ffffff12", background: "#ffffff06", color: "#94A3B8" }
+      }
+    >
+      {children}
+    </button>
+  );
+}
+
+type ProductRow = {
+  id: string;
+  slug: string;
+  name_ar: string;
+  name_en: string | null;
+  price: number | null;
+  price_note: string | null;
+  image_url: string | null;
+  brand: string | null;
+  featured: boolean;
+  stores: { name_ar: string; slug: string; logo_url: string | null } | null;
+  product_categories: { name_ar: string; slug: string } | null;
+};
+
+function ProductCard({ product, index }: { product: ProductRow; index: number }) {
+  const store = product.stores;
+  const category = product.product_categories;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: Math.min(index * 0.02, 0.2), duration: 0.3 }}
+    >
+      <Link
+        to={`/products/${product.slug}`}
+        className="group flex flex-col rounded-xl overflow-hidden transition-all duration-200"
+        style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = "#2D6BFF30";
+          e.currentTarget.style.background = "#ffffff0A";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = "#ffffff0C";
+          e.currentTarget.style.background = "#ffffff05";
+        }}
+      >
+        {/* Image */}
+        <div className="relative aspect-square overflow-hidden bg-white">
+          {product.image_url ? (
+            <img
+              src={product.image_url}
+              alt={product.name_ar}
+              className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105"
+              loading="lazy"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <ShoppingBag className="h-7 w-7" style={{ color: "#CBD5E130" }} />
+            </div>
+          )}
+
+          {/* Badges */}
+          {product.featured && (
+            <span
+              className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
+              style={{ background: "#2D6BFF", color: "#fff" }}
+            >
+              مميز
+            </span>
+          )}
+          {product.brand && (
+            <span
+              className="absolute bottom-2 left-2 rounded px-1.5 py-0.5 text-[0.56rem] font-semibold backdrop-blur-sm"
+              style={{ background: "#00000050", color: "#E2E8F0" }}
+            >
+              {product.brand}
+            </span>
+          )}
+        </div>
+
+        {/* Info */}
+        <div className="flex flex-1 flex-col justify-between p-3">
+          <div>
+            {category && (
+              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{category.name_ar}</p>
+            )}
+            <h3 className="text-[0.8rem] font-bold leading-snug line-clamp-2 transition-colors group-hover:text-primary" style={{ color: "#F8FAFC" }}>
+              {product.name_ar}
+            </h3>
+            {store && (
+              <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem]" style={{ color: "#64748B" }}>
+                {store.logo_url ? (
+                  <img src={store.logo_url} alt="" className="h-3.5 w-3.5 rounded-sm bg-white object-contain" />
+                ) : (
+                  <Store className="h-3 w-3" />
+                )}
+                {store.name_ar}
+              </p>
+            )}
+          </div>
+
+          {/* Price */}
+          <div className="mt-2.5 flex items-center justify-between">
+            {product.price ? (
+              <p className="font-poppins text-[0.88rem] font-bold" style={{ color: "#F8FAFC" }}>
+                {Number(product.price).toLocaleString("ar-EG")}
+                <span className="mr-0.5 text-[0.62rem]" style={{ color: "#64748B" }}>ج.م</span>
+              </p>
+            ) : product.price_note ? (
+              <p className="text-[0.7rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.price_note}</p>
+            ) : (
+              <span className="text-[0.66rem]" style={{ color: "#475569" }}>اسأل عن السعر</span>
+            )}
+            <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all group-hover:opacity-100 group-hover:-translate-x-0.5" style={{ color: "#5B9AFF" }} />
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+function EmptyState({ hasFilters, onClear }: { hasFilters: boolean; onClear: () => void }) {
+  return (
+    <div className="heritage-surface rounded-xl p-8 text-center md:p-12">
+      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF30" }}>
+        <ShoppingBag className="h-5 w-5" style={{ color: "#5B9AFF" }} />
+      </div>
+      {hasFilters ? (
+        <>
+          <h3 className="mt-4 text-[1rem] font-bold dark-heading">لا توجد نتائج مطابقة</h3>
+          <p className="mx-auto mt-1.5 max-w-xs text-[0.82rem] leading-6 dark-body">
+            جرّب تعديل الفلاتر أو البحث بكلمات مختلفة.
+          </p>
+          <button onClick={onClear} className="mt-4 rounded-lg px-5 py-2 text-[0.82rem] font-bold transition-all" style={{ border: "1px solid #ffffff18", background: "#ffffff0A", color: "#CBD5E1" }}>
+            إعادة ضبط الفلاتر
+          </button>
+        </>
+      ) : (
+        <>
+          <h3 className="mt-4 text-[1rem] font-bold dark-heading">سوق مول البستان الرقمي</h3>
+          <p className="mx-auto mt-2 max-w-sm text-[0.82rem] leading-6 dark-body">
+            نعمل على بناء أول سوق رقمي يجمع منتجات محلات المول في مكان واحد.
+          </p>
+          <div className="mt-5 flex flex-wrap justify-center gap-2">
+            <Link to="/stores">
+              <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.82rem] font-bold">
+                <Store className="h-3.5 w-3.5" /> تصفّح المحلات
+              </Button>
+            </Link>
+            <Link to="/join-marketplace">
+              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">انضم كتاجر</Button>
+            </Link>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default Products;
