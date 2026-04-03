@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Gift, MapPin, Sparkles, Store, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { BrandLogo } from "@/components/BrandLogo";
 import { SEOHead, organizationLd } from "@/components/SEOHead";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Button } from "@/components/ui/button";
@@ -40,7 +40,7 @@ const CampaignHome = () => {
   });
 
   return (
-    <MainLayout>
+    <>
       <SEOHead
         title="مول البستان — الافتتاح الكبير قريبًا"
         titleEn="Mall Elbostan — Grand Opening Soon"
@@ -51,7 +51,7 @@ const CampaignHome = () => {
 
       {/* ═══ HERO ═══ */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden min-h-screen flex flex-col"
         style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}
       >
         <div
@@ -59,7 +59,14 @@ const CampaignHome = () => {
           style={{ background: "radial-gradient(ellipse 60% 55% at 50% 40%, hsl(222 58% 42% / 0.08), transparent 70%)" }}
         />
 
-        <div className="relative mx-auto w-full max-w-[1100px] px-5 md:px-8 lg:px-14 py-16 md:py-24 lg:py-28 text-center">
+        {/* Inline logo */}
+        <div className="relative z-10 flex justify-center pt-8 md:pt-10">
+          <Link to="/" aria-label="مول البستان">
+            <BrandLogo className="h-12 md:h-14" align="center" />
+          </Link>
+        </div>
+
+        <div className="relative flex-1 flex items-center justify-center mx-auto w-full max-w-[1100px] px-5 md:px-8 lg:px-14 py-10 md:py-16 text-center">
           <motion.div custom={0} variants={fade} initial="hidden" animate="visible">
             <div className="mx-auto mb-5 flex items-center justify-center gap-3">
               <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
@@ -268,7 +275,22 @@ const CampaignHome = () => {
           </motion.div>
         </div>
       </section>
-    </MainLayout>
+
+      {/* ═══ MINI FOOTER ═══ */}
+      <div className="py-6 text-center" style={{ background: "hsl(222 36% 5%)" }}>
+        <div className="flex flex-wrap justify-center gap-4 text-[0.78rem] font-medium" style={{ color: "hsl(220 14% 55%)" }}>
+          <Link to="/about" className="hover:text-white transition-colors">عن المول</Link>
+          <Link to="/stores" className="hover:text-white transition-colors">المتاجر</Link>
+          <Link to="/map" className="hover:text-white transition-colors">الخريطة</Link>
+          <Link to="/contact" className="hover:text-white transition-colors">تواصل معنا</Link>
+          <Link to="/terms" className="hover:text-white transition-colors">الشروط</Link>
+          <Link to="/privacy" className="hover:text-white transition-colors">الخصوصية</Link>
+        </div>
+        <p className="mt-3 text-[0.7rem]" style={{ color: "hsl(220 10% 40%)" }}>
+          مول البستان {new Date().getFullYear()} — جميع الحقوق محفوظة
+        </p>
+      </div>
+    </>
   );
 };
 

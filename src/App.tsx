@@ -53,11 +53,13 @@ const adminPaths = ["/admin"];
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const isCampaignHome = location.pathname === "/";
+  const hideChrome = isAdmin || isCampaignHome;
 
   return (
     <>
-      {!isAdmin && <Header />}
-      <main className={!isAdmin ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
+      {!hideChrome && <Header />}
+      <main className={!hideChrome ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
         <Routes>
           {/* Public */}
           {/* Temporary campaign homepage — restore <Index /> after opening */}
@@ -110,8 +112,8 @@ function AppLayout() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFab />}
+      {!hideChrome && <Footer />}
+      {!hideChrome && <WhatsAppFab />}
     </>
   );
 }
