@@ -53,6 +53,8 @@ const adminPaths = ["/admin"];
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const isCampaignHome = location.pathname === "/";
+  const hideChrome = isAdmin || isCampaignHome;
 
   return (
     <>
