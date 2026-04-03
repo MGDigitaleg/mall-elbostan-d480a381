@@ -37,13 +37,13 @@ export function MapTeaserPreview() {
     <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
       <div className="grid grid-cols-1 md:grid-cols-[1.3fr_0.7fr]">
         {/* ── RIGHT (RTL): Map preview — main visual ── */}
-        <div className="relative border-b border-border bg-muted/30 md:border-b-0 md:border-l overflow-hidden">
+        <div className="relative border-b border-border md:border-b-0 md:border-l overflow-hidden flex items-center justify-center bg-muted/20 p-2 md:p-3">
           <MallFloorMap
             floor={floor}
             selectedUnitId={activeUnit.id}
             mutedUnitIds={mutedUnitIds}
             onSelectUnit={setSelectedUnit}
-            className="aspect-[4/3] min-h-[260px] md:min-h-[360px]"
+            className="w-full max-w-full"
             hideControls
           />
         </div>
