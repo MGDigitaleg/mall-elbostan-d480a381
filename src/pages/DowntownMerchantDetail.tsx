@@ -98,12 +98,6 @@ const DowntownMerchantDetail = () => {
   const status = statusConfig[merchant.verification_status] ?? statusConfig["Unknown status"];
   const StatusIcon = status.icon;
 
-  const sources = [
-    { label: merchant.source_1_label, url: merchant.source_1_url },
-    { label: merchant.source_2_label, url: merchant.source_2_url },
-    { label: merchant.source_3_label, url: merchant.source_3_url },
-    { label: "مصدر", url: merchant.source_url },
-  ].filter(s => s.url);
 
   const socialLinks = [
     { label: "Facebook", url: merchant.facebook_url },
@@ -253,40 +247,6 @@ const DowntownMerchantDetail = () => {
                 </div>
               )}
 
-              {/* Verification Sources */}
-              {sources.length > 0 && (
-                <div className="rounded-2xl border bg-white p-6 md:p-7" style={{ borderColor: "#D8DEE8" }}>
-                  <h2 className="mb-4 flex items-center gap-2 text-[0.95rem] font-bold" style={{ color: "#0F172A" }}>
-                    <ShieldCheck className="h-4.5 w-4.5" style={{ color: "#10B981" }} />
-                    مصادر التوثيق
-                  </h2>
-                  <div className="space-y-2.5">
-                    {sources.map((s, i) => (
-                      <a
-                        key={i}
-                        href={s.url!}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-[0.78rem] font-medium transition-all duration-200 hover:shadow-sm"
-                        style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#2563EB" }}
-                      >
-                        <ExternalLink className="h-3.5 w-3.5 shrink-0" />
-                        {s.label || "مصدر التوثيق"}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Verification Notes */}
-              {merchant.verification_notes && (
-                <div className="rounded-2xl px-5 py-4" style={{ background: "rgba(249,115,22,0.05)", border: "1px solid rgba(249,115,22,0.12)" }}>
-                  <p className="text-[0.76rem] leading-[1.8]" style={{ color: "#92400E" }}>
-                    <span className="font-bold">ملاحظات التوثيق: </span>
-                    {merchant.verification_notes}
-                  </p>
-                </div>
-              )}
             </div>
 
             {/* ── Right: Contact Sidebar ── */}
