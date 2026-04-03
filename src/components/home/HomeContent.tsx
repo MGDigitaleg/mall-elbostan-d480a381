@@ -95,41 +95,64 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 5 · SPIN & WIN TEASER ═══════════ */}
-      <section className="py-7 md:py-9" style={{ background: "#F5F2EC" }}>
-        <div className="container">
+      <section className="relative overflow-hidden py-10 md:py-14" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 50%, #071326 100%)" }}>
+        {/* Decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #F97316 0%, transparent 70%)" }} />
+        </div>
+
+        <div className="container relative">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
-              <div className="space-y-3.5 p-5 md:p-7">
-                <p className="section-kicker">حملة الافتتاح</p>
-                <h2 className="section-title max-w-[18rem]">سجّل وادخل السحب.</h2>
-                <p className="text-[0.82rem] leading-[1.65] light-body max-w-[24rem]">
-                  شارك الآن واحضر يوم الافتتاح لاستلام جائزتك.
+            <div className="mx-auto max-w-[54rem]">
+              {/* Header */}
+              <div className="text-center mb-7">
+                <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 mb-3" style={{ background: "#F9731612", border: "1px solid #F9731625" }}>
+                  <Gift className="h-3 w-3" style={{ color: "#F97316" }} />
+                  <span className="text-[0.68rem] font-bold" style={{ color: "#F97316" }}>حملة الافتتاح الكبرى</span>
+                </div>
+                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.2] dark-heading" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                  سجّل. ادخل السحب. احضر واستلم.
+                </h2>
+                <p className="mt-2 text-[0.82rem] leading-[1.65] max-w-md mx-auto" style={{ color: "#94A3B8" }}>
+                  شارك في مسابقة الافتتاح واحصل على فرصة للفوز بجوائز حقيقية من محلات المول.
                 </p>
+              </div>
 
-                <div className="flex flex-wrap gap-5 border-t border-border pt-4">
-                  {[
-                    { n: "01", title: "استكشف", desc: "تعرّف على المحلات." },
-                    { n: "02", title: "شارك", desc: "سجّل واحفظ نتيجتك." },
-                    { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح." },
-                  ].map((s) => (
-                    <div key={s.n} className="min-w-[6rem]">
-                      <span className="font-poppins text-[0.62rem] font-bold text-primary">{s.n}</span>
-                      <p className="mt-0.5 text-[0.82rem] font-bold light-heading">{s.title}</p>
-                      <p className="mt-0.5 text-[0.72rem] leading-[1.5] light-body">{s.desc}</p>
+              {/* Steps */}
+              <div className="grid grid-cols-3 gap-2 md:gap-3 mb-7">
+                {[
+                  { n: "01", title: "استكشف", desc: "تعرّف على المحلات المشاركة في السحب.", color: "#2563EB" },
+                  { n: "02", title: "شارك وادخل السحب", desc: "سجّل بياناتك واحفظ نتيجتك.", color: "#06B6D4" },
+                  { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح لاستلام الجائزة.", color: "#F97316" },
+                ].map((s, i) => (
+                  <div key={s.n} className="group relative rounded-xl p-4 md:p-5 text-center transition-all" style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}>
+                    {/* Step number */}
+                    <div className="mx-auto mb-2.5 flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: `${s.color}18`, border: `1px solid ${s.color}30` }}>
+                      <span className="font-poppins text-[0.72rem] font-extrabold" style={{ color: s.color }}>{s.n}</span>
                     </div>
-                  ))}
-                </div>
+                    <p className="text-[0.84rem] font-bold dark-heading">{s.title}</p>
+                    <p className="mt-1 text-[0.72rem] leading-[1.6]" style={{ color: "#7C8BA1" }}>{s.desc}</p>
+                    {/* Connector line */}
+                    {i < 2 && (
+                      <div className="hidden md:block absolute top-1/2 -left-1.5 md:-left-2 w-3 md:w-4 h-px" style={{ background: "#ffffff15" }} />
+                    )}
+                  </div>
+                ))}
+              </div>
 
-                <div className="flex flex-wrap gap-2.5 pt-1">
-                  <Link to="/spin-win">
-                    <Button variant="cta" className="h-9 rounded-lg px-5 font-bold text-[0.8rem]">
-                      <Gift className="ml-1.5 h-3.5 w-3.5" />أدر واربح
-                    </Button>
-                  </Link>
-                  <Link to="/opening-day">
-                    <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.8rem]">تفاصيل الافتتاح</Button>
-                  </Link>
-                </div>
+              {/* CTA */}
+              <div className="flex flex-wrap justify-center gap-2.5">
+                <Link to="/spin-win">
+                  <Button variant="cta" className="h-10 rounded-lg px-6 font-bold text-[0.84rem] shadow-[var(--shadow-blue)]">
+                    <Gift className="ml-1.5 h-4 w-4" />أدر واربح الآن
+                  </Button>
+                </Link>
+                <Link to="/opening-day">
+                  <Button className="h-10 rounded-lg border px-5 text-[0.84rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff08", color: "#CBD5E1" }}>
+                    تفاصيل يوم الافتتاح
+                  </Button>
+                </Link>
               </div>
             </div>
           </motion.div>
