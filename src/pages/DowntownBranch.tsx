@@ -4,6 +4,7 @@ import { MapPin, Clock, Phone, Mail, Building2, Award, Users, Globe, Layers, Wre
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import downtownExterior from "@/assets/downtown-exterior.jpg";
 import downtownNight from "@/assets/downtown-night.jpg";
 import downtownInterior1 from "@/assets/downtown-interior-1.jpg";
