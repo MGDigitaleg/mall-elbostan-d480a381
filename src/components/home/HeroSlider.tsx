@@ -61,7 +61,8 @@ export function HeroSlider() {
       </AnimatePresence>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to left, #071326 25%, #07132680 65%, #07132650)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326 20%, #07132690 60%, #07132650)" }} />
+      <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(to left, #071326 25%, #07132680 65%, #07132650)" }} />
       
       {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute inset-0 opacity-40"
@@ -69,7 +70,7 @@ export function HeroSlider() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex h-full max-w-[1440px] items-center px-5 md:px-10">
-        <div className="flex w-full items-center justify-between gap-8">
+        <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-8">
           {/* Text */}
           <AnimatePresence mode="wait">
             <motion.div
@@ -89,7 +90,7 @@ export function HeroSlider() {
               <p className="text-[0.8rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
                 {slide.sub}
               </p>
-              <div className="flex gap-2.5 pt-1">
+              <div className="flex justify-center md:justify-start gap-2.5 pt-1">
                 <Link to="/map">
                   <Button variant="cta" className="h-9 rounded-lg px-4 text-[0.76rem] font-bold">
                     <Compass className="ml-1 h-3.5 w-3.5" /> استكشف الدليل
