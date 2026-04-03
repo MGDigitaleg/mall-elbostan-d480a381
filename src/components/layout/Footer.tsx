@@ -167,28 +167,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* mobile link groups (visible only on small screens) */}
-        <div className="mt-8 grid grid-cols-2 gap-8 lg:hidden">
-          {footerColumns.slice(0, 2).map((col) => (
-            <div key={col.title}>
-              <h4 className="mb-3 text-[0.78rem] font-bold tracking-[0.08em] uppercase dark-subheading">
-                {col.title}
-              </h4>
-              <ul className="space-y-2.5">
-                {col.links.map((link) => (
-                  <li key={link.path}>
-                    <Link
-                      to={link.path}
-                      className="text-[0.85rem] transition-colors hover:text-white dark-muted"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
 
         {/* divider & bottom */}
         <div className="mt-12 border-t border-white/8 pt-6">
