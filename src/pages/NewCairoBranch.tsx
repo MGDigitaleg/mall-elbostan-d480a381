@@ -24,7 +24,7 @@ const NewCairoBranch = () => (
       <div className="container relative z-10 pb-12 pt-32">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <p className="text-accent text-sm font-semibold mb-3 tracking-wider">زوروا فرعنا</p>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">فرع <span className="text-gradient-blue">القاهرة الجديدة</span></h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground">مول البستان - <span className="text-gradient-blue">القاهرة الجديدة</span></h1>
         </motion.div>
       </div>
     </section>
@@ -37,7 +37,7 @@ const NewCairoBranch = () => (
           <div className="space-y-4 text-muted-foreground">
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-primary shrink-0" />
-              <div><strong className="text-foreground">العنوان:</strong> سيتم الإعلان عنه قريبا</div>
+              <div><strong className="text-foreground">العنوان:</strong> الحى الأول، مركز الخدمات، خلف محكمة القاهرة الجديدة، التجمع الخامس، القاهرة</div>
             </div>
             <div className="flex items-center gap-3">
               <Clock className="w-5 h-5 text-primary shrink-0" />
