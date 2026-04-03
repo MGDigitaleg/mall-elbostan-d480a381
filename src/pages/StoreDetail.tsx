@@ -119,7 +119,7 @@ const StoreDetail = () => {
             <Store className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
             <h1 className="mb-3 text-2xl font-bold text-foreground">المتجر غير موجود</h1>
             <p className="mb-6 text-sm text-muted-foreground">لم يتم العثور على المتجر المطلوب ضمن دليل مول البستان</p>
-            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المحلات</Button></Link>
+            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المتاجر</Button></Link>
           </div>
         </div>
       </MainLayout>
@@ -131,7 +131,7 @@ const StoreDetail = () => {
       <SEOHead
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
-        breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+        breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
       />
 
       {/* ── Hero Band ── */}
@@ -139,7 +139,7 @@ const StoreDetail = () => {
         <div className="container max-w-6xl px-5 pb-12 pt-8 md:px-8 md:pb-16 md:pt-10">
           {/* Breadcrumb */}
           <Link to="/stores" className="mb-8 inline-flex items-center gap-1.5 text-[0.8rem] font-medium transition-colors" style={{ color: 'hsl(var(--primary) / 0.6)' }}>
-            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المحلات
+            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المتاجر
           </Link>
 
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -335,8 +335,8 @@ const StoreDetail = () => {
             {/* Related Stores */}
             {relatedStores && relatedStores.length > 0 && (
               <aside className="section-shell p-6 md:p-8">
-                <p className="section-kicker">محلات مرتبطة</p>
-                <h3 className="mb-4 text-lg font-bold text-foreground">اكتشف محلات أخرى ضمن نفس الفئة</h3>
+                <p className="section-kicker">متاجر مرتبطة</p>
+                <h3 className="mb-4 text-lg font-bold text-foreground">اكتشف متاجر أخرى ضمن نفس الفئة</h3>
                 <div className="space-y-2.5">
                   {relatedStores.map((related) => (
                     <Link

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Compass, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
   { label: "عن المول", path: "/about" },
-  { label: "المحلات", path: "/stores" },
+  { label: "المتاجر", path: "/stores" },
   { label: "المنتجات", path: "/products" },
   { label: "الخريطة", path: "/map" },
 ];
@@ -84,15 +83,6 @@ function HeaderMenuSheet({
 
 export function Header() {
   const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const isActive = (path: string) => {
     if (path === "/#marketplace") return location.pathname === "/" && location.hash === "#marketplace";
     return location.pathname === path;
@@ -113,17 +103,7 @@ export function Header() {
     }`;
 
   return (
-    <header
-      className="fixed top-0 right-0 left-0 z-50 border-b transition-all duration-300"
-      style={{
-        borderColor: scrolled ? "hsl(220 18% 85%)" : "hsl(220 18% 85% / 0.5)",
-        backgroundColor: scrolled ? "hsl(60 9% 98%)" : "hsl(60 9% 98% / 0.97)",
-        backdropFilter: scrolled ? "none" : "blur(12px)",
-        boxShadow: scrolled
-          ? "0 1px 3px hsl(218 72% 9% / 0.08), 0 6px 16px hsl(218 72% 9% / 0.06)"
-          : "0 1px 3px hsl(218 72% 9% / 0.04), 0 6px 16px hsl(218 72% 9% / 0.03)",
-      }}
-    >
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-border/80 bg-card/97 backdrop-blur-md shadow-[0_1px_3px_hsl(218_72%_9%/0.08),0_6px_16px_hsl(218_72%_9%/0.05)]">
       <div className="container">
         {/* Desktop */}
         <div className="hidden min-h-[72px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">

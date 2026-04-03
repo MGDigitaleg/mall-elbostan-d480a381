@@ -298,7 +298,7 @@ const Contact = () => {
             {[
               { label: "التأجير", href: "/leasing" },
               { label: "الأسئلة الشائعة", href: "/faq" },
-              { label: "دليل المحلات", href: "/stores" },
+              { label: "دليل المتاجر", href: "/stores" },
               { label: "الوظائف", href: "/careers" },
             ].map((link) => (
               <Link

@@ -166,7 +166,7 @@ function EmptyPanel() {
       <div className="grid grid-cols-2 gap-1.5">
         <Link to="/stores" className="rounded-lg border border-border bg-secondary/50 p-2.5 text-center transition-all hover:border-primary/20 hover:shadow-sm">
           <Store className="mx-auto h-3.5 w-3.5 text-primary" />
-          <p className="mt-1 text-[0.72rem] font-bold light-heading">دليل المحلات</p>
+          <p className="mt-1 text-[0.72rem] font-bold light-heading">دليل المتاجر</p>
         </Link>
         <Link to="/leasing" className="rounded-lg border border-border bg-secondary/50 p-2.5 text-center transition-all hover:border-primary/20 hover:shadow-sm">
           <Phone className="mx-auto h-3.5 w-3.5 text-primary" />
