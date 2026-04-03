@@ -275,7 +275,22 @@ const CampaignHome = () => {
           </motion.div>
         </div>
       </section>
-    </MainLayout>
+
+      {/* ═══ MINI FOOTER ═══ */}
+      <div className="py-6 text-center" style={{ background: "hsl(222 36% 5%)" }}>
+        <div className="flex flex-wrap justify-center gap-4 text-[0.78rem] font-medium" style={{ color: "hsl(220 14% 55%)" }}>
+          <Link to="/about" className="hover:text-white transition-colors">عن المول</Link>
+          <Link to="/stores" className="hover:text-white transition-colors">المتاجر</Link>
+          <Link to="/map" className="hover:text-white transition-colors">الخريطة</Link>
+          <Link to="/contact" className="hover:text-white transition-colors">تواصل معنا</Link>
+          <Link to="/terms" className="hover:text-white transition-colors">الشروط</Link>
+          <Link to="/privacy" className="hover:text-white transition-colors">الخصوصية</Link>
+        </div>
+        <p className="mt-3 text-[0.7rem]" style={{ color: "hsl(220 10% 40%)" }}>
+          مول البستان {new Date().getFullYear()} — جميع الحقوق محفوظة
+        </p>
+      </div>
+    </>
   );
 };
 
