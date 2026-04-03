@@ -35,11 +35,10 @@ const OpeningDay = () => {
       />
 
       <OpeningHero />
-      <div className="band-primary" />
       <OpeningRoadmap />
       <OpeningSchedule events={schedule} isLoading={isLoading} />
-      <OpeningGuests guests={guests} />
       <OpeningGaming competitions={gaming} />
+      <OpeningGuests guests={guests} />
       <OpeningFAQ />
       <OpeningSponsors />
     </MainLayout>
