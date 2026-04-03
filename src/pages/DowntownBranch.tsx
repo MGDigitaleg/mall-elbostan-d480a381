@@ -286,6 +286,9 @@ const DowntownBranch = () => (
         </motion.div>
       </div>
     </section>
+
+    {/* ═══════════ INTERACTIVE LOCATION MAP ═══════════ */}
+    <LocationMapSection {...DOWNTOWN_LOCATION} />
   </MainLayout>
 );
 
