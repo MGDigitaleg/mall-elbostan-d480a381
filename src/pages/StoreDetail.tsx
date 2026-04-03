@@ -119,7 +119,7 @@ const StoreDetail = () => {
             <Store className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
             <h1 className="mb-3 text-2xl font-bold text-foreground">المتجر غير موجود</h1>
             <p className="mb-6 text-sm text-muted-foreground">لم يتم العثور على المتجر المطلوب ضمن دليل مول البستان</p>
-            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المتاجر</Button></Link>
+            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المحلات</Button></Link>
           </div>
         </div>
       </MainLayout>
