@@ -9,9 +9,9 @@ import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
 import downtownNightPolished from "@/assets/downtown-night-polished.jpg";
 import downtownExteriorPolished from "@/assets/downtown-exterior-polished.jpg";
-import downtownInterior1 from "@/assets/downtown-interior-1.jpg";
-import downtownInterior2 from "@/assets/downtown-interior-2.jpg";
-import downtownInterior3 from "@/assets/downtown-interior-3.jpg";
+import downtownInterior1 from "@/assets/downtown-interior-1-polished.jpg";
+import downtownInterior2 from "@/assets/downtown-interior-2-polished.jpg";
+import downtownInterior3 from "@/assets/downtown-interior-3-polished.jpg";
 
 const heroSlides = [
   { src: downtownNightPolished, alt: "مول البستان — المنظر الليلي، وسط البلد" },
