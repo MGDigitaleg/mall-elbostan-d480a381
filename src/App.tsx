@@ -27,9 +27,12 @@ import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
+import DowntownDirectory from "./pages/DowntownDirectory";
+import DowntownMerchantDetail from "./pages/DowntownMerchantDetail";
 import NotFound from "./pages/NotFound";
 
 import AdminLogin from "./pages/admin/Login";
+import AdminDowntownMerchants from "./pages/admin/AdminDowntownMerchants";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
@@ -61,6 +64,8 @@ function AppLayout() {
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
           <Route path="/downtown-branch" element={<DowntownBranch />} />
+          <Route path="/downtown-directory" element={<DowntownDirectory />} />
+          <Route path="/downtown-directory/:slug" element={<DowntownMerchantDetail />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:slug" element={<StoreDetail />} />
           <Route path="/products" element={<Products />} />
@@ -99,6 +104,7 @@ function AppLayout() {
           <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
           <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
           <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
+          <Route path="/admin/downtown-merchants" element={<AdminDowntownMerchants />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

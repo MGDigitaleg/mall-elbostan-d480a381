@@ -1,19 +1,41 @@
+import { useState, useMemo } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store } from "lucide-react";
+import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, Archive, HelpCircle, Filter } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const statusConfig: Record<string, { label: string; color: string; icon: typeof CheckCircle }> = {
-  verified: { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: CheckCircle },
+  "Verified": { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
+  "Official source linked": { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
+  "Needs review": { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
+  "Archived / inactive": { label: "غير نشط", color: "bg-muted/50 text-muted-foreground border-border", icon: Archive },
+  "Unknown status": { label: "غير محدد", color: "bg-muted/30 text-muted-foreground border-border", icon: HelpCircle },
+  // Legacy fallbacks
+  verified: { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
   official_source_linked: { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
   needs_review: { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
 };
 
+const CATEGORIES = [
+  "الكل",
+  "الكمبيوتر والأجهزة",
+  "الهواتف والإكسسوارات",
+  "الطباعة والتصوير",
+  "الصيانة والدعم الفني",
+  "الشبكات والأنظمة الأمنية",
+  "الألعاب والترفيه",
+];
+
 const DowntownDirectory = () => {
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("الكل");
+  const [selectedStatus, setSelectedStatus] = useState("الكل");
+
   const { data: merchants, isLoading } = useQuery({
     queryKey: ["downtown-merchants"],
     queryFn: async () => {
@@ -26,26 +48,96 @@ const DowntownDirectory = () => {
     },
   });
 
+  const filtered = useMemo(() => {
+    if (!merchants) return [];
+    return merchants.filter((m) => {
+      const matchesSearch = !search ||
+        m.name_ar.toLowerCase().includes(search.toLowerCase()) ||
+        (m.name_en && m.name_en.toLowerCase().includes(search.toLowerCase())) ||
+        (m.phone && m.phone.includes(search));
+      const matchesCategory = selectedCategory === "الكل" || m.category === selectedCategory;
+      const matchesStatus = selectedStatus === "الكل" || m.verification_status === selectedStatus;
+      return matchesSearch && matchesCategory && matchesStatus;
+    });
+  }, [merchants, search, selectedCategory, selectedStatus]);
+
+  const categoryCounts = useMemo(() => {
+    if (!merchants) return {};
+    const counts: Record<string, number> = {};
+    merchants.forEach((m) => { counts[m.category ?? "أخرى"] = (counts[m.category ?? "أخرى"] || 0) + 1; });
+    return counts;
+  }, [merchants]);
+
+  const directoryLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "دليل محلات مول البستان وسط البلد",
+    description: "أكبر دليل لمحلات التكنولوجيا والإلكترونيات في وسط البلد، القاهرة",
+    numberOfItems: merchants?.length ?? 0,
+    itemListElement: filtered.slice(0, 20).map((m, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Store",
+        name: m.name_ar,
+        alternateName: m.name_en,
+        telephone: m.phone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "18 شارع البستان",
+          addressLocality: "باب اللوق",
+          addressRegion: "القاهرة",
+          addressCountry: "EG",
+        },
+      },
+    })),
+  };
+
   return (
     <MainLayout>
       <SEOHead
-        title="دليل محلات فرع وسط البلد"
-        titleEn="Downtown Branch Directory"
-        description="دليل شامل لمحلات مول البستان في وسط البلد — شارع البستان، باب اللوق، القاهرة. أرقام الهواتف والتصنيفات."
+        title="دليل محلات وسط البلد - التكنولوجيا والإلكترونيات"
+        titleEn="Downtown Cairo Technology Directory"
+        description="أكبر دليل موثّق لمحلات التكنولوجيا والإلكترونيات في مول البستان وسط البلد — شارع البستان، باب اللوق، القاهرة. أرقام الهواتف، التصنيفات، والمراجعات."
+        descriptionEn="The most trusted technology and electronics directory in Downtown Cairo - Mall El Bostan, Al-Bustan Street."
+        jsonLd={directoryLd}
+        breadcrumbs={[
+          { name: "فرع وسط البلد", url: "/downtown-branch" },
+          { name: "دليل المحلات", url: "/downtown-directory" },
+        ]}
       />
 
-      <section className="py-8 md:py-10" style={{ background: "#071326" }}>
-        <div className="container text-center">
-          <Building2 className="mx-auto mb-3 h-6 w-6" style={{ color: "#CDBB9A" }} />
-          <h1 className="text-[1.3rem] font-bold md:text-[1.6rem]" style={{ color: "#F8FAFC" }}>
-            دليل محلات فرع وسط البلد
+      {/* Hero */}
+      <section className="relative overflow-hidden py-10 md:py-14" style={{ background: "linear-gradient(135deg, #071326 0%, #0d1f3c 50%, #071326 100%)" }}>
+        <div className="absolute inset-0 opacity-20" style={{ background: "radial-gradient(ellipse at 30% 50%, hsl(var(--accent-blue) / 0.3), transparent 60%)" }} />
+        <div className="container relative text-center">
+          <Badge variant="outline" className="mb-4 border-primary/30 bg-primary/5 px-4 py-1.5 text-[0.72rem] text-primary">
+            <Building2 className="ml-1 h-3.5 w-3.5" /> منذ ١٩٩٠
+          </Badge>
+          <h1 className="text-[1.5rem] font-bold leading-tight md:text-[2rem]" style={{ color: "#F8FAFC" }}>
+            دليل محلات التكنولوجيا — وسط البلد
           </h1>
-          <p className="mx-auto mt-2 max-w-[28rem] text-[0.82rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
-            18 شارع البستان، باب اللوق، القاهرة — المرجع الأول لسوق الكمبيوتر في مصر منذ التسعينات.
+          <p className="mx-auto mt-3 max-w-lg text-[0.84rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+            المرجع الأول لسوق الكمبيوتر والإلكترونيات في مصر. {merchants?.length ?? "..."} محل تجاري في شارع البستان، باب اللوق.
           </p>
-          <div className="mt-3 flex justify-center gap-2">
+
+          {/* Stats */}
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            {[
+              { label: "محل تجاري", value: merchants?.length ?? 0 },
+              { label: "تصنيف", value: Object.keys(categoryCounts).length },
+              { label: "موثّق", value: merchants?.filter(m => m.verification_status === "Verified" || m.verification_status === "verified").length ?? 0 },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl border px-5 py-2.5" style={{ borderColor: "hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.03)" }}>
+                <span className="text-[1.2rem] font-bold" style={{ color: "#F8FAFC" }}>{s.value}</span>
+                <span className="mr-2 text-[0.72rem]" style={{ color: "#64748B" }}>{s.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 flex justify-center gap-2">
             <Link to="/downtown-branch">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-4 text-[0.78rem]">عن الفرع</Button>
+              <Button variant="outline" className="h-9 rounded-lg border-primary/30 bg-primary/5 px-4 text-[0.78rem] text-primary hover:bg-primary/10">عن الفرع</Button>
             </Link>
             <Link to="/stores">
               <Button className="h-9 rounded-lg border px-4 text-[0.78rem]" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#CBD5E1" }}>فرع القاهرة الجديدة</Button>
@@ -54,64 +146,142 @@ const DowntownDirectory = () => {
         </div>
       </section>
 
+      {/* Filters & Directory */}
       <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
-        <div className="container max-w-4xl">
+        <div className="container max-w-5xl">
+          {/* Search & Filters */}
+          <div className="mb-6 space-y-3">
+            <div className="relative">
+              <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="ابحث بالاسم أو رقم الهاتف..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="h-11 rounded-xl border-border bg-card pr-10 text-[0.84rem]"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`rounded-lg px-3 py-1.5 text-[0.72rem] font-medium transition-all ${
+                    selectedCategory === cat
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "border border-border bg-card text-muted-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {cat} {cat !== "الكل" && categoryCounts[cat] ? `(${categoryCounts[cat]})` : ""}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Filter className="h-3.5 w-3.5 text-muted-foreground" />
+              <span className="text-[0.72rem] text-muted-foreground">حالة التوثيق:</span>
+              {["الكل", "Verified", "Official source linked", "Needs review"].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => setSelectedStatus(s)}
+                  className={`rounded-md px-2.5 py-1 text-[0.65rem] font-medium transition-all ${
+                    selectedStatus === s
+                      ? "bg-foreground/10 text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {s === "الكل" ? "الكل" : s === "Verified" ? "موثّق" : s === "Official source linked" ? "مصدر رسمي" : "قيد المراجعة"}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Results count */}
+          <div className="mb-4 flex items-center justify-between">
+            <p className="text-[0.82rem] font-bold text-foreground">{filtered.length} محل تجاري</p>
+            <Badge variant="outline" className="text-[0.65rem]">
+              <MapPin className="ml-1 h-3 w-3" /> باب اللوق، القاهرة
+            </Badge>
+          </div>
+
           {isLoading ? (
-            <div className="grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-24 animate-pulse rounded-lg border border-border bg-card" />
+                <div key={i} className="h-32 animate-pulse rounded-xl border border-border bg-card" />
               ))}
             </div>
           ) : (
-            <>
-              <div className="mb-5 flex items-center justify-between">
-                <p className="text-[0.85rem] font-bold light-heading">{merchants?.length ?? 0} محل تجاري</p>
-                <Badge variant="outline" className="text-[0.65rem]">
-                  <MapPin className="ml-1 h-3 w-3" /> باب اللوق، القاهرة
-                </Badge>
-              </div>
-
-              <div className="grid gap-2 sm:grid-cols-2">
-                {merchants?.map((m) => {
-                  const status = statusConfig[m.verification_status] ?? statusConfig.needs_review;
-                  return (
-                    <div key={m.id} className="flex items-start gap-3 rounded-lg border border-border bg-card p-4 transition-all hover:shadow-sm">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary">
-                        <Store className="h-4 w-4 text-primary" />
+            <div className="grid gap-3 sm:grid-cols-2">
+              {filtered.map((m) => {
+                const status = statusConfig[m.verification_status] ?? statusConfig["Unknown status"];
+                const StatusIcon = status.icon;
+                return (
+                  <Link
+                    key={m.id}
+                    to={`/downtown-directory/${m.slug ?? m.id}`}
+                    className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white">
+                      {m.logo_url ? (
+                        <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" />
+                      ) : (
+                        <Store className="h-5 w-5 text-primary" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <p className="text-[0.88rem] font-bold text-foreground group-hover:text-primary transition-colors">{m.name_ar}</p>
+                          {m.name_en && <p className="font-poppins text-[0.7rem] text-muted-foreground">{m.name_en}</p>}
+                        </div>
+                        <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${status.color}`}>
+                          <StatusIcon className="ml-0.5 h-2.5 w-2.5" />
+                          {status.label}
+                        </Badge>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <p className="text-[0.85rem] font-bold light-heading">{m.name_ar}</p>
-                            {m.name_en && <p className="font-poppins text-[0.7rem] light-muted">{m.name_en}</p>}
-                          </div>
-                          <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${status.color}`}>
-                            <status.icon className="ml-0.5 h-2.5 w-2.5" />
-                            {status.label}
-                          </Badge>
-                        </div>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-3 text-[0.72rem] light-muted">
-                          {m.floor && <span>الدور {m.floor}</span>}
-                          {m.phone && (
-                            <a href={`tel:${m.phone}`} className="flex items-center gap-1 text-primary hover:underline">
-                              <Phone className="h-3 w-3" /> {m.phone}
-                            </a>
-                          )}
-                        </div>
+
+                      {m.category && (
+                        <Badge variant="secondary" className="mt-1.5 text-[0.6rem]">{m.category}</Badge>
+                      )}
+
+                      <div className="mt-2 flex flex-wrap items-center gap-3 text-[0.72rem] text-muted-foreground">
+                        {m.floor && <span>الدور {m.floor}</span>}
+                        {m.phone && (
+                          <span className="flex items-center gap-1 text-primary">
+                            <Phone className="h-3 w-3" /> {m.phone}
+                          </span>
+                        )}
+                        {m.website && (
+                          <span className="flex items-center gap-1">
+                            <Globe className="h-3 w-3" /> موقع
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="mt-1.5 flex items-center text-[0.65rem] text-primary">
+                        عرض التفاصيل <ChevronLeft className="h-3 w-3 mr-0.5 transition-transform group-hover:-translate-x-1" />
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-6 rounded-lg border border-border bg-card p-4 text-center">
-                <p className="text-[0.78rem] light-muted">
-                  البيانات مصدرها أدلة تجارية عامة موثوقة. للتحديث أو الإضافة{" "}
-                  <Link to="/contact" className="font-bold text-primary hover:underline">تواصل معنا</Link>.
-                </p>
-              </div>
-            </>
+                  </Link>
+                );
+              })}
+            </div>
           )}
+
+          {filtered.length === 0 && !isLoading && (
+            <div className="rounded-xl border border-border bg-card p-8 text-center">
+              <ShieldQuestion className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+              <p className="text-[0.88rem] font-bold text-foreground">لا توجد نتائج</p>
+              <p className="mt-1 text-[0.78rem] text-muted-foreground">جرب تغيير الفلاتر أو البحث بكلمة مختلفة</p>
+            </div>
+          )}
+
+          <div className="mt-8 rounded-xl border border-border bg-card p-5 text-center">
+            <p className="text-[0.78rem] text-muted-foreground">
+              البيانات مصدرها أدلة تجارية عامة موثوقة. للتحديث أو الإضافة{" "}
+              <Link to="/contact" className="font-bold text-primary hover:underline">تواصل معنا</Link>.
+            </p>
+          </div>
         </div>
       </section>
     </MainLayout>

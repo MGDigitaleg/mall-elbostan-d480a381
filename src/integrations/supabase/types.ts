@@ -171,63 +171,153 @@ export type Database = {
       downtown_merchants: {
         Row: {
           address: string | null
+          address_en: string | null
+          branch: string
           category: string | null
+          category_secondary: string | null
+          cover_image_url: string | null
           created_at: string
+          email: string | null
+          facebook_url: string | null
           floor: string | null
+          google_maps_url: string | null
           id: string
+          instagram_url: string | null
           is_active: boolean
+          is_marketplace_enabled: boolean
+          keywords_ar: string | null
+          keywords_en: string | null
+          last_verified_at: string | null
           logo_url: string | null
           name_ar: string
           name_en: string | null
           phone: string | null
+          products_services_ar: string | null
+          products_services_en: string | null
+          seo_meta_description_ar: string | null
+          seo_meta_description_en: string | null
+          seo_title_ar: string | null
+          seo_title_en: string | null
+          slug: string
           social_url: string | null
           sort_order: number
+          source_1_label: string | null
+          source_1_url: string | null
+          source_2_label: string | null
+          source_2_url: string | null
+          source_3_label: string | null
+          source_3_url: string | null
           source_notes: string | null
           source_url: string | null
+          summary_ar: string | null
+          summary_en: string | null
+          tiktok_url: string | null
           unit_number: string | null
           updated_at: string
+          verification_notes: string | null
           verification_status: string
           website: string | null
+          whatsapp: string | null
         }
         Insert: {
           address?: string | null
+          address_en?: string | null
+          branch?: string
           category?: string | null
+          category_secondary?: string | null
+          cover_image_url?: string | null
           created_at?: string
+          email?: string | null
+          facebook_url?: string | null
           floor?: string | null
+          google_maps_url?: string | null
           id?: string
+          instagram_url?: string | null
           is_active?: boolean
+          is_marketplace_enabled?: boolean
+          keywords_ar?: string | null
+          keywords_en?: string | null
+          last_verified_at?: string | null
           logo_url?: string | null
           name_ar: string
           name_en?: string | null
           phone?: string | null
+          products_services_ar?: string | null
+          products_services_en?: string | null
+          seo_meta_description_ar?: string | null
+          seo_meta_description_en?: string | null
+          seo_title_ar?: string | null
+          seo_title_en?: string | null
+          slug: string
           social_url?: string | null
           sort_order?: number
+          source_1_label?: string | null
+          source_1_url?: string | null
+          source_2_label?: string | null
+          source_2_url?: string | null
+          source_3_label?: string | null
+          source_3_url?: string | null
           source_notes?: string | null
           source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          tiktok_url?: string | null
           unit_number?: string | null
           updated_at?: string
+          verification_notes?: string | null
           verification_status?: string
           website?: string | null
+          whatsapp?: string | null
         }
         Update: {
           address?: string | null
+          address_en?: string | null
+          branch?: string
           category?: string | null
+          category_secondary?: string | null
+          cover_image_url?: string | null
           created_at?: string
+          email?: string | null
+          facebook_url?: string | null
           floor?: string | null
+          google_maps_url?: string | null
           id?: string
+          instagram_url?: string | null
           is_active?: boolean
+          is_marketplace_enabled?: boolean
+          keywords_ar?: string | null
+          keywords_en?: string | null
+          last_verified_at?: string | null
           logo_url?: string | null
           name_ar?: string
           name_en?: string | null
           phone?: string | null
+          products_services_ar?: string | null
+          products_services_en?: string | null
+          seo_meta_description_ar?: string | null
+          seo_meta_description_en?: string | null
+          seo_title_ar?: string | null
+          seo_title_en?: string | null
+          slug?: string
           social_url?: string | null
           sort_order?: number
+          source_1_label?: string | null
+          source_1_url?: string | null
+          source_2_label?: string | null
+          source_2_url?: string | null
+          source_3_label?: string | null
+          source_3_url?: string | null
           source_notes?: string | null
           source_url?: string | null
+          summary_ar?: string | null
+          summary_en?: string | null
+          tiktok_url?: string | null
           unit_number?: string | null
           updated_at?: string
+          verification_notes?: string | null
           verification_status?: string
           website?: string | null
+          whatsapp?: string | null
         }
         Relationships: []
       }

@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3 } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2 } from "lucide-react";
 
 const adminSections = [
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
   { title: "الوحدات", icon: Building, path: "/admin/units", desc: "إدارة الوحدات التجارية" },
   { title: "فئات المنتجات", icon: LayoutGrid, path: "/admin/product-categories", desc: "إدارة فئات المنتجات والتصنيفات" },
   { title: "المنتجات", icon: ShoppingBag, path: "/admin/products", desc: "إدارة المنتجات والماركتبليس" },
+  { title: "دليل وسط البلد", icon: Building2, path: "/admin/downtown-merchants", desc: "إدارة دليل محلات فرع وسط البلد والتوثيق" },
   { title: "الفعاليات", icon: Calendar, path: "/admin/events", desc: "إدارة فعاليات الافتتاح" },
   { title: "المكافآت القديمة", icon: Gift, path: "/admin/rewards", desc: "نظام المكافآت القديم" },
   { title: "متاجر المسابقة", icon: Trophy, path: "/admin/competition-stores", desc: "إدارة المتاجر المشاركة في أدر واربح" },
