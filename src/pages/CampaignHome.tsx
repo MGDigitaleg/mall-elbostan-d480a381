@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Gift, MapPin, Sparkles, Store, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { BrandLogo } from "@/components/BrandLogo";
 import { SEOHead, organizationLd } from "@/components/SEOHead";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { Button } from "@/components/ui/button";
