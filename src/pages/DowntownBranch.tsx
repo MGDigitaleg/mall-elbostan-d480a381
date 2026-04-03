@@ -146,7 +146,7 @@ const DowntownBranch = () => (
             {[
               { src: downtownInterior2, alt: "الطوابق الداخلية" },
               { src: downtownInterior3, alt: "المحلات الداخلية" },
-              { src: downtownExterior, alt: "الواجهة الرئيسية" },
+              { src: downtownExteriorPolished, alt: "الواجهة الرئيسية" },
             ].map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg">
                 <img src={img.src} alt={img.alt} className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
