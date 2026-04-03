@@ -50,11 +50,15 @@ const DowntownDirectory = () => {
 
   const filtered = useMemo(() => {
     if (!merchants) return [];
+    const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, "");
+    const searchNorm = search ? normalize(search) : "";
     return merchants.filter((m) => {
-      const matchesSearch = !search ||
+      const matchesSearch = !searchNorm ||
+        normalize(m.name_ar).includes(searchNorm) ||
         m.name_ar.toLowerCase().includes(search.toLowerCase()) ||
-        (m.name_en && m.name_en.toLowerCase().includes(search.toLowerCase())) ||
-        (m.phone && m.phone.includes(search));
+        (m.name_en && (normalize(m.name_en).includes(searchNorm) || m.name_en.toLowerCase().includes(search.toLowerCase()))) ||
+        (m.phone && m.phone.replace(/\s+/g, "").includes(searchNorm)) ||
+        (m.category && normalize(m.category).includes(searchNorm));
       const matchesCategory = selectedCategory === "الكل" || m.category === selectedCategory;
       const matchesStatus = selectedStatus === "الكل" || m.verification_status === selectedStatus;
       return matchesSearch && matchesCategory && matchesStatus;
