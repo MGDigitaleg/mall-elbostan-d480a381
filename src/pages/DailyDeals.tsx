@@ -31,7 +31,7 @@ const DailyDeals = () => {
           <div className="text-center py-16">
             <Tag className="w-16 h-16 text-orange mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-foreground mb-4">العروض تنطلق مع الافتتاح الكبير</h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">ترقّب عروضًا حصرية وخصومات من متاجر المول على أحدث المنتجات التقنية — بدءًا من يوم الافتتاح.</p>
+            <p className="text-muted-foreground max-w-lg mx-auto mb-8">ترقّب عروضًا حصرية وخصومات من محلات المول على أحدث المنتجات التقنية — بدءًا من يوم الافتتاح.</p>
             <CountdownTimer />
           </div>
         ) : isLoading ? (
