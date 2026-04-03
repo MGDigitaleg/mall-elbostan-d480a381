@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import entranceImage from "@/assets/mall-entrance.jpg";
-import { LocationMapSection } from "@/components/location/LocationMapSection";
+import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/LocationMapSection";
 
 const NewCairoBranch = () => (
   <MainLayout>
@@ -58,7 +58,7 @@ const NewCairoBranch = () => (
     </div>
 
     {/* ═══════════ INTERACTIVE LOCATION MAP ═══════════ */}
-    <LocationMapSection />
+    <LocationMapSection {...NEW_CAIRO_LOCATION} />
   </MainLayout>
 );
 
