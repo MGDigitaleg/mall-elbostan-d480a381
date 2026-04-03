@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Compass, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
   { label: "عن المول", path: "/about" },
-  { label: "المتاجر", path: "/stores" },
+  { label: "المحلات", path: "/stores" },
   { label: "المنتجات", path: "/products" },
   { label: "الخريطة", path: "/map" },
 ];
@@ -43,7 +44,7 @@ function HeaderMenuSheet({
           <div className="flex items-center justify-between gap-3">
             <BrandLogo align="start" imageClassName="h-auto max-w-[148px]" />
           </div>
-          <SheetTitle className="text-right text-xl">القائمة الرئيسية</SheetTitle>
+          <SheetTitle className="text-right text-xl">القائمة</SheetTitle>
           <SheetDescription className="text-right leading-7">
             تنقل سريع بين صفحات مول البستان.
           </SheetDescription>
@@ -83,31 +84,46 @@ function HeaderMenuSheet({
 
 export function Header() {
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const isActive = (path: string) => {
     if (path === "/#marketplace") return location.pathname === "/" && location.hash === "#marketplace";
     return location.pathname === path;
   };
 
   const navLinkClass = (path: string) =>
-    `inline-flex h-9 items-center rounded-lg px-3.5 text-[0.88rem] font-semibold transition-colors duration-200 ${
+    `inline-flex h-9 items-center rounded-lg px-3.5 text-[0.85rem] font-semibold transition-colors duration-200 ${
       isActive(path)
         ? "bg-secondary text-foreground"
-        : "text-foreground/70 hover:text-foreground"
+        : "text-foreground/65 hover:text-foreground"
     }`;
 
   const secondaryNavLinkClass = (path: string) =>
-    `inline-flex h-8 items-center px-2.5 text-[0.82rem] font-medium transition-colors duration-200 ${
+    `inline-flex h-8 items-center px-2.5 text-[0.8rem] font-medium transition-colors duration-200 ${
       isActive(path)
         ? "text-foreground"
         : "text-muted-foreground hover:text-foreground"
     }`;
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-border/80 bg-card/97 backdrop-blur-md shadow-[0_1px_3px_hsl(218_72%_9%/0.08),0_6px_16px_hsl(218_72%_9%/0.05)]">
+    <header
+      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-border/60 bg-card/98 backdrop-blur-lg shadow-[0_1px_2px_hsl(218_72%_9%/0.06),0_4px_12px_hsl(218_72%_9%/0.04)]"
+          : "border-b border-transparent bg-card/95 backdrop-blur-sm"
+      }`}
+    >
       <div className="container">
         {/* Desktop */}
-        <div className="hidden min-h-[72px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
-          <nav className="flex items-center justify-start gap-1">
+        <div className="hidden min-h-[68px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-4">
+          <nav className="flex items-center justify-start gap-0.5">
             {primaryNavItems.map((item) => (
               <Link key={item.path} to={item.path} className={navLinkClass(item.path)}>
                 {item.label}
@@ -116,7 +132,7 @@ export function Header() {
           </nav>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[192px]" />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[180px]" />
           </Link>
 
           <div className="flex items-center justify-end gap-3">
@@ -128,7 +144,7 @@ export function Header() {
               ))}
             </div>
             <Link to="/spin-win">
-              <Button variant="cta" size="sm" className="h-9 rounded-lg px-5">
+              <Button variant="cta" size="sm" className="h-8 rounded-lg px-4 text-[0.78rem]">
                 أدر واربح
               </Button>
             </Link>
@@ -136,28 +152,28 @@ export function Header() {
         </div>
 
         {/* Tablet */}
-        <div className="hidden min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:min-h-[68px] min-[768px]:max-[1194px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-3">
+        <div className="hidden min-[768px]:max-[1194px]:grid min-[768px]:max-[1194px]:min-h-[64px] min-[768px]:max-[1194px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1194px]:items-center min-[768px]:max-[1194px]:gap-3">
           <nav className="flex items-center justify-start gap-1">
             {primaryNavItems.map((item) => (
-              <Link key={item.path} to={item.path} className="inline-flex h-9 items-center px-2.5 text-[0.82rem] font-semibold text-foreground/70 transition-colors hover:text-foreground">
+              <Link key={item.path} to={item.path} className="inline-flex h-9 items-center px-2.5 text-[0.8rem] font-semibold text-foreground/65 transition-colors hover:text-foreground">
                 {item.label}
               </Link>
             ))}
           </nav>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[176px]" />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[168px]" />
           </Link>
 
           <div className="flex items-center justify-end gap-2">
             <Link to="/spin-win">
-              <Button variant="cta" size="sm" className="h-9 rounded-lg px-4 text-[0.82rem]">أدر واربح</Button>
+              <Button variant="cta" size="sm" className="h-8 rounded-lg px-4 text-[0.78rem]">أدر واربح</Button>
             </Link>
             <HeaderMenuSheet
               isActive={isActive}
               trigger={
-                <button className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground" aria-label="فتح القائمة">
-                  <Menu size={18} />
+                <button className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-foreground" aria-label="فتح القائمة">
+                  <Menu size={17} />
                 </button>
               }
             />
@@ -165,22 +181,22 @@ export function Header() {
         </div>
 
         {/* Mobile */}
-        <div className="grid min-h-[60px] grid-cols-[auto_1fr_auto] items-center gap-2 md:hidden">
+        <div className="grid min-h-[56px] grid-cols-[auto_1fr_auto] items-center gap-2 md:hidden">
           <Link to="/map">
-            <Button variant="outline-blue" size="sm" className="h-10 w-10 rounded-lg px-0" aria-label="افتح الخريطة">
+            <Button variant="outline-blue" size="sm" className="h-9 w-9 rounded-lg px-0" aria-label="افتح الخريطة">
               <Compass className="h-4 w-4" />
             </Button>
           </Link>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[148px]" />
           </Link>
 
           <HeaderMenuSheet
             isActive={isActive}
             trigger={
-              <button className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-foreground" aria-label="فتح القائمة">
-                <Menu size={18} />
+              <button className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card text-foreground" aria-label="فتح القائمة">
+                <Menu size={17} />
               </button>
             }
           />
