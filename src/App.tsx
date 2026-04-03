@@ -27,9 +27,12 @@ import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
+import DowntownDirectory from "./pages/DowntownDirectory";
+import DowntownMerchantDetail from "./pages/DowntownMerchantDetail";
 import NotFound from "./pages/NotFound";
 
 import AdminLogin from "./pages/admin/Login";
+import AdminDowntownMerchants from "./pages/admin/AdminDowntownMerchants";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLeads from "./pages/admin/AdminLeads";
 import AdminTenantAssets from "./pages/admin/AdminTenantAssets";
