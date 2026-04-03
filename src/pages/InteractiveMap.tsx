@@ -227,7 +227,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
-      <section className="sticky top-[60px] z-30 border-b bg-card/95 backdrop-blur-sm md:top-[68px] xl:top-[72px]" style={{ borderColor: "#D8DEE8" }}>
+      <section className="sticky top-[56px] z-30 border-b bg-card/95 backdrop-blur-sm md:top-[64px] xl:top-[68px]" style={{ borderColor: "#D8DEE8" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="flex flex-wrap items-center justify-between gap-2 py-2">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
