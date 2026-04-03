@@ -150,9 +150,9 @@ const DowntownBranch = () => (
           <p className="section-kicker mb-3">من داخل المول</p>
           <div className="grid grid-cols-3 gap-2">
             {[
-              { src: downtownInterior2, alt: "الطوابق الداخلية" },
-              { src: downtownInterior3, alt: "المحلات الداخلية" },
-              { src: downtownExteriorPolished, alt: "الواجهة الرئيسية" },
+              { src: downtownHero6, alt: "محلات التقنية من الداخل" },
+              { src: downtownHero7, alt: "ممرات المول الداخلية" },
+              { src: downtownHero8, alt: "محلات الكمبيوتر" },
             ].map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg">
                 <img src={img.src} alt={img.alt} className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
