@@ -291,9 +291,21 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isSelected = selectedUnitId === unit.id;
             const unitColors = statusFill[unit.status];
 
-            // Logo dimensions - larger, filling the allocated space
-            const logoW = 56;
-            const logoH = 32;
+            // Calculate bounding box from polygon to size logo proportionally
+            const pts = unit.polygon.split(/\s+/).map((p: string) => {
+              const [px, py] = p.split(",").map(Number);
+              return { x: px, y: py };
+            });
+            const minX = Math.min(...pts.map((p) => p.x));
+            const maxX = Math.max(...pts.map((p) => p.x));
+            const minY = Math.min(...pts.map((p) => p.y));
+            const maxY = Math.max(...pts.map((p) => p.y));
+            const unitW = maxX - minX;
+            const unitH = maxY - minY;
+
+            // Logo fills ~80% width and ~55% height of unit, with min/max clamps
+            const logoW = Math.max(40, Math.min(unitW * 0.80, 140));
+            const logoH = Math.max(24, Math.min(unitH * 0.55, 90));
             const bgW = logoW + 8;
             const bgH = logoH + 6;
 
@@ -311,7 +323,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       fill={isSelected ? unitColors.selected : unitColors.base}
                       opacity="0.85"
                     />
-                    {/* Tenant logo — scaled to fill */}
+                    {/* Tenant logo — scaled to fill unit */}
                     <image
                       href={tenantLogo}
                       x={unit.labelX - logoW / 2}
