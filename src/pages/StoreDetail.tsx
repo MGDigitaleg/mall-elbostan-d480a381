@@ -335,8 +335,8 @@ const StoreDetail = () => {
             {/* Related Stores */}
             {relatedStores && relatedStores.length > 0 && (
               <aside className="section-shell p-6 md:p-8">
-                <p className="section-kicker">متاجر مرتبطة</p>
-                <h3 className="mb-4 text-lg font-bold text-foreground">اكتشف متاجر أخرى ضمن نفس الفئة</h3>
+                <p className="section-kicker">محلات مرتبطة</p>
+                <h3 className="mb-4 text-lg font-bold text-foreground">اكتشف محلات أخرى ضمن نفس الفئة</h3>
                 <div className="space-y-2.5">
                   {relatedStores.map((related) => (
                     <Link
