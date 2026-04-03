@@ -54,7 +54,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const MIN_ZOOM = 1;
+  const MIN_ZOOM = 1; // zoom bounds
   const MAX_ZOOM = 3;
   const ZOOM_STEP = 0.4;
 
