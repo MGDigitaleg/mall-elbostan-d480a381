@@ -13,6 +13,7 @@ const mobileNavItems = [
   { label: "يوم الافتتاح", path: "/opening-day" },
   { label: "تواصل معنا", path: "/contact" },
   { label: "فرع وسط البلد", path: "/downtown-branch" },
+  { label: "دليل وسط البلد", path: "/downtown-directory" },
   { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
   { label: "انضم للسوق", path: "/join-marketplace" },
   { label: "الوظائف", path: "/careers" },

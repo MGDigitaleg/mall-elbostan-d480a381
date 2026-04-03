@@ -14,6 +14,7 @@ const primaryNavItems = [
 ];
 
 const secondaryNavItems = [
+  { label: "دليل وسط البلد", path: "/downtown-directory" },
   { label: "التأجير", path: "/leasing" },
   { label: "يوم الافتتاح", path: "/opening-day" },
   { label: "تواصل معنا", path: "/contact" },
