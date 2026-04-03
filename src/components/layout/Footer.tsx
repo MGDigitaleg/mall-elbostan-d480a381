@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logoWhite from "@/assets/logo-white.svg";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp } from "lucide-react";
+import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ExternalLink } from "lucide-react";
 
 const footerColumns = [
   {
@@ -51,77 +51,76 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
+function SocialIcon({ children, href, label }: { children: React.ReactNode; href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="group flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-105"
+      style={{
+        background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.08))",
+        border: "1px solid rgba(255,255,255,0.06)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+
 export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="relative border-t border-white/[0.04]" style={{ background: "#071326" }}>
-      {/* Subtle top accent line */}
-      <div className="h-px w-full" style={{ background: "linear-gradient(to right, transparent, #2563EB40, #CDBB9A30, transparent)" }} />
+    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)" }}>
+      {/* Decorative top border */}
+      <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
-      <div className="container pt-14 pb-7 md:pt-16 md:pb-8">
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
+
+      <div className="container relative pt-14 pb-6 md:pt-18 md:pb-8 lg:pt-20">
         {/* ── TOP: Brand + Navigation ── */}
-        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-6">
+        <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 xl:gap-12">
           {/* Brand column */}
-          <div className="space-y-4">
-            <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[130px]" />
-            <p className="max-w-[240px] text-[0.82rem] leading-[1.75]" style={{ color: "#7C8BA1" }}>
-              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات.
+          <div className="space-y-5">
+            <Link to="/" className="inline-block">
+              <img src={logoWhite} alt="مول البستان" className="h-auto max-w-[140px] opacity-90 transition-opacity hover:opacity-100" />
+            </Link>
+
+            <p className="max-w-[260px] text-[0.82rem] leading-[1.85] font-light" style={{ color: "#8896AB" }}>
+              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات منذ 1990.
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 pt-1">
               {socialLinks.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-all"
-                  style={{ background: "#ffffff08", border: "1px solid #ffffff0D" }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "#ffffff14";
-                    e.currentTarget.style.borderColor = "#ffffff20";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "#ffffff08";
-                    e.currentTarget.style.borderColor = "#ffffff0D";
-                  }}
-                >
-                  <s.icon className="h-4 w-4" style={{ color: "#94A3B8" }} />
-                </a>
+                <SocialIcon key={s.label} href={s.href} label={s.label}>
+                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#8896AB" }} />
+                </SocialIcon>
               ))}
-              <a
-                href="https://www.tiktok.com/@mallelbostan"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="flex h-8 w-8 items-center justify-center rounded-lg transition-all"
-                style={{ background: "#ffffff08", border: "1px solid #ffffff0D", color: "#94A3B8" }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#ffffff14";
-                  e.currentTarget.style.borderColor = "#ffffff20";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#ffffff08";
-                  e.currentTarget.style.borderColor = "#ffffff0D";
-                }}
-              >
-                <TikTokIcon />
-              </a>
+              <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="TikTok">
+                <span className="transition-colors group-hover:text-white" style={{ color: "#8896AB" }}>
+                  <TikTokIcon />
+                </span>
+              </SocialIcon>
             </div>
 
-            {/* CTA */}
-            <div className="flex gap-2 pt-1">
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-2.5 pt-2">
               <Link to="/map">
-                <Button variant="cta" className="h-9 rounded-lg px-4 text-[0.78rem] font-bold">
-                  <Compass className="ml-1 h-3.5 w-3.5" /> استكشف الخريطة
+                <Button variant="cta" className="h-10 rounded-xl px-5 text-[0.78rem] font-bold shadow-lg shadow-primary/20">
+                  <Compass className="ml-1.5 h-3.5 w-3.5" /> استكشف الخريطة
                 </Button>
               </Link>
               <Link to="/leasing">
-                <Button className="h-9 rounded-lg border px-4 text-[0.78rem] font-bold" style={{ borderColor: "#ffffff12", background: "#ffffff06", color: "#CBD5E1" }}>
-                  التأجير
+                <Button
+                  className="h-10 rounded-xl px-5 text-[0.78rem] font-bold transition-all duration-300 hover:border-white/20 hover:bg-white/10"
+                  style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#CBD5E1", border: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  التأجير والشراء
                 </Button>
               </Link>
             </div>
@@ -130,16 +129,21 @@ export function Footer() {
           {/* Navigation columns */}
           {footerColumns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-3.5 text-[0.72rem] font-bold tracking-[0.1em] uppercase" style={{ color: "#CDBB9A" }}>
+              <h4
+                className="mb-4 text-[0.68rem] font-bold tracking-[0.14em] uppercase"
+                style={{ color: "#CDBB9A" }}
+              >
                 {col.title}
               </h4>
-              <ul className="space-y-2.5">
+              <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="text-[0.8rem] transition-colors hover:text-white"
+                      className="group/link flex items-center text-[0.8rem] transition-all duration-200"
                       style={{ color: "#7C8BA1" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "#E2E8F0"; e.currentTarget.style.paddingInlineEnd = "4px"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = "#7C8BA1"; e.currentTarget.style.paddingInlineEnd = "0"; }}
                     >
                       {link.label}
                     </Link>
@@ -150,23 +154,47 @@ export function Footer() {
           ))}
         </div>
 
-        {/* ── MIDDLE: Contact strip ── */}
-        <div className="mt-8 rounded-lg px-4 py-3.5 flex flex-wrap items-center gap-5 md:gap-8" style={{ background: "#ffffff05", border: "1px solid #ffffff08" }}>
-          <span className="text-[0.7rem] font-bold tracking-[0.08em] uppercase" style={{ color: "#CDBB9A" }}>تواصل</span>
-          <a href="mailto:info@mallelbostan.com" className="flex items-center gap-2 text-[0.78rem] transition-colors hover:text-white" style={{ color: "#94A3B8" }}>
-            <Mail className="h-3.5 w-3.5 text-primary" />
-            <span>info@mallelbostan.com</span>
+        {/* ── CONTACT STRIP ── */}
+        <div
+          className="mt-10 rounded-2xl px-5 py-4 flex flex-wrap items-center gap-6 md:gap-10"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.025), rgba(255,255,255,0.04))",
+            border: "1px solid rgba(255,255,255,0.06)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <span className="text-[0.68rem] font-bold tracking-[0.12em] uppercase" style={{ color: "#CDBB9A" }}>
+            تواصل معنا
+          </span>
+
+          <a href="mailto:info@mallelbostan.com" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
+              <Mail className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            </span>
+            info@mallelbostan.com
           </a>
-          <span className="flex items-center gap-2 text-[0.78rem]" style={{ color: "#94A3B8" }}>
-            <MapPin className="h-3.5 w-3.5 text-primary" />
-            <span>التجمع الخامس، القاهرة الجديدة</span>
+
+          <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
+              <MapPin className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            </span>
+            التجمع الخامس، القاهرة الجديدة
+          </span>
+
+          <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
+              <MapPin className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            </span>
+            18 شارع البستان، باب اللوق، القاهرة
           </span>
         </div>
 
         {/* ── APP BADGES ── */}
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-          <span className="text-[0.74rem] font-medium" style={{ color: "#64748B" }}>تطبيق المول قريبا</span>
-          <div className="flex gap-2">
+        <div className="mt-7 flex flex-col gap-3.5 sm:flex-row sm:items-center">
+          <span className="text-[0.74rem] font-medium" style={{ color: "#506078" }}>
+            تطبيق المول قريبا
+          </span>
+          <div className="flex gap-2.5">
             {[
               {
                 label: "App Store",
@@ -188,8 +216,12 @@ export function Footer() {
               <a
                 key={store.label}
                 href="#"
-                className="flex h-9 items-center gap-2 rounded-lg px-3.5 text-[0.72rem] transition-all"
-                style={{ background: "#ffffff06", border: "1px solid #ffffff0A", color: "#7C8BA1" }}
+                className="flex h-10 items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium transition-all duration-300 hover:border-white/15 hover:bg-white/8"
+                style={{
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  color: "#6B7A8D",
+                }}
               >
                 {store.icon}
                 {store.label}
@@ -199,19 +231,25 @@ export function Footer() {
         </div>
 
         {/* ── BOTTOM BAR ── */}
-        <div className="mt-8 border-t pt-5" style={{ borderColor: "#ffffff08" }}>
+        <div className="mt-9 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.7rem]" style={{ color: "#4B5563" }}>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
               <p>مول البستان — وجهة تقنية مصرية راسخة</p>
-              <span className="hidden md:inline">·</span>
-              <span>© {new Date().getFullYear()} مول البستان</span>
+              <span className="hidden md:inline" style={{ color: "#2A3444" }}>|</span>
+              <span>© {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
-            <div className="flex items-center gap-4 text-[0.7rem]" style={{ color: "#4B5563" }}>
-              <Link to="/terms" className="transition-colors hover:text-white/70">الشروط والأحكام</Link>
-              <Link to="/privacy" className="transition-colors hover:text-white/70">الخصوصية</Link>
+            <div className="flex items-center gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
+              <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط والأحكام</Link>
+              <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
               <span>
                 Developed by{" "}
-                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-medium transition-colors hover:text-white/70" style={{ color: "#64748B" }}>
+                <a
+                  href="https://mg.digital"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium transition-colors duration-200 hover:text-slate-300"
+                  style={{ color: "#506078" }}
+                >
                   MG Digital
                 </a>
               </span>
@@ -223,11 +261,15 @@ export function Footer() {
       {/* Scroll to top */}
       <button
         onClick={scrollToTop}
-        className="absolute left-5 bottom-7 flex h-8 w-8 items-center justify-center rounded-lg transition-all"
-        style={{ background: "#ffffff08", border: "1px solid #ffffff0D" }}
+        className="absolute left-5 bottom-6 flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:bg-white/10"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.08))",
+          border: "1px solid rgba(255,255,255,0.06)",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+        }}
         aria-label="العودة للأعلى"
       >
-        <ArrowUp className="h-3.5 w-3.5" style={{ color: "#64748B" }} />
+        <ArrowUp className="h-4 w-4" style={{ color: "#6B7A8D" }} />
       </button>
     </footer>
   );
