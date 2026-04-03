@@ -64,6 +64,8 @@ function AppLayout() {
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
           <Route path="/downtown-branch" element={<DowntownBranch />} />
+          <Route path="/downtown-directory" element={<DowntownDirectory />} />
+          <Route path="/downtown-directory/:slug" element={<DowntownMerchantDetail />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:slug" element={<StoreDetail />} />
           <Route path="/products" element={<Products />} />
