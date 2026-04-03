@@ -71,6 +71,20 @@ const StoreDetail = () => {
     enabled: !!store?.category && !!store?.id,
   });
 
+  const { data: storeProducts } = useQuery({
+    queryKey: ["store-products", store?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("id, name_ar, slug, price, price_note, image_url, brand")
+        .eq("store_id", store!.id)
+        .eq("status", "published")
+        .limit(6);
+      return data ?? [];
+    },
+    enabled: !!store?.id,
+  });
+
   const gallery = useMemo(() => {
     if (!store?.gallery || !Array.isArray(store.gallery)) return [];
     return store.gallery.filter((item): item is string => typeof item === "string");
