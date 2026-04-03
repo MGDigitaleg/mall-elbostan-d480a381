@@ -270,36 +270,47 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ FINAL CTA ═══════════ */}
-      <section className="py-8 md:py-10" style={{ background: "#071326" }}>
-        <div className="container max-w-[640px] text-center">
+      <section className="relative overflow-hidden py-12 md:py-16" style={{ background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" }}>
+        {/* Decorative */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #F97316 0%, transparent 70%)" }} />
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
+        </div>
+
+        <div className="container relative max-w-[720px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div className="flex items-center justify-center gap-2 mb-2.5">
-              <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
-              <span className="font-poppins text-[0.56rem] font-bold tracking-[0.22em] uppercase dark-accent">ابدأ من هنا</span>
-              <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
+            {/* Divider accent */}
+            <div className="flex items-center justify-center gap-2.5 mb-5">
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A, transparent)" }} />
+              <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>ابدأ من هنا</span>
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A, transparent)" }} />
             </div>
-            <h2 className="mx-auto max-w-[18rem] text-[1.05rem] font-bold leading-[1.15] md:text-[1.2rem] dark-heading" style={{ fontFamily: "var(--font-arabic-display)" }}>
+
+            <h2 className="mx-auto max-w-[22rem] text-center text-[1.15rem] md:text-[1.4rem] font-bold leading-[1.2] dark-heading" style={{ fontFamily: "var(--font-arabic-display)" }}>
               المول جاهز — والقرار بيدك.
             </h2>
-            <p className="mx-auto mt-2 text-[0.8rem] leading-[1.65] dark-body max-w-[18rem]">
-              استكشف، قارن، وقرّر.
+            <p className="mx-auto mt-2.5 max-w-[20rem] text-center text-[0.84rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+              استكشف المحلات، قارن الوحدات، واتخذ خطوتك القادمة.
             </p>
-            <div className="mt-5 flex flex-wrap justify-center gap-2.5">
-              <Link to="/map">
-                <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.8rem] font-bold shadow-[var(--shadow-blue)]">
-                  <Compass className="ml-1.5 h-3.5 w-3.5" /> استكشف الخريطة
-                </Button>
-              </Link>
-              <Link to="/stores">
-                <Button className="h-9 rounded-lg border px-5 text-[0.8rem] font-bold" style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}>
-                  دليل المحلات
-                </Button>
-              </Link>
-              <Link to="/leasing">
-                <Button variant="orange" className="h-9 rounded-lg px-5 text-[0.8rem] font-bold">
-                  <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسار التأجير
-                </Button>
-              </Link>
+
+            {/* Action cards */}
+            <div className="mx-auto mt-7 grid gap-2.5 sm:grid-cols-3">
+              {[
+                { icon: Compass, label: "استكشف الخريطة", desc: "خريطة تفاعلية لكل دور.", to: "/map", color: "#2563EB", variant: "cta" as const },
+                { icon: Store, label: "دليل المحلات", desc: "تصفّح كل المحلات.", to: "/stores", color: "#06B6D4", variant: undefined },
+                { icon: Phone, label: "استفسار التأجير", desc: "وحدات جاهزة للتأجير.", to: "/leasing", color: "#F97316", variant: "orange" as const },
+              ].map((item) => (
+                <Link key={item.to} to={item.to} className="group">
+                  <div className="rounded-xl p-4 text-center transition-all duration-300 hover:scale-[1.02]" style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}>
+                    <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-lg transition-colors" style={{ background: `${item.color}15`, border: `1px solid ${item.color}28` }}>
+                      <item.icon className="h-4.5 w-4.5" style={{ color: item.color }} />
+                    </div>
+                    <p className="text-[0.86rem] font-bold" style={{ color: "#F1F5F9" }}>{item.label}</p>
+                    <p className="mt-1 text-[0.72rem] leading-[1.5]" style={{ color: "#7C8BA1" }}>{item.desc}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
         </div>
