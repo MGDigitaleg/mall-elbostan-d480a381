@@ -5,12 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
-const dtPhotos = [
-  "/downtown/downtown-hero-1.webp",
-  "/downtown/downtown-hero-2.webp",
-  "/downtown/downtown-hero-3.webp",
-  "/downtown/downtown-hero-4.webp",
-];
+import dt1 from "@/assets/downtown-hero-1.jpg";
+import dt2 from "@/assets/downtown-hero-2.jpg";
+import dt3 from "@/assets/downtown-hero-3.jpg";
+import dt4 from "@/assets/downtown-hero-4.jpg";
+
+const dtPhotos = [dt1, dt2, dt3, dt4];
 
 export function DowntownTeaser() {
   const { data: count } = useQuery({
