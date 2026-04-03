@@ -51,7 +51,7 @@ const CampaignHome = () => {
 
       {/* ═══ HERO ═══ */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden min-h-screen flex flex-col"
         style={{ background: "linear-gradient(170deg, hsl(222 36% 7%) 0%, hsl(222 32% 11%) 100%)" }}
       >
         <div
@@ -59,7 +59,14 @@ const CampaignHome = () => {
           style={{ background: "radial-gradient(ellipse 60% 55% at 50% 40%, hsl(222 58% 42% / 0.08), transparent 70%)" }}
         />
 
-        <div className="relative mx-auto w-full max-w-[1100px] px-5 md:px-8 lg:px-14 py-16 md:py-24 lg:py-28 text-center">
+        {/* Inline logo */}
+        <div className="relative z-10 flex justify-center pt-8 md:pt-10">
+          <Link to="/" aria-label="مول البستان">
+            <BrandLogo variant="white" className="h-12 md:h-14" />
+          </Link>
+        </div>
+
+        <div className="relative flex-1 flex items-center justify-center mx-auto w-full max-w-[1100px] px-5 md:px-8 lg:px-14 py-10 md:py-16 text-center">
           <motion.div custom={0} variants={fade} initial="hidden" animate="visible">
             <div className="mx-auto mb-5 flex items-center justify-center gap-3">
               <div className="h-[2px] w-8" style={{ background: "hsl(222 58% 55% / 0.5)" }} />
