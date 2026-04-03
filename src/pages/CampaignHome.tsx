@@ -62,7 +62,7 @@ const CampaignHome = () => {
         {/* Inline logo */}
         <div className="relative z-10 flex justify-center pt-8 md:pt-10">
           <Link to="/" aria-label="مول البستان">
-            <BrandLogo variant="white" className="h-12 md:h-14" />
+            <BrandLogo className="h-12 md:h-14" align="center" />
           </Link>
         </div>
 
