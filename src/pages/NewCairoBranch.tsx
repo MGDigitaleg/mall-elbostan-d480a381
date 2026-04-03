@@ -10,16 +10,16 @@ import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/Lo
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import mallEntrancePolished from "@/assets/mall-entrance-polished.jpg";
-import mallExteriorPolished from "@/assets/mall-exterior-polished.jpg";
-import mallInterior from "@/assets/mall-interior.jpg";
-import mallFacade from "@/assets/mall-facade.jpg";
+import ncHero1 from "@/assets/nc-hero-1.jpg";
+import ncHero2 from "@/assets/nc-hero-2.jpg";
+import ncHero3 from "@/assets/nc-hero-3.jpg";
+import ncHero4 from "@/assets/nc-hero-4.jpg";
 
 const heroSlides = [
-  { src: mallEntrancePolished, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
-  { src: mallExteriorPolished, alt: "مول البستان — الواجهة الخارجية، القاهرة الجديدة" },
-  { src: mallInterior, alt: "مول البستان — التصميم الداخلي" },
-  { src: mallFacade, alt: "واجهة مول البستان — القاهرة الجديدة" },
+  { src: ncHero1, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
+  { src: ncHero2, alt: "مول البستان — الواجهة الخارجية، القاهرة الجديدة" },
+  { src: ncHero3, alt: "مول البستان — التصميم الداخلي" },
+  { src: ncHero4, alt: "واجهة مول البستان — القاهرة الجديدة" },
 ];
 
 const sectionReveal = {
