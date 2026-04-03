@@ -131,7 +131,7 @@ const StoreDetail = () => {
       <SEOHead
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
-        breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+        breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
       />
 
       {/* ── Hero Band ── */}
