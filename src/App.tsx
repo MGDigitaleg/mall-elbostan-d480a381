@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { useGA4 } from "@/hooks/useGA4";
 
+import CampaignHome from "./pages/CampaignHome";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import NewCairoBranch from "./pages/NewCairoBranch";
@@ -59,7 +60,9 @@ function AppLayout() {
       <main className={!isAdmin ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
         <Routes>
           {/* Public */}
-          <Route path="/" element={<Index />} />
+          {/* Temporary campaign homepage — restore <Index /> after opening */}
+          <Route path="/" element={<CampaignHome />} />
+          <Route path="/home-main" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
           <Route path="/downtown-branch" element={<DowntownBranch />} />
