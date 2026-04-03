@@ -60,7 +60,7 @@ const DailyDeals = () => {
             ))}
           </div>
         ) : (
-          <EmptyState title="لا توجد عروض نشطة حاليًا" description="تابعنا لمعرفة آخر العروض والخصومات من متاجر المول." />
+          <EmptyState title="لا توجد عروض نشطة حاليًا" description="تابعنا لمعرفة آخر العروض والخصومات من محلات المول." />
         )}
       </div>
     </MainLayout>
