@@ -8,6 +8,7 @@ import { OpeningSchedule } from "@/components/opening/OpeningSchedule";
 import { OpeningGuests } from "@/components/opening/OpeningGuests";
 import { OpeningGaming } from "@/components/opening/OpeningGaming";
 import { OpeningSponsors } from "@/components/opening/OpeningSponsors";
+import { OpeningFAQ } from "@/components/opening/OpeningFAQ";
 
 const OpeningDay = () => {
   const { data: events, isLoading } = useQuery({
