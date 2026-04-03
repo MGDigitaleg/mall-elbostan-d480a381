@@ -25,13 +25,13 @@ const DailyDeals = () => {
     <MainLayout>
       <SEOHead title="العروض اليومية" titleEn="Daily Deals" description="أحدث العروض والخصومات في مول البستان - عروض يومية حصرية على التكنولوجيا والإلكترونيات." descriptionEn="Latest deals and discounts at Mall Elbostan." breadcrumbs={[{ name: "العروض اليومية", url: "/daily-deals" }]} />
       <div className="container py-20">
-        <h1 className="text-2xl font-bold text-gradient-blue mb-8 text-center md:text-3xl">عروض المتاجر</h1>
+        <h1 className="text-2xl font-bold text-gradient-blue mb-8 text-center md:text-3xl">عروض المحلات</h1>
 
         {!isExpired ? (
           <div className="text-center py-16">
             <Tag className="w-16 h-16 text-orange mx-auto mb-6" />
             <h2 className="text-2xl font-bold text-foreground mb-4">العروض تنطلق مع الافتتاح الكبير</h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">ترقّب عروضًا حصرية وخصومات من متاجر المول على أحدث المنتجات التقنية — بدءًا من يوم الافتتاح.</p>
+            <p className="text-muted-foreground max-w-lg mx-auto mb-8">ترقّب عروضًا حصرية وخصومات من محلات المول على أحدث المنتجات التقنية — بدءًا من يوم الافتتاح.</p>
             <CountdownTimer />
           </div>
         ) : isLoading ? (
@@ -60,7 +60,7 @@ const DailyDeals = () => {
             ))}
           </div>
         ) : (
-          <EmptyState title="لا توجد عروض نشطة حاليًا" description="تابعنا لمعرفة آخر العروض والخصومات من متاجر المول." />
+          <EmptyState title="لا توجد عروض نشطة حاليًا" description="تابعنا لمعرفة آخر العروض والخصومات من محلات المول." />
         )}
       </div>
     </MainLayout>
