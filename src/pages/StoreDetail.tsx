@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
@@ -6,8 +6,8 @@ import {
   ArrowLeft, Clock3, Globe, Layers3, Mail, MapPin,
   Phone, Store, ExternalLink, ShoppingBag, ChevronLeft,
   Tag, Building2, Compass, MessageCircle, Copy, Check,
+  Share2, Star, ArrowUpLeft,
 } from "lucide-react";
-import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -16,18 +16,18 @@ import { toast } from "sonner";
 import fallbackCover from "@/assets/mall-interior.jpg";
 
 /* ── Animations ── */
-const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } } };
-const stagger = { visible: { transition: { staggerChildren: 0.06 } } };
-const fadeChild = { hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { duration: 0.3 } } };
+const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
+const stagger = { visible: { transition: { staggerChildren: 0.07 } } };
+const fadeChild = { hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } };
 
 /* ── Category context ── */
-const categoryStory: Record<string, { title: string; desc: string }> = {
-  "الهواتف والإكسسوارات": { title: "حلول اتصال واستخدام يومي", desc: "أجهزة، إكسسوارات، وتحديثات سريعة." },
-  "الكمبيوتر والأجهزة": { title: "أجهزة للعمل والأداء", desc: "حواسيب، ملحقات، وتجهيزات الإنتاجية." },
-  "الألعاب والترفيه": { title: "تجربة ألعاب متقدمة", desc: "عتاد وملحقات الترفيه الرقمي." },
-  "الطباعة والتصوير": { title: "خدمات تدعم الأعمال", desc: "حلول الطباعة والتصوير." },
-  "الشبكات والحماية": { title: "بنية تقنية جاهزة", desc: "شبكات، أمن تقني، واتصال." },
-  "الصيانة والدعم الفني": { title: "خدمات دعم واستمرارية", desc: "صيانة ودعم فني متخصص." },
+const categoryStory: Record<string, { title: string; desc: string; icon: typeof Tag }> = {
+  "الهواتف والإكسسوارات": { title: "حلول اتصال واستخدام يومي", desc: "أجهزة، إكسسوارات، وتحديثات سريعة.", icon: Phone },
+  "الكمبيوتر والأجهزة": { title: "أجهزة للعمل والأداء", desc: "حواسيب، ملحقات، وتجهيزات الإنتاجية.", icon: Layers3 },
+  "الألعاب والترفيه": { title: "تجربة ألعاب متقدمة", desc: "عتاد وملحقات الترفيه الرقمي.", icon: Star },
+  "الطباعة والتصوير": { title: "خدمات تدعم الأعمال", desc: "حلول الطباعة والتصوير.", icon: Layers3 },
+  "الشبكات والحماية": { title: "بنية تقنية جاهزة", desc: "شبكات، أمن تقني، واتصال.", icon: Globe },
+  "الصيانة والدعم الفني": { title: "خدمات دعم واستمرارية", desc: "صيانة ودعم فني متخصص.", icon: Compass },
 };
 
 const StoreDetail = () => {
@@ -48,7 +48,7 @@ const StoreDetail = () => {
       if (!store?.category) return [];
       const { data } = await supabase
         .from("stores")
-        .select("id, slug, name_ar, logo_url, category, unit_code")
+        .select("id, slug, name_ar, logo_url, category, unit_code, short_description_ar")
         .eq("category", store.category)
         .neq("id", store.id)
         .neq("status", "hidden")
@@ -84,15 +84,16 @@ const StoreDetail = () => {
   if (isLoading) {
     return (
       <MainLayout>
-        <div style={{ background: "hsl(var(--navy))" }}>
+        <div style={{ background: "var(--gradient-hero)" }}>
           <div className="container max-w-6xl py-20">
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div className="space-y-4">
-                <div className="h-5 w-28 animate-pulse rounded bg-white/10" />
-                <div className="h-10 w-3/4 animate-pulse rounded bg-white/10" />
-                <div className="h-4 w-full animate-pulse rounded bg-white/8" />
+                <div className="h-5 w-28 animate-pulse rounded-lg" style={{ background: "hsl(0 0% 100% / 0.08)" }} />
+                <div className="h-10 w-3/4 animate-pulse rounded-lg" style={{ background: "hsl(0 0% 100% / 0.08)" }} />
+                <div className="h-4 w-full animate-pulse rounded-lg" style={{ background: "hsl(0 0% 100% / 0.06)" }} />
+                <div className="h-4 w-2/3 animate-pulse rounded-lg" style={{ background: "hsl(0 0% 100% / 0.06)" }} />
               </div>
-              <div className="aspect-[4/3] animate-pulse rounded-xl bg-white/8" />
+              <div className="aspect-[4/3] animate-pulse rounded-2xl" style={{ background: "hsl(0 0% 100% / 0.06)" }} />
             </div>
           </div>
         </div>
@@ -105,7 +106,9 @@ const StoreDetail = () => {
     return (
       <MainLayout>
         <div className="container max-w-5xl py-24 text-center">
-          <Store className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
+          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-muted/30">
+            <Store className="h-7 w-7 text-muted-foreground" />
+          </div>
           <h1 className="mb-3 text-2xl font-bold text-foreground">المتجر غير موجود</h1>
           <p className="mb-6 text-sm text-muted-foreground">لم يتم العثور على المتجر المطلوب</p>
           <Link to="/stores"><Button variant="outline-blue">العودة لدليل المحلات</Button></Link>
@@ -124,114 +127,157 @@ const StoreDetail = () => {
 
       {/* ═══════════ HERO ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <div className="pointer-events-none absolute inset-0 opacity-25"
-             style={{ background: "radial-gradient(ellipse 50% 60% at 75% 40%, hsl(222 100% 59% / 0.15), transparent)" }} />
+        {/* Ambient glow */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/4 top-1/3 h-[400px] w-[400px] rounded-full opacity-[0.07]"
+               style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+          <div className="absolute bottom-0 right-1/4 h-[300px] w-[500px] rounded-full opacity-[0.05]"
+               style={{ background: "radial-gradient(circle, hsl(220 80% 55%), transparent 70%)" }} />
+        </div>
 
-        <div className="container relative max-w-6xl pb-12 pt-6 md:pb-16 md:pt-8">
+        <div className="container relative max-w-6xl pb-14 pt-6 md:pb-20 md:pt-10">
           {/* Breadcrumb */}
-          <nav className="mb-6 flex items-center gap-1.5 text-[0.76rem] font-medium text-white/35">
-            <Link to="/stores" className="transition-colors hover:text-white/60">المحلات</Link>
-            <ChevronLeft className="h-3 w-3" />
+          <motion.nav initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
+                      className="mb-8 flex items-center gap-2 text-[0.74rem] font-medium">
+            <Link to="/" className="text-white/30 transition-colors hover:text-white/55">الرئيسية</Link>
+            <ChevronLeft className="h-3 w-3 text-white/20" />
+            <Link to="/stores" className="text-white/30 transition-colors hover:text-white/55">المحلات</Link>
+            <ChevronLeft className="h-3 w-3 text-white/20" />
             <span className="text-white/55">{store.name_ar}</span>
-          </nav>
+          </motion.nav>
 
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.9fr] lg:gap-12">
-            {/* Text */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] p-2">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.85fr] lg:gap-14">
+            {/* Left: Text content */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" className="space-y-5">
+              {/* Logo + Name */}
+              <div className="flex items-center gap-5">
+                <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl p-2.5"
+                     style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)", boxShadow: "0 8px 32px hsl(220 60% 5% / 0.3)" }}>
                   {store.logo_url ? (
-                    <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-lg object-contain" />
+                    <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" />
                   ) : (
-                    <Store className="h-7 w-7 text-white/40" />
+                    <Store className="h-8 w-8 text-white/35" />
                   )}
                 </div>
                 <div>
-                  <h1 className="text-[1.6rem] font-bold leading-[1.15] text-white md:text-[2rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                  <h1 className="text-[1.75rem] font-bold leading-[1.1] text-white md:text-[2.2rem]"
+                      style={{ fontFamily: "var(--font-arabic-display)" }}>
                     {store.name_ar}
                   </h1>
-                  {store.name_en && <p className="mt-0.5 font-poppins text-[0.8rem] font-medium text-white/30">{store.name_en}</p>}
+                  {store.name_en && (
+                    <p className="mt-1 font-poppins text-[0.82rem] font-medium tracking-wide text-white/25">{store.name_en}</p>
+                  )}
                 </div>
               </div>
 
-              {/* Badges */}
-              <div className="flex flex-wrap gap-2">
+              {/* Badge row */}
+              <div className="flex flex-wrap items-center gap-2">
                 {store.category && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[0.72rem] font-semibold text-white/65">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold text-white/60"
+                        style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
                     <Tag className="h-3 w-3" />{store.category}
                   </span>
                 )}
                 {store.unit_code && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-[0.72rem] font-bold text-primary-foreground">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold"
+                        style={{ background: "hsl(var(--primary) / 0.12)", border: "1px solid hsl(var(--primary) / 0.25)", color: "hsl(var(--primary))" }}>
                     <Building2 className="h-3 w-3" />وحدة {store.unit_code}
                   </span>
                 )}
-                <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[0.72rem] font-semibold ${
+                <span className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold ${
                   store.status === "available"
-                    ? "border border-orange/25 bg-orange/10 text-orange-foreground"
-                    : "border border-success/20 bg-success/10 text-success-foreground"
-                }`}>
-                  <div className={`h-1.5 w-1.5 rounded-full ${store.status === "available" ? "bg-orange" : "bg-success"}`} />
+                    ? "text-orange-300"
+                    : "text-emerald-300"
+                }`} style={{
+                  background: store.status === "available" ? "hsl(25 95% 55% / 0.12)" : "hsl(155 70% 40% / 0.12)",
+                  border: `1px solid ${store.status === "available" ? "hsl(25 95% 55% / 0.25)" : "hsl(155 70% 40% / 0.25)"}`,
+                }}>
+                  <div className={`h-1.5 w-1.5 rounded-full ${store.status === "available" ? "bg-orange-400" : "bg-emerald-400"}`} />
                   {store.status === "available" ? "فرصة متاحة" : "نشط"}
                 </span>
               </div>
 
-              <p className="max-w-md text-[0.86rem] leading-[1.85] text-white/45">
+              {/* Description */}
+              <p className="max-w-lg text-[0.88rem] leading-[1.9] text-white/40">
                 {store.short_description_ar ?? "متجر ضمن منظومة مول البستان التقنية."}
               </p>
 
               {/* Hero CTAs */}
-              <div className="flex flex-wrap gap-2.5 pt-1">
+              <div className="flex flex-wrap gap-2.5 pt-2">
                 {store.whatsapp && (
                   <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                    <Button variant="cta" className="h-10 gap-2 rounded-xl px-5 text-[0.8rem] font-bold">
+                    <Button variant="cta" className="h-11 gap-2.5 rounded-xl px-6 text-[0.82rem] font-bold shadow-lg shadow-primary/20">
                       <MessageCircle className="h-4 w-4" />تواصل واتساب
                     </Button>
                   </a>
                 )}
                 {store.phone && (
                   <a href={`tel:${store.phone}`}>
-                    <Button className="h-10 gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-5 text-[0.8rem] font-bold text-white hover:bg-white/10">
+                    <Button className="h-11 gap-2.5 rounded-xl px-6 text-[0.82rem] font-bold text-white transition-all"
+                            style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.15)" }}>
                       <Phone className="h-4 w-4" />اتصل الآن
                     </Button>
                   </a>
                 )}
                 <Link to="/map">
-                  <Button variant="outline-blue" className="h-10 gap-2 rounded-xl border-white/15 bg-white/[0.04] px-5 text-[0.8rem] text-white hover:bg-white/10">
+                  <Button className="h-11 gap-2.5 rounded-xl px-6 text-[0.82rem] font-bold text-white/70 transition-all hover:text-white"
+                          style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
                     <Compass className="h-4 w-4" />الخريطة
                   </Button>
                 </Link>
               </div>
             </motion.div>
 
-            {/* Hero image */}
-            <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_8px_40px_hsl(218_72%_9%/0.5)]">
+            {/* Right: Hero image */}
+            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.55, delay: 0.15 }}>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl"
+                   style={{ boxShadow: "0 12px 48px hsl(220 60% 5% / 0.5), 0 2px 8px hsl(220 60% 5% / 0.3)" }}>
                 <img src={heroImage} alt={store.name_ar} className="h-full w-full object-cover" loading="eager" />
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(222 44% 6% / 0.4), transparent 50%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(222 44% 6% / 0.5), transparent 50%)" }} />
+                {/* Share button overlay */}
+                <button
+                  onClick={() => {
+                    navigator.share?.({ title: store.name_ar, url: window.location.href }).catch(() => {
+                      navigator.clipboard.writeText(window.location.href);
+                      toast.success("تم نسخ الرابط");
+                    });
+                  }}
+                  className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl transition-all hover:scale-105"
+                  style={{ background: "hsl(0 0% 0% / 0.4)", backdropFilter: "blur(12px)", border: "1px solid hsl(0 0% 100% / 0.15)" }}
+                >
+                  <Share2 className="h-4 w-4 text-white/80" />
+                </button>
               </div>
             </motion.div>
           </div>
         </div>
+
+        {/* Bottom wave transition */}
+        <div className="h-px w-full" style={{ background: "linear-gradient(to left, transparent, hsl(var(--primary) / 0.2), transparent)" }} />
       </section>
 
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--card))" }}>
-        <div className="container max-w-6xl py-8 md:py-12">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-8">
+        <div className="container max-w-6xl py-10 md:py-14">
+          <div className="grid gap-7 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
 
-            {/* ── Main ── */}
-            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-5">
+            {/* ── Main column ── */}
+            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
 
-              {/* About */}
+              {/* About section */}
               {(store.long_description_ar || store.short_description_ar) && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-xl border border-border bg-background p-5 md:p-6">
-                    <h2 className="mb-3 text-[0.95rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
-                      عن {store.name_ar}
-                    </h2>
-                    <p className="text-[0.84rem] leading-[2] text-muted-foreground">
+                  <div className="rounded-2xl border border-border bg-background p-6 md:p-7">
+                    <div className="mb-4 flex items-center gap-2.5">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
+                        <Store className="h-4 w-4 text-primary" />
+                      </div>
+                      <h2 className="text-[0.95rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                        عن {store.name_ar}
+                      </h2>
+                    </div>
+                    <p className="text-[0.84rem] leading-[2.1] text-muted-foreground">
                       {store.long_description_ar ?? store.short_description_ar}
                     </p>
                   </div>
@@ -241,13 +287,15 @@ const StoreDetail = () => {
               {/* Category context */}
               {activeStory && (
                 <motion.div variants={fadeChild}>
-                  <div className="flex items-start gap-3 rounded-xl border border-primary/12 bg-primary/[0.03] p-5">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                      <Layers3 className="h-4 w-4 text-primary" />
+                  <div className="flex items-start gap-4 rounded-2xl p-5"
+                       style={{ background: "hsl(var(--primary) / 0.04)", border: "1px solid hsl(var(--primary) / 0.1)" }}>
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                         style={{ background: "hsl(var(--primary) / 0.1)" }}>
+                      <activeStory.icon className="h-4.5 w-4.5 text-primary" />
                     </div>
                     <div>
-                      <p className="text-[0.82rem] font-bold text-foreground">{activeStory.title}</p>
-                      <p className="mt-0.5 text-[0.78rem] leading-relaxed text-muted-foreground">{activeStory.desc}</p>
+                      <p className="text-[0.84rem] font-bold text-foreground">{activeStory.title}</p>
+                      <p className="mt-1 text-[0.78rem] leading-relaxed text-muted-foreground">{activeStory.desc}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -256,11 +304,12 @@ const StoreDetail = () => {
               {/* Gallery */}
               {gallery.length > 1 && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-xl border border-border bg-background overflow-hidden">
-                    <div className="grid gap-0.5 sm:grid-cols-2">
+                  <div className="overflow-hidden rounded-2xl border border-border bg-background">
+                    <div className="grid gap-1 p-1 sm:grid-cols-2">
                       {gallery.slice(0, 4).map((image, i) => (
-                        <div key={`${image}-${i}`} className="aspect-[4/3] overflow-hidden">
-                          <img src={image} alt={`${store.name_ar} ${i + 1}`} className="h-full w-full object-cover transition-transform duration-300 hover:scale-105" loading="lazy" />
+                        <div key={`${image}-${i}`} className="aspect-[4/3] overflow-hidden rounded-xl">
+                          <img src={image} alt={`${store.name_ar} ${i + 1}`}
+                               className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
                         </div>
                       ))}
                     </div>
@@ -271,27 +320,36 @@ const StoreDetail = () => {
               {/* Store Products */}
               {storeProducts && storeProducts.length > 0 && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-xl border border-border bg-background overflow-hidden">
-                    <div className="flex items-center justify-between border-b border-border px-5 py-3.5">
-                      <h2 className="text-[0.88rem] font-bold text-foreground">منتجات {store.name_ar}</h2>
-                      <Link to="/products" className="flex items-center gap-1 text-[0.72rem] font-semibold text-primary hover:text-primary/80">
+                  <div className="overflow-hidden rounded-2xl border border-border bg-background">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-4">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
+                          <ShoppingBag className="h-4 w-4 text-primary" />
+                        </div>
+                        <h2 className="text-[0.9rem] font-bold text-foreground">منتجات {store.name_ar}</h2>
+                      </div>
+                      <Link to="/products" className="flex items-center gap-1 text-[0.72rem] font-semibold text-primary transition-colors hover:text-primary/80">
                         عرض الكل <ChevronLeft className="h-3 w-3" />
                       </Link>
                     </div>
                     <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3">
                       {storeProducts.map((product) => (
-                        <Link key={product.id} to={`/products/${product.slug}`} className="group flex flex-col bg-card p-3 transition-colors hover:bg-muted/20">
-                          <div className="mb-2 aspect-square overflow-hidden rounded-lg border border-border bg-white">
+                        <Link key={product.id} to={`/products/${product.slug}`}
+                              className="group flex flex-col bg-card p-3.5 transition-colors hover:bg-muted/30">
+                          <div className="mb-2.5 aspect-square overflow-hidden rounded-xl border border-border bg-white">
                             {product.image_url ? (
-                              <img src={product.image_url} alt={product.name_ar} className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                              <img src={product.image_url} alt={product.name_ar}
+                                   className="h-full w-full object-contain p-2.5 transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                             ) : (
-                              <div className="flex h-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/30" /></div>
+                              <div className="flex h-full items-center justify-center">
+                                <ShoppingBag className="h-6 w-6 text-muted-foreground/30" />
+                              </div>
                             )}
                           </div>
-                          <p className="text-[0.76rem] font-bold text-foreground leading-snug line-clamp-2">{product.name_ar}</p>
-                          {product.brand && <p className="mt-0.5 text-[0.65rem] text-muted-foreground">{product.brand}</p>}
+                          <p className="text-[0.78rem] font-bold leading-snug text-foreground line-clamp-2">{product.name_ar}</p>
+                          {product.brand && <p className="mt-0.5 text-[0.66rem] text-muted-foreground">{product.brand}</p>}
                           {product.price && (
-                            <p className="mt-1 text-[0.78rem] font-bold text-primary">{product.price.toLocaleString("ar-EG")} ج.م</p>
+                            <p className="mt-1.5 text-[0.8rem] font-bold text-primary">{product.price.toLocaleString("ar-EG")} ج.م</p>
                           )}
                         </Link>
                       ))}
@@ -302,13 +360,17 @@ const StoreDetail = () => {
             </motion.div>
 
             {/* ── Sidebar ── */}
-            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+            <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
+                        className="space-y-5 lg:sticky lg:top-24 lg:self-start">
 
               {/* Quick Info Card */}
               <motion.div variants={fadeChild}>
-                <div className="rounded-xl border border-border bg-background overflow-hidden">
-                  <div className="border-b border-border px-5 py-3.5">
-                    <h3 className="text-[0.85rem] font-bold text-foreground">معلومات سريعة</h3>
+                <div className="overflow-hidden rounded-2xl border border-border bg-background">
+                  <div className="border-b border-border px-5 py-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-[3px] w-4 rounded-full bg-primary" />
+                      <h3 className="text-[0.82rem] font-bold text-foreground">معلومات سريعة</h3>
+                    </div>
                   </div>
                   <div className="divide-y divide-border">
                     <InfoRow icon={Tag} label="الفئة" value={store.category ?? "متجر"} />
@@ -325,25 +387,31 @@ const StoreDetail = () => {
               {/* Related Stores */}
               {relatedStores && relatedStores.length > 0 && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-xl border border-border bg-background overflow-hidden">
-                    <div className="border-b border-border px-5 py-3.5">
-                      <h3 className="text-[0.85rem] font-bold text-foreground">متاجر مشابهة</h3>
+                  <div className="overflow-hidden rounded-2xl border border-border bg-background">
+                    <div className="border-b border-border px-5 py-4">
+                      <div className="flex items-center gap-2">
+                        <div className="h-[3px] w-4 rounded-full" style={{ background: "hsl(var(--primary) / 0.5)" }} />
+                        <h3 className="text-[0.82rem] font-bold text-foreground">متاجر مشابهة</h3>
+                      </div>
                     </div>
                     <div className="divide-y divide-border">
                       {relatedStores.map((r) => (
-                        <Link key={r.id} to={`/stores/${r.slug}`} className="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-muted/20">
+                        <Link key={r.id} to={`/stores/${r.slug}`}
+                              className="group flex items-center gap-3.5 px-5 py-3.5 transition-colors hover:bg-muted/20">
                           {r.logo_url ? (
-                            <img src={r.logo_url} alt={r.name_ar} className="h-9 w-9 rounded-lg border border-border object-contain p-1" loading="lazy" />
+                            <img src={r.logo_url} alt={r.name_ar}
+                                 className="h-10 w-10 rounded-xl border border-border bg-white object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
+                                 loading="lazy" />
                           ) : (
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted/40">
-                              <Store className="h-3.5 w-3.5 text-muted-foreground/50" />
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-muted/30">
+                              <Store className="h-4 w-4 text-muted-foreground/50" />
                             </div>
                           )}
-                          <div className="flex-1 min-w-0">
-                            <p className="text-[0.8rem] font-bold text-foreground truncate">{r.name_ar}</p>
-                            {r.unit_code && <p className="text-[0.65rem] text-muted-foreground">وحدة {r.unit_code}</p>}
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[0.8rem] font-bold text-foreground transition-colors group-hover:text-primary truncate">{r.name_ar}</p>
+                            {r.unit_code && <p className="text-[0.66rem] text-muted-foreground">وحدة {r.unit_code}</p>}
                           </div>
-                          <ChevronLeft className="h-3.5 w-3.5 text-muted-foreground/30" />
+                          <ArrowUpLeft className="h-3.5 w-3.5 text-muted-foreground/20 transition-all group-hover:text-primary/50 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
                         </Link>
                       ))}
                     </div>
@@ -353,19 +421,27 @@ const StoreDetail = () => {
 
               {/* Leasing CTA */}
               <motion.div variants={fadeChild}>
-                <div className="rounded-xl border border-primary/15 p-5 text-center" style={{ background: "var(--gradient-hero)" }}>
-                  <Building2 className="mx-auto mb-2 h-6 w-6 text-white/50" />
-                  <h3 className="mb-1 text-[0.92rem] font-bold text-white" style={{ fontFamily: "var(--font-arabic-display)" }}>
-                    امتلك وحدتك
-                  </h3>
-                  <p className="mx-auto mb-4 max-w-[220px] text-[0.74rem] text-white/40">
-                    انضم لمنظومة التقنية في القاهرة الجديدة
-                  </p>
-                  <Link to="/leasing">
-                    <Button variant="cta" className="h-9 w-full max-w-[180px] rounded-xl text-[0.78rem] font-bold">
-                      استعلم الآن
-                    </Button>
-                  </Link>
+                <div className="relative overflow-hidden rounded-2xl p-6 text-center"
+                     style={{ background: "var(--gradient-hero)", border: "1px solid hsl(var(--primary) / 0.15)" }}>
+                  <div className="pointer-events-none absolute inset-0 opacity-30"
+                       style={{ background: "radial-gradient(ellipse 60% 70% at 50% 100%, hsl(var(--primary) / 0.3), transparent)" }} />
+                  <div className="relative">
+                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl"
+                         style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.12)" }}>
+                      <Building2 className="h-5 w-5 text-white/60" />
+                    </div>
+                    <h3 className="mb-1.5 text-[0.95rem] font-bold text-white" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                      امتلك وحدتك
+                    </h3>
+                    <p className="mx-auto mb-5 max-w-[240px] text-[0.76rem] leading-relaxed text-white/35">
+                      انضم لمنظومة التقنية في القاهرة الجديدة
+                    </p>
+                    <Link to="/leasing">
+                      <Button variant="cta" className="h-10 w-full max-w-[200px] rounded-xl text-[0.8rem] font-bold shadow-lg shadow-primary/20">
+                        استعلم الآن
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
@@ -387,13 +463,13 @@ function InfoRow({ icon: Icon, label, value, highlight }: {
   highlight?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-3 px-5 py-3">
-      <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${highlight ? "bg-primary/10" : "bg-muted/50"}`}>
-        <Icon className={`h-3.5 w-3.5 ${highlight ? "text-primary" : "text-muted-foreground"}`} />
+    <div className="flex items-center gap-3.5 px-5 py-3.5">
+      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${highlight ? "bg-primary/10" : "bg-muted/40"}`}>
+        <Icon className={`h-4 w-4 ${highlight ? "text-primary" : "text-muted-foreground"}`} />
       </div>
       <div className="min-w-0">
         <p className="text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-muted-foreground/60">{label}</p>
-        <p className="text-[0.82rem] font-bold text-foreground truncate">{value}</p>
+        <p className="text-[0.84rem] font-bold text-foreground truncate">{value}</p>
       </div>
     </div>
   );
@@ -416,35 +492,39 @@ function StoreContactCard({ store }: { store: { phone?: string | null; email?: s
 
   return (
     <motion.div variants={fadeChild}>
-      <div className="rounded-xl border border-border bg-background overflow-hidden">
-        <div className="border-b border-border px-5 py-3.5">
-          <h3 className="text-[0.85rem] font-bold text-foreground">تواصل مع المتجر</h3>
+      <div className="overflow-hidden rounded-2xl border border-border bg-background">
+        <div className="border-b border-border px-5 py-4">
+          <div className="flex items-center gap-2">
+            <div className="h-[3px] w-4 rounded-full" style={{ background: "hsl(155 70% 40%)" }} />
+            <h3 className="text-[0.82rem] font-bold text-foreground">تواصل مع المتجر</h3>
+          </div>
         </div>
-        <div className="space-y-1 p-4">
+        <div className="space-y-1.5 p-4">
           {store.phone && (
             <div className="flex items-center gap-2">
               <a href={`tel:${store.phone}`} className="flex-1">
-                <Button variant="outline" className="h-10 w-full justify-start gap-2 rounded-lg text-[0.78rem]">
+                <Button variant="outline" className="h-10 w-full justify-start gap-2.5 rounded-xl text-[0.78rem]">
                   <Phone className="h-3.5 w-3.5 text-primary" />
                   <span dir="ltr" className="font-poppins">{store.phone}</span>
                 </Button>
               </a>
-              <Button variant="ghost" size="sm" onClick={copyPhone} className="h-10 w-10 shrink-0 rounded-lg px-0">
-                {copied ? <Check className="h-3.5 w-3.5 text-success" /> : <Copy className="h-3.5 w-3.5" />}
+              <Button variant="ghost" size="sm" onClick={copyPhone}
+                      className="h-10 w-10 shrink-0 rounded-xl px-0 transition-colors">
+                {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
               </Button>
             </div>
           )}
           {store.whatsapp && (
             <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="h-10 w-full justify-start gap-2 rounded-lg text-[0.78rem]">
-                <MessageCircle className="h-3.5 w-3.5 text-success" />
+              <Button variant="outline" className="h-10 w-full justify-start gap-2.5 rounded-xl text-[0.78rem]">
+                <MessageCircle className="h-3.5 w-3.5 text-emerald-500" />
                 واتساب
               </Button>
             </a>
           )}
           {store.email && (
             <a href={`mailto:${store.email}`}>
-              <Button variant="outline" className="h-10 w-full justify-start gap-2 rounded-lg text-[0.78rem]">
+              <Button variant="outline" className="h-10 w-full justify-start gap-2.5 rounded-xl text-[0.78rem]">
                 <Mail className="h-3.5 w-3.5 text-primary" />
                 <span className="truncate">{store.email}</span>
               </Button>
@@ -452,9 +532,9 @@ function StoreContactCard({ store }: { store: { phone?: string | null; email?: s
           )}
           {store.website && (
             <a href={store.website} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="h-10 w-full justify-start gap-2 rounded-lg text-[0.78rem]">
+              <Button variant="outline" className="h-10 w-full justify-start gap-2.5 rounded-xl text-[0.78rem]">
                 <Globe className="h-3.5 w-3.5 text-primary" />
-                <span className="truncate flex-1 text-right">{store.website.replace(/^https?:\/\//, "")}</span>
+                <span className="flex-1 truncate text-right">{store.website.replace(/^https?:\/\//, "")}</span>
                 <ExternalLink className="h-3 w-3 text-muted-foreground/40" />
               </Button>
             </a>
