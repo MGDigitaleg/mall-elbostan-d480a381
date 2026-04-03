@@ -10,24 +10,22 @@ import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/Lo
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import heroNewcairo1 from "@/assets/hero-newcairo-1.jpg";
-import heroNewcairo2 from "@/assets/hero-newcairo-2.jpg";
-import heroNewcairo3 from "@/assets/hero-newcairo-3.jpg";
-import mallEntrance from "@/assets/mall-entrance.jpg";
+import mallEntrancePolished from "@/assets/mall-entrance-polished.jpg";
+import mallExteriorPolished from "@/assets/mall-exterior-polished.jpg";
 import mallInterior from "@/assets/mall-interior.jpg";
+import mallFacade from "@/assets/mall-facade.jpg";
+
+const heroSlides = [
+  { src: mallEntrancePolished, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
+  { src: mallExteriorPolished, alt: "مول البستان — الواجهة الخارجية، القاهرة الجديدة" },
+  { src: mallInterior, alt: "مول البستان — التصميم الداخلي" },
+  { src: mallFacade, alt: "واجهة مول البستان — القاهرة الجديدة" },
+];
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
-
-const heroSlides = [
-  { src: heroNewcairo1, alt: "مول البستان — الواجهة الخارجية، القاهرة الجديدة" },
-  { src: mallEntrance, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
-  { src: heroNewcairo2, alt: "داخل مول البستان — المحلات الحديثة" },
-  { src: heroNewcairo3, alt: "مول البستان — حفل الافتتاح" },
-  { src: mallInterior, alt: "مول البستان — التصميم الداخلي" },
-];
 
 const NewCairoBranch = () => {
   const { data: storeCount } = useQuery({

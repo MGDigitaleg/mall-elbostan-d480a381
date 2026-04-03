@@ -7,26 +7,24 @@ import { motion } from "framer-motion";
 import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
-import heroDowntown1 from "@/assets/hero-downtown-1.jpg";
-import heroDowntown2 from "@/assets/hero-downtown-2.jpg";
-import downtownExterior from "@/assets/downtown-exterior.jpg";
-import downtownNight from "@/assets/downtown-night.jpg";
+import downtownNightPolished from "@/assets/downtown-night-polished.jpg";
+import downtownExteriorPolished from "@/assets/downtown-exterior-polished.jpg";
 import downtownInterior1 from "@/assets/downtown-interior-1.jpg";
 import downtownInterior2 from "@/assets/downtown-interior-2.jpg";
 import downtownInterior3 from "@/assets/downtown-interior-3.jpg";
+
+const heroSlides = [
+  { src: downtownNightPolished, alt: "مول البستان — المنظر الليلي، وسط البلد" },
+  { src: downtownExteriorPolished, alt: "الواجهة الرئيسية — مول البستان وسط البلد" },
+  { src: downtownInterior1, alt: "داخل المول — الممرات الرئيسية" },
+  { src: downtownInterior2, alt: "الطوابق الداخلية — مول البستان" },
+  { src: downtownInterior3, alt: "المحلات الداخلية — مول البستان" },
+];
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
-
-const heroSlides = [
-  { src: downtownNight, alt: "مول البستان — المنظر الليلي، وسط البلد" },
-  { src: downtownExterior, alt: "الواجهة الرئيسية — مول البستان وسط البلد" },
-  { src: heroDowntown1, alt: "مول البستان — واجهة المبنى ليلًا" },
-  { src: heroDowntown2, alt: "داخل مول البستان — المحلات" },
-  { src: downtownInterior1, alt: "داخل المول — الممرات الرئيسية" },
-];
 
 const DowntownBranch = () => (
   <MainLayout>
@@ -148,7 +146,7 @@ const DowntownBranch = () => (
             {[
               { src: downtownInterior2, alt: "الطوابق الداخلية" },
               { src: downtownInterior3, alt: "المحلات الداخلية" },
-              { src: downtownExterior, alt: "الواجهة الرئيسية" },
+              { src: downtownExteriorPolished, alt: "الواجهة الرئيسية" },
             ].map((img, i) => (
               <div key={i} className="overflow-hidden rounded-lg">
                 <img src={img.src} alt={img.alt} className="aspect-[4/3] w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
