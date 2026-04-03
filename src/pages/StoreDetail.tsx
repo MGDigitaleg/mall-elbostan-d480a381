@@ -139,7 +139,7 @@ const StoreDetail = () => {
         <div className="container max-w-6xl px-5 pb-12 pt-8 md:px-8 md:pb-16 md:pt-10">
           {/* Breadcrumb */}
           <Link to="/stores" className="mb-8 inline-flex items-center gap-1.5 text-[0.8rem] font-medium transition-colors" style={{ color: 'hsl(var(--primary) / 0.6)' }}>
-            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المتاجر
+            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المحلات
           </Link>
 
           <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
