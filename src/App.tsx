@@ -60,7 +60,9 @@ function AppLayout() {
       <main className={!isAdmin ? "flex-1 pt-[60px] md:pt-[68px] xl:pt-[72px]" : "flex-1"}>
         <Routes>
           {/* Public */}
-          <Route path="/" element={<Index />} />
+          {/* Temporary campaign homepage — restore <Index /> after opening */}
+          <Route path="/" element={<CampaignHome />} />
+          <Route path="/home-main" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
           <Route path="/downtown-branch" element={<DowntownBranch />} />
