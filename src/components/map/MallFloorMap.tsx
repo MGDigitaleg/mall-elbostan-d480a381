@@ -290,19 +290,31 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const hasName = unit.status === "occupied" && tenantName;
             const isSelected = selectedUnitId === unit.id;
 
-            // Logo dimensions - fit within unit bounds
-            const logoW = 40;
-            const logoH = 24;
+            // Logo dimensions - larger, filling the allocated space
+            const logoW = 56;
+            const logoH = 32;
+            const bgW = logoW + 8;
+            const bgH = logoH + 6;
 
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
                 {tenantLogo && hasName ? (
                   <>
-                    {/* Tenant logo */}
+                    {/* Background fill matching unit color */}
+                    <rect
+                      x={unit.labelX - bgW / 2}
+                      y={unit.labelY - bgH / 2 - 6}
+                      width={bgW}
+                      height={bgH}
+                      rx="4"
+                      fill={isSelected ? colors.selected : colors.base}
+                      opacity="0.85"
+                    />
+                    {/* Tenant logo — scaled to fill */}
                     <image
                       href={tenantLogo}
                       x={unit.labelX - logoW / 2}
-                      y={unit.labelY - logoH / 2 - 8}
+                      y={unit.labelY - logoH / 2 - 6}
                       width={logoW}
                       height={logoH}
                       preserveAspectRatio="xMidYMid meet"
@@ -310,7 +322,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     {/* Unit code below logo */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY + logoH / 2 + 2}
+                      y={unit.labelY + logoH / 2 + 4}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       className="text-[7px] font-semibold"
