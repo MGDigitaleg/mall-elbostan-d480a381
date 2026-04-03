@@ -19,15 +19,15 @@ const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: st
 
 function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
   return (
-    <div className="rounded-lg p-3" style={{ background: "#EEF2FF", border: "1px solid #C7D2FE" }}>
+    <div className="rounded-xl p-3.5" style={{ background: "linear-gradient(135deg, #EEF2FF, #E8ECFF)", border: "1px solid #C7D2FE" }}>
       <div className="flex items-center gap-1.5 text-[0.66rem] font-bold uppercase tracking-widest" style={{ color: "#3B52CC" }}>
-        <Gift className="h-3 w-3" />
+        <Gift className="h-3.5 w-3.5" />
         مكافأة نشطة
       </div>
-      <p className="mt-1 text-[0.84rem] font-bold light-heading">{ctx.prizeName}</p>
-      {ctx.storeName && <p className="mt-0.5 text-[0.76rem] light-body">من {ctx.storeName}</p>}
-      {ctx.claimRules && <p className="mt-1.5 text-[0.72rem] leading-5 light-body">{ctx.claimRules}</p>}
-      {ctx.isCategory && <p className="mt-1.5 text-[0.68rem] font-bold" style={{ color: "#3B52CC" }}>جميع المتاجر المُظلّلة مشاركة</p>}
+      <p className="mt-1.5 text-[0.88rem] font-bold light-heading">{ctx.prizeName}</p>
+      {ctx.storeName && <p className="mt-0.5 text-[0.78rem] light-body">من {ctx.storeName}</p>}
+      {ctx.claimRules && <p className="mt-1.5 text-[0.74rem] leading-5 light-body">{ctx.claimRules}</p>}
+      {ctx.isCategory && <p className="mt-1.5 text-[0.7rem] font-bold" style={{ color: "#3B52CC" }}>جميع المتاجر المُظلّلة مشاركة</p>}
     </div>
   );
 }
@@ -36,90 +36,92 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
   const badge = statusBadge[unit.status];
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3.5">
       {rewardCtx && <RewardBanner ctx={rewardCtx} />}
 
       {/* Logo + Header */}
       {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
-        <div className="flex items-center justify-center rounded-lg p-3" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+        <div className="flex items-center justify-center rounded-xl p-4" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
           <img
             src={UNIT_TENANT_LOGOS[unit.id]}
             alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
-            className="h-10 w-auto max-w-[140px] object-contain"
+            className="h-12 w-auto max-w-[160px] object-contain"
           />
         </div>
       )}
 
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-[1.3rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
+          <p className="text-[1.35rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
           {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
-            <p className="mt-0.5 text-[0.8rem] font-bold" style={{ color: "#334155" }}>{UNIT_TENANT_NAMES[unit.id]}</p>
+            <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#334155" }}>{UNIT_TENANT_NAMES[unit.id]}</p>
           )}
-          <p className="mt-0.5 text-[0.7rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
+          <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
         </div>
         <span
-          className="flex items-center gap-1.5 shrink-0 rounded-md px-2 py-1 text-[0.68rem] font-bold"
+          className="flex items-center gap-1.5 shrink-0 rounded-lg px-2.5 py-1.5 text-[0.7rem] font-bold"
           style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
         >
-          <span className="h-1.5 w-1.5 rounded-full" style={{ background: badge.dot }} />
+          <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
           {statusLabelsAr[unit.status]}
         </span>
       </div>
 
-      {/* Meta grid */}
-      <div className="grid grid-cols-2 gap-1">
+      {/* Meta grid — enhanced */}
+      <div className="grid grid-cols-2 gap-1.5">
         {[
           { icon: Ruler, label: "المساحة", value: `${unit.area} م²` },
           { icon: Building2, label: "الدور", value: floorLabelsAr[unit.floor] },
           { icon: Tag, label: "الفئة", value: categoryLabelsAr[unit.category] },
           { icon: MapPin, label: "الموقع", value: unit.code },
         ].map((item) => (
-          <div key={item.label} className="rounded-md p-2" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
-            <div className="flex items-center gap-1">
-              <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
+          <div key={item.label} className="rounded-lg p-2.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+            <div className="flex items-center gap-1.5">
+              <div className="flex h-5 w-5 items-center justify-center rounded" style={{ background: "#EDF2F7" }}>
+                <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
+              </div>
               <span className="text-[0.6rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
             </div>
-            <p className="mt-0.5 text-[0.8rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
+            <p className="mt-1 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
           </div>
         ))}
       </div>
 
       {/* Description */}
       {unit.description && (
-        <div className="rounded-lg border border-border bg-secondary/30 p-2.5">
-          <p className="text-[0.78rem] leading-5 light-body">{unit.description}</p>
+        <div className="rounded-xl border border-border bg-secondary/30 p-3">
+          <p className="text-[0.8rem] leading-[1.7] light-body">{unit.description}</p>
         </div>
       )}
 
-      {/* CTAs */}
-      <div className="space-y-1.5 pt-0.5">
+      {/* CTAs — enhanced */}
+      <div className="space-y-2 pt-1">
         {unit.status === "available" ? (
           <>
             <Link to="/leasing" className="block">
-              <Button variant="orange" className="h-9 w-full rounded-lg font-bold text-[0.82rem]">
+              <Button variant="orange" className="h-10 w-full rounded-xl font-bold text-[0.84rem] shadow-sm shadow-orange-500/10">
                 <Phone className="ml-1.5 h-3.5 w-3.5" />
                 استفسر عن الوحدة
               </Button>
             </Link>
             <Link to="/leasing" className="block">
-              <Button variant="outline-blue" className="h-9 w-full rounded-lg text-[0.8rem] font-bold">اطلب معاينة</Button>
+              <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">اطلب معاينة</Button>
             </Link>
           </>
         ) : unit.status === "occupied" ? (
           <>
             <Link to="/stores" className="block">
-              <Button variant="cta" className="h-9 w-full rounded-lg text-[0.82rem] font-bold">
+              <Button variant="cta" className="h-10 w-full rounded-xl text-[0.84rem] font-bold">
                 <Store className="ml-1.5 h-3.5 w-3.5" />
                 اعرف المتجر
               </Button>
             </Link>
             <Link to="/stores" className="block">
-              <Button variant="secondary" className="h-9 w-full rounded-lg text-[0.8rem] font-bold">تواصل مع المتجر</Button>
+              <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">تواصل مع المتجر</Button>
             </Link>
           </>
         ) : (
-          <Button variant="secondary" className="h-9 w-full rounded-lg text-[0.8rem] font-bold" disabled>
+          <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold" disabled>
             قريبًا — تابع التحديثات
           </Button>
         )}
@@ -130,32 +132,32 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
 
 function EmptyPanel() {
   return (
-    <div className="space-y-3.5">
+    <div className="space-y-4">
       {/* prompt */}
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-secondary">
-          <Compass className="h-4 w-4 text-primary" />
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary">
+          <Compass className="h-4.5 w-4.5 text-primary" />
         </div>
         <div>
-          <p className="text-[0.86rem] font-bold light-heading">اختر وحدة من الخريطة</p>
-          <p className="text-[0.72rem] light-muted">اضغط على أي وحدة لعرض تفاصيلها.</p>
+          <p className="text-[0.88rem] font-bold light-heading">اختر وحدة من الخريطة</p>
+          <p className="text-[0.74rem] light-muted">اضغط على أي وحدة لعرض تفاصيلها.</p>
         </div>
       </div>
 
       {/* status guide */}
-      <div className="space-y-1">
+      <div className="space-y-1.5">
         {[
           { bg: "#EDEBEA", dot: "#9B9488", label: "مشغولة", action: "اعرف المتجر", textColor: "#4A4540" },
           { bg: "#FDE4C4", dot: "#E8740E", label: "متاحة", action: "استفسر عن الوحدة", textColor: "#B85C08" },
           { bg: "#C8E8F4", dot: "#0A9AB8", label: "قريبًا", action: "تابع التحديثات", textColor: "#0A7A96" },
         ].map((item) => (
-          <div key={item.label} className="flex items-center justify-between rounded-md px-3 py-2" style={{ background: item.bg }}>
-            <div className="flex items-center gap-1.5">
-              <span className="h-2 w-2 rounded-full" style={{ background: item.dot }} />
-              <span className="text-[0.76rem] font-bold" style={{ color: item.textColor }}>{item.label}</span>
+          <div key={item.label} className="flex items-center justify-between rounded-lg px-3.5 py-2.5" style={{ background: item.bg }}>
+            <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.dot }} />
+              <span className="text-[0.78rem] font-bold" style={{ color: item.textColor }}>{item.label}</span>
             </div>
             <div className="flex items-center gap-1 light-muted">
-              <span className="text-[0.68rem] font-semibold">{item.action}</span>
+              <span className="text-[0.7rem] font-semibold">{item.action}</span>
               <ArrowLeft className="h-2.5 w-2.5" />
             </div>
           </div>
@@ -163,14 +165,14 @@ function EmptyPanel() {
       </div>
 
       {/* quick links */}
-      <div className="grid grid-cols-2 gap-1.5">
-        <Link to="/stores" className="rounded-lg border border-border bg-secondary/50 p-2.5 text-center transition-all hover:border-primary/20 hover:shadow-sm">
-          <Store className="mx-auto h-3.5 w-3.5 text-primary" />
-          <p className="mt-1 text-[0.72rem] font-bold light-heading">دليل المتاجر</p>
+      <div className="grid grid-cols-2 gap-2">
+        <Link to="/stores" className="rounded-xl border border-border bg-secondary/50 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
+          <Store className="mx-auto h-4 w-4 text-primary" />
+          <p className="mt-1.5 text-[0.74rem] font-bold light-heading">دليل المتاجر</p>
         </Link>
-        <Link to="/leasing" className="rounded-lg border border-border bg-secondary/50 p-2.5 text-center transition-all hover:border-primary/20 hover:shadow-sm">
-          <Phone className="mx-auto h-3.5 w-3.5 text-primary" />
-          <p className="mt-1 text-[0.72rem] font-bold light-heading">استفسار التأجير</p>
+        <Link to="/leasing" className="rounded-xl border border-border bg-secondary/50 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
+          <Phone className="mx-auto h-4 w-4 text-primary" />
+          <p className="mt-1.5 text-[0.74rem] font-bold light-heading">استفسار التأجير</p>
         </Link>
       </div>
     </div>
@@ -185,18 +187,18 @@ type Props = {
 export function UnitDetailsCard({ unit, rewardContext }: Props) {
   return (
     <div
-      className="rounded-xl border bg-card transition-all duration-200"
+      className="rounded-xl border bg-card transition-all duration-200 overflow-hidden"
       style={{
         borderColor: unit ? statusBadge[unit.status].dot + "50" : "#D8DEE8",
         boxShadow: unit
-          ? `0 0 0 1px ${statusBadge[unit.status].dot}20, 0 4px 16px hsl(0 0% 0% / 0.05)`
+          ? `0 0 0 1px ${statusBadge[unit.status].dot}20, 0 4px 20px hsl(0 0% 0% / 0.06)`
           : "var(--shadow-card)",
       }}
     >
       {/* Panel header */}
-      <div className="flex items-center gap-2 border-b px-4 py-2" style={{ borderColor: unit ? statusBadge[unit.status].dot + "20" : "#D8DEE8" }}>
+      <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: unit ? statusBadge[unit.status].dot + "20" : "#D8DEE8", background: unit ? statusBadge[unit.status].bg + "40" : "hsl(220 20% 97%)" }}>
         <div
-          className="h-[3px] w-3.5 rounded-full transition-colors"
+          className="h-[3px] w-4 rounded-full transition-colors"
           style={{ background: unit ? statusBadge[unit.status].dot : "#94A3B8" }}
         />
         <h2 className="text-[0.66rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>
