@@ -98,12 +98,6 @@ const DowntownMerchantDetail = () => {
   const status = statusConfig[merchant.verification_status] ?? statusConfig["Unknown status"];
   const StatusIcon = status.icon;
 
-  const sources = [
-    { label: merchant.source_1_label, url: merchant.source_1_url },
-    { label: merchant.source_2_label, url: merchant.source_2_url },
-    { label: merchant.source_3_label, url: merchant.source_3_url },
-    { label: "مصدر", url: merchant.source_url },
-  ].filter(s => s.url);
 
   const socialLinks = [
     { label: "Facebook", url: merchant.facebook_url },
