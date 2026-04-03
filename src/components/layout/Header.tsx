@@ -189,7 +189,7 @@ export function Header() {
           </Link>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[148px]" />
+            <BrandLogo align="center" imageClassName="h-[2.6rem] w-auto max-w-[140px]" />
           </Link>
 
           <HeaderMenuSheet
