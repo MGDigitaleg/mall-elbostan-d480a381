@@ -214,28 +214,51 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <div className="band-primary" />
 
       {/* ═══════════ 8 · FAQ ═══════════ */}
-      <section className="py-7 md:py-9" style={{ background: "#FAFAF8" }}>
-        <div className="container max-w-5xl">
+      <section className="relative overflow-hidden py-10 md:py-14" style={{ background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" }}>
+        {/* Decorative */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+        </div>
+
+        <div className="container relative max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-            <div className="grid items-start gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+            <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+              {/* Right: intro */}
               <div className="lg:sticky lg:top-24">
-                <div className="chapter-shell pt-3">
-                  <p className="section-kicker">أسئلة شائعة</p>
-                  <h2 className="section-title">ما يجب معرفته</h2>
+                <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 mb-3" style={{ background: "#2563EB12", border: "1px solid #2563EB25" }}>
+                  <span className="text-[0.68rem] font-bold" style={{ color: "#60A5FA" }}>FAQ</span>
                 </div>
-                <p className="mt-2 text-[0.82rem] leading-[1.65] light-body max-w-[22rem]">أبرز الأسئلة قبل الزيارة أو الاستثمار.</p>
-                <Link to="/faq" className="mt-3 inline-flex">
-                  <Button variant="ghost" className="gap-1 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">جميع الأسئلة <ArrowLeft className="h-3.5 w-3.5" /></Button>
+                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.2] dark-heading" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                  ما يجب معرفته قبل الزيارة
+                </h2>
+                <p className="mt-2.5 text-[0.84rem] leading-[1.7] max-w-[22rem]" style={{ color: "#94A3B8" }}>
+                  أبرز الأسئلة حول الموقع، الافتتاح، التأجير، والخدمات المتاحة.
+                </p>
+                <Link to="/faq" className="mt-4 inline-flex">
+                  <Button className="h-9 rounded-lg border px-5 text-[0.8rem] font-bold gap-1.5" style={{ borderColor: "#ffffff1A", background: "#ffffff08", color: "#CBD5E1" }}>
+                    جميع الأسئلة <ArrowLeft className="h-3.5 w-3.5" />
+                  </Button>
                 </Link>
               </div>
 
-              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2">
-                {faqItems.map((faq) => (
-                  <AccordionItem key={faq.id} value={faq.id} className="overflow-hidden rounded-lg border border-border bg-card px-4">
-                    <AccordionTrigger className="min-h-[2.75rem] py-3 text-right text-[0.86rem] font-bold light-heading hover:text-primary">
-                      {faq.question_ar}
+              {/* Left: accordion */}
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
+                {faqItems.map((faq, i) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={faq.id}
+                    className="overflow-hidden rounded-xl border px-5"
+                    style={{ background: "#ffffff06", borderColor: "#ffffff0D" }}
+                  >
+                    <AccordionTrigger className="min-h-[3rem] py-3.5 text-right text-[0.86rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
+                      <span className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-poppins text-[0.62rem] font-extrabold" style={{ background: "#2563EB18", color: "#60A5FA", border: "1px solid #2563EB30" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {faq.question_ar}
+                      </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-3.5 text-[0.82rem] leading-[1.65] light-body">
+                    <AccordionContent className="pb-4 pr-9 text-[0.82rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
                       {faq.answer_ar}
                     </AccordionContent>
                   </AccordionItem>
