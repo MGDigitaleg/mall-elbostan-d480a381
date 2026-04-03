@@ -71,7 +71,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 2 · FEATURED PRODUCTS ═══════════ */}
       <FeaturedProducts />
 
-      {/* ═══════════ 3 · MERCHANT LOGO WALL ═══════════ */}
+      {/* ═══════════ 3 · DEALS TEASER ═══════════ */}
+      <DealsTeaser />
+
+      {/* ═══════════ 4 · MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
       <div className="band-primary" />
