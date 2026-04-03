@@ -40,7 +40,7 @@ const CampaignHome = () => {
   });
 
   return (
-    <MainLayout>
+    <>
       <SEOHead
         title="مول البستان — الافتتاح الكبير قريبًا"
         titleEn="Mall Elbostan — Grand Opening Soon"
