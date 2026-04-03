@@ -61,7 +61,8 @@ export function HeroSlider() {
       </AnimatePresence>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0" style={{ background: "linear-gradient(to left, #071326 25%, #07132680 65%, #07132650)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326 20%, #07132690 60%, #07132650)" }} />
+      <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(to left, #071326 25%, #07132680 65%, #07132650)" }} />
       
       {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute inset-0 opacity-40"
