@@ -60,7 +60,7 @@ const DowntownBranch = () => (
             </span>
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold dark-heading max-w-[28rem]">
-            مول البستان <span style={{ color: "#CDBB9A" }}>وسط البلد</span>
+            مول البستان - <span style={{ color: "#CDBB9A" }}>وسط البلد</span>
           </h1>
           <p className="mt-3 max-w-[28rem] text-[0.92rem] leading-[1.85] dark-body">
             حيث بدأت القصة — الوجهة التقنية الأعرق في مصر، في قلب القاهرة التاريخي. إحدى مشروعات مجموعة العباسي.

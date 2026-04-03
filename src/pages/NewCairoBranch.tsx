@@ -37,7 +37,7 @@ const NewCairoBranch = () => (
           <div className="space-y-4 text-muted-foreground">
             <div className="flex items-center gap-3">
               <MapPin className="w-5 h-5 text-primary shrink-0" />
-              <div><strong className="text-foreground">العنوان:</strong> سيتم الإعلان عنه قريبا</div>
+              <div><strong className="text-foreground">العنوان:</strong> الحى الأول، مركز الخدمات، خلف محكمة القاهرة الجديدة، التجمع الخامس، القاهرة</div>
             </div>
             <div className="flex items-center gap-3">
               <Clock className="w-5 h-5 text-primary shrink-0" />
