@@ -17,7 +17,7 @@ export function DowntownTeaser() {
   });
 
   return (
-    <section className="py-8 md:py-10" style={{ background: "#F5F2EC" }}>
+    <section className="py-7 md:py-9" style={{ background: "#F5F2EC" }}>
       <div className="container">
         <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
           <div className="grid lg:grid-cols-[1fr_0.5fr]">
@@ -28,7 +28,7 @@ export function DowntownTeaser() {
               </div>
               <h2 className="section-title max-w-[20rem]">الإرث الذي بنى الاسم.</h2>
               <p className="text-[0.82rem] leading-[1.65] light-body max-w-[28rem]">
-                منذ التسعينات ومول البستان في شارع البستان بباب اللوق هو المرجع الأول لسوق الكمبيوتر في مصر. اكتشف دليل المحلات الكامل.
+                منذ التسعينات ومول البستان في شارع البستان بباب اللوق هو المرجع الأول لسوق الكمبيوتر في مصر.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 border-t border-border pt-3">
@@ -44,12 +44,12 @@ export function DowntownTeaser() {
 
               <div className="flex flex-wrap gap-2.5">
                 <Link to="/downtown-directory">
-                  <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.78rem] font-bold">
+                  <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.76rem] font-bold">
                     دليل المحلات <ArrowLeft className="mr-1 h-3 w-3" />
                   </Button>
                 </Link>
                 <Link to="/downtown-branch">
-                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.78rem]">
+                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.76rem]">
                     عن الفرع
                   </Button>
                 </Link>

@@ -128,7 +128,7 @@ const StoreDetail = () => {
             <Store className="mx-auto mb-4 h-10 w-10 text-muted-foreground" />
             <h1 className="mb-3 text-2xl font-bold text-foreground">المتجر غير موجود</h1>
             <p className="mb-6 text-sm text-muted-foreground">لم يتم العثور على المتجر المطلوب</p>
-            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المتاجر</Button></Link>
+            <Link to="/stores"><Button variant="outline-blue">العودة لدليل المحلات</Button></Link>
           </div>
         </div>
       </MainLayout>
@@ -140,7 +140,7 @@ const StoreDetail = () => {
       <SEOHead
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
-        breadcrumbs={[{ name: "المتاجر", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+        breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
       />
 
       {/* ════════════════════════════════════════════════
@@ -154,7 +154,7 @@ const StoreDetail = () => {
         <div className="container relative max-w-6xl px-5 pb-14 pt-8 md:px-8 md:pb-20 md:pt-10">
           {/* Breadcrumb */}
           <Link to="/stores" className="mb-8 inline-flex items-center gap-1.5 text-[0.78rem] font-medium text-white/40 transition-colors hover:text-white/70">
-            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المتاجر
+            <ArrowLeft className="h-3.5 w-3.5" /> العودة لدليل المحلات
           </Link>
 
           <div className="grid items-center gap-10 lg:grid-cols-2">
