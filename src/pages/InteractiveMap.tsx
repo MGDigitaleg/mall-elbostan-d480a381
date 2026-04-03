@@ -9,6 +9,8 @@ import {
   Phone,
   TrendingUp,
   Users,
+  ArrowUpLeft,
+  Ruler,
 } from "lucide-react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -55,6 +57,9 @@ function resolveMapCategory(storeCategory: string | null): MallCategory | null {
   return null;
 }
 
+/* ── Animations ── */
+const fadeUp = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } } };
+
 const InteractiveMap = () => {
   const isMobile = useIsMobile();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -73,7 +78,7 @@ const InteractiveMap = () => {
 
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
-  // Auto-highlight unit from URL params (e.g. coming from /spin-win)
+  // Auto-highlight unit from URL params
   useEffect(() => {
     const highlightCode = searchParams.get("highlight");
     const prizeName = searchParams.get("prize");
@@ -92,7 +97,6 @@ const InteractiveMap = () => {
         setActiveRewardCtx(undefined);
       }, 15000);
     }
-    // Clean URL params
     setSearchParams({}, { replace: true });
   }, []);
 
@@ -189,69 +193,88 @@ const InteractiveMap = () => {
         breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
       />
 
-      {/* ═══════════ HERO — minimal, operational ═══════════ */}
-      <section style={{ background: "#071326" }}>
-        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="py-3.5 md:py-4">
-            <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-              <div className="md:text-right">
-                <p className="font-poppins text-[0.52rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#94A3B8" }}>
+      {/* ═══════════ HERO ═══════════ */}
+      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+        {/* Ambient glows */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute right-1/4 top-0 h-[300px] w-[400px] rounded-full opacity-[0.06]"
+               style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+          <div className="absolute bottom-0 left-1/3 h-[200px] w-[350px] rounded-full opacity-[0.04]"
+               style={{ background: "radial-gradient(circle, hsl(220 80% 55%), transparent 70%)" }} />
+        </div>
+
+        <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
+          <div className="py-5 md:py-7">
+            <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <motion.div variants={fadeUp} initial="hidden" animate="visible" className="md:text-right">
+                <p className="font-poppins text-[0.56rem] font-bold tracking-[0.3em] uppercase"
+                   style={{ color: "hsl(var(--primary))" }}>
                   Interactive Directory
                 </p>
-                <h1 className="mt-0.5 text-[1.1rem] leading-[1.15] md:text-[1.3rem]" style={{ color: "#F8FAFC" }}>
+                <h1 className="mt-1.5 text-[1.25rem] font-bold leading-[1.2] md:text-[1.5rem]"
+                    style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
                   الدليل التفاعلي لمول البستان
                 </h1>
-                <p className="mt-0.5 max-w-[22rem] text-[0.74rem] leading-5" style={{ color: "#94A3B8" }}>
+                <p className="mt-1.5 max-w-[24rem] text-[0.78rem] leading-[1.7]" style={{ color: "hsl(220 15% 55%)" }}>
                   تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة.
                 </p>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-3">
+              {/* Stats capsules */}
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.4 }}
+                          className="flex items-center gap-1">
                 {[
-                  { v: `${mallFloors.length}`, l: "أدوار" },
-                  { v: `${allMallUnits.length}`, l: "وحدة" },
-                  { v: `${availableMallUnits.length}`, l: "متاحة", highlight: true },
+                  { v: `${mallFloors.length}`, l: "أدوار", color: "hsl(0 0% 97%)" },
+                  { v: `${allMallUnits.length}`, l: "وحدة", color: "hsl(0 0% 97%)" },
+                  { v: `${availableMallUnits.length}`, l: "متاحة", color: "hsl(25 95% 55%)" },
                 ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-3">
-                    <div className="text-center">
-                      <span className="font-poppins text-[0.95rem] font-extrabold" style={{ color: s.highlight ? "#E8740E" : "#F8FAFC" }}>{s.v}</span>
-                      <p className="text-[0.54rem] font-semibold" style={{ color: "#64748B" }}>{s.l}</p>
+                  <div key={s.l} className="flex items-center gap-1">
+                    <div className="rounded-xl px-4 py-2.5 text-center"
+                         style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
+                      <span className="font-poppins text-[1.1rem] font-extrabold" style={{ color: s.color }}>{s.v}</span>
+                      <p className="mt-0.5 text-[0.56rem] font-semibold" style={{ color: "hsl(220 15% 45%)" }}>{s.l}</p>
                     </div>
-                    {i < 2 && <div className="h-3.5 w-px" style={{ background: "#1E293B" }} />}
+                    {i < 2 && <div className="mx-0.5 h-5 w-px" style={{ background: "hsl(0 0% 100% / 0.06)" }} />}
                   </div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
+
+        {/* Bottom accent line */}
+        <div className="h-px w-full" style={{ background: "linear-gradient(to left, transparent, hsl(var(--primary) / 0.25), transparent)" }} />
       </section>
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
-      <section className="sticky top-[56px] z-30 border-b bg-card/95 backdrop-blur-sm md:top-[64px] xl:top-[68px]" style={{ borderColor: "#D8DEE8" }}>
+      <section className="sticky top-[56px] z-30 border-b bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
+               style={{ borderColor: "hsl(220 20% 88%)", boxShadow: "0 1px 3px hsl(220 30% 10% / 0.04)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="flex flex-wrap items-center justify-between gap-2 py-2">
+          <div className="flex flex-wrap items-center justify-between gap-2 py-2.5">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-3">
               <MapLegend />
-              <div className="hidden items-center gap-1.5 text-[0.7rem] md:flex" style={{ borderRight: "1px solid #D8DEE8", paddingRight: "8px" }}>
-                <span className="font-bold" style={{ color: "#334155" }}>{floor.units.length}</span>
-                <span style={{ color: "#64748B" }}>وحدة</span>
-                <span className="mx-0.5 h-3 w-px bg-border" />
-                <span className="font-bold" style={{ color: "#E8740E" }}>{floorAvailable}</span>
-                <span style={{ color: "#64748B" }}>متاحة</span>
+              {/* Floor stats strip */}
+              <div className="hidden items-center gap-2 rounded-lg px-3 py-1.5 text-[0.7rem] md:flex"
+                   style={{ background: "hsl(220 20% 96%)", border: "1px solid hsl(220 20% 90%)" }}>
+                <span className="font-bold text-foreground">{floor.units.length}</span>
+                <span className="text-muted-foreground">وحدة</span>
+                <span className="h-3 w-px" style={{ background: "hsl(220 20% 88%)" }} />
+                <span className="font-bold" style={{ color: "hsl(25 95% 50%)" }}>{floorAvailable}</span>
+                <span className="text-muted-foreground">متاحة</span>
                 {floorComingSoon > 0 && (
                   <>
-                    <span className="mx-0.5 h-3 w-px bg-border" />
-                    <span className="font-bold" style={{ color: "#0A9AB8" }}>{floorComingSoon}</span>
-                    <span style={{ color: "#64748B" }}>قريبًا</span>
+                    <span className="h-3 w-px" style={{ background: "hsl(220 20% 88%)" }} />
+                    <span className="font-bold" style={{ color: "hsl(190 85% 40%)" }}>{floorComingSoon}</span>
+                    <span className="text-muted-foreground">قريبًا</span>
                   </>
                 )}
               </div>
             </div>
           </div>
 
-          <div className="pb-2">
+          <div className="pb-2.5">
             <MapFilters
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
@@ -267,10 +290,10 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="py-2 md:py-2.5" style={{ background: "#F5F2EC" }}>
+      <section className="py-3 md:py-4" style={{ background: "hsl(38 25% 95%)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="grid gap-3 lg:grid-cols-[1fr_300px] lg:items-start">
-            <div ref={mapRef}>
+          <div className="grid gap-4 lg:grid-cols-[1fr_320px] lg:items-start">
+            <div ref={mapRef} className="overflow-hidden rounded-2xl border bg-white shadow-sm" style={{ borderColor: "hsl(220 20% 88%)" }}>
               <MallFloorMap
                 floor={floor}
                 selectedUnitId={activeUnit?.id ?? null}
@@ -283,25 +306,28 @@ const InteractiveMap = () => {
             </div>
 
             {!isMobile && (
-              <aside className="lg:sticky lg:top-[140px] space-y-2.5">
+              <aside className="lg:sticky lg:top-[160px] space-y-3">
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
 
-                {/* Floor summary strip — commercial context */}
-                <div className="rounded-lg border border-border bg-card p-3">
-                  <p className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-muted-foreground mb-2">{floorLabelsAr[selectedFloor]}</p>
-                  <div className="grid grid-cols-3 gap-2 text-center">
-                    <div>
-                      <p className="font-poppins text-[0.9rem] font-extrabold text-foreground">{floorOccupied}</p>
-                      <p className="text-[0.52rem] font-semibold text-muted-foreground">مشغولة</p>
-                    </div>
-                    <div>
-                      <p className="font-poppins text-[0.9rem] font-extrabold" style={{ color: "#E8740E" }}>{floorAvailable}</p>
-                      <p className="text-[0.52rem] font-semibold text-muted-foreground">متاحة</p>
-                    </div>
-                    <div>
-                      <p className="font-poppins text-[0.9rem] font-extrabold" style={{ color: "#0A9AB8" }}>{floorComingSoon}</p>
-                      <p className="text-[0.52rem] font-semibold text-muted-foreground">قريبًا</p>
-                    </div>
+                {/* Floor summary card */}
+                <div className="rounded-xl border bg-card p-4" style={{ borderColor: "hsl(220 20% 88%)" }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="h-[3px] w-4 rounded-full bg-primary" />
+                    <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                      {floorLabelsAr[selectedFloor]}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2.5 text-center">
+                    {[
+                      { v: floorOccupied, l: "مشغولة", color: "hsl(220 15% 25%)" },
+                      { v: floorAvailable, l: "متاحة", color: "hsl(25 95% 50%)" },
+                      { v: floorComingSoon, l: "قريبًا", color: "hsl(190 85% 40%)" },
+                    ].map((s) => (
+                      <div key={s.l} className="rounded-lg py-2.5" style={{ background: "hsl(220 20% 97%)" }}>
+                        <p className="font-poppins text-[1rem] font-extrabold" style={{ color: s.color }}>{s.v}</p>
+                        <p className="mt-0.5 text-[0.54rem] font-semibold text-muted-foreground">{s.l}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </aside>
@@ -310,77 +336,99 @@ const InteractiveMap = () => {
         </div>
       </section>
 
-      {/* ═══════════ AVAILABLE UNITS ═══════════ */}
-      <section className="py-3.5 md:py-4" style={{ background: "#FAFAF8", borderTop: "1px solid #D8DEE8" }}>
+      {/* ═══════════ AVAILABLE UNITS GRID ═══════════ */}
+      <section className="py-5 md:py-6" style={{ background: "hsl(0 0% 99%)", borderTop: "1px solid hsl(220 20% 90%)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="mb-2.5 flex flex-wrap items-end justify-between gap-2">
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <p className="font-poppins text-[0.52rem] font-bold uppercase tracking-[0.25em]" style={{ color: "#B85C08" }}>Available Units</p>
-              <h2 className="mt-0.5 text-[0.9rem] font-bold leading-tight md:text-[1.05rem]" style={{ color: "#0F172A" }}>
+              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]"
+                 style={{ color: "hsl(25 85% 45%)" }}>Available Units</p>
+              <h2 className="mt-1 text-[1rem] font-bold leading-tight md:text-[1.1rem] text-foreground"
+                  style={{ fontFamily: "var(--font-arabic-display)" }}>
                 {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة
               </h2>
             </div>
             <Link to="/leasing">
-              <Button variant="orange" size="sm" className="h-8 rounded-lg px-4 text-[0.74rem] font-bold">
-                <Phone className="ml-1.5 h-3 w-3" /> استفسر الآن
+              <Button variant="orange" size="sm" className="h-9 rounded-xl px-5 text-[0.76rem] font-bold shadow-sm">
+                <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر الآن
               </Button>
             </Link>
           </div>
 
           {filteredUnits.filter((u) => u.status === "available").length > 0 ? (
-            <div className="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {filteredUnits.filter((u) => u.status === "available").map((unit) => (
                 <button
                   key={unit.id}
                   onClick={() => { setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
-                  className={`group rounded-lg border p-2.5 text-right transition-all duration-150 ${
+                  className={`group rounded-xl border p-3.5 text-right transition-all duration-200 ${
                     activeUnit?.id === unit.id
-                      ? "border-[#E8740E] shadow-[0_0_0_1px_#E8740E44]"
-                      : "border-border bg-card hover:border-[#E8740E]/30"
+                      ? "border-orange-400 shadow-[0_0_0_1px_hsl(25_95%_55%/0.3)]"
+                      : "border-border bg-card hover:border-orange-300 hover:shadow-sm"
                   }`}
-                  style={activeUnit?.id === unit.id ? { background: "#FEF3E2" } : {}}
+                  style={activeUnit?.id === unit.id ? { background: "hsl(35 100% 97%)" } : {}}
                 >
                   <div className="flex items-center justify-between">
-                    <p className="text-[0.82rem] font-bold" style={{ color: "#0F172A" }}>{unit.code}</p>
-                    <span className="text-[0.66rem] font-bold" style={{ color: "#B85C08" }}>{unit.area} م²</span>
+                    <p className="text-[0.85rem] font-bold text-foreground">{unit.code}</p>
+                    <span className="flex items-center gap-1 text-[0.68rem] font-bold" style={{ color: "hsl(25 85% 40%)" }}>
+                      <Ruler className="h-3 w-3" />
+                      {unit.area} م²
+                    </span>
                   </div>
-                  <p className="mt-0.5 text-[0.66rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
+                  <p className="mt-1 text-[0.68rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.6rem] font-bold"
+                          style={{ background: "hsl(35 100% 95%)", color: "hsl(25 85% 40%)", border: "1px solid hsl(25 95% 55% / 0.2)" }}>
+                      <div className="h-1.5 w-1.5 rounded-full" style={{ background: "hsl(25 95% 55%)" }} />
+                      متاحة
+                    </span>
+                    <ArrowUpLeft className="h-3.5 w-3.5 text-muted-foreground/30 transition-all group-hover:text-primary group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
+                  </div>
                 </button>
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-dashed border-border bg-card px-5 py-3.5 text-center">
-              <p className="text-[0.78rem] font-semibold" style={{ color: "#64748B" }}>لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
+            <div className="rounded-xl border border-dashed border-border bg-card px-6 py-5 text-center">
+              <Compass className="mx-auto mb-2 h-6 w-6 text-muted-foreground/30" />
+              <p className="text-[0.8rem] font-semibold text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* ═══════════ COMMERCIAL OPPORTUNITY ═══════════ */}
-      <section className="py-6 md:py-8" style={{ background: "#F5F2EC" }}>
+      <section className="py-8 md:py-10" style={{ background: "hsl(38 25% 95%)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="grid items-start gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10">
-            <div className="space-y-4">
+          <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+            <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
+                        className="space-y-5">
               <div>
-                <p className="font-poppins text-[0.52rem] font-bold uppercase tracking-[0.25em]" style={{ color: "#2563EB" }}>الفرصة التجارية</p>
-                <h2 className="mt-1 text-[1rem] font-bold leading-tight md:text-[1.15rem]" style={{ color: "#0F172A" }}>وحدتك في موقع مُثبت.</h2>
+                <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]" style={{ color: "hsl(var(--primary))" }}>
+                  الفرصة التجارية
+                </p>
+                <h2 className="mt-1.5 text-[1.1rem] font-bold leading-tight md:text-[1.3rem] text-foreground"
+                    style={{ fontFamily: "var(--font-arabic-display)" }}>
+                  وحدتك في موقع مُثبت.
+                </h2>
               </div>
-              <p className="text-[0.84rem] leading-[1.7] max-w-[26rem]" style={{ color: "#64748B" }}>
+              <p className="text-[0.86rem] leading-[1.8] max-w-[28rem] text-muted-foreground">
                 وحدات متعددة المساحات — في مكان يعرفه السوق ويقصده.
               </p>
 
-              <div className="grid grid-cols-3 gap-2">
+              {/* Floor availability cards */}
+              <div className="grid grid-cols-3 gap-2.5">
                 {mallFloors.map((f) => {
                   const avail = f.units.filter((u) => u.status === "available").length;
                   return (
-                    <div key={f.id} className="rounded-lg border border-border bg-card px-3 py-3 text-center">
-                      <p className="font-poppins text-[1.15rem] font-extrabold" style={{ color: "#0F172A" }}>{avail}</p>
-                      <p className="mt-0.5 text-[0.64rem] font-semibold" style={{ color: "#64748B" }}>{f.label}</p>
+                    <div key={f.id} className="rounded-xl border border-border bg-card px-4 py-3.5 text-center transition-all hover:shadow-sm">
+                      <p className="font-poppins text-[1.2rem] font-extrabold text-foreground">{avail}</p>
+                      <p className="mt-0.5 text-[0.66rem] font-semibold text-muted-foreground">{f.label}</p>
                     </div>
                   );
                 })}
               </div>
 
+              {/* Value props */}
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { icon: MapPin, label: "موقع مقصود" },
@@ -388,65 +436,97 @@ const InteractiveMap = () => {
                   { icon: TrendingUp, label: "طلب متنامٍ" },
                   { icon: Layers, label: "تصنيف دقيق" },
                 ].map((p) => (
-                  <div key={p.label} className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
-                    <p.icon className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-[0.78rem] font-bold" style={{ color: "#0F172A" }}>{p.label}</span>
+                  <div key={p.label} className="flex items-center gap-2.5 rounded-xl border border-border bg-card px-3.5 py-2.5 transition-all hover:border-primary/20">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
+                      <p.icon className="h-3.5 w-3.5 text-primary" />
+                    </div>
+                    <span className="text-[0.8rem] font-bold text-foreground">{p.label}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-2.5 pt-1">
-                <Link to="/leasing"><Button variant="orange" className="h-10 rounded-lg px-5 font-bold text-[0.82rem]">استفسار التأجير</Button></Link>
-                <Link to="/stores"><Button variant="outline-blue" className="h-10 rounded-lg px-5 text-[0.82rem]">تصفّح المتاجر</Button></Link>
+              <div className="flex flex-wrap gap-3 pt-1">
+                <Link to="/leasing">
+                  <Button variant="orange" className="h-11 rounded-xl px-6 font-bold text-[0.84rem] shadow-md shadow-orange-500/15">
+                    استفسار التأجير
+                  </Button>
+                </Link>
+                <Link to="/stores">
+                  <Button variant="outline-blue" className="h-11 rounded-xl px-6 text-[0.84rem] font-bold">
+                    تصفّح المتاجر
+                  </Button>
+                </Link>
               </div>
-            </div>
+            </motion.div>
 
             {/* Featured available units */}
-            <div className="space-y-2.5">
-              <p className="text-[0.72rem] font-bold tracking-[0.14em] uppercase" style={{ color: "#64748B" }}>وحدات مميزة</p>
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.45, delay: 0.1 }}
+                        className="space-y-3">
+              <div className="flex items-center gap-2">
+                <div className="h-[3px] w-4 rounded-full" style={{ background: "hsl(25 95% 55%)" }} />
+                <p className="text-[0.72rem] font-bold tracking-[0.14em] uppercase text-muted-foreground">وحدات مميزة</p>
+              </div>
               {availableMallUnits.slice(0, 3).map((unit) => (
                 <button
                   key={unit.id}
                   onClick={() => { setSelectedFloor(unit.floor); setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
-                  className="group flex w-full flex-col rounded-lg border border-border bg-card p-4 text-right transition-all duration-200 hover:border-[#E8740E]/25 hover:shadow-sm"
+                  className="group flex w-full flex-col rounded-xl border border-border bg-card p-4.5 text-right transition-all duration-200 hover:border-orange-300/40 hover:shadow-md hover:shadow-orange-500/5"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[0.9rem] font-bold" style={{ color: "#0F172A" }}>وحدة {unit.code}</p>
-                      <p className="mt-0.5 text-[0.78rem]" style={{ color: "#64748B" }}>{unit.category ?? ""}</p>
+                      <p className="text-[0.92rem] font-bold text-foreground">وحدة {unit.code}</p>
+                      <p className="mt-0.5 text-[0.78rem] text-muted-foreground">{unit.category ?? ""}</p>
                     </div>
-                    <span className="rounded-md border px-2 py-0.5 text-[0.66rem] font-bold" style={{ borderColor: "#E8740E40", background: "#FEF3E2", color: "#B85C08" }}>متاحة</span>
+                    <span className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-[0.66rem] font-bold"
+                          style={{ background: "hsl(35 100% 95%)", color: "hsl(25 85% 40%)", border: "1px solid hsl(25 95% 55% / 0.2)" }}>
+                      <div className="h-1.5 w-1.5 rounded-full" style={{ background: "hsl(25 95% 55%)" }} />
+                      متاحة
+                    </span>
                   </div>
-                  <div className="mt-2.5 grid grid-cols-2 gap-2">
-                    <div className="rounded-md bg-secondary px-3 py-2">
-                      <p className="text-[0.64rem]" style={{ color: "#64748B" }}>الدور</p>
-                      <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{floorLabelsAr[unit.floor]}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <div className="rounded-lg py-2.5 px-3" style={{ background: "hsl(220 20% 97%)" }}>
+                      <p className="text-[0.62rem] text-muted-foreground">الدور</p>
+                      <p className="mt-0.5 text-[0.86rem] font-bold text-foreground">{floorLabelsAr[unit.floor]}</p>
                     </div>
-                    <div className="rounded-md bg-secondary px-3 py-2">
-                      <p className="text-[0.64rem]" style={{ color: "#64748B" }}>المساحة</p>
-                      <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{unit.area} م²</p>
+                    <div className="rounded-lg py-2.5 px-3" style={{ background: "hsl(220 20% 97%)" }}>
+                      <p className="text-[0.62rem] text-muted-foreground">المساحة</p>
+                      <p className="mt-0.5 text-[0.86rem] font-bold text-foreground">{unit.area} م²</p>
                     </div>
                   </div>
                 </button>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-
-      <section className="py-6 md:py-7" style={{ background: "#071326" }}>
-        <div className="mx-auto max-w-[640px] px-5 text-center">
-          <p className="font-poppins text-[0.52rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>Commercial Leasing</p>
-          <h2 className="mt-1 text-[0.98rem] font-bold md:text-[1.15rem]" style={{ color: "#F8FAFC" }}>تبحث عن وحدة تجارية في موقع فعّال؟</h2>
-          <div className="mt-3 flex flex-wrap justify-center gap-2">
+      {/* ═══════════ FINAL CTA ═══════════ */}
+      <section className="relative overflow-hidden py-8 md:py-10" style={{ background: "var(--gradient-hero)" }}>
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[500px] rounded-full opacity-[0.06]"
+               style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+        </div>
+        <div className="relative mx-auto max-w-[640px] px-5 text-center">
+          <p className="font-poppins text-[0.56rem] font-bold tracking-[0.3em] uppercase" style={{ color: "hsl(220 15% 45%)" }}>
+            Commercial Leasing
+          </p>
+          <h2 className="mt-2 text-[1.05rem] font-bold md:text-[1.25rem]"
+              style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
+            تبحث عن وحدة تجارية في موقع فعّال؟
+          </h2>
+          <p className="mx-auto mt-2 max-w-[320px] text-[0.78rem] leading-relaxed" style={{ color: "hsl(220 15% 50%)" }}>
+            وحدات متنوعة المساحات في قلب القاهرة الجديدة
+          </p>
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">
-              <Button variant="orange" className="h-9 rounded-lg px-5 text-[0.8rem] font-bold">
-                <Phone className="ml-2 h-3.5 w-3.5" /> استفسار التأجير
+              <Button variant="orange" className="h-11 rounded-xl px-6 text-[0.84rem] font-bold shadow-lg shadow-orange-500/20">
+                <Phone className="ml-2 h-4 w-4" /> استفسار التأجير
               </Button>
             </Link>
             <Link to="/stores">
-              <Button className="h-9 rounded-lg border px-5 text-[0.8rem] font-bold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
+              <Button className="h-11 rounded-xl px-6 text-[0.84rem] font-bold transition-all"
+                      style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.12)", color: "hsl(220 20% 80%)" }}>
                 تصفّح المتاجر
               </Button>
             </Link>
