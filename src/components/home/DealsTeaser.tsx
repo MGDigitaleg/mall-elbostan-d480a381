@@ -28,7 +28,14 @@ export function DealsTeaser() {
   const hasDeals = !isLoading && deals && deals.length > 0;
 
   return (
-    <section className="py-7 md:py-9 bg-background min-h-[200px]" style={{ contain: "layout style" }}>
+    <section
+      className="bg-background min-h-[180px]"
+      style={{
+        contain: "layout style",
+        paddingTop: "clamp(36px, 5vw, 80px)",
+        paddingBottom: "clamp(36px, 5vw, 80px)",
+      }}
+    >
       <div className="container">
         <motion.div
           variants={sectionReveal}
@@ -36,7 +43,7 @@ export function DealsTeaser() {
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          <div className="mb-4 flex items-end justify-between gap-4">
+          <div className="mb-5 flex items-end justify-between gap-4">
             <div>
               <p className="section-kicker">عروض المحلات</p>
               <h2 className="section-title">أحدث العروض.</h2>
@@ -49,25 +56,20 @@ export function DealsTeaser() {
           </div>
 
           {isLoading ? (
-            <div className="grid gap-2.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="flex flex-col rounded-lg border border-border bg-card overflow-hidden">
-                  <div className="h-1 bg-muted" />
-                  <div className="p-4 space-y-3">
-                    <Skeleton className="h-3 w-1/3" />
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-3 w-full" />
-                    <Skeleton className="h-3 w-1/2" />
-                  </div>
+                <div key={i} className="rounded-xl border border-border bg-card p-4 space-y-3">
+                  <Skeleton className="h-3 w-1/3" />
+                  <Skeleton className="h-4 w-3/4" />
+                  <Skeleton className="h-3 w-full" />
                 </div>
               ))}
             </div>
           ) : hasDeals ? (
-            <div className="grid gap-2.5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {deals.map((deal) => {
                 const store = (deal as any).stores;
-                const hasExpiry = deal.valid_to;
-                const expiryDate = hasExpiry ? new Date(deal.valid_to!) : null;
+                const expiryDate = deal.valid_to ? new Date(deal.valid_to) : null;
                 const isExpiringSoon = expiryDate
                   ? expiryDate.getTime() - Date.now() < 3 * 24 * 60 * 60 * 1000
                   : false;
@@ -75,70 +77,47 @@ export function DealsTeaser() {
                 return (
                   <div
                     key={deal.id}
-                    className="group flex flex-col rounded-lg border border-border bg-card overflow-hidden transition-all hover:shadow-[var(--shadow-card)] hover:border-primary/20"
+                    className="group flex flex-col rounded-xl border border-border/80 bg-card overflow-hidden transition-all hover:shadow-sm hover:border-primary/15"
                   >
-                    {/* Header accent */}
-                    <div className="h-1 bg-gradient-to-l from-primary to-accent" />
-
+                    <div className="h-0.5 bg-gradient-to-l from-primary/60 to-primary/20" />
                     <div className="flex flex-1 flex-col p-4">
-                      {/* Featured badge */}
-                      {deal.featured && (
-                        <span className="mb-2 inline-flex w-fit rounded-md bg-primary/10 px-2 py-0.5 text-[0.58rem] font-bold text-primary">
-                          عرض مميز
-                        </span>
-                      )}
-
-                      {/* Title */}
-                      <h3 className="text-[0.86rem] font-bold text-foreground leading-snug line-clamp-2">
+                      <h3 className="text-[0.84rem] font-bold text-foreground leading-snug line-clamp-2">
                         {deal.title_ar}
                       </h3>
 
-                      {/* Description */}
                       {deal.description_ar && (
-                        <p className="mt-1.5 text-[0.74rem] leading-[1.65] text-muted-foreground line-clamp-2">
+                        <p className="mt-1.5 text-[0.72rem] leading-[1.6] text-muted-foreground line-clamp-2">
                           {deal.description_ar}
                         </p>
                       )}
 
-                      {/* Promo code */}
                       {deal.promo_code && (
-                        <div className="mt-2.5 flex items-center gap-2 rounded-md border border-dashed border-primary/30 bg-primary/5 px-2.5 py-1.5">
+                        <div className="mt-2.5 flex items-center gap-2 rounded-md border border-dashed border-primary/25 bg-primary/5 px-2.5 py-1.5">
                           <Tag className="h-3 w-3 text-primary shrink-0" />
-                          <span className="font-poppins text-[0.76rem] font-bold text-primary tracking-wide" dir="ltr">
+                          <span className="font-poppins text-[0.74rem] font-bold text-primary tracking-wide" dir="ltr">
                             {deal.promo_code}
                           </span>
                         </div>
                       )}
 
-                      <div className="mt-auto pt-3 space-y-2">
-                        {/* Expiry */}
+                      <div className="mt-auto pt-3 space-y-1.5">
                         {expiryDate && (
                           <div className="flex items-center gap-1.5">
-                            <Clock className={`h-3 w-3 shrink-0 ${isExpiringSoon ? "text-orange-500" : "text-muted-foreground/50"}`} />
-                            <span className={`text-[0.66rem] font-semibold ${isExpiringSoon ? "text-orange-600" : "text-muted-foreground"}`}>
+                            <Clock className={`h-2.5 w-2.5 shrink-0 ${isExpiringSoon ? "text-orange-500" : "text-muted-foreground/40"}`} />
+                            <span className={`text-[0.62rem] ${isExpiringSoon ? "text-orange-600 font-semibold" : "text-muted-foreground"}`}>
                               ينتهي {expiryDate.toLocaleDateString("ar-EG", { day: "numeric", month: "long" })}
                             </span>
                           </div>
                         )}
-
-                        {/* Store */}
                         {store && (
-                          <Link
-                            to={`/stores/${store.slug}`}
-                            className="flex items-center gap-1.5 hover:opacity-80 transition-opacity"
-                          >
+                          <Link to={`/stores/${store.slug}`} className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
                             {store.logo_url ? (
-                              <img
-                                src={store.logo_url}
-                                alt={store.name_ar}
-                                className="h-4 w-4 rounded object-contain border border-border bg-white shrink-0"
-                              />
+                              <img src={store.logo_url} alt={store.name_ar}
+                                   className="h-3.5 w-3.5 rounded object-contain border border-border bg-white shrink-0" />
                             ) : (
-                              <Store className="h-3 w-3 text-muted-foreground/50 shrink-0" />
+                              <Store className="h-2.5 w-2.5 text-muted-foreground/40 shrink-0" />
                             )}
-                            <span className="text-[0.66rem] font-semibold text-muted-foreground line-clamp-1">
-                              {store.name_ar}
-                            </span>
+                            <span className="text-[0.62rem] text-muted-foreground line-clamp-1">{store.name_ar}</span>
                           </Link>
                         )}
                       </div>
@@ -148,29 +127,24 @@ export function DealsTeaser() {
               })}
             </div>
           ) : (
-            /* Empty state — deals coming soon */
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
-              <div className="h-1 bg-gradient-to-l from-primary to-accent" />
-              <div className="p-5 md:p-7 text-center">
-                <Tag className="mx-auto mb-3 h-8 w-8 text-primary/40" />
-                <h3 className="text-[0.9rem] font-bold light-heading">العروض تبدأ مع الافتتاح</h3>
-                <p className="mx-auto mt-1.5 max-w-[24rem] text-[0.78rem] leading-[1.65] light-body">
-                  عروض حصرية من محلات المول مع الافتتاح الكبير.
-                </p>
-                <div className="mt-4 flex flex-wrap justify-center gap-2.5">
-                  <Link to="/daily-deals">
-                    <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.76rem]">
-                      <Tag className="ml-1 h-3.5 w-3.5" /> صفحة العروض
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+            /* Compact empty state */
+            <div className="rounded-xl border border-border bg-card p-5 md:p-6 text-center max-w-md mx-auto">
+              <Tag className="mx-auto mb-2 h-6 w-6 text-primary/30" />
+              <h3 className="text-[0.86rem] font-bold text-foreground">العروض تبدأ مع الافتتاح</h3>
+              <p className="mt-1 text-[0.74rem] leading-[1.6] text-muted-foreground">
+                عروض حصرية من محلات المول مع الافتتاح الكبير.
+              </p>
+              <Link to="/daily-deals" className="mt-3 inline-flex">
+                <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.76rem]">
+                  صفحة العروض
+                </Button>
+              </Link>
             </div>
           )}
 
-          <div className="mt-3 flex justify-center lg:hidden">
+          <div className="mt-4 flex justify-center lg:hidden">
             <Link to="/daily-deals">
-              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.78rem] font-bold">
+              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.76rem] font-bold">
                 جميع العروض
               </Button>
             </Link>
