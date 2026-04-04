@@ -391,6 +391,58 @@ const StoreDetail = () => {
                   </div>
                 </motion.div>
               )}
+
+              {/* KZ Products (Kasr Zero e-commerce) */}
+              {isKzStore && kzProducts && kzProducts.length > 0 && (
+                <motion.div variants={fadeChild}>
+                  <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/8">
+                          <ShoppingBag className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <h2 className="text-[0.92rem] font-bold text-foreground">منتجات المتجر</h2>
+                          <p className="text-[0.66rem] text-muted-foreground">{kzProducts.length} منتج متوفر</p>
+                        </div>
+                      </div>
+                      <Link to="/kz/products"
+                            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
+                        تصفح المتجر <ChevronLeft className="h-3 w-3" />
+                      </Link>
+                    </div>
+                    <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3">
+                      {kzProducts.map((kp: any) => {
+                        const defaultVar = kp.kz_product_variants?.find((v: any) => v.is_default) ?? kp.kz_product_variants?.[0];
+                        const mainImg = kp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
+                        return (
+                          <Link key={kp.id} to={`/kz/products/${kp.slug}`}
+                                className="group flex flex-col bg-card p-4 transition-colors hover:bg-muted/20">
+                            <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white">
+                              {mainImg ? (
+                                <img src={mainImg.image_url} alt={kp.title}
+                                     className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105" loading="lazy" />
+                              ) : (
+                                <div className="flex h-full items-center justify-center">
+                                  <ShoppingBag className="h-7 w-7 text-muted-foreground/20" />
+                                </div>
+                              )}
+                            </div>
+                            <p className="text-[0.8rem] font-bold leading-snug text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+                              {kp.title}
+                            </p>
+                            {defaultVar && (
+                              <p className="mt-2 text-[0.84rem] font-bold text-primary">
+                                {Number(defaultVar.price).toLocaleString("ar-EG")} ج.م
+                              </p>
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </motion.div>
+              )
             </motion.div>
 
             {/* ── Sidebar ── */}
