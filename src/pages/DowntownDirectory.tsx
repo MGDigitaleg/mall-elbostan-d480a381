@@ -245,74 +245,75 @@ const DowntownDirectory = () => {
               ))}
             </div>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-2">
-              {visibleMerchants.map((m) => {
-                const status = statusConfig[m.verification_status] ?? statusConfig["Unknown status"];
-                const StatusIcon = status.icon;
-                return (
-                  <Link
-                    key={m.id}
-                    to={`/downtown-directory/${m.slug ?? m.id}`}
-                    className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
-                  >
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white">
-                      {m.logo_url ? (
-                        <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" loading="lazy" decoding="async" />
-                      ) : (
-                        <Store className="h-5 w-5 text-primary" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <p className="text-[0.88rem] font-bold text-foreground group-hover:text-primary transition-colors">{m.name_ar}</p>
-                          {m.name_en && <p className="font-poppins text-[0.7rem] text-muted-foreground">{m.name_en}</p>}
+            <>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {visibleMerchants.map((m) => {
+                  const status = statusConfig[m.verification_status] ?? statusConfig["Unknown status"];
+                  const StatusIcon = status.icon;
+                  return (
+                    <Link
+                      key={m.id}
+                      to={`/downtown-directory/${m.slug ?? m.id}`}
+                      className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
+                    >
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white">
+                        {m.logo_url ? (
+                          <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" loading="lazy" decoding="async" />
+                        ) : (
+                          <Store className="h-5 w-5 text-primary" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2">
+                          <div>
+                            <p className="text-[0.88rem] font-bold text-foreground group-hover:text-primary transition-colors">{m.name_ar}</p>
+                            {m.name_en && <p className="font-poppins text-[0.7rem] text-muted-foreground">{m.name_en}</p>}
+                          </div>
+                          <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${status.color}`}>
+                            <StatusIcon className="ml-0.5 h-2.5 w-2.5" />
+                            {status.label}
+                          </Badge>
                         </div>
-                        <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${status.color}`}>
-                          <StatusIcon className="ml-0.5 h-2.5 w-2.5" />
-                          {status.label}
-                        </Badge>
-                      </div>
 
-                      {m.category && (
-                        <Badge variant="secondary" className="mt-1.5 text-[0.6rem]">{m.category}</Badge>
-                      )}
-
-                      <div className="mt-2 flex flex-wrap items-center gap-3 text-[0.72rem] text-muted-foreground">
-                        {m.floor && <span>الدور {m.floor}</span>}
-                        {m.phone && (
-                          <span className="flex items-center gap-1 text-primary">
-                            <Phone className="h-3 w-3" /> {m.phone}
-                          </span>
+                        {m.category && (
+                          <Badge variant="secondary" className="mt-1.5 text-[0.6rem]">{m.category}</Badge>
                         )}
-                        {m.website && (
-                          <span className="flex items-center gap-1">
-                            <Globe className="h-3 w-3" /> موقع
-                          </span>
-                        )}
-                      </div>
 
-                      <div className="mt-1.5 flex items-center text-[0.65rem] text-primary">
-                        عرض التفاصيل <ChevronLeft className="h-3 w-3 mr-0.5 transition-transform group-hover:-translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+                        <div className="mt-2 flex flex-wrap items-center gap-3 text-[0.72rem] text-muted-foreground">
+                          {m.floor && <span>الدور {m.floor}</span>}
+                          {m.phone && (
+                            <span className="flex items-center gap-1 text-primary">
+                              <Phone className="h-3 w-3" /> {m.phone}
+                            </span>
+                          )}
+                          {m.website && (
+                            <span className="flex items-center gap-1">
+                              <Globe className="h-3 w-3" /> موقع
+                            </span>
+                          )}
+                        </div>
 
-            {/* Load More */}
-            {hasMore && !isLoading && (
-              <div className="mt-6 text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                  className="h-10 rounded-xl border-border px-8 text-[0.82rem] font-bold hover:bg-secondary"
-                >
-                  عرض المزيد ({filtered.length - visibleCount} محل متبقي)
-                </Button>
+                        <div className="mt-1.5 flex items-center text-[0.65rem] text-primary">
+                          عرض التفاصيل <ChevronLeft className="h-3 w-3 mr-0.5 transition-transform group-hover:-translate-x-1" />
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
-            )}
+
+              {hasMore && (
+                <div className="mt-6 text-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                    className="h-10 rounded-xl border-border px-8 text-[0.82rem] font-bold hover:bg-secondary"
+                  >
+                    عرض المزيد ({filtered.length - visibleCount} محل متبقي)
+                  </Button>
+                </div>
+              )}
+            </>
           )}
 
           {filtered.length === 0 && !isLoading && (
