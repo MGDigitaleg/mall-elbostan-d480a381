@@ -1,17 +1,17 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 
-/* ── Floating luminous particles ── */
+/* ── Floating luminous particles (reduced from 18 to 10) ── */
 export function FloatingParticles({ isVisible }: { isVisible: boolean }) {
   const particles = useMemo(
     () =>
-      Array.from({ length: 18 }, (_, i) => ({
+      Array.from({ length: 10 }, (_, i) => ({
         id: i,
         x: `${5 + Math.random() * 90}%`,
         y: `${3 + Math.random() * 94}%`,
-        size: 1.5 + Math.random() * 3.5,
+        size: 1.5 + Math.random() * 3,
         delay: Math.random() * 6,
-        duration: 8 + Math.random() * 10,
+        duration: 10 + Math.random() * 10,
         color: i % 3 === 0 ? "#CDBB9A" : i % 3 === 1 ? "#60A5FA" : "#06B6D4",
       })),
     []
@@ -24,7 +24,7 @@ export function FloatingParticles({ isVisible }: { isVisible: boolean }) {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute rounded-full pointer-events-none"
+          className="absolute rounded-full pointer-events-none will-change-transform"
           style={{
             left: p.x,
             top: p.y,
@@ -34,15 +34,15 @@ export function FloatingParticles({ isVisible }: { isVisible: boolean }) {
           }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{
-            opacity: [0, 0.35, 0.18, 0.3, 0],
-            scale: [0, 1, 1.4, 0.6, 0],
-            y: [0, -25, -50, -75, -100],
+            opacity: [0, 0.3, 0.15, 0.25, 0],
+            scale: [0, 1, 1.3, 0.6, 0],
+            y: [0, -30, -60, -90, -120],
           }}
           transition={{
             duration: p.duration,
             delay: p.delay,
             repeat: Infinity,
-            repeatDelay: 3,
+            repeatDelay: 5,
             ease: "easeInOut",
           }}
         />
@@ -51,14 +51,13 @@ export function FloatingParticles({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-/* ── Concentric pulse rings ── */
+/* ── Concentric pulse rings (reduced from 3 to 2) ── */
 export function PulseRings({ isVisible }: { isVisible: boolean }) {
   if (!isVisible) return null;
 
   const rings = [
-    { size: 300, delay: 2, duration: 8, x: "20%", y: "30%", color: "#2563EB" },
-    { size: 250, delay: 4, duration: 10, x: "70%", y: "60%", color: "#CDBB9A" },
-    { size: 200, delay: 6, duration: 9, x: "50%", y: "80%", color: "#06B6D4" },
+    { size: 280, delay: 2, duration: 10, x: "20%", y: "30%", color: "#2563EB" },
+    { size: 230, delay: 5, duration: 12, x: "70%", y: "60%", color: "#CDBB9A" },
   ];
 
   return (
@@ -66,7 +65,7 @@ export function PulseRings({ isVisible }: { isVisible: boolean }) {
       {rings.map((r, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full pointer-events-none"
+          className="absolute rounded-full pointer-events-none will-change-transform"
           style={{
             left: r.x,
             top: r.y,
@@ -77,14 +76,14 @@ export function PulseRings({ isVisible }: { isVisible: boolean }) {
           }}
           initial={{ opacity: 0, scale: 0.3 }}
           animate={{
-            opacity: [0, 0.06, 0.03, 0.05, 0],
-            scale: [0.3, 1, 1.5, 2, 2.5],
+            opacity: [0, 0.05, 0.02, 0],
+            scale: [0.3, 1, 1.8, 2.5],
           }}
           transition={{
             duration: r.duration,
             delay: r.delay,
             repeat: Infinity,
-            repeatDelay: 4,
+            repeatDelay: 6,
             ease: "easeOut",
           }}
         />
@@ -93,7 +92,7 @@ export function PulseRings({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-/* ── Animated connecting lines ── */
+/* ── Animated connecting lines (simplified) ── */
 export function ConnectingLines({ isVisible }: { isVisible: boolean }) {
   if (!isVisible) return null;
 
@@ -113,27 +112,6 @@ export function ConnectingLines({ isVisible }: { isVisible: boolean }) {
         animate={{ scaleX: 1 }}
         transition={{ duration: 3, delay: 2.0, ease: [0.22, 1, 0.36, 1] }}
       />
-      {[
-        { w: "220px", top: "55%", left: "8%", bg: "#CDBB9A0C", rot: "-12deg", d: 2.2 },
-        { w: "180px", top: "22%", left: "72%", bg: "#2563EB0A", rot: "10deg", d: 2.8 },
-        { w: "140px", top: "78%", left: "45%", bg: "#06B6D408", rot: "-8deg", d: 3.2 },
-      ].map((line, i) => (
-        <motion.div
-          key={i}
-          className="absolute hidden lg:block"
-          style={{
-            width: line.w,
-            height: "1px",
-            top: line.top,
-            left: line.left,
-            background: `linear-gradient(90deg, transparent, ${line.bg}, transparent)`,
-            transform: `rotate(${line.rot})`,
-          }}
-          initial={{ opacity: 0, scaleX: 0 }}
-          animate={{ opacity: 1, scaleX: 1 }}
-          transition={{ duration: 2, delay: line.d, ease: [0.22, 1, 0.36, 1] }}
-        />
-      ))}
     </>
   );
 }
@@ -152,9 +130,9 @@ export function QuoteMarks({ isVisible }: { isVisible: boolean }) {
           fontFamily: "Georgia, serif",
           color: "#CDBB9A",
         }}
-        initial={{ opacity: 0, scale: 0.7, rotate: -5 }}
-        animate={isVisible ? { opacity: 0.045, scale: 1, rotate: 0 } : {}}
-        transition={{ duration: 2.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={isVisible ? { opacity: 0.04, scale: 1 } : {}}
+        transition={{ duration: 2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         aria-hidden="true"
       >
         &ldquo;
@@ -169,9 +147,9 @@ export function QuoteMarks({ isVisible }: { isVisible: boolean }) {
           fontFamily: "Georgia, serif",
           color: "#2563EB",
         }}
-        initial={{ opacity: 0, scale: 0.7, rotate: 5 }}
-        animate={isVisible ? { opacity: 0.03, scale: 1, rotate: 0 } : {}}
-        transition={{ duration: 2.5, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={isVisible ? { opacity: 0.03, scale: 1 } : {}}
+        transition={{ duration: 2, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
         aria-hidden="true"
       >
         &rdquo;
@@ -180,28 +158,7 @@ export function QuoteMarks({ isVisible }: { isVisible: boolean }) {
   );
 }
 
-/* ── Scanning light beam ── */
-export function ScanBeam({ isVisible }: { isVisible: boolean }) {
-  if (!isVisible) return null;
-
-  return (
-    <motion.div
-      className="absolute top-0 h-full w-[1px] pointer-events-none hidden lg:block"
-      style={{
-        background: "linear-gradient(to bottom, transparent 20%, #CDBB9A15 50%, transparent 80%)",
-        boxShadow: "0 0 20px 4px rgba(205,187,154,0.03)",
-      }}
-      initial={{ left: "0%", opacity: 0 }}
-      animate={{
-        left: ["0%", "100%", "0%"],
-        opacity: [0, 0.6, 0],
-      }}
-      transition={{
-        duration: 20,
-        delay: 3,
-        repeat: Infinity,
-        ease: "linear",
-      }}
-    />
-  );
+/* ── Scanning light beam — REMOVED for performance ── */
+export function ScanBeam({ isVisible: _isVisible }: { isVisible: boolean }) {
+  return null;
 }
