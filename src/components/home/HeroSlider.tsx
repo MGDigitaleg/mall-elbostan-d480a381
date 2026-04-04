@@ -1,34 +1,37 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Compass, Gift, MapPin } from "lucide-react";
+import { Compass, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import nc1 from "@/assets/nc-hero-1.jpg";
-import nc2 from "@/assets/nc-hero-2.jpg";
-import dt1 from "@/assets/downtown-hero-1.jpg";
-import dt2 from "@/assets/downtown-exterior.jpg";
+import ncHero1 from "@/assets/nc-hero-1.jpg";
+import dtHero1 from "@/assets/downtown-hero-1.jpg";
+import ncHero3 from "@/assets/nc-hero-3.jpg";
 
-/* 4 curated images: 2 new cairo + 2 downtown */
-const heroImages = [nc1, nc2, dt1, dt2];
-
+/* 3 slides — each with ONE distinct full-bleed image */
 const slides = [
   {
+    image: dtHero1,
+    alt: "واجهة مول البستان — فرع وسط البلد",
     kicker: "الإرث",
     headline: "بداية بنت السمعة.",
-    sub: "أكثر من عقد في سوق التقنية المصري — من وسط البلد إلى القاهرة الجديدة.",
+    sub: "أكثر من ثلاثة عقود في سوق التقنية المصري — من وسط البلد إلى القاهرة الجديدة.",
     cta: { label: "استكشف الدليل", to: "/map", icon: Compass },
     ctaSecondary: { label: "تصفّح المحلات", to: "/stores" },
   },
   {
+    image: ncHero1,
+    alt: "مدخل مول البستان — فرع القاهرة الجديدة",
     kicker: "الفرع الجديد",
     headline: "وجهة تقنية جاهزة.",
-    sub: "٥٣+ وحدة تجارية، خريطة تفاعلية، ومحلات تقنية معروفة.",
+    sub: "٥٣+ وحدة تجارية، خريطة تفاعلية، ومحلات تقنية معروفة في التجمع الخامس.",
     cta: { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
     ctaSecondary: { label: "الوحدات المتاحة", to: "/leasing" },
   },
   {
+    image: ncHero3,
+    alt: "التصميم الداخلي — مول البستان",
     kicker: "١ مايو ٢٠٢٦",
     headline: "الافتتاح الكبير.",
     sub: "جوائز وعروض حصرية يوم الافتتاح — سجّل الآن.",
@@ -54,46 +57,52 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative min-h-[440px] md:min-h-[500px] max-h-[580px] overflow-hidden"
+      className="relative min-h-[480px] md:min-h-[540px] max-h-[620px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* ── 4-image architectural collage background ── */}
-      <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 grid-rows-1 gap-px" style={{ background: "#0a1628" }}>
-        {heroImages.map((src, i) => (
-          <div key={i} className="relative overflow-hidden">
-            <img
-              src={src}
-              alt=""
-              className="h-full w-full object-cover"
-              style={{ filter: "saturate(0.8) brightness(1.05) contrast(0.92)" }}
-              loading={i < 2 ? "eager" : "lazy"}
-            />
-          </div>
-        ))}
-      </div>
+      {/* ── Full-bleed single-image background per slide ── */}
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={current}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img
+            src={slide.image}
+            alt={slide.alt}
+            className="h-full w-full object-cover"
+            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)" }}
+            loading={current === 0 ? "eager" : "lazy"}
+          />
+        </motion.div>
+      </AnimatePresence>
 
-      {/* ── Overlay: reduced to let architecture breathe ── */}
+      {/* ── Overlay: refined to let architecture breathe ── */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1]"
         style={{
-          background: "linear-gradient(165deg, hsla(218, 50%, 8%, 0.62) 0%, hsla(218, 45%, 12%, 0.55) 45%, hsla(218, 50%, 8%, 0.65) 100%)",
+          background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.88) 0%, hsla(218, 50%, 10%, 0.55) 45%, hsla(218, 50%, 8%, 0.45) 100%)",
         }}
       />
-      {/* Bottom fade — stronger for text readability */}
-      <div className="absolute inset-x-0 bottom-0 h-2/5" style={{ background: "linear-gradient(to top, hsla(218, 50%, 7%, 0.92), transparent)" }} />
       {/* RTL side fade for right-side text readability */}
-      <div className="absolute inset-y-0 right-0 w-[45%] hidden md:block" style={{ background: "linear-gradient(to left, hsla(218, 50%, 7%, 0.55), transparent)" }} />
+      <div
+        className="absolute inset-y-0 right-0 w-[50%] z-[2] hidden md:block"
+        style={{ background: "linear-gradient(to left, hsla(218, 55%, 7%, 0.5), transparent)" }}
+      />
 
       {/* ── Subtle ambient accents ── */}
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 z-[2]">
         <div className="absolute top-1/4 left-[12%] w-[350px] h-[350px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
         <div className="absolute bottom-[10%] right-[20%] w-[250px] h-[250px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
       </div>
 
       {/* ── Grid texture ── */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.012]"
+        className="pointer-events-none absolute inset-0 z-[2] opacity-[0.012]"
         style={{
           backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
@@ -101,7 +110,7 @@ export function HeroSlider() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[440px] md:min-h-[500px] max-h-[580px] max-w-[1440px] items-center px-5 md:px-10">
+      <div className="relative z-10 mx-auto flex h-full min-h-[480px] md:min-h-[540px] max-h-[620px] max-w-[1440px] items-center px-5 md:px-10">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-8">
           {/* Text block — right side */}
           <AnimatePresence mode="wait">
@@ -121,13 +130,13 @@ export function HeroSlider() {
               </span>
 
               <h1
-                className="text-[1.4rem] font-bold leading-[1.12] md:text-[1.7rem]"
+                className="text-[1.5rem] font-bold leading-[1.12] md:text-[1.85rem]"
                 style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}
               >
                 {slide.headline}
               </h1>
 
-              <p className="text-[0.82rem] leading-[1.75] max-w-[24rem]" style={{ color: "#B0BEC5" }}>
+              <p className="text-[0.84rem] leading-[1.75] max-w-[24rem]" style={{ color: "#B0BEC5" }}>
                 {slide.sub}
               </p>
 
@@ -195,7 +204,7 @@ export function HeroSlider() {
       </div>
 
       {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
     </section>
   );
 }

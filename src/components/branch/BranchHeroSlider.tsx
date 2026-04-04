@@ -48,13 +48,14 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
             src={slides[current].src}
             alt={slides[current].alt}
             className="h-full w-full object-cover"
+            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)" }}
             loading={current === 0 ? "eager" : "lazy"}
           />
         </motion.div>
       </AnimatePresence>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(to top, #071326 0%, #07132690 40%, #07132650 100%)" }} />
+      <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.88) 0%, hsla(218, 50%, 10%, 0.5) 45%, hsla(218, 50%, 8%, 0.4) 100%)" }} />
 
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0 z-[2]">

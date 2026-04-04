@@ -26,14 +26,24 @@ const secondaryNavItems = [
   { label: "تواصل معنا", path: "/contact" },
 ];
 
+/** Pages that have a full-bleed dark hero — header starts transparent */
+const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day"];
+
 export function Header() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [branchOpen, setBranchOpen] = useState(false);
   const branchRef = useRef<HTMLDivElement>(null);
 
+  const hasDarkHero = darkHeroPages.some(
+    (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
+  );
+
+  /** Mode A = transparent over dark hero; Mode B = light after scroll or on light pages */
+  const isTransparent = hasDarkHero && !scrolled;
+
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -61,26 +71,40 @@ export function Header() {
 
   const isBranchActive = branchItems.some((b) => isActive(b.path));
 
-  /* Consistent nav link style */
+  /* ----------- adaptive colors ----------- */
+  const textColor = isTransparent ? "rgba(248,250,252,0.92)" : "#334155";
+  const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : "#64748B";
+  const activeColor = isTransparent ? "#60A5FA" : "#2563EB";
+  const activeBg = isTransparent ? "rgba(96,165,250,0.1)" : "rgba(37,99,235,0.06)";
+  const hoverBg = isTransparent ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.03)";
+  const borderColor = isTransparent ? "rgba(255,255,255,0.08)" : "rgba(216,222,232,0.5)";
+  const menuBtnBg = isTransparent ? "rgba(255,255,255,0.08)" : "#FAFAF8";
+  const menuBtnBorder = isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8";
+  const menuBtnColor = isTransparent ? "#E2E8F0" : "#334155";
+
   const navLinkStyle = (active: boolean) => ({
-    color: active ? "#2563EB" : "#334155",
+    color: active ? activeColor : textColor,
     fontWeight: active ? 700 : 600,
     fontSize: "0.82rem" as const,
-    background: active ? "rgba(37,99,235,0.06)" : "transparent",
+    background: active ? activeBg : "transparent",
   });
 
   return (
     <header
       className="fixed top-0 right-0 left-0 z-50"
       style={{
-        background: scrolled ? "rgba(250,250,248,0.97)" : "rgba(250,250,248,0.92)",
-        backdropFilter: "blur(20px) saturate(1.3)",
-        WebkitBackdropFilter: "blur(20px) saturate(1.3)",
-        borderBottom: "1px solid rgba(216,222,232,0.5)",
-        boxShadow: scrolled
+        background: isTransparent
+          ? "transparent"
+          : scrolled
+            ? "rgba(250,250,248,0.97)"
+            : "rgba(250,250,248,0.92)",
+        backdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
+        WebkitBackdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
+        borderBottom: isTransparent ? "1px solid transparent" : `1px solid ${borderColor}`,
+        boxShadow: !isTransparent && scrolled
           ? "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)"
           : "none",
-        transition: "background 0.4s, box-shadow 0.4s",
+        transition: "background 0.4s, box-shadow 0.4s, border-color 0.4s, backdrop-filter 0.4s",
       }}
     >
       <div className="container">
@@ -97,14 +121,16 @@ export function Header() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="group relative inline-flex h-10 items-center rounded-lg px-3 transition-all duration-300 hover:bg-[rgba(7,19,38,0.03)]"
-                  style={navLinkStyle(active)}
+                  className="group relative inline-flex h-10 items-center rounded-lg px-3 transition-all duration-300"
+                  style={{ ...navLinkStyle(active), ...(active ? {} : { ":hover": { background: hoverBg } }) } as React.CSSProperties}
+                  onMouseEnter={(e) => { if (!active) (e.currentTarget.style.background = hoverBg); }}
+                  onMouseLeave={(e) => { if (!active) (e.currentTarget.style.background = "transparent"); }}
                 >
                   {item.label}
                   {active && (
                     <span
                       className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-[50%] rounded-full"
-                      style={{ background: "#2563EB" }}
+                      style={{ background: activeColor }}
                     />
                   )}
                 </Link>
@@ -115,8 +141,10 @@ export function Header() {
             <div ref={branchRef} className="relative">
               <button
                 onClick={() => setBranchOpen((v) => !v)}
-                className="group relative inline-flex h-10 items-center gap-1 rounded-lg px-3 transition-all duration-300 hover:bg-[rgba(7,19,38,0.03)]"
+                className="group relative inline-flex h-10 items-center gap-1 rounded-lg px-3 transition-all duration-300"
                 style={navLinkStyle(isBranchActive || branchOpen)}
+                onMouseEnter={(e) => { if (!isBranchActive && !branchOpen) (e.currentTarget.style.background = hoverBg); }}
+                onMouseLeave={(e) => { if (!isBranchActive && !branchOpen) (e.currentTarget.style.background = "transparent"); }}
               >
                 الفروع
                 <ChevronDown
@@ -124,7 +152,7 @@ export function Header() {
                   style={{ transform: branchOpen ? "rotate(180deg)" : "rotate(0)" }}
                 />
                 {isBranchActive && (
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-[50%] rounded-full" style={{ background: "#2563EB" }} />
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-[50%] rounded-full" style={{ background: activeColor }} />
                 )}
               </button>
 
@@ -132,10 +160,10 @@ export function Header() {
                 <div
                   className="absolute right-0 top-full mt-2 w-[280px] rounded-xl p-1.5"
                   style={{
-                    background: "rgba(250,250,248,0.98)",
+                    background: isTransparent ? "rgba(7,19,38,0.92)" : "rgba(250,250,248,0.98)",
                     backdropFilter: "blur(20px)",
-                    border: "1px solid rgba(216,222,232,0.6)",
-                    boxShadow: "0 8px 32px rgba(7,19,38,0.08), 0 2px 8px rgba(7,19,38,0.04)",
+                    border: `1px solid ${isTransparent ? "rgba(255,255,255,0.1)" : "rgba(216,222,232,0.6)"}`,
+                    boxShadow: "0 8px 32px rgba(7,19,38,0.15), 0 2px 8px rgba(7,19,38,0.08)",
                     animation: "fadeInDown 0.15s ease-out",
                   }}
                 >
@@ -145,18 +173,23 @@ export function Header() {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200 hover:bg-[rgba(7,19,38,0.03)]"
-                        style={{ background: active ? "rgba(37,99,235,0.07)" : "transparent", color: active ? "#2563EB" : "#334155" }}
+                        className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200"
+                        style={{
+                          background: active ? activeBg : "transparent",
+                          color: active ? activeColor : (isTransparent ? "#CBD5E1" : "#334155"),
+                        }}
+                        onMouseEnter={(e) => { if (!active) (e.currentTarget.style.background = hoverBg); }}
+                        onMouseLeave={(e) => { if (!active) (e.currentTarget.style.background = "transparent"); }}
                       >
                         <span
                           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                          style={{ background: active ? "rgba(37,99,235,0.12)" : "rgba(7,19,38,0.04)" }}
+                          style={{ background: active ? (isTransparent ? "rgba(96,165,250,0.15)" : "rgba(37,99,235,0.12)") : (isTransparent ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.04)") }}
                         >
-                          <MapPin className="h-3.5 w-3.5" style={{ color: active ? "#2563EB" : "#64748B" }} />
+                          <MapPin className="h-3.5 w-3.5" style={{ color: active ? activeColor : textColorMuted }} />
                         </span>
                         <div>
                           <p className="text-[0.8rem]" style={{ fontWeight: active ? 700 : 600 }}>{item.label}</p>
-                          <p className="text-[0.68rem]" style={{ color: "#94A3B8" }}>{item.desc}</p>
+                          <p className="text-[0.68rem]" style={{ color: isTransparent ? "rgba(148,163,184,0.7)" : "#94A3B8" }}>{item.desc}</p>
                         </div>
                       </Link>
                     );
@@ -168,7 +201,11 @@ export function Header() {
 
           {/* Center logo */}
           <Link to="/" className="group justify-self-center transition-transform duration-300 hover:scale-[1.02]">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[176px]" />
+            <BrandLogo
+              align="center"
+              imageClassName="h-auto max-w-[176px]"
+              variant={isTransparent ? "light" : "dark"}
+            />
           </Link>
 
           {/* Secondary nav + CTA */}
@@ -179,15 +216,15 @@ export function Header() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="inline-flex h-8 items-center rounded-md px-2.5 transition-all duration-300 hover:text-foreground"
-                  style={{ fontSize: "0.74rem", fontWeight: active ? 700 : 500, color: active ? "#2563EB" : "#64748B" }}
+                  className="inline-flex h-8 items-center rounded-md px-2.5 transition-all duration-300"
+                  style={{ fontSize: "0.74rem", fontWeight: active ? 700 : 500, color: active ? activeColor : textColorMuted }}
                 >
                   {item.label}
                 </Link>
               );
             })}
 
-            <div className="mx-1.5 h-5 w-px" style={{ background: "#D8DEE8" }} />
+            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
 
             <Link to="/spin-win">
               <Button
@@ -219,17 +256,17 @@ export function Header() {
                   key={item.path}
                   to={item.path}
                   className="relative inline-flex h-9 items-center rounded-md px-2.5 transition-all duration-300"
-                  style={{ fontSize: "0.79rem", fontWeight: active ? 700 : 600, color: active ? "#2563EB" : "#334155", background: active ? "rgba(37,99,235,0.06)" : "transparent" }}
+                  style={{ fontSize: "0.79rem", fontWeight: active ? 700 : 600, color: active ? activeColor : textColor, background: active ? activeBg : "transparent" }}
                 >
                   {item.label}
-                  {active && <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-[3px] rounded-full" style={{ background: "#2563EB" }} />}
+                  {active && <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-[3px] rounded-full" style={{ background: activeColor }} />}
                 </Link>
               );
             })}
           </nav>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" variant={isTransparent ? "light" : "dark"} />
           </Link>
 
           <div className="flex items-center justify-end gap-2">
@@ -247,8 +284,8 @@ export function Header() {
               isActive={isActive}
               trigger={
                 <button
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-secondary"
-                  style={{ border: "1px solid #D8DEE8", background: "#FAFAF8", color: "#334155" }}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
+                  style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}
                   aria-label="فتح القائمة"
                 >
                   <Menu size={17} />
@@ -266,7 +303,11 @@ export function Header() {
           <Link to="/map">
             <button
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
-              style={{ border: "1px solid rgba(37,99,235,0.18)", background: "rgba(37,99,235,0.06)", color: "#2563EB" }}
+              style={{
+                border: `1px solid ${isTransparent ? "rgba(96,165,250,0.2)" : "rgba(37,99,235,0.18)"}`,
+                background: isTransparent ? "rgba(96,165,250,0.08)" : "rgba(37,99,235,0.06)",
+                color: isTransparent ? "#60A5FA" : "#2563EB",
+              }}
               aria-label="افتح الخريطة"
             >
               <Compass className="h-4 w-4" />
@@ -274,15 +315,15 @@ export function Header() {
           </Link>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" />
+            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={isTransparent ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
             isActive={isActive}
             trigger={
               <button
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-secondary"
-                style={{ border: "1px solid #D8DEE8", background: "#FAFAF8", color: "#334155" }}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
+                style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}
                 aria-label="فتح القائمة"
               >
                 <Menu size={17} />
