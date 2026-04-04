@@ -17,8 +17,10 @@ import downtownGallery2Night from "@/assets/downtown-gallery-2-night.jpg";
 const heroSlides = [
   { src: downtownHeroDay, alt: "واجهة مول البستان التجاري — وسط البلد نهاراً" },
   { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلاً" },
-  { src: downtownGallery1Night, alt: "مول البستان — زاوية جانبية ليلاً" },
-  { src: downtownGallery2Night, alt: "مول البستان — الواجهة الرئيسية ليلاً" },
+  { src: downtownGallery1, alt: "المبنى من زاوية جانبية — نهاراً" },
+  { src: downtownGallery1Night, alt: "المبنى من زاوية جانبية — ليلاً" },
+  { src: downtownGallery2, alt: "الواجهة الرئيسية — نهاراً" },
+  { src: downtownGallery2Night, alt: "الواجهة الرئيسية — ليلاً" },
 ];
 
 const sectionReveal = {
