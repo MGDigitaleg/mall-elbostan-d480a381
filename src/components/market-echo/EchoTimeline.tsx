@@ -76,11 +76,12 @@ function TimelineCard({
       {/* Center line + dot */}
       <div className="absolute right-6 md:relative md:right-auto flex flex-col items-center">
         <div
-          className="z-10 h-3.5 w-3.5 rounded-full shrink-0 ring-4"
+          className="z-10 h-3.5 w-3.5 rounded-full shrink-0"
           style={{
             background: isLast ? "#F97316" : "#2563EB",
-            boxShadow: isLast ? "0 0 16px #F9731660" : "0 0 14px #2563EB40",
-            ringColor: isLast ? "rgba(249,115,22,0.1)" : "rgba(37,99,235,0.1)",
+            boxShadow: isLast
+              ? "0 0 16px #F9731660, 0 0 0 4px rgba(249,115,22,0.1)"
+              : "0 0 14px #2563EB40, 0 0 0 4px rgba(37,99,235,0.1)",
           }}
         />
         {!isLast && (
