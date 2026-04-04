@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Compass, Menu, Sparkles, ChevronDown, MapPin } from "lucide-react";
+import { Compass, Menu, Sparkles, ChevronDown, MapPin, ShoppingCart } from "lucide-react";
+import { useKzCart } from "@/hooks/useKzCart";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeaderMenuSheet } from "@/components/layout/HeaderMenuSheet";
