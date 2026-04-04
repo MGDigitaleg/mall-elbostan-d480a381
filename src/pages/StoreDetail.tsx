@@ -442,7 +442,7 @@ const StoreDetail = () => {
                     </div>
                   </div>
                 </motion.div>
-              )
+              )}
             </motion.div>
 
             {/* ── Sidebar ── */}
