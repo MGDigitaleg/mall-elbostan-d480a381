@@ -159,17 +159,21 @@ function AppLayout() {
   );
 }
 
+import { KzCartProvider } from "@/hooks/useKzCart";
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <GA4Init />
-        <div className="min-h-screen flex flex-col bg-background">
-          <AppLayout />
-        </div>
-      </BrowserRouter>
+      <KzCartProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <GA4Init />
+          <div className="min-h-screen flex flex-col bg-background">
+            <AppLayout />
+          </div>
+        </BrowserRouter>
+      </KzCartProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );
