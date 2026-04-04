@@ -192,7 +192,7 @@ const About = () => (
             <div className="space-y-3.5">
               <div className="chapter-shell pt-4">
                 <p className="section-kicker">الفصل الجديد</p>
-                <h2 className="section-title max-w-[22rem]">القاهرة الجديدة — التوسّع الذكي.</h2>
+                <h2 className="section-title max-w-[22rem]">فرع القاهرة الجديدة.</h2>
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
