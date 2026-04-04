@@ -306,7 +306,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ابدأ من هنا.
             </h2>
             <p className="mx-auto mt-3 max-w-[22rem] text-center text-[0.86rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
-              استكشف المحلات، قارن الوحدات، واتخذ خطوتك القادمة.
+              دليل المحلات، الخريطة التفاعلية، والوحدات المتاحة — كل شيء في مكان واحد.
             </p>
 
             {/* Action cards */}
