@@ -58,7 +58,22 @@ export function FeaturedStores() {
             </Link>
           </div>
 
-          {/* Store cards grid */}
+          {isLoading ? (
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background">
+                  <div className="flex items-center justify-center border-b border-border bg-muted/20 p-5 md:p-6">
+                    <Skeleton className="h-14 w-14 rounded-xl md:h-16 md:w-16" />
+                  </div>
+                  <div className="p-4 space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-3 w-1/2" />
+                    <Skeleton className="h-3 w-full mt-1" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
                       className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
             {stores.map((store) => (
