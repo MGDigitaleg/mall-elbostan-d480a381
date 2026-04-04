@@ -136,7 +136,13 @@ const Stores = () => {
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="mb-7 flex items-end justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-7 flex items-end justify-between"
+          >
             <div>
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">تصفح حسب الفئة.</h2>
