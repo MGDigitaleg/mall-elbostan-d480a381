@@ -32,7 +32,7 @@ export function OpeningFAQ() {
             <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary">أسئلة شائعة</p>
             <h2 className="mt-1.5 text-[1.15rem] font-bold md:text-[1.35rem] text-foreground mx-auto max-w-[22rem]"
                 style={{ fontFamily: "var(--font-arabic-display)" }}>
-              كل ما تحتاج معرفته قبل الافتتاح
+              أسئلة شائعة عن الافتتاح
             </h2>
           </div>
 
