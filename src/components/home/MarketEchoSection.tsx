@@ -15,6 +15,7 @@ import {
 } from "@/components/market-echo/EchoEffects";
 import { EchoTimeline } from "@/components/market-echo/EchoTimeline";
 import { EchoStats } from "@/components/market-echo/EchoStats";
+import { EchoVisualMark } from "@/components/market-echo/EchoVisualMark";
 
 const quoteCards = [
   {
