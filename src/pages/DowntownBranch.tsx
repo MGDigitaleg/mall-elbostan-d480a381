@@ -40,7 +40,7 @@ const DowntownBranch = () => (
       slides={heroSlides}
       kicker="الفرع الأصلي — منذ 1990"
       title={<>مول البستان — <span style={{ color: "#60A5FA" }}>وسط البلد</span></>}
-      subtitle="حيث بدأت القصة — الوجهة التقنية الأعرق في مصر. إحدى مشروعات مجموعة العباسي."
+      subtitle="الفرع الذي عرّف السوق — وجهة التقنية الأولى في مصر منذ ١٩٩٠."
     />
 
     {/* ═══════════ 2 · IDENTITY INTRO ═══════════ */}
@@ -49,10 +49,9 @@ const DowntownBranch = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="max-w-2xl mx-auto text-center">
             <p className="section-kicker">البداية</p>
-            <h2 className="section-title">المكان الذي اختاره السوق.</h2>
+            <h2 className="section-title">المكان الذي بنى الاسم.</h2>
             <p className="mt-3 text-[0.86rem] leading-[1.85] text-muted-foreground max-w-xl mx-auto">
-              منذ 1990، أثبت مول البستان مكانته كوجهة أولى للتقنية والإلكترونيات في مصر.
-              لم يُبنَ الاسم بالإعلان — بل بثقة التجار والزبائن على مدار أكثر من ثلاثة عقود.
+              منذ ١٩٩٠ والبستان هو العنوان الأول للتقنية في مصر. الاسم لم يُبنَ بالإعلان — بل بثقة التجار والزبائن.
             </p>
           </div>
         </motion.div>

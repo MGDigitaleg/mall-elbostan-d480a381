@@ -24,8 +24,8 @@ export function MerchantLogoWall() {
       <div className="relative container">
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>
-            <p className="section-kicker dark-kicker">محلات الفرع الجديد</p>
-            <h2 className="section-title dark-heading">العلامات التجارية داخل المول.</h2>
+            <p className="section-kicker dark-kicker">محلات المول</p>
+            <h2 className="section-title dark-heading">تعرّف على المحلات.</h2>
             <p className="mt-1 text-[0.78rem] dark-muted max-w-md">
               {stores.length} محل تقنية متخصص — تصفّح وتعرّف على كل علامة تجارية.
             </p>

@@ -32,8 +32,8 @@ export function FeaturedProducts() {
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mb-5 flex items-end justify-between gap-4">
             <div>
-              <p className="section-kicker">منتجات مميزة</p>
-              <h2 className="section-title">أحدث المنتجات من محلات المول.</h2>
+              <p className="section-kicker">من المحلات</p>
+              <h2 className="section-title">أحدث المنتجات.</h2>
             </div>
             <Link to="/products" className="hidden lg:inline-flex">
               <Button variant="ghost" className="gap-1.5 text-[0.78rem] font-bold text-primary hover:text-primary/80">
@@ -112,9 +112,9 @@ export function FeaturedProducts() {
             <div className="overflow-hidden rounded-2xl border border-border bg-card">
               <div className="p-6 md:p-8 text-center">
                 <ShoppingBag className="mx-auto mb-3 h-8 w-8 text-primary/30" />
-                <h3 className="text-[0.92rem] font-bold text-foreground">سوق المنتجات قادم قريبا</h3>
+                <h3 className="text-[0.92rem] font-bold text-foreground">منتجات المحلات — قريبًا</h3>
                 <p className="mx-auto mt-2 max-w-[24rem] text-[0.8rem] leading-[1.7] text-muted-foreground">
-                  منصة رقمية تجمع منتجات محلات المول.
+                  سوق رقمي يجمع منتجات محلات المول في مكان واحد.
                 </p>
                 <div className="mt-5 flex flex-wrap justify-center gap-3">
                   <Link to="/products">

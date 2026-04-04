@@ -81,7 +81,7 @@ const Contact = () => {
         kicker="تواصل معنا"
         kickerEn="Contact"
         title="تواصل مع فريق مول البستان"
-        subtitle="استفسار، تأجير، أو تعاون — الفريق جاهز."
+        subtitle="استفسار، تأجير، أو تعاون — نرد خلال يوم عمل."
         compact
       />
 
@@ -288,7 +288,7 @@ const Contact = () => {
             {[
               { label: "التأجير", href: "/leasing" },
               { label: "الأسئلة الشائعة", href: "/faq" },
-              { label: "دليل المتاجر", href: "/stores" },
+              { label: "دليل المحلات", href: "/stores" },
               { label: "الوظائف", href: "/careers" },
             ].map((link) => (
               <Link

@@ -78,7 +78,7 @@ const NewCairoBranch = () => {
         slides={heroSlides}
         kicker="الفرع الجديد — التجمع الخامس"
         title={<>مول البستان — <span className="text-primary">القاهرة الجديدة</span></>}
-        subtitle="الامتداد الحديث لأعرق وجهة تقنية في مصر — منظم، رقمي، وجاهز."
+        subtitle="نفس الاسم ونفس الثقة — مع دليل رقمي وخريطة تفاعلية."
       >
         <div className="mt-4">
           <CountdownTimer compact />
@@ -91,9 +91,9 @@ const NewCairoBranch = () => {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="max-w-2xl mx-auto text-center">
               <p className="section-kicker">الفصل الجديد</p>
-              <h2 className="section-title">نفس الاسم — تجربة جديدة.</h2>
+              <h2 className="section-title">نفس الاسم — فرع جديد.</h2>
               <p className="mt-3 text-[0.86rem] leading-[1.85] text-muted-foreground max-w-xl mx-auto">
-                فرع القاهرة الجديدة يقدم تجربة منظمة ورقمية بالكامل — خريطة تفاعلية، دليل محلات ذكي، وسوق منتجات متكامل — في موقع يخدم مدينتي والرحاب والتجمعات المحيطة.
+                خريطة تفاعلية، دليل محلات، ومنتجات من المحلات — في موقع يخدم مدينتي والرحاب والتجمعات المحيطة.
               </p>
             </div>
           </motion.div>
@@ -336,10 +336,10 @@ const NewCairoBranch = () => {
             </div>
 
             <h2 className="text-[1.2rem] md:text-[1.5rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-              المول جاهز — اكتشفه الآن.
+              ابدأ من هنا.
             </h2>
             <p className="mt-2 text-[0.84rem] max-w-sm mx-auto" style={{ color: "#94A3B8" }}>
-              خريطة تفاعلية، دليل محلات، وسوق منتجات — كل شيء في مكان واحد.
+              دليل المحلات، الخريطة التفاعلية، ومنتجات المحلات — كل شيء في مكان واحد.
             </p>
 
             {/* Contact cards */}

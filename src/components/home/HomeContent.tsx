@@ -122,18 +122,18 @@ export function HomeContent({ faqs }: HomeContentProps) {
                   <span className="text-[0.7rem] font-bold" style={{ color: "#F97316" }}>حملة الافتتاح الكبرى</span>
                 </div>
                 <h2 className="text-[1.2rem] md:text-[1.45rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-                  سجّل. ادخل السحب. احضر واستلم.
+                  أدر العجلة واربح يوم الافتتاح.
                 </h2>
                 <p className="mt-2.5 text-[0.84rem] leading-[1.7] max-w-lg mx-auto" style={{ color: "#94A3B8" }}>
-                  شارك في مسابقة الافتتاح واحصل على فرصة للفوز بجوائز حقيقية من محلات المول.
+                  جوائز حقيقية من محلات المول — سجّل الآن واحضر يوم الافتتاح لاستلام جائزتك.
                 </p>
               </div>
 
               {/* Steps */}
               <div className="grid grid-cols-3 gap-2.5 md:gap-3.5 mb-8">
                 {[
-                  { n: "01", title: "استكشف", desc: "تعرّف على المحلات المشاركة.", color: "#2563EB" },
-                  { n: "02", title: "شارك وادخل السحب", desc: "سجّل بياناتك واحفظ نتيجتك.", color: "#06B6D4" },
+                  { n: "01", title: "تصفّح المحلات", desc: "اعرف المحلات المشاركة.", color: "#2563EB" },
+                  { n: "02", title: "أدر واربح", desc: "سجّل بياناتك واحفظ نتيجتك.", color: "#06B6D4" },
                   { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح.", color: "#F97316" },
                 ].map((s, i) => (
                   <div key={s.n} className="group relative rounded-2xl p-4 md:p-6 text-center transition-all hover:bg-white/[0.04]"
@@ -177,15 +177,15 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="relative container max-w-3xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[24rem] text-center">
-              <p className="section-kicker dark-kicker">سوق البستان الرقمي</p>
-              <h2 className="section-title dark-heading">من مول إلى منصة.</h2>
+              <p className="section-kicker dark-kicker">سوق المحلات</p>
+              <h2 className="section-title dark-heading">تصفّح منتجات المحلات.</h2>
             </div>
 
             <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
-                { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور بالحالة الفعلية.", active: true },
-                { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح منتجات المحلات.", active: true },
-                { n: "03", icon: Store, label: "الماركتبليس", desc: "شراء وسلة ودفع — قريبا.", active: false },
+                { n: "01", icon: Compass, label: "الخريطة التفاعلية", desc: "كل دور بحالته الفعلية.", active: true },
+                { n: "02", icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح واطلب مباشرة.", active: true },
+                { n: "03", icon: Store, label: "السوق الإلكتروني", desc: "طلب ودفع — قريبًا.", active: false },
               ].map((item) => (
                 <div key={item.n} className="heritage-surface rounded-xl p-5 text-center transition-all hover:scale-[1.01]">
                   <span className="font-poppins text-[0.6rem] font-bold dark-kicker">{item.n}</span>
@@ -243,7 +243,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                   <span className="text-[0.7rem] font-bold" style={{ color: "#60A5FA" }}>FAQ</span>
                 </div>
                 <h2 className="text-[1.2rem] md:text-[1.4rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-                  ما يجب معرفته قبل الزيارة
+                  أسئلة شائعة
                 </h2>
                 <p className="mt-3 text-[0.84rem] leading-[1.75] max-w-[22rem]" style={{ color: "#94A3B8" }}>
                   أبرز الأسئلة حول الموقع، الافتتاح، التأجير، والخدمات.
@@ -303,10 +303,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
             <h2 className="mx-auto max-w-[24rem] text-center text-[1.2rem] md:text-[1.5rem] font-bold leading-[1.15]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-              المول جاهز — والقرار بيدك.
+              ابدأ من هنا.
             </h2>
             <p className="mx-auto mt-3 max-w-[22rem] text-center text-[0.86rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
-              استكشف المحلات، قارن الوحدات، واتخذ خطوتك القادمة.
+              دليل المحلات، الخريطة التفاعلية، والوحدات المتاحة — كل شيء في مكان واحد.
             </p>
 
             {/* Action cards */}

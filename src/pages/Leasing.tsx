@@ -73,8 +73,8 @@ const Leasing = () => {
       <PageHero
         kicker="التأجير التجاري"
         kickerEn="Commercial Leasing"
-        title={<>وحدتك في الوجهة التي يقصدها الجمهور</>}
-        subtitle="جمهور متخصص، حركة مستمرة، وبنية جاهزة للتشغيل."
+        title={<>وحدتك في المول الذي يقصده المشتري.</>}
+        subtitle="جمهور بنيّة شراء، حركة مستمرة، وبنية جاهزة."
         ctas={[
           { label: "ابدأ الاستفسار", to: "#inquiry", icon: Phone, variant: "orange" },
           { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
@@ -105,12 +105,12 @@ const Leasing = () => {
               <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]" style={{ color: "hsl(var(--primary))" }}>
                 لماذا هنا
               </p>
-              <h2 className="mt-1.5 max-w-[24rem] text-[1.2rem] font-extrabold leading-[1.15] text-foreground md:text-[1.45rem]"
+               <h2 className="mt-1.5 max-w-[24rem] text-[1.2rem] font-extrabold leading-[1.15] text-foreground md:text-[1.45rem]"
                   style={{ fontFamily: "var(--font-arabic-display)" }}>
-                لماذا تختار مول البستان
-              </h2>
-              <p className="mt-2 max-w-[32rem] text-[0.84rem] leading-[1.85] text-muted-foreground">
-                الزبون الذي يدخل يحمل قرار شراء — هذا ما يصنع الفرق.
+                 لماذا البستان.
+               </h2>
+               <p className="mt-2 max-w-[32rem] text-[0.84rem] leading-[1.85] text-muted-foreground">
+                 الزبون الذي يدخل يحمل قرار شراء — هذا ما يصنع الفرق.
               </p>
             </div>
           </motion.div>
@@ -118,10 +118,10 @@ const Leasing = () => {
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
                       className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: MapPin, title: "موقع محوري", desc: "القاهرة الجديدة — حركة مرور مستهدفة." },
-              { icon: Users, title: "جمهور بنيّة شراء", desc: "زوّار بقرار شراء واضح." },
-              { icon: Layers, title: "منظومة متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد." },
-              { icon: TrendingUp, title: "نمو مخطّط", desc: "التواجد المبكّر يمنحك أفضلية." },
+              { icon: MapPin, title: "موقع محوري", desc: "في قلب التجمع الخامس." },
+              { icon: Users, title: "جمهور بنيّة شراء", desc: "زائر يبحث عن منتج محدد." },
+              { icon: Layers, title: "ستة تخصصات", desc: "فئات تقنية تكمّل بعضها." },
+              { icon: TrendingUp, title: "التواجد المبكّر", desc: "أفضلية للأوائل." },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeChild}
                           className="rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/20 hover:shadow-sm">

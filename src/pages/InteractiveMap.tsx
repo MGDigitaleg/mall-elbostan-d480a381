@@ -213,10 +213,10 @@ const InteractiveMap = () => {
                   <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>Interactive Directory</span>
                 </div>
                 <h1 className="text-[1.4rem] font-bold leading-[1.15] md:text-[1.7rem] lg:text-[2rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
-                  الدليل التفاعلي لمول البستان
+                  الخريطة التفاعلية
                 </h1>
                 <p className="mt-2 max-w-[28rem] text-[0.84rem] leading-[1.85]" style={{ color: "#94A3B8" }}>
-                  تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة عن الوحدات المتاحة للتأجير.
+                  تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر عن الوحدات المتاحة.
                 </p>
               </motion.div>
 

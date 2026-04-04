@@ -100,8 +100,8 @@ const Stores = () => {
       <PageHero
         kicker="دليل المحلات"
         kickerEn="Store Directory"
-        title={<>دليل محلات <span className="bg-gradient-to-l from-[#2D6BFF] to-[#60A5FA] bg-clip-text text-transparent">مول البستان.</span></>}
-        subtitle={`تصفّح ${activeCount > 0 ? `${activeCount} محل نشط` : "المحلات"} عبر ${primaryCategories.length} فئات تقنية متخصصة في القاهرة الجديدة.`}
+        title={<>محلات <span className="bg-gradient-to-l from-[#2D6BFF] to-[#60A5FA] bg-clip-text text-transparent">مول البستان.</span></>}
+        subtitle={`${activeCount > 0 ? `${activeCount} محل نشط` : "جميع المحلات"} في ${primaryCategories.length} تخصصات تقنية بالقاهرة الجديدة.`}
         ctas={[
           { label: "تصفح المحلات", to: "#directory", icon: Search },
           { label: "الخريطة التفاعلية", to: "/map", icon: Compass },

@@ -95,12 +95,12 @@ const Products = () => {
 
       {/* ═══════════ HERO ═══════════ */}
       <PageHero
-        kicker="السوق الرقمي"
-        kickerEn="Marketplace"
-        title={<>منتجات <span style={{ color: "#CDBB9A" }}>مول البستان.</span></>}
+        kicker="منتجات المحلات"
+        kickerEn="Products"
+        title={<>منتجات <span style={{ color: "#CDBB9A" }}>محلات المول.</span></>}
         subtitle="تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات."
         ctas={[
-          { label: "تصفح المنتجات", to: "#products", icon: Search },
+          { label: "تصفّح المنتجات", to: "#products", icon: Search },
           { label: "دليل المحلات", to: "/stores", icon: Store },
         ]}
         compact
@@ -211,10 +211,10 @@ const Products = () => {
           <div className="rounded-xl border border-border bg-card p-6 md:p-8">
             <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
               <div>
-                <p className="section-kicker">انضم للسوق</p>
+                <p className="section-kicker">انضم للمحلات</p>
                 <h2 className="section-title max-w-[20rem]">اعرض منتجاتك في سوق المول.</h2>
                 <p className="mt-1 max-w-[22rem] text-[0.82rem] leading-[1.7] light-body">
-                  أضف منتجاتك للسوق الرقمي واوصل لعملاء أكثر.
+                  أضف منتجاتك وأوصل لعملاء جدد.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">

@@ -51,11 +51,11 @@ const About = () => (
     <PageHero
       kicker="من نحن"
       kickerEn="About Us"
-      title={<>المكان الذي <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span></>}
-      subtitle="سيرة تجارية بدأت عام 1990 في وسط البلد — وتمتد اليوم إلى القاهرة الجديدة بنفس الثقة ونفس الاسم."
+      title={<>المكان الذي <span style={{ color: "#CDBB9A" }}>اختاره السوق.</span></>}
+      subtitle="من وسط البلد منذ ١٩٩٠ إلى القاهرة الجديدة — نفس الاسم ونفس الثقة."
       ctas={[
-        { label: "استكشف الدليل", to: "/map", icon: Compass },
-        { label: "تصفّح المتاجر", to: "/stores" },
+        { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
+        { label: "دليل المحلات", to: "/stores" },
       ]}
       image={{ src: exteriorImage, alt: "الواجهة الرئيسية لمول البستان — القاهرة الجديدة" }}
     />
@@ -79,19 +79,18 @@ const About = () => (
             <div className="order-1 space-y-3.5 lg:order-2">
               <div className="chapter-shell pt-4">
                 <p className="section-kicker">قصة العلامة</p>
-                <h2 className="section-title max-w-[20rem]">اسم واحد — فرعان — نفس الثقة.</h2>
+                <h2 className="section-title max-w-[20rem]">فرعان — اسم واحد — نفس الثقة.</h2>
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
-                مول البستان ليس مجرد مبنى تجاري — إنه عنوان بناه السوق المصري على مدار أكثر من ثلاثة عقود.
-                من وسط البلد إلى القاهرة الجديدة، الاسم يحمل نفس المعنى: المكان الموثوق لكل ما يخص التقنية.
+                عنوان بناه السوق المصري على مدار ثلاثة عقود. من وسط البلد إلى التجمع الخامس، المكان الموثوق لكل ما يخص التقنية.
               </p>
 
               <div className="grid gap-2 sm:grid-cols-3">
                 {[
                   { icon: Award, title: "منذ 1990", desc: "إرث تجاري عريق." },
                   { icon: MapPin, title: "فرعان", desc: "وسط البلد والتجمع." },
-                  { icon: Layers, title: "تجربة متكاملة", desc: "من المول للمنصة الرقمية." },
+                  { icon: Layers, title: "دليل ومنتجات", desc: "من المول للمنصة الرقمية." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-lg p-3">
                     <c.icon className="mb-1.5 h-4 w-4 text-primary" />
@@ -193,11 +192,11 @@ const About = () => (
             <div className="space-y-3.5">
               <div className="chapter-shell pt-4">
                 <p className="section-kicker">الفصل الجديد</p>
-                <h2 className="section-title max-w-[22rem]">القاهرة الجديدة — التوسّع الذكي.</h2>
+                <h2 className="section-title max-w-[22rem]">فرع القاهرة الجديدة.</h2>
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
-                الفرع الجديد في التجمع الخامس يحمل نفس الاسم والثقة — مع تجربة عصرية تجمع بين المول الفعلي والمنصة الرقمية.
+                نفس الاسم والثقة — مع خريطة تفاعلية ودليل محلات رقمي في موقع يخدم مدينتي والرحاب والتجمع الخامس.
               </p>
 
               <div className="rounded-lg border border-border bg-card p-3.5">
@@ -336,19 +335,18 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto max-w-[26rem] text-center">
             <p className="section-kicker dark-kicker">المرحلة التالية</p>
-            <h2 className="section-title dark-heading">من المول إلى المنصة الرقمية.</h2>
+            <h2 className="section-title dark-heading">من المول إلى سوق رقمي.</h2>
           </div>
 
           <p className="mx-auto mt-3 max-w-[28rem] text-center text-[0.88rem] leading-[1.85] dark-body">
-            لم يعد مول البستان مجرد مبنى — إنه منصة رقمية تربط المتاجر بالمنتجات بالزوار.
-            من الدليل التفاعلي إلى السوق الإلكتروني.
+            دليل تفاعلي لكل محل، وسوق منتجات يربط المحلات بالزوار مباشرة.
           </p>
 
           <div className="mx-auto mt-5 grid max-w-2xl gap-2.5 sm:grid-cols-3">
             {[
-              { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور.", active: true },
-              { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح من المتاجر.", active: true },
-              { n: "03", icon: Zap, label: "الماركتبليس", desc: "تجربة شراء متكاملة — قريبًا.", active: false },
+              { n: "01", icon: Compass, label: "الخريطة التفاعلية", desc: "كل دور بحالته.", active: true },
+              { n: "02", icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح واطلب.", active: true },
+              { n: "03", icon: Zap, label: "السوق الإلكتروني", desc: "طلب ودفع — قريبًا.", active: false },
             ].map((item) => (
               <div key={item.n} className="heritage-surface rounded-lg p-4 text-center">
                 <span className="font-poppins text-[0.62rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
@@ -369,7 +367,7 @@ const About = () => (
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link to="/products">
               <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
-                <ShoppingBag className="ml-2 h-4 w-4" /> تصفّح المنتجات
+                <ShoppingBag className="ml-2 h-4 w-4" /> تصفّح منتجات المحلات
               </Button>
             </Link>
             <Link to="/join-marketplace">
@@ -392,7 +390,7 @@ const About = () => (
             <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
           </div>
           <h2 className="mx-auto max-w-[22rem] text-[1.2rem] font-bold leading-[1.15] md:text-[1.45rem] light-heading">
-            المول جاهز — والقرار بيدك.
+            ابدأ من هنا.
           </h2>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link to="/map">
