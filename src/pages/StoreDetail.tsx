@@ -406,7 +406,7 @@ const StoreDetail = () => {
                           <p className="text-[0.66rem] text-muted-foreground">{kzProducts.length} منتج متوفر</p>
                         </div>
                       </div>
-                      <Link to="/kz/products"
+                      <Link to="/products?store=kasr-zero"
                             className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
                         تصفح المتجر <ChevronLeft className="h-3 w-3" />
                       </Link>
