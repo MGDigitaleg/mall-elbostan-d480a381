@@ -416,7 +416,7 @@ const StoreDetail = () => {
                         const defaultVar = kp.kz_product_variants?.find((v: any) => v.is_default) ?? kp.kz_product_variants?.[0];
                         const mainImg = kp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                         return (
-                          <Link key={kp.id} to={`/kz/products/${kp.slug}`}
+                          <Link key={kp.id} to={`/products/${kp.slug}`}
                                 className="group flex flex-col bg-card p-4 transition-colors hover:bg-muted/20">
                             <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white">
                               {mainImg ? (
