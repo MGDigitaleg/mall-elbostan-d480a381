@@ -5,14 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ShoppingBag, CheckCircle, XCircle, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { ShoppingBag, ShoppingCart, CheckCircle, XCircle, ChevronLeft, ChevronRight, ArrowLeft, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useKzCart } from "@/hooks/useKzCart";
+import { toast } from "@/hooks/use-toast";
 
 const KzProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [justAdded, setJustAdded] = useState(false);
+  const { addItem, totalItems } = useKzCart();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["kz-product", slug],
@@ -197,7 +201,42 @@ const KzProductDetail = () => {
                 </div>
               )}
 
-              {/* Description */}
+              {/* Add to Cart */}
+              {selectedVariant && (
+                <div className="mt-5 flex items-center gap-3">
+                  <Button
+                    variant="cta"
+                    className="h-11 flex-1 gap-2 text-[0.88rem]"
+                    disabled={!inStock || justAdded}
+                    onClick={() => {
+                      addItem({
+                        productId: product.id,
+                        slug: product.slug,
+                        variantId: selectedVariant.id,
+                        title: product.title,
+                        variantName: selectedVariant.variant_name || [selectedVariant.ram, selectedVariant.storage, selectedVariant.processor, selectedVariant.color].filter(Boolean).join(" / ") || "",
+                        price: Number(selectedVariant.price),
+                        imageUrl: images[0]?.image_url ?? null,
+                      });
+                      setJustAdded(true);
+                      toast({ title: "تمت الإضافة للسلة" });
+                      setTimeout(() => setJustAdded(false), 2000);
+                    }}
+                  >
+                    {justAdded ? <><Check className="h-4 w-4" /> تمت الإضافة</> : <><ShoppingCart className="h-4 w-4" /> أضف للسلة</>}
+                  </Button>
+                  {totalItems > 0 && (
+                    <Link to="/kz/cart">
+                      <Button variant="outline" className="h-11 gap-2 text-[0.82rem]">
+                        <ShoppingBag className="h-4 w-4" />
+                        السلة ({totalItems})
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {/* Short Description */}
               {product.short_description && (
                 <p className="mt-5 text-[0.84rem] leading-[1.8] text-muted-foreground">{product.short_description}</p>
               )}
