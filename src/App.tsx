@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -38,12 +38,9 @@ const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
 const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-/* ── Kasr Zero pages ── */
+/* ── Kasr Zero pages (detail + cart only — listing is unified under /products) ── */
 const KzHome = lazy(() => import("./pages/kz/KzHome"));
-const KzProducts = lazy(() => import("./pages/kz/KzProducts"));
 const KzProductDetail = lazy(() => import("./pages/kz/KzProductDetail"));
-const KzCategory = lazy(() => import("./pages/kz/KzCategory"));
-const KzSearch = lazy(() => import("./pages/kz/KzSearch"));
 const KzCart = lazy(() => import("./pages/kz/KzCart"));
 
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
