@@ -561,7 +561,12 @@ function InfoRow({ icon: Icon, label, value, highlight, color, status }: {
             : highlight ? "bg-primary/10"
               : "bg-muted/40"
       }`}>
-        <Icon className="h-4 w-4" style={iconColor ? { color: iconColor } : undefined} />
+        <Icon className={`h-4 w-4 ${
+          status === "green" ? "text-emerald-500"
+            : status === "orange" ? "text-orange-500"
+              : highlight ? "text-primary"
+                : "text-muted-foreground"
+        }`} />
       </div>
       <div className="min-w-0">
         <p className="text-[0.64rem] font-semibold uppercase tracking-[0.15em] text-muted-foreground/50">{label}</p>
