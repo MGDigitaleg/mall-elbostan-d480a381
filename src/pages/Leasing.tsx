@@ -70,87 +70,32 @@ const Leasing = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        {/* Ambient glows */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-[400px] w-[500px] rounded-full opacity-[0.05]"
-               style={{ background: "radial-gradient(circle, hsl(25 85% 50%), transparent 70%)" }} />
-          <div className="absolute bottom-0 left-1/4 h-[300px] w-[400px] rounded-full opacity-[0.04]"
-               style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 70%)" }} />
+      <PageHero
+        kicker="التأجير التجاري"
+        kickerEn="Commercial Leasing"
+        title={<>وحدتك في الوجهة التي يقصدها الجمهور</>}
+        subtitle="جمهور متخصص، حركة مستمرة، وبنية جاهزة للتشغيل."
+        ctas={[
+          { label: "ابدأ الاستفسار", to: "#inquiry", icon: Phone, variant: "orange" },
+          { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
+        ]}
+        image={{ src: entranceImage, alt: "مدخل مول البستان" }}
+      >
+        {/* Stats */}
+        <div className="flex items-center gap-3 lg:justify-end">
+          {[
+            { v: "6+", l: "فئات تقنية", color: "hsl(0 0% 97%)" },
+            { v: "3", l: "أدوار تجارية", color: "hsl(0 0% 97%)" },
+            { v: "50+", l: "وحدة", color: "hsl(25 95% 55%)" },
+          ].map((s) => (
+            <div key={s.l} className="rounded-xl px-4 py-3 text-center"
+                 style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
+              <p className="font-poppins text-[1.15rem] font-extrabold" style={{ color: s.color }}>{s.v}</p>
+              <p className="mt-0.5 text-[0.58rem] font-semibold" style={{ color: "hsl(220 15% 45%)" }}>{s.l}</p>
+            </div>
+          ))}
         </div>
-
-        <div className="relative mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-12">
-          <div className="grid min-h-[48vh] items-center gap-8 py-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 lg:py-0">
-            <motion.div initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="space-y-5">
-              <div className="flex items-center gap-2.5">
-                <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(25 85% 50%)" }} />
-                <span className="font-poppins text-[0.6rem] font-bold tracking-[0.25em] uppercase" style={{ color: "hsl(25 85% 50%)" }}>
-                  Commercial Leasing
-                </span>
-              </div>
-
-              <h1 className="max-w-[28rem] text-[1.6rem] font-extrabold leading-[1.1] md:text-[2rem] lg:text-[2.3rem]"
-                  style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
-                وحدتك في الوجهة التي يقصدها الجمهور
-              </h1>
-
-              <p className="max-w-[30rem] text-[0.88rem] leading-[1.85]" style={{ color: "hsl(220 15% 55%)" }}>
-                جمهور متخصص، حركة مستمرة، وبنية جاهزة للتشغيل.
-              </p>
-
-              <div className="flex flex-wrap gap-3 pt-1">
-                <a href="#inquiry">
-                  <Button variant="orange" className="h-11 gap-2.5 rounded-xl px-6 font-bold text-[0.84rem] shadow-lg shadow-orange-500/20">
-                    <Phone className="h-4 w-4" /> ابدأ الاستفسار
-                  </Button>
-                </a>
-                <Link to="/map">
-                  <Button className="h-11 gap-2.5 rounded-xl px-6 font-semibold text-[0.84rem] transition-all"
-                          style={{ border: "1px solid hsl(0 0% 100% / 0.12)", background: "hsl(0 0% 100% / 0.06)", color: "hsl(220 20% 88%)" }}>
-                    <Compass className="h-4 w-4" /> الخريطة التفاعلية
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center gap-1.5 pt-2">
-                {[
-                  { v: "6+", l: "فئات تقنية", color: "hsl(0 0% 97%)" },
-                  { v: "3", l: "أدوار تجارية", color: "hsl(0 0% 97%)" },
-                  { v: "50+", l: "وحدة", color: "hsl(25 95% 55%)" },
-                ].map((s, i) => (
-                  <div key={s.l} className="flex items-center gap-1.5">
-                    <div className="rounded-xl px-4 py-3 text-center"
-                         style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
-                      <p className="font-poppins text-[1.15rem] font-extrabold" style={{ color: s.color }}>{s.v}</p>
-                      <p className="mt-0.5 text-[0.58rem] font-semibold" style={{ color: "hsl(220 15% 45%)" }}>{s.l}</p>
-                    </div>
-                    {i < 2 && <div className="h-5 w-px" style={{ background: "hsl(0 0% 100% / 0.06)" }} />}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Image */}
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}
-                        className="hidden lg:flex lg:items-center lg:justify-center">
-              <div className="w-full max-w-[340px]">
-                <div className="relative overflow-hidden rounded-2xl"
-                     style={{ boxShadow: "0 12px 48px hsl(220 60% 5% / 0.5)" }}>
-                  <div className="aspect-[3/4]" style={{ maxHeight: "380px" }}>
-                    <img src={entranceImage} alt="مدخل مول البستان" className="h-full w-full object-cover object-[center_35%]" loading="eager" />
-                  </div>
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
-                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, hsl(222 44% 6% / 0.5), transparent 50%)" }} />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom accent */}
-        <div className="h-px w-full" style={{ background: "linear-gradient(to left, transparent, hsl(25 85% 50% / 0.3), transparent)" }} />
-      </section>
+      </PageHero>
 
       {/* ═══════════ WHY LEASE HERE ═══════════ */}
       <section className="py-8 md:py-10" style={{ background: "hsl(0 0% 99%)" }}>
