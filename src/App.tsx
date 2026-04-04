@@ -27,6 +27,7 @@ import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
+import MarketEcho from "./pages/MarketEcho";
 import DowntownDirectory from "./pages/DowntownDirectory";
 import DowntownMerchantDetail from "./pages/DowntownMerchantDetail";
 import NotFound from "./pages/NotFound";
