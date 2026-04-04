@@ -666,3 +666,59 @@
 .echo-pulse-once {
   animation: echoPulseOnce 1.2s ease-out 2.4s 1;
 }
+
+/* Echo page layout utilities */
+.echo-container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 768px) {
+  .echo-container {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .echo-container {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+.echo-scene-spacing {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 768px) {
+  .echo-scene-spacing {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .echo-scene-spacing {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+/* Responsive grid sizes for echo page */
+@media (max-width: 767px) {
+  [dir="rtl"] .echo-scene-spacing ~ .echo-scene-spacing,
+  .echo-scene-spacing + .echo-scene-spacing {
+    margin-top: 64px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .echo-scene-spacing + .echo-scene-spacing {
+    margin-top: 88px;
+  }
+}
+@media (min-width: 1024px) {
+  .echo-scene-spacing + .echo-scene-spacing {
+    margin-top: 120px;
+  }
+}
