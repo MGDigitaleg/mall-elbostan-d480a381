@@ -196,7 +196,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 boxShadow: "0 2px 10px rgba(249,115,22,0.25)",
               }}
             >
-              استفسر عن التأجير والشراء
+              استفسر عن الوحدات المتاحة
             </Button>
           </Link>
           <Link to="/contact" onClick={handleLinkClick} className="block">
