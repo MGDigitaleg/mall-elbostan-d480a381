@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Store, Map, ShoppingBag, ArrowLeft } from "lucide-react";
 
-import { echoFragments } from "./echoData";
-import { EchoPhrase } from "./EchoPhrase";
+import { echoFragments } from "@/components/market-echo/echoData";
+import { EchoPhrase } from "@/components/market-echo/EchoPhrase";
 import {
   FloatingParticles,
   PulseRings,
   ConnectingLines,
   QuoteMarks,
   ScanBeam,
-} from "./EchoEffects";
+} from "@/components/market-echo/EchoEffects";
 
 const features = [
   { icon: Store, label: "دليل محلات أوضح", desc: "كل محل بتفاصيله الكاملة في مكان واحد." },
