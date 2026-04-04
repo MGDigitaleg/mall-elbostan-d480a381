@@ -59,41 +59,41 @@ export function HeroSlider() {
       onMouseLeave={() => setIsPaused(false)}
     >
       {/* ── 4-image architectural collage background ── */}
-      <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 grid-rows-1">
+      <div className="absolute inset-0 grid grid-cols-2 md:grid-cols-4 grid-rows-1 gap-px" style={{ background: "#0a1628" }}>
         {heroImages.map((src, i) => (
           <div key={i} className="relative overflow-hidden">
             <img
               src={src}
               alt=""
               className="h-full w-full object-cover"
-              style={{ filter: "saturate(0.75) contrast(0.95)" }}
+              style={{ filter: "saturate(0.8) brightness(1.05) contrast(0.92)" }}
               loading={i < 2 ? "eager" : "lazy"}
             />
           </div>
         ))}
       </div>
 
-      {/* ── Overlay: lighter navy, allows architecture to show ── */}
+      {/* ── Overlay: reduced to let architecture breathe ── */}
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(165deg, hsla(218, 50%, 8%, 0.78) 0%, hsla(218, 45%, 10%, 0.72) 40%, hsla(218, 50%, 8%, 0.80) 100%)",
+          background: "linear-gradient(165deg, hsla(218, 50%, 8%, 0.62) 0%, hsla(218, 45%, 12%, 0.55) 45%, hsla(218, 50%, 8%, 0.65) 100%)",
         }}
       />
-      {/* Bottom fade for text readability */}
-      <div className="absolute inset-x-0 bottom-0 h-1/3" style={{ background: "linear-gradient(to top, hsla(218, 50%, 7%, 0.95), transparent)" }} />
-      {/* RTL side fade for right-side text */}
-      <div className="absolute inset-y-0 right-0 w-2/5 hidden md:block" style={{ background: "linear-gradient(to left, hsla(218, 50%, 7%, 0.5), transparent)" }} />
+      {/* Bottom fade — stronger for text readability */}
+      <div className="absolute inset-x-0 bottom-0 h-2/5" style={{ background: "linear-gradient(to top, hsla(218, 50%, 7%, 0.92), transparent)" }} />
+      {/* RTL side fade for right-side text readability */}
+      <div className="absolute inset-y-0 right-0 w-[45%] hidden md:block" style={{ background: "linear-gradient(to left, hsla(218, 50%, 7%, 0.55), transparent)" }} />
 
       {/* ── Subtle ambient accents ── */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/3 left-[15%] w-[400px] h-[400px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
-        <div className="absolute bottom-0 right-[25%] w-[300px] h-[300px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
+        <div className="absolute top-1/4 left-[12%] w-[350px] h-[350px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
+        <div className="absolute bottom-[10%] right-[20%] w-[250px] h-[250px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
       </div>
 
       {/* ── Grid texture ── */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.015]"
+        className="pointer-events-none absolute inset-0 opacity-[0.012]"
         style={{
           backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
           backgroundSize: "80px 80px",
