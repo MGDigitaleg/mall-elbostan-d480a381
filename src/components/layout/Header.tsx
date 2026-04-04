@@ -284,6 +284,14 @@ export function Header() {
           </Link>
 
           <div className="flex items-center justify-end gap-2">
+            {isKzPage && (
+              <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+                <ShoppingCart className="h-3.5 w-3.5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -left-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+                )}
+              </Link>
+            )}
             <Link to="/spin-win">
               <Button
                 size="sm"
