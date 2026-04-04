@@ -216,7 +216,7 @@ const Stores = () => {
                 </button>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
