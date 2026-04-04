@@ -14,6 +14,7 @@ import {
   ScanBeam,
 } from "@/components/market-echo/EchoEffects";
 import { EchoTimeline } from "@/components/market-echo/EchoTimeline";
+import { EchoStats } from "@/components/market-echo/EchoStats";
 
 const quoteCards = [
   {
@@ -366,6 +367,9 @@ export function MarketEchoSection() {
 
         {/* ── Historical Timeline ── */}
         <EchoTimeline />
+
+        {/* ── Stats ── */}
+        <EchoStats />
       </motion.div>
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-px z-10"
