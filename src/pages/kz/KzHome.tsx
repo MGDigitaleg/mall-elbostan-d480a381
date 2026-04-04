@@ -94,7 +94,7 @@ const KzHome = () => {
                 return (
                   <Link
                     key={cat.id}
-                    to={`/products?store=kasr-zero`}
+                    to={`/products?shop_name=kasr-zero`}
                     className="group flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
