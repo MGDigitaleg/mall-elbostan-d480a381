@@ -1,8 +1,12 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Compass, MapPin, Sparkles, Building2, ShoppingBag, Briefcase, FileText, Phone, Map } from "lucide-react";
+import {
+  Compass, MapPin, Sparkles, Building2, ShoppingBag, Briefcase,
+  FileText, Phone, Map, Tag, HelpCircle, Gamepad2, Store,
+} from "lucide-react";
 
 const navSections = [
   {
@@ -10,9 +14,10 @@ const navSections = [
     items: [
       { label: "الرئيسية", path: "/", icon: Building2 },
       { label: "عن المول", path: "/about", icon: Building2 },
-      { label: "المحلات", path: "/stores", icon: ShoppingBag },
+      { label: "المحلات", path: "/stores", icon: Store },
       { label: "المنتجات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },
+      { label: "العروض اليومية", path: "/daily-deals", icon: Tag },
     ],
   },
   {
@@ -28,6 +33,7 @@ const navSections = [
     items: [
       { label: "التأجير", path: "/leasing", icon: Briefcase },
       { label: "يوم الافتتاح", path: "/opening-day", icon: Sparkles },
+      { label: "أدر واربح", path: "/spin-win", icon: Gamepad2 },
       { label: "انضم للسوق", path: "/join-marketplace", icon: ShoppingBag },
       { label: "الوظائف", path: "/careers", icon: Briefcase },
     ],
@@ -36,6 +42,7 @@ const navSections = [
     title: "المعلومات",
     items: [
       { label: "المدونة", path: "/blog", icon: FileText },
+      { label: "الأسئلة الشائعة", path: "/faq", icon: HelpCircle },
       { label: "تواصل معنا", path: "/contact", icon: Phone },
     ],
   },
@@ -47,8 +54,16 @@ interface HeaderMenuSheetProps {
 }
 
 export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const handleLinkClick = () => {
+    // Small delay for visual feedback before closing
+    setTimeout(() => setOpen(false), 120);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent
         side="right"
@@ -57,7 +72,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
       >
         {/* Header */}
         <div
-          className="shrink-0 px-6 pt-6 pb-4"
+          className="shrink-0 px-6 pt-6 pb-5"
           style={{
             background: "linear-gradient(135deg, #071326 0%, #0B1B34 100%)",
           }}
@@ -74,7 +89,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
 
           {/* Quick Actions */}
           <div className="mt-4 grid grid-cols-2 gap-2">
-            <Link to="/map">
+            <Link to="/map" onClick={handleLinkClick}>
               <Button
                 className="h-11 w-full gap-2 rounded-xl text-[0.78rem] font-bold"
                 style={{
@@ -87,12 +102,13 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 الخريطة
               </Button>
             </Link>
-            <Link to="/spin-win">
+            <Link to="/spin-win" onClick={handleLinkClick}>
               <Button
                 className="h-11 w-full gap-2 rounded-xl text-[0.78rem] font-bold"
                 style={{
                   background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                   color: "#fff",
+                  boxShadow: "0 2px 12px rgba(37,99,235,0.3)",
                 }}
               >
                 <Sparkles className="h-4 w-4" />
@@ -102,16 +118,32 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
           </div>
         </div>
 
+        {/* Current page indicator */}
+        <div
+          className="shrink-0 mx-5 mt-4 mb-1 flex items-center gap-2 rounded-lg px-3 py-2"
+          style={{ background: "rgba(37,99,235,0.05)", border: "1px solid rgba(37,99,235,0.08)" }}
+        >
+          <div className="h-1.5 w-1.5 rounded-full" style={{ background: "#2563EB" }} />
+          <span className="text-[0.72rem] font-semibold" style={{ color: "#2563EB" }}>
+            {navSections
+              .flatMap((s) => s.items)
+              .find((item) => isActive(item.path))?.label ?? "الصفحة الحالية"}
+          </span>
+        </div>
+
         {/* Scrollable Nav */}
-        <div className="flex-1 overflow-y-auto px-5 py-5">
-          {navSections.map((section) => (
-            <div key={section.title} className="mb-5">
-              <p
-                className="mb-2 px-1 text-[0.68rem] font-bold tracking-[0.12em]"
-                style={{ color: "#94A3B8", textTransform: "uppercase" }}
-              >
-                {section.title}
-              </p>
+        <div className="flex-1 overflow-y-auto px-5 py-3">
+          {navSections.map((section, sIdx) => (
+            <div key={section.title} className={sIdx > 0 ? "mt-4" : ""}>
+              <div className="flex items-center gap-2 mb-2 px-1">
+                <span
+                  className="text-[0.66rem] font-bold tracking-[0.14em]"
+                  style={{ color: "#94A3B8", textTransform: "uppercase" }}
+                >
+                  {section.title}
+                </span>
+                <div className="flex-1 h-px" style={{ background: "#E2E8F0" }} />
+              </div>
               <nav className="grid gap-0.5">
                 {section.items.map((item) => {
                   const active = isActive(item.path);
@@ -120,6 +152,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                     <Link
                       key={item.path}
                       to={item.path}
+                      onClick={handleLinkClick}
                       className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 transition-all duration-200"
                       style={{
                         background: active ? "rgba(37,99,235,0.07)" : "transparent",
@@ -129,7 +162,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                       }}
                     >
                       <span
-                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-colors"
                         style={{
                           background: active ? "rgba(37,99,235,0.12)" : "rgba(7,19,38,0.04)",
                           color: active ? "#2563EB" : "#64748B",
@@ -138,6 +171,9 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                         <Icon className="h-4 w-4" />
                       </span>
                       {item.label}
+                      {active && (
+                        <div className="mr-auto h-1.5 w-1.5 rounded-full" style={{ background: "#2563EB" }} />
+                      )}
                     </Link>
                   );
                 })}
@@ -148,19 +184,29 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
 
         {/* Bottom CTA */}
         <div
-          className="shrink-0 px-6 py-4"
+          className="shrink-0 px-6 py-4 space-y-2"
           style={{ borderTop: "1px solid #E2E8F0" }}
         >
-          <Link to="/leasing" className="block">
+          <Link to="/leasing" onClick={handleLinkClick} className="block">
             <Button
               className="h-11 w-full rounded-xl text-[0.82rem] font-bold"
               style={{
                 background: "#F97316",
                 color: "#fff",
-                boxShadow: "0 2px 8px rgba(249,115,22,0.25)",
+                boxShadow: "0 2px 10px rgba(249,115,22,0.25)",
               }}
             >
               استفسر عن التأجير والشراء
+            </Button>
+          </Link>
+          <Link to="/contact" onClick={handleLinkClick} className="block">
+            <Button
+              variant="outline"
+              className="h-10 w-full rounded-xl text-[0.78rem] font-bold gap-1.5"
+              style={{ borderColor: "#E2E8F0", color: "#64748B" }}
+            >
+              <Phone className="h-3.5 w-3.5" />
+              تواصل معنا
             </Button>
           </Link>
         </div>
