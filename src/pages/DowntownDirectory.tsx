@@ -4,6 +4,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, Archive, HelpCircle, Filter } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
