@@ -8,9 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { ArrowRight, Plus, Pencil, Trash2, Search, Eye, Package, Image as ImageIcon, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { ArrowRight, Plus, Pencil, Trash2, Search, Eye, Package, Image as ImageIcon, ChevronDown, ChevronUp, ExternalLink, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import KzCsvImporter from "@/components/admin/KzCsvImporter";
 
 /* ── Types ── */
 interface KzProduct {
@@ -80,6 +81,7 @@ const AdminKzProducts = () => {
   const [showForm, setShowForm] = useState(false);
   const [editProduct, setEditProduct] = useState<KzProduct | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showCsvImport, setShowCsvImport] = useState(false);
 
   /* ── Product form state ── */
   const [formTitle, setFormTitle] = useState("");
@@ -321,11 +323,26 @@ const AdminKzProducts = () => {
             <h1 className="text-xl font-bold text-foreground">منتجات Kasr Zero</h1>
             <Badge variant="secondary" className="text-[0.65rem]">{filtered.length} منتج</Badge>
           </div>
-          <Button variant="cta" size="sm" onClick={() => openProductForm()}>
-            <Plus className="w-4 h-4 ml-1" /> إضافة منتج
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" className="gap-1.5" onClick={() => setShowCsvImport(true)}>
+              <Upload className="w-4 h-4" /> استيراد CSV
+            </Button>
+            <Button variant="cta" size="sm" onClick={() => openProductForm()}>
+              <Plus className="w-4 h-4 ml-1" /> إضافة منتج
+            </Button>
+          </div>
         </div>
       </header>
+
+      {/* CSV Import Dialog */}
+      <Dialog open={showCsvImport} onOpenChange={setShowCsvImport}>
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>استيراد منتجات من CSV</DialogTitle>
+          </DialogHeader>
+          <KzCsvImporter onClose={() => setShowCsvImport(false)} />
+        </DialogContent>
+      </Dialog>
 
       <main className="container py-6">
         {/* Search */}
