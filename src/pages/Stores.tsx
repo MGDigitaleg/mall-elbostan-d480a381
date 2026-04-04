@@ -152,9 +152,15 @@ const Stores = () => {
                 <X className="h-3 w-3" /> مسح التصنيف
               </button>
             )}
-          </div>
+          </motion.div>
 
-          <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"
+          >
             {primaryCategories.map((cat) => {
               const meta = categoryMeta[cat];
               const Icon = meta.icon;
