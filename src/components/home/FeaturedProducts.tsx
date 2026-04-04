@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, ShoppingBag, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
@@ -11,7 +12,7 @@ const sectionReveal = {
 };
 
 export function FeaturedProducts() {
-  const { data: products } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ["featured-products-home"],
     queryFn: async () => {
       const { data } = await supabase
@@ -24,7 +25,7 @@ export function FeaturedProducts() {
     },
   });
 
-  const hasProducts = products && products.length > 0;
+  const hasProducts = !isLoading && products && products.length > 0;
 
   return (
     <section className="py-8 md:py-10 min-h-[320px]" style={{ background: "#FAFAF8", contain: "layout style" }}>
@@ -42,7 +43,20 @@ export function FeaturedProducts() {
             </Link>
           </div>
 
-          {hasProducts ? (
+          {isLoading ? (
+            <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="flex flex-col rounded-xl border border-border bg-card overflow-hidden">
+                  <Skeleton className="aspect-square w-full" />
+                  <div className="p-3 space-y-2">
+                    <Skeleton className="h-3.5 w-3/4" />
+                    <Skeleton className="h-3 w-1/2" />
+                    <Skeleton className="h-4 w-1/3 mt-2" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : hasProducts ? (
             <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {products.map((product) => {
                 const store = (product as any).stores;
