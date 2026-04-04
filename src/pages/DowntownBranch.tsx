@@ -119,9 +119,12 @@ const DowntownBranch = () => (
       <div className="container max-w-5xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <p className="section-kicker mb-4">من داخل المول</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-            <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl">
-              <img src={downtownHeroDay} alt="واجهة مول البستان — وسط البلد" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <div className="col-span-2 md:col-span-2 row-span-2 overflow-hidden rounded-2xl">
+              <img src={downtownHeroDay} alt="واجهة مول البستان — وسط البلد نهاراً" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+            </div>
+            <div className="overflow-hidden rounded-2xl">
+              <img src={downtownHeroNight} alt="واجهة المول ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
               <img src={downtownGallery1} alt="المبنى من زاوية جانبية — نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />

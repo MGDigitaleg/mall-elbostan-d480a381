@@ -13,10 +13,10 @@ import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/Lo
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import ncHero1 from "@/assets/nc-hero-1.jpg";
-import ncHero2 from "@/assets/nc-hero-2.jpg";
-import ncHero3 from "@/assets/nc-hero-3.jpg";
-import ncHero4 from "@/assets/nc-hero-4.jpg";
+import ncHero1 from "@/assets/nc-hero-1-enhanced.jpg";
+import ncHero2 from "@/assets/nc-hero-2-enhanced.jpg";
+import ncHero3 from "@/assets/nc-hero-3-enhanced.jpg";
+import ncHero4 from "@/assets/nc-hero-4-enhanced.jpg";
 
 const heroSlides = [
   { src: ncHero1, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
@@ -165,7 +165,7 @@ const NewCairoBranch = () => {
                 <img src={ncHero1} alt="مدخل مول البستان — القاهرة الجديدة" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
               </div>
               <div className="overflow-hidden rounded-2xl">
-                <img src={ncHero2} alt="الواجهة الخارجية" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                <img src={ncHero2} alt="المبنى من الخارج" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
               </div>
               <div className="overflow-hidden rounded-2xl">
                 <img src={ncHero3} alt="التصميم الداخلي" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
