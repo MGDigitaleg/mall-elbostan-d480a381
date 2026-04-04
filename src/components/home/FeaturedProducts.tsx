@@ -32,8 +32,8 @@ export function FeaturedProducts() {
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mb-5 flex items-end justify-between gap-4">
             <div>
-              <p className="section-kicker">منتجات مميزة</p>
-              <h2 className="section-title">أحدث المنتجات من محلات المول.</h2>
+              <p className="section-kicker">من المحلات</p>
+              <h2 className="section-title">أحدث المنتجات.</h2>
             </div>
             <Link to="/products" className="hidden lg:inline-flex">
               <Button variant="ghost" className="gap-1.5 text-[0.78rem] font-bold text-primary hover:text-primary/80">
