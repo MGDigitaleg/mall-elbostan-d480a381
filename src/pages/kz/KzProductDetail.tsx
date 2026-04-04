@@ -73,7 +73,7 @@ const KzProductDetail = () => {
         <div className="container py-20 text-center">
           <ShoppingBag className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30" />
           <h1 className="text-[1.2rem] font-bold text-foreground">المنتج غير موجود</h1>
-          <Link to="/kz/products" className="mt-4 inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-primary hover:underline">
+          <Link to="/products" className="mt-4 inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-primary hover:underline">
             العودة للمنتجات <ArrowLeft className="h-4 w-4" />
           </Link>
         </div>
