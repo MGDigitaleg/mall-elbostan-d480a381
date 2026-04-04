@@ -81,7 +81,7 @@ const Contact = () => {
         kicker="تواصل معنا"
         kickerEn="Contact"
         title="تواصل مع فريق مول البستان"
-        subtitle="استفسار، تأجير، أو تعاون — الفريق جاهز."
+        subtitle="استفسار، تأجير، أو تعاون — نرد خلال يوم عمل."
         compact
       />
 
