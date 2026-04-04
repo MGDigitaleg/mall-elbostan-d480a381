@@ -69,14 +69,17 @@ function PageFallback() {
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const isImmersive = immersivePaths.some((p) => location.pathname === p);
   const hasDarkHero = darkHeroPages.some(
     (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
   );
 
+  const showChrome = !isAdmin && !isImmersive;
+
   return (
     <>
-      {!isAdmin && <Header />}
-      <main className={!isAdmin ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
+      {showChrome && <Header />}
+      <main className={showChrome ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
         <Suspense fallback={<PageFallback />}>
           <Routes>
             {/* Public */}
@@ -132,8 +135,8 @@ function AppLayout() {
           </Routes>
         </Suspense>
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFab />}
+      {showChrome && <Footer />}
+      {showChrome && <WhatsAppFab />}
     </>
   );
 }
