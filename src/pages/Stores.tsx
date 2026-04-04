@@ -136,7 +136,13 @@ const Stores = () => {
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="mb-7 flex items-end justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-7 flex items-end justify-between"
+          >
             <div>
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">تصفح حسب الفئة.</h2>
@@ -146,9 +152,15 @@ const Stores = () => {
                 <X className="h-3 w-3" /> مسح التصنيف
               </button>
             )}
-          </div>
+          </motion.div>
 
-          <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"
+          >
             {primaryCategories.map((cat) => {
               const meta = categoryMeta[cat];
               const Icon = meta.icon;
@@ -204,7 +216,7 @@ const Stores = () => {
                 </button>
               );
             })}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -282,7 +294,13 @@ const Stores = () => {
           </div>
 
           {/* Section header */}
-          <div className="mb-6 flex items-end justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.45 }}
+            className="mb-6 flex items-end justify-between"
+          >
             <div>
               <h2 className="text-[1.15rem] font-extrabold" style={{ color: "#F8FAFC" }}>
                 {selectedCategory || "جميع المحلات"}
@@ -297,7 +315,7 @@ const Stores = () => {
                 <span>{activeCount} نشط من {totalStores}</span>
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Store grid */}
           {isLoading ? (
@@ -319,7 +337,12 @@ const Stores = () => {
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
       <section className="relative overflow-hidden py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
             <div className="pointer-events-none absolute left-1/3 top-1/2 h-[200px] w-[300px] -translate-y-1/2 rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-[180px] w-[180px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
             <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -346,7 +369,7 @@ const Stores = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </MainLayout>
@@ -400,9 +423,10 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.025, 0.2), duration: 0.4 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ delay: Math.min(index * 0.04, 0.25), duration: 0.45, ease: "easeOut" }}
     >
       <Link
         to={`/stores/${store.slug}`}
