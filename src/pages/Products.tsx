@@ -105,7 +105,7 @@ const Products = () => {
         ]}
         compact
       >
-      </section>
+      </PageHero>
 
       <div className="band-primary" />
 
