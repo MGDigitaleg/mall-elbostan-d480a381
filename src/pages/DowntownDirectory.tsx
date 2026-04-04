@@ -182,7 +182,7 @@ const DowntownDirectory = () => {
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setSelectedCategory(cat)}
+                  onClick={() => handleFilterChange(setSelectedCategory, cat)}
                   className={`rounded-lg px-3 py-1.5 text-[0.72rem] font-medium transition-all ${
                     selectedCategory === cat
                       ? "bg-primary text-primary-foreground shadow-sm"
