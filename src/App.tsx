@@ -1,6 +1,6 @@
 import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes, useLocation, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
@@ -38,9 +38,8 @@ const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
 const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-/* ── Kasr Zero pages (detail + cart only — listing is unified under /products) ── */
+/* ── Kasr Zero pages ── */
 const KzHome = lazy(() => import("./pages/kz/KzHome"));
-const KzProductDetail = lazy(() => import("./pages/kz/KzProductDetail"));
 const KzCart = lazy(() => import("./pages/kz/KzCart"));
 
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
@@ -70,6 +69,12 @@ function PageFallback() {
       <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
     </div>
   );
+}
+
+/** Redirect /kz/products/:slug → /products/:slug */
+function KzSlugRedirect() {
+  const params = useParams();
+  return <Navigate to={`/products/${params.slug}`} replace />;
 }
 
 function AppLayout() {
@@ -117,9 +122,9 @@ function AppLayout() {
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
-            <Route path="/kz/products" element={<Navigate to="/products?store=kasr-zero" replace />} />
-            <Route path="/kz/products/:slug" element={<KzProductDetail />} />
-            <Route path="/kz/category/:slug" element={<Navigate to="/products?store=kasr-zero" replace />} />
+            <Route path="/kz/products" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
+            <Route path="/kz/products/:slug" element={<KzSlugRedirect />} />
+            <Route path="/kz/category/:slug" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
             <Route path="/kz/search" element={<Navigate to="/products" replace />} />
             <Route path="/kz/cart" element={<KzCart />} />
 

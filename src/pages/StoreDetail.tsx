@@ -406,7 +406,7 @@ const StoreDetail = () => {
                           <p className="text-[0.66rem] text-muted-foreground">{kzProducts.length} منتج متوفر</p>
                         </div>
                       </div>
-                      <Link to="/products?store=kasr-zero"
+                      <Link to="/products?shop_name=kasr-zero"
                             className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
                         تصفح المتجر <ChevronLeft className="h-3 w-3" />
                       </Link>
@@ -416,7 +416,7 @@ const StoreDetail = () => {
                         const defaultVar = kp.kz_product_variants?.find((v: any) => v.is_default) ?? kp.kz_product_variants?.[0];
                         const mainImg = kp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                         return (
-                          <Link key={kp.id} to={`/kz/products/${kp.slug}`}
+                          <Link key={kp.id} to={`/products/${kp.slug}`}
                                 className="group flex flex-col bg-card p-4 transition-colors hover:bg-muted/20">
                             <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white">
                               {mainImg ? (

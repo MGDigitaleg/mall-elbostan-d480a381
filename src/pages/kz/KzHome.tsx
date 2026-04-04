@@ -65,12 +65,12 @@ const KzHome = () => {
               أحدث الأجهزة الإلكترونية بأسعار تنافسية — لابتوبات، هواتف، شاشات، وإكسسوارات.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link to="/products?store=kasr-zero">
+              <Link to="/products?shop_name=kasr-zero">
                 <Button className="h-11 gap-2 rounded-xl px-6 text-[0.88rem] font-bold" style={{ background: "hsl(var(--primary))", color: "#fff" }}>
                   <ShoppingBag className="h-4 w-4" /> تصفّح المنتجات
                 </Button>
               </Link>
-              <Link to="/products?store=kasr-zero">
+              <Link to="/products?shop_name=kasr-zero">
                 <Button variant="outline" className="h-11 gap-2 rounded-xl px-6 text-[0.88rem]" style={{ borderColor: "#ffffff20", background: "#ffffff08", color: "#CBD5E1" }}>
                   <Search className="h-4 w-4" /> ابحث عن منتج
                 </Button>
@@ -94,7 +94,7 @@ const KzHome = () => {
                 return (
                   <Link
                     key={cat.id}
-                    to={`/products?store=kasr-zero`}
+                    to={`/products?shop_name=kasr-zero`}
                     className="group flex items-center gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
                   >
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
@@ -120,7 +120,7 @@ const KzHome = () => {
               <p className="text-[0.72rem] font-bold uppercase tracking-wider text-primary">منتجات مميزة</p>
               <h2 className="mt-1 text-[1.2rem] font-extrabold text-foreground">الأكثر طلبًا</h2>
             </div>
-            <Link to="/products?store=kasr-zero" className="flex items-center gap-1.5 text-[0.78rem] font-bold text-primary hover:underline">
+            <Link to="/products?shop_name=kasr-zero" className="flex items-center gap-1.5 text-[0.78rem] font-bold text-primary hover:underline">
               عرض الكل <ArrowLeft className="h-3.5 w-3.5" />
             </Link>
           </div>
@@ -145,7 +145,7 @@ const KzHome = () => {
                 return (
                   <Link
                     key={product.id}
-                    to={`/kz/products/${product.slug}`}
+                    to={`/products/${product.slug}`}
                     className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md"
                   >
                     <div className="relative aspect-square overflow-hidden bg-white">
