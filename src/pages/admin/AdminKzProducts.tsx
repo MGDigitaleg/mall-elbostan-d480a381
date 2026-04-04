@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Plus, Pencil, Trash2, Search, Eye, Package, Image as ImageIcon, ChevronDown, ChevronUp, ExternalLink, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import KzCsvImporter from "@/components/admin/KzCsvImporter";
 
 /* ── Types ── */
 interface KzProduct {
