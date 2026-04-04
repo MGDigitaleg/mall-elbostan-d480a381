@@ -142,7 +142,6 @@ export function DealsTeaser() {
                 <p className="mx-auto mt-1.5 max-w-[24rem] text-[0.78rem] leading-[1.65] light-body">
                   عروض حصرية من محلات المول مع الافتتاح الكبير.
                 </p>
-                </p>
                 <div className="mt-4 flex flex-wrap justify-center gap-2.5">
                   <Link to="/daily-deals">
                     <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.76rem]">
