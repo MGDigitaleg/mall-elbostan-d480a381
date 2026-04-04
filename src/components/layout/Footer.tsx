@@ -7,32 +7,32 @@ const footerColumns = [
   {
     title: "المول",
     links: [
-      { label: "عن المول", path: "/about" },
+      { label: "عن البستان", path: "/about" },
       { label: "فرع وسط البلد", path: "/downtown-branch" },
       { label: "دليل وسط البلد", path: "/downtown-directory" },
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
-      { label: "المحلات", path: "/stores" },
+      { label: "دليل المحلات", path: "/stores" },
       { label: "الخريطة التفاعلية", path: "/map" },
     ],
   },
   {
-    title: "السوق",
+    title: "السوق والخدمات",
     links: [
-      { label: "المنتجات", path: "/products" },
+      { label: "منتجات المحلات", path: "/products" },
       { label: "انضم كتاجر", path: "/join-marketplace" },
       { label: "العروض اليومية", path: "/daily-deals" },
-      { label: "التأجير", path: "/leasing" },
+      { label: "الوحدات المتاحة", path: "/leasing" },
       { label: "يوم الافتتاح", path: "/opening-day" },
     ],
   },
   {
-    title: "المعلومات",
+    title: "تواصل ومعلومات",
     links: [
       { label: "الأسئلة الشائعة", path: "/faq" },
       { label: "المدونة", path: "/blog" },
-      { label: "الوظائف", path: "/careers" },
+      { label: "فرص العمل", path: "/careers" },
       { label: "تواصل معنا", path: "/contact" },
-      { label: "سياسة الخصوصية", path: "/privacy" },
+      { label: "الخصوصية", path: "/privacy" },
     ],
   },
 ];
