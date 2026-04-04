@@ -12,7 +12,7 @@ const sectionReveal = {
 };
 
 export function DealsTeaser() {
-  const { data: deals } = useQuery({
+  const { data: deals, isLoading } = useQuery({
     queryKey: ["home-deals"],
     queryFn: async () => {
       const { data } = await supabase
@@ -25,7 +25,7 @@ export function DealsTeaser() {
     },
   });
 
-  const hasDeals = deals && deals.length > 0;
+  const hasDeals = !isLoading && deals && deals.length > 0;
 
   return (
     <section className="py-7 md:py-9 bg-background min-h-[200px]" style={{ contain: "layout style" }}>
