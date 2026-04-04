@@ -336,10 +336,10 @@ const NewCairoBranch = () => {
             </div>
 
             <h2 className="text-[1.2rem] md:text-[1.5rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-              المول جاهز — اكتشفه الآن.
+              ابدأ من هنا.
             </h2>
             <p className="mt-2 text-[0.84rem] max-w-sm mx-auto" style={{ color: "#94A3B8" }}>
-              خريطة تفاعلية، دليل محلات، وسوق منتجات — كل شيء في مكان واحد.
+              دليل المحلات، الخريطة التفاعلية، ومنتجات المحلات — كل شيء في مكان واحد.
             </p>
 
             {/* Contact cards */}

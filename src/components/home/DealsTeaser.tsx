@@ -140,8 +140,8 @@ export function DealsTeaser() {
                 <Tag className="mx-auto mb-3 h-8 w-8 text-primary/40" />
                 <h3 className="text-[0.9rem] font-bold light-heading">العروض تبدأ مع الافتتاح</h3>
                 <p className="mx-auto mt-1.5 max-w-[24rem] text-[0.78rem] leading-[1.65] light-body">
-                  عروض حصرية ومميزة من محلات المول ستتوفر مع الافتتاح الكبير.
-                  تابعنا لتكون أول من يعرف.
+                  عروض حصرية من محلات المول مع الافتتاح الكبير.
+                </p>
                 </p>
                 <div className="mt-4 flex flex-wrap justify-center gap-2.5">
                   <Link to="/daily-deals">

@@ -118,10 +118,10 @@ const Leasing = () => {
           <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
                       className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: MapPin, title: "موقع محوري", desc: "القاهرة الجديدة — حركة مرور مستهدفة." },
-              { icon: Users, title: "جمهور بنيّة شراء", desc: "زوّار بقرار شراء واضح." },
-              { icon: Layers, title: "منظومة متكاملة", desc: "ستة تخصصات تقنية تحت سقف واحد." },
-              { icon: TrendingUp, title: "نمو مخطّط", desc: "التواجد المبكّر يمنحك أفضلية." },
+              { icon: MapPin, title: "موقع محوري", desc: "في قلب التجمع الخامس." },
+              { icon: Users, title: "جمهور بنيّة شراء", desc: "زائر يبحث عن منتج محدد." },
+              { icon: Layers, title: "ستة تخصصات", desc: "فئات تقنية تكمّل بعضها." },
+              { icon: TrendingUp, title: "التواجد المبكّر", desc: "أفضلية للأوائل." },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeChild}
                           className="rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/20 hover:shadow-sm">

@@ -8,8 +8,8 @@ export function OpeningHero() {
     <PageHero
       kicker="يوم الافتتاح"
       kickerEn="1 مايو 2026"
-      title={<>الافتتاح الكبير<span className="block mt-1 text-primary">من الترقب إلى الحضور</span></>}
-      subtitle="الموعد، الفعاليات، وآلية المشاركة في المكافآت — كل ما تحتاج معرفته قبل يوم الافتتاح."
+      title={<>الافتتاح الكبير<span className="block mt-1 text-primary">كل ما تحتاج معرفته.</span></>}
+      subtitle="الموعد، الفعاليات، والمكافآت — خطّط لزيارتك من الآن."
       ctas={[
         { label: "أدر واربح الآن", to: "/spin-win", icon: Sparkles },
         { label: "خريطة المول", to: "/map", icon: MapPin },
