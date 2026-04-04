@@ -7,17 +7,12 @@ import { motion } from "framer-motion";
 import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
-import downtownHero1 from "@/assets/downtown-hero-1.jpg";
-import downtownHero5 from "@/assets/downtown-hero-5.jpg";
-import downtownHero6 from "@/assets/downtown-hero-6.jpg";
-import downtownHero7 from "@/assets/downtown-hero-7.jpg";
-import downtownHero8 from "@/assets/downtown-hero-8.jpg";
+import downtownHeroDay from "@/assets/downtown-hero-enhanced.jpg";
+import downtownHeroNight from "@/assets/downtown-hero-night.jpg";
 
-/* 3 distinct slides: wide exterior, street angle, interior corridor */
 const heroSlides = [
-  { src: downtownHero1, alt: "واجهة مول البستان التجاري — وسط البلد" },
-  { src: downtownHero5, alt: "مول البستان — الواجهة الرئيسية نهاراً" },
-  { src: downtownHero6, alt: "داخل المول — محلات التقنية والإلكترونيات" },
+  { src: downtownHeroDay, alt: "واجهة مول البستان التجاري — وسط البلد نهاراً" },
+  { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلاً" },
 ];
 
 const sectionReveal = {
