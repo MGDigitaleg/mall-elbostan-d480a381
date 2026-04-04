@@ -294,7 +294,13 @@ const Stores = () => {
           </div>
 
           {/* Section header */}
-          <div className="mb-6 flex items-end justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.45 }}
+            className="mb-6 flex items-end justify-between"
+          >
             <div>
               <h2 className="text-[1.15rem] font-extrabold" style={{ color: "#F8FAFC" }}>
                 {selectedCategory || "جميع المحلات"}
@@ -309,7 +315,7 @@ const Stores = () => {
                 <span>{activeCount} نشط من {totalStores}</span>
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Store grid */}
           {isLoading ? (
