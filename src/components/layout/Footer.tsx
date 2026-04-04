@@ -7,32 +7,32 @@ const footerColumns = [
   {
     title: "المول",
     links: [
-      { label: "عن المول", path: "/about" },
+      { label: "عن البستان", path: "/about" },
       { label: "فرع وسط البلد", path: "/downtown-branch" },
       { label: "دليل وسط البلد", path: "/downtown-directory" },
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
-      { label: "المحلات", path: "/stores" },
+      { label: "دليل المحلات", path: "/stores" },
       { label: "الخريطة التفاعلية", path: "/map" },
     ],
   },
   {
-    title: "السوق",
+    title: "السوق والخدمات",
     links: [
-      { label: "المنتجات", path: "/products" },
+      { label: "منتجات المحلات", path: "/products" },
       { label: "انضم كتاجر", path: "/join-marketplace" },
       { label: "العروض اليومية", path: "/daily-deals" },
-      { label: "التأجير", path: "/leasing" },
+      { label: "الوحدات المتاحة", path: "/leasing" },
       { label: "يوم الافتتاح", path: "/opening-day" },
     ],
   },
   {
-    title: "المعلومات",
+    title: "تواصل ومعلومات",
     links: [
       { label: "الأسئلة الشائعة", path: "/faq" },
       { label: "المدونة", path: "/blog" },
-      { label: "الوظائف", path: "/careers" },
+      { label: "فرص العمل", path: "/careers" },
       { label: "تواصل معنا", path: "/contact" },
-      { label: "سياسة الخصوصية", path: "/privacy" },
+      { label: "الخصوصية", path: "/privacy" },
     ],
   },
 ];
@@ -91,7 +91,7 @@ export function Footer() {
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.85] font-light" style={{ color: "#8896AB" }}>
-              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات منذ 1990.
+              سوق التقنية الأول في مصر — ثقة بناها السوق منذ ١٩٩٠.
             </p>
 
             {/* Social icons */}
@@ -224,7 +224,7 @@ export function Footer() {
         <div className="mt-9 border-t pt-6" style={{ borderColor: "#ffffff08" }}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
-              <p>مول البستان — وجهة تقنية مصرية راسخة</p>
+              <p>مول البستان — سوق التقنية منذ ١٩٩٠</p>
               <span className="hidden md:inline" style={{ color: "#2A3444" }}>|</span>
               <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
