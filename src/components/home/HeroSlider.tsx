@@ -8,7 +8,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import ncHero1 from "@/assets/nc-hero-1.jpg";
 import dtHero1 from "@/assets/downtown-hero-1.jpg";
 import ncHero3 from "@/assets/nc-hero-3.jpg";
-import mallBuildingHero from "@/assets/mall-building-hero.jpg";
+import downtownHeroNight from "@/assets/downtown-hero-night.jpg";
 
 /* 3 slides — each with ONE distinct full-bleed image */
 const slides = [
@@ -22,13 +22,13 @@ const slides = [
     ctaSecondary: { label: "الخريطة التفاعلية", to: "/map" },
   },
   {
-    image: mallBuildingHero,
-    alt: "مبنى مول البستان ليلاً",
-    kicker: "القاهرة الجديدة",
-    headline: "وجهة التقنية الجديدة.",
-    sub: "تصميم معماري مميز يجمع بين الحداثة والهوية — في قلب التجمع الخامس.",
-    cta: { label: "استكشف الفرع", to: "/new-cairo-branch", icon: Compass },
-    ctaSecondary: { label: "فرص التأجير", to: "/leasing" },
+    image: downtownHeroNight,
+    alt: "مول البستان — وسط البلد ليلاً",
+    kicker: "الأول في مصر",
+    headline: "من هنا بدأ السوق.",
+    sub: "أول مول متخصص في الإلكترونيات والتقنية في مصر — منذ ١٩٩٠ من قلب وسط البلد.",
+    cta: { label: "اعرف أكثر", to: "/downtown-branch", icon: Compass },
+    ctaSecondary: { label: "دليل المحلات", to: "/downtown-directory" },
   },
   {
     image: ncHero1,
