@@ -250,6 +250,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               ? brandBg
               : isSelected ? colors.selected : isHovered ? colors.hover : colors.base;
 
+            const hoverBrightness = hasBrand && isHovered ? "brightness(1.25)" : undefined;
+
             return (
               <motion.polygon
                 key={unit.id}
@@ -261,11 +263,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 }}
                 transition={{ duration: 0.2 }}
                 fill={baseFill}
-                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFF" : "#00000030") : stroke}
-                strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? 2.2 : 1.2}
-                filter={appliedFilter}
-                className="cursor-pointer outline-none"
-                style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFFFFFCC" : "#00000030") : stroke}
+                strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? (hasBrand ? 2.8 : 2.2) : 1.2}
+                filter={hoverBrightness ? undefined : appliedFilter}
+                style={{ 
+                  transition: "fill 0.2s, stroke 0.25s, stroke-width 0.25s, filter 0.25s",
+                  filter: hoverBrightness || undefined,
+                }}
                 onClick={() => onSelectUnit(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
