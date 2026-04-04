@@ -335,7 +335,7 @@ const About = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mx-auto max-w-[26rem] text-center">
             <p className="section-kicker dark-kicker">المرحلة التالية</p>
-            <h2 className="section-title dark-heading">من المول إلى المنصة الرقمية.</h2>
+            <h2 className="section-title dark-heading">من المول إلى سوق رقمي.</h2>
           </div>
 
           <p className="mx-auto mt-3 max-w-[28rem] text-center text-[0.88rem] leading-[1.85] dark-body">
