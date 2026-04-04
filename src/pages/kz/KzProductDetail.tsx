@@ -88,9 +88,8 @@ const KzProductDetail = () => {
         titleEn={product.title}
         description={product.seo_description || product.short_description || product.title}
         breadcrumbs={[
-          { name: "Kasr Zero", url: "/kz" },
-          { name: "المنتجات", url: "/kz/products" },
-          ...(product.kz_categories ? [{ name: product.kz_categories.name, url: `/kz/category/${product.kz_categories.slug}` }] : []),
+          { name: "المنتجات", url: "/products" },
+          { name: "Kasr Zero", url: "/products?store=kasr-zero" },
           { name: product.title, url: `/kz/products/${product.slug}` },
         ]}
       />
