@@ -183,9 +183,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
             <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
-                { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور بالحالة الفعلية.", active: true },
-                { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح منتجات المحلات.", active: true },
-                { n: "03", icon: Store, label: "الماركتبليس", desc: "شراء وسلة ودفع — قريبا.", active: false },
+                { n: "01", icon: Compass, label: "الخريطة التفاعلية", desc: "كل دور بحالته الفعلية.", active: true },
+                { n: "02", icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح واطلب مباشرة.", active: true },
+                { n: "03", icon: Store, label: "السوق الإلكتروني", desc: "طلب ودفع — قريبًا.", active: false },
               ].map((item) => (
                 <div key={item.n} className="heritage-surface rounded-xl p-5 text-center transition-all hover:scale-[1.01]">
                   <span className="font-poppins text-[0.6rem] font-bold dark-kicker">{item.n}</span>
