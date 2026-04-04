@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logoWhite from "@/assets/logo-white.svg";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ExternalLink } from "lucide-react";
+import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp } from "lucide-react";
 
 const footerColumns = [
   {
@@ -45,7 +45,7 @@ const socialLinks = [
 
 function TikTokIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} width="18" height="18">
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} width="15" height="15">
       <path d="M16.6 5.82A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.592 2.592 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z" />
     </svg>
   );
@@ -58,12 +58,8 @@ function SocialIcon({ children, href, label }: { children: React.ReactNode; href
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="group flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-105"
-      style={{
-        background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.08))",
-        border: "1px solid rgba(255,255,255,0.06)",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-      }}
+      className="group flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110"
+      style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}
     >
       {children}
     </a>
@@ -79,9 +75,13 @@ export function Footer() {
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
       {/* Ambient glow */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
+        <div className="absolute bottom-0 right-[15%] h-[250px] w-[250px] rounded-full opacity-[0.02]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
+        <div className="absolute inset-0 opacity-[0.012]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+      </div>
 
-      <div className="container relative pt-14 pb-6 md:pt-18 md:pb-8 lg:pt-20">
+      <div className="container relative pt-14 pb-6 md:pt-16 md:pb-8 lg:pt-20">
         {/* ── TOP: Brand + Navigation ── */}
         <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 xl:gap-12">
           {/* Brand column */}
@@ -95,14 +95,14 @@ export function Footer() {
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-2.5 pt-1">
+            <div className="flex items-center gap-2 pt-1">
               {socialLinks.map((s) => (
                 <SocialIcon key={s.label} href={s.href} label={s.label}>
-                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#8896AB" }} />
+                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} />
                 </SocialIcon>
               ))}
               <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="TikTok">
-                <span className="transition-colors group-hover:text-white" style={{ color: "#8896AB" }}>
+                <span className="transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }}>
                   <TikTokIcon />
                 </span>
               </SocialIcon>
@@ -117,8 +117,8 @@ export function Footer() {
               </Link>
               <Link to="/leasing">
                 <Button
-                  className="h-10 rounded-xl px-5 text-[0.78rem] font-bold transition-all duration-300 hover:border-white/20 hover:bg-white/10"
-                  style={{ borderColor: "rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.04)", color: "#CBD5E1", border: "1px solid rgba(255,255,255,0.1)" }}
+                  className="h-10 rounded-xl px-5 text-[0.78rem] font-bold transition-all duration-300 hover:bg-white/[0.08]"
+                  style={{ background: "#ffffff06", color: "#CBD5E1", border: "1px solid #ffffff12" }}
                 >
                   التأجير والشراء
                 </Button>
@@ -129,21 +129,19 @@ export function Footer() {
           {/* Navigation columns */}
           {footerColumns.map((col) => (
             <div key={col.title}>
-              <h4
-                className="mb-4 text-[0.68rem] font-bold tracking-[0.14em] uppercase"
-                style={{ color: "#CDBB9A" }}
-              >
-                {col.title}
-              </h4>
-              <ul className="space-y-3">
+              <div className="mb-4 flex items-center gap-2">
+                <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
+                <h4 className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" style={{ color: "#CDBB9A" }}>
+                  {col.title}
+                </h4>
+              </div>
+              <ul className="space-y-2.5">
                 {col.links.map((link) => (
                   <li key={link.path}>
                     <Link
                       to={link.path}
-                      className="group/link flex items-center text-[0.8rem] transition-all duration-200"
+                      className="text-[0.8rem] transition-colors duration-200 hover:text-white"
                       style={{ color: "#7C8BA1" }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = "#E2E8F0"; e.currentTarget.style.paddingInlineEnd = "4px"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = "#7C8BA1"; e.currentTarget.style.paddingInlineEnd = "0"; }}
                     >
                       {link.label}
                     </Link>
@@ -156,34 +154,30 @@ export function Footer() {
 
         {/* ── CONTACT STRIP ── */}
         <div
-          className="mt-10 rounded-2xl px-5 py-4 flex flex-wrap items-center gap-6 md:gap-10"
-          style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.025), rgba(255,255,255,0.04))",
-            border: "1px solid rgba(255,255,255,0.06)",
-            backdropFilter: "blur(8px)",
-          }}
+          className="mt-10 rounded-2xl px-5 py-4 grid gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8"
+          style={{ background: "#ffffff04", border: "1px solid #ffffff0A", backdropFilter: "blur(8px)" }}
         >
-          <span className="text-[0.68rem] font-bold tracking-[0.12em] uppercase" style={{ color: "#CDBB9A" }}>
+          <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase sm:col-span-3 md:col-auto" style={{ color: "#CDBB9A" }}>
             تواصل معنا
           </span>
 
           <a href="mailto:info@mallelbostan.com" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
-              <Mail className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
+              <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
             </span>
-            info@mallelbostan.com
+            <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
           </a>
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
-              <MapPin className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }}>
+              <MapPin className="h-3.5 w-3.5" style={{ color: "#22D3EE" }} />
             </span>
             التجمع الخامس، القاهرة الجديدة
           </span>
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg" style={{ background: "rgba(37,99,235,0.12)" }}>
-              <MapPin className="h-3.5 w-3.5" style={{ color: "#4B8BFF" }} />
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#F9731615", border: "1px solid #F9731628" }}>
+              <MapPin className="h-3.5 w-3.5" style={{ color: "#FB923C" }} />
             </span>
             18 شارع البستان، باب اللوق، القاهرة
           </span>
@@ -194,7 +188,7 @@ export function Footer() {
           <span className="text-[0.74rem] font-medium" style={{ color: "#506078" }}>
             تطبيق المول قريبا
           </span>
-          <div className="flex gap-2.5">
+          <div className="flex gap-2">
             {[
               {
                 label: "App Store",
@@ -216,12 +210,8 @@ export function Footer() {
               <a
                 key={store.label}
                 href="#"
-                className="flex h-10 items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium transition-all duration-300 hover:border-white/15 hover:bg-white/8"
-                style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(255,255,255,0.07)",
-                  color: "#6B7A8D",
-                }}
+                className="flex h-10 items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium transition-all duration-300 hover:bg-white/[0.06]"
+                style={{ background: "#ffffff04", border: "1px solid #ffffff0A", color: "#6B7A8D" }}
               >
                 {store.icon}
                 {store.label}
@@ -231,25 +221,19 @@ export function Footer() {
         </div>
 
         {/* ── BOTTOM BAR ── */}
-        <div className="mt-9 border-t pt-6" style={{ borderColor: "rgba(255,255,255,0.05)" }}>
+        <div className="mt-9 border-t pt-6" style={{ borderColor: "#ffffff08" }}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
               <p>مول البستان — وجهة تقنية مصرية راسخة</p>
               <span className="hidden md:inline" style={{ color: "#2A3444" }}>|</span>
-              <span>© {new Date().getFullYear()} جميع الحقوق محفوظة</span>
+              <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
             <div className="flex items-center gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
               <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط والأحكام</Link>
               <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
               <span>
                 Developed by{" "}
-                <a
-                  href="https://mg.digital"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium transition-colors duration-200 hover:text-slate-300"
-                  style={{ color: "#506078" }}
-                >
+                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
                   MG Digital
                 </a>
               </span>
@@ -261,12 +245,8 @@ export function Footer() {
       {/* Scroll to top */}
       <button
         onClick={scrollToTop}
-        className="absolute left-5 bottom-6 flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:bg-white/10"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.08))",
-          border: "1px solid rgba(255,255,255,0.06)",
-          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-        }}
+        className="absolute left-5 bottom-6 flex h-9 w-9 items-center justify-center rounded-xl transition-all duration-300 hover:scale-110 hover:bg-white/[0.08]"
+        style={{ background: "#ffffff06", border: "1px solid #ffffff0D", boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }}
         aria-label="العودة للأعلى"
       >
         <ArrowUp className="h-4 w-4" style={{ color: "#6B7A8D" }} />
