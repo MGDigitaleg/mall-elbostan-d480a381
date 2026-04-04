@@ -117,6 +117,14 @@ function AppLayout() {
             <Route path="/reward-terms" element={<RewardTerms />} />
             <Route path="/market-echo" element={<MarketEcho />} />
 
+            {/* Kasr Zero */}
+            <Route path="/kz" element={<KzHome />} />
+            <Route path="/kz/products" element={<KzProducts />} />
+            <Route path="/kz/products/:slug" element={<KzProductDetail />} />
+            <Route path="/kz/category/:slug" element={<KzCategory />} />
+            <Route path="/kz/search" element={<KzSearch />} />
+            <Route path="/kz/cart" element={<KzCart />} />
+
             {/* Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
