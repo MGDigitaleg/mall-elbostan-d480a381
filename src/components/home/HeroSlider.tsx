@@ -22,6 +22,15 @@ const slides = [
     ctaSecondary: { label: "الخريطة التفاعلية", to: "/map" },
   },
   {
+    image: mallBuildingNight,
+    alt: "مبنى مول البستان ليلاً",
+    kicker: "القاهرة الجديدة",
+    headline: "وجهة التقنية الجديدة.",
+    sub: "تصميم معماري مميز يجمع بين الحداثة والهوية — في قلب التجمع الخامس.",
+    cta: { label: "استكشف الفرع", to: "/new-cairo-branch", icon: Compass },
+    ctaSecondary: { label: "فرص التأجير", to: "/leasing" },
+  },
+  {
     image: ncHero1,
     alt: "مدخل مول البستان — فرع القاهرة الجديدة",
     kicker: "التجمع الخامس",
