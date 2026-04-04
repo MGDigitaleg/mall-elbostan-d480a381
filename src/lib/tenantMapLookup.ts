@@ -32,6 +32,41 @@ export const UNIT_TENANT_NAMES: Record<string, string> = {
   "S-09": "Compu Marts",
 };
 
+/** Brand background colors for unit polygon fills — extracted from each tenant's branding */
+export const UNIT_TENANT_BG_COLORS: Record<string, string> = {
+  "G-01": "#1A1A2E",   // Static – dark navy
+  "G-02": "#F5F0E8",   // Sharaf – warm cream
+  "G-03": "#0055A4",   // 2B – brand blue
+  "G-05": "#1B3A5C",   // Go Plus – dark blue
+  "G-07": "#1A6B3C",   // Al Hoda – green
+  "G-08": "#C8A96E",   // Al Sahaba – gold
+  "G-09": "#B22222",   // Red Line – red
+  "G-11": "#2C2C2C",   // Egypt Laptop – dark gray
+  "G-12": "#3A3A3A",   // Print Show – charcoal
+  "G-13": "#1C1C1C",   // HK – near black
+  "G-14": "#FFFFFF",   // WiFi – white
+  "G-16": "#2B4570",   // Kareem Store – navy
+  "G-17": "#E8E0D0",   // Kasr Zero – light cream
+  "F-04": "#0D0D0D",   // Infinity – black
+  "F-06": "#E8DDD0",   // Express Home – beige
+  "F-07": "#1A3A5C",   // El Badr – dark blue
+  "F-08": "#1A3A5C",   // El Badr
+  "F-09": "#1A3A5C",   // El Badr
+  "F-10": "#222222",   // Time Tech – dark
+  "F-11": "#1E3A5F",   // Prime Technology – navy
+  "F-13": "#2A2A2A",   // Digital Plus – dark
+  "F-14": "#FF6B00",   // Spark – orange
+  "F-15": "#1A1A2E",   // Games to Egypt – dark navy
+  "F-17": "#E0D8C8",   // XPRS – cream
+  "S-01": "#1B2838",   // Info Max – dark blue
+  "S-05": "#2C2C2C",   // Mix & Apex – dark
+  "S-06": "#0A0A0A",   // i7 – black
+  "S-07": "#1A4A2E",   // Compu Marts – dark green
+  "S-08": "#1A4A2E",   // Compu Marts
+  "S-09": "#1A4A2E",   // Compu Marts
+  "S-10": "#D4272E",   // Quick Fix – red
+};
+
 export const UNIT_TENANT_LOGOS: Record<string, string> = {
   "G-01": "/logos/tenants/static.png",
   "G-02": "/logos/tenants/sharaf.png",
