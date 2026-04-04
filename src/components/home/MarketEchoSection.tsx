@@ -213,65 +213,19 @@ export function MarketEchoSection() {
               </motion.div>
             </motion.div>
 
-            {/* Left column (RTL): Features + CTA */}
+            {/* Left column (RTL): CTA */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
               className="mt-10 lg:mt-0"
             >
-              <div className="space-y-4">
-                {features.map((feat, i) => (
-                  <motion.div
-                    key={feat.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{
-                      duration: 0.5,
-                      delay: 2.4 + i * 0.25,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="group flex items-start gap-4 rounded-xl p-4 transition-all duration-300 hover:bg-white/[0.03]"
-                    style={{ border: "1px solid transparent" }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "#ffffff0D";
-                      e.currentTarget.style.transform = "translateX(-4px)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = "transparent";
-                      e.currentTarget.style.transform = "translateX(0)";
-                    }}
-                  >
-                    <div
-                      className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-all duration-300 group-hover:shadow-lg"
-                      style={{ background: "#2563EB10", border: "1px solid #2563EB22" }}
-                    >
-                      <feat.icon
-                        className="h-4 w-4 transition-colors"
-                        style={{ color: "#60A5FA" }}
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[0.9rem] font-bold" style={{ color: "#F1F5F9" }}>
-                        {feat.label}
-                      </p>
-                      <p
-                        className="mt-1 text-[0.78rem] leading-[1.7]"
-                        style={{ color: "#7C8BA1" }}
-                      >
-                        {feat.desc}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
               {/* Closing line */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.5, delay: 3.2 }}
-                className="mt-6 text-[0.78rem] leading-[1.85] pr-4"
+                transition={{ duration: 0.5, delay: 2.4 }}
+                className="text-[0.78rem] leading-[1.85] pr-4"
                 style={{ color: "#64748B" }}
               >
                 ما كان الناس يرددونه قديمًا، نترجمه اليوم إلى تجربة أسهل وأوضح داخل الموقع.
@@ -281,7 +235,7 @@ export function MarketEchoSection() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 3.4 }}
+                transition={{ duration: 0.5, delay: 2.6 }}
                 className="mt-6"
               >
                 <Link to="/stores">
