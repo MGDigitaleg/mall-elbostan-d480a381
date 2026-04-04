@@ -246,7 +246,7 @@ const DowntownDirectory = () => {
             </div>
           ) : (
             <div className="grid gap-3 sm:grid-cols-2">
-              {filtered.map((m) => {
+              {visibleMerchants.map((m) => {
                 const status = statusConfig[m.verification_status] ?? statusConfig["Unknown status"];
                 const StatusIcon = status.icon;
                 return (
@@ -300,6 +300,19 @@ const DowntownDirectory = () => {
                 );
               })}
             </div>
+
+            {/* Load More */}
+            {hasMore && !isLoading && (
+              <div className="mt-6 text-center">
+                <Button
+                  variant="outline"
+                  onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                  className="h-10 rounded-xl border-border px-8 text-[0.82rem] font-bold hover:bg-secondary"
+                >
+                  عرض المزيد ({filtered.length - visibleCount} محل متبقي)
+                </Button>
+              </div>
+            )}
           )}
 
           {filtered.length === 0 && !isLoading && (
