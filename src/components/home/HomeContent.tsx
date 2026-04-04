@@ -122,10 +122,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
                   <span className="text-[0.7rem] font-bold" style={{ color: "#F97316" }}>حملة الافتتاح الكبرى</span>
                 </div>
                 <h2 className="text-[1.2rem] md:text-[1.45rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-                  سجّل. ادخل السحب. احضر واستلم.
+                  أدر العجلة واربح يوم الافتتاح.
                 </h2>
                 <p className="mt-2.5 text-[0.84rem] leading-[1.7] max-w-lg mx-auto" style={{ color: "#94A3B8" }}>
-                  شارك في مسابقة الافتتاح واحصل على فرصة للفوز بجوائز حقيقية من محلات المول.
+                  جوائز حقيقية من محلات المول — سجّل الآن واحضر يوم الافتتاح لاستلام جائزتك.
                 </p>
               </div>
 
