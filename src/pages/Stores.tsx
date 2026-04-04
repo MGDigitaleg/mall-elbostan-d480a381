@@ -23,7 +23,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import { LoadingGrid } from "@/components/ui/loading-states";
+import { Skeleton } from "@/components/ui/skeleton";
 
 /* ─── category metadata ─── */
 const categoryMeta: Record<string, { icon: typeof Store; label: string; color: string }> = {
