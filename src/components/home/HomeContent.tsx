@@ -21,7 +21,7 @@ import { HeroSlider } from "@/components/home/HeroSlider";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { DowntownTeaser } from "@/components/home/DowntownTeaser";
-import { MarketMemorySection } from "@/components/home/MarketMemorySection";
+import { MarketEchoSection } from "@/components/home/MarketEchoSection";
 import { DealsTeaser } from "@/components/home/DealsTeaser";
 import { FeaturedStores } from "@/components/home/FeaturedStores";
 
