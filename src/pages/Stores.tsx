@@ -96,7 +96,7 @@ const Stores = () => {
         breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
       />
 
-      {/* ═══════════ HERO — Unified PageHero ═══════════ */}
+      {/* ═══════════ HERO ═══════════ */}
       <PageHero
         kicker="دليل المحلات"
         kickerEn="Store Directory"
@@ -108,8 +108,8 @@ const Stores = () => {
         ]}
         compact
       >
-        {/* Compact stats row */}
-        <div className="flex items-center gap-4 lg:justify-end">
+        {/* Hero stats — refined glass cards */}
+        <div className="flex items-center gap-3 lg:justify-end">
           {[
             { label: "إجمالي المحلات", value: totalStores, accent: "#2D6BFF" },
             { label: "محل نشط", value: activeCount, accent: "#10B981" },
@@ -117,10 +117,16 @@ const Stores = () => {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center gap-1 rounded-xl px-4 py-3 text-center"
-              style={{ background: "#ffffff06", border: "1px solid #ffffff0A" }}
+              className="group relative flex flex-col items-center gap-1.5 rounded-2xl px-5 py-4 text-center transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                background: "linear-gradient(145deg, #ffffff08, #ffffff03)",
+                border: "1px solid #ffffff0C",
+                boxShadow: "0 2px 12px hsl(0 0% 0% / 0.1)",
+              }}
             >
-              <span className="font-poppins text-[1.3rem] font-extrabold leading-none" style={{ color: stat.accent }}>{stat.value}</span>
+              {/* Subtle top accent line */}
+              <div className="absolute inset-x-3 top-0 h-[2px] rounded-b-full opacity-60" style={{ background: `linear-gradient(90deg, transparent, ${stat.accent}60, transparent)` }} />
+              <span className="font-poppins text-[1.5rem] font-extrabold leading-none" style={{ color: stat.accent }}>{stat.value}</span>
               <span className="text-[0.58rem] font-medium" style={{ color: "#64748B" }}>{stat.label}</span>
             </div>
           ))}
@@ -130,7 +136,7 @@ const Stores = () => {
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="mb-6 flex items-end justify-between">
+          <div className="mb-7 flex items-end justify-between">
             <div>
               <p className="section-kicker">التصنيف التجاري</p>
               <h2 className="section-title">تصفح حسب الفئة.</h2>
@@ -155,39 +161,45 @@ const Stores = () => {
                     setSelectedCategory(isActive ? "" : cat);
                     document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="group relative flex flex-col justify-between rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   style={{
-                    borderColor: isActive ? `${meta.color}50` : "#E2E8F030",
-                    background: isActive ? `linear-gradient(145deg, ${meta.color}08, ${meta.color}03)` : "white",
+                    borderColor: isActive ? `${meta.color}50` : "#E2E8F015",
+                    background: isActive ? `linear-gradient(155deg, ${meta.color}0A, white)` : "white",
                     boxShadow: isActive
-                      ? `0 0 0 1px ${meta.color}20, 0 8px 24px ${meta.color}12`
-                      : "0 1px 4px hsl(0 0% 0% / 0.03)",
+                      ? `0 0 0 1px ${meta.color}20, 0 12px 32px ${meta.color}15`
+                      : "0 1px 6px hsl(0 0% 0% / 0.04)",
                   }}
                 >
+                  {/* Ambient category glow on hover */}
                   <div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105"
+                    className="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(circle, ${meta.color}15, transparent 70%)` }}
+                  />
+
+                  <div
+                    className="relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
                     style={{
-                      background: isActive ? `${meta.color}18` : `${meta.color}08`,
-                      border: `1px solid ${isActive ? `${meta.color}40` : `${meta.color}15`}`,
+                      background: isActive ? `${meta.color}15` : `${meta.color}08`,
+                      border: `1px solid ${isActive ? `${meta.color}40` : `${meta.color}12`}`,
                     }}
                   >
-                    <Icon className="h-5 w-5" style={{ color: meta.color }} />
+                    <Icon className="h-5 w-5 transition-colors" style={{ color: meta.color }} />
                   </div>
 
-                  <div className="mt-3.5">
+                  <div className="mt-4">
                     <p className="text-[0.78rem] font-bold light-heading line-clamp-1">{cat}</p>
                     <p className="mt-0.5 text-[0.6rem] light-muted">{meta.label}</p>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between">
+                  <div className="mt-3.5 flex items-center justify-between">
                     {count > 0 ? (
-                      <span className="rounded-full px-2 py-0.5 text-[0.64rem] font-extrabold" style={{ background: `${meta.color}10`, color: meta.color }}>
+                      <span className="rounded-full px-2.5 py-0.5 text-[0.64rem] font-extrabold" style={{ background: `${meta.color}10`, color: meta.color }}>
                         {count} محل
                       </span>
                     ) : (
                       <span className="text-[0.62rem] light-muted">قريبًا</span>
                     )}
-                    <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-60 group-hover:-translate-x-1" style={{ color: meta.color }} />
+                    <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-60 group-hover:-translate-x-1.5" style={{ color: meta.color }} />
                   </div>
                 </button>
               );
@@ -202,12 +214,17 @@ const Stores = () => {
       {/* ═══════════ DIRECTORY ═══════════ */}
       <section id="directory" className="py-9 md:py-12 scroll-mt-20" style={{ background: "linear-gradient(170deg, #071326 0%, #0D1F3C 100%)" }}>
         <div className="container max-w-[1200px]">
-          {/* Sticky search + filters bar */}
+          {/* Sticky glassmorphic search + filters bar */}
           <div
-            className="sticky top-14 z-20 -mx-1 mb-7 rounded-2xl p-4 backdrop-blur-2xl"
-            style={{ background: "#0B1220F2", border: "1px solid #ffffff0C", boxShadow: "0 8px 40px hsl(0 0% 0% / 0.25)" }}
+            className="sticky top-14 z-20 -mx-1 mb-8 rounded-2xl p-4 backdrop-blur-2xl"
+            style={{
+              background: "linear-gradient(145deg, #0B1220F5, #0D1830F0)",
+              border: "1px solid #ffffff0E",
+              boxShadow: "0 8px 40px hsl(0 0% 0% / 0.3), inset 0 1px 0 #ffffff08",
+            }}
           >
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+              {/* Search input */}
               <div className="relative flex-1">
                 <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
                 <input
@@ -215,11 +232,12 @@ const Stores = () => {
                   placeholder="ابحث باسم المحل أو الفئة..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-11 w-full rounded-xl pr-10 pl-4 text-[0.84rem] outline-none transition-all placeholder:text-[#475569] focus:ring-2 focus:ring-primary/25"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
+                  className="h-11 w-full rounded-xl pr-10 pl-4 text-[0.84rem] outline-none transition-all placeholder:text-[#475569] focus:ring-2 focus:ring-primary/30"
+                  style={{ border: "1px solid #ffffff14", background: "#ffffff0A", color: "#F8FAFC" }}
                 />
               </div>
 
+              {/* Filter chips */}
               <div className="flex flex-wrap items-center gap-1.5">
                 <FilterChip active={!selectedCategory && !selectedStatus} onClick={clearFilters}>الكل</FilterChip>
                 {categories.map((cat) => (
@@ -285,7 +303,7 @@ const Stores = () => {
           {isLoading ? (
             <LoadingGrid count={8} />
           ) : filtered && filtered.length > 0 ? (
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filtered.map((store, i) => (
                 <StoreCard key={store.id} store={store} index={i} />
               ))}
@@ -301,8 +319,9 @@ const Stores = () => {
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
       <section className="relative overflow-hidden py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
+          <div className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
             <div className="pointer-events-none absolute left-1/3 top-1/2 h-[200px] w-[300px] -translate-y-1/2 rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
+            <div className="pointer-events-none absolute -bottom-12 -right-12 h-[180px] w-[180px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
             <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full px-3 py-1" style={{ background: "#2D6BFF12", border: "1px solid #2D6BFF25" }}>
@@ -352,7 +371,7 @@ function FilterChip({ active, onClick, children }: { active: boolean; onClick: (
       className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold transition-all duration-200 hover:brightness-110"
       style={
         active
-          ? { border: "1px solid #2D6BFF45", background: "#2D6BFF20", color: "#5B9AFF", boxShadow: "0 0 0 1px #2D6BFF15" }
+          ? { border: "1px solid #2D6BFF45", background: "linear-gradient(135deg, #2D6BFF25, #2D6BFF15)", color: "#5B9AFF", boxShadow: "0 0 0 1px #2D6BFF15, 0 2px 8px #2D6BFF12" }
           : { border: "1px solid #ffffff10", background: "#ffffff06", color: "#94A3B8" }
       }
     >
@@ -377,50 +396,61 @@ type StoreRow = {
 function StoreCard({ store, index }: { store: StoreRow; index: number }) {
   const st = statusConfig[store.status] ?? statusConfig["leased"];
   const meta = store.category ? categoryMeta[store.category] : null;
+  const accentColor = meta?.color ?? "#5B9AFF";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.02, 0.2), duration: 0.35 }}
+      transition={{ delay: Math.min(index * 0.025, 0.2), duration: 0.4 }}
     >
       <Link
         to={`/stores/${store.slug}`}
-        className="group relative flex flex-col rounded-2xl p-4 transition-all duration-300"
-        style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
+        className="group relative flex flex-col rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1"
+        style={{
+          border: "1px solid #ffffff0E",
+          background: "linear-gradient(165deg, #ffffff08, #ffffff03)",
+          boxShadow: "0 1px 4px hsl(0 0% 0% / 0.08)",
+        }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "#2D6BFF25";
-          e.currentTarget.style.background = "#ffffff0C";
-          e.currentTarget.style.boxShadow = "0 8px 32px hsl(222 100% 59% / 0.08)";
-          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.borderColor = `${accentColor}30`;
+          e.currentTarget.style.background = "linear-gradient(165deg, #ffffff0F, #ffffff06)";
+          e.currentTarget.style.boxShadow = `0 12px 40px ${accentColor}12, 0 0 0 1px ${accentColor}15`;
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "#ffffff0C";
-          e.currentTarget.style.background = "#ffffff05";
-          e.currentTarget.style.boxShadow = "none";
-          e.currentTarget.style.transform = "translateY(0)";
+          e.currentTarget.style.borderColor = "#ffffff0E";
+          e.currentTarget.style.background = "linear-gradient(165deg, #ffffff08, #ffffff03)";
+          e.currentTarget.style.boxShadow = "0 1px 4px hsl(0 0% 0% / 0.08)";
         }}
       >
+        {/* Featured badge */}
         {store.featured && (
-          <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full px-2 py-0.5" style={{ background: "#F59E0B15", border: "1px solid #F59E0B30" }}>
+          <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full px-2.5 py-0.5" style={{ background: "#F59E0B18", border: "1px solid #F59E0B30" }}>
             <Sparkles className="h-2.5 w-2.5" style={{ color: "#F59E0B" }} />
             <span className="text-[0.55rem] font-bold" style={{ color: "#F59E0B" }}>مميّز</span>
           </div>
         )}
 
+        {/* Top accent line — category colored */}
+        <div
+          className="absolute inset-x-4 top-0 h-[2px] rounded-b-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{ background: `linear-gradient(90deg, transparent, ${accentColor}50, transparent)` }}
+        />
+
         <div className="flex items-center gap-3.5">
+          {/* Logo container with refined glass effect */}
           <div
-            className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl p-2"
+            className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl p-2 transition-all duration-300 group-hover:scale-105"
             style={{
-              background: "linear-gradient(145deg, #ffffff, #f8f9fa)",
-              border: "1px solid #ffffff20",
-              boxShadow: "0 2px 12px hsl(0 0% 0% / 0.12)",
+              background: "linear-gradient(145deg, #ffffff, #f1f5f9)",
+              border: "1px solid #ffffff25",
+              boxShadow: "0 3px 16px hsl(0 0% 0% / 0.15), inset 0 1px 0 #ffffff80",
             }}
           >
             {store.logo_url ? (
               <img src={store.logo_url} alt={store.name_ar} className="h-full w-full object-contain" loading="lazy" />
             ) : (
-              <Store className="h-7 w-7" style={{ color: meta?.color ?? "#5B9AFF" }} />
+              <Store className="h-7 w-7" style={{ color: accentColor }} />
             )}
           </div>
 
@@ -432,7 +462,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
               <p className="font-poppins text-[0.68rem] mt-0.5 line-clamp-1" style={{ color: "#64748B" }}>{store.name_en}</p>
             )}
             {store.category && (
-              <div className="mt-1 flex items-center gap-1.5">
+              <div className="mt-1.5 flex items-center gap-1.5">
                 {meta && <meta.icon className="h-3 w-3" style={{ color: meta.color }} />}
                 <span className="text-[0.62rem] font-medium" style={{ color: "#64748B" }}>{store.category}</span>
               </div>
@@ -448,26 +478,29 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           </p>
         )}
 
-        <div className="mt-3.5 flex items-center gap-2 border-t pt-3" style={{ borderColor: "#ffffff08" }}>
-          <span
-            className="flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[0.62rem] font-bold"
-            style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.color }}
-          >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: st.color }} />
-            {st.text}
-          </span>
-
-          {store.unit_code && (
-            <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-medium" style={{ background: "#ffffff06", border: "1px solid #ffffff0A", color: "#64748B" }}>
-              <MapPin className="h-2.5 w-2.5" />{store.unit_code}
+        {/* Footer with status + unit */}
+        <div className="mt-auto pt-3.5">
+          <div className="flex items-center gap-2 border-t pt-3" style={{ borderColor: "#ffffff0A" }}>
+            <span
+              className="flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[0.62rem] font-bold"
+              style={{ background: st.bg, border: `1px solid ${st.border}`, color: st.color }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: st.color }} />
+              {st.text}
             </span>
-          )}
 
-          <span className="flex-1" />
+            {store.unit_code && (
+              <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-medium" style={{ background: "#ffffff06", border: "1px solid #ffffff0C", color: "#64748B" }}>
+                <MapPin className="h-2.5 w-2.5" />{store.unit_code}
+              </span>
+            )}
 
-          <span className="text-[0.6rem] font-semibold opacity-0 transition-all group-hover:opacity-100" style={{ color: "#5B9AFF" }}>
-            عرض التفاصيل
-          </span>
+            <span className="flex-1" />
+
+            <span className="text-[0.6rem] font-semibold opacity-0 transition-all duration-300 group-hover:opacity-100" style={{ color: "#5B9AFF" }}>
+              عرض التفاصيل
+            </span>
+          </div>
         </div>
       </Link>
     </motion.div>
