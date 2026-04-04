@@ -243,7 +243,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                   <span className="text-[0.7rem] font-bold" style={{ color: "#60A5FA" }}>FAQ</span>
                 </div>
                 <h2 className="text-[1.2rem] md:text-[1.4rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-                  ما يجب معرفته قبل الزيارة
+                  أسئلة شائعة
                 </h2>
                 <p className="mt-3 text-[0.84rem] leading-[1.75] max-w-[22rem]" style={{ color: "#94A3B8" }}>
                   أبرز الأسئلة حول الموقع، الافتتاح، التأجير، والخدمات.
