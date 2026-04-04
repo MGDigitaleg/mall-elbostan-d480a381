@@ -65,7 +65,7 @@ const KzHome = () => {
               أحدث الأجهزة الإلكترونية بأسعار تنافسية — لابتوبات، هواتف، شاشات، وإكسسوارات.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link to="/kz/products">
+              <Link to="/products?store=kasr-zero">
                 <Button className="h-11 gap-2 rounded-xl px-6 text-[0.88rem] font-bold" style={{ background: "hsl(var(--primary))", color: "#fff" }}>
                   <ShoppingBag className="h-4 w-4" /> تصفّح المنتجات
                 </Button>
