@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Store, Map, ShoppingBag, ArrowLeft } from "lucide-react";
+import { Store, ArrowLeft } from "lucide-react";
 
 import { echoFragments } from "@/components/market-echo/echoData";
 import { EchoPhrase } from "@/components/market-echo/EchoPhrase";
