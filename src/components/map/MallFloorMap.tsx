@@ -299,7 +299,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const hasBrandBg = !!brandBg;
 
             // Determine if text on brand bg should be light or dark
-            const isLightBg = brandBg && (brandBg === "#FFFFFF" || brandBg === "#F5F0E8" || brandBg === "#E8DDD0" || brandBg === "#E8E0D0" || brandBg === "#E0D8C8" || brandBg === "#FDE4C4" || brandBg === "#C8A96E");
+            const isLightBg = brandBg && (brandBg === "#FFFFFF" || brandBg === "#F5F0E8" || brandBg === "#E8DDD0" || brandBg === "#E8E0D0" || brandBg === "#E0D8C8" || brandBg === "#FDE4C4" || brandBg === "#C8A96E" || brandBg === "#FDD835" || brandBg === "#FF6B00");
             const codeColor = hasBrandBg
               ? (isLightBg ? "#4A4540" : "#FFFFFF90")
               : (isSelected ? "#9B6520" : "#7A7468");
