@@ -1,100 +1,79 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Store, Map, ShoppingBag } from "lucide-react";
 
-const meanings = [
-  {
-    phrase: "انزل البستان",
-    meaning: "بداية البحث عن الخيارات المناسبة في عالم التقنية.",
-  },
-  {
-    phrase: "لف البستان الأول",
-    meaning: "المقارنة بين المحلات والأسعار قبل اتخاذ القرار.",
-  },
-  {
-    phrase: "اسأل في البستان",
-    meaning: "الرجوع إلى مكان ارتبط بالخبرة والثقة والمعرفة.",
-  },
-  {
-    phrase: "أسعار البستان",
-    meaning: "اسم صار عند كثيرين مرجعًا للمقارنة وتقدير السعر العادل.",
-  },
+const lines = [
+  { icon: Store, text: "دليل محلات أوضح" },
+  { icon: Map, text: "خريطة تعرفك مكان كل وحدة" },
+  { icon: ShoppingBag, text: "منتجات أقرب لقرار الشراء" },
 ];
 
-function MeaningBlock({
-  phrase,
-  meaning,
-  index,
-}: {
-  phrase: string;
-  meaning: string;
-  index: number;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  return (
-    <div
-      ref={ref}
-      className="echo-fade-up group py-5 border-b last:border-b-0"
-      style={{
-        borderColor: "rgba(255,255,255,0.05)",
-        animationDelay: `${index * 150}ms`,
-      }}
-    >
-      <p
-        className="text-[1rem] md:text-[1.1rem] font-bold mb-1.5"
-        style={{ color: "#CDBB9A" }}
-      >
-        {phrase}
-      </p>
-      <p
-        className="text-[0.8rem] md:text-[0.85rem] leading-[1.9]"
-        style={{ color: "#7C8BA1" }}
-      >
-        {meaning}
-      </p>
-    </div>
-  );
-}
-
 export function SceneMeaning() {
-  return (
-    <section className="relative z-10 px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-lg">
-        {/* Heading */}
-        <div className="echo-fade-up mb-3">
-          <div className="flex items-center gap-3 mb-5">
-            <div
-              className="h-px w-8"
-              style={{
-                background:
-                  "linear-gradient(to left, #CDBB9A40, transparent)",
-              }}
-            />
-            <span
-              className="text-[0.6rem] font-bold tracking-[0.15em] uppercase"
-              style={{ color: "#CDBB9A" }}
-            >
-              صدى السوق
-            </span>
-          </div>
-          <h2
-            className="text-[1.3rem] md:text-[1.6rem] font-bold mb-4 leading-[1.3]"
-            style={{ color: "#F1F5F9" }}
-          >
-            ماذا كان الناس يقصدون؟
-          </h2>
-          <p
-            className="text-[0.82rem] leading-[1.95]"
-            style={{ color: "#94A3B8" }}
-          >
-            هذه العبارات لم تكن أمثالًا فقط، بل اختصارًا لتجربة شراء مفهومة في
-            مكان معروف.
-          </p>
-        </div>
+  const ref = useRef<HTMLElement>(null);
+  const [entered, setEntered] = useState(false);
 
-        {/* Meaning blocks */}
-        <div className="mt-10">
-          {meanings.map((m, i) => (
-            <MeaningBlock key={m.phrase} {...m} index={i} />
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setEntered(true); },
+      { threshold: 0.3 }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section
+      ref={ref}
+      className="relative z-10 px-6 py-24 md:py-32"
+    >
+      {/* Divider */}
+      <div
+        className="mx-auto mb-16 h-px max-w-xs"
+        style={{ background: "linear-gradient(90deg, transparent, #CDBB9A15, transparent)" }}
+      />
+
+      <div className="mx-auto max-w-lg text-center">
+        {/* Transition statement */}
+        <h2
+          className="text-[1.2rem] md:text-[1.5rem] font-bold leading-[1.4] transition-all duration-[700ms]"
+          style={{
+            color: "#F1F5F9",
+            opacity: entered ? 1 : 0,
+            transform: entered ? "translateY(0)" : "translateY(14px)",
+          }}
+        >
+          ما كان الناس يقولونه قديمًا،
+          <br />
+          <span style={{ color: "#CDBB9A" }}>نقدمه اليوم بشكل أوضح.</span>
+        </h2>
+
+        {/* Three lines */}
+        <div className="mt-12 space-y-5">
+          {lines.map((line, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-4 justify-center transition-all duration-[600ms]"
+              style={{
+                opacity: entered ? 1 : 0,
+                transform: entered ? "translateY(0)" : "translateY(12px)",
+                transitionDelay: `${0.3 + i * 0.2}s`,
+              }}
+            >
+              <div
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+                style={{
+                  background: "rgba(205,187,154,0.06)",
+                  border: "1px solid rgba(205,187,154,0.1)",
+                }}
+              >
+                <line.icon className="h-3.5 w-3.5" style={{ color: "#CDBB9A" }} />
+              </div>
+              <p
+                className="text-[0.88rem] md:text-[0.95rem] font-medium"
+                style={{ color: "#CBD5E1" }}
+              >
+                {line.text}
+              </p>
+            </div>
           ))}
         </div>
       </div>
