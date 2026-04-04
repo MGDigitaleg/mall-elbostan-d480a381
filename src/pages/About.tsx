@@ -22,6 +22,7 @@ import {
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
+import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import exteriorImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
