@@ -90,7 +90,7 @@ const About = () => (
                 {[
                   { icon: Award, title: "منذ 1990", desc: "إرث تجاري عريق." },
                   { icon: MapPin, title: "فرعان", desc: "وسط البلد والتجمع." },
-                  { icon: Layers, title: "تجربة متكاملة", desc: "من المول للمنصة الرقمية." },
+                  { icon: Layers, title: "دليل ومنتجات", desc: "من المول للمنصة الرقمية." },
                 ].map((c) => (
                   <div key={c.title} className="card-architectural rounded-lg p-3">
                     <c.icon className="mb-1.5 h-4 w-4 text-primary" />
