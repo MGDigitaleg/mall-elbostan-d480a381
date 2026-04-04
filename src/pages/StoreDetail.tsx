@@ -64,6 +64,8 @@ const StoreDetail = () => {
     enabled: !!store?.category && !!store?.id,
   });
 
+  const isKzStore = store?.slug === "kasr-zero";
+
   const { data: storeProducts } = useQuery({
     queryKey: ["store-products", store?.id],
     queryFn: async () => {
@@ -75,7 +77,20 @@ const StoreDetail = () => {
         .limit(6);
       return data ?? [];
     },
-    enabled: !!store?.id,
+    enabled: !!store?.id && !isKzStore,
+  });
+
+  const { data: kzProducts } = useQuery({
+    queryKey: ["kz-store-products"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("kz_products")
+        .select("id, title, slug, kz_product_variants(price, compare_price, is_default), kz_product_images(image_url, sort_order)")
+        .eq("status", "published")
+        .limit(6);
+      return data ?? [];
+    },
+    enabled: isKzStore,
   });
 
   const gallery = useMemo(() => {
