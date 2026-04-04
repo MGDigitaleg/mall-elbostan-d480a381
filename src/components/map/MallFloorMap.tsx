@@ -437,26 +437,30 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </text>
         </g>
 
-        {/* ── Hover tooltip — premium with brand accent ── */}
+        {/* ── Hover tooltip — premium with brand accent & details ── */}
         {hoveredId && (() => {
           const unit = floor.units.find((u) => u.id === hoveredId);
           if (!unit) return null;
-          const tx = Math.min(Math.max(unit.labelX, 140), 860);
-          const ty = unit.labelY - 44;
+          const tx = Math.min(Math.max(unit.labelX, 160), 840);
+          const ty = unit.labelY - 54;
           const tenantName = TENANT_NAMES[unit.id];
           const brandBg = TENANT_BG[unit.id];
           const isOccupied = unit.status === "occupied" && tenantName;
 
+          const floorLabel = floor.label || "";
+          const areaText = `${unit.area} م²`;
+
           if (isOccupied) {
-            // Premium tooltip for occupied stores
-            const nameLen = tenantName.length * 8 + 36;
-            const codeLen = unit.code.length * 6 + 10;
-            const tooltipW = Math.max(nameLen, 100);
-            const tooltipH = 38;
+            // Premium tooltip for occupied stores with details
+            const nameLen = tenantName.length * 8.5 + 40;
+            const detailText = `${unit.code} · ${floorLabel} · ${areaText}`;
+            const detailLen = detailText.length * 5.5 + 24;
+            const tooltipW = Math.max(nameLen, detailLen, 120);
+            const tooltipH = 48;
             const accentColor = brandBg || "#2563EB";
 
             return (
-              <g pointerEvents="none" style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.35))" }}>
+              <g pointerEvents="none" style={{ filter: "drop-shadow(0 6px 16px rgba(0,0,0,0.4))" }}>
                 {/* Background pill */}
                 <rect
                   x={tx - tooltipW / 2}
@@ -485,66 +489,84 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 {/* Store name */}
                 <text
                   x={tx}
-                  y={ty - 2}
+                  y={ty - 7}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  className="text-[11px] font-bold"
+                  className="text-[11.5px] font-bold"
                   fill="#FFFFFF"
                 >
                   {tenantName}
                 </text>
-                {/* Unit code badge */}
-                <rect
-                  x={tx - codeLen / 2}
-                  y={ty + 8}
-                  width={codeLen}
-                  height="14"
-                  rx="3"
-                  fill={accentColor}
-                  opacity="0.7"
-                />
+                {/* Details row: code · floor · area */}
                 <text
                   x={tx}
-                  y={ty + 16}
+                  y={ty + 10}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  className="text-[7.5px] font-semibold"
-                  fill="#FFFFFF"
+                  className="text-[8px] font-medium"
+                  fill="#94A3B8"
                 >
-                  {unit.code}
+                  {detailText}
                 </text>
               </g>
             );
           }
 
-          // Simple tooltip for non-occupied
-          const tooltipText = `${unit.code} | ${unit.area} م²`;
-          const textLen = tooltipText.length * 6.5 + 28;
+          // Tooltip for non-occupied (available / coming soon)
+          const statusLabel = unit.status === "available" ? "متاح للإيجار" : "قريباً";
+          const statusColor = unit.status === "available" ? "#F97316" : "#06B6D4";
+          const detailText = `${unit.code} · ${floorLabel} · ${areaText}`;
+          const topLen = statusLabel.length * 8 + 30;
+          const bottomLen = detailText.length * 5.5 + 24;
+          const tooltipW = Math.max(topLen, bottomLen, 110);
+          const tooltipH = 44;
+
           return (
-            <g pointerEvents="none" style={{ filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.25))" }}>
+            <g pointerEvents="none" style={{ filter: "drop-shadow(0 5px 14px rgba(0,0,0,0.35))" }}>
               <rect
-                x={tx - textLen / 2}
-                y={ty - 10}
-                width={textLen}
-                height="26"
-                rx="7"
+                x={tx - tooltipW / 2}
+                y={ty - tooltipH / 2}
+                width={tooltipW}
+                height={tooltipH}
+                rx="10"
                 fill="#1E1C1A"
-                opacity="0.95"
+                opacity="0.96"
+              />
+              {/* Status accent bar */}
+              <rect
+                x={tx - tooltipW / 2}
+                y={ty - tooltipH / 2}
+                width={tooltipW}
+                height="4"
+                rx="10"
+                fill={statusColor}
               />
               <polygon
-                points={`${tx - 5},${ty + 16} ${tx + 5},${ty + 16} ${tx},${ty + 22}`}
+                points={`${tx - 6},${ty + tooltipH / 2} ${tx + 6},${ty + tooltipH / 2} ${tx},${ty + tooltipH / 2 + 7}`}
                 fill="#1E1C1A"
-                opacity="0.95"
+                opacity="0.96"
               />
+              {/* Status label */}
               <text
                 x={tx}
-                y={ty + 6}
+                y={ty - 6}
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="text-[10px] font-bold"
-                fill="#F4F0EA"
+                className="text-[10.5px] font-bold"
+                fill={statusColor}
               >
-                {tooltipText}
+                {statusLabel}
+              </text>
+              {/* Details row */}
+              <text
+                x={tx}
+                y={ty + 10}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="text-[8px] font-medium"
+                fill="#A8A29E"
+              >
+                {detailText}
               </text>
             </g>
           );
