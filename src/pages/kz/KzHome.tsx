@@ -145,7 +145,7 @@ const KzHome = () => {
                 return (
                   <Link
                     key={product.id}
-                    to={`/kz/products/${product.slug}`}
+                    to={`/products/${product.slug}`}
                     className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md"
                   >
                     <div className="relative aspect-square overflow-hidden bg-white">
