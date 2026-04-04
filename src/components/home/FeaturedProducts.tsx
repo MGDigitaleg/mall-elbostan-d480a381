@@ -27,7 +27,7 @@ export function FeaturedProducts() {
   const hasProducts = products && products.length > 0;
 
   return (
-    <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
+    <section className="py-8 md:py-10 min-h-[320px]" style={{ background: "#FAFAF8", contain: "layout style" }}>
       <div className="container">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mb-5 flex items-end justify-between gap-4">

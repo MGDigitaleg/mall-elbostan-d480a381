@@ -68,6 +68,7 @@ export function HeroSlider() {
   return (
     <section
       className="relative min-h-[520px] md:min-h-[540px] max-h-[620px] overflow-hidden"
+      style={{ contain: "layout style" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

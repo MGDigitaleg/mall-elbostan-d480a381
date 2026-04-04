@@ -20,7 +20,7 @@ export function MerchantLogoWall() {
   if (!stores || stores.length === 0) return null;
 
   return (
-    <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
+    <section className="heritage-deep relative overflow-hidden py-7 md:py-9 min-h-[260px]" style={{ contain: "layout style" }}>
       <div className="relative container">
         <div className="mb-5 flex items-end justify-between gap-4">
           <div>

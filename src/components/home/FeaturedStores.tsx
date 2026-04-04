@@ -33,7 +33,7 @@ export function FeaturedStores() {
   if (!stores || stores.length === 0) return null;
 
   return (
-    <section className="bg-card py-8 md:py-12">
+    <section className="bg-card py-8 md:py-12 min-h-[280px]" style={{ contain: "layout style" }}>
       <div className="container">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
