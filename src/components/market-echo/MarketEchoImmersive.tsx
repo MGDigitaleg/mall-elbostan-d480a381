@@ -1,11 +1,13 @@
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Store, Map, ShoppingBag } from "lucide-react";
+import { ArrowRight, Store, Map, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SceneOpening } from "./scenes/SceneOpening";
+import { ScenePhraseReveal } from "./scenes/ScenePhraseReveal";
+import { SceneEchoes } from "./scenes/SceneEchoes";
 import { SceneMeaning } from "./scenes/SceneMeaning";
-import { SceneTransition } from "./scenes/SceneTransition";
-import { SceneResolve } from "./scenes/SceneResolve";
+import { SceneTimeline } from "./scenes/SceneTimeline";
+import { SceneFinal } from "./scenes/SceneFinal";
+import { SceneCTA } from "./scenes/SceneCTA";
 
 export function MarketEchoImmersive() {
   return (
@@ -17,9 +19,9 @@ export function MarketEchoImmersive() {
         fontFamily: "var(--font-arabic-display)",
       }}
     >
-      {/* Subtle grid texture — single layer, CSS only */}
+      {/* Grid texture — CSS only */}
       <div
-        className="pointer-events-none fixed inset-0 z-0 opacity-[0.015]"
+        className="pointer-events-none fixed inset-0 z-0 opacity-[0.012]"
         style={{
           backgroundImage:
             "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)",
@@ -27,10 +29,21 @@ export function MarketEchoImmersive() {
         }}
       />
 
+      {/* Single ambient glow — fixed, CSS only */}
+      <div
+        className="pointer-events-none fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+        style={{
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(37,99,235,0.04), transparent 70%)",
+        }}
+      />
+
       {/* Back button */}
       <Link
         to="/"
-        className="fixed top-5 right-5 z-50 flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.72rem] font-medium transition-colors"
+        className="fixed top-5 right-5 z-50 flex items-center gap-1.5 rounded-full px-4 py-2 text-[0.72rem] font-medium transition-colors hover:text-white/80"
         style={{
           color: "#94A3B8",
           background: "rgba(255,255,255,0.04)",
@@ -41,11 +54,14 @@ export function MarketEchoImmersive() {
         العودة
       </Link>
 
-      {/* Scenes */}
+      {/* 7 Scenes */}
       <SceneOpening />
+      <ScenePhraseReveal />
+      <SceneEchoes />
       <SceneMeaning />
-      <SceneTransition />
-      <SceneResolve />
+      <SceneTimeline />
+      <SceneFinal />
+      <SceneCTA />
     </div>
   );
 }

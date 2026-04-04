@@ -633,3 +633,22 @@
 .echo-fade-up {
   animation: echoFadeUp 0.7s ease-out both;
 }
+
+@keyframes echoDrift {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-8px) translateX(4px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+.echo-drift {
+  animation: echoDrift 12s ease-in-out infinite;
+}
+
+@keyframes echoScrollLine {
+  0%   { opacity: 0.3; transform: scaleY(0.5); }
+  50%  { opacity: 0.6; transform: scaleY(1); }
+  100% { opacity: 0.3; transform: scaleY(0.5); }
+}
+.echo-scroll-line {
+  animation: echoScrollLine 2s ease-in-out infinite;
+  transform-origin: top;
+}
