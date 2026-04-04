@@ -51,6 +51,7 @@ const AdminDowntownMerchants = lazy(() => import("./pages/admin/AdminDowntownMer
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
+const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
 
 import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
 import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
@@ -146,6 +147,7 @@ function AppLayout() {
             <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
             <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
             <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
+            <Route path="/admin/kz-products" element={<AdminKzProducts />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
