@@ -46,7 +46,7 @@ export function MarketEchoSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center overflow-hidden"
+      className="relative flex flex-col justify-center overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #060E1C 0%, #0A1628 40%, #071326 100%)",
         minHeight: "100vh",
