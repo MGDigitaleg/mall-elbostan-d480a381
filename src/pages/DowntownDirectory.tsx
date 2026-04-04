@@ -32,10 +32,13 @@ const CATEGORIES = [
   "الألعاب والترفيه",
 ];
 
+const PAGE_SIZE = 12;
+
 const DowntownDirectory = () => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("الكل");
   const [selectedStatus, setSelectedStatus] = useState("الكل");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const { data: merchants, isLoading } = useQuery({
     queryKey: ["downtown-merchants"],
