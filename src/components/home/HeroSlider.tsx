@@ -22,7 +22,7 @@ const slides = [
     ctaSecondary: { label: "الخريطة التفاعلية", to: "/map" },
   },
   {
-    image: mallBuildingNight,
+    image: mallBuildingHero,
     alt: "مبنى مول البستان ليلاً",
     kicker: "القاهرة الجديدة",
     headline: "وجهة التقنية الجديدة.",
