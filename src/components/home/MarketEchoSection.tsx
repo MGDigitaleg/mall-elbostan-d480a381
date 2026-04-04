@@ -35,11 +35,6 @@ const quoteCards = [
   },
 ];
 
-const features = [
-  { icon: Store, label: "دليل محلات أوضح", desc: "كل محل بتفاصيله الكاملة في مكان واحد." },
-  { icon: Map, label: "خريطة تفاعلية أدق", desc: "تصفّح كل دور واعرف مكان كل وحدة." },
-  { icon: ShoppingBag, label: "منتجات تصل بك أسرع", desc: "تصفّح منتجات المحلات واطلب مباشرة." },
-];
 
 export function MarketEchoSection() {
   const sectionRef = useRef<HTMLElement>(null);
