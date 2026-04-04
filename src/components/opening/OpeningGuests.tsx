@@ -34,8 +34,8 @@ export function OpeningGuests({ guests }: Props) {
               <Users className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">شخصيات مرتقبة</p>
-              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>الضيوف والشخصيات</h2>
+              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">ضيوف الافتتاح</p>
+              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>شخصيات مدعوة</h2>
             </div>
           </div>
 
