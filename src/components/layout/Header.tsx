@@ -7,20 +7,20 @@ import { HeaderMenuSheet } from "@/components/layout/HeaderMenuSheet";
 
 const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
-  { label: "عن المول", path: "/about" },
-  { label: "المحلات", path: "/stores" },
+  { label: "عن البستان", path: "/about" },
+  { label: "دليل المحلات", path: "/stores" },
   { label: "المنتجات", path: "/products" },
   { label: "الخريطة", path: "/map" },
 ];
 
 const branchItems = [
   { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch", desc: "التجمع الخامس" },
-  { label: "فرع وسط البلد", path: "/downtown-branch", desc: "الفرع الأصلي منذ 1990" },
-  { label: "دليل وسط البلد", path: "/downtown-directory", desc: "دليل محلات الفرع" },
+  { label: "فرع وسط البلد", path: "/downtown-branch", desc: "الفرع الأصلي منذ ١٩٩٠" },
+  { label: "دليل محلات وسط البلد", path: "/downtown-directory", desc: "كل المحلات في الفرع" },
 ];
 
 const secondaryNavItems = [
-  { label: "التأجير", path: "/leasing" },
+  { label: "الوحدات المتاحة", path: "/leasing" },
   { label: "يوم الافتتاح", path: "/opening-day" },
   { label: "العروض", path: "/daily-deals" },
   { label: "تواصل معنا", path: "/contact" },

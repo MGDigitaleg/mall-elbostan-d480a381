@@ -13,9 +13,9 @@ const navSections = [
     title: "المول",
     items: [
       { label: "الرئيسية", path: "/", icon: Building2 },
-      { label: "عن المول", path: "/about", icon: Building2 },
-      { label: "المحلات", path: "/stores", icon: Store },
-      { label: "المنتجات", path: "/products", icon: ShoppingBag },
+      { label: "عن البستان", path: "/about", icon: Building2 },
+      { label: "دليل المحلات", path: "/stores", icon: Store },
+      { label: "منتجات المحلات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },
       { label: "العروض اليومية", path: "/daily-deals", icon: Tag },
     ],
@@ -25,21 +25,21 @@ const navSections = [
     items: [
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch", icon: MapPin },
       { label: "فرع وسط البلد", path: "/downtown-branch", icon: MapPin },
-      { label: "دليل وسط البلد", path: "/downtown-directory", icon: MapPin },
+      { label: "دليل محلات وسط البلد", path: "/downtown-directory", icon: MapPin },
     ],
   },
   {
     title: "خدمات",
     items: [
-      { label: "التأجير", path: "/leasing", icon: Briefcase },
+      { label: "الوحدات المتاحة", path: "/leasing", icon: Briefcase },
       { label: "يوم الافتتاح", path: "/opening-day", icon: Sparkles },
       { label: "أدر واربح", path: "/spin-win", icon: Gamepad2 },
-      { label: "انضم للسوق", path: "/join-marketplace", icon: ShoppingBag },
-      { label: "الوظائف", path: "/careers", icon: Briefcase },
+      { label: "انضم كتاجر", path: "/join-marketplace", icon: ShoppingBag },
+      { label: "فرص العمل", path: "/careers", icon: Briefcase },
     ],
   },
   {
-    title: "المعلومات",
+    title: "معلومات",
     items: [
       { label: "المدونة", path: "/blog", icon: FileText },
       { label: "الأسئلة الشائعة", path: "/faq", icon: HelpCircle },
@@ -196,7 +196,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 boxShadow: "0 2px 10px rgba(249,115,22,0.25)",
               }}
             >
-              استفسر عن التأجير والشراء
+              استفسر عن الوحدات المتاحة
             </Button>
           </Link>
           <Link to="/contact" onClick={handleLinkClick} className="block">
