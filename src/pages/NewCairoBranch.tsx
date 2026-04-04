@@ -78,7 +78,7 @@ const NewCairoBranch = () => {
         slides={heroSlides}
         kicker="الفرع الجديد — التجمع الخامس"
         title={<>مول البستان — <span className="text-primary">القاهرة الجديدة</span></>}
-        subtitle="الامتداد الحديث لأعرق وجهة تقنية في مصر — منظم، رقمي، وجاهز."
+        subtitle="نفس الاسم ونفس الثقة — مع دليل رقمي وخريطة تفاعلية."
       >
         <div className="mt-4">
           <CountdownTimer compact />
