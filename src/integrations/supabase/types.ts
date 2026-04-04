@@ -480,6 +480,238 @@ export type Database = {
         }
         Relationships: []
       }
+      kz_categories: {
+        Row: {
+          created_at: string
+          id: string
+          image: string | null
+          name: string
+          parent_id: string | null
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image?: string | null
+          name: string
+          parent_id?: string | null
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image?: string | null
+          name?: string
+          parent_id?: string | null
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kz_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "kz_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kz_product_images: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          id: string
+          image_url: string
+          product_id: string
+          sort_order: number
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          id?: string
+          image_url: string
+          product_id: string
+          sort_order?: number
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string
+          product_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kz_product_images_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "kz_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kz_product_specs: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          sort_order: number
+          spec_name: string
+          spec_value: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          sort_order?: number
+          spec_name: string
+          spec_value: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          sort_order?: number
+          spec_name?: string
+          spec_value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kz_product_specs_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "kz_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kz_product_variants: {
+        Row: {
+          color: string | null
+          compare_price: number | null
+          created_at: string
+          id: string
+          is_default: boolean
+          price: number
+          processor: string | null
+          product_id: string
+          ram: string | null
+          sku: string | null
+          stock_qty: number
+          storage: string | null
+          updated_at: string
+          variant_name: string | null
+        }
+        Insert: {
+          color?: string | null
+          compare_price?: number | null
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          price?: number
+          processor?: string | null
+          product_id: string
+          ram?: string | null
+          sku?: string | null
+          stock_qty?: number
+          storage?: string | null
+          updated_at?: string
+          variant_name?: string | null
+        }
+        Update: {
+          color?: string | null
+          compare_price?: number | null
+          created_at?: string
+          id?: string
+          is_default?: boolean
+          price?: number
+          processor?: string | null
+          product_id?: string
+          ram?: string | null
+          sku?: string | null
+          stock_qty?: number
+          storage?: string | null
+          updated_at?: string
+          variant_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kz_product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "kz_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kz_products: {
+        Row: {
+          brand: string | null
+          category_id: string | null
+          condition: string | null
+          created_at: string
+          description: string | null
+          featured: boolean
+          id: string
+          product_type: string | null
+          seo_description: string | null
+          seo_title: string | null
+          short_description: string | null
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          brand?: string | null
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          product_type?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          short_description?: string | null
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          brand?: string | null
+          category_id?: string | null
+          condition?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          id?: string
+          product_type?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          short_description?: string | null
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kz_products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "kz_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
           company: string | null
