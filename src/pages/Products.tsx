@@ -95,12 +95,12 @@ const Products = () => {
 
       {/* ═══════════ HERO ═══════════ */}
       <PageHero
-        kicker="السوق الرقمي"
-        kickerEn="Marketplace"
-        title={<>منتجات <span style={{ color: "#CDBB9A" }}>مول البستان.</span></>}
+        kicker="منتجات المحلات"
+        kickerEn="Products"
+        title={<>منتجات <span style={{ color: "#CDBB9A" }}>محلات المول.</span></>}
         subtitle="تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات."
         ctas={[
-          { label: "تصفح المنتجات", to: "#products", icon: Search },
+          { label: "تصفّح المنتجات", to: "#products", icon: Search },
           { label: "دليل المحلات", to: "/stores", icon: Store },
         ]}
         compact
