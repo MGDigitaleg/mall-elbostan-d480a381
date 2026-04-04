@@ -138,7 +138,7 @@ export function DealsTeaser() {
               <div className="h-1 bg-gradient-to-l from-primary to-accent" />
               <div className="p-5 md:p-7 text-center">
                 <Tag className="mx-auto mb-3 h-8 w-8 text-primary/40" />
-                <h3 className="text-[0.9rem] font-bold light-heading">العروض والخصومات قادمة مع الافتتاح</h3>
+                <h3 className="text-[0.9rem] font-bold light-heading">العروض تبدأ مع الافتتاح</h3>
                 <p className="mx-auto mt-1.5 max-w-[24rem] text-[0.78rem] leading-[1.65] light-body">
                   عروض حصرية ومميزة من محلات المول ستتوفر مع الافتتاح الكبير.
                   تابعنا لتكون أول من يعرف.
