@@ -52,7 +52,7 @@ function GA4Init() { useGA4(); return null; }
 const adminPaths = ["/admin"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
-const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day"];
+const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo"];
 
 function AppLayout() {
   const location = useLocation();
