@@ -37,8 +37,8 @@ export function DealsTeaser() {
         >
           <div className="mb-4 flex items-end justify-between gap-4">
             <div>
-              <p className="section-kicker">العروض والخصومات</p>
-              <h2 className="section-title">أحدث العروض من محلات المول.</h2>
+              <p className="section-kicker">عروض المحلات</p>
+              <h2 className="section-title">أحدث العروض.</h2>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex">
               <Button variant="ghost" className="gap-1 text-[0.78rem] font-bold text-primary">
