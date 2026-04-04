@@ -15,6 +15,7 @@ import {
 } from "@/components/market-echo/EchoEffects";
 import { EchoTimeline } from "@/components/market-echo/EchoTimeline";
 import { EchoStats } from "@/components/market-echo/EchoStats";
+import { EchoVisualMark } from "@/components/market-echo/EchoVisualMark";
 
 const quoteCards = [
   {
@@ -220,6 +221,9 @@ export function MarketEchoSection() {
               transition={{ duration: 0.7, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
               className="mt-10 lg:mt-0"
             >
+              {/* Visual Mark */}
+              <EchoVisualMark isVisible={isInView} />
+
               {/* Closing line */}
               <motion.p
                 initial={{ opacity: 0 }}
