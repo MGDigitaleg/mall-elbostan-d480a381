@@ -38,6 +38,14 @@ const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
 const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
+/* ── Kasr Zero pages ── */
+const KzHome = lazy(() => import("./pages/kz/KzHome"));
+const KzProducts = lazy(() => import("./pages/kz/KzProducts"));
+const KzProductDetail = lazy(() => import("./pages/kz/KzProductDetail"));
+const KzCategory = lazy(() => import("./pages/kz/KzCategory"));
+const KzSearch = lazy(() => import("./pages/kz/KzSearch"));
+const KzCart = lazy(() => import("./pages/kz/KzCart"));
+
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
 const AdminDowntownMerchants = lazy(() => import("./pages/admin/AdminDowntownMerchants"));
 const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
@@ -108,6 +116,14 @@ function AppLayout() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/reward-terms" element={<RewardTerms />} />
             <Route path="/market-echo" element={<MarketEcho />} />
+
+            {/* Kasr Zero */}
+            <Route path="/kz" element={<KzHome />} />
+            <Route path="/kz/products" element={<KzProducts />} />
+            <Route path="/kz/products/:slug" element={<KzProductDetail />} />
+            <Route path="/kz/category/:slug" element={<KzCategory />} />
+            <Route path="/kz/search" element={<KzSearch />} />
+            <Route path="/kz/cart" element={<KzCart />} />
 
             {/* Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
