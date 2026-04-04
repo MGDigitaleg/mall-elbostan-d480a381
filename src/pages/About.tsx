@@ -390,7 +390,7 @@ const About = () => (
             <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
           </div>
           <h2 className="mx-auto max-w-[22rem] text-[1.2rem] font-bold leading-[1.15] md:text-[1.45rem] light-heading">
-            المول جاهز — والقرار بيدك.
+            ابدأ من هنا.
           </h2>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link to="/map">
