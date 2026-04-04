@@ -331,7 +331,12 @@ const Stores = () => {
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
       <section className="relative overflow-hidden py-9 md:py-12" style={{ background: "#FAFAF8" }}>
         <div className="container max-w-[1200px]">
-          <div className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative overflow-hidden rounded-2xl p-6 md:p-8" style={{ background: "linear-gradient(135deg, #071326 0%, #0D1F3C 100%)", border: "1px solid #ffffff0A" }}>
             <div className="pointer-events-none absolute left-1/3 top-1/2 h-[200px] w-[300px] -translate-y-1/2 rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
             <div className="pointer-events-none absolute -bottom-12 -right-12 h-[180px] w-[180px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
             <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
