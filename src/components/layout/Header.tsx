@@ -17,6 +17,7 @@ const branchItems = [
   { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch", desc: "التجمع الخامس" },
   { label: "فرع وسط البلد", path: "/downtown-branch", desc: "الفرع الأصلي منذ ١٩٩٠" },
   { label: "دليل محلات وسط البلد", path: "/downtown-directory", desc: "كل المحلات في الفرع" },
+  { label: "صدى السوق", path: "/market-echo", desc: "ذاكرة السوق والهوية" },
 ];
 
 const secondaryNavItems = [
