@@ -344,9 +344,9 @@ const About = () => (
 
           <div className="mx-auto mt-5 grid max-w-2xl gap-2.5 sm:grid-cols-3">
             {[
-              { n: "01", icon: Compass, label: "الدليل التفاعلي", desc: "خريطة لكل دور.", active: true },
-              { n: "02", icon: ShoppingBag, label: "سوق المنتجات", desc: "تصفّح من المتاجر.", active: true },
-              { n: "03", icon: Zap, label: "الماركتبليس", desc: "تجربة شراء متكاملة — قريبًا.", active: false },
+              { n: "01", icon: Compass, label: "الخريطة التفاعلية", desc: "كل دور بحالته.", active: true },
+              { n: "02", icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح واطلب.", active: true },
+              { n: "03", icon: Zap, label: "السوق الإلكتروني", desc: "طلب ودفع — قريبًا.", active: false },
             ].map((item) => (
               <div key={item.n} className="heritage-surface rounded-lg p-4 text-center">
                 <span className="font-poppins text-[0.62rem] font-bold" style={{ color: "#CDBB9A" }}>{item.n}</span>
