@@ -319,7 +319,27 @@ const Stores = () => {
 
           {/* Store grid */}
           {isLoading ? (
-            <LoadingGrid count={8} />
+            <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="rounded-2xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
+                  <Skeleton className="aspect-[4/3] w-full rounded-none bg-[#ffffff08]" />
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="h-9 w-9 rounded-xl bg-[#ffffff08]" />
+                      <div className="flex-1 space-y-1.5">
+                        <Skeleton className="h-3.5 w-3/4 bg-[#ffffff08]" />
+                        <Skeleton className="h-2.5 w-1/2 bg-[#ffffff06]" />
+                      </div>
+                    </div>
+                    <Skeleton className="h-2.5 w-full bg-[#ffffff06]" />
+                    <div className="flex items-center justify-between pt-1">
+                      <Skeleton className="h-5 w-16 rounded-full bg-[#ffffff08]" />
+                      <Skeleton className="h-5 w-12 rounded-md bg-[#ffffff06]" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : filtered && filtered.length > 0 ? (
             <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {filtered.map((store, i) => (
