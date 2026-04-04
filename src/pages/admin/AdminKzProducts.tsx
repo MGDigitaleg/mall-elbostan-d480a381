@@ -81,6 +81,7 @@ const AdminKzProducts = () => {
   const [showForm, setShowForm] = useState(false);
   const [editProduct, setEditProduct] = useState<KzProduct | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showCsvImport, setShowCsvImport] = useState(false);
 
   /* ── Product form state ── */
   const [formTitle, setFormTitle] = useState("");
