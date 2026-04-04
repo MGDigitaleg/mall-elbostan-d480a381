@@ -250,6 +250,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               ? brandBg
               : isSelected ? colors.selected : isHovered ? colors.hover : colors.base;
 
+            const hoverBrightness = hasBrand && isHovered ? "brightness(1.25)" : undefined;
+
             return (
               <motion.polygon
                 key={unit.id}
@@ -261,11 +263,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 }}
                 transition={{ duration: 0.2 }}
                 fill={baseFill}
-                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFF" : "#00000030") : stroke}
-                strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? 2.2 : 1.2}
-                filter={appliedFilter}
-                className="cursor-pointer outline-none"
-                style={{ transition: "fill 0.2s, stroke 0.2s, stroke-width 0.2s" }}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFFFFFCC" : "#00000030") : stroke}
+                strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? (hasBrand ? 2.8 : 2.2) : 1.2}
+                filter={hoverBrightness ? undefined : appliedFilter}
+                style={{ 
+                  transition: "fill 0.2s, stroke 0.25s, stroke-width 0.25s, filter 0.25s",
+                  filter: hoverBrightness || undefined,
+                }}
                 onClick={() => onSelectUnit(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
@@ -433,36 +437,111 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </text>
         </g>
 
-        {/* ── Hover tooltip — refined ── */}
+        {/* ── Hover tooltip — premium with brand accent ── */}
         {hoveredId && (() => {
           const unit = floor.units.find((u) => u.id === hoveredId);
           if (!unit) return null;
-          const tx = Math.min(Math.max(unit.labelX, 120), 880);
-          const ty = unit.labelY - 36;
+          const tx = Math.min(Math.max(unit.labelX, 140), 860);
+          const ty = unit.labelY - 44;
           const tenantName = TENANT_NAMES[unit.id];
-          const tooltipText = tenantName ? `${tenantName} | ${unit.code}` : `${unit.code} | ${unit.area} م²`;
+          const brandBg = TENANT_BG[unit.id];
+          const isOccupied = unit.status === "occupied" && tenantName;
+
+          if (isOccupied) {
+            // Premium tooltip for occupied stores
+            const nameLen = tenantName.length * 8 + 36;
+            const codeLen = unit.code.length * 6 + 10;
+            const tooltipW = Math.max(nameLen, 100);
+            const tooltipH = 38;
+            const accentColor = brandBg || "#2563EB";
+
+            return (
+              <g pointerEvents="none" style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.35))" }}>
+                {/* Background pill */}
+                <rect
+                  x={tx - tooltipW / 2}
+                  y={ty - tooltipH / 2}
+                  width={tooltipW}
+                  height={tooltipH}
+                  rx="10"
+                  fill="#0B1220"
+                  opacity="0.97"
+                />
+                {/* Brand accent bar on top */}
+                <rect
+                  x={tx - tooltipW / 2}
+                  y={ty - tooltipH / 2}
+                  width={tooltipW}
+                  height="4"
+                  rx="10"
+                  fill={accentColor}
+                />
+                {/* Arrow */}
+                <polygon
+                  points={`${tx - 6},${ty + tooltipH / 2} ${tx + 6},${ty + tooltipH / 2} ${tx},${ty + tooltipH / 2 + 7}`}
+                  fill="#0B1220"
+                  opacity="0.97"
+                />
+                {/* Store name */}
+                <text
+                  x={tx}
+                  y={ty - 2}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[11px] font-bold"
+                  fill="#FFFFFF"
+                >
+                  {tenantName}
+                </text>
+                {/* Unit code badge */}
+                <rect
+                  x={tx - codeLen / 2}
+                  y={ty + 8}
+                  width={codeLen}
+                  height="14"
+                  rx="3"
+                  fill={accentColor}
+                  opacity="0.7"
+                />
+                <text
+                  x={tx}
+                  y={ty + 16}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[7.5px] font-semibold"
+                  fill="#FFFFFF"
+                >
+                  {unit.code}
+                </text>
+              </g>
+            );
+          }
+
+          // Simple tooltip for non-occupied
+          const tooltipText = `${unit.code} | ${unit.area} م²`;
           const textLen = tooltipText.length * 6.5 + 28;
           return (
-            <g pointerEvents="none">
+            <g pointerEvents="none" style={{ filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.25))" }}>
               <rect
                 x={tx - textLen / 2}
-                y={ty - 14}
+                y={ty - 10}
                 width={textLen}
-                height="28"
+                height="26"
                 rx="7"
                 fill="#1E1C1A"
                 opacity="0.95"
               />
               <polygon
-                points={`${tx - 5},${ty + 14} ${tx + 5},${ty + 14} ${tx},${ty + 20}`}
+                points={`${tx - 5},${ty + 16} ${tx + 5},${ty + 16} ${tx},${ty + 22}`}
                 fill="#1E1C1A"
                 opacity="0.95"
               />
               <text
                 x={tx}
-                y={ty + 3}
+                y={ty + 6}
                 textAnchor="middle"
-                className="text-[10.5px] font-bold"
+                dominantBaseline="middle"
+                className="text-[10px] font-bold"
                 fill="#F4F0EA"
               >
                 {tooltipText}
