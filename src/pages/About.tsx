@@ -367,7 +367,7 @@ const About = () => (
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link to="/products">
               <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
-                <ShoppingBag className="ml-2 h-4 w-4" /> تصفّح المنتجات
+                <ShoppingBag className="ml-2 h-4 w-4" /> تصفّح منتجات المحلات
               </Button>
             </Link>
             <Link to="/join-marketplace">
