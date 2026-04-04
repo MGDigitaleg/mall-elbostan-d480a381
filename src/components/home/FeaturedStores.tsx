@@ -126,6 +126,7 @@ export function FeaturedStores() {
               </motion.div>
             ))}
           </motion.div>
+          )}
 
           {/* Mobile CTA */}
           <div className="mt-5 text-center lg:hidden">
