@@ -221,6 +221,9 @@ export function MarketEchoSection() {
               transition={{ duration: 0.7, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}
               className="mt-10 lg:mt-0"
             >
+              {/* Visual Mark */}
+              <EchoVisualMark isVisible={isInView} />
+
               {/* Closing line */}
               <motion.p
                 initial={{ opacity: 0 }}
