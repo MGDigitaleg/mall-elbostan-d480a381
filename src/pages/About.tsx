@@ -51,11 +51,11 @@ const About = () => (
     <PageHero
       kicker="من نحن"
       kickerEn="About Us"
-      title={<>المكان الذي <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span></>}
-      subtitle="سيرة تجارية بدأت عام 1990 في وسط البلد — وتمتد اليوم إلى القاهرة الجديدة بنفس الثقة ونفس الاسم."
+      title={<>المكان الذي <span style={{ color: "#CDBB9A" }}>اختاره السوق.</span></>}
+      subtitle="من وسط البلد منذ ١٩٩٠ إلى القاهرة الجديدة — نفس الاسم ونفس الثقة."
       ctas={[
-        { label: "استكشف الدليل", to: "/map", icon: Compass },
-        { label: "تصفّح المتاجر", to: "/stores" },
+        { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
+        { label: "دليل المحلات", to: "/stores" },
       ]}
       image={{ src: exteriorImage, alt: "الواجهة الرئيسية لمول البستان — القاهرة الجديدة" }}
     />
