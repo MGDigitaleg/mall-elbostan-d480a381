@@ -14,6 +14,25 @@ import {
   ScanBeam,
 } from "@/components/market-echo/EchoEffects";
 
+const quoteCards = [
+  {
+    phrase: "انزل البستان",
+    meaning: "العبارة الأشهر بين رواد السوق. كلما احتاج أحدهم لجهاز أو قطعة تقنية، كان الرد الجاهز: انزل البستان. لم تكن نصيحة، بل بداية كل رحلة شراء.",
+  },
+  {
+    phrase: "لف البستان الأول",
+    meaning: "قبل أي قرار شراء، كان التعارف يبدأ بجولة في البستان. المقارنة بين المحلات والأسعار والتشكيلات كانت طقسًا ثابتًا لكل مشتري ذكي.",
+  },
+  {
+    phrase: "اسأل في البستان",
+    meaning: "المكان الذي يثق الناس في معلوماته. سواء كنت تبحث عن رأي تقني أو مقارنة بين منتجات، البستان كان المرجع الأول للإجابة.",
+  },
+  {
+    phrase: "أسعار البستان",
+    meaning: "اسم أصبح مقياسًا للسعر العادل في السوق. حين يقول أحدهم: سعر البستان كام؟ فهو يسأل عن المعيار الذي يقيس عليه بقية الأسعار.",
+  },
+];
+
 const features = [
   { icon: Store, label: "دليل محلات أوضح", desc: "كل محل بتفاصيله الكاملة في مكان واحد." },
   { icon: Map, label: "خريطة تفاعلية أدق", desc: "تصفّح كل دور واعرف مكان كل وحدة." },
@@ -27,7 +46,7 @@ export function MarketEchoSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex items-center overflow-hidden"
+      className="relative flex flex-col justify-center overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #060E1C 0%, #0A1628 40%, #071326 100%)",
         minHeight: "100vh",
@@ -250,6 +269,66 @@ export function MarketEchoSection() {
             </motion.div>
           </motion.div>
         </div>
+      </div>
+
+      {/* ── Quote Cards ── */}
+      <div className="container relative z-10 mt-16 lg:mt-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 3.6 }}
+          className="mx-auto max-w-5xl"
+        >
+          <div className="mb-8 flex items-center justify-center gap-3">
+            <div className="h-px w-10" style={{ background: "linear-gradient(to left, #CDBB9A40, transparent)" }} />
+            <p className="text-[0.7rem] font-bold tracking-[0.15em] uppercase" style={{ color: "#CDBB9A" }}>
+              عبارات بنت الاسم
+            </p>
+            <div className="h-px w-10" style={{ background: "linear-gradient(to right, #CDBB9A40, transparent)" }} />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {quoteCards.map((card, i) => (
+              <motion.div
+                key={card.phrase}
+                initial={{ opacity: 0, y: 18 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 3.8 + i * 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="group relative rounded-2xl p-5 transition-all duration-300"
+                style={{
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  backdropFilter: "blur(8px)",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = "#CDBB9A22";
+                  e.currentTarget.style.background = "rgba(205,187,154,0.04)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.02)";
+                }}
+              >
+                {/* Quote mark */}
+                <span
+                  className="absolute top-3 left-4 text-[2rem] leading-none font-serif select-none"
+                  style={{ color: "#CDBB9A18" }}
+                >
+                  &ldquo;
+                </span>
+                <p
+                  className="text-[1.05rem] font-bold mb-2"
+                  style={{ color: "#F1F5F9", fontFamily: "var(--font-arabic-display)" }}
+                >
+                  {card.phrase}
+                </p>
+                <p className="text-[0.78rem] leading-[1.85]" style={{ color: "#7C8BA1" }}>
+                  {card.meaning}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Bottom accent line */}
