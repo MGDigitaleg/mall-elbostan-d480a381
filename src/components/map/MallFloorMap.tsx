@@ -320,9 +320,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const unitW = maxX - minX;
             const unitH = maxY - minY;
 
-            // Logo fills ~75% width and ~50% height of unit
-            const logoW = Math.max(40, Math.min(unitW * 0.75, 130));
-            const logoH = Math.max(24, Math.min(unitH * 0.45, 80));
+            // Logo fills ~85% width and ~60% height of unit for better visibility
+            const logoW = Math.max(50, Math.min(unitW * 0.85, 150));
+            const logoH = Math.max(30, Math.min(unitH * 0.58, 95));
 
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
