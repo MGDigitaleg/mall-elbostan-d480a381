@@ -51,7 +51,8 @@ export function DowntownTeaser() {
               </div>
 
               <h2 className="text-[1.2rem] md:text-[1.45rem] font-bold leading-[1.2]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F5F0E8" }}>
-                الإرث الذي بنى الاسم.
+                فرع وسط البلد — منذ ١٩٩٠.
+              </h2>
               </h2>
 
               <p className="text-[0.84rem] leading-[1.7] max-w-[30rem]" style={{ color: "#A89E8C" }}>
