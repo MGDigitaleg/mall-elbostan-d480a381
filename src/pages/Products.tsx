@@ -8,7 +8,6 @@ import {
   Store,
   X,
   Tag,
-  Compass,
   ArrowLeft,
   SlidersHorizontal,
   Compass,
@@ -17,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/PageHero";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
