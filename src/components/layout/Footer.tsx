@@ -224,7 +224,7 @@ export function Footer() {
         <div className="mt-9 border-t pt-6" style={{ borderColor: "#ffffff08" }}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
-              <p>مول البستان — وجهة تقنية مصرية راسخة</p>
+              <p>مول البستان — سوق التقنية منذ ١٩٩٠</p>
               <span className="hidden md:inline" style={{ color: "#2A3444" }}>|</span>
               <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
