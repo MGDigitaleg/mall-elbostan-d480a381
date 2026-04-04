@@ -91,6 +91,7 @@ function AppLayout() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reward-terms" element={<RewardTerms />} />
+          <Route path="/market-echo" element={<MarketEcho />} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />

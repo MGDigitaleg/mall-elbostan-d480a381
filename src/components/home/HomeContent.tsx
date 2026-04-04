@@ -226,8 +226,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 8 · DOWNTOWN TEASER ═══════════ */}
       <DowntownTeaser />
 
-      {/* ═══════════ 8.5 · MARKET MEMORY ═══════════ */}
-      <MarketEchoSection />
 
       <div className="band-primary" />
 
