@@ -105,12 +105,12 @@ const Leasing = () => {
               <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]" style={{ color: "hsl(var(--primary))" }}>
                 لماذا هنا
               </p>
-              <h2 className="mt-1.5 max-w-[24rem] text-[1.2rem] font-extrabold leading-[1.15] text-foreground md:text-[1.45rem]"
+               <h2 className="mt-1.5 max-w-[24rem] text-[1.2rem] font-extrabold leading-[1.15] text-foreground md:text-[1.45rem]"
                   style={{ fontFamily: "var(--font-arabic-display)" }}>
-                لماذا تختار مول البستان
-              </h2>
-              <p className="mt-2 max-w-[32rem] text-[0.84rem] leading-[1.85] text-muted-foreground">
-                الزبون الذي يدخل يحمل قرار شراء — هذا ما يصنع الفرق.
+                 لماذا البستان.
+               </h2>
+               <p className="mt-2 max-w-[32rem] text-[0.84rem] leading-[1.85] text-muted-foreground">
+                 الزبون الذي يدخل يحمل قرار شراء — هذا ما يصنع الفرق.
               </p>
             </div>
           </motion.div>
