@@ -363,9 +363,10 @@ export function MarketEchoSection() {
             </div>
           </motion.div>
         </div>
-      </motion.div>
 
-      {/* Bottom accent line */}
+        {/* ── Historical Timeline ── */}
+        <EchoTimeline />
+      </motion.div>
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-px z-10"
         style={{
