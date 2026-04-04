@@ -339,8 +339,7 @@ const About = () => (
           </div>
 
           <p className="mx-auto mt-3 max-w-[28rem] text-center text-[0.88rem] leading-[1.85] dark-body">
-            لم يعد مول البستان مجرد مبنى — إنه منصة رقمية تربط المتاجر بالمنتجات بالزوار.
-            من الدليل التفاعلي إلى السوق الإلكتروني.
+            دليل تفاعلي لكل محل، وسوق منتجات يربط المحلات بالزوار مباشرة.
           </p>
 
           <div className="mx-auto mt-5 grid max-w-2xl gap-2.5 sm:grid-cols-3">
