@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
+import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import entranceImage from "@/assets/mall-entrance.jpg";
