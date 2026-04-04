@@ -38,9 +38,8 @@ const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
 const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-/* ── Kasr Zero pages (detail + cart only — listing is unified under /products) ── */
+/* ── Kasr Zero pages ── */
 const KzHome = lazy(() => import("./pages/kz/KzHome"));
-const KzProductDetail = lazy(() => import("./pages/kz/KzProductDetail"));
 const KzCart = lazy(() => import("./pages/kz/KzCart"));
 
 const AdminLogin = lazy(() => import("./pages/admin/Login"));
