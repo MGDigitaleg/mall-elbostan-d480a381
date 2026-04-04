@@ -91,9 +91,9 @@ const NewCairoBranch = () => {
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="max-w-2xl mx-auto text-center">
               <p className="section-kicker">الفصل الجديد</p>
-              <h2 className="section-title">نفس الاسم — تجربة جديدة.</h2>
+              <h2 className="section-title">نفس الاسم — فرع جديد.</h2>
               <p className="mt-3 text-[0.86rem] leading-[1.85] text-muted-foreground max-w-xl mx-auto">
-                فرع القاهرة الجديدة يقدم تجربة منظمة ورقمية بالكامل — خريطة تفاعلية، دليل محلات ذكي، وسوق منتجات متكامل — في موقع يخدم مدينتي والرحاب والتجمعات المحيطة.
+                خريطة تفاعلية، دليل محلات، ومنتجات من المحلات — في موقع يخدم مدينتي والرحاب والتجمعات المحيطة.
               </p>
             </div>
           </motion.div>
