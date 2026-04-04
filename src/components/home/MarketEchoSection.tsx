@@ -27,10 +27,12 @@ export function MarketEchoSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-24 md:py-32 lg:py-40"
+      className="relative flex items-center overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #060E1C 0%, #0A1628 40%, #071326 100%)",
-        minHeight: "90vh",
+        minHeight: "100vh",
+        paddingTop: "clamp(5rem, 12vh, 8rem)",
+        paddingBottom: "clamp(4rem, 10vh, 7rem)",
       }}
     >
       {/* ── Decorative background ── */}
