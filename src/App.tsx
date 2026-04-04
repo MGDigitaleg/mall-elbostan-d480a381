@@ -71,6 +71,12 @@ function PageFallback() {
   );
 }
 
+/** Redirect /kz/products/:slug → /products/:slug */
+function KzSlugRedirect() {
+  const params = useParams();
+  return <Navigate to={`/products/${params.slug}`} replace />;
+}
+
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
