@@ -177,8 +177,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="relative container max-w-3xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="mx-auto max-w-[24rem] text-center">
-              <p className="section-kicker dark-kicker">سوق البستان الرقمي</p>
-              <h2 className="section-title dark-heading">من مول إلى منصة.</h2>
+              <p className="section-kicker dark-kicker">سوق المحلات</p>
+              <h2 className="section-title dark-heading">تصفّح منتجات المحلات.</h2>
             </div>
 
             <div className="mx-auto mt-6 grid max-w-2xl gap-3 sm:grid-cols-3">
