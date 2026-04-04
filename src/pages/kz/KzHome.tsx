@@ -70,7 +70,7 @@ const KzHome = () => {
                   <ShoppingBag className="h-4 w-4" /> تصفّح المنتجات
                 </Button>
               </Link>
-              <Link to="/kz/search">
+              <Link to="/products?store=kasr-zero">
                 <Button variant="outline" className="h-11 gap-2 rounded-xl px-6 text-[0.88rem]" style={{ borderColor: "#ffffff20", background: "#ffffff08", color: "#CBD5E1" }}>
                   <Search className="h-4 w-4" /> ابحث عن منتج
                 </Button>
