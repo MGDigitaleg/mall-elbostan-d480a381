@@ -58,7 +58,7 @@ export function HeroSlider() {
 
   useEffect(() => {
     if (isPaused) return;
-    const t = setInterval(next, 6500);
+    const t = setInterval(next, 4500);
     return () => clearInterval(t);
   }, [isPaused, next]);
 
