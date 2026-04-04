@@ -8,7 +8,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import ncHero1 from "@/assets/nc-hero-1.jpg";
 import dtHero1 from "@/assets/downtown-hero-1.jpg";
 import ncHero3 from "@/assets/nc-hero-3.jpg";
-import mallBuildingNight from "@/assets/mall-building-night.png";
+import mallBuildingHero from "@/assets/mall-building-hero.jpg";
 
 /* 3 slides — each with ONE distinct full-bleed image */
 const slides = [
@@ -22,7 +22,7 @@ const slides = [
     ctaSecondary: { label: "الخريطة التفاعلية", to: "/map" },
   },
   {
-    image: mallBuildingNight,
+    image: mallBuildingHero,
     alt: "مبنى مول البستان ليلاً",
     kicker: "القاهرة الجديدة",
     headline: "وجهة التقنية الجديدة.",
@@ -58,7 +58,7 @@ export function HeroSlider() {
 
   useEffect(() => {
     if (isPaused) return;
-    const t = setInterval(next, 4500);
+    const t = setInterval(next, 3500);
     return () => clearInterval(t);
   }, [isPaused, next]);
 
@@ -205,7 +205,7 @@ export function HeroSlider() {
                   style={{ background: "#CDBB9A" }}
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ duration: 4.5, ease: "linear" }}
+                  transition={{ duration: 3.5, ease: "linear" }}
                 />
               </>
             )}
