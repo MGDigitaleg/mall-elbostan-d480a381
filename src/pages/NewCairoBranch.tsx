@@ -165,7 +165,7 @@ const NewCairoBranch = () => {
                 <img src={ncHero1} alt="مدخل مول البستان — القاهرة الجديدة" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
               </div>
               <div className="overflow-hidden rounded-2xl">
-                <img src={ncHero2} alt="الواجهة الخارجية" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                <img src={ncHero2} alt="المبنى من الخارج" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
               </div>
               <div className="overflow-hidden rounded-2xl">
                 <img src={ncHero3} alt="التصميم الداخلي" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
