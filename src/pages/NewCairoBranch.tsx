@@ -20,7 +20,6 @@ import ncHero4 from "@/assets/nc-hero-4.jpg";
 
 const heroSlides = [
   { src: ncHero1, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
-  { src: ncHero2, alt: "مول البستان — الواجهة الخارجية، القاهرة الجديدة" },
   { src: ncHero3, alt: "مول البستان — التصميم الداخلي" },
   { src: ncHero4, alt: "واجهة مول البستان — القاهرة الجديدة" },
 ];

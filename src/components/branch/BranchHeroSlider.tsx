@@ -48,6 +48,7 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
             src={slides[current].src}
             alt={slides[current].alt}
             className="h-full w-full object-cover"
+            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)" }}
             loading={current === 0 ? "eager" : "lazy"}
           />
         </motion.div>
