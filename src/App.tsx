@@ -44,8 +44,8 @@ const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
 
-const AdminPages = lazy(() => import("./pages/admin/AdminPages"));
-const AdminSpinSystem = lazy(() => import("./pages/admin/AdminSpinSystem"));
+import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
+import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
 
 const queryClient = new QueryClient();
 
