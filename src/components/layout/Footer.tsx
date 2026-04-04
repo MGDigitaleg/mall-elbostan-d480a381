@@ -91,7 +91,7 @@ export function Footer() {
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.85] font-light" style={{ color: "#8896AB" }}>
-              وجهة مصر التقنية الأولى — مكانة بناها السوق وثقة أثبتتها السنوات منذ 1990.
+              سوق التقنية الأول في مصر — ثقة بناها السوق منذ ١٩٩٠.
             </p>
 
             {/* Social icons */}
