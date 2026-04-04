@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
-import { ArrowRight, Plus, Pencil, Trash2, Search, Eye, Package, Image as ImageIcon, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { ArrowRight, Plus, Pencil, Trash2, Search, Eye, Package, Image as ImageIcon, ChevronDown, ChevronUp, ExternalLink, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
