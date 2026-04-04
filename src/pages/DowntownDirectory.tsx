@@ -200,7 +200,7 @@ const DowntownDirectory = () => {
               {["الكل", "Verified", "Official source linked", "Needs review"].map((s) => (
                 <button
                   key={s}
-                  onClick={() => setSelectedStatus(s)}
+                  onClick={() => handleFilterChange(setSelectedStatus, s)}
                   className={`rounded-md px-2.5 py-1 text-[0.65rem] font-medium transition-all ${
                     selectedStatus === s
                       ? "bg-foreground/10 text-foreground"
