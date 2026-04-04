@@ -173,7 +173,7 @@ const DowntownDirectory = () => {
               <Input
                 placeholder="ابحث بالاسم أو رقم الهاتف..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => { setSearch(e.target.value); setVisibleCount(PAGE_SIZE); }}
                 className="h-11 rounded-xl border-border bg-card pr-10 text-[0.84rem]"
               />
             </div>
