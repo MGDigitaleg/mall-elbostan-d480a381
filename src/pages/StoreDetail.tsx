@@ -137,7 +137,7 @@ const StoreDetail = () => {
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
         {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="h-full w-full object-cover" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
+          <img src={heroImage} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsla(218, 55%, 7%, 0.75) 0%, hsla(218, 55%, 7%, 0.92) 60%, hsla(218, 55%, 7%, 0.98) 100%)" }} />
         </div>
 
