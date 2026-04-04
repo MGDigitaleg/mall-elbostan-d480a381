@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -8,7 +8,6 @@ import {
   Store,
   X,
   ArrowLeft,
-  SlidersHorizontal,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -20,34 +19,49 @@ import { PageHero } from "@/components/PageHero";
 /* ══════════════════════════════════════════════
    Unified product type for display
    ══════════════════════════════════════════════ */
-type UnifiedProduct = {
+export type UnifiedProduct = {
   id: string;
   slug: string;
-  name: string;
+  product_name: string;
   price: number | null;
   priceNote: string | null;
   comparePrice: number | null;
-  imageUrl: string | null;
+  product_image: string | null;
   brand: string | null;
   featured: boolean;
-  storeName: string | null;
+  shop_name: string | null;
   storeSlug: string | null;
   storeLogo: string | null;
-  categoryName: string | null;
+  section: string | null;
+  mall: string;
   source: "mall" | "kz";
   createdAt: string;
 };
 
 const Products = () => {
-  const [searchParams] = useSearchParams();
-  const initialStore = searchParams.get("store") ?? "all";
-  const initialCategory = searchParams.get("category") ?? "all";
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStore, setSelectedStore] = useState(initialStore);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  // Read filters from URL
+  const urlShopName = searchParams.get("shop_name") ?? searchParams.get("store") ?? "all";
+  const urlSection = searchParams.get("section") ?? searchParams.get("category") ?? "all";
+  const urlMall = searchParams.get("mall") ?? "all";
+  const urlSearch = searchParams.get("q") ?? "";
+
+  const [searchTerm, setSearchTerm] = useState(urlSearch);
+  const [selectedShop, setSelectedShop] = useState(urlShopName);
+  const [selectedSection, setSelectedSection] = useState(urlSection);
+  const [selectedMall, setSelectedMall] = useState(urlMall);
   const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
-  const [showFilters, setShowFilters] = useState(false);
+
+  // Sync URL when filters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (selectedShop !== "all") params.set("shop_name", selectedShop);
+    if (selectedSection !== "all") params.set("section", selectedSection);
+    if (selectedMall !== "all") params.set("mall", selectedMall);
+    if (searchTerm.trim()) params.set("q", searchTerm.trim());
+    setSearchParams(params, { replace: true });
+  }, [selectedShop, selectedSection, selectedMall, searchTerm, setSearchParams]);
 
   /* ── Fetch mall products ── */
   const { data: mallProducts, isLoading: loadingMall } = useQuery({
@@ -108,11 +122,8 @@ const Products = () => {
   /* ── Normalize into unified list ── */
   const allProducts: UnifiedProduct[] = useMemo(() => {
     const unified: UnifiedProduct[] = [];
-
-    // Kasr Zero store info
     const kzStore = storeList?.find(s => s.slug === "kasr-zero");
 
-    // Mall products
     if (mallProducts) {
       for (const p of mallProducts) {
         const store = (p as any).stores;
@@ -120,24 +131,24 @@ const Products = () => {
         unified.push({
           id: p.id,
           slug: p.slug,
-          name: p.name_ar,
+          product_name: p.name_ar,
           price: p.price ? Number(p.price) : null,
           priceNote: p.price_note,
           comparePrice: null,
-          imageUrl: p.image_url,
+          product_image: p.image_url,
           brand: p.brand,
           featured: p.featured,
-          storeName: store?.name_ar ?? null,
+          shop_name: store?.name_ar ?? null,
           storeSlug: store?.slug ?? null,
           storeLogo: store?.logo_url ?? null,
-          categoryName: cat?.name_ar ?? null,
+          section: cat?.name_ar ?? null,
+          mall: "القاهرة الجديدة",
           source: "mall",
           createdAt: p.created_at,
         });
       }
     }
 
-    // KZ products
     if (kzProducts) {
       for (const p of kzProducts as any[]) {
         const defaultVariant = p.kz_product_variants?.find((v: any) => v.is_default) ?? p.kz_product_variants?.[0];
@@ -145,17 +156,18 @@ const Products = () => {
         unified.push({
           id: p.id,
           slug: p.slug,
-          name: p.title,
+          product_name: p.title,
           price: defaultVariant ? Number(defaultVariant.price) : null,
           priceNote: null,
           comparePrice: defaultVariant?.compare_price ? Number(defaultVariant.compare_price) : null,
-          imageUrl: firstImage?.image_url ?? null,
+          product_image: firstImage?.image_url ?? null,
           brand: p.brand,
           featured: p.featured,
-          storeName: kzStore?.name_ar ?? "كسر زيرو",
+          shop_name: kzStore?.name_ar ?? "كسر زيرو",
           storeSlug: kzStore?.slug ?? "kasr-zero",
           storeLogo: kzStore?.logo_url ?? null,
-          categoryName: p.kz_categories?.name ?? null,
+          section: p.kz_categories?.name ?? null,
+          mall: "القاهرة الجديدة",
           source: "kz",
           createdAt: p.created_at,
         });
@@ -165,51 +177,54 @@ const Products = () => {
     return unified;
   }, [mallProducts, kzProducts, storeList]);
 
-  /* ── Build merged category list ── */
-  const mergedCategories = useMemo(() => {
+  /* ── Build merged section list ── */
+  const mergedSections = useMemo(() => {
     const cats: { id: string; label: string }[] = [];
     const seen = new Set<string>();
     if (mallCategories) {
       for (const c of mallCategories) {
-        if (!seen.has(c.name_ar)) { seen.add(c.name_ar); cats.push({ id: `mall:${c.id}`, label: c.name_ar }); }
+        if (!seen.has(c.name_ar)) { seen.add(c.name_ar); cats.push({ id: c.name_ar, label: c.name_ar }); }
       }
     }
     if (kzCategories) {
       for (const c of kzCategories) {
-        if (!seen.has(c.name)) { seen.add(c.name); cats.push({ id: `kz:${c.id}`, label: c.name }); }
+        if (!seen.has(c.name)) { seen.add(c.name); cats.push({ id: c.name, label: c.name }); }
       }
     }
     return cats;
   }, [mallCategories, kzCategories]);
 
+  /* ── Mall list ── */
+  const mallList = useMemo(() => {
+    const set = new Set(allProducts.map(p => p.mall));
+    return Array.from(set);
+  }, [allProducts]);
+
   /* ── Filter & Sort ── */
   const filteredProducts = useMemo(() => {
     let list = allProducts;
 
-    // Store filter
-    if (selectedStore !== "all") {
-      list = list.filter(p => p.storeSlug === selectedStore);
+    if (selectedShop !== "all") {
+      list = list.filter(p => p.storeSlug === selectedShop);
     }
 
-    // Category filter
-    if (selectedCategory !== "all") {
-      const catLabel = mergedCategories.find(c => c.id === selectedCategory)?.label;
-      if (catLabel) {
-        list = list.filter(p => p.categoryName === catLabel);
-      }
+    if (selectedSection !== "all") {
+      list = list.filter(p => p.section === selectedSection);
     }
 
-    // Search
+    if (selectedMall !== "all") {
+      list = list.filter(p => p.mall === selectedMall);
+    }
+
     if (searchTerm.trim()) {
       const q = searchTerm.trim().toLowerCase();
       list = list.filter(p =>
-        p.name.toLowerCase().includes(q) ||
+        p.product_name.toLowerCase().includes(q) ||
         p.brand?.toLowerCase().includes(q) ||
-        p.storeName?.toLowerCase().includes(q)
+        p.shop_name?.toLowerCase().includes(q)
       );
     }
 
-    // Sort
     const sorted = [...list];
     switch (sortBy) {
       case "price_asc": return sorted.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
@@ -217,13 +232,14 @@ const Products = () => {
       case "newest": return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-  }, [allProducts, selectedStore, selectedCategory, searchTerm, sortBy, mergedCategories]);
+  }, [allProducts, selectedShop, selectedSection, selectedMall, searchTerm, sortBy]);
 
-  const hasActiveFilters = selectedCategory !== "all" || selectedStore !== "all" || searchTerm.trim().length > 0;
+  const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
 
   const clearFilters = useCallback(() => {
-    setSelectedCategory("all");
-    setSelectedStore("all");
+    setSelectedSection("all");
+    setSelectedShop("all");
+    setSelectedMall("all");
     setSearchTerm("");
     setSortBy("featured");
   }, []);
@@ -238,7 +254,6 @@ const Products = () => {
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
       />
 
-      {/* ═══════════ HERO ═══════════ */}
       <PageHero
         kicker="سوق المول"
         kickerEn="Marketplace"
@@ -253,7 +268,6 @@ const Products = () => {
 
       <div className="band-primary" />
 
-      {/* ═══════════ PRODUCTS SECTION ═══════════ */}
       <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
         <div className="container max-w-[1200px]">
 
@@ -275,9 +289,25 @@ const Products = () => {
 
               {/* Dropdowns */}
               <div className="flex items-center gap-2 flex-wrap">
+                {/* Mall filter */}
+                {mallList.length > 1 && (
+                  <select
+                    value={selectedMall}
+                    onChange={(e) => setSelectedMall(e.target.value)}
+                    className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                  >
+                    <option value="all">جميع الفروع</option>
+                    {mallList.map((m) => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                )}
+
+                {/* Shop filter */}
                 <select
-                  value={selectedStore}
-                  onChange={(e) => setSelectedStore(e.target.value)}
+                  value={selectedShop}
+                  onChange={(e) => setSelectedShop(e.target.value)}
                   className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
                 >
@@ -287,18 +317,20 @@ const Products = () => {
                   ))}
                 </select>
 
+                {/* Section filter */}
                 <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  value={selectedSection}
+                  onChange={(e) => setSelectedSection(e.target.value)}
                   className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
                 >
-                  <option value="all">جميع الفئات</option>
-                  {mergedCategories.map((c) => (
+                  <option value="all">جميع الأقسام</option>
+                  {mergedSections.map((c) => (
                     <option key={c.id} value={c.id}>{c.label}</option>
                   ))}
                 </select>
 
+                {/* Sort */}
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
@@ -367,7 +399,7 @@ const Products = () => {
         </div>
       </section>
 
-      {/* ═══════════ CTA ═══════════ */}
+      {/* CTA */}
       <section className="py-7 md:py-9" style={{ background: "hsl(var(--background))" }}>
         <div className="container max-w-[1200px]">
           <div className="rounded-xl border border-border bg-card p-6 md:p-8">
@@ -398,13 +430,11 @@ const Products = () => {
 };
 
 /* ══════════════════════════════════════════════════════════
-   Sub-components
+   ProductCard — single reusable card
    ══════════════════════════════════════════════════════════ */
 
-function ProductCard({ product, index }: { product: UnifiedProduct; index: number }) {
-  const detailPath = product.source === "kz"
-    ? `/kz/products/${product.slug}`
-    : `/products/${product.slug}`;
+export function ProductCard({ product, index }: { product: UnifiedProduct; index: number }) {
+  const detailPath = `/products/${product.slug}`;
 
   const hasDiscount = product.comparePrice && product.comparePrice > (product.price ?? 0);
   const discountPct = hasDiscount
@@ -432,10 +462,10 @@ function ProductCard({ product, index }: { product: UnifiedProduct; index: numbe
       >
         {/* Image */}
         <div className="relative aspect-square overflow-hidden bg-white">
-          {product.imageUrl ? (
+          {product.product_image ? (
             <img
-              src={product.imageUrl}
-              alt={product.name}
+              src={product.product_image}
+              alt={product.product_name}
               className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105"
               loading="lazy"
             />
@@ -445,7 +475,6 @@ function ProductCard({ product, index }: { product: UnifiedProduct; index: numbe
             </div>
           )}
 
-          {/* Badges */}
           {product.featured && !hasDiscount && (
             <span
               className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
@@ -472,22 +501,23 @@ function ProductCard({ product, index }: { product: UnifiedProduct; index: numbe
         {/* Info */}
         <div className="flex flex-1 flex-col justify-between p-3">
           <div>
-            {product.categoryName && (
-              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.categoryName}</p>
+            {product.section && (
+              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.section}</p>
             )}
             <h3 className="text-[0.8rem] font-bold leading-snug line-clamp-2 transition-colors group-hover:text-primary" style={{ color: "#F8FAFC" }}>
-              {product.name}
+              {product.product_name}
             </h3>
-            {product.storeName && (
+            {product.shop_name && (
               <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem]" style={{ color: "#64748B" }}>
                 {product.storeLogo ? (
                   <img src={product.storeLogo} alt="" className="h-3.5 w-3.5 rounded-sm bg-white object-contain" />
                 ) : (
                   <Store className="h-3 w-3" />
                 )}
-                {product.storeName}
+                {product.shop_name}
               </p>
             )}
+            <p className="mt-0.5 text-[0.58rem]" style={{ color: "#475569" }}>{product.mall}</p>
           </div>
 
           {/* Price */}
