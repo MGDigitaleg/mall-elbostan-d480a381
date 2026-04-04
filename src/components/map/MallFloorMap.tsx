@@ -5,7 +5,7 @@ import { AtriumInteractiveLayer } from "./AtriumInteractiveLayer";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 
-import { UNIT_TENANT_NAMES as TENANT_NAMES, UNIT_TENANT_LOGOS as TENANT_LOGOS } from "@/lib/tenantMapLookup";
+import { UNIT_TENANT_NAMES as TENANT_NAMES, UNIT_TENANT_LOGOS as TENANT_LOGOS, UNIT_TENANT_BG_COLORS as TENANT_BG } from "@/lib/tenantMapLookup";
 
 import {
   OUTER_SHELL,
