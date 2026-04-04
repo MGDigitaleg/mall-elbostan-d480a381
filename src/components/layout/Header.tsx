@@ -37,6 +37,9 @@ export function Header() {
   const [branchOpen, setBranchOpen] = useState(false);
   const branchRef = useRef<HTMLDivElement>(null);
 
+  const { totalItems } = useKzCart();
+  const isKzPage = location.pathname.startsWith("/kz");
+
   const hasDarkHero = darkHeroPages.some(
     (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
   );
