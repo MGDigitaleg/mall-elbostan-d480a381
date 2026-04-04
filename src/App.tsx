@@ -51,8 +51,9 @@ const queryClient = new QueryClient();
 
 function GA4Init() { useGA4(); return null; }
 
-/* Routes that should NOT show the public header/footer */
+/* Routes that should NOT show the public header/footer/widgets */
 const adminPaths = ["/admin"];
+const immersivePaths = ["/market-echo"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
 const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo"];
@@ -68,14 +69,17 @@ function PageFallback() {
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const isImmersive = immersivePaths.some((p) => location.pathname === p);
   const hasDarkHero = darkHeroPages.some(
     (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
   );
 
+  const showChrome = !isAdmin && !isImmersive;
+
   return (
     <>
-      {!isAdmin && <Header />}
-      <main className={!isAdmin ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
+      {showChrome && <Header />}
+      <main className={showChrome ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
         <Suspense fallback={<PageFallback />}>
           <Routes>
             {/* Public */}
@@ -131,8 +135,8 @@ function AppLayout() {
           </Routes>
         </Suspense>
       </main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFab />}
+      {showChrome && <Footer />}
+      {showChrome && <WhatsAppFab />}
     </>
   );
 }

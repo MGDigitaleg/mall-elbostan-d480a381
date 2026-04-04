@@ -624,3 +624,12 @@
   /* ── Heritage section variable ── */
   :root { --heritage: 37 28% 70%; }
 }
+
+/* ── Market Echo immersive page animations ── */
+@keyframes echoFadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.echo-fade-up {
+  animation: echoFadeUp 0.7s ease-out both;
+}
