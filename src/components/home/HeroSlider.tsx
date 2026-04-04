@@ -85,7 +85,7 @@ export function HeroSlider() {
             src={slide.image}
             alt={slide.alt}
             className="h-full w-full object-cover"
-            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 65%" }}
+            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 80%" }}
             loading={current === 0 ? "eager" : "lazy"}
           />
         </motion.div>
