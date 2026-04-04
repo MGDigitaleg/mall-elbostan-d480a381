@@ -51,8 +51,9 @@ const queryClient = new QueryClient();
 
 function GA4Init() { useGA4(); return null; }
 
-/* Routes that should NOT show the public header/footer */
+/* Routes that should NOT show the public header/footer/widgets */
 const adminPaths = ["/admin"];
+const immersivePaths = ["/market-echo"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
 const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo"];
