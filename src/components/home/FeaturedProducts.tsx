@@ -1,5 +1,6 @@
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ShoppingBag, Store } from "lucide-react";
+import { ArrowLeft, ShoppingBag, Store, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
@@ -7,109 +8,209 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
+const CATEGORIES = [
+  "الكل",
+  "الهواتف والإكسسوارات",
+  "الكمبيوتر والأجهزة",
+  "الألعاب والترفيه",
+  "الشبكات والأنظمة الأمنية",
+  "الطباعة والتصوير",
+  "الصيانة والدعم الفني",
+] as const;
+
+type SortTab = "latest" | "featured";
+
 export function FeaturedProducts() {
+  const [activeCategory, setActiveCategory] = useState("الكل");
+  const [sortTab, setSortTab] = useState<SortTab>("latest");
+
   const { data: products, isLoading } = useQuery({
-    queryKey: ["featured-products-home"],
+    queryKey: ["home-products-full"],
     queryFn: async () => {
       const { data } = await supabase
         .from("products")
-        .select("id, name_ar, slug, price, price_note, image_url, brand, category_id, store_id, stores(name_ar, slug, logo_url, category)")
+        .select(
+          "id, name_ar, slug, price, price_note, image_url, brand, category_id, store_id, featured, created_at, stores(name_ar, slug, logo_url, category)"
+        )
         .eq("status", "published")
-        .eq("featured", true)
-        .limit(12);
+        .order("created_at", { ascending: false })
+        .limit(48);
       return data ?? [];
     },
   });
 
-  const hasProducts = !isLoading && products && products.length > 0;
+  const filtered = useMemo(() => {
+    if (!products) return [];
+    let list = [...products];
+
+    if (activeCategory !== "الكل") {
+      list = list.filter((p) => {
+        const store = (p as any).stores;
+        return store?.category === activeCategory;
+      });
+    }
+
+    if (sortTab === "featured") {
+      list.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    }
+
+    return list.slice(0, 12);
+  }, [products, activeCategory, sortTab]);
+
+  const hasProducts = !isLoading && filtered.length > 0;
+  const storeCount = useMemo(() => {
+    if (!products) return 0;
+    return new Set(products.map((p) => p.store_id).filter(Boolean)).size;
+  }, [products]);
 
   return (
     <section
-      className="min-h-[320px]"
+      className="min-h-[420px]"
       style={{
         background: "#FAFAF8",
         contain: "layout style",
-        paddingTop: "clamp(40px, 5.5vw, 88px)",
-        paddingBottom: "clamp(40px, 5.5vw, 88px)",
+        paddingTop: "clamp(52px, 7vw, 112px)",
+        paddingBottom: "clamp(52px, 7vw, 112px)",
       }}
     >
       <div className="container">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <p className="section-kicker">من المحلات</p>
-              <h2 className="section-title">أحدث المنتجات.</h2>
-            </div>
-            <Link to="/products" className="hidden lg:inline-flex">
-              <Button variant="ghost" className="gap-1.5 text-[0.78rem] font-bold text-primary hover:text-primary/80">
-                عرض الكل <ArrowLeft className="h-3.5 w-3.5" />
-              </Button>
-            </Link>
+        <motion.div
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+        >
+          {/* Header */}
+          <div className="mb-2">
+            <p className="section-kicker">من محلات المول</p>
+            <h2 className="section-title">أحدث المنتجات من محلات المول.</h2>
+            <p className="mt-1.5 text-[0.82rem] leading-[1.7] text-muted-foreground max-w-md">
+              تصفح أحدث ما أضافته محلات مول البستان في مكان واحد.
+            </p>
           </div>
 
+          {/* Sort tabs */}
+          <div className="mt-5 mb-4 flex flex-wrap items-center gap-2">
+            {(
+              [
+                { key: "latest" as SortTab, label: "الأحدث" },
+                { key: "featured" as SortTab, label: "مميز" },
+              ] as const
+            ).map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setSortTab(tab.key)}
+                className={`rounded-lg px-3.5 py-1.5 text-[0.74rem] font-bold transition-all duration-200 ${
+                  sortTab === tab.key
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:border-border"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+
+            <div className="h-4 w-px bg-border/60 mx-1 hidden sm:block" />
+
+            <div className="flex flex-wrap gap-1.5">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`rounded-lg px-3 py-1.5 text-[0.7rem] font-semibold transition-all duration-200 ${
+                    activeCategory === cat
+                      ? "bg-primary/10 text-primary border border-primary/20"
+                      : "bg-card border border-border/50 text-muted-foreground hover:text-foreground hover:border-border"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Grid */}
           {isLoading ? (
-            <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="flex flex-col rounded-xl border border-border bg-card overflow-hidden">
+            <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden"
+                >
                   <Skeleton className="aspect-square w-full" />
-                  <div className="p-3 space-y-2">
-                    <Skeleton className="h-3.5 w-3/4" />
+                  <div className="p-3.5 space-y-2.5">
+                    <Skeleton className="h-4 w-4/5" />
                     <Skeleton className="h-3 w-1/2" />
-                    <Skeleton className="h-4 w-1/3 mt-2" />
+                    <Skeleton className="h-5 w-1/3 mt-1" />
                   </div>
                 </div>
               ))}
             </div>
           ) : hasProducts ? (
-            <div className="grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              {products.map((product) => {
+            <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+              {filtered.map((product) => {
                 const store = (product as any).stores;
+                const isFeatured = product.featured;
+
                 return (
                   <Link
                     key={product.id}
                     to={`/products/${product.slug}`}
-                    className="group flex flex-col rounded-xl border border-border/80 bg-white overflow-hidden transition-all hover:shadow-md hover:border-primary/15"
+                    className="group flex flex-col rounded-2xl border border-border/70 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
                   >
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-[#F8F9FA]">
+                    <div className="relative aspect-square overflow-hidden bg-[#F5F6F8]">
                       {product.image_url ? (
                         <img
                           src={product.image_url}
                           alt={product.name_ar}
-                          className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+                          className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center">
-                          <ShoppingBag className="h-6 w-6 text-muted-foreground/10" />
+                          <ShoppingBag className="h-8 w-8 text-muted-foreground/8" />
                         </div>
                       )}
+
+                      {/* Category chip */}
                       {store?.category && (
-                        <span className="absolute top-1.5 right-1.5 rounded-md bg-foreground/80 px-1.5 py-0.5 text-[0.54rem] font-bold text-white leading-tight backdrop-blur-sm">
+                        <span className="absolute top-2.5 right-2.5 rounded-lg bg-foreground/75 px-2 py-0.5 text-[0.58rem] font-bold text-white leading-tight backdrop-blur-sm">
                           {store.category}
+                        </span>
+                      )}
+
+                      {/* Featured badge */}
+                      {isFeatured && (
+                        <span className="absolute top-2.5 left-2.5 flex items-center gap-1 rounded-lg bg-primary/90 px-2 py-0.5 text-[0.56rem] font-bold text-white leading-tight backdrop-blur-sm">
+                          <Sparkles className="h-2.5 w-2.5" />
+                          مميز
                         </span>
                       )}
                     </div>
 
                     {/* Info */}
-                    <div className="flex flex-1 flex-col justify-between border-t border-border/60 p-2.5">
+                    <div className="flex flex-1 flex-col justify-between border-t border-border/50 p-3 md:p-3.5">
                       <div>
-                        <p className="text-[0.74rem] font-bold text-foreground line-clamp-2 leading-[1.4] group-hover:text-primary transition-colors">
+                        <p className="text-[0.8rem] font-bold text-foreground line-clamp-2 leading-[1.45] group-hover:text-primary transition-colors">
                           {product.name_ar}
                         </p>
                         {store && (
-                          <div className="mt-1 flex items-center gap-1">
+                          <div className="mt-1.5 flex items-center gap-1.5">
                             {store.logo_url ? (
-                              <img src={store.logo_url} alt={store.name_ar}
-                                   className="h-3.5 w-3.5 rounded object-contain border border-border bg-white shrink-0" />
+                              <img
+                                src={store.logo_url}
+                                alt={store.name_ar}
+                                className="h-4 w-4 rounded object-contain border border-border bg-white shrink-0"
+                              />
                             ) : (
-                              <Store className="h-2.5 w-2.5 text-muted-foreground/30 shrink-0" />
+                              <Store className="h-3 w-3 text-muted-foreground/25 shrink-0" />
                             )}
-                            <span className="text-[0.6rem] text-muted-foreground line-clamp-1">
+                            <span className="text-[0.66rem] text-muted-foreground line-clamp-1">
                               {store.name_ar}
                             </span>
                           </div>
@@ -117,11 +218,13 @@ export function FeaturedProducts() {
                       </div>
 
                       {product.price ? (
-                        <p className="mt-2 font-poppins text-[0.8rem] font-extrabold text-primary">
+                        <p className="mt-2.5 font-poppins text-[0.88rem] font-extrabold text-primary">
                           {Number(product.price).toLocaleString("ar-EG")} جم
                         </p>
                       ) : product.price_note ? (
-                        <p className="mt-2 text-[0.68rem] font-bold text-primary">{product.price_note}</p>
+                        <p className="mt-2.5 text-[0.72rem] font-bold text-primary">
+                          {product.price_note}
+                        </p>
                       ) : null}
                     </div>
                   </Link>
@@ -130,25 +233,43 @@ export function FeaturedProducts() {
             </div>
           ) : (
             <div className="overflow-hidden rounded-2xl border border-border bg-card">
-              <div className="p-6 md:p-8 text-center">
-                <ShoppingBag className="mx-auto mb-3 h-8 w-8 text-primary/25" />
-                <h3 className="text-[0.9rem] font-bold text-foreground">منتجات المحلات — قريبًا</h3>
-                <p className="mx-auto mt-2 max-w-[22rem] text-[0.78rem] leading-[1.7] text-muted-foreground">
+              <div className="p-8 md:p-10 text-center">
+                <ShoppingBag className="mx-auto mb-3 h-9 w-9 text-primary/20" />
+                <h3 className="text-[0.92rem] font-bold text-foreground">
+                  منتجات المحلات — قريبًا
+                </h3>
+                <p className="mx-auto mt-2 max-w-[22rem] text-[0.8rem] leading-[1.7] text-muted-foreground">
                   سوق رقمي يجمع منتجات محلات المول في مكان واحد.
                 </p>
                 <Link to="/products" className="mt-5 inline-flex">
-                  <Button variant="cta" className="h-10 rounded-xl px-6 text-[0.8rem]">
-                    <ShoppingBag className="ml-1.5 h-3.5 w-3.5" /> تصفّح المنتجات
+                  <Button
+                    variant="cta"
+                    className="h-10 rounded-xl px-6 text-[0.82rem]"
+                  >
+                    <ShoppingBag className="ml-1.5 h-3.5 w-3.5" /> تصفّح
+                    المنتجات
                   </Button>
                 </Link>
               </div>
             </div>
           )}
 
-          <div className="mt-5 flex justify-center lg:hidden">
+          {/* CTA */}
+          <div className="mt-7 flex flex-col items-center gap-3">
             <Link to="/products">
-              <Button variant="secondary" className="h-9 rounded-xl px-5 text-[0.78rem] font-bold">عرض جميع المنتجات</Button>
+              <Button
+                variant="cta"
+                className="h-11 rounded-xl px-7 text-[0.82rem] font-bold gap-1.5"
+              >
+                عرض كل المنتجات
+                <ArrowLeft className="h-3.5 w-3.5" />
+              </Button>
             </Link>
+            {!isLoading && products && products.length > 0 && (
+              <p className="text-[0.68rem] text-muted-foreground">
+                {products.length}+ منتج من {storeCount} محل
+              </p>
+            )}
           </div>
         </motion.div>
       </div>
