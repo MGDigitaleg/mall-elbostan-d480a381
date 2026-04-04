@@ -116,9 +116,9 @@ function AppLayout() {
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
-            <Route path="/kz/products" element={<Navigate to="/products?store=kasr-zero" replace />} />
-            <Route path="/kz/products/:slug" element={<KzProductDetail />} />
-            <Route path="/kz/category/:slug" element={<Navigate to="/products?store=kasr-zero" replace />} />
+            <Route path="/kz/products" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
+            <Route path="/kz/products/:slug" element={<KzSlugRedirect />} />
+            <Route path="/kz/category/:slug" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
             <Route path="/kz/search" element={<Navigate to="/products" replace />} />
             <Route path="/kz/cart" element={<KzCart />} />
 
