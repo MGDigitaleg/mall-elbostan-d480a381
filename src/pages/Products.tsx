@@ -8,6 +8,7 @@ import {
   Store,
   X,
   Tag,
+  Compass,
   ArrowLeft,
   SlidersHorizontal,
   Compass,
