@@ -12,7 +12,7 @@ const sectionReveal = {
 };
 
 export function FeaturedProducts() {
-  const { data: products } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ["featured-products-home"],
     queryFn: async () => {
       const { data } = await supabase
@@ -25,7 +25,7 @@ export function FeaturedProducts() {
     },
   });
 
-  const hasProducts = products && products.length > 0;
+  const hasProducts = !isLoading && products && products.length > 0;
 
   return (
     <section className="py-8 md:py-10 min-h-[320px]" style={{ background: "#FAFAF8", contain: "layout style" }}>
