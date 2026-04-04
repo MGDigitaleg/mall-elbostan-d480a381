@@ -30,8 +30,8 @@ export function OpeningGaming({ competitions }: Props) {
               <Gamepad2 className="h-5 w-5" style={{ color: "hsl(25 95% 50%)" }} />
             </div>
             <div>
-              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]" style={{ color: "hsl(25 85% 45%)" }}>المنافسة</p>
-              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem] text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>مسابقات الألعاب</h2>
+              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]" style={{ color: "hsl(25 85% 45%)" }}>جيمنج</p>
+              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem] text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>بطولات ومسابقات</h2>
             </div>
           </div>
 
