@@ -50,14 +50,20 @@ function GA4Init() { useGA4(); return null; }
 /* Routes that should NOT show the public header/footer */
 const adminPaths = ["/admin"];
 
+/** Pages with a full-bleed dark hero — header overlaps, no top padding */
+const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day"];
+
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const hasDarkHero = darkHeroPages.some(
+    (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
+  );
 
   return (
     <>
       {!isAdmin && <Header />}
-      <main className={!isAdmin ? "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]" : "flex-1"}>
+      <main className={!isAdmin ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
         <Routes>
           {/* Public */}
           <Route path="/" element={<Index />} />

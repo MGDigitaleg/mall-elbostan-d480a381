@@ -8,23 +8,16 @@ import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/Loc
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
 import downtownHero1 from "@/assets/downtown-hero-1.jpg";
-import downtownHero2 from "@/assets/downtown-hero-2.jpg";
-import downtownHero3 from "@/assets/downtown-hero-3.jpg";
-import downtownHero4 from "@/assets/downtown-hero-4.jpg";
 import downtownHero5 from "@/assets/downtown-hero-5.jpg";
 import downtownHero6 from "@/assets/downtown-hero-6.jpg";
 import downtownHero7 from "@/assets/downtown-hero-7.jpg";
 import downtownHero8 from "@/assets/downtown-hero-8.jpg";
 
+/* 3 distinct slides: wide exterior, street angle, interior corridor */
 const heroSlides = [
   { src: downtownHero1, alt: "واجهة مول البستان التجاري — وسط البلد" },
-  { src: downtownHero2, alt: "مول البستان ليلاً — الإضاءة المعمارية" },
-  { src: downtownHero3, alt: "مول البستان — منظر علوي للواجهة" },
-  { src: downtownHero4, alt: "مول البستان — الزاوية المعمارية عند الغروب" },
   { src: downtownHero5, alt: "مول البستان — الواجهة الرئيسية نهاراً" },
   { src: downtownHero6, alt: "داخل المول — محلات التقنية والإلكترونيات" },
-  { src: downtownHero7, alt: "ممرات المول — الإضاءة الزرقاء والمحلات" },
-  { src: downtownHero8, alt: "محلات الكمبيوتر — داخل مول البستان" },
 ];
 
 const sectionReveal = {
