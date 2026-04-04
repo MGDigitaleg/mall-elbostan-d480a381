@@ -14,6 +14,7 @@ const navSections = [
     items: [
       { label: "الرئيسية", path: "/", icon: Building2 },
       { label: "عن البستان", path: "/about", icon: Building2 },
+      { label: "صدى السوق", path: "/market-echo", icon: Building2 },
       { label: "دليل المحلات", path: "/stores", icon: Store },
       { label: "منتجات المحلات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },

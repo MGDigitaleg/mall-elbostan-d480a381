@@ -13,6 +13,7 @@ const footerColumns = [
       { label: "فرع القاهرة الجديدة", path: "/new-cairo-branch" },
       { label: "دليل المحلات", path: "/stores" },
       { label: "الخريطة التفاعلية", path: "/map" },
+      { label: "صدى السوق", path: "/market-echo" },
     ],
   },
   {
