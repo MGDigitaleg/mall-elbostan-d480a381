@@ -41,8 +41,8 @@ export function OpeningSchedule({ events, isLoading }: Props) {
               <Calendar className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">البرنامج</p>
-              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>جدول الفعاليات</h2>
+              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">فعاليات الافتتاح</p>
+              <h2 className="text-[1.15rem] font-bold md:text-[1.35rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>جدول اليوم</h2>
             </div>
           </div>
 
