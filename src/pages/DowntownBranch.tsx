@@ -119,19 +119,19 @@ const DowntownBranch = () => (
           <p className="section-kicker mb-4">من داخل المول</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <div className="col-span-2 row-span-2 overflow-hidden rounded-2xl">
-              <img src={downtownHeroDay} alt="محلات التقنية من الداخل" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownHeroDay} alt="واجهة مول البستان — وسط البلد" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHeroNight} alt="المول ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownGallery1} alt="المبنى من زاوية جانبية — نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHeroDay} alt="واجهة المول نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownGallery1Night} alt="المبنى من زاوية جانبية — ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHeroNight} alt="واجهة المول" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownGallery2} alt="الواجهة الرئيسية — نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHeroDay} alt="المول — المنظر العام" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownGallery2Night} alt="الواجهة الرئيسية — ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
           </div>
         </motion.div>
