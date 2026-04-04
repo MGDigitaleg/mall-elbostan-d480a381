@@ -86,9 +86,9 @@ export function OpeningSchedule({ events, isLoading }: Props) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(var(--primary) / 0.08)" }}>
                 <Calendar className="h-7 w-7 text-primary/50" />
               </div>
-              <p className="text-[1rem] font-bold" style={{ color: "#F8FAFC" }}>برنامج الفعاليات قيد الإعداد</p>
+               <p className="text-[1rem] font-bold" style={{ color: "#F8FAFC" }}>البرنامج قيد الإعداد</p>
               <p className="mx-auto mt-2 max-w-xs text-[0.84rem] leading-relaxed" style={{ color: "hsl(220 12% 58%)" }}>
-                سيُعلن مع اقتراب موعد الافتتاح — تابع هذه الصفحة
+                سيُعلن مع اقتراب الافتتاح — تابع هذه الصفحة.
               </p>
               <Link to="/contact" className="mt-4 inline-flex items-center gap-1.5 text-[0.78rem] font-bold text-primary transition-all hover:gap-2.5">
                 تواصل معنا <ArrowLeft className="h-3.5 w-3.5" />

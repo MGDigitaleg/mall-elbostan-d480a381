@@ -71,8 +71,8 @@ export function OpeningGuests({ guests }: Props) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(var(--primary) / 0.08)" }}>
                 <Users className="h-7 w-7 text-primary/40" />
               </div>
-              <p className="text-[1rem] font-bold" style={{ color: "#F8FAFC" }}>تفاصيل الضيوف قيد التأكيد</p>
-              <p className="mx-auto mt-2 max-w-xs text-[0.84rem]" style={{ color: "hsl(220 12% 58%)" }}>ستتوفر قريبًا مع اقتراب الافتتاح</p>
+               <p className="text-[1rem] font-bold" style={{ color: "#F8FAFC" }}>قائمة الضيوف قيد التأكيد</p>
+              <p className="mx-auto mt-2 max-w-xs text-[0.84rem]" style={{ color: "hsl(220 12% 58%)" }}>ستُحدّث مع اقتراب الافتتاح.</p>
             </div>
           )}
         </motion.div>

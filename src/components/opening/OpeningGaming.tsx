@@ -65,8 +65,8 @@ export function OpeningGaming({ competitions }: Props) {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "hsl(25 95% 55% / 0.06)" }}>
                 <Gamepad2 className="h-7 w-7" style={{ color: "hsl(25 85% 45%)" }} />
               </div>
-              <p className="text-[0.95rem] font-bold text-foreground">تفاصيل المسابقات قيد الإعداد</p>
-              <p className="mx-auto mt-2 max-w-xs text-[0.82rem] text-muted-foreground">ستُعلن مع اقتراب الافتتاح — تابع هذه الصفحة</p>
+               <p className="text-[0.95rem] font-bold text-foreground">تفاصيل البطولات قيد الإعداد</p>
+              <p className="mx-auto mt-2 max-w-xs text-[0.82rem] text-muted-foreground">ستُعلن مع اقتراب الافتتاح.</p>
             </div>
           )}
         </motion.div>

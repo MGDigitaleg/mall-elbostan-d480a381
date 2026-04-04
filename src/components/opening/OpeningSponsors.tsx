@@ -37,7 +37,7 @@ export function OpeningSponsors() {
                   style={{ background: "hsl(0 0% 100% / 0.03)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
               <div className="flex items-center gap-3">
                 <Handshake className="h-5 w-5 text-primary" />
-                <span className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>كن شريكًا</span>
+                <span className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>كن شريك افتتاح</span>
               </div>
               <ArrowLeft className="h-4 w-4" style={{ color: "hsl(220 14% 45%)" }} />
             </Link>
