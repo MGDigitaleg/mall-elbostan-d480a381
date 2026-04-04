@@ -5,9 +5,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ShoppingBag, CheckCircle, XCircle, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import { ShoppingBag, ShoppingCart, CheckCircle, XCircle, ChevronLeft, ChevronRight, ArrowLeft, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useKzCart } from "@/hooks/useKzCart";
+import { toast } from "@/hooks/use-toast";
 
 const KzProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
