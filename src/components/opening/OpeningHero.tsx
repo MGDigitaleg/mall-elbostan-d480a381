@@ -6,13 +6,13 @@ import { PageHero } from "@/components/PageHero";
 export function OpeningHero() {
   return (
     <PageHero
-      kicker="يوم الافتتاح"
-      kickerEn="1 مايو 2026"
-      title={<>الافتتاح الكبير<span className="block mt-1 text-primary">كل ما تحتاج معرفته.</span></>}
-      subtitle="الموعد، الفعاليات، والمكافآت — خطّط لزيارتك من الآن."
+      kicker="١ مايو ٢٠٢٦"
+      kickerEn="Opening Day"
+      title={<>الافتتاح الكبير<span className="block mt-1 text-primary">خطّط لزيارتك.</span></>}
+      subtitle="الموعد، الفعاليات، والمكافآت — كل التفاصيل هنا."
       ctas={[
-        { label: "أدر واربح الآن", to: "/spin-win", icon: Sparkles },
-        { label: "خريطة المول", to: "/map", icon: MapPin },
+        { label: "أدر واربح", to: "/spin-win", icon: Sparkles },
+        { label: "الخريطة التفاعلية", to: "/map", icon: MapPin },
       ]}
     >
       {/* Countdown panel */}

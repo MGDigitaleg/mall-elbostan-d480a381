@@ -23,12 +23,12 @@ export function OpeningSponsors() {
                style={{ background: "hsl(var(--primary) / 0.1)", border: "1px solid hsl(var(--primary) / 0.2)" }}>
             <Award className="h-7 w-7 text-primary" />
           </div>
-          <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">شراكات</p>
+          <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary/70">شراكات الافتتاح</p>
           <h2 className="mt-1.5 text-[1.15rem] font-bold md:text-[1.4rem] mx-auto max-w-[22rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
-            الرعاة والشركاء
+            رعاة وشركاء
           </h2>
           <p className="mx-auto mt-3 max-w-md text-[0.88rem] leading-[1.8]" style={{ color: "hsl(220 15% 62%)" }}>
-            تفاصيل الرعاة قيد التأكيد — ستُحدّث هذه المنطقة مع اقتراب موعد الافتتاح.
+            قائمة الرعاة قيد التأكيد — ستُحدّث مع اقتراب الافتتاح.
           </p>
 
           {/* Partnership CTA cards */}
@@ -37,7 +37,7 @@ export function OpeningSponsors() {
                   style={{ background: "hsl(0 0% 100% / 0.03)", border: "1px solid hsl(0 0% 100% / 0.08)" }}>
               <div className="flex items-center gap-3">
                 <Handshake className="h-5 w-5 text-primary" />
-                <span className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>كن شريكًا</span>
+                <span className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>كن شريك افتتاح</span>
               </div>
               <ArrowLeft className="h-4 w-4" style={{ color: "hsl(220 14% 45%)" }} />
             </Link>
