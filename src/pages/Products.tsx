@@ -1,16 +1,14 @@
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Search,
   ShoppingBag,
   Store,
   X,
-  Tag,
   ArrowLeft,
   SlidersHorizontal,
-  Compass,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -19,22 +17,65 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHero } from "@/components/PageHero";
 
-const Products = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedStore, setSelectedStore] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
+/* ══════════════════════════════════════════════
+   Unified product type for display
+   ══════════════════════════════════════════════ */
+type UnifiedProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number | null;
+  priceNote: string | null;
+  comparePrice: number | null;
+  imageUrl: string | null;
+  brand: string | null;
+  featured: boolean;
+  storeName: string | null;
+  storeSlug: string | null;
+  storeLogo: string | null;
+  categoryName: string | null;
+  source: "mall" | "kz";
+  createdAt: string;
+};
 
-  const { data: categories } = useQuery({
-    queryKey: ["product_categories"],
+const Products = () => {
+  const [searchParams] = useSearchParams();
+  const initialStore = searchParams.get("store") ?? "all";
+  const initialCategory = searchParams.get("category") ?? "all";
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStore, setSelectedStore] = useState(initialStore);
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
+  const [showFilters, setShowFilters] = useState(false);
+
+  /* ── Fetch mall products ── */
+  const { data: mallProducts, isLoading: loadingMall } = useQuery({
+    queryKey: ["unified-mall-products"],
     queryFn: async () => {
-      const { data } = await supabase.from("product_categories").select("*").order("sort_order");
+      const { data } = await supabase
+        .from("products")
+        .select("id, slug, name_ar, price, price_note, image_url, brand, featured, created_at, store_id, stores(name_ar, slug, logo_url), product_categories(name_ar)")
+        .eq("status", "published");
       return data ?? [];
     },
   });
 
-  const { data: stores } = useQuery({
-    queryKey: ["product_stores"],
+  /* ── Fetch KZ products ── */
+  const { data: kzProducts, isLoading: loadingKz } = useQuery({
+    queryKey: ["unified-kz-products"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("kz_products")
+        .select("id, slug, title, brand, featured, created_at, category_id, kz_product_variants(price, compare_price, is_default), kz_product_images(image_url, sort_order), kz_categories(name)")
+        .eq("status", "published");
+      return data ?? [];
+    },
+  });
+
+  /* ── Fetch store list for filter ── */
+  const { data: storeList } = useQuery({
+    queryKey: ["product-store-list"],
     queryFn: async () => {
       const { data } = await supabase
         .from("stores")
@@ -45,35 +86,138 @@ const Products = () => {
     },
   });
 
-  const { data: products, isLoading } = useQuery({
-    queryKey: ["products", selectedCategory, selectedStore, searchTerm],
+  /* ── Fetch category lists ── */
+  const { data: mallCategories } = useQuery({
+    queryKey: ["product_categories"],
     queryFn: async () => {
-      let query = supabase
-        .from("products")
-        .select("*, stores(name_ar, slug, logo_url), product_categories(name_ar, slug)")
-        .eq("status", "published");
-      if (selectedCategory !== "all") query = query.eq("category_id", selectedCategory);
-      if (selectedStore !== "all") query = query.eq("store_id", selectedStore);
-      if (searchTerm.trim()) query = query.or(`name_ar.ilike.%${searchTerm}%,name_en.ilike.%${searchTerm}%,brand.ilike.%${searchTerm}%`);
-      const { data } = await query;
+      const { data } = await supabase.from("product_categories").select("id, name_ar, slug").order("sort_order");
       return data ?? [];
     },
   });
 
-  const sortedProducts = useMemo(() => {
-    if (!products) return [];
-    const sorted = [...products];
-    switch (sortBy) {
-      case "price_asc":
-        return sorted.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
-      case "price_desc":
-        return sorted.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-      case "newest":
-        return sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-      default:
-        return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  const { data: kzCategories } = useQuery({
+    queryKey: ["kz-all-categories-unified"],
+    queryFn: async () => {
+      const { data } = await supabase.from("kz_categories").select("id, name, slug").order("sort_order");
+      return data ?? [];
+    },
+  });
+
+  const isLoading = loadingMall || loadingKz;
+
+  /* ── Normalize into unified list ── */
+  const allProducts: UnifiedProduct[] = useMemo(() => {
+    const unified: UnifiedProduct[] = [];
+
+    // Kasr Zero store info
+    const kzStore = storeList?.find(s => s.slug === "kasr-zero");
+
+    // Mall products
+    if (mallProducts) {
+      for (const p of mallProducts) {
+        const store = (p as any).stores;
+        const cat = (p as any).product_categories;
+        unified.push({
+          id: p.id,
+          slug: p.slug,
+          name: p.name_ar,
+          price: p.price ? Number(p.price) : null,
+          priceNote: p.price_note,
+          comparePrice: null,
+          imageUrl: p.image_url,
+          brand: p.brand,
+          featured: p.featured,
+          storeName: store?.name_ar ?? null,
+          storeSlug: store?.slug ?? null,
+          storeLogo: store?.logo_url ?? null,
+          categoryName: cat?.name_ar ?? null,
+          source: "mall",
+          createdAt: p.created_at,
+        });
+      }
     }
-  }, [products, sortBy]);
+
+    // KZ products
+    if (kzProducts) {
+      for (const p of kzProducts as any[]) {
+        const defaultVariant = p.kz_product_variants?.find((v: any) => v.is_default) ?? p.kz_product_variants?.[0];
+        const firstImage = p.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
+        unified.push({
+          id: p.id,
+          slug: p.slug,
+          name: p.title,
+          price: defaultVariant ? Number(defaultVariant.price) : null,
+          priceNote: null,
+          comparePrice: defaultVariant?.compare_price ? Number(defaultVariant.compare_price) : null,
+          imageUrl: firstImage?.image_url ?? null,
+          brand: p.brand,
+          featured: p.featured,
+          storeName: kzStore?.name_ar ?? "كسر زيرو",
+          storeSlug: kzStore?.slug ?? "kasr-zero",
+          storeLogo: kzStore?.logo_url ?? null,
+          categoryName: p.kz_categories?.name ?? null,
+          source: "kz",
+          createdAt: p.created_at,
+        });
+      }
+    }
+
+    return unified;
+  }, [mallProducts, kzProducts, storeList]);
+
+  /* ── Build merged category list ── */
+  const mergedCategories = useMemo(() => {
+    const cats: { id: string; label: string }[] = [];
+    const seen = new Set<string>();
+    if (mallCategories) {
+      for (const c of mallCategories) {
+        if (!seen.has(c.name_ar)) { seen.add(c.name_ar); cats.push({ id: `mall:${c.id}`, label: c.name_ar }); }
+      }
+    }
+    if (kzCategories) {
+      for (const c of kzCategories) {
+        if (!seen.has(c.name)) { seen.add(c.name); cats.push({ id: `kz:${c.id}`, label: c.name }); }
+      }
+    }
+    return cats;
+  }, [mallCategories, kzCategories]);
+
+  /* ── Filter & Sort ── */
+  const filteredProducts = useMemo(() => {
+    let list = allProducts;
+
+    // Store filter
+    if (selectedStore !== "all") {
+      list = list.filter(p => p.storeSlug === selectedStore);
+    }
+
+    // Category filter
+    if (selectedCategory !== "all") {
+      const catLabel = mergedCategories.find(c => c.id === selectedCategory)?.label;
+      if (catLabel) {
+        list = list.filter(p => p.categoryName === catLabel);
+      }
+    }
+
+    // Search
+    if (searchTerm.trim()) {
+      const q = searchTerm.trim().toLowerCase();
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.brand?.toLowerCase().includes(q) ||
+        p.storeName?.toLowerCase().includes(q)
+      );
+    }
+
+    // Sort
+    const sorted = [...list];
+    switch (sortBy) {
+      case "price_asc": return sorted.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+      case "price_desc": return sorted.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      case "newest": return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    }
+  }, [allProducts, selectedStore, selectedCategory, searchTerm, sortBy, mergedCategories]);
 
   const hasActiveFilters = selectedCategory !== "all" || selectedStore !== "all" || searchTerm.trim().length > 0;
 
@@ -89,24 +233,23 @@ const Products = () => {
       <SEOHead
         title="المنتجات"
         titleEn="Products"
-        description="تصفّح منتجات محلات مول البستان — هواتف، أجهزة، إكسسوارات، وقطع غيار من العلامات التجارية المتوفرة في المول."
-        descriptionEn="Browse products from Mall Elbostan stores — phones, devices, accessories, and components."
+        description="تصفّح جميع منتجات مول البستان — هواتف، أجهزة، لابتوبات، إكسسوارات، وقطع غيار من جميع المحلات."
+        descriptionEn="Browse all products from Mall Elbostan stores — phones, devices, laptops, accessories, and components."
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
       />
 
       {/* ═══════════ HERO ═══════════ */}
       <PageHero
-        kicker="منتجات المحلات"
-        kickerEn="Products"
-        title={<>منتجات <span style={{ color: "#CDBB9A" }}>محلات المول.</span></>}
-        subtitle="تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات."
+        kicker="سوق المول"
+        kickerEn="Marketplace"
+        title={<>جميع <span style={{ color: "#CDBB9A" }}>المنتجات.</span></>}
+        subtitle="تصفّح منتجات جميع محلات المول في مكان واحد — ابحث، قارن، واطلب مباشرة."
         ctas={[
           { label: "تصفّح المنتجات", to: "#products", icon: Search },
           { label: "دليل المحلات", to: "/stores", icon: Store },
         ]}
         compact
-      >
-      </PageHero>
+      />
 
       <div className="band-primary" />
 
@@ -131,7 +274,7 @@ const Products = () => {
               </div>
 
               {/* Dropdowns */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <select
                   value={selectedStore}
                   onChange={(e) => setSelectedStore(e.target.value)}
@@ -139,8 +282,20 @@ const Products = () => {
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
                 >
                   <option value="all">جميع المحلات</option>
-                  {stores?.map((s) => (
-                    <option key={s.id} value={s.id}>{s.name_ar}</option>
+                  {storeList?.map((s) => (
+                    <option key={s.id} value={s.slug}>{s.name_ar}</option>
+                  ))}
+                </select>
+
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  <option value="all">جميع الفئات</option>
+                  {mergedCategories.map((c) => (
+                    <option key={c.id} value={c.id}>{c.label}</option>
                   ))}
                 </select>
 
@@ -150,7 +305,7 @@ const Products = () => {
                   className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
                 >
-                  <option value="featured">الأكثر تميزا</option>
+                  <option value="featured">الأكثر تميزًا</option>
                   <option value="price_asc">السعر: الأقل</option>
                   <option value="price_desc">السعر: الأعلى</option>
                   <option value="newest">الأحدث</option>
@@ -158,20 +313,10 @@ const Products = () => {
               </div>
             </div>
 
-            {/* Category chips */}
-            <div className="mt-2.5 flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none">
-              <ChipButton active={selectedCategory === "all"} onClick={() => setSelectedCategory("all")}>الكل</ChipButton>
-              {categories?.map((cat) => (
-                <ChipButton key={cat.id} active={selectedCategory === cat.id} onClick={() => setSelectedCategory(cat.id)}>
-                  {cat.name_ar}
-                </ChipButton>
-              ))}
-            </div>
-
             {/* Active filter summary */}
             {hasActiveFilters && (
               <div className="mt-2.5 flex items-center gap-2 text-[0.72rem]" style={{ color: "#64748B" }}>
-                <span>نتائج البحث: {sortedProducts.length} منتج</span>
+                <span>نتائج البحث: {filteredProducts.length} منتج</span>
                 <button
                   onClick={clearFilters}
                   className="flex items-center gap-1 rounded-md px-2 py-0.5 transition-colors hover:text-white"
@@ -179,6 +324,12 @@ const Products = () => {
                 >
                   <X className="h-3 w-3" /> مسح الفلاتر
                 </button>
+              </div>
+            )}
+
+            {!hasActiveFilters && (
+              <div className="mt-2 text-[0.72rem]" style={{ color: "#475569" }}>
+                {allProducts.length} منتج من {storeList?.length ?? 0} محل
               </div>
             )}
           </div>
@@ -204,10 +355,10 @@ const Products = () => {
                 </div>
               ))}
             </div>
-          ) : sortedProducts.length > 0 ? (
+          ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {sortedProducts.map((product, i) => (
-                <ProductCard key={product.id} product={product} index={i} />
+              {filteredProducts.map((product, i) => (
+                <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
               ))}
             </div>
           ) : (
@@ -250,38 +401,15 @@ const Products = () => {
    Sub-components
    ══════════════════════════════════════════════════════════ */
 
-function ChipButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-[0.72rem] font-bold transition-all"
-      style={active
-        ? { border: "1px solid #2D6BFF50", background: "#2D6BFF22", color: "#5B9AFF" }
-        : { border: "1px solid #ffffff12", background: "#ffffff06", color: "#94A3B8" }
-      }
-    >
-      {children}
-    </button>
-  );
-}
+function ProductCard({ product, index }: { product: UnifiedProduct; index: number }) {
+  const detailPath = product.source === "kz"
+    ? `/kz/products/${product.slug}`
+    : `/products/${product.slug}`;
 
-type ProductRow = {
-  id: string;
-  slug: string;
-  name_ar: string;
-  name_en: string | null;
-  price: number | null;
-  price_note: string | null;
-  image_url: string | null;
-  brand: string | null;
-  featured: boolean;
-  stores: { name_ar: string; slug: string; logo_url: string | null } | null;
-  product_categories: { name_ar: string; slug: string } | null;
-};
-
-function ProductCard({ product, index }: { product: ProductRow; index: number }) {
-  const store = product.stores;
-  const category = product.product_categories;
+  const hasDiscount = product.comparePrice && product.comparePrice > (product.price ?? 0);
+  const discountPct = hasDiscount
+    ? Math.round(((product.comparePrice! - product.price!) / product.comparePrice!) * 100)
+    : 0;
 
   return (
     <motion.div
@@ -290,7 +418,7 @@ function ProductCard({ product, index }: { product: ProductRow; index: number })
       transition={{ delay: Math.min(index * 0.02, 0.2), duration: 0.3 }}
     >
       <Link
-        to={`/products/${product.slug}`}
+        to={detailPath}
         className="group flex flex-col rounded-xl overflow-hidden transition-all duration-200"
         style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
         onMouseEnter={(e) => {
@@ -304,10 +432,10 @@ function ProductCard({ product, index }: { product: ProductRow; index: number })
       >
         {/* Image */}
         <div className="relative aspect-square overflow-hidden bg-white">
-          {product.image_url ? (
+          {product.imageUrl ? (
             <img
-              src={product.image_url}
-              alt={product.name_ar}
+              src={product.imageUrl}
+              alt={product.name}
               className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105"
               loading="lazy"
             />
@@ -318,12 +446,17 @@ function ProductCard({ product, index }: { product: ProductRow; index: number })
           )}
 
           {/* Badges */}
-          {product.featured && (
+          {product.featured && !hasDiscount && (
             <span
               className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
               style={{ background: "#2D6BFF", color: "#fff" }}
             >
               مميز
+            </span>
+          )}
+          {hasDiscount && (
+            <span className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold bg-destructive text-white">
+              خصم {discountPct}%
             </span>
           )}
           {product.brand && (
@@ -339,20 +472,20 @@ function ProductCard({ product, index }: { product: ProductRow; index: number })
         {/* Info */}
         <div className="flex flex-1 flex-col justify-between p-3">
           <div>
-            {category && (
-              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{category.name_ar}</p>
+            {product.categoryName && (
+              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.categoryName}</p>
             )}
             <h3 className="text-[0.8rem] font-bold leading-snug line-clamp-2 transition-colors group-hover:text-primary" style={{ color: "#F8FAFC" }}>
-              {product.name_ar}
+              {product.name}
             </h3>
-            {store && (
+            {product.storeName && (
               <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem]" style={{ color: "#64748B" }}>
-                {store.logo_url ? (
-                  <img src={store.logo_url} alt="" className="h-3.5 w-3.5 rounded-sm bg-white object-contain" />
+                {product.storeLogo ? (
+                  <img src={product.storeLogo} alt="" className="h-3.5 w-3.5 rounded-sm bg-white object-contain" />
                 ) : (
                   <Store className="h-3 w-3" />
                 )}
-                {store.name_ar}
+                {product.storeName}
               </p>
             )}
           </div>
@@ -360,12 +493,19 @@ function ProductCard({ product, index }: { product: ProductRow; index: number })
           {/* Price */}
           <div className="mt-2.5 flex items-center justify-between">
             {product.price ? (
-              <p className="font-poppins text-[0.88rem] font-bold" style={{ color: "#F8FAFC" }}>
-                {Number(product.price).toLocaleString("ar-EG")}
-                <span className="mr-0.5 text-[0.62rem]" style={{ color: "#64748B" }}>ج.م</span>
-              </p>
-            ) : product.price_note ? (
-              <p className="text-[0.7rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.price_note}</p>
+              <div className="flex items-center gap-1.5">
+                <p className="font-poppins text-[0.88rem] font-bold" style={{ color: "#F8FAFC" }}>
+                  {Number(product.price).toLocaleString("ar-EG")}
+                  <span className="mr-0.5 text-[0.62rem]" style={{ color: "#64748B" }}>ج.م</span>
+                </p>
+                {hasDiscount && (
+                  <span className="font-poppins text-[0.62rem] line-through" style={{ color: "#64748B" }}>
+                    {Number(product.comparePrice!).toLocaleString("ar-EG")}
+                  </span>
+                )}
+              </div>
+            ) : product.priceNote ? (
+              <p className="text-[0.7rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.priceNote}</p>
             ) : (
               <span className="text-[0.66rem]" style={{ color: "#475569" }}>اسأل عن السعر</span>
             )}
@@ -402,11 +542,13 @@ function EmptyState({ hasFilters, onClear }: { hasFilters: boolean; onClear: () 
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link to="/stores">
               <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.82rem] font-bold">
-                <Store className="h-3.5 w-3.5" /> تصفّح المحلات
+                <Store className="ml-1.5 h-3.5 w-3.5" /> دليل المحلات
               </Button>
             </Link>
             <Link to="/join-marketplace">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">انضم كتاجر</Button>
+              <Button className="h-9 rounded-lg border px-5 text-[0.82rem] font-bold" style={{ borderColor: "#ffffff18", background: "#ffffff08", color: "#E2E8F0" }}>
+                انضم كتاجر
+              </Button>
             </Link>
           </div>
         </>

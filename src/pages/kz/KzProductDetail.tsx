@@ -73,7 +73,7 @@ const KzProductDetail = () => {
         <div className="container py-20 text-center">
           <ShoppingBag className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30" />
           <h1 className="text-[1.2rem] font-bold text-foreground">المنتج غير موجود</h1>
-          <Link to="/kz/products" className="mt-4 inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-primary hover:underline">
+          <Link to="/products" className="mt-4 inline-flex items-center gap-1.5 text-[0.84rem] font-bold text-primary hover:underline">
             العودة للمنتجات <ArrowLeft className="h-4 w-4" />
           </Link>
         </div>
@@ -88,9 +88,8 @@ const KzProductDetail = () => {
         titleEn={product.title}
         description={product.seo_description || product.short_description || product.title}
         breadcrumbs={[
-          { name: "Kasr Zero", url: "/kz" },
-          { name: "المنتجات", url: "/kz/products" },
-          ...(product.kz_categories ? [{ name: product.kz_categories.name, url: `/kz/category/${product.kz_categories.slug}` }] : []),
+          { name: "المنتجات", url: "/products" },
+          { name: "Kasr Zero", url: "/products?store=kasr-zero" },
           { name: product.title, url: `/kz/products/${product.slug}` },
         ]}
       />
@@ -99,15 +98,9 @@ const KzProductDetail = () => {
         <div className="container max-w-[1200px]">
           {/* Breadcrumb */}
           <nav className="mb-5 flex items-center gap-1.5 text-[0.72rem] text-muted-foreground">
-            <Link to="/kz" className="hover:text-primary">الرئيسية</Link>
+            <Link to="/products" className="hover:text-primary">المنتجات</Link>
             <ChevronLeft className="h-3 w-3" />
-            <Link to="/kz/products" className="hover:text-primary">المنتجات</Link>
-            {product.kz_categories && (
-              <>
-                <ChevronLeft className="h-3 w-3" />
-                <Link to={`/kz/category/${product.kz_categories.slug}`} className="hover:text-primary">{product.kz_categories.name}</Link>
-              </>
-            )}
+            <Link to="/products?store=kasr-zero" className="hover:text-primary">Kasr Zero</Link>
             <ChevronLeft className="h-3 w-3" />
             <span className="text-foreground font-medium truncate max-w-[200px]">{product.title}</span>
           </nav>
@@ -149,7 +142,7 @@ const KzProductDetail = () => {
               <h1 className="mt-1 text-[1.3rem] font-extrabold leading-tight text-foreground md:text-[1.6rem]">{product.title}</h1>
 
               {product.kz_categories && (
-                <Link to={`/kz/category/${product.kz_categories.slug}`}>
+                <Link to={`/products?store=kasr-zero`}>
                   <Badge variant="secondary" className="mt-2 text-[0.65rem]">{product.kz_categories.name}</Badge>
                 </Link>
               )}
