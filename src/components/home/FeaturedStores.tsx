@@ -16,7 +16,7 @@ const cardReveal = {
 const stagger = { visible: { transition: { staggerChildren: 0.06 } } };
 
 export function FeaturedStores() {
-  const { data: stores } = useQuery({
+  const { data: stores, isLoading } = useQuery({
     queryKey: ["featured-stores-home"],
     queryFn: async () => {
       const { data } = await supabase
@@ -30,7 +30,7 @@ export function FeaturedStores() {
     },
   });
 
-  if (!stores || stores.length === 0) return null;
+  if (!isLoading && (!stores || stores.length === 0)) return null;
 
   return (
     <section className="bg-card py-8 md:py-12 min-h-[280px]" style={{ contain: "layout style" }}>
