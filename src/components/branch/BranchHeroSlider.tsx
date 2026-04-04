@@ -50,6 +50,8 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
             className="h-full w-full object-cover"
             style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)" }}
             loading={current === 0 ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={current === 0 ? "high" : "auto"}
           />
         </motion.div>
       </AnimatePresence>

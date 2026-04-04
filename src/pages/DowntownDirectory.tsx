@@ -227,7 +227,7 @@ const DowntownDirectory = () => {
                   >
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white">
                       {m.logo_url ? (
-                        <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" />
+                        <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" loading="lazy" decoding="async" />
                       ) : (
                         <Store className="h-5 w-5 text-primary" />
                       )}

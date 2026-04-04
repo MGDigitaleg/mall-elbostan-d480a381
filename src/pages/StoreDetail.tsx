@@ -137,7 +137,7 @@ const StoreDetail = () => {
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
         {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="h-full w-full object-cover" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
+          <img src={heroImage} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsla(218, 55%, 7%, 0.75) 0%, hsla(218, 55%, 7%, 0.92) 60%, hsla(218, 55%, 7%, 0.98) 100%)" }} />
         </div>
 
@@ -172,7 +172,7 @@ const StoreDetail = () => {
                      boxShadow: "0 8px 32px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
                    }}>
                 {store.logo_url ? (
-                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" />
+                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" decoding="async" />
                 ) : (
                   <Store className="h-9 w-9 text-white/30" />
                 )}
