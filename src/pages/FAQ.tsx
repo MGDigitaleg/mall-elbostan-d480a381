@@ -30,7 +30,7 @@ const FAQ = () => {
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 { icon: HelpCircle, title: "إجابات مباشرة" },
-                { icon: Store, title: "تفاصيل المتاجر" },
+                { icon: Store, title: "المحلات والتأجير" },
                 { icon: MapPin, title: "الزيارة والموقع" },
               ].map((item) => (
                 <div key={item.title} className="editorial-panel rounded-[1.25rem] p-4">
