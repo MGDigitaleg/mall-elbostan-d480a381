@@ -303,7 +303,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
             <h2 className="mx-auto max-w-[24rem] text-center text-[1.2rem] md:text-[1.5rem] font-bold leading-[1.15]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-              المول جاهز — والقرار بيدك.
+              ابدأ من هنا.
             </h2>
             <p className="mx-auto mt-3 max-w-[22rem] text-center text-[0.86rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
               استكشف المحلات، قارن الوحدات، واتخذ خطوتك القادمة.
