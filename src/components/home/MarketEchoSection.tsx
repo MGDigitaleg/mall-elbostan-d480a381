@@ -367,6 +367,9 @@ export function MarketEchoSection() {
 
         {/* ── Historical Timeline ── */}
         <EchoTimeline />
+
+        {/* ── Stats ── */}
+        <EchoStats />
       </motion.div>
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-px z-10"
