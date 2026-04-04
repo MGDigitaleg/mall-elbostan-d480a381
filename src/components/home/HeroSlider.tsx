@@ -1,16 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Compass, Gift } from "lucide-react";
+import { Compass, Gift, Store, ShoppingBag, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
 import ncHero3 from "@/assets/nc-hero-3-enhanced.webp";
 import downtownHeroNight from "@/assets/downtown-hero-night.webp";
 
-/* 3 slides — each with ONE distinct full-bleed image */
 const slides = [
   {
     image: dtHero1,
@@ -54,6 +55,31 @@ export function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  /* Live stats from DB */
+  const { data: storeCount } = useQuery({
+    queryKey: ["hero-store-count"],
+    queryFn: async () => {
+      const { count } = await supabase.from("stores").select("*", { count: "exact", head: true }).neq("status", "hidden");
+      return count ?? 0;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const { data: productCount } = useQuery({
+    queryKey: ["hero-product-count"],
+    queryFn: async () => {
+      const { count } = await supabase.from("products").select("*", { count: "exact", head: true }).eq("status", "published");
+      return count ?? 0;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const stats = useMemo(() => [
+    { icon: Store, value: storeCount ?? 0, label: "محل" },
+    { icon: ShoppingBag, value: productCount ?? 0, label: "منتج" },
+    { icon: Layers, value: "6", label: "فئات تقنية" },
+  ], [storeCount, productCount]);
+
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
 
   useEffect(() => {
@@ -67,12 +93,12 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative min-h-[520px] md:min-h-[540px] max-h-[620px] overflow-hidden"
+      className="relative min-h-[560px] md:min-h-[580px] max-h-[660px] overflow-hidden"
       style={{ contain: "layout style" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* ── Full-bleed single-image background per slide ── */}
+      {/* Full-bleed background */}
       <AnimatePresence mode="popLayout">
         <motion.div
           key={current}
@@ -94,26 +120,25 @@ export function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Overlay ── */}
+      {/* Overlay */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
-          background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.88) 0%, hsla(218, 50%, 10%, 0.55) 45%, hsla(218, 50%, 8%, 0.45) 100%)",
+          background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.9) 0%, hsla(218, 50%, 10%, 0.6) 45%, hsla(218, 50%, 8%, 0.5) 100%)",
         }}
       />
-      {/* RTL side fade for right-side text readability */}
       <div
         className="absolute inset-y-0 right-0 w-[50%] z-[2] hidden md:block"
         style={{ background: "linear-gradient(to left, hsla(218, 55%, 7%, 0.5), transparent)" }}
       />
 
-      {/* ── Subtle ambient accents ── */}
+      {/* Ambient accents */}
       <div className="pointer-events-none absolute inset-0 z-[2]">
         <div className="absolute top-1/4 left-[12%] w-[350px] h-[350px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
         <div className="absolute bottom-[10%] right-[20%] w-[250px] h-[250px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
       </div>
 
-      {/* ── Grid texture ── */}
+      {/* Grid texture */}
       <div
         className="pointer-events-none absolute inset-0 z-[2] opacity-[0.012]"
         style={{
@@ -122,10 +147,10 @@ export function HeroSlider() {
         }}
       />
 
-      {/* ── Content ── */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[520px] md:min-h-[540px] max-h-[620px] max-w-[1440px] items-center px-5 md:px-10 pt-[72px] md:pt-[76px]">
+      {/* Content */}
+      <div className="relative z-10 mx-auto flex h-full min-h-[560px] md:min-h-[580px] max-h-[660px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[72px] md:pt-[76px] pb-14">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
-          {/* Text block — right side on desktop, centered on mobile */}
+          {/* Text block */}
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -171,7 +196,7 @@ export function HeroSlider() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Countdown — inside hero on all screens */}
+          {/* Countdown */}
           <div className="w-full md:w-auto flex justify-center md:block">
             <div
               className="rounded-2xl border px-4 py-3 md:px-6 md:py-5 backdrop-blur-md"
@@ -188,9 +213,27 @@ export function HeroSlider() {
             </div>
           </div>
         </div>
+
+        {/* Stats bar at bottom of hero */}
+        <div className="mt-auto flex items-center justify-center md:justify-start gap-5 md:gap-8">
+          {stats.map((stat, i) => (
+            <div key={stat.label} className="flex items-center gap-2">
+              <stat.icon className="h-3.5 w-3.5" style={{ color: "#CDBB9A80" }} />
+              <span className="font-poppins text-[0.92rem] font-extrabold" style={{ color: "#F8FAFC" }}>
+                {typeof stat.value === "number" ? (stat.value > 0 ? `${stat.value}+` : "—") : stat.value}
+              </span>
+              <span className="text-[0.66rem] font-medium" style={{ color: "#94A3B8" }}>
+                {stat.label}
+              </span>
+              {i < stats.length - 1 && (
+                <span className="mr-2 md:mr-4 h-3 w-px" style={{ background: "#ffffff15" }} />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* ── Slide indicators ── */}
+      {/* Slide indicators */}
       <div className="absolute bottom-5 md:bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
         {slides.map((_, i) => (
           <button
@@ -216,7 +259,6 @@ export function HeroSlider() {
         ))}
       </div>
 
-      {/* Bottom accent line */}
       <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
     </section>
   );

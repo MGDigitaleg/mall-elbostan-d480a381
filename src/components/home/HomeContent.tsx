@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -7,6 +7,7 @@ import {
   Gift,
   Phone,
   Store,
+  ShoppingBag,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,11 +17,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HeroSlider } from "@/components/home/HeroSlider";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { CategoryStrip } from "@/components/home/CategoryStrip";
+import { ProductRail } from "@/components/home/ProductRail";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { DowntownTeaser } from "@/components/home/DowntownTeaser";
 import { DealsTeaser } from "@/components/home/DealsTeaser";
 import { FeaturedStores } from "@/components/home/FeaturedStores";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const MapTeaserPreview = lazy(() =>
   import("@/components/home/MapTeaserPreview").then((m) => ({ default: m.MapTeaserPreview }))
@@ -52,27 +56,203 @@ type HomeContentProps = {
   }>;
 };
 
+type ProductRow = {
+  id: string;
+  name_ar: string;
+  slug: string;
+  price: number | null;
+  price_note: string | null;
+  image_url: string | null;
+  featured: boolean;
+  brand: string | null;
+  created_at: string;
+  store_id: string | null;
+  category_id: string | null;
+  stores: { name_ar: string; slug: string; logo_url: string | null; category: string | null } | null;
+};
+
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
+
+  /* Single data source for all product sections */
+  const { data: allProducts } = useQuery({
+    queryKey: ["home-all-products"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("products")
+        .select(
+          "id, name_ar, slug, price, price_note, image_url, brand, category_id, store_id, featured, created_at, stores(name_ar, slug, logo_url, category)"
+        )
+        .eq("status", "published")
+        .order("created_at", { ascending: false })
+        .limit(60);
+      return (data ?? []) as ProductRow[];
+    },
+  });
+
+  const products = allProducts ?? [];
+
+  /* Derive sections from single dataset */
+  const latestProducts = useMemo(() => products.slice(0, 12), [products]);
+  const featuredProducts = useMemo(() => products.filter((p) => p.featured).slice(0, 8), [products]);
+
+  /* Category-based blocks */
+  const phoneProducts = useMemo(
+    () => products.filter((p) => (p as any).stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
+    [products]
+  );
+  const computerProducts = useMemo(
+    () => products.filter((p) => (p as any).stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
+    [products]
+  );
+  const gamingProducts = useMemo(
+    () => products.filter((p) => (p as any).stores?.category === "الألعاب والترفيه").slice(0, 8),
+    [products]
+  );
 
   return (
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <HeroSlider />
 
-      {/* ═══════════ 2 · FEATURED PRODUCTS ═══════════ */}
-      <FeaturedProducts />
+      {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
+      <CategoryStrip />
 
-      {/* ═══════════ 3 · DEALS TEASER ═══════════ */}
+      {/* ═══════════ 3 · DEALS / OFFERS ═══════════ */}
       <DealsTeaser />
 
-      {/* ═══════════ 4 · FEATURED STORES ═══════════ */}
+      {/* ═══════════ 4 · NEW ARRIVALS ═══════════ */}
+      <section
+        style={{
+          background: "#FAFAF8",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+        }}
+      >
+        <div className="container">
+          <ProductRail
+            kicker="من محلات المول"
+            title="أحدث المنتجات"
+            subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
+            products={latestProducts}
+            ctaLabel="عرض كل المنتجات"
+            ctaTo="/products"
+            layout="grid"
+            columns={4}
+            maxItems={12}
+            theme="light"
+          />
+        </div>
+      </section>
+
+      {/* ═══════════ 5 · FEATURED PRODUCTS RAIL ═══════════ */}
+      {featuredProducts.length >= 3 && (
+        <section
+          className="relative overflow-hidden"
+          style={{
+            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}
+        >
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+          </div>
+          <div className="container relative">
+            <ProductRail
+              kicker="اختيارات مميزة"
+              title="منتجات مميزة من المول"
+              products={featuredProducts}
+              ctaLabel="عرض المنتجات المميزة"
+              ctaTo="/products"
+              layout="rail"
+              theme="dark"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════ 6 · FEATURED STORES ═══════════ */}
       <FeaturedStores />
 
-      {/* ═══════════ 5 · MERCHANT LOGO WALL ═══════════ */}
+      {/* ═══════════ 7 · CATEGORY: PHONES ═══════════ */}
+      {phoneProducts.length >= 3 && (
+        <section
+          style={{
+            background: "#FAFAF8",
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}
+        >
+          <div className="container">
+            <ProductRail
+              kicker="الهواتف والإكسسوارات"
+              title="أحدث الهواتف وملحقاتها"
+              products={phoneProducts}
+              ctaLabel="عرض الكل"
+              ctaTo="/products?category=الهواتف والإكسسوارات"
+              layout="grid"
+              columns={4}
+              maxItems={8}
+              theme="light"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════ 8 · CATEGORY: COMPUTERS ═══════════ */}
+      {computerProducts.length >= 3 && (
+        <section
+          className="relative overflow-hidden"
+          style={{
+            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}
+        >
+          <div className="container relative">
+            <ProductRail
+              kicker="الكمبيوتر والأجهزة"
+              title="أجهزة الكمبيوتر والملحقات"
+              products={computerProducts}
+              ctaLabel="عرض الكل"
+              ctaTo="/products?category=الكمبيوتر والأجهزة"
+              layout="rail"
+              theme="dark"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════ 9 · CATEGORY: GAMING ═══════════ */}
+      {gamingProducts.length >= 3 && (
+        <section
+          style={{
+            background: "#FAFAF8",
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}
+        >
+          <div className="container">
+            <ProductRail
+              kicker="الألعاب والترفيه"
+              title="أحدث ألعاب الفيديو والأجهزة"
+              products={gamingProducts}
+              ctaLabel="عرض الكل"
+              ctaTo="/products?category=الألعاب والترفيه"
+              layout="grid"
+              columns={4}
+              maxItems={8}
+              theme="light"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════ 10 · MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
-      {/* ═══════════ 6 · MAP TEASER ═══════════ */}
+      {/* ═══════════ 11 · MAP TEASER ═══════════ */}
       <section
         style={{
           background: "#FAFAF8",
@@ -102,7 +282,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 7 · SPIN & WIN ═══════════ */}
+      {/* ═══════════ 12 · SPIN & WIN ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -161,10 +341,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 8 · DOWNTOWN HERITAGE ═══════════ */}
+      {/* ═══════════ 13 · DOWNTOWN HERITAGE ═══════════ */}
       <DowntownTeaser />
 
-      {/* ═══════════ 9 · FAQ ═══════════ */}
+      {/* ═══════════ 14 · FAQ ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -224,7 +404,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 10 · FINAL CTA ═══════════ */}
+      {/* ═══════════ 15 · FINAL CTA ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
