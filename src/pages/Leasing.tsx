@@ -12,7 +12,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import entranceImage from "@/assets/mall-entrance.jpg";
+import entranceImage from "@/assets/mall-entrance.webp";
 
 const reveal = {
   hidden: { opacity: 0, y: 20 },

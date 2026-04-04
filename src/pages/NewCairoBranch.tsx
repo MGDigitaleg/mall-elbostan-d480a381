@@ -13,10 +13,10 @@ import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/Lo
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import ncHero1 from "@/assets/nc-hero-1-enhanced.jpg";
-import ncHero2 from "@/assets/nc-hero-2-enhanced.jpg";
-import ncHero3 from "@/assets/nc-hero-3-enhanced.jpg";
-import ncHero4 from "@/assets/nc-hero-4-enhanced.jpg";
+import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
+import ncHero2 from "@/assets/nc-hero-2-enhanced.webp";
+import ncHero3 from "@/assets/nc-hero-3-enhanced.webp";
+import ncHero4 from "@/assets/nc-hero-4-enhanced.webp";
 
 const heroSlides = [
   { src: ncHero1, alt: "مدخل مول البستان — فرع القاهرة الجديدة" },
