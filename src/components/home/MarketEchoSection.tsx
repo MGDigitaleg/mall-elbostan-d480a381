@@ -44,7 +44,7 @@ function EchoPhrase({
         <motion.span
           initial={{ opacity: 0, filter: "blur(8px)", y: 12 }}
           animate={{
-            opacity: [0, 0.18, 0.12, 0.18, 0.1],
+            opacity: [0, 0.45, 0.3, 0.45, 0.2],
             filter: ["blur(8px)", "blur(0px)", "blur(0px)", "blur(0px)", "blur(4px)"],
             y: [12, 0, -4, -6, -10],
           }}

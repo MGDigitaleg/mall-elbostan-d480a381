@@ -27,6 +27,7 @@ import FAQ from "./pages/FAQ";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import RewardTerms from "./pages/RewardTerms";
+import MarketEcho from "./pages/MarketEcho";
 import DowntownDirectory from "./pages/DowntownDirectory";
 import DowntownMerchantDetail from "./pages/DowntownMerchantDetail";
 import NotFound from "./pages/NotFound";
@@ -90,6 +91,7 @@ function AppLayout() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/reward-terms" element={<RewardTerms />} />
+          <Route path="/market-echo" element={<MarketEcho />} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
