@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Store, MapPin, Tag } from "lucide-react";
+import { ArrowLeft, Store, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
@@ -11,10 +11,10 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
 };
 const cardReveal = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.32 } },
 };
-const stagger = { visible: { transition: { staggerChildren: 0.06 } } };
+const stagger = { visible: { transition: { staggerChildren: 0.05 } } };
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -34,27 +34,30 @@ export function FeaturedStores() {
   if (!isLoading && (!stores || stores.length === 0)) return null;
 
   return (
-    <section className="bg-card py-8 md:py-12 min-h-[280px]" style={{ contain: "layout style" }}>
+    <section
+      className="bg-card min-h-[260px]"
+      style={{
+        contain: "layout style",
+        paddingTop: "clamp(40px, 5.5vw, 88px)",
+        paddingBottom: "clamp(40px, 5.5vw, 88px)",
+      }}
+    >
       <div className="container">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/5 px-3.5 py-1">
-                <Store className="h-3 w-3 text-primary" />
-                <span className="text-[0.68rem] font-bold text-primary">محلات مميزة</span>
-              </div>
-              <h2 className="text-[1.1rem] font-bold leading-[1.2] text-foreground md:text-[1.3rem]"
-                  style={{ fontFamily: "var(--font-arabic-display)" }}>
-                أبرز المحلات في مول البستان
+              <p className="section-kicker">محلات مميزة</p>
+              <h2
+                className="section-title"
+                style={{ fontFamily: "var(--font-arabic-display)" }}
+              >
+                أبرز المحلات.
               </h2>
-              <p className="mt-1.5 max-w-md text-[0.8rem] leading-[1.7] text-muted-foreground">
-                تعرّف على أبرز العلامات التجارية التقنية داخل المول
-              </p>
             </div>
             <Link to="/stores" className="hidden lg:inline-flex">
               <Button variant="ghost" className="gap-1.5 text-[0.78rem] font-bold text-primary hover:text-primary/80">
-                عرض الكل <ArrowLeft className="h-3.5 w-3.5" />
+                دليل المحلات <ArrowLeft className="h-3.5 w-3.5" />
               </Button>
             </Link>
           </div>
@@ -62,77 +65,70 @@ export function FeaturedStores() {
           {isLoading ? (
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-background">
-                  <div className="flex items-center justify-center border-b border-border bg-muted/20 p-5 md:p-6">
-                    <Skeleton className="h-14 w-14 rounded-xl md:h-16 md:w-16" />
-                  </div>
-                  <div className="p-4 space-y-2">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-3 w-1/2" />
-                    <Skeleton className="h-3 w-full mt-1" />
-                  </div>
+                <div key={i} className="rounded-xl border border-border bg-background p-5">
+                  <Skeleton className="mx-auto h-12 w-12 rounded-xl" />
+                  <Skeleton className="mx-auto mt-3 h-4 w-2/3" />
+                  <Skeleton className="mx-auto mt-2 h-3 w-1/2" />
                 </div>
               ))}
             </div>
           ) : (
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
-                      className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {stores.map((store) => (
-              <motion.div key={store.id} variants={cardReveal}>
-                <Link to={`/stores/${store.slug}`}
-                      className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-primary/20 hover:shadow-md">
-                  {/* Logo area */}
-                  <div className="flex items-center justify-center border-b border-border bg-muted/20 p-5 md:p-6">
-                    {store.logo_url ? (
-                      <img src={store.logo_url} alt={store.name_ar}
-                           className="h-14 w-14 rounded-xl object-contain transition-transform duration-300 group-hover:scale-110 md:h-16 md:w-16"
-                           loading="lazy" />
-                    ) : (
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-border bg-card md:h-16 md:w-16">
-                        <Store className="h-6 w-6 text-muted-foreground/30" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex flex-1 flex-col p-4">
-                    <h3 className="text-[0.84rem] font-bold text-foreground transition-colors group-hover:text-primary line-clamp-1">
-                      {store.name_ar}
-                    </h3>
-                    {store.name_en && (
-                      <p className="mt-0.5 font-poppins text-[0.66rem] text-muted-foreground/60">{store.name_en}</p>
-                    )}
-                    {store.short_description_ar && (
-                      <p className="mt-1.5 text-[0.72rem] leading-[1.6] text-muted-foreground line-clamp-2">
-                        {store.short_description_ar}
-                      </p>
-                    )}
-
-                    {/* Meta row */}
-                    <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
-                      {store.category && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-muted/50 px-2.5 py-1 text-[0.62rem] font-semibold text-muted-foreground">
-                          <Tag className="h-2.5 w-2.5" />{store.category}
-                        </span>
-                      )}
-                      {store.unit_code && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-primary/5 px-2.5 py-1 text-[0.62rem] font-bold text-primary">
-                          <MapPin className="h-2.5 w-2.5" />{store.unit_code}
-                        </span>
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-40px" }}
+              className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+            >
+              {stores!.map((store) => (
+                <motion.div key={store.id} variants={cardReveal}>
+                  <Link
+                    to={`/stores/${store.slug}`}
+                    className="group flex flex-col items-center overflow-hidden rounded-xl border border-border/70 bg-background p-5 text-center transition-all hover:border-primary/15 hover:shadow-sm"
+                  >
+                    {/* Logo */}
+                    <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-border bg-white p-1.5 transition-transform duration-300 group-hover:scale-105">
+                      {store.logo_url ? (
+                        <img
+                          src={store.logo_url}
+                          alt={store.name_ar}
+                          className="h-full w-full object-contain"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <Store className="h-6 w-6 text-muted-foreground/25" />
                       )}
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+
+                    {/* Name */}
+                    <h3 className="mt-3 text-[0.82rem] font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+                      {store.name_ar}
+                    </h3>
+
+                    {/* Category */}
+                    {store.category && (
+                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-muted/40 px-2 py-0.5 text-[0.58rem] font-medium text-muted-foreground">
+                        <Tag className="h-2 w-2" />
+                        {store.category}
+                      </span>
+                    )}
+
+                    {/* Unit */}
+                    {store.unit_code && (
+                      <span className="mt-1 text-[0.58rem] font-medium text-primary/60">
+                        {store.unit_code}
+                      </span>
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
           )}
 
-          {/* Mobile CTA */}
           <div className="mt-5 text-center lg:hidden">
             <Link to="/stores">
-              <Button variant="outline-blue" className="h-10 gap-1.5 rounded-xl px-6 text-[0.8rem] font-bold">
-                عرض جميع المحلات <ArrowLeft className="h-3.5 w-3.5" />
+              <Button variant="outline-blue" className="h-9 gap-1.5 rounded-xl px-5 text-[0.78rem] font-bold">
+                جميع المحلات <ArrowLeft className="h-3.5 w-3.5" />
               </Button>
             </Link>
           </div>
