@@ -9,6 +9,10 @@ import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
 import downtownHeroDay from "@/assets/downtown-hero-enhanced.jpg";
 import downtownHeroNight from "@/assets/downtown-hero-night.jpg";
+import downtownGallery1 from "@/assets/downtown-gallery-1.jpg";
+import downtownGallery2 from "@/assets/downtown-gallery-2.jpg";
+import downtownGallery1Night from "@/assets/downtown-gallery-1-night.jpg";
+import downtownGallery2Night from "@/assets/downtown-gallery-2-night.jpg";
 
 const heroSlides = [
   { src: downtownHeroDay, alt: "واجهة مول البستان التجاري — وسط البلد نهاراً" },
