@@ -172,7 +172,7 @@ const StoreDetail = () => {
                      boxShadow: "0 8px 32px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
                    }}>
                 {store.logo_url ? (
-                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" />
+                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" decoding="async" />
                 ) : (
                   <Store className="h-9 w-9 text-white/30" />
                 )}
