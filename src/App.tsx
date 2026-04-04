@@ -117,10 +117,10 @@ function AppLayout() {
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
-            <Route path="/kz/products" element={<KzProducts />} />
+            <Route path="/kz/products" element={<Navigate to="/products?store=kasr-zero" replace />} />
             <Route path="/kz/products/:slug" element={<KzProductDetail />} />
-            <Route path="/kz/category/:slug" element={<KzCategory />} />
-            <Route path="/kz/search" element={<KzSearch />} />
+            <Route path="/kz/category/:slug" element={<Navigate to="/products?store=kasr-zero" replace />} />
+            <Route path="/kz/search" element={<Navigate to="/products" replace />} />
             <Route path="/kz/cart" element={<KzCart />} />
 
             {/* Admin */}
