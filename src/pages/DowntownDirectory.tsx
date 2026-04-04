@@ -69,6 +69,15 @@ const DowntownDirectory = () => {
     });
   }, [merchants, search, selectedCategory, selectedStatus]);
 
+  // Reset pagination when filters change
+  const visibleMerchants = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
+  const hasMore = filtered.length > visibleCount;
+
+  const handleFilterChange = useCallback((setter: (v: string) => void, value: string) => {
+    setter(value);
+    setVisibleCount(PAGE_SIZE);
+  }, []);
+
   const categoryCounts = useMemo(() => {
     if (!merchants) return {};
     const counts: Record<string, number> = {};
