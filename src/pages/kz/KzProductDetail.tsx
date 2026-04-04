@@ -98,15 +98,9 @@ const KzProductDetail = () => {
         <div className="container max-w-[1200px]">
           {/* Breadcrumb */}
           <nav className="mb-5 flex items-center gap-1.5 text-[0.72rem] text-muted-foreground">
-            <Link to="/kz" className="hover:text-primary">الرئيسية</Link>
+            <Link to="/products" className="hover:text-primary">المنتجات</Link>
             <ChevronLeft className="h-3 w-3" />
-            <Link to="/kz/products" className="hover:text-primary">المنتجات</Link>
-            {product.kz_categories && (
-              <>
-                <ChevronLeft className="h-3 w-3" />
-                <Link to={`/kz/category/${product.kz_categories.slug}`} className="hover:text-primary">{product.kz_categories.name}</Link>
-              </>
-            )}
+            <Link to="/products?store=kasr-zero" className="hover:text-primary">Kasr Zero</Link>
             <ChevronLeft className="h-3 w-3" />
             <span className="text-foreground font-medium truncate max-w-[200px]">{product.title}</span>
           </nav>
