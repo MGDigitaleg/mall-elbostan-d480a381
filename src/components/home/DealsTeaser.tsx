@@ -27,7 +27,7 @@ export function DealsTeaser() {
   const hasDeals = deals && deals.length > 0;
 
   return (
-    <section className="py-7 md:py-9 bg-background">
+    <section className="py-7 md:py-9 bg-background min-h-[200px]" style={{ contain: "layout style" }}>
       <div className="container">
         <motion.div
           variants={sectionReveal}
