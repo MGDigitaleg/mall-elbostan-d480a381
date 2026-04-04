@@ -21,6 +21,7 @@ import { HeroSlider } from "@/components/home/HeroSlider";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { DowntownTeaser } from "@/components/home/DowntownTeaser";
+import { MarketMemorySection } from "@/components/home/MarketMemorySection";
 import { DealsTeaser } from "@/components/home/DealsTeaser";
 import { FeaturedStores } from "@/components/home/FeaturedStores";
 
@@ -224,6 +225,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 8 · DOWNTOWN TEASER ═══════════ */}
       <DowntownTeaser />
+
+      {/* ═══════════ 8.5 · MARKET MEMORY ═══════════ */}
+      <MarketMemorySection />
 
       <div className="band-primary" />
 
