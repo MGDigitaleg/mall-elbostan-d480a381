@@ -73,8 +73,8 @@ const Leasing = () => {
       <PageHero
         kicker="التأجير التجاري"
         kickerEn="Commercial Leasing"
-        title={<>وحدتك في الوجهة التي يقصدها الجمهور</>}
-        subtitle="جمهور متخصص، حركة مستمرة، وبنية جاهزة للتشغيل."
+        title={<>وحدتك في المول الذي يقصده المشتري.</>}
+        subtitle="جمهور بنيّة شراء، حركة مستمرة، وبنية جاهزة."
         ctas={[
           { label: "ابدأ الاستفسار", to: "#inquiry", icon: Phone, variant: "orange" },
           { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
