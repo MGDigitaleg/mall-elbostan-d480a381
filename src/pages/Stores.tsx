@@ -363,7 +363,7 @@ const Stores = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </MainLayout>
