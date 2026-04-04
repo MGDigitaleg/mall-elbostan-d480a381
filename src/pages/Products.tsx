@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { PageHero } from "@/components/PageHero";
 
 const Products = () => {
@@ -186,10 +187,20 @@ const Products = () => {
           {isLoading ? (
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="animate-pulse rounded-xl p-3" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
-                  <div className="aspect-square rounded-lg mb-3" style={{ background: "#ffffff08" }} />
-                  <div className="h-3.5 w-3/4 rounded mb-2" style={{ background: "#ffffff08" }} />
-                  <div className="h-3 w-1/2 rounded" style={{ background: "#ffffff08" }} />
+                <div key={i} className="rounded-xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
+                  <Skeleton className="aspect-square w-full rounded-none bg-[#ffffff08]" />
+                  <div className="p-3 space-y-2">
+                    <Skeleton className="h-2 w-12 bg-[#ffffff06]" />
+                    <Skeleton className="h-3 w-full bg-[#ffffff08]" />
+                    <Skeleton className="h-3 w-3/4 bg-[#ffffff08]" />
+                    <div className="flex items-center gap-1.5 pt-1">
+                      <Skeleton className="h-3.5 w-3.5 rounded-sm bg-[#ffffff06]" />
+                      <Skeleton className="h-2.5 w-16 bg-[#ffffff06]" />
+                    </div>
+                    <div className="flex items-center justify-between pt-1">
+                      <Skeleton className="h-4 w-14 bg-[#ffffff08]" />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
