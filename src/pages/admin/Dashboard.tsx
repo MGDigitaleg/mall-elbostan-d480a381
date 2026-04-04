@@ -21,6 +21,7 @@ const adminSections = [
   { title: "الأسئلة الشائعة", icon: HelpCircle, path: "/admin/faqs", desc: "إدارة الأسئلة والأجوبة" },
   { title: "العملاء المحتملون", icon: Users, path: "/admin/leads", desc: "عرض طلبات التواصل والتأجير وانضمام التجار" },
   { title: "أصول المستأجرين", icon: FolderTree, path: "/admin/tenant-assets", desc: "إدارة قائمة الشعارات والمطابقة والتصدير النهائي" },
+  { title: "منتجات Kasr Zero", icon: Cpu, path: "/admin/kz-products", desc: "إدارة منتجات ومتغيرات وصور متجر Kasr Zero" },
 ];
 
 const AdminDashboard = () => {
