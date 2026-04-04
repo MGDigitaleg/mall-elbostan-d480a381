@@ -22,6 +22,7 @@ import {
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
+import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import exteriorImage from "@/assets/mall-exterior.jpg";
 import interiorImage from "@/assets/mall-interior.jpg";
@@ -47,76 +48,17 @@ const About = () => (
     />
 
     {/* ═══════════ 1 · HERO ═══════════ */}
-    <section className="relative overflow-hidden" style={{ background: "#071326" }}>
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 70% 50%, #2D6BFF06, transparent 65%)" }} />
-
-      <div className="relative mx-auto w-full max-w-[1440px]">
-        <div className="grid min-h-[50vh] items-center lg:grid-cols-[1.2fr_0.8fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="order-1 space-y-4 px-6 py-10 md:px-12 lg:py-12 lg:pr-14 xl:pr-16"
-          >
-            <div className="flex items-center gap-3">
-              <div className="h-[2px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
-              <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>
-                من نحن
-              </span>
-            </div>
-
-            <h1 className="max-w-[18rem] text-[1.55rem] leading-[1.1] md:text-[1.85rem] lg:text-[2.1rem] dark-heading">
-              المكان الذي
-              <br />
-              <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span>
-            </h1>
-
-            <p className="max-w-[24rem] text-[0.88rem] leading-[1.85] dark-body">
-              سيرة تجارية بدأت عام 1990 في وسط البلد — وتمتد اليوم إلى القاهرة الجديدة بنفس الثقة ونفس الاسم.
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              <Link to="/map">
-                <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold shadow-[var(--shadow-blue)]">
-                  <Compass className="ml-2 h-4 w-4" />
-                  استكشف الدليل
-                </Button>
-              </Link>
-              <Link to="/stores">
-                <Button className="h-9 rounded-lg border px-5 text-[0.82rem] font-semibold" style={{ borderColor: "#ffffff1F", background: "#ffffff0A", color: "#E2E8F0" }}>
-                  تصفّح المتاجر
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative order-2 hidden self-center py-8 pe-6 lg:block xl:pe-8"
-          >
-            <div className="frame-geometric overflow-hidden">
-              <img
-                src={exteriorImage}
-                alt="الواجهة الرئيسية لمول البستان — القاهرة الجديدة"
-                className="aspect-[4/3] max-h-[280px] w-full object-cover object-[center_35%] img-grade-dark"
-                loading="eager"
-              />
-            </div>
-            <div className="mt-1.5 flex items-end justify-between">
-              <div>
-                <p className="font-poppins text-[0.54rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>Mall Elbostan</p>
-                <p className="mt-0.5 text-[0.72rem] font-bold dark-heading">فرعان — وسط البلد والقاهرة الجديدة</p>
-              </div>
-              <div className="rounded-md px-2 py-1" style={{ background: "#ffffff0D", border: "1px solid #ffffff14" }}>
-                <p className="text-[0.62rem] font-bold dark-subheading">منذ 1990</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
+    <PageHero
+      kicker="من نحن"
+      kickerEn="About Us"
+      title={<>المكان الذي <span style={{ color: "#CDBB9A" }}>صنعه السوق.</span></>}
+      subtitle="سيرة تجارية بدأت عام 1990 في وسط البلد — وتمتد اليوم إلى القاهرة الجديدة بنفس الثقة ونفس الاسم."
+      ctas={[
+        { label: "استكشف الدليل", to: "/map", icon: Compass },
+        { label: "تصفّح المتاجر", to: "/stores" },
+      ]}
+      image={{ src: exteriorImage, alt: "الواجهة الرئيسية لمول البستان — القاهرة الجديدة" }}
+    />
 
     {/* ═══════════ 2 · THE BRAND STORY ═══════════ */}
     <section className="py-7 md:py-9 overflow-hidden" style={{ background: "#FAFAF8" }}>
