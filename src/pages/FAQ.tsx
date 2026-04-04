@@ -18,7 +18,7 @@ const FAQ = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="الأسئلة الشائعة" titleEn="FAQ" description="إجابات على أكثر الأسئلة شيوعاً حول مول البستان." descriptionEn="Frequently asked questions about Mall Elbostan." breadcrumbs={[{ name: "الأسئلة الشائعة", url: "/faq" }]} jsonLd={faqs && faqs.length > 0 ? buildFaqLd(faqs) : undefined} />
+      <SEOHead title="الأسئلة الشائعة" titleEn="FAQ" description="إجابات مختصرة على أكثر الأسئلة تكرارًا حول مول البستان والزيارة والتأجير." descriptionEn="Frequently asked questions about Mall Elbostan." breadcrumbs={[{ name: "الأسئلة الشائعة", url: "/faq" }]} jsonLd={faqs && faqs.length > 0 ? buildFaqLd(faqs) : undefined} />
       <div className="container max-w-5xl py-8 md:py-12">
         <div className="brand-shell page-halo mb-8 rounded-[2.15rem] px-5 py-5 md:px-7 md:py-6">
           <div className="grid gap-5 lg:grid-cols-[1.08fr_0.92fr] lg:items-end">
