@@ -8,7 +8,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import ncHero1 from "@/assets/nc-hero-1.jpg";
 import dtHero1 from "@/assets/downtown-hero-1.jpg";
 import ncHero3 from "@/assets/nc-hero-3.jpg";
-import mallBuildingHero from "@/assets/mall-building-hero.jpg";
+import downtownHeroNight from "@/assets/downtown-hero-night.jpg";
 
 /* 3 slides — each with ONE distinct full-bleed image */
 const slides = [
