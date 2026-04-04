@@ -25,7 +25,7 @@ const slides = [
     image: downtownHeroNight,
     alt: "مول البستان — وسط البلد ليلاً",
     kicker: "الأول في مصر",
-    headline: "من هنا بدأ السوق.",
+    headline: "٣٥ سنة والسوق يبدأ من هنا.",
     sub: "أول مول متخصص في الإلكترونيات والتقنية في مصر — منذ ١٩٩٠ من قلب وسط البلد.",
     cta: { label: "اعرف أكثر", to: "/downtown-branch", icon: Compass },
     ctaSecondary: { label: "دليل المحلات", to: "/downtown-directory" },
