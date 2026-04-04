@@ -142,7 +142,7 @@ const KzProductDetail = () => {
               <h1 className="mt-1 text-[1.3rem] font-extrabold leading-tight text-foreground md:text-[1.6rem]">{product.title}</h1>
 
               {product.kz_categories && (
-                <Link to={`/kz/category/${product.kz_categories.slug}`}>
+                <Link to={`/products?store=kasr-zero`}>
                   <Badge variant="secondary" className="mt-2 text-[0.65rem]">{product.kz_categories.name}</Badge>
                 </Link>
               )}
