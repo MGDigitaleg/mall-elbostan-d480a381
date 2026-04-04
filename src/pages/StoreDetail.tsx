@@ -13,7 +13,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import fallbackCover from "@/assets/mall-interior.jpg";
+import fallbackCover from "@/assets/mall-interior.webp";
 
 /* ── Animations ── */
 const fadeUp = {

@@ -24,13 +24,13 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import exteriorImage from "@/assets/mall-exterior.jpg";
-import interiorImage from "@/assets/mall-interior.jpg";
-import facadeImage from "@/assets/mall-facade.jpg";
-import entranceImage from "@/assets/mall-entrance.jpg";
-import downtownImage from "@/assets/downtown-exterior.jpg";
-import downtownNight from "@/assets/downtown-night.jpg";
-import downtownInterior from "@/assets/downtown-interior-1.jpg";
+import exteriorImage from "@/assets/mall-exterior.webp";
+import interiorImage from "@/assets/mall-interior.webp";
+import facadeImage from "@/assets/mall-facade.webp";
+import entranceImage from "@/assets/mall-entrance.webp";
+import downtownImage from "@/assets/downtown-exterior.webp";
+import downtownNight from "@/assets/downtown-night.webp";
+import downtownInterior from "@/assets/downtown-interior-1.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
