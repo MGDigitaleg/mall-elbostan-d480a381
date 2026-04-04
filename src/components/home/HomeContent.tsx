@@ -75,6 +75,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 3 · DEALS TEASER ═══════════ */}
       <DealsTeaser />
 
+      {/* ═══════════ 3.5 · FEATURED STORES ═══════════ */}
+      <FeaturedStores />
+
       {/* ═══════════ 4 · MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
