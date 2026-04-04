@@ -130,10 +130,10 @@ const DowntownBranch = () => (
               <img src={downtownHero8} alt="محلات الكمبيوتر" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHero3} alt="واجهة المول" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownHero5} alt="واجهة المول" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
             <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHero4} alt="المول عند الغروب" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <img src={downtownHero1} alt="المول — المنظر العام" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
             </div>
           </div>
         </motion.div>
