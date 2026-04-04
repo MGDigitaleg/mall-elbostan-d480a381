@@ -132,8 +132,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
               {/* Steps */}
               <div className="grid grid-cols-3 gap-2.5 md:gap-3.5 mb-8">
                 {[
-                  { n: "01", title: "استكشف", desc: "تعرّف على المحلات المشاركة.", color: "#2563EB" },
-                  { n: "02", title: "شارك وادخل السحب", desc: "سجّل بياناتك واحفظ نتيجتك.", color: "#06B6D4" },
+                  { n: "01", title: "تصفّح المحلات", desc: "اعرف المحلات المشاركة.", color: "#2563EB" },
+                  { n: "02", title: "أدر واربح", desc: "سجّل بياناتك واحفظ نتيجتك.", color: "#06B6D4" },
                   { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح.", color: "#F97316" },
                 ].map((s, i) => (
                   <div key={s.n} className="group relative rounded-2xl p-4 md:p-6 text-center transition-all hover:bg-white/[0.04]"
