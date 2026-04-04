@@ -239,10 +239,16 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isHighlighted = highlightedUnitIds?.has(unit.id) ?? false;
             const colors = statusFill[unit.status];
             const stroke = statusStroke[unit.status];
+            const brandBg = TENANT_BG[unit.id];
+            const hasBrand = unit.status === "occupied" && brandBg;
 
             let appliedFilter = "url(#unitShadow)";
             if (isSelected) appliedFilter = "url(#selectedGlow)";
             else if (isHighlighted) appliedFilter = "url(#highlightGlow)";
+
+            const baseFill = hasBrand
+              ? brandBg
+              : isSelected ? colors.selected : isHovered ? colors.hover : colors.base;
 
             return (
               <motion.polygon
@@ -254,8 +260,8 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                   fillOpacity: isMuted ? 0.2 : 1,
                 }}
                 transition={{ duration: 0.2 }}
-                fill={isSelected ? colors.selected : isHovered ? colors.hover : colors.base}
-                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : stroke}
+                fill={baseFill}
+                stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFF" : "#00000030") : stroke}
                 strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? 2.2 : 1.2}
                 filter={appliedFilter}
                 className="cursor-pointer outline-none"
