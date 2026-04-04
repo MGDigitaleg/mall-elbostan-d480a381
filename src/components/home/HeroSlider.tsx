@@ -57,7 +57,7 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative min-h-[480px] md:min-h-[540px] max-h-[620px] overflow-hidden"
+      className="relative min-h-[520px] md:min-h-[540px] max-h-[620px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -81,7 +81,7 @@ export function HeroSlider() {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Overlay: refined to let architecture breathe ── */}
+      {/* ── Overlay ── */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
@@ -110,9 +110,9 @@ export function HeroSlider() {
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[480px] md:min-h-[540px] max-h-[620px] max-w-[1440px] items-center px-5 md:px-10">
-        <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-8">
-          {/* Text block — right side */}
+      <div className="relative z-10 mx-auto flex h-full min-h-[520px] md:min-h-[540px] max-h-[620px] max-w-[1440px] items-center px-5 md:px-10 pt-[72px] md:pt-[76px]">
+        <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
+          {/* Text block — right side on desktop, centered on mobile */}
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -120,35 +120,35 @@ export function HeroSlider() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-[28rem] space-y-4"
+              className="max-w-[28rem] space-y-3 md:space-y-4"
             >
               <span
-                className="inline-block rounded-full px-3.5 py-1.5 text-[0.62rem] font-bold tracking-[0.15em] uppercase"
+                className="inline-block rounded-full px-3.5 py-1.5 text-[0.6rem] md:text-[0.62rem] font-bold tracking-[0.15em] uppercase"
                 style={{ background: "#CDBB9A14", color: "#CDBB9A", border: "1px solid #CDBB9A25" }}
               >
                 {slide.kicker}
               </span>
 
               <h1
-                className="text-[1.5rem] font-bold leading-[1.12] md:text-[1.85rem]"
+                className="text-[1.35rem] font-bold leading-[1.15] md:text-[1.85rem]"
                 style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}
               >
                 {slide.headline}
               </h1>
 
-              <p className="text-[0.84rem] leading-[1.75] max-w-[24rem]" style={{ color: "#B0BEC5" }}>
+              <p className="text-[0.78rem] md:text-[0.84rem] leading-[1.75] max-w-[22rem] md:max-w-[24rem] mx-auto md:mx-0" style={{ color: "#B0BEC5" }}>
                 {slide.sub}
               </p>
 
-              <div className="flex justify-center md:justify-start gap-2.5 pt-1">
+              <div className="flex justify-center md:justify-start gap-2 md:gap-2.5 pt-1">
                 <Link to={slide.cta.to}>
-                  <Button variant="cta" className="h-10 rounded-xl px-5 text-[0.8rem] font-bold shadow-lg shadow-primary/20">
-                    <CtaIcon className="ml-1.5 h-4 w-4" /> {slide.cta.label}
+                  <Button variant="cta" className="h-9 md:h-10 rounded-xl px-4 md:px-5 text-[0.76rem] md:text-[0.8rem] font-bold shadow-lg shadow-primary/20">
+                    <CtaIcon className="ml-1.5 h-3.5 w-3.5 md:h-4 md:w-4" /> {slide.cta.label}
                   </Button>
                 </Link>
                 <Link to={slide.ctaSecondary.to}>
                   <Button
-                    className="h-10 rounded-xl border px-5 text-[0.8rem] font-semibold transition-colors hover:bg-white/[0.08]"
+                    className="h-9 md:h-10 rounded-xl border px-4 md:px-5 text-[0.76rem] md:text-[0.8rem] font-semibold transition-colors hover:bg-white/[0.08]"
                     style={{ borderColor: "#ffffff18", background: "transparent", color: "#CBD5E1" }}
                   >
                     {slide.ctaSecondary.label}
@@ -158,17 +158,17 @@ export function HeroSlider() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Countdown — secondary elegant element */}
-          <div className="hidden lg:block">
+          {/* Countdown — inside hero on all screens */}
+          <div className="w-full md:w-auto flex justify-center md:block">
             <div
-              className="rounded-2xl border px-6 py-5 backdrop-blur-md"
+              className="rounded-2xl border px-4 py-3 md:px-6 md:py-5 backdrop-blur-md"
               style={{
                 borderColor: "hsla(0, 0%, 100%, 0.08)",
                 background: "hsla(220, 45%, 10%, 0.65)",
                 boxShadow: "0 8px 32px hsla(220, 60%, 5%, 0.4)",
               }}
             >
-              <p className="mb-3.5 text-center text-[0.66rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>
+              <p className="mb-2 md:mb-3.5 text-center text-[0.6rem] md:text-[0.66rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>
                 الافتتاح الكبير
               </p>
               <CountdownTimer compact />
@@ -178,7 +178,7 @@ export function HeroSlider() {
       </div>
 
       {/* ── Slide indicators ── */}
-      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
+      <div className="absolute bottom-5 md:bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
         {slides.map((_, i) => (
           <button
             key={i}

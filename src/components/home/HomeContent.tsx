@@ -63,16 +63,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 1 · HERO ═══════════ */}
       <HeroSlider />
 
-      {/* ── mobile countdown strip ── */}
-      <section className="border-b border-border bg-card py-2.5 lg:hidden">
-        <div className="container flex flex-col items-center gap-2 md:flex-row md:justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            <p className="text-[0.78rem] font-bold text-foreground">الافتتاح — 1 مايو 2026</p>
-          </div>
-          <CountdownTimer compact />
-        </div>
-      </section>
+      {/* countdown is now inside the hero — no separate strip needed */}
 
       {/* ═══════════ 2 · FEATURED PRODUCTS ═══════════ */}
       <FeaturedProducts />

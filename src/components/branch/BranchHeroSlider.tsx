@@ -70,7 +70,7 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
       />
 
       {/* Content */}
-      <div className="container relative z-10 max-w-6xl pb-12 pt-36 md:pb-16">
+      <div className="container relative z-10 max-w-6xl pb-12 pt-[80px] md:pt-36 md:pb-16">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span
             className="mb-4 inline-block rounded-full px-3.5 py-1.5 text-[0.62rem] font-bold tracking-[0.15em] uppercase"
