@@ -5,9 +5,9 @@ const stagger = { visible: { transition: { staggerChildren: 0.12 } } };
 const fadeChild = { hidden: { opacity: 0, y: 18 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } } };
 
 const steps = [
-  { n: "01", title: "تصفّح الفعاليات", text: "اطّلع على جدول الفعاليات والمسابقات وخطّط زيارتك مسبقًا.", color: "hsl(var(--primary))" },
-  { n: "02", title: "شارك في المكافآت", text: "أدر العجلة واحتفظ بنتيجتك — المكافأة بانتظارك يوم الافتتاح.", color: "hsl(25 95% 55%)" },
-  { n: "03", title: "تابع التحديثات", text: "تابع هذه الصفحة لمعرفة البرنامج النهائي وآخر الأخبار.", color: "hsl(190 85% 40%)" },
+  { n: "01", title: "تصفّح الفعاليات", text: "اطّلع على جدول يوم الافتتاح واختر ما يناسبك.", color: "hsl(var(--primary))" },
+  { n: "02", title: "شارك في أدر واربح", text: "أدر العجلة واحتفظ بنتيجتك — المكافأة بانتظارك يوم الافتتاح.", color: "hsl(25 95% 55%)" },
+  { n: "03", title: "تابع هذه الصفحة", text: "البرنامج النهائي وآخر التحديثات ستُضاف هنا أولاً.", color: "hsl(190 85% 40%)" },
 ];
 
 export function OpeningRoadmap() {
