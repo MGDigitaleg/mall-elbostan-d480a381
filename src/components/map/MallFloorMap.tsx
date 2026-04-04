@@ -293,9 +293,16 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
             const tenantLogo = TENANT_LOGOS[unit.id];
+            const brandBg = TENANT_BG[unit.id];
             const hasName = unit.status === "occupied" && tenantName;
             const isSelected = selectedUnitId === unit.id;
-            const unitColors = statusFill[unit.status];
+            const hasBrandBg = !!brandBg;
+
+            // Determine if text on brand bg should be light or dark
+            const isLightBg = brandBg && (brandBg === "#FFFFFF" || brandBg === "#F5F0E8" || brandBg === "#E8DDD0" || brandBg === "#E8E0D0" || brandBg === "#E0D8C8" || brandBg === "#FDE4C4" || brandBg === "#C8A96E");
+            const codeColor = hasBrandBg
+              ? (isLightBg ? "#4A4540" : "#FFFFFF90")
+              : (isSelected ? "#9B6520" : "#7A7468");
 
             // Calculate bounding box from polygon to size logo proportionally
             const pts = unit.polygon.split(/\s+/).map((p: string) => {
@@ -309,75 +316,61 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const unitW = maxX - minX;
             const unitH = maxY - minY;
 
-            // Logo fills ~80% width and ~55% height of unit, with min/max clamps
-            const logoW = Math.max(40, Math.min(unitW * 0.80, 140));
-            const logoH = Math.max(24, Math.min(unitH * 0.55, 90));
-            const bgW = logoW + 8;
-            const bgH = logoH + 6;
+            // Logo fills ~75% width and ~50% height of unit
+            const logoW = Math.max(40, Math.min(unitW * 0.75, 130));
+            const logoH = Math.max(24, Math.min(unitH * 0.45, 80));
 
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
                 {tenantLogo && hasName ? (
                   <>
-                    {/* Background fill matching unit color */}
-                    <rect
-                      x={unit.labelX - bgW / 2}
-                      y={unit.labelY - bgH / 2 - 6}
-                      width={bgW}
-                      height={bgH}
-                      rx="4"
-                      fill={isSelected ? unitColors.selected : unitColors.base}
-                      opacity="0.85"
-                    />
-                    {/* Tenant logo — scaled to fill unit */}
+                    {/* Tenant logo — centered in unit */}
                     <image
                       href={tenantLogo}
                       x={unit.labelX - logoW / 2}
-                      y={unit.labelY - logoH / 2 - 6}
+                      y={unit.labelY - logoH / 2 - 8}
                       width={logoW}
                       height={logoH}
                       preserveAspectRatio="xMidYMid meet"
+                      opacity="0.95"
                     />
                     {/* Unit code below logo */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY + logoH / 2 + 4}
+                      y={unit.labelY + logoH / 2 + 2}
                       textAnchor="middle"
                       dominantBaseline="middle"
-                      className="text-[7px] font-semibold"
-                      fill={isSelected ? "#9B6520" : "#7A7468"}
+                      className="text-[8px] font-semibold"
+                      fill={codeColor}
                     >
                       {unit.code}
                     </text>
                   </>
                 ) : hasName ? (
                   <>
-                    {/* Tenant name — bolder, darker */}
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 5}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       className="text-[11px] font-bold"
-                      fill={isSelected ? "#7A3A00" : "#1E1C1A"}
+                      fill={hasBrandBg ? (isLightBg ? "#1E1C1A" : "#FFFFFF") : (isSelected ? "#7A3A00" : "#1E1C1A")}
                     >
                       {tenantName}
                     </text>
-                    {/* Unit code below */}
                     <text
                       x={unit.labelX}
                       y={unit.labelY + 10}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       className="text-[8px] font-semibold"
-                      fill={isSelected ? "#9B6520" : "#7A7468"}
+                      fill={codeColor}
                     >
                       {unit.code}
                     </text>
                   </>
                 ) : (
                   <>
-                    {/* Unit code — primary */}
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 3}
@@ -388,7 +381,6 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.code}
                     </text>
-                    {/* Area */}
                     <text
                       x={unit.labelX}
                       y={unit.labelY + 12}
