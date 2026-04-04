@@ -447,7 +447,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           const brandBg = TENANT_BG[unit.id];
           const isOccupied = unit.status === "occupied" && tenantName;
 
-          const floorLabel = floor.nameAr || floor.label || "";
+          const floorLabel = floor.label || "";
           const areaText = `${unit.area} م²`;
 
           if (isOccupied) {
