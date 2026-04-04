@@ -14,6 +14,7 @@ import {
   ScanBeam,
 } from "@/components/market-echo/EchoEffects";
 import { EchoTimeline } from "@/components/market-echo/EchoTimeline";
+import { EchoStats } from "@/components/market-echo/EchoStats";
 
 const quoteCards = [
   {
