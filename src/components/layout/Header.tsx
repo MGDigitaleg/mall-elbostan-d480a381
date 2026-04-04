@@ -229,6 +229,15 @@ export function Header() {
               );
             })}
 
+            {isKzPage && (
+              <Link to="/kz/cart" className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+                <ShoppingCart className="h-4 w-4" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -left-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+                )}
+              </Link>
+            )}
+
             <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
 
             <Link to="/spin-win">
