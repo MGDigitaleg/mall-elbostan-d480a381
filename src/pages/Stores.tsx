@@ -8,10 +8,8 @@ import {
   CircuitBoard,
   Compass,
   Globe,
-  Layers,
   MapPin,
   Monitor,
-  Phone,
   Search,
   Shield,
   Smartphone,
@@ -23,6 +21,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
+import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { LoadingGrid } from "@/components/ui/loading-states";
 
@@ -97,76 +96,36 @@ const Stores = () => {
         breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
       />
 
-      {/* ═══════════ HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ background: "linear-gradient(165deg, #071326 0%, #0B1B34 50%, #0D1F3C 100%)" }}>
-        {/* Decorative */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-20 right-1/4 h-[420px] w-[420px] rounded-full opacity-[0.06]" style={{ background: "radial-gradient(circle, #2D6BFF, transparent 65%)" }} />
-          <div className="absolute bottom-0 left-0 h-[280px] w-[350px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #06B6D4, transparent 65%)" }} />
-          {/* Grid pattern */}
-          <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
-        </div>
-
-        <div className="container relative max-w-[1200px]">
-          <div className="py-14 md:py-18 lg:py-22">
-            <div className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-              {/* Text */}
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-lg">
-                <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5" style={{ background: "#2D6BFF10", border: "1px solid #2D6BFF20" }}>
-                  <Building2 className="h-3 w-3" style={{ color: "#5B9AFF" }} />
-                  <span className="font-poppins text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#5B9AFF" }}>Store Directory</span>
-                </div>
-
-                <h1 className="mt-5 text-[1.55rem] font-extrabold leading-[1.12] md:text-[1.85rem] lg:text-[2.1rem]" style={{ color: "#F8FAFC" }}>
-                  دليل محلات
-                  <br />
-                  <span className="bg-gradient-to-l from-[#2D6BFF] to-[#60A5FA] bg-clip-text text-transparent">مول البستان.</span>
-                </h1>
-                <p className="mt-3.5 max-w-[26rem] text-[0.84rem] leading-[1.85]" style={{ color: "#94A3B8" }}>
-                  تصفّح {activeCount > 0 ? `${activeCount} محل نشط` : "المحلات"} عبر {primaryCategories.length} فئات تقنية متخصصة في القاهرة الجديدة.
-                </p>
-
-                <div className="mt-7 flex flex-wrap gap-2.5">
-                  <a href="#directory">
-                    <Button variant="cta" className="h-10 gap-2 rounded-xl px-6 text-[0.82rem] font-bold shadow-[0_4px_24px_hsl(222_100%_59%/0.22)]">
-                      <Search className="h-3.5 w-3.5" /> تصفح المحلات
-                    </Button>
-                  </a>
-                  <Link to="/map">
-                    <Button className="h-10 gap-2 rounded-xl px-6 text-[0.82rem] font-semibold" style={{ background: "#ffffff08", color: "#CBD5E1", border: "1px solid #ffffff15" }}>
-                      <Compass className="h-3.5 w-3.5" /> الخريطة التفاعلية
-                    </Button>
-                  </Link>
-                </div>
-              </motion.div>
-
-              {/* Stats grid — premium glassmorphism */}
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }} className="grid grid-cols-3 gap-3">
-                {[
-                  { label: "إجمالي المحلات", value: totalStores, icon: Building2, accent: "#2D6BFF" },
-                  { label: "محل نشط", value: activeCount, icon: Sparkles, accent: "#10B981" },
-                  { label: "فئة تقنية", value: primaryCategories.length, icon: Layers, accent: "#06B6D4" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="flex flex-col items-center gap-2.5 rounded-2xl px-5 py-6 text-center backdrop-blur-sm"
-                    style={{ background: "linear-gradient(145deg, #ffffff08, #ffffff03)", border: "1px solid #ffffff0D", boxShadow: "inset 0 1px 0 #ffffff08" }}
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: `${stat.accent}12`, border: `1px solid ${stat.accent}25` }}>
-                      <stat.icon className="h-4.5 w-4.5" style={{ color: stat.accent }} />
-                    </div>
-                    <span className="font-poppins text-[1.6rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{stat.value}</span>
-                    <span className="text-[0.64rem] font-medium" style={{ color: "#64748B" }}>{stat.label}</span>
-                  </div>
-                ))}
-              </motion.div>
+      {/* ═══════════ HERO — Unified PageHero ═══════════ */}
+      <PageHero
+        kicker="دليل المحلات"
+        kickerEn="Store Directory"
+        title={<>دليل محلات <span className="bg-gradient-to-l from-[#2D6BFF] to-[#60A5FA] bg-clip-text text-transparent">مول البستان.</span></>}
+        subtitle={`تصفّح ${activeCount > 0 ? `${activeCount} محل نشط` : "المحلات"} عبر ${primaryCategories.length} فئات تقنية متخصصة في القاهرة الجديدة.`}
+        ctas={[
+          { label: "تصفح المحلات", to: "#directory", icon: Search },
+          { label: "الخريطة التفاعلية", to: "/map", icon: Compass },
+        ]}
+        compact
+      >
+        {/* Compact stats row */}
+        <div className="flex items-center gap-4 lg:justify-end">
+          {[
+            { label: "إجمالي المحلات", value: totalStores, accent: "#2D6BFF" },
+            { label: "محل نشط", value: activeCount, accent: "#10B981" },
+            { label: "فئة تقنية", value: primaryCategories.length, accent: "#06B6D4" },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center gap-1 rounded-xl px-4 py-3 text-center"
+              style={{ background: "#ffffff06", border: "1px solid #ffffff0A" }}
+            >
+              <span className="font-poppins text-[1.3rem] font-extrabold leading-none" style={{ color: stat.accent }}>{stat.value}</span>
+              <span className="text-[0.58rem] font-medium" style={{ color: "#64748B" }}>{stat.label}</span>
             </div>
-          </div>
+          ))}
         </div>
-
-        {/* Bottom line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF25, transparent 90%)" }} />
-      </section>
+      </PageHero>
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
@@ -205,7 +164,6 @@ const Stores = () => {
                       : "0 1px 4px hsl(0 0% 0% / 0.03)",
                   }}
                 >
-                  {/* Icon container */}
                   <div
                     className="flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-105"
                     style={{
@@ -250,7 +208,6 @@ const Stores = () => {
             style={{ background: "#0B1220F2", border: "1px solid #ffffff0C", boxShadow: "0 8px 40px hsl(0 0% 0% / 0.25)" }}
           >
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
-              {/* Search input */}
               <div className="relative flex-1">
                 <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
                 <input
@@ -263,7 +220,6 @@ const Stores = () => {
                 />
               </div>
 
-              {/* Filter chips */}
               <div className="flex flex-wrap items-center gap-1.5">
                 <FilterChip active={!selectedCategory && !selectedStatus} onClick={clearFilters}>الكل</FilterChip>
                 {categories.map((cat) => (
@@ -282,7 +238,6 @@ const Stores = () => {
               </div>
             </div>
 
-            {/* Active filter summary */}
             <AnimatePresence>
               {hasActiveFilters && (
                 <motion.div
@@ -446,7 +401,6 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           e.currentTarget.style.transform = "translateY(0)";
         }}
       >
-        {/* Featured badge */}
         {store.featured && (
           <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full px-2 py-0.5" style={{ background: "#F59E0B15", border: "1px solid #F59E0B30" }}>
             <Sparkles className="h-2.5 w-2.5" style={{ color: "#F59E0B" }} />
@@ -454,9 +408,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           </div>
         )}
 
-        {/* Top row: Logo + Name */}
         <div className="flex items-center gap-3.5">
-          {/* Logo — larger, prominent */}
           <div
             className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl p-2"
             style={{
@@ -472,7 +424,6 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
             )}
           </div>
 
-          {/* Name + English name */}
           <div className="min-w-0 flex-1">
             <h3 className="text-[0.9rem] font-bold leading-snug transition-colors group-hover:text-[#5B9AFF] line-clamp-1" style={{ color: "#F8FAFC" }}>
               {store.name_ar}
@@ -480,7 +431,6 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
             {store.name_en && (
               <p className="font-poppins text-[0.68rem] mt-0.5 line-clamp-1" style={{ color: "#64748B" }}>{store.name_en}</p>
             )}
-            {/* Category inline */}
             {store.category && (
               <div className="mt-1 flex items-center gap-1.5">
                 {meta && <meta.icon className="h-3 w-3" style={{ color: meta.color }} />}
@@ -492,14 +442,12 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           <ArrowLeft className="mt-0.5 h-4 w-4 shrink-0 opacity-0 transition-all duration-300 group-hover:opacity-70 group-hover:-translate-x-1" style={{ color: "#5B9AFF" }} />
         </div>
 
-        {/* Description */}
         {store.short_description_ar && (
           <p className="mt-3 text-[0.74rem] leading-[1.65] line-clamp-2" style={{ color: "#94A3B8" }}>
             {store.short_description_ar}
           </p>
         )}
 
-        {/* Bottom meta bar */}
         <div className="mt-3.5 flex items-center gap-2 border-t pt-3" style={{ borderColor: "#ffffff08" }}>
           <span
             className="flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[0.62rem] font-bold"
@@ -526,7 +474,6 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
   );
 }
 
-/* ── Ecosystem state ── */
 function EcosystemGrowingState() {
   return (
     <div className="rounded-2xl p-8 text-center md:p-10" style={{ background: "#ffffff06", border: "1px solid #ffffff0A" }}>
