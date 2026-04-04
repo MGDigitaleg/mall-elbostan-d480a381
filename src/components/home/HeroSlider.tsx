@@ -5,9 +5,9 @@ import { Compass, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 
-import ncHero1 from "@/assets/nc-hero-1.jpg";
+import ncHero1 from "@/assets/nc-hero-1-enhanced.jpg";
 import dtHero1 from "@/assets/downtown-hero-1.jpg";
-import ncHero3 from "@/assets/nc-hero-3.jpg";
+import ncHero3 from "@/assets/nc-hero-3-enhanced.jpg";
 import downtownHeroNight from "@/assets/downtown-hero-night.jpg";
 
 /* 3 slides — each with ONE distinct full-bleed image */
