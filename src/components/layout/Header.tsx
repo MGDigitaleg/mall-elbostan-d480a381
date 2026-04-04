@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Compass, Menu, Sparkles, ChevronDown, MapPin } from "lucide-react";
+import { Compass, Menu, Sparkles, ChevronDown, MapPin, ShoppingCart } from "lucide-react";
+import { useKzCart } from "@/hooks/useKzCart";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeaderMenuSheet } from "@/components/layout/HeaderMenuSheet";
@@ -35,6 +36,9 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [branchOpen, setBranchOpen] = useState(false);
   const branchRef = useRef<HTMLDivElement>(null);
+
+  const { totalItems } = useKzCart();
+  const isKzPage = location.pathname.startsWith("/kz");
 
   const hasDarkHero = darkHeroPages.some(
     (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
@@ -225,6 +229,15 @@ export function Header() {
               );
             })}
 
+            {isKzPage && (
+              <Link to="/kz/cart" className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+                <ShoppingCart className="h-4 w-4" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -left-1.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+                )}
+              </Link>
+            )}
+
             <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
 
             <Link to="/spin-win">
@@ -271,6 +284,14 @@ export function Header() {
           </Link>
 
           <div className="flex items-center justify-end gap-2">
+            {isKzPage && (
+              <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+                <ShoppingCart className="h-3.5 w-3.5" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-1.5 -left-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+                )}
+              </Link>
+            )}
             <Link to="/spin-win">
               <Button
                 size="sm"
@@ -298,7 +319,7 @@ export function Header() {
 
         {/* ── Mobile ── */}
         <div
-          className="grid grid-cols-[auto_1fr_auto] items-center gap-3 md:hidden"
+          className={`grid items-center gap-3 md:hidden ${isKzPage ? "grid-cols-[auto_auto_1fr_auto]" : "grid-cols-[auto_1fr_auto]"}`}
           style={{ minHeight: scrolled ? "52px" : "58px", transition: "min-height 0.4s" }}
         >
           <Link to="/map">
@@ -314,6 +335,15 @@ export function Header() {
               <Compass className="h-4 w-4" />
             </button>
           </Link>
+
+          {isKzPage && (
+            <Link to="/kz/cart" className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+              <ShoppingCart className="h-4 w-4" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -left-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+              )}
+            </Link>
+          )}
 
           <Link to="/" className="justify-self-center">
             <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={isTransparent ? "light" : "dark"} />
