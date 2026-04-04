@@ -412,9 +412,10 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: Math.min(index * 0.025, 0.2), duration: 0.4 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ delay: Math.min(index * 0.04, 0.25), duration: 0.45, ease: "easeOut" }}
     >
       <Link
         to={`/stores/${store.slug}`}
