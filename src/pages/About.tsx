@@ -79,7 +79,7 @@ const About = () => (
             <div className="order-1 space-y-3.5 lg:order-2">
               <div className="chapter-shell pt-4">
                 <p className="section-kicker">قصة العلامة</p>
-                <h2 className="section-title max-w-[20rem]">اسم واحد — فرعان — نفس الثقة.</h2>
+                <h2 className="section-title max-w-[20rem]">فرعان — اسم واحد — نفس الثقة.</h2>
               </div>
 
               <p className="text-[0.88rem] leading-[1.85] light-body max-w-[26rem]">
