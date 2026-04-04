@@ -15,6 +15,8 @@ const KzProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [justAdded, setJustAdded] = useState(false);
+  const { addItem, totalItems } = useKzCart();
 
   const { data: product, isLoading } = useQuery({
     queryKey: ["kz-product", slug],
