@@ -10,6 +10,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { PageHero } from "@/components/PageHero";
 
 type InquiryType = "general" | "leasing" | "partnership" | "media" | "careers";
 
