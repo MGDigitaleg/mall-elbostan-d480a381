@@ -13,6 +13,7 @@ import {
   QuoteMarks,
   ScanBeam,
 } from "@/components/market-echo/EchoEffects";
+import { EchoTimeline } from "@/components/market-echo/EchoTimeline";
 
 const quoteCards = [
   {
