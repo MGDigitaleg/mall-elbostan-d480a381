@@ -198,56 +198,43 @@ const InteractiveMap = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        {/* Layered ambient effects */}
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(165deg, #071326 0%, #0B1B34 50%, #0D1F3C 100%)" }}>
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-0 top-0 h-full w-1/3 opacity-[0.03]"
-               style={{ background: "linear-gradient(180deg, hsl(var(--primary)), transparent 60%)" }} />
-          <div className="absolute bottom-0 left-0 h-1/2 w-1/2 opacity-[0.04]"
-               style={{ background: "radial-gradient(ellipse at bottom left, hsl(220 80% 55%), transparent 70%)" }} />
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-[0.015]"
-               style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+          <div className="absolute top-1/3 left-[15%] h-[400px] w-[400px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
+          <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         </div>
 
         <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="py-6 md:py-8 lg:py-10">
+          <div className="py-10 md:py-12">
             <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-              <motion.div variants={fadeUp} initial="hidden" animate="visible" className="md:text-right">
-                <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 mb-3"
-                     style={{ background: "hsl(var(--primary) / 0.12)", border: "1px solid hsl(var(--primary) / 0.2)" }}>
-                  <LayoutGrid className="h-3 w-3" style={{ color: "hsl(var(--primary))" }} />
-                  <span className="font-poppins text-[0.6rem] font-bold tracking-[0.2em] uppercase"
-                        style={{ color: "hsl(var(--primary))" }}>
-                    Interactive Directory
-                  </span>
+              <motion.div variants={fadeUp} initial="hidden" animate="visible">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-[2px] w-8 rounded-full" style={{ background: "#CDBB9A" }} />
+                  <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>Interactive Directory</span>
                 </div>
-                <h1 className="text-[1.4rem] font-bold leading-[1.25] md:text-[1.7rem] lg:text-[2rem]"
-                    style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
+                <h1 className="text-[1.4rem] font-bold leading-[1.15] md:text-[1.7rem] lg:text-[2rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
                   الدليل التفاعلي لمول البستان
                 </h1>
-                <p className="mt-2 max-w-[28rem] text-[0.82rem] leading-[1.8]" style={{ color: "hsl(220 15% 58%)" }}>
+                <p className="mt-2 max-w-[28rem] text-[0.84rem] leading-[1.85]" style={{ color: "#94A3B8" }}>
                   تنقّل بين الأدوار، حدد حالة كل وحدة، واستفسر مباشرة عن الوحدات المتاحة للتأجير.
                 </p>
               </motion.div>
 
-              {/* Stats capsules — premium glass cards */}
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }}
                           className="flex items-center gap-2">
                 {[
-                  { v: `${mallFloors.length}`, l: "أدوار", icon: Layers, color: "hsl(0 0% 97%)" },
-                  { v: `${allMallUnits.length}`, l: "وحدة", icon: Building2, color: "hsl(0 0% 97%)" },
-                  { v: `${availableMallUnits.length}`, l: "متاحة", icon: Sparkles, color: "hsl(25 95% 55%)" },
+                  { v: `${mallFloors.length}`, l: "أدوار", icon: Layers, color: "#F8FAFC" },
+                  { v: `${allMallUnits.length}`, l: "وحدة", icon: Building2, color: "#F8FAFC" },
+                  { v: `${availableMallUnits.length}`, l: "متاحة", icon: Sparkles, color: "#F97316" },
                 ].map((s) => (
                   <div key={s.l} className="flex items-center gap-3 rounded-xl px-4 py-3"
-                       style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)", backdropFilter: "blur(8px)" }}>
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg"
-                         style={{ background: "hsl(0 0% 100% / 0.06)" }}>
+                       style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "#ffffff08" }}>
                       <s.icon className="h-4 w-4" style={{ color: s.color }} />
                     </div>
                     <div>
                       <span className="font-poppins text-[1.15rem] font-extrabold leading-none" style={{ color: s.color }}>{s.v}</span>
-                      <p className="mt-0.5 text-[0.56rem] font-semibold" style={{ color: "hsl(220 15% 48%)" }}>{s.l}</p>
+                      <p className="mt-0.5 text-[0.56rem] font-semibold" style={{ color: "#7C8BA1" }}>{s.l}</p>
                     </div>
                   </div>
                 ))}
@@ -256,8 +243,7 @@ const InteractiveMap = () => {
           </div>
         </div>
 
-        {/* Bottom gradient line */}
-        <div className="h-[2px] w-full" style={{ background: "linear-gradient(to left, transparent 5%, hsl(var(--primary) / 0.3) 30%, hsl(25 95% 55% / 0.2) 70%, transparent 95%)" }} />
+        <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
       </section>
 
       {/* ═══════════ CONTROL BAR ═══════════ */}

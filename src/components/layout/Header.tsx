@@ -39,7 +39,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close branch dropdown on click outside
   useEffect(() => {
     if (!branchOpen) return;
     const handler = (e: MouseEvent) => {
@@ -51,7 +50,6 @@ export function Header() {
     return () => document.removeEventListener("mousedown", handler);
   }, [branchOpen]);
 
-  // Close dropdown on route change
   useEffect(() => {
     setBranchOpen(false);
   }, [location.pathname]);
@@ -63,32 +61,34 @@ export function Header() {
 
   const isBranchActive = branchItems.some((b) => isActive(b.path));
 
+  /* Consistent nav link style */
+  const navLinkStyle = (active: boolean) => ({
+    color: active ? "#2563EB" : "#334155",
+    fontWeight: active ? 700 : 600,
+    fontSize: "0.82rem" as const,
+    background: active ? "rgba(37,99,235,0.06)" : "transparent",
+  });
+
   return (
     <header
-      className="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
+      className="fixed top-0 right-0 left-0 z-50"
       style={{
-        background: scrolled
-          ? "rgba(255,255,255,0.97)"
-          : "rgba(255,255,255,0.90)",
-        backdropFilter: "blur(24px) saturate(1.5)",
-        WebkitBackdropFilter: "blur(24px) saturate(1.5)",
+        background: scrolled ? "rgba(250,250,248,0.97)" : "rgba(250,250,248,0.92)",
+        backdropFilter: "blur(20px) saturate(1.3)",
+        WebkitBackdropFilter: "blur(20px) saturate(1.3)",
+        borderBottom: "1px solid rgba(216,222,232,0.5)",
         boxShadow: scrolled
-          ? "0 1px 0 rgba(7,19,38,0.05), 0 4px 20px rgba(7,19,38,0.04)"
+          ? "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)"
           : "none",
+        transition: "background 0.4s, box-shadow 0.4s",
       }}
     >
-      {/* Top accent line */}
-      <div
-        className="h-[2px] w-full transition-opacity duration-500"
-        style={{
-          background: "linear-gradient(90deg, transparent 5%, #2563EB 25%, #06B6D4 50%, #2563EB 75%, transparent 95%)",
-          opacity: scrolled ? 0.8 : 0.45,
-        }}
-      />
-
       <div className="container">
         {/* ── Desktop XL ── */}
-        <div className="hidden min-h-[68px] xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-6">
+        <div
+          className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-6"
+          style={{ minHeight: scrolled ? "60px" : "66px", transition: "min-height 0.4s" }}
+        >
           {/* Primary nav */}
           <nav className="flex items-center justify-start gap-0.5">
             {primaryNavItems.map((item) => {
@@ -97,30 +97,16 @@ export function Header() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="group relative inline-flex h-10 items-center rounded-lg px-3 transition-all duration-300"
-                  style={{
-                    color: active ? "#2563EB" : "#334155",
-                    fontWeight: active ? 700 : 600,
-                    fontSize: "0.82rem",
-                    background: active ? "rgba(37,99,235,0.06)" : "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!active) e.currentTarget.style.background = "rgba(7,19,38,0.03)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!active) e.currentTarget.style.background = "transparent";
-                  }}
+                  className="group relative inline-flex h-10 items-center rounded-lg px-3 transition-all duration-300 hover:bg-[rgba(7,19,38,0.03)]"
+                  style={navLinkStyle(active)}
                 >
                   {item.label}
-                  <span
-                    className="absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full transition-all duration-300"
-                    style={{
-                      height: "2px",
-                      width: active ? "55%" : "0%",
-                      background: "linear-gradient(90deg, #2563EB, #06B6D4)",
-                      opacity: active ? 1 : 0,
-                    }}
-                  />
+                  {active && (
+                    <span
+                      className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-[50%] rounded-full"
+                      style={{ background: "#2563EB" }}
+                    />
+                  )}
                 </Link>
               );
             })}
@@ -129,19 +115,8 @@ export function Header() {
             <div ref={branchRef} className="relative">
               <button
                 onClick={() => setBranchOpen((v) => !v)}
-                className="group relative inline-flex h-10 items-center gap-1 rounded-lg px-3 transition-all duration-300"
-                style={{
-                  color: isBranchActive ? "#2563EB" : "#334155",
-                  fontWeight: isBranchActive ? 700 : 600,
-                  fontSize: "0.82rem",
-                  background: isBranchActive || branchOpen ? "rgba(37,99,235,0.06)" : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (!isBranchActive && !branchOpen) e.currentTarget.style.background = "rgba(7,19,38,0.03)";
-                }}
-                onMouseLeave={(e) => {
-                  if (!isBranchActive && !branchOpen) e.currentTarget.style.background = "transparent";
-                }}
+                className="group relative inline-flex h-10 items-center gap-1 rounded-lg px-3 transition-all duration-300 hover:bg-[rgba(7,19,38,0.03)]"
+                style={navLinkStyle(isBranchActive || branchOpen)}
               >
                 الفروع
                 <ChevronDown
@@ -149,25 +124,18 @@ export function Header() {
                   style={{ transform: branchOpen ? "rotate(180deg)" : "rotate(0)" }}
                 />
                 {isBranchActive && (
-                  <span
-                    className="absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full"
-                    style={{
-                      height: "2px",
-                      width: "55%",
-                      background: "linear-gradient(90deg, #2563EB, #06B6D4)",
-                    }}
-                  />
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-[50%] rounded-full" style={{ background: "#2563EB" }} />
                 )}
               </button>
 
-              {/* Dropdown panel */}
               {branchOpen && (
                 <div
-                  className="absolute right-0 top-full mt-2 w-[280px] rounded-xl p-1.5 shadow-xl"
+                  className="absolute right-0 top-full mt-2 w-[280px] rounded-xl p-1.5"
                   style={{
-                    background: "rgba(255,255,255,0.98)",
+                    background: "rgba(250,250,248,0.98)",
                     backdropFilter: "blur(20px)",
-                    border: "1px solid rgba(7,19,38,0.08)",
+                    border: "1px solid rgba(216,222,232,0.6)",
+                    boxShadow: "0 8px 32px rgba(7,19,38,0.08), 0 2px 8px rgba(7,19,38,0.04)",
                     animation: "fadeInDown 0.15s ease-out",
                   }}
                 >
@@ -177,23 +145,12 @@ export function Header() {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200"
-                        style={{
-                          background: active ? "rgba(37,99,235,0.07)" : "transparent",
-                          color: active ? "#2563EB" : "#334155",
-                        }}
-                        onMouseEnter={(e) => {
-                          if (!active) e.currentTarget.style.background = "rgba(7,19,38,0.03)";
-                        }}
-                        onMouseLeave={(e) => {
-                          if (!active) e.currentTarget.style.background = active ? "rgba(37,99,235,0.07)" : "transparent";
-                        }}
+                        className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200 hover:bg-[rgba(7,19,38,0.03)]"
+                        style={{ background: active ? "rgba(37,99,235,0.07)" : "transparent", color: active ? "#2563EB" : "#334155" }}
                       >
                         <span
                           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                          style={{
-                            background: active ? "rgba(37,99,235,0.12)" : "rgba(7,19,38,0.04)",
-                          }}
+                          style={{ background: active ? "rgba(37,99,235,0.12)" : "rgba(7,19,38,0.04)" }}
                         >
                           <MapPin className="h-3.5 w-3.5" style={{ color: active ? "#2563EB" : "#64748B" }} />
                         </span>
@@ -210,10 +167,7 @@ export function Header() {
           </nav>
 
           {/* Center logo */}
-          <Link
-            to="/"
-            className="group justify-self-center transition-transform duration-300 hover:scale-[1.02]"
-          >
+          <Link to="/" className="group justify-self-center transition-transform duration-300 hover:scale-[1.02]">
             <BrandLogo align="center" imageClassName="h-auto max-w-[176px]" />
           </Link>
 
@@ -225,25 +179,15 @@ export function Header() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="inline-flex h-8 items-center rounded-md px-2.5 transition-all duration-300"
-                  style={{
-                    fontSize: "0.74rem",
-                    fontWeight: active ? 700 : 500,
-                    color: active ? "#2563EB" : "#64748B",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!active) e.currentTarget.style.color = "#0F172A";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!active) e.currentTarget.style.color = active ? "#2563EB" : "#64748B";
-                  }}
+                  className="inline-flex h-8 items-center rounded-md px-2.5 transition-all duration-300 hover:text-foreground"
+                  style={{ fontSize: "0.74rem", fontWeight: active ? 700 : 500, color: active ? "#2563EB" : "#64748B" }}
                 >
                   {item.label}
                 </Link>
               );
             })}
 
-            <div className="mx-1.5 h-5 w-px" style={{ background: "#E2E8F0" }} />
+            <div className="mx-1.5 h-5 w-px" style={{ background: "#D8DEE8" }} />
 
             <Link to="/spin-win">
               <Button
@@ -252,7 +196,7 @@ export function Header() {
                 style={{
                   background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                   color: "#fff",
-                  boxShadow: "0 2px 10px rgba(37,99,235,0.25)",
+                  boxShadow: "0 2px 10px rgba(37,99,235,0.22)",
                 }}
               >
                 <Sparkles className="h-3.5 w-3.5" />
@@ -263,7 +207,10 @@ export function Header() {
         </div>
 
         {/* ── Tablet ── */}
-        <div className="hidden min-[768px]:max-[1279px]:grid min-[768px]:max-[1279px]:min-h-[62px] min-[768px]:max-[1279px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1279px]:items-center min-[768px]:max-[1279px]:gap-3">
+        <div
+          className="hidden min-[768px]:max-[1279px]:grid min-[768px]:max-[1279px]:grid-cols-[1fr_auto_1fr] min-[768px]:max-[1279px]:items-center min-[768px]:max-[1279px]:gap-3"
+          style={{ minHeight: scrolled ? "56px" : "62px", transition: "min-height 0.4s" }}
+        >
           <nav className="flex items-center justify-start gap-0.5">
             {primaryNavItems.slice(0, 4).map((item) => {
               const active = isActive(item.path);
@@ -272,20 +219,10 @@ export function Header() {
                   key={item.path}
                   to={item.path}
                   className="relative inline-flex h-9 items-center rounded-md px-2.5 transition-all duration-300"
-                  style={{
-                    fontSize: "0.79rem",
-                    fontWeight: active ? 700 : 600,
-                    color: active ? "#2563EB" : "#334155",
-                    background: active ? "rgba(37,99,235,0.06)" : "transparent",
-                  }}
+                  style={{ fontSize: "0.79rem", fontWeight: active ? 700 : 600, color: active ? "#2563EB" : "#334155", background: active ? "rgba(37,99,235,0.06)" : "transparent" }}
                 >
                   {item.label}
-                  {active && (
-                    <span
-                      className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-[3px] rounded-full"
-                      style={{ background: "#2563EB" }}
-                    />
-                  )}
+                  {active && <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[3px] w-[3px] rounded-full" style={{ background: "#2563EB" }} />}
                 </Link>
               );
             })}
@@ -300,11 +237,7 @@ export function Header() {
               <Button
                 size="sm"
                 className="h-8 gap-1.5 rounded-lg px-3.5 text-[0.74rem] font-bold"
-                style={{
-                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                  color: "#fff",
-                  boxShadow: "0 2px 8px rgba(37,99,235,0.2)",
-                }}
+                style={{ background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)", color: "#fff", boxShadow: "0 2px 8px rgba(37,99,235,0.2)" }}
               >
                 <Sparkles className="h-3 w-3" />
                 أدر واربح
@@ -315,7 +248,7 @@ export function Header() {
               trigger={
                 <button
                   className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-secondary"
-                  style={{ border: "1px solid #E2E8F0", background: "#FAFAFA", color: "#334155" }}
+                  style={{ border: "1px solid #D8DEE8", background: "#FAFAF8", color: "#334155" }}
                   aria-label="فتح القائمة"
                 >
                   <Menu size={17} />
@@ -326,15 +259,14 @@ export function Header() {
         </div>
 
         {/* ── Mobile ── */}
-        <div className="grid min-h-[58px] grid-cols-[auto_1fr_auto] items-center gap-3 md:hidden">
+        <div
+          className="grid grid-cols-[auto_1fr_auto] items-center gap-3 md:hidden"
+          style={{ minHeight: scrolled ? "52px" : "58px", transition: "min-height 0.4s" }}
+        >
           <Link to="/map">
             <button
               className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
-              style={{
-                border: "1px solid rgba(37,99,235,0.2)",
-                background: "rgba(37,99,235,0.06)",
-                color: "#2563EB",
-              }}
+              style={{ border: "1px solid rgba(37,99,235,0.18)", background: "rgba(37,99,235,0.06)", color: "#2563EB" }}
               aria-label="افتح الخريطة"
             >
               <Compass className="h-4 w-4" />
@@ -350,7 +282,7 @@ export function Header() {
             trigger={
               <button
                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 hover:bg-secondary"
-                style={{ border: "1px solid #E2E8F0", background: "#FAFAFA", color: "#334155" }}
+                style={{ border: "1px solid #D8DEE8", background: "#FAFAF8", color: "#334155" }}
                 aria-label="فتح القائمة"
               >
                 <Menu size={17} />
@@ -360,7 +292,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Dropdown animation keyframes */}
       <style>{`
         @keyframes fadeInDown {
           from { opacity: 0; transform: translateY(-4px); }

@@ -10,6 +10,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { PageHero } from "@/components/PageHero";
 
 type InquiryType = "general" | "leasing" | "partnership" | "media" | "careers";
 
@@ -76,24 +77,13 @@ const Contact = () => {
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
       />
 
-      {/* ═══════════ HERO ═══════════ */}
-      <section style={{ background: "#071326" }}>
-        <div className="mx-auto w-full max-w-[1400px] px-5 md:px-8 lg:px-12">
-          <div className="py-4 md:py-5">
-            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.28em]" style={{ color: "#64748B" }}>Contact</p>
-              <h1 className="mt-1.5 max-w-[20rem] text-[1.25rem] font-extrabold leading-[1.1] md:text-[1.5rem] lg:text-[1.7rem]" style={{ color: "#F8FAFC" }}>
-                تواصل مع فريق مول البستان
-              </h1>
-              <p className="mt-1.5 max-w-[26rem] text-[0.8rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
-                استفسار، تأجير، أو تعاون — الفريق جاهز.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, #1E3A5F, transparent)" }} />
+      <PageHero
+        kicker="تواصل معنا"
+        kickerEn="Contact"
+        title="تواصل مع فريق مول البستان"
+        subtitle="استفسار، تأجير، أو تعاون — الفريق جاهز."
+        compact
+      />
 
       {/* ═══════════ INQUIRY TYPE SELECTOR ═══════════ */}
       <section className="py-4 md:py-5" style={{ background: "#FAFAF8" }}>

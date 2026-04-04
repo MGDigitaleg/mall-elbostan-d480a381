@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
+import { PageHero } from "@/components/PageHero";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -93,57 +94,18 @@ const Products = () => {
       />
 
       {/* ═══════════ HERO ═══════════ */}
-      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <div className="pointer-events-none absolute inset-0 opacity-30"
-          style={{ background: "radial-gradient(ellipse 50% 80% at 80% 50%, hsl(222 100% 59% / 0.06), transparent)" }} />
-        <div className="container max-w-[1200px]">
-          <div className="py-10 md:py-14 lg:py-16">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-              <p className="font-poppins text-[0.56rem] font-bold tracking-[0.28em] uppercase" style={{ color: "#64748B" }}>
-                Marketplace
-              </p>
-              <h1 className="mt-2 max-w-[20rem] text-[1.5rem] font-bold leading-[1.15] md:text-[1.8rem]" style={{ color: "#F8FAFC" }}>
-                منتجات <span style={{ color: "hsl(var(--accent))" }}>مول البستان.</span>
-              </h1>
-              <p className="mt-2 max-w-[24rem] text-[0.84rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
-                تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات.
-              </p>
-
-              {/* Quick stats */}
-              <div className="mt-4 flex flex-wrap gap-3">
-                {[
-                  { icon: ShoppingBag, value: products?.length ?? 0, label: "منتج متوفر" },
-                  { icon: Store, value: stores?.length ?? 0, label: "محل مشارك" },
-                  { icon: Tag, value: categories?.length ?? 0, label: "تصنيف" },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex items-center gap-2.5 rounded-lg px-3.5 py-2" style={{ border: "1px solid #ffffff10", background: "#ffffff06" }}>
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "#ffffff0A" }}>
-                      <stat.icon className="h-3.5 w-3.5" style={{ color: "hsl(var(--accent))" }} />
-                    </div>
-                    <div>
-                      <span className="font-poppins text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>{stat.value}</span>
-                      <p className="text-[0.62rem]" style={{ color: "#64748B" }}>{stat.label}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                <a href="#products">
-                  <Button variant="cta" className="h-9 gap-2 rounded-lg px-5 text-[0.82rem] font-bold shadow-[var(--shadow-blue)]">
-                    <Search className="h-3.5 w-3.5" /> تصفح المنتجات
-                  </Button>
-                </a>
-                <Link to="/stores">
-                  <Button className="h-9 gap-2 rounded-lg border px-5 text-[0.82rem] font-semibold" style={{ borderColor: "#1E293B", background: "transparent", color: "#CBD5E1" }}>
-                    <Store className="h-3.5 w-3.5" /> دليل المحلات
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        kicker="السوق الرقمي"
+        kickerEn="Marketplace"
+        title={<>منتجات <span style={{ color: "#CDBB9A" }}>مول البستان.</span></>}
+        subtitle="تصفّح المنتجات المتوفرة واطلبها مباشرة من المحلات."
+        ctas={[
+          { label: "تصفح المنتجات", to: "#products", icon: Search },
+          { label: "دليل المحلات", to: "/stores", icon: Store },
+        ]}
+        compact
+      >
+      </PageHero>
 
       <div className="band-primary" />
 
