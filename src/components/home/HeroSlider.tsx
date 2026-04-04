@@ -205,7 +205,7 @@ export function HeroSlider() {
                   style={{ background: "#CDBB9A" }}
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ duration: 6.5, ease: "linear" }}
+                  transition={{ duration: 4.5, ease: "linear" }}
                 />
               </>
             )}
