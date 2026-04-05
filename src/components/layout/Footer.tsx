@@ -132,9 +132,9 @@ export function Footer() {
             <div key={col.title}>
               <div className="mb-4 flex items-center gap-2">
                 <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
-                <h4 className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" style={{ color: "#CDBB9A" }}>
+                <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" role="heading" aria-level={2} style={{ color: "#CDBB9A" }}>
                   {col.title}
-                </h4>
+                </span>
               </div>
               <ul className="space-y-2.5">
                 {col.links.map((link) => (
