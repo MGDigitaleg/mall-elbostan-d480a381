@@ -74,7 +74,7 @@ const About = () => (
               </div>
               <div className="p-5 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-5 items-center rounded-full px-2.5 text-[0.62rem] font-bold" style={{ background: "#CDBB9A20", color: "#9A8866", border: "1px solid #CDBB9A30" }}>
+                  <span className="inline-flex h-5 items-center rounded-full px-2.5 text-[0.62rem] font-bold bg-[#CDBB9A20] text-[#9A8866] border border-[#CDBB9A30] dark:bg-[#CDBB9A15] dark:text-[#CDBB9A] dark:border-[#CDBB9A25]">
                     الأصل
                   </span>
                   <span className="font-poppins text-[0.7rem] font-semibold text-muted-foreground">منذ 1990</span>
@@ -84,9 +84,9 @@ const About = () => (
                   المرجع الذي بناه السوق المصري على مدار ثلاثة عقود. مئات التجار، خبرات متراكمة، ووجهة معروفة في عالم الإلكترونيات.
                 </p>
                 <Link to="/downtown-branch">
-                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
-                    اكتشف فرع وسط البلد <ArrowLeft className="h-3.5 w-3.5" />
-                  </Button>
+                    <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">
+                     اكتشف فرع وسط البلد <ArrowLeft className="h-3.5 w-3.5" />
+                   </Button>
                 </Link>
               </div>
             </div>
@@ -113,9 +113,9 @@ const About = () => (
                   نفس الاسم مع خريطة تفاعلية ودليل رقمي، في موقع يخدم مدينتي والرحاب والتجمع الخامس. تنظيم أوضح وتجربة حديثة.
                 </p>
                 <Link to="/new-cairo-branch">
-                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
-                    اكتشف فرع القاهرة الجديدة <ArrowLeft className="h-3.5 w-3.5" />
-                  </Button>
+                    <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">
+                     اكتشف فرع القاهرة الجديدة <ArrowLeft className="h-3.5 w-3.5" />
+                   </Button>
                 </Link>
               </div>
             </div>
