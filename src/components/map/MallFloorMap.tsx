@@ -344,7 +344,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 {tenantLogo && hasName ? (
                   <g
                     pointerEvents="all"
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                      transformOrigin: `${unit.labelX}px ${badgeY + badgeH / 2}px`,
+                      transform: hoveredBadgeId === unit.id ? "scale(1.12)" : "scale(1)",
+                      transition: "transform 0.2s ease-out",
+                    }}
                     filter="url(#badgeShadow)"
                     onMouseEnter={() => setHoveredBadgeId(unit.id)}
                     onMouseLeave={() => setHoveredBadgeId(null)}
