@@ -169,6 +169,13 @@ export function Footer() {
             <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
           </a>
 
+          <a href="tel:+201000000000" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+              <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
+            </span>
+            <span className="font-poppins text-[0.78rem]" dir="ltr">اتصل بنا</span>
+          </a>
+
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }}>
               <MapPin className="h-3.5 w-3.5" style={{ color: "#22D3EE" }} />
