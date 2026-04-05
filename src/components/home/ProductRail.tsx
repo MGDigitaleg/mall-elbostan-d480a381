@@ -44,25 +44,25 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       to={`/products/${product.slug}`}
       className="group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
       style={{
-        borderRadius: 14,
-        border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(22,41,84,0.10)",
+        borderRadius: 10,
+        border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(22,41,84,0.08)",
         background: isDark ? "rgba(255,255,255,0.04)" : "#fff",
-        boxShadow: "0 4px 16px rgba(15,23,42,0.03)",
+        boxShadow: "0 2px 8px rgba(15,23,42,0.03)",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 22px rgba(15,23,42,0.07)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 16px rgba(15,23,42,0.07)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(15,23,42,0.03)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 8px rgba(15,23,42,0.03)";
       }}
     >
       {/* ── Image zone ── */}
       <div
         className="relative overflow-hidden"
         style={{
-          aspectRatio: "5/4",
-          background: isDark ? "rgba(255,255,255,0.03)" : "#F8FAFC",
-          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.06)",
+          aspectRatio: "4/3",
+          background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
+          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.05)",
         }}
       >
         {product.image_url ? (
@@ -70,30 +70,30 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
             src={product.image_url}
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ padding: "clamp(6px, 0.8vw, 10px)" }}
+            style={{ padding: "clamp(4px, 0.5vw, 8px)" }}
             loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <ShoppingBag className="h-5 w-5 text-muted-foreground/10" />
+            <ShoppingBag className="h-4 w-4 text-muted-foreground/10" />
           </div>
         )}
 
         {/* Category chip */}
         {store?.category && (
           <span
-            className="absolute top-1.5 right-1.5 backdrop-blur-sm"
+            className="absolute top-1 right-1 backdrop-blur-sm"
             style={{
-              height: 18,
+              height: 16,
               display: "inline-flex",
               alignItems: "center",
-              paddingInline: 6,
+              paddingInline: 5,
               borderRadius: 999,
-              fontSize: 9,
+              fontSize: 8,
               fontWeight: 700,
               lineHeight: 1,
               color: isDark ? "rgba(255,255,255,0.8)" : "#fff",
-              background: isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.72)",
+              background: isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.68)",
             }}
           >
             {store.category}
@@ -103,12 +103,12 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
         {/* Featured badge */}
         {product.featured && (
           <span
-            className="absolute top-1.5 left-1.5 flex items-center gap-0.5 backdrop-blur-sm"
+            className="absolute top-1 left-1 flex items-center gap-0.5 backdrop-blur-sm"
             style={{
-              height: 18,
-              paddingInline: 6,
+              height: 16,
+              paddingInline: 5,
               borderRadius: 999,
-              fontSize: 9,
+              fontSize: 8,
               fontWeight: 700,
               lineHeight: 1,
               color: "#fff",
@@ -124,40 +124,40 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       {/* ── Content zone ── */}
       <div
         className="flex flex-1 flex-col justify-between"
-        style={{ padding: "clamp(6px, 0.8vw, 10px)" }}
+        style={{ padding: "6px 8px 8px" }}
       >
         <div>
           {/* Title */}
           <p
-            className={`font-bold line-clamp-2 group-hover:text-primary transition-colors ${
+            className={`font-bold line-clamp-1 group-hover:text-primary transition-colors ${
               isDark ? "text-white/90" : "text-foreground"
             }`}
-            style={{ fontSize: "clamp(11px, 1.1vw, 14px)", lineHeight: 1.3, marginBottom: 1 }}
+            style={{ fontSize: "clamp(10px, 1vw, 12.5px)", lineHeight: 1.3 }}
           >
             {product.name_ar}
           </p>
 
           {/* Shop name */}
           {store && (
-            <div className="flex items-center gap-1" style={{ marginTop: 2 }}>
+            <div className="flex items-center gap-1" style={{ marginTop: 1 }}>
               {store.logo_url ? (
                 <img
                   src={store.logo_url}
                   alt={store.name_ar}
                   className="rounded-sm object-contain shrink-0"
                   style={{
-                    width: 13,
-                    height: 13,
-                    border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(22,41,84,0.1)",
+                    width: 11,
+                    height: 11,
+                    border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(22,41,84,0.08)",
                     background: "#fff",
                   }}
                 />
               ) : (
-                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 11, height: 11 }} />
+                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 10, height: 10 }} />
               )}
               <span
                 className={`line-clamp-1 ${isDark ? "text-white/50" : "text-muted-foreground"}`}
-                style={{ fontSize: "clamp(9px, 0.9vw, 11px)", fontWeight: 500, opacity: 0.75 }}
+                style={{ fontSize: "clamp(8px, 0.75vw, 10px)", fontWeight: 500, opacity: 0.7 }}
               >
                 {store.name_ar}
               </span>
@@ -169,14 +169,14 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
         {product.price ? (
           <p
             className="font-poppins font-extrabold text-primary"
-            style={{ fontSize: "clamp(12px, 1.2vw, 16px)", marginTop: 3 }}
+            style={{ fontSize: "clamp(10px, 1vw, 13px)", marginTop: 2 }}
           >
             {Number(product.price).toLocaleString("ar-EG")} جم
           </p>
         ) : product.price_note ? (
           <p
             className="font-bold text-primary"
-            style={{ fontSize: "clamp(10px, 0.9vw, 12px)", marginTop: 3 }}
+            style={{ fontSize: "clamp(9px, 0.8vw, 11px)", marginTop: 2 }}
           >
             {product.price_note}
           </p>
