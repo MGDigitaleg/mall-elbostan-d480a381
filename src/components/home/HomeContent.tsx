@@ -379,10 +379,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 14 · DOWNTOWN HERITAGE ═══════════ */}
-      <DowntownTeaser />
-
-      {/* ═══════════ 14.5 · MARKET ECHO TEASER ═══════════ */}
+      {/* ═══════════ 14 · MARKET ECHO TEASER ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -434,6 +431,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
+      <DowntownTeaser />
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
