@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
 import { useCountUp } from "@/hooks/useCountUp";
+import { parseStatValue } from "@/lib/statUtils";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
