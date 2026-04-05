@@ -216,19 +216,19 @@ const DowntownMerchantDetail = () => {
       </section>
 
       {/* ── Main Content ── */}
-      <section className="py-8 md:py-12" style={{ background: "#F5F2EC" }}>
+      <section className="py-8 md:py-12 bg-secondary dark:bg-background">
         <div className="container">
           <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
             {/* ── Left: Main info ── */}
             <div className="space-y-6">
               {/* Summary */}
               {merchant.summary_ar && (
-                <div className="rounded-2xl border bg-white p-6 md:p-7" style={{ borderColor: "#D8DEE8" }}>
-                  <h2 className="mb-3 flex items-center gap-2 text-[0.95rem] font-bold" style={{ color: "#0F172A" }}>
+                 <div className="rounded-2xl border border-border bg-card p-6 md:p-7">
+                   <h2 className="mb-3 flex items-center gap-2 text-[0.95rem] font-bold text-foreground">
                     <Building2 className="h-4.5 w-4.5" style={{ color: "#2563EB" }} />
                     نبذة عن المحل
                   </h2>
-                  <p className="text-[0.84rem] leading-[2] whitespace-pre-line" style={{ color: "#334155" }}>
+                   <p className="text-[0.84rem] leading-[2] whitespace-pre-line text-muted-foreground">
                     {merchant.summary_ar}
                   </p>
                 </div>
@@ -236,12 +236,12 @@ const DowntownMerchantDetail = () => {
 
               {/* Products & Services */}
               {merchant.products_services_ar && (
-                <div className="rounded-2xl border bg-white p-6 md:p-7" style={{ borderColor: "#D8DEE8" }}>
-                  <h2 className="mb-3 flex items-center gap-2 text-[0.95rem] font-bold" style={{ color: "#0F172A" }}>
+                <div className="rounded-2xl border border-border bg-card p-6 md:p-7">
+                  <h2 className="mb-3 flex items-center gap-2 text-[0.95rem] font-bold text-foreground">
                     <Tag className="h-4.5 w-4.5" style={{ color: "#2563EB" }} />
                     المنتجات والخدمات
                   </h2>
-                  <p className="text-[0.84rem] leading-[2] whitespace-pre-line" style={{ color: "#334155" }}>
+                  <p className="text-[0.84rem] leading-[2] whitespace-pre-line text-muted-foreground">
                     {merchant.products_services_ar}
                   </p>
                 </div>
@@ -252,14 +252,14 @@ const DowntownMerchantDetail = () => {
             {/* ── Right: Contact Sidebar ── */}
             <div className="space-y-5">
               {/* Contact Card */}
-              <div className="rounded-2xl border bg-white p-5 md:p-6" style={{ borderColor: "#D8DEE8" }}>
-                <h3 className="mb-4 text-[0.88rem] font-bold" style={{ color: "#0F172A" }}>
+               <div className="rounded-2xl border border-border bg-card p-5 md:p-6">
+                 <h3 className="mb-4 text-[0.88rem] font-bold text-foreground">
                   معلومات التواصل
                 </h3>
 
                 <div className="space-y-3">
                   {/* Address */}
-                  <div className="flex items-start gap-3 text-[0.8rem]" style={{ color: "#334155" }}>
+                  <div className="flex items-start gap-3 text-[0.8rem] text-muted-foreground">
                     <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(37,99,235,0.08)" }}>
                       <MapPin className="h-4 w-4" style={{ color: "#2563EB" }} />
                     </span>
@@ -268,7 +268,7 @@ const DowntownMerchantDetail = () => {
 
                   {/* Floor */}
                   {merchant.floor && (
-                    <div className="flex items-center gap-3 text-[0.8rem]" style={{ color: "#334155" }}>
+                    <div className="flex items-center gap-3 text-[0.8rem] text-muted-foreground">
                       <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl" style={{ background: "rgba(37,99,235,0.08)" }}>
                         <Layers className="h-4 w-4" style={{ color: "#2563EB" }} />
                       </span>
@@ -338,8 +338,8 @@ const DowntownMerchantDetail = () => {
 
               {/* Social Links Card */}
               {socialLinks.length > 0 && (
-                <div className="rounded-2xl border bg-white p-5 md:p-6" style={{ borderColor: "#D8DEE8" }}>
-                  <h3 className="mb-4 text-[0.88rem] font-bold" style={{ color: "#0F172A" }}>
+                 <div className="rounded-2xl border border-border bg-card p-5 md:p-6">
+                   <h3 className="mb-4 text-[0.88rem] font-bold text-foreground">
                     تابعنا
                   </h3>
                   <div className="grid grid-cols-2 gap-2">
@@ -349,9 +349,8 @@ const DowntownMerchantDetail = () => {
                         href={s.url!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-[0.75rem] font-medium transition-all duration-200 hover:shadow-sm"
-                        style={{ background: "#F8FAFC", border: "1px solid #E2E8F0", color: "#334155" }}
-                      >
+                         className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-[0.75rem] font-medium transition-all duration-200 hover:shadow-sm bg-secondary dark:bg-muted/30 border border-border text-muted-foreground"
+                       >
                         <span style={{ color: "#2563EB" }}>
                           {socialIconMap[s.label] ?? <ExternalLink className="h-4 w-4" />}
                         </span>
@@ -368,15 +367,14 @@ const DowntownMerchantDetail = () => {
                   href={merchant.google_maps_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-2xl border bg-white p-4 transition-all duration-200 hover:shadow-md"
-                  style={{ borderColor: "#D8DEE8" }}
+                   className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "rgba(37,99,235,0.08)" }}>
                     <Map className="h-5 w-5" style={{ color: "#2563EB" }} />
                   </span>
                   <div>
-                    <p className="text-[0.82rem] font-bold" style={{ color: "#0F172A" }}>عرض على خرائط جوجل</p>
-                    <p className="text-[0.7rem]" style={{ color: "#64748B" }}>احصل على الاتجاهات</p>
+                     <p className="text-[0.82rem] font-bold text-foreground">عرض على خرائط جوجل</p>
+                     <p className="text-[0.7rem] text-muted-foreground">احصل على الاتجاهات</p>
                   </div>
                   <ExternalLink className="mr-auto h-4 w-4" style={{ color: "#94A3B8" }} />
                 </a>
@@ -387,7 +385,7 @@ const DowntownMerchantDetail = () => {
           {/* ── Related Merchants ── */}
           {relatedMerchants && relatedMerchants.length > 0 && (
             <div className="mt-10">
-              <h2 className="mb-5 text-[1.05rem] font-bold" style={{ color: "#0F172A" }}>
+              <h2 className="mb-5 text-[1.05rem] font-bold text-foreground">
                 محلات مشابهة في نفس التصنيف
               </h2>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -397,13 +395,11 @@ const DowntownMerchantDetail = () => {
                     <Link
                       key={rm.id}
                       to={`/downtown-directory/${rm.slug}`}
-                      className="group flex items-center gap-3 rounded-2xl border bg-white p-4 transition-all duration-200 hover:shadow-md hover:border-primary/20"
-                      style={{ borderColor: "#D8DEE8" }}
+                       className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md hover:border-primary/20"
                     >
-                      <div
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-                        style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}
-                      >
+                       <div
+                         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary dark:bg-muted/30 border border-border"
+                       >
                         {rm.logo_url ? (
                           <img src={rm.logo_url} alt={rm.name_ar} className="h-8 w-8 object-contain" />
                         ) : (
@@ -411,7 +407,7 @@ const DowntownMerchantDetail = () => {
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-[0.82rem] font-bold group-hover:text-primary transition-colors" style={{ color: "#0F172A" }}>
+                        <p className="truncate text-[0.82rem] font-bold group-hover:text-primary transition-colors text-foreground">
                           {rm.name_ar}
                         </p>
                         {rm.name_en && (
@@ -434,10 +430,9 @@ const DowntownMerchantDetail = () => {
           <div className="mt-8 text-center">
             <Link to="/downtown-directory">
               <Button
-                variant="outline"
-                className="h-11 rounded-xl px-6 text-[0.82rem] font-bold gap-2"
-                style={{ borderColor: "#D8DEE8", color: "#334155" }}
-              >
+                 variant="outline"
+                 className="h-11 rounded-xl px-6 text-[0.82rem] font-bold gap-2 border-border text-muted-foreground"
+               >
                 <ArrowLeft className="h-4 w-4 rotate-180" />
                 العودة لدليل المحلات
               </Button>

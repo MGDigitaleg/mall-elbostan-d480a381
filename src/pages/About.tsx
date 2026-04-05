@@ -53,7 +53,7 @@ const About = () => (
     />
 
     {/* ═══════════ 2 · TWO BRANCHES ═══════════ */}
-    <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
+    <section className="py-8 md:py-10 bg-secondary dark:bg-background">
       <div className="container max-w-[1100px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="text-center mb-6">
@@ -180,7 +180,7 @@ const About = () => (
     </section>
 
     {/* ═══════════ 4 · WHY EL BOSTAN ═══════════ */}
-    <section className="py-7 md:py-9" style={{ background: "#F5F2EC" }}>
+    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
       <div className="container max-w-[900px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="text-center mb-5">
@@ -240,7 +240,7 @@ const About = () => (
     </section>
 
     {/* ═══════════ 6 · CLOSING CTA ═══════════ */}
-    <section className="py-7 md:py-9" style={{ background: "#F5F2EC" }}>
+    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
       <div className="container max-w-[720px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <div className="flex items-center justify-center gap-2 mb-3">

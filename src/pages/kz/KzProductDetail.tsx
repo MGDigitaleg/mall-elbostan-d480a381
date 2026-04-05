@@ -108,7 +108,7 @@ const KzProductDetail = () => {
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Image Gallery */}
             <div>
-              <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-white">
+              <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-card dark:bg-muted/20">
                 {images.length > 0 ? (
                   <img src={images[selectedImageIdx]?.image_url} alt={images[selectedImageIdx]?.alt_text || product.title} className="h-full w-full object-contain p-4" />
                 ) : (
@@ -128,7 +128,7 @@ const KzProductDetail = () => {
               {images.length > 1 && (
                 <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
                   {images.map((img: any, i: number) => (
-                    <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-white transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
+                    <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-card dark:bg-muted/20 transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
                       <img src={img.image_url} alt="" className="h-full w-full object-contain p-1" />
                     </button>
                   ))}
@@ -270,7 +270,7 @@ const KzProductDetail = () => {
                   const ri = rp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                   return (
                     <Link key={rp.id} to={`/kz/products/${rp.slug}`} className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md">
-                      <div className="aspect-square overflow-hidden bg-white">
+                      <div className="aspect-square overflow-hidden bg-card dark:bg-muted/20">
                         {ri ? <img src={ri.image_url} alt={rp.title} className="h-full w-full object-contain p-3 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/20" /></div>}
                       </div>
                       <div className="p-3">

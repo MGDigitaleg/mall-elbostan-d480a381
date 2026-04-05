@@ -41,7 +41,7 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
 
       {/* Logo + Header */}
       {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
-        <div className="flex items-center justify-center rounded-xl p-4" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+        <div className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border">
           <img
             src={UNIT_TENANT_LOGOS[unit.id]}
             alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
@@ -52,9 +52,9 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
 
       <div className="flex items-start justify-between gap-2">
         <div>
-          <p className="text-[1.35rem] font-extrabold" style={{ color: "#0F172A" }}>{unit.code}</p>
+          <p className="text-[1.35rem] font-extrabold text-foreground">{unit.code}</p>
           {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
-            <p className="mt-0.5 text-[0.84rem] font-bold" style={{ color: "#334155" }}>{UNIT_TENANT_NAMES[unit.id]}</p>
+            <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{UNIT_TENANT_NAMES[unit.id]}</p>
           )}
           <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
         </div>
@@ -75,14 +75,14 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
           { icon: Tag, label: "الفئة", value: categoryLabelsAr[unit.category] },
           { icon: MapPin, label: "الموقع", value: unit.code },
         ].map((item) => (
-          <div key={item.label} className="rounded-lg p-2.5" style={{ background: "#F8FAFC", border: "1px solid #E2E8F0" }}>
+          <div key={item.label} className="rounded-lg p-2.5 bg-secondary dark:bg-muted/30 border border-border">
             <div className="flex items-center gap-1.5">
               <div className="flex h-5 w-5 items-center justify-center rounded" style={{ background: "#EDF2F7" }}>
                 <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
               </div>
               <span className="text-[0.6rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
             </div>
-            <p className="mt-1 text-[0.84rem] font-bold" style={{ color: "#0F172A" }}>{item.value}</p>
+            <p className="mt-1 text-[0.84rem] font-bold text-foreground">{item.value}</p>
           </div>
         ))}
       </div>

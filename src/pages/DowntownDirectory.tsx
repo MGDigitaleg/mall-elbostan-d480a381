@@ -256,7 +256,7 @@ const DowntownDirectory = () => {
                       to={`/downtown-directory/${m.slug ?? m.id}`}
                       className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-card dark:bg-muted/30">
                         {m.logo_url ? (
                           <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" loading="lazy" decoding="async" />
                         ) : (
