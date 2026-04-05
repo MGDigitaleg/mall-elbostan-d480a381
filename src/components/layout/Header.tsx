@@ -192,7 +192,7 @@ export function Header() {
                       >
                         <span
                           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
-                          style={{ background: active ? (isTransparent ? "rgba(96,165,250,0.15)" : "rgba(37,99,235,0.12)") : (isTransparent ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.04)") }}
+                          style={{ background: active ? (isTransparent ? "rgba(96,165,250,0.15)" : "rgba(37,99,235,0.12)") : ((isTransparent || isDark) ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.04)") }}
                         >
                           <MapPin className="h-3.5 w-3.5" style={{ color: active ? activeColor : textColorMuted }} />
                         </span>
@@ -244,7 +244,7 @@ export function Header() {
 
             <ThemeToggle isTransparent={isTransparent} />
 
-            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
+            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8") }} />
 
             <Link to="/spin-win">
               <Button
