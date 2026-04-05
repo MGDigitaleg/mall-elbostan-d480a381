@@ -35,7 +35,7 @@ const Countdown = () => {
           <BrandLogo variant="light" className="h-14 md:h-20" />
 
           {/* Heading */}
-          <div className="space-y-3">
+          <div className="space-y-5">
             <p
               className="font-poppins text-[0.65rem] font-bold tracking-[0.25em] uppercase"
               style={{ color: "hsl(var(--primary))" }}
@@ -43,11 +43,11 @@ const Countdown = () => {
               ١ مايو ٢٠٢٦
             </p>
             <h1
-              className="text-3xl md:text-5xl font-bold leading-tight"
+              className="text-3xl md:text-5xl font-bold leading-[1.35]"
               style={{ color: "#F8FAFC" }}
             >
               الافتتاح الكبير
-              <span className="block mt-1 text-primary">قريباً جداً</span>
+              <span className="block mt-3 text-primary">قريباً جداً</span>
             </h1>
             <p
               className="text-sm md:text-base max-w-md mx-auto leading-relaxed"
