@@ -287,7 +287,11 @@ export function ProductRail({
           <div
             ref={scrollRef}
             className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
-            style={{ gap: "clamp(8px, 1vw, 12px)", scrollbarWidth: "none" }}
+            style={{ gap: "clamp(8px, 1vw, 12px)", scrollbarWidth: "none", cursor: "grab" }}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseUp}
           >
           {displayed.map((product) => (
               <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(130px, 13vw, 165px)" }}>
