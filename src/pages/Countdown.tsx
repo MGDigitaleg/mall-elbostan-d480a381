@@ -33,7 +33,7 @@ const Countdown = () => {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center gap-10 text-center max-w-2xl">
           {/* Logo */}
-          <BrandLogo variant="white" className="h-14 md:h-20" />
+          <BrandLogo variant="light" className="h-14 md:h-20" />
 
           {/* Heading */}
           <div className="space-y-3">
