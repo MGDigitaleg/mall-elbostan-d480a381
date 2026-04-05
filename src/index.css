@@ -649,11 +649,11 @@
   .dark-accent { color: #CDBB9A; }
 
   /* ── Light text helpers — strict hierarchy for light sections ── */
-  .light-heading { color: #0F172A; }
-  .light-subheading { color: #1E293B; }
-  .light-body { color: #334155; }
-  .light-muted { color: #64748B; }
-  .light-meta { color: #94A3B8; }
+  .light-heading { color: hsl(var(--foreground)); }
+  .light-subheading { color: hsl(var(--foreground)); }
+  .light-body { color: hsl(var(--foreground)); }
+  .light-muted { color: hsl(var(--muted-foreground)); }
+  .light-meta { color: hsl(var(--muted-foreground)); }
 
   /* ── Heritage section variable ── */
   :root { --heritage: 37 28% 70%; }
