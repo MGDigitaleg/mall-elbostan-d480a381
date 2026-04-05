@@ -92,36 +92,38 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
   const products = allProducts ?? [];
 
+  /* ── Filter out products without images for homepage ── */
+  const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
+
   /* ── Derive sections from single dataset ── */
-  const latestProducts = useMemo(() => products.slice(0, 12), [products]);
+  const latestProducts = useMemo(() => productsWithImages.slice(0, 12), [productsWithImages]);
 
   const featuredProducts = useMemo(
-    () => products.filter((p) => p.featured).slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.featured).slice(0, 8),
+    [productsWithImages]
   );
 
   /* Trending: featured first, then by recency — different slice than latest */
   const trendingProducts = useMemo(() => {
-    const sorted = [...products].sort((a, b) => {
+    const sorted = [...productsWithImages].sort((a, b) => {
       if (a.featured !== b.featured) return b.featured ? 1 : -1;
-      return 0; // keep original (newest-first) order
+      return 0;
     });
-    // Skip the first 12 to avoid repeating latest section
     return sorted.slice(8, 16);
-  }, [products]);
+  }, [productsWithImages]);
 
   /* Category-based blocks */
   const phoneProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
+    [productsWithImages]
   );
   const computerProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
+    [productsWithImages]
   );
   const gamingProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
+    [productsWithImages]
   );
 
   return (
@@ -248,6 +250,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}
         >
+          {/* Dark overlay glow for depth */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
+          </div>
+          {/* Subtle grid texture */}
+          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
           <div className="container relative">
             <ProductRail
               kicker="الكمبيوتر والأجهزة"
