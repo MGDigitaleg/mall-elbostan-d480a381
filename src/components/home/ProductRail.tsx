@@ -227,8 +227,12 @@ export function ProductRail({
       window.removeEventListener("resize", updateScrollState);
     };
   }, [updateScrollState, displayed.length]);
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -260 : 260, behavior: "smooth" });
+  };
 
-  const onMouseDown = useCallback((e: React.MouseEvent) => {
+
     const el = scrollRef.current;
     if (!el) return;
     isDragging.current = true;
