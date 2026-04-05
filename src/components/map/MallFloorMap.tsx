@@ -229,13 +229,20 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </g>
         ))}
 
-        {/* ── ClipPaths for unit logos ── */}
+        {/* ── ClipPaths for logo badges ── */}
         <defs>
-          {floor.units.map((unit) => (
-            <clipPath key={`clip-${unit.id}`} id={`clip-${unit.id}`}>
-              <polygon points={unit.polygon} />
-            </clipPath>
-          ))}
+          {floor.units.map((unit) => {
+            const badgeW = 52;
+            const badgeH = 36;
+            const badgeR = 6;
+            const bx = unit.labelX - badgeW / 2;
+            const by = unit.labelY - badgeH / 2 - 6;
+            return (
+              <clipPath key={`clip-${unit.id}`} id={`clip-${unit.id}`}>
+                <rect x={bx} y={by} width={badgeW} height={badgeH} rx={badgeR} ry={badgeR} />
+              </clipPath>
+            );
+          })}
         </defs>
 
         {/* ── Unit polygons ── */}
