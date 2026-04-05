@@ -33,7 +33,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
+    const root = document.documentElement;
+    root.classList.add("theme-transition");
     setThemeState((prev) => (prev === "light" ? "dark" : "light"));
+    // Remove class after transition completes to avoid interfering with other animations
+    setTimeout(() => root.classList.remove("theme-transition"), 450);
   }, []);
 
   return (
