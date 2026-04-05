@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Compass, Gift, Store, ShoppingBag, Layers } from "lucide-react";
+import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
@@ -51,34 +50,17 @@ const slides = [
   },
 ];
 
+const statIcons = [Store, ShoppingBag, Layers, GitBranch];
+
 export function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  /* Live stats from DB */
-  const { data: storeCount } = useQuery({
-    queryKey: ["hero-store-count"],
-    queryFn: async () => {
-      const { count } = await supabase.from("stores").select("*", { count: "exact", head: true }).neq("status", "hidden");
-      return count ?? 0;
-    },
-    staleTime: 5 * 60 * 1000,
-  });
-
-  const { data: productCount } = useQuery({
-    queryKey: ["hero-product-count"],
-    queryFn: async () => {
-      const { count } = await supabase.from("products").select("*", { count: "exact", head: true }).eq("status", "published");
-      return count ?? 0;
-    },
-    staleTime: 5 * 60 * 1000,
-  });
-
-  const stats = useMemo(() => [
-    { icon: Store, value: storeCount ?? 0, label: "محل" },
-    { icon: ShoppingBag, value: productCount ?? 0, label: "منتج" },
-    { icon: Layers, value: "6", label: "فئات تقنية" },
-  ], [storeCount, productCount]);
+  const stats = GLOBAL_STAT_CARDS.map((s, i) => ({
+    icon: statIcons[i],
+    value: s.value,
+    label: s.label,
+  }));
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
 
