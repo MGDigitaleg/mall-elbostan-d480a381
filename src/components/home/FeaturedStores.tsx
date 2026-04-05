@@ -11,10 +11,10 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
 };
 const cardReveal = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.32 } },
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.28 } },
 };
-const stagger = { visible: { transition: { staggerChildren: 0.04 } } };
+const stagger = { visible: { transition: { staggerChildren: 0.03 } } };
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -26,7 +26,7 @@ export function FeaturedStores() {
         .eq("featured", true)
         .eq("status", "leased")
         .order("name_ar")
-        .limit(8);
+        .limit(12);
       return data ?? [];
     },
   });
@@ -38,14 +38,14 @@ export function FeaturedStores() {
       className="bg-card"
       style={{
         contain: "layout style",
-        paddingTop: "clamp(24px, 4vw, 40px)",
-        paddingBottom: "clamp(24px, 4vw, 40px)",
+        paddingTop: "clamp(20px, 3.5vw, 36px)",
+        paddingBottom: "clamp(20px, 3.5vw, 36px)",
       }}
     >
       <div className="container">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
-          <div style={{ marginBottom: 16 }} className="flex items-end justify-between gap-4">
+          <div style={{ marginBottom: 12 }} className="flex items-end justify-between gap-4">
             <div>
               <p className="section-kicker" style={{ fontSize: 11, marginBottom: 4 }}>محلات مميزة</p>
               <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(15px, 1.4vw, 18px)" }}>
@@ -61,18 +61,17 @@ export function FeaturedStores() {
 
           {isLoading ? (
             <div
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4"
-              style={{ gap: "clamp(12px, 1.2vw, 16px)" }}
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
+              style={{ gap: "clamp(8px, 1vw, 12px)" }}
             >
-              {Array.from({ length: 8 }).map((_, i) => (
+              {Array.from({ length: 12 }).map((_, i) => (
                 <div
                   key={i}
                   className="flex flex-col items-center border border-border bg-background"
-                  style={{ borderRadius: 18, padding: "clamp(12px, 1.2vw, 16px)" }}
+                  style={{ borderRadius: 14, padding: "clamp(8px, 1vw, 12px)" }}
                 >
-                  <Skeleton className="rounded-[18px]" style={{ width: 64, height: 64 }} />
-                  <Skeleton className="mt-3 h-4 w-3/4" />
-                  <Skeleton className="mt-2 h-3 w-1/2" />
+                  <Skeleton className="rounded-xl" style={{ width: 48, height: 48 }} />
+                  <Skeleton className="mt-2 h-3 w-3/4" />
                 </div>
               ))}
             </div>
@@ -82,8 +81,8 @@ export function FeaturedStores() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4"
-              style={{ gap: "clamp(12px, 1.2vw, 16px)" }}
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
+              style={{ gap: "clamp(8px, 1vw, 12px)" }}
             >
               {stores!.map((store) => (
                 <motion.div key={store.id} variants={cardReveal}>
@@ -91,23 +90,22 @@ export function FeaturedStores() {
                     to={`/stores/${store.slug}`}
                     className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
                     style={{
-                      borderRadius: 18,
+                      borderRadius: 14,
                       border: "1px solid rgba(22,41,84,0.08)",
                       background: "var(--background)",
-                      padding: "clamp(12px, 1.2vw, 16px)",
-                      minHeight: "clamp(155px, 16vw, 180px)",
+                      padding: "clamp(8px, 1vw, 12px)",
                     }}
                   >
-                    {/* Logo */}
+                    {/* Logo — dominant */}
                     <div
                       className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
                       style={{
-                        width: "clamp(52px, 5.5vw, 64px)",
-                        height: "clamp(52px, 5.5vw, 64px)",
-                        borderRadius: 14,
+                        width: "clamp(44px, 5vw, 56px)",
+                        height: "clamp(44px, 5vw, 56px)",
+                        borderRadius: 12,
                         background: "#fff",
-                        padding: 4,
-                        marginBottom: 10,
+                        padding: 3,
+                        marginBottom: 6,
                       }}
                     >
                       {store.logo_url ? (
@@ -119,14 +117,14 @@ export function FeaturedStores() {
                           loading="lazy"
                         />
                       ) : (
-                        <Store className="text-muted-foreground/25" style={{ width: 24, height: 24 }} />
+                        <Store className="text-muted-foreground/25" style={{ width: 22, height: 22 }} />
                       )}
                     </div>
 
                     {/* Name */}
                     <h3
-                      className="text-center font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors"
-                      style={{ fontSize: "clamp(14px, 1.3vw, 16px)", lineHeight: 1.35, marginBottom: 6 }}
+                      className="text-center font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors"
+                      style={{ fontSize: "clamp(11px, 1.1vw, 13px)", lineHeight: 1.3 }}
                     >
                       {store.name_ar}
                     </h3>
@@ -134,21 +132,11 @@ export function FeaturedStores() {
                     {/* Category */}
                     {store.category && (
                       <span
-                        className="inline-flex items-center gap-1 text-muted-foreground"
-                        style={{ fontSize: 12, fontWeight: 600, opacity: 0.8, textAlign: "center" }}
+                        className="inline-flex items-center gap-0.5 text-muted-foreground"
+                        style={{ fontSize: 10, fontWeight: 600, opacity: 0.7, marginTop: 2 }}
                       >
-                        <Tag style={{ width: 10, height: 10 }} />
+                        <Tag style={{ width: 8, height: 8 }} />
                         {store.category}
-                      </span>
-                    )}
-
-                    {/* Unit code */}
-                    {store.unit_code && (
-                      <span
-                        className="text-primary/60"
-                        style={{ fontSize: 11, fontWeight: 500, marginTop: 4 }}
-                      >
-                        {store.unit_code}
                       </span>
                     )}
                   </Link>
@@ -157,7 +145,7 @@ export function FeaturedStores() {
             </motion.div>
           )}
 
-          <div className="mt-4 text-center lg:hidden">
+          <div className="mt-3 text-center lg:hidden">
             <Link to="/stores">
               <Button variant="outline-blue" className="h-8 gap-1 rounded-lg px-4 font-bold" style={{ fontSize: 12 }}>
                 جميع المحلات <ArrowLeft className="h-3 w-3" />

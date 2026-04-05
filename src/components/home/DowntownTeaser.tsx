@@ -5,9 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
-import dtMain from "@/assets/downtown-hero-enhanced.webp";
-import dtNight from "@/assets/downtown-hero-night.webp";
-import dt3 from "@/assets/downtown-hero-3.webp";
+import dtHero from "@/assets/downtown-hero-night-enhanced.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
@@ -52,7 +50,7 @@ export function DowntownTeaser() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
         >
-          <div className="grid gap-8 lg:gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+          <div className="grid gap-8 lg:gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
             {/* Right: Content */}
             <div className="order-2 lg:order-1">
               <p
@@ -119,64 +117,23 @@ export function DowntownTeaser() {
               </div>
             </div>
 
-            {/* Left: Image composition — 1 large + 2 supporting */}
+            {/* Left: Single hero image */}
             <div className="order-1 lg:order-2">
-              <div className="grid grid-cols-5 gap-3 md:gap-4">
-                {/* Main hero image — spans 3 cols */}
-                <div
-                  className="col-span-3 overflow-hidden rounded-2xl"
-                  style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  <div className="aspect-[3/4] relative">
-                    <img
-                      src={dtMain}
-                      alt="مول البستان — المبنى التاريخي في وسط البلد"
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: "linear-gradient(to top, #0C0A0640 0%, transparent 50%)" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Supporting images — stacked in 2 cols */}
-                <div className="col-span-2 flex flex-col gap-3 md:gap-4">
+              <div
+                className="overflow-hidden rounded-2xl"
+                style={{ border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <div className="aspect-[3/4] relative">
+                  <img
+                    src={dtHero}
+                    alt="مول البستان — المبنى التاريخي ليلًا في وسط البلد"
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
                   <div
-                    className="flex-1 overflow-hidden rounded-2xl"
-                    style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-                  >
-                    <div className="aspect-[4/3] h-full relative">
-                      <img
-                        src={dtNight}
-                        alt="مول البستان ليلًا — واجهة المبنى"
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: "linear-gradient(to top, #0C0A0630 0%, transparent 40%)" }}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="flex-1 overflow-hidden rounded-2xl"
-                    style={{ border: "1px solid rgba(255,255,255,0.06)" }}
-                  >
-                    <div className="aspect-[4/3] h-full relative">
-                      <img
-                        src={dt3}
-                        alt="مول البستان — منظور معماري"
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: "linear-gradient(to top, #0C0A0630 0%, transparent 40%)" }}
-                      />
-                    </div>
-                  </div>
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(to top, #0C0A0650 0%, transparent 40%)" }}
+                  />
                 </div>
               </div>
 

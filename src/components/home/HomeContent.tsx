@@ -92,36 +92,38 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
   const products = allProducts ?? [];
 
+  /* ── Filter out products without images for homepage ── */
+  const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
+
   /* ── Derive sections from single dataset ── */
-  const latestProducts = useMemo(() => products.slice(0, 12), [products]);
+  const latestProducts = useMemo(() => productsWithImages.slice(0, 12), [productsWithImages]);
 
   const featuredProducts = useMemo(
-    () => products.filter((p) => p.featured).slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.featured).slice(0, 8),
+    [productsWithImages]
   );
 
   /* Trending: featured first, then by recency — different slice than latest */
   const trendingProducts = useMemo(() => {
-    const sorted = [...products].sort((a, b) => {
+    const sorted = [...productsWithImages].sort((a, b) => {
       if (a.featured !== b.featured) return b.featured ? 1 : -1;
-      return 0; // keep original (newest-first) order
+      return 0;
     });
-    // Skip the first 12 to avoid repeating latest section
     return sorted.slice(8, 16);
-  }, [products]);
+  }, [productsWithImages]);
 
   /* Category-based blocks */
   const phoneProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
+    [productsWithImages]
   );
   const computerProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
+    [productsWithImages]
   );
   const gamingProducts = useMemo(
-    () => products.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
-    [products]
+    () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
+    [productsWithImages]
   );
 
   return (
