@@ -162,7 +162,7 @@ export function FeaturedProducts() {
                     className="group flex flex-col rounded-2xl border border-border/70 bg-card dark:bg-secondary overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
                   >
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-[#F5F6F8] dark:bg-muted/30">
+                    <div className="relative aspect-square overflow-hidden bg-muted/30 dark:bg-muted/20">
                       {product.image_url ? (
                         <img
                           src={product.image_url}
@@ -204,7 +204,7 @@ export function FeaturedProducts() {
                               <img
                                 src={store.logo_url}
                                 alt={store.name_ar}
-                                className="h-4 w-4 rounded object-contain border border-border bg-white shrink-0"
+                                className="h-4 w-4 rounded object-contain border border-border bg-card shrink-0"
                               />
                             ) : (
                               <Store className="h-3 w-3 text-muted-foreground/25 shrink-0" />
