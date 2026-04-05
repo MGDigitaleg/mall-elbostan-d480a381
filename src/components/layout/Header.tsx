@@ -40,6 +40,8 @@ export function Header() {
   const branchRef = useRef<HTMLDivElement>(null);
 
   const { totalItems } = useKzCart();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const isKzPage = location.pathname.startsWith("/kz");
 
   const hasDarkHero = darkHeroPages.some(
