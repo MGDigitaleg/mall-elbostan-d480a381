@@ -10,7 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
 import ncHero3 from "@/assets/nc-hero-3-enhanced.webp";
-import downtownHeroNight from "@/assets/downtown-hero-night.webp";
+import downtownHeroNight from "@/assets/downtown-hero-night-clean2.webp";
 
 const slides = [
   {
