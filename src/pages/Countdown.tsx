@@ -3,6 +3,7 @@ import { CountdownTimer } from "@/components/CountdownTimer";
 import { Link } from "react-router-dom";
 import { MapPin, Sparkles, CalendarDays } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
+import ogCountdown from "@/assets/og-countdown.jpg";
 
 const Countdown = () => {
   return (
@@ -12,6 +13,7 @@ const Countdown = () => {
         titleEn="Opening Countdown"
         description="العد التنازلي لافتتاح مول البستان — ١ مايو ٢٠٢٦. أكبر وجهة تقنية في القاهرة الجديدة."
         descriptionEn="Countdown to Mall Elbostan grand opening — May 1, 2026. The biggest tech destination in New Cairo."
+        ogImage={ogCountdown}
         breadcrumbs={[{ name: "العد التنازلي", url: "/countdown" }]}
       />
 
