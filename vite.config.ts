@@ -15,11 +15,14 @@ function heroImagePreload(): Plugin {
     transformIndexHtml(html, ctx) {
       // Only in build mode where ctx.bundle exists
       if (!ctx.bundle) return html;
+      const preloads: string[] = [];
       for (const [fileName] of Object.entries(ctx.bundle)) {
-        if (fileName.match(/downtown-hero-night-clean2.*\.webp$/)) {
-          const tag = `<link rel="preload" as="image" href="/${fileName}" fetchpriority="high" />`;
-          return html.replace("</head>", `${tag}\n  </head>`);
+        if (fileName.match(/downtown-hero-1.*\.webp$/) || fileName.match(/downtown-hero-night-clean2.*\.webp$/)) {
+          preloads.push(`<link rel="preload" as="image" href="/${fileName}" fetchpriority="high" />`);
         }
+      }
+      if (preloads.length) {
+        return html.replace("</head>", `    ${preloads.join("\n    ")}\n  </head>`);
       }
       return html;
     },
