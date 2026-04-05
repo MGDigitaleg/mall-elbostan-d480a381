@@ -1,3 +1,4 @@
+// v2 – dark-mode refresh
 import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
