@@ -209,8 +209,8 @@ const Contact = () => {
             <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-2.5">
               {[
                 { icon: MapPin, title: "الموقع", value: "القاهرة الجديدة، مصر", sub: "بالقرب من المدينتي والرحاب" },
-                { icon: Phone, title: "الهاتف", value: "سيتم الإعلان قريبًا", sub: "متاح أيام العمل" },
-                { icon: Mail, title: "البريد", value: "سيتم الإعلان قريبًا", sub: "للاستفسارات الرسمية" },
+                { icon: Phone, title: "الهاتف", value: "سيتم الإعلان قريباً", sub: "متاح أيام العمل" },
+                { icon: Mail, title: "البريد", value: "سيتم الإعلان قريباً", sub: "للاستفسارات الرسمية" },
               ].map((item) => (
                 <div key={item.title} className="rounded-lg border border-border bg-card p-3.5">
                   <div className="flex items-start gap-2.5">
@@ -250,7 +250,7 @@ const Contact = () => {
                   {[
                     "رسالتك تصل مباشرة للفريق المختص.",
                     "الرد خلال يوم عمل واحد.",
-                    "استفسارات التأجير تتحول للفريق التجاري تلقائيًا.",
+                    "استفسارات التأجير تتحول للفريق التجاري تلقائياً.",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2">
                       <div className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />

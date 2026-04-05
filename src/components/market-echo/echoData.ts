@@ -20,7 +20,7 @@ export const echoFragments: EchoFragment[] = [
   // ─── Layer 2: Secondary ───
   { text: "اسم يعرفه السوق", x: "40%", y: "68%", size: "1rem", delay: 3.0, layer: 2, motion: "float" },
   { text: "خبرة ممتدة", x: "22%", y: "76%", size: "0.95rem", delay: 3.5, layer: 2, motion: "wave" },
-  { text: "الثقة أولًا", x: "50%", y: "22%", size: "1rem", delay: 1.2, layer: 2, motion: "pulse" },
+  { text: "الثقة أولاً", x: "50%", y: "22%", size: "1rem", delay: 1.2, layer: 2, motion: "pulse" },
   { text: "سوق التقنية", x: "65%", y: "75%", size: "0.95rem", delay: 2.0, layer: 2, motion: "drift" },
 
   // ─── Layer 3: Atmospheric ───

@@ -466,7 +466,7 @@ const StoreDetail = () => {
                     <InfoRow
                       icon={store.status === "available" ? Tag : Check}
                       label="الحالة"
-                      value={store.status === "available" ? "متاح للإيجار" : store.status === "leased" ? "مؤجر - نشط" : "قريبًا"}
+                      value={store.status === "available" ? "متاح للإيجار" : store.status === "leased" ? "مؤجر - نشط" : "قريباً"}
                       status={store.status === "available" ? "orange" : "green"}
                     />
                   </div>

@@ -41,7 +41,7 @@ const primaryCategories = Object.keys(categoryMeta).filter((k) => k !== "الش�
 const statusConfig: Record<string, { text: string; color: string; bg: string; border: string }> = {
   leased: { text: "نشط", color: "#10B981", bg: "#10B98115", border: "#10B98130" },
   available: { text: "متاح للتأجير", color: "#F97316", bg: "#F9731615", border: "#F9731630" },
-  "coming-soon": { text: "قريبًا", color: "#06B6D4", bg: "#06B6D415", border: "#06B6D430" },
+  "coming-soon": { text: "قريباً", color: "#06B6D4", bg: "#06B6D415", border: "#06B6D430" },
 };
 
 const Stores = () => {
@@ -209,7 +209,7 @@ const Stores = () => {
                         {count} محل
                       </span>
                     ) : (
-                      <span className="text-[0.62rem] light-muted">قريبًا</span>
+                      <span className="text-[0.62rem] light-muted">قريباً</span>
                     )}
                     <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-60 group-hover:-translate-x-1.5" style={{ color: meta.color }} />
                   </div>
@@ -559,7 +559,7 @@ function EcosystemGrowingState() {
       </div>
       <h3 className="mt-5 text-[1.05rem] font-extrabold" style={{ color: "#F8FAFC" }}>الدليل يتجهّز — والمحلات في الطريق.</h3>
       <p className="mx-auto mt-2 max-w-sm text-[0.84rem] leading-7" style={{ color: "#94A3B8" }}>
-        المحلات تنضم تدريجيًا مع اقتراب الافتتاح.
+        المحلات تنضم تدريجياً مع اقتراب الافتتاح.
       </p>
       <div className="mt-5 flex flex-wrap justify-center gap-2.5">
         <Link to="/map">

@@ -84,11 +84,11 @@ const JoinMarketplace = () => {
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {[
-                { icon: Globe, title: "وصول أوسع", desc: "منتجاتك تظهر لآلاف الزوار يوميًا على منصة مول البستان." },
+                { icon: Globe, title: "وصول أوسع", desc: "منتجاتك تظهر لآلاف الزوار يومياً على منصة مول البستان." },
                 { icon: TrendingUp, title: "زيادة المبيعات", desc: "قناة بيع إضافية بدون تكاليف تسويق إضافية." },
                 { icon: ShoppingBag, title: "كتالوج رقمي", desc: "اعرض منتجاتك بصور واضحة وأسعار محدّثة." },
                 { icon: Store, title: "صفحة متجر مخصصة", desc: "صفحة خاصة بمتجرك على المنصة مع كل منتجاتك." },
-                { icon: Layers, title: "تصنيف ذكي", desc: "منتجاتك تظهر ضمن الفئات المناسبة تلقائيًا." },
+                { icon: Layers, title: "تصنيف ذكي", desc: "منتجاتك تظهر ضمن الفئات المناسبة تلقائياً." },
                 { icon: Zap, title: "إدارة سهلة", desc: "أضف وحدّث منتجاتك بسهولة من لوحة التحكم." },
               ].map((b) => (
                 <div key={b.title} className="rounded-xl border border-border bg-card p-5 transition-all hover:shadow-[var(--shadow-card)]">
@@ -135,7 +135,7 @@ const JoinMarketplace = () => {
               <div className="text-center py-8">
                 <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-500 mb-4" />
                 <h2 className="text-xl font-bold text-foreground">تم استلام طلبك</h2>
-                <p className="mt-2 text-[0.92rem] text-muted-foreground">سيتواصل معك فريقنا قريبًا لمناقشة تفاصيل الانضمام.</p>
+                <p className="mt-2 text-[0.92rem] text-muted-foreground">سيتواصل معك فريقنا قريباً لمناقشة تفاصيل الانضمام.</p>
                 <Link to="/stores"><Button variant="outline-blue" className="mt-6">تصفّح المتاجر</Button></Link>
               </div>
             ) : (

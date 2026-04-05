@@ -129,7 +129,7 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
           </>
         ) : (
           <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold" disabled>
-            قريبًا — تابع التحديثات
+            قريباً — تابع التحديثات
           </Button>
         )}
       </div>
@@ -156,7 +156,7 @@ function EmptyPanel() {
         {[
           { label: "مشغولة", action: "اعرف المتجر", status: "occupied" as MallUnitStatus },
           { label: "متاحة", action: "استفسر عن الوحدة", status: "available" as MallUnitStatus },
-          { label: "قريبًا", action: "تابع التحديثات", status: "coming_soon" as MallUnitStatus },
+          { label: "قريباً", action: "تابع التحديثات", status: "coming_soon" as MallUnitStatus },
         ].map((item) => {
           const badge = statusBadge[item.status];
           return (

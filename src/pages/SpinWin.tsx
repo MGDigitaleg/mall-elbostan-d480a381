@@ -164,9 +164,9 @@ const SpinWin = () => {
               أدر واربح
             </h1>
             <p className="text-navy-foreground/70 text-base md:text-lg max-w-lg mx-auto leading-relaxed">
-              سجّل بياناتك — النظام يختار متجرًا مشاركًا ومكافأة عشوائية لك.
+              سجّل بياناتك — النظام يختار متجراً مشاركاً ومكافأة عشوائية لك.
               <br />
-              مشاركة واحدة يوميًا لكل رقم هاتف.
+              مشاركة واحدة يومياً لكل رقم هاتف.
             </p>
           </motion.div>
         </div>
@@ -370,9 +370,9 @@ const SpinWin = () => {
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-muted mb-5">
                     <Sparkles className="h-8 w-8 text-muted-foreground" />
                   </div>
-                  <h2 className="text-2xl font-bold text-foreground mb-3">شكرًا لمشاركتك</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-3">شكراً لمشاركتك</h2>
                   <p className="text-muted-foreground leading-relaxed mb-6">
-                    {result.message ?? "لم تتوفر مكافأة هذه المرة — جرّب مرة أخرى غدًا."}
+                    {result.message ?? "لم تتوفر مكافأة هذه المرة — جرّب مرة أخرى غداً."}
                   </p>
                   <Link to="/">
                     <Button variant="outline">العودة للرئيسية</Button>
@@ -397,7 +397,7 @@ const SpinWin = () => {
             <div className="grid grid-cols-3 gap-4">
               {[
                 { icon: "01", title: "سجّل بياناتك", desc: "الاسم ورقم الهاتف" },
-                { icon: "02", title: "النظام يختار", desc: "متجر ومكافأة عشوائيًا" },
+                { icon: "02", title: "النظام يختار", desc: "متجر ومكافأة عشوائياً" },
                 { icon: "03", title: "استلم مكافأتك", desc: "من المتجر بالرمز" },
               ].map((s, i) => (
                 <div key={i} className="text-center">

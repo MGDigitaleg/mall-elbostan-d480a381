@@ -63,7 +63,7 @@ export function MapFilters({
             <SelectItem value="all">كل الحالات</SelectItem>
             <SelectItem value="occupied">مشغولة</SelectItem>
             <SelectItem value="available">متاحة</SelectItem>
-            <SelectItem value="coming_soon">قريبًا</SelectItem>
+            <SelectItem value="coming_soon">قريباً</SelectItem>
           </SelectContent>
         </Select>
 

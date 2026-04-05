@@ -34,7 +34,7 @@ const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "في قلب القاهرة الجديدة، ضمن موقع يخدم مدينتي والرحاب والمناطق المحيطة." },
   { id: "faq-2", question_ar: "متى موعد الافتتاح؟", answer_ar: "الافتتاح الكبير مقرر في 1 مايو 2026." },
   { id: "faq-3", question_ar: "هل تتوفر وحدات للتأجير؟", answer_ar: "نعم، وحدات متعددة المساحات. استعرضها عبر الخريطة التفاعلية." },
-  { id: "faq-4", question_ar: "كيف أجد محلًا داخل المول؟", answer_ar: "استخدم الخريطة التفاعلية أو دليل المحلات." },
+  { id: "faq-4", question_ar: "كيف أجد محلاً داخل المول؟", answer_ar: "استخدم الخريطة التفاعلية أو دليل المحلات." },
   { id: "faq-5", question_ar: "هل سيتوفر تسوّق إلكتروني؟", answer_ar: "السوق الرقمي مرحلة قادمة." },
   { id: "faq-6", question_ar: "كيف أتقدم باستفسار تجاري؟", answer_ar: "من صفحة التأجير أو التواصل." },
 ];
@@ -170,7 +170,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           }}>
           <div className="container">
             <ProductRail
-              kicker="الأكثر طلبًا"
+              kicker="الأكثر طلباً"
               title="المنتجات الرائجة"
               subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
               products={trendingProducts}

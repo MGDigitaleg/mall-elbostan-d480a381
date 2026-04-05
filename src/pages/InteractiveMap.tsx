@@ -268,7 +268,7 @@ const InteractiveMap = () => {
                   <>
                     <span className="h-3.5 w-px bg-border" />
                     <span className="font-bold" style={{ color: "hsl(190 85% 40%)" }}>{floorComingSoon}</span>
-                    <span className="text-muted-foreground">قريبًا</span>
+                    <span className="text-muted-foreground">قريباً</span>
                   </>
                 )}
               </div>
@@ -333,7 +333,7 @@ const InteractiveMap = () => {
                       {[
                         { v: floorOccupied, l: "مشغولة", colorClass: "text-foreground", bgClass: "bg-muted/50 border border-border" },
                         { v: floorAvailable, l: "متاحة", colorClass: "text-[hsl(25_95%_45%)] dark:text-[hsl(25_95%_65%)]", bgClass: "bg-[hsl(35_100%_97%)] dark:bg-[hsl(25_50%_15%)] border border-[hsl(25_95%_55%/0.2)]" },
-                        { v: floorComingSoon, l: "قريبًا", colorClass: "text-[hsl(190_85%_35%)] dark:text-[hsl(190_85%_55%)]", bgClass: "bg-[hsl(190_50%_96%)] dark:bg-[hsl(190_50%_15%)] border border-[hsl(190_85%_40%/0.2)]" },
+                        { v: floorComingSoon, l: "قريباً", colorClass: "text-[hsl(190_85%_35%)] dark:text-[hsl(190_85%_55%)]", bgClass: "bg-[hsl(190_50%_96%)] dark:bg-[hsl(190_50%_15%)] border border-[hsl(190_85%_40%/0.2)]" },
                       ].map((s) => (
                         <div key={s.l} className={`rounded-lg py-3 transition-all ${s.bgClass}`}>
                           <p className={`font-poppins text-[1.1rem] font-extrabold ${s.colorClass}`}>{s.v}</p>
@@ -459,7 +459,7 @@ const InteractiveMap = () => {
               <div className="grid grid-cols-2 gap-2.5">
                 {[
                   { icon: MapPin, label: "موقع مقصود", desc: "قلب المنطقة التجارية" },
-                  { icon: Users, label: "جمهور بنيّة شراء", desc: "عملاء مستهدفون يوميًا" },
+                  { icon: Users, label: "جمهور بنيّة شراء", desc: "عملاء مستهدفون يومياً" },
                   { icon: TrendingUp, label: "طلب متنامٍ", desc: "سوق التكنولوجيا ينمو" },
                   { icon: Layers, label: "تصنيف دقيق", desc: "كل دور بتخصصه" },
                 ].map((p) => (

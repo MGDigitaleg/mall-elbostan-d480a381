@@ -152,7 +152,7 @@ const Leasing = () => {
                   من يزور المول — ولماذا
                 </h2>
                 <p className="mt-2 max-w-[28rem] text-[0.82rem] leading-[1.85] text-muted-foreground">
-                  جمهور يقصد المول لأنه يحتاج منتجًا تقنيًا.
+                  جمهور يقصد المول لأنه يحتاج منتجاً تقنياً.
                 </p>
 
                 <div className="mt-5 space-y-2">
@@ -345,7 +345,7 @@ const Leasing = () => {
                          style={{ background: "hsl(25 85% 50% / 0.08)", border: "1px solid hsl(25 85% 50% / 0.12)" }}>
                       <Store className="h-5 w-5" style={{ color: "hsl(25 95% 55% / 0.5)" }} />
                     </div>
-                    <p className="text-[0.85rem] font-bold" style={{ color: "hsl(0 0% 97%)" }}>الوحدات المتاحة ستظهر هنا قريبًا</p>
+                    <p className="text-[0.85rem] font-bold" style={{ color: "hsl(0 0% 97%)" }}>الوحدات المتاحة ستظهر هنا قريباً</p>
                     <p className="mt-1 text-[0.74rem]" style={{ color: "hsl(220 15% 50%)" }}>تابع الخريطة التفاعلية لأحدث التحديثات</p>
                   </div>
                 )}

@@ -235,7 +235,7 @@ export function FeaturedProducts() {
               <div className="p-8 md:p-10 text-center">
                 <ShoppingBag className="mx-auto mb-3 h-9 w-9 text-primary/20" />
                 <h3 className="text-[0.92rem] font-bold text-foreground">
-                  منتجات المحلات — قريبًا
+                  منتجات المحلات — قريباً
                 </h3>
                 <p className="mx-auto mt-2 max-w-[22rem] text-[0.8rem] leading-[1.7] text-muted-foreground">
                   سوق رقمي يجمع منتجات محلات المول في مكان واحد.

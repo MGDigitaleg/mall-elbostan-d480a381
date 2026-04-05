@@ -41,7 +41,7 @@ export function SceneMeaning() {
             transform: entered ? "translateY(0)" : "translateY(14px)",
           }}
         >
-          ما كان الناس يقولونه قديمًا،
+          ما كان الناس يقولونه قديماً،
           <br />
           <span style={{ color: "#CDBB9A" }}>نقدمه اليوم بشكل أوضح.</span>
         </h2>

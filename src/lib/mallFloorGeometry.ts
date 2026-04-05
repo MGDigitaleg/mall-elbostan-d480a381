@@ -81,7 +81,7 @@ export const floorLabelsAr: Record<MallFloorId, string> = {
 export const statusLabelsAr: Record<MallUnitStatus, string> = {
   occupied: "مشغولة",
   available: "متاحة",
-  coming_soon: "قريبًا",
+  coming_soon: "قريباً",
 };
 
 // ── Availability (from PDF directory base pack) ──────────────────────────
@@ -98,8 +98,8 @@ const getStatus = (id: string): MallUnitStatus =>
 
 const getDescription = (status: MallUnitStatus): string => {
   if (status === "available") return "وحدة تجارية جاهزة للتأجير بموقع مميز داخل مول البستان.";
-  if (status === "coming_soon") return "وحدة قيد التجهيز وستكون متاحة قريبًا.";
-  return "وحدة مشغولة حاليًا.";
+  if (status === "coming_soon") return "وحدة قيد التجهيز وستكون متاحة قريباً.";
+  return "وحدة مشغولة حالياً.";
 };
 
 // ── Ground floor unit polygons (17 units) ────────────────────────────────

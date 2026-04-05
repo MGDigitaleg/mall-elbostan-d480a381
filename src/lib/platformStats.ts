@@ -27,7 +27,7 @@ export const NEW_CAIRO_STATS = {
 /* ── Formatted labels for UI ── */
 
 export const GLOBAL_STAT_CARDS = [
-  { value: "+460", label: "محلًا" },
+  { value: "+460", label: "محلاً" },
   { value: "+100 ألف", label: "منتج" },
   { value: "آلاف", label: "التصنيفات" },
   { value: "فرعان", label: "رئيسيان" },
@@ -36,7 +36,7 @@ export const GLOBAL_STAT_CARDS = [
 export const DOWNTOWN_STAT_CARDS = [
   { value: "+400", label: "محل" },
   { value: "10", label: "أدوار" },
-  { value: "+30", label: "عامًا في السوق" },
+  { value: "+30", label: "عاماً في السوق" },
   { value: "1990", label: "سنة التأسيس" },
 ] as const;
 

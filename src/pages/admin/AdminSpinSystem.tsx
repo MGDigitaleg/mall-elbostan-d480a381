@@ -584,7 +584,7 @@ export function AdminSpinReports() {
           {/* By Store */}
           <div className="card-premium p-4">
             <p className="font-bold text-foreground mb-3 flex items-center gap-2">
-              <TrendingUp className="w-4 h-4" /> أكثر المتاجر نشاطًا
+              <TrendingUp className="w-4 h-4" /> أكثر المتاجر نشاطاً
             </p>
             <div className="space-y-2">
               {stats.byStore.map((s) => (

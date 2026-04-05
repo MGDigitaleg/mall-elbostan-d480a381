@@ -8,7 +8,7 @@ import { useKzCart } from "@/hooks/useKzCart";
 const KZ_WHATSAPP = "201000000000"; // placeholder — replace with real number
 
 function buildWhatsAppMessage(items: ReturnType<typeof useKzCart>["items"], total: number): string {
-  let msg = "مرحبًا، أريد طلب المنتجات التالية من Kasr Zero:\n\n";
+  let msg = "مرحباً، أريد طلب المنتجات التالية من Kasr Zero:\n\n";
   items.forEach((item, i) => {
     msg += `${i + 1}. ${item.title}`;
     if (item.variantName) msg += ` (${item.variantName})`;

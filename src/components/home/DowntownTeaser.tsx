@@ -36,7 +36,7 @@ export function DowntownTeaser() {
             <div className="relative min-h-[220px] lg:min-h-[320px]">
               <img
                 src={dtHero}
-                alt="مول البستان — المبنى التاريخي ليلًا في وسط البلد"
+                alt="مول البستان — المبنى التاريخي ليلاً في وسط البلد"
                 className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
               />
@@ -79,14 +79,14 @@ export function DowntownTeaser() {
                 className="mt-2 text-[0.78rem] leading-[1.7] max-w-[26rem]"
                 style={{ color: "#9E9486" }}
               >
-                الاسم الذي عرفه السوق لسنوات، وما زال مرجعًا معروفًا في عالم التقنية بوسط القاهرة.
+                الاسم الذي عرفه السوق لسنوات، وما زال مرجعاً معروفاً في عالم التقنية بوسط القاهرة.
               </p>
 
               {/* Heritage facts */}
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
                 {[
                   "منذ 1990",
-                  "أكثر من 30 عامًا من الثقة",
+                  "أكثر من 30 عاماً من الثقة",
                   "باب اللوق، القاهرة",
                 ].map((fact, i) => (
                   <div key={i} className="flex items-center gap-2">

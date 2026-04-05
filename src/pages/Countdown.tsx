@@ -7,7 +7,7 @@ const Countdown = () => {
   return (
     <>
       <SEOHead
-        title="قريبًا — الافتتاح الكبير"
+        title="قريباً — الافتتاح الكبير"
         titleEn="Coming Soon — Grand Opening"
         description="مول البستان — أكبر وجهة تقنية متخصصة في القاهرة الجديدة. الافتتاح الكبير ١ مايو ٢٠٢٦."
         descriptionEn="Mall Elbostan — the biggest tech destination in New Cairo. Grand opening May 1, 2026."
@@ -47,7 +47,7 @@ const Countdown = () => {
               style={{ color: "#F8FAFC" }}
             >
               الافتتاح الكبير
-              <span className="block mt-1 text-primary">قريبًا جدًا</span>
+              <span className="block mt-1 text-primary">قريباً جداً</span>
             </h1>
             <p
               className="text-sm md:text-base max-w-md mx-auto leading-relaxed"
