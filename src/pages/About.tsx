@@ -165,10 +165,10 @@ const About = () => (
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عامًا في السوق المصري." },
-              { icon: Layers, title: "خيارات أكثر", desc: "فئات متنوعة تحت سقف واحد." },
-              { icon: Store, title: "محلات متخصصة", desc: "تجّار بخبرة حقيقية." },
-              { icon: MapPin, title: "تجربة أوضح", desc: "خريطة تفاعلية ودليل رقمي." },
+              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عامًا و+460 محلًا عبر فرعين." },
+              { icon: Layers, title: "+100 ألف منتج", desc: "آلاف التصنيفات الفرعية تحت سقف واحد." },
+              { icon: Store, title: "محلات متخصصة", desc: "تجّار بخبرة حقيقية في كل فئة تقنية." },
+              { icon: MapPin, title: "فرعان رئيسيان", desc: "وسط البلد والقاهرة الجديدة." },
             ].map((item) => (
               <div key={item.title} className="rounded-xl border border-border bg-card p-4 text-center transition-all hover:shadow-[var(--shadow-card)]">
                 <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
