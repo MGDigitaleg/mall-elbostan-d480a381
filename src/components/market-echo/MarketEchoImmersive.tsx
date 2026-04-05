@@ -514,10 +514,11 @@ const stats = [
 ];
 
 function SceneFinal() {
-  const { ref, visible } = useReveal(0.25);
+  const { ref, visible, isMobile } = useReveal(0.25);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
-    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing" style={{ minHeight: "72svh" }}>
+    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing" style={{ minHeight: isMobile ? "60svh" : "72svh" }}>
       <div className="echo-container text-center">
         <span
           className="block mb-4"
