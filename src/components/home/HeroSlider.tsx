@@ -226,27 +226,32 @@ export function HeroSlider() {
       </div>
 
       {/* Slide indicators */}
-      <div className="absolute bottom-5 md:bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2.5">
+      <div className="absolute bottom-3 md:bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className="relative h-1.5 rounded-full transition-all duration-500 overflow-hidden"
-            style={{ width: i === current ? 28 : 8, background: i === current ? "transparent" : "#ffffff20" }}
+            className="relative flex items-center justify-center transition-all duration-500"
+            style={{ width: i === current ? 40 : 24, height: 24, padding: "9px 0" }}
             aria-label={`شريحة ${i + 1}`}
           >
-            {i === current && (
-              <>
-                <div className="absolute inset-0 rounded-full" style={{ background: "#CDBB9A40" }} />
-                <motion.div
-                  className="absolute inset-0 rounded-full origin-right"
-                  style={{ background: "#CDBB9A" }}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 3.5, ease: "linear" }}
-                />
-              </>
-            )}
+            <span
+              className="block w-full rounded-full overflow-hidden relative"
+              style={{ height: 6, background: i === current ? "transparent" : "#ffffff20" }}
+            >
+              {i === current && (
+                <>
+                  <div className="absolute inset-0 rounded-full" style={{ background: "#CDBB9A40" }} />
+                  <motion.div
+                    className="absolute inset-0 rounded-full origin-right"
+                    style={{ background: "#CDBB9A" }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 3.5, ease: "linear" }}
+                  />
+                </>
+              )}
+            </span>
           </button>
         ))}
       </div>
