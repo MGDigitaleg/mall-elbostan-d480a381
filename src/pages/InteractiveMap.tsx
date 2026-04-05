@@ -249,7 +249,7 @@ const InteractiveMap = () => {
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
       <section className="sticky top-[56px] z-30 border-b border-border bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
-               style={{ boxShadow: "0 1px 4px hsl(220 30% 10% / 0.05), 0 4px 16px hsl(220 30% 10% / 0.02)" }}>
+               style={{ boxShadow: "0 1px 4px hsl(var(--foreground) / 0.05), 0 4px 16px hsl(var(--foreground) / 0.02)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="flex flex-wrap items-center justify-between gap-2 py-2.5">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
@@ -332,10 +332,9 @@ const InteractiveMap = () => {
                     </div>
 
                     {/* Quick CTA */}
-                    <Link to="/leasing" className="mt-2.5 flex items-center justify-between rounded-lg px-3 py-2 transition-all hover:shadow-sm"
-                          style={{ background: "hsl(25 95% 55% / 0.06)", border: "1px solid hsl(25 95% 55% / 0.12)" }}>
-                      <span className="text-[0.72rem] font-bold" style={{ color: "hsl(25 85% 40%)" }}>استفسر عن وحدة متاحة</span>
-                      <ChevronLeft className="h-3.5 w-3.5" style={{ color: "hsl(25 85% 40%)" }} />
+                    <Link to="/leasing" className="mt-2.5 flex items-center justify-between rounded-lg px-3 py-2 transition-all hover:shadow-sm bg-orange/5 dark:bg-orange/10 border border-orange/15">
+                      <span className="text-[0.72rem] font-bold text-orange dark:text-orange-foreground">استفسر عن وحدة متاحة</span>
+                      <ChevronLeft className="h-3.5 w-3.5 text-orange dark:text-orange-foreground" />
                     </Link>
                   </div>
                 </div>
