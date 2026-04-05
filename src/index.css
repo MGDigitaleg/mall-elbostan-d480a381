@@ -30,7 +30,7 @@
     --popover: 60 9% 98%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 222 100% 59%;            /* #2D6BFF accent blue */
+    --primary: 222 100% 56%;            /* #1F61FF accent blue — WCAG AA compliant with white text */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 12% 93%;            /* warm ivory darker */
