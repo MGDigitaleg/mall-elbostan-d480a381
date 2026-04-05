@@ -178,9 +178,9 @@ const ProductDetail = () => {
             <div className="grid gap-8 lg:grid-cols-2">
               {/* Image Gallery */}
               <div>
-                <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-white">
+                <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-[hsl(210_40%_96.1%)]">
                   {kzImages.length > 0 ? (
-                    <img src={kzImages[selectedImageIdx]?.image_url} alt={kzImages[selectedImageIdx]?.alt_text || kzProduct.title} className="h-full w-full object-contain p-4" />
+                    <img src={kzImages[selectedImageIdx]?.image_url} alt={kzImages[selectedImageIdx]?.alt_text || kzProduct.title} className="h-full w-full object-contain p-[clamp(10px,3%,18px)]" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-12 w-12 text-muted-foreground/20" /></div>
                   )}
@@ -198,8 +198,8 @@ const ProductDetail = () => {
                 {kzImages.length > 1 && (
                   <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
                     {kzImages.map((img: any, i: number) => (
-                      <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-white transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
-                        <img src={img.image_url} alt="" className="h-full w-full object-contain p-1" />
+                      <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-[hsl(210_40%_96.1%)] transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
+                        <img src={img.image_url} alt="" className="h-full w-full object-contain p-0.5" />
                       </button>
                     ))}
                   </div>
@@ -333,8 +333,8 @@ const ProductDetail = () => {
                     const ri = rp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                     return (
                       <Link key={rp.id} to={`/products/${rp.slug}`} className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md">
-                        <div className="aspect-square overflow-hidden bg-white">
-                          {ri ? <img src={ri.image_url} alt={rp.title} className="h-full w-full object-contain p-3 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/20" /></div>}
+                        <div className="aspect-square overflow-hidden bg-[hsl(210_40%_96.1%)]">
+                          {ri ? <img src={ri.image_url} alt={rp.title} className="h-full w-full object-contain p-1.5 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/20" /></div>}
                         </div>
                         <div className="p-3">
                           <p className="text-[0.76rem] font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">{rp.title}</p>
@@ -395,8 +395,8 @@ const ProductDetail = () => {
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
             {/* Image */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
-              <div className="overflow-hidden rounded-xl border border-border bg-white">
-                <div className="flex aspect-square items-center justify-center p-4 md:p-6">
+              <div className="overflow-hidden rounded-xl border border-border bg-[hsl(210_40%_96.1%)]">
+                <div className="flex aspect-square items-center justify-center p-[clamp(10px,3%,18px)]">
                   {mallProduct!.image_url ? (
                     <img src={mallProduct!.image_url} alt={mallProduct!.name_ar} className="h-full w-full object-contain" />
                   ) : (
@@ -407,8 +407,8 @@ const ProductDetail = () => {
               {mallGallery.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {mallGallery.map((img, i) => (
-                    <div key={i} className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-white ${i === 0 ? "border-primary border-2" : "border-border"}`}>
-                      <img src={img} alt={`${mallProduct!.name_ar} ${i + 1}`} className="h-full w-full object-contain p-1" />
+                    <div key={i} className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-[hsl(210_40%_96.1%)] ${i === 0 ? "border-primary border-2" : "border-border"}`}>
+                      <img src={img} alt={`${mallProduct!.name_ar} ${i + 1}`} className="h-full w-full object-contain p-0.5" />
                     </div>
                   ))}
                 </div>
@@ -546,7 +546,7 @@ const ProductDetail = () => {
             <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-4">
               {relatedMallProducts.map((rp) => (
                 <Link key={rp.id} to={`/products/${rp.slug}`} className="group flex flex-col bg-white transition-colors hover:bg-secondary/40">
-                  <div className="flex aspect-square items-center justify-center p-3">
+                  <div className="flex aspect-square items-center justify-center bg-[hsl(210_40%_96.1%)] p-1.5">
                     {rp.image_url ? (
                       <img src={rp.image_url} alt={rp.name_ar} className="h-full w-full object-contain transition-transform group-hover:scale-105" loading="lazy" />
                     ) : (
