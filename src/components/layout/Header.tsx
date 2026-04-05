@@ -246,7 +246,7 @@ export function Header() {
 
             <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8") }} />
 
-            <Link to="/spin-win">
+            <Link to="/spin-win" className="relative z-10 inline-flex">
               <Button
                 size="sm"
                 className="h-[34px] gap-1.5 rounded-lg px-4 text-[0.76rem] font-bold transition-all duration-300 hover:scale-[1.03]"
