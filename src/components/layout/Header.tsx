@@ -103,13 +103,13 @@ export function Header() {
         background: isTransparent
           ? "transparent"
           : scrolled
-            ? "rgba(250,250,248,0.97)"
-            : "rgba(250,250,248,0.92)",
+            ? (isDark ? "rgba(11,18,32,0.97)" : "rgba(250,250,248,0.97)")
+            : (isDark ? "rgba(11,18,32,0.92)" : "rgba(250,250,248,0.92)"),
         backdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
         WebkitBackdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
         borderBottom: isTransparent ? "1px solid transparent" : `1px solid ${borderColor}`,
         boxShadow: !isTransparent && scrolled
-          ? "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)"
+          ? (isDark ? "0 1px 3px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.15)" : "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)")
           : "none",
         transition: "background 0.4s, box-shadow 0.4s, border-color 0.4s, backdrop-filter 0.4s",
       }}
