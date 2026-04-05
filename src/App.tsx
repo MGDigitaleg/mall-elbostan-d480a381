@@ -34,6 +34,7 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
 const RewardTerms = lazy(() => import("./pages/RewardTerms"));
 const MarketEcho = lazy(() => import("./pages/MarketEcho"));
+const Countdown = lazy(() => import("./pages/Countdown"));
 const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
 const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -64,7 +65,7 @@ function ScrollToTop() {
 
 /* Routes that should NOT show the public header/footer/widgets */
 const adminPaths = ["/admin"];
-const immersivePaths = ["/market-echo"];
+const immersivePaths = ["/market-echo", "/countdown"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
 const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo"];
@@ -125,6 +126,7 @@ function AppLayout() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/reward-terms" element={<RewardTerms />} />
             <Route path="/market-echo" element={<MarketEcho />} />
+            <Route path="/countdown" element={<Countdown />} />
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
