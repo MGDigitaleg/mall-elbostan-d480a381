@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
+import { useCountUp } from "@/hooks/useCountUp";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
@@ -206,25 +207,7 @@ export function HeroSlider() {
           }}
         >
           {stats.map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-2 md:flex-1 md:justify-center">
-              <div
-                className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg"
-                style={{ background: "hsla(0, 0%, 100%, 0.06)", border: "1px solid hsla(0, 0%, 100%, 0.05)" }}
-              >
-                <stat.icon className="h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: "#CDBB9A" }} />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-poppins text-[0.88rem] md:text-[1rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
-                  {stat.value}
-                </span>
-                <span className="text-[0.6rem] md:text-[0.65rem] font-medium leading-tight mt-0.5" style={{ color: "#94A3B8" }}>
-                  {stat.label}
-                </span>
-              </div>
-              {i < stats.length - 1 && (
-                <span className="hidden md:block mr-0 h-8 w-px" style={{ background: "hsla(0, 0%, 100%, 0.08)" }} />
-              )}
-            </div>
+            <CountUpStatItem key={stat.label} stat={stat} isLast={i >= stats.length - 1} />
           ))}
         </div>
       </div>
