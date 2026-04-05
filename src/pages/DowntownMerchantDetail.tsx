@@ -349,7 +349,6 @@ const DowntownMerchantDetail = () => {
                         href={s.url!}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-[0.75rem] font-medium transition-all duration-200 hover:shadow-sm"
                          className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-[0.75rem] font-medium transition-all duration-200 hover:shadow-sm bg-secondary dark:bg-muted/30 border border-border text-muted-foreground"
                        >
                         <span style={{ color: "#2563EB" }}>
@@ -398,10 +397,9 @@ const DowntownMerchantDetail = () => {
                       to={`/downtown-directory/${rm.slug}`}
                        className="group flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-all duration-200 hover:shadow-md hover:border-primary/20"
                     >
-                      <div
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary dark:bg-muted/30 border border-border"
-                      >
+                       <div
+                         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary dark:bg-muted/30 border border-border"
+                       >
                         {rm.logo_url ? (
                           <img src={rm.logo_url} alt={rm.name_ar} className="h-8 w-8 object-contain" />
                         ) : (
@@ -432,10 +430,9 @@ const DowntownMerchantDetail = () => {
           <div className="mt-8 text-center">
             <Link to="/downtown-directory">
               <Button
-                variant="outline"
-                className="h-11 rounded-xl px-6 text-[0.82rem] font-bold gap-2"
-                className="h-11 rounded-xl px-6 text-[0.82rem] font-bold gap-2 border-border text-muted-foreground"
-              >
+                 variant="outline"
+                 className="h-11 rounded-xl px-6 text-[0.82rem] font-bold gap-2 border-border text-muted-foreground"
+               >
                 <ArrowLeft className="h-4 w-4 rotate-180" />
                 العودة لدليل المحلات
               </Button>
