@@ -74,17 +74,20 @@ function BackButton() {
    ═══════════════════════════════════════════════ */
 function SceneOpening() {
   const [step, setStep] = useState(0);
+  const isMobile = useIsMobile();
   const words = ["الاسم", "الذي", "ظل", "يتردد", "في", "السوق."];
 
   useEffect(() => {
+    // Faster reveal on mobile for snappier feel
+    const d = isMobile ? 0.7 : 1;
     const timers = [
-      setTimeout(() => setStep(1), 500),   // kicker
-      setTimeout(() => setStep(2), 800),   // title
-      setTimeout(() => setStep(3), 1600),  // support
-      setTimeout(() => setStep(4), 2200),  // CTA
+      setTimeout(() => setStep(1), 400 * d),
+      setTimeout(() => setStep(2), 700 * d),
+      setTimeout(() => setStep(3), 1400 * d),
+      setTimeout(() => setStep(4), 1900 * d),
     ];
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
