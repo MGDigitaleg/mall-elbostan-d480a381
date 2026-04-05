@@ -59,7 +59,7 @@ const KzCart = () => {
               <div className="space-y-3">
                 {items.map(item => (
                   <div key={item.variantId} className="flex items-center gap-4 rounded-xl border border-border bg-card p-4">
-                    <Link to={`/kz/products/${item.slug}`} className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-white">
+                    <Link to={`/kz/products/${item.slug}`} className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-card dark:bg-muted/20">
                       {item.imageUrl ? (
                         <img src={item.imageUrl} alt={item.title} className="h-full w-full object-contain p-1" />
                       ) : (

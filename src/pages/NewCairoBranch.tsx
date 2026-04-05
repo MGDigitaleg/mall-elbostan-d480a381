@@ -283,7 +283,7 @@ const NewCairoBranch = () => {
                   const store = (p as Record<string, unknown>).stores as { name_ar: string } | null;
                   return (
                     <Link key={p.id} to={`/products/${p.slug}`} className="group flex flex-col bg-card transition-colors hover:bg-secondary/30">
-                      <div className="flex aspect-square items-center justify-center p-3 bg-white">
+                      <div className="flex aspect-square items-center justify-center p-3 bg-card dark:bg-muted/20">
                         {p.image_url ? (
                           <img src={p.image_url} alt={p.name_ar} className="h-full w-full object-contain transition-transform group-hover:scale-105" loading="lazy" />
                         ) : (

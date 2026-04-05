@@ -201,7 +201,7 @@ function ProductCard({ product }: { product: any }) {
 
   return (
     <Link to={`/kz/products/${product.slug}`} className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md">
-      <div className="relative aspect-square overflow-hidden bg-white">
+      <div className="relative aspect-square overflow-hidden bg-card dark:bg-muted/20">
         {image ? (
           <img src={image.image_url} alt={product.title} className="h-full w-full object-contain p-3 transition-transform group-hover:scale-105" loading="lazy" />
         ) : (

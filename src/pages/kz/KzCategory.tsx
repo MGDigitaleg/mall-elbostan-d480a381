@@ -96,7 +96,7 @@ const KzCategory = () => {
                 const image = product.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                 return (
                   <Link key={product.id} to={`/kz/products/${product.slug}`} className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md">
-                    <div className="relative aspect-square overflow-hidden bg-white">
+                    <div className="relative aspect-square overflow-hidden bg-card dark:bg-muted/20">
                       {image ? <img src={image.image_url} alt={product.title} className="h-full w-full object-contain p-3 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-8 w-8 text-muted-foreground/20" /></div>}
                       {variant?.compare_price && variant.compare_price > variant.price && (
                         <span className="absolute top-2 right-2 rounded-md bg-destructive px-1.5 py-0.5 text-[0.6rem] font-bold text-white">خصم {Math.round(((variant.compare_price - variant.price) / variant.compare_price) * 100)}%</span>
