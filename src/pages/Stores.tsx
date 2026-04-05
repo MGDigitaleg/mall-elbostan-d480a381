@@ -173,7 +173,7 @@ const Stores = () => {
                     setSelectedCategory(isActive ? "" : cat);
                     document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-card"
                   style={{
                     borderColor: isActive ? `${meta.color}50` : "hsl(var(--border))",
                     background: isActive ? `linear-gradient(155deg, ${meta.color}0A, hsl(var(--card)))` : undefined,
