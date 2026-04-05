@@ -288,6 +288,7 @@ export function Header() {
           </Link>
 
           <div className="flex items-center justify-end gap-2">
+            <ThemeToggle isTransparent={isTransparent} />
             {isKzPage && (
               <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
                 <ShoppingCart className="h-3.5 w-3.5" />
