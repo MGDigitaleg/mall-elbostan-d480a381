@@ -98,17 +98,16 @@ export function FeaturedStores() {
                       minHeight: "clamp(155px, 16vw, 180px)",
                     }}
                   >
-                    {/* Logo — 72px desktop / 64px tablet / 58px mobile */}
+                    {/* Logo */}
                     <div
                       className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
                       style={{
-                        width: "clamp(58px, 6vw, 72px)",
-                        height: "clamp(58px, 6vw, 72px)",
-                        borderRadius: 18,
-                        border: "1px solid rgba(22,41,84,0.08)",
+                        width: "clamp(52px, 5.5vw, 64px)",
+                        height: "clamp(52px, 5.5vw, 64px)",
+                        borderRadius: 14,
                         background: "#fff",
-                        padding: 10,
-                        marginBottom: 12,
+                        padding: 4,
+                        marginBottom: 10,
                       }}
                     >
                       {store.logo_url ? (
@@ -116,7 +115,7 @@ export function FeaturedStores() {
                           src={store.logo_url}
                           alt={store.name_ar}
                           className="object-contain"
-                          style={{ maxWidth: "78%", maxHeight: "78%" }}
+                          style={{ width: "100%", height: "100%" }}
                           loading="lazy"
                         />
                       ) : (
