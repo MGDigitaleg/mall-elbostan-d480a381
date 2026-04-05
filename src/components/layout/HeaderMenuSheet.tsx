@@ -5,8 +5,9 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Compass, MapPin, Sparkles, Building2, ShoppingBag, Briefcase,
-  FileText, Phone, Map, Tag, HelpCircle, Gamepad2, Store,
+  FileText, Phone, Map, Tag, HelpCircle, Gamepad2, Store, Sun, Moon,
 } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
 const navSections = [
   {
@@ -57,6 +58,7 @@ interface HeaderMenuSheetProps {
 export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLinkClick = () => {
     // Small delay for visual feedback before closing
@@ -69,7 +71,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
       <SheetContent
         side="right"
         className="flex w-[90vw] max-w-[24rem] flex-col border-0 px-0 py-0"
-        style={{ background: "#FAFBFC" }}
+        style={{ background: "hsl(var(--card))" }}
       >
         {/* Header */}
         <div
@@ -186,8 +188,32 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
         {/* Bottom CTA */}
         <div
           className="shrink-0 px-6 py-4 space-y-2"
-          style={{ borderTop: "1px solid #E2E8F0" }}
+          style={{ borderTop: "1px solid hsl(var(--border))" }}
         >
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 transition-colors"
+            style={{
+              background: "hsl(var(--muted) / 0.4)",
+              border: "1px solid hsl(var(--border) / 0.6)",
+            }}
+          >
+            <span className="flex items-center gap-2.5 text-[0.82rem] font-semibold text-foreground">
+              {theme === "dark" ? <Moon className="h-4 w-4 text-primary" /> : <Sun className="h-4 w-4 text-orange" />}
+              {theme === "dark" ? "الوضع الداكن" : "الوضع الفاتح"}
+            </span>
+            <span
+              className="rounded-md px-2 py-0.5 text-[0.66rem] font-bold"
+              style={{
+                background: "hsl(var(--primary) / 0.1)",
+                color: "hsl(var(--primary))",
+              }}
+            >
+              {theme === "dark" ? "فاتح" : "داكن"}
+            </span>
+          </button>
+
           <Link to="/leasing" onClick={handleLinkClick} className="block">
             <Button
               className="h-11 w-full rounded-xl text-[0.82rem] font-bold"
