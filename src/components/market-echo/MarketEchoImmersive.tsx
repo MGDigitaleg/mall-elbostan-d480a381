@@ -524,7 +524,7 @@ function SceneFinal() {
           className="block mb-4"
           style={{
             fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "#D9C8A2",
-            opacity: visible ? 1 : 0, transition: `opacity 850ms ${EASE}`,
+            opacity: visible ? 1 : 0, transition: `opacity 700ms ${ease}`,
           }}
         >
           البستان بالأرقام
