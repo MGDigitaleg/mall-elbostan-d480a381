@@ -236,6 +236,14 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
         {/* ── ClipPaths for logo badges ── */}
         <defs>
+          <style>{`
+            @keyframes badgeBounceIn {
+              0% { transform: scale(0); opacity: 0; }
+              60% { transform: scale(1.08); opacity: 1; }
+              80% { transform: scale(0.96); }
+              100% { transform: scale(1); opacity: 1; }
+            }
+          `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
             const badgeH = 56;
