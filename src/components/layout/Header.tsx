@@ -167,9 +167,9 @@ export function Header() {
                 <div
                   className="absolute right-0 top-full mt-2 w-[280px] rounded-xl p-1.5"
                   style={{
-                    background: isTransparent ? "rgba(7,19,38,0.92)" : "rgba(250,250,248,0.98)",
+                    background: isTransparent ? "rgba(7,19,38,0.92)" : (isDark ? "rgba(17,27,46,0.98)" : "rgba(250,250,248,0.98)"),
                     backdropFilter: "blur(20px)",
-                    border: `1px solid ${isTransparent ? "rgba(255,255,255,0.1)" : "rgba(216,222,232,0.6)"}`,
+                    border: `1px solid ${(isTransparent || isDark) ? "rgba(255,255,255,0.1)" : "rgba(216,222,232,0.6)"}`,
                     boxShadow: "0 8px 32px rgba(7,19,38,0.15), 0 2px 8px rgba(7,19,38,0.08)",
                     animation: "fadeInDown 0.15s ease-out",
                   }}
@@ -183,7 +183,7 @@ export function Header() {
                         className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200"
                         style={{
                           background: active ? activeBg : "transparent",
-                          color: active ? activeColor : (isTransparent ? "#CBD5E1" : "#334155"),
+                          color: active ? activeColor : ((isTransparent || isDark) ? "#CBD5E1" : "#334155"),
                         }}
                         onMouseEnter={(e) => { if (!active) (e.currentTarget.style.background = hoverBg); }}
                         onMouseLeave={(e) => { if (!active) (e.currentTarget.style.background = "transparent"); }}
