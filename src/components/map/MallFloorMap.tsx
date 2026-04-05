@@ -450,7 +450,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.area} م²
                     </text>
-                  </>
+                  </g>
                 )}
 
                 {/* Status dot for non-occupied */}
