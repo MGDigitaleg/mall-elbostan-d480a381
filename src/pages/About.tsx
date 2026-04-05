@@ -120,7 +120,58 @@ const About = () => (
       </div>
     </section>
 
-    {/* ═══════════ 3 · TIMELINE ═══════════ */}
+    {/* ═══════════ 2.5 · PLATFORM STATS ═══════════ */}
+    <section className="relative overflow-hidden py-8 md:py-10" style={{ background: "linear-gradient(135deg, hsl(218, 55%, 8%) 0%, hsl(218, 50%, 12%) 50%, hsl(218, 45%, 10%) 100%)" }}>
+      {/* Ambient accents */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-1/2 left-[15%] -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
+        <div className="absolute top-1/2 right-[15%] -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
+      </div>
+      {/* Grid texture */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+
+      <div className="relative container max-w-[900px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="text-center mb-6">
+            <p className="text-[0.62rem] font-bold tracking-[0.18em] uppercase mb-2" style={{ color: "#CDBB9A" }}>المنظومة بالأرقام</p>
+            <h2 className="text-[1.3rem] md:text-[1.5rem] font-bold" style={{ color: "#F8FAFC" }}>
+              أكبر من مول — <span style={{ color: "#5B9AFF" }}>منظومة تقنية متكاملة.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: "+460", label: "محلًا", sub: "عبر فرعين رئيسيين" },
+              { value: "+100 ألف", label: "منتج", sub: "في كل فئات التقنية" },
+              { value: "آلاف", label: "التصنيفات", sub: "تغطية واسعة ومتخصصة" },
+              { value: "فرعان", label: "رئيسيان", sub: "وسط البلد والتجمع" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.45 }}
+                className="relative rounded-2xl p-5 text-center overflow-hidden"
+                style={{ background: "hsla(220, 45%, 13%, 0.8)", border: "1px solid hsla(0, 0%, 100%, 0.06)", boxShadow: "0 4px 24px hsla(220, 60%, 5%, 0.3)" }}
+              >
+                <div className="absolute inset-0 opacity-[0.03]" style={{ background: "linear-gradient(135deg, #2563EB, transparent 60%)" }} />
+                <p className="relative font-poppins text-[1.6rem] md:text-[1.9rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
+                  {stat.value}
+                </p>
+                <p className="relative mt-1.5 text-[0.88rem] font-bold" style={{ color: "#CDBB9A" }}>
+                  {stat.label}
+                </p>
+                <p className="relative mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#94A3B8" }}>
+                  {stat.sub}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
     <section className="heritage-deep py-7 md:py-9 relative overflow-hidden">
       <div className="relative container max-w-[900px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
