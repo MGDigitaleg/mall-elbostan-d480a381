@@ -19,17 +19,20 @@ export function MerchantLogoWall() {
 
   if (!stores || stores.length === 0) return null;
 
+  // Show max 18 logos (3 rows of 6)
+  const displayed = stores.slice(0, 18);
+
   return (
     <section
-      className="heritage-deep relative overflow-hidden min-h-[240px]"
+      className="heritage-deep relative overflow-hidden"
       style={{
         contain: "layout style",
-        paddingTop: "clamp(40px, 5.5vw, 88px)",
-        paddingBottom: "clamp(40px, 5.5vw, 88px)",
+        paddingTop: "clamp(32px, 4vw, 64px)",
+        paddingBottom: "clamp(32px, 4vw, 64px)",
       }}
     >
       <div className="relative container">
-        <div className="mb-5 flex items-end justify-between gap-4">
+        <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <p className="section-kicker dark-kicker">محلات المول</p>
             <h2 className="section-title dark-heading">تعرّف على المحلات.</h2>
@@ -41,29 +44,29 @@ export function MerchantLogoWall() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8">
-          {stores.map((store) => (
+        <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9">
+          {displayed.map((store) => (
             <Link
               key={store.id}
               to={`/stores/${store.slug}`}
-              className="group flex flex-col items-center gap-2 rounded-lg p-3 transition-all heritage-surface hover:border-primary/20 hover:shadow-[0_4px_20px_rgba(37,99,235,0.1)]"
+              className="group flex flex-col items-center gap-1 rounded-lg py-2 px-1.5 transition-all heritage-surface hover:border-primary/20 hover:shadow-[0_4px_20px_rgba(37,99,235,0.1)]"
             >
-              <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-white dark:bg-white/90 transition-transform group-hover:scale-105" style={{ padding: 3 }}>
+              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-white dark:bg-white/90 transition-transform group-hover:scale-105" style={{ padding: 2 }}>
                 {store.logo_url ? (
                   <img src={store.logo_url} alt={store.name_ar} className="h-full w-full object-contain" loading="lazy" />
                 ) : (
-                  <Store className="h-5 w-5" style={{ color: "#5B9AFF" }} />
+                  <Store className="h-4 w-4" style={{ color: "#5B9AFF" }} />
                 )}
               </div>
-              <p className="text-[0.64rem] font-bold dark-heading line-clamp-1 text-center leading-tight">
-                {store.name_ar}
+              <p className="text-[0.58rem] font-bold dark-heading line-clamp-1 text-center leading-tight">
+                {store.name_en || store.name_ar}
               </p>
             </Link>
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-center">
+        {/* Stats + CTA */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-center">
           {[
             { value: stores.length.toString(), label: "محل نشط" },
             { value: "6", label: "فئات تقنية" },
@@ -79,10 +82,10 @@ export function MerchantLogoWall() {
           ))}
         </div>
 
-        <div className="mt-4 flex justify-center lg:hidden">
+        <div className="mt-3 flex justify-center lg:hidden">
           <Link to="/stores">
             <Button
-              className="h-9 rounded-lg border px-5 text-[0.74rem] font-bold"
+              className="h-8 rounded-lg border px-4 text-[0.72rem] font-bold"
               style={{ borderColor: "#ffffff1A", background: "#ffffff0A", color: "#E2E8F0" }}
             >
               عرض جميع المحلات
