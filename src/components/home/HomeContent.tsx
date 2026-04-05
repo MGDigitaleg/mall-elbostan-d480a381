@@ -136,11 +136,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
       <section
+        className="bg-card dark:bg-background"
         style={{
-          background: "#FAFAF8",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}
+        }}>
       >
         <div className="container">
           <ProductRail
@@ -164,11 +164,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       {trendingProducts.length >= 3 && (
         <section
+          className="bg-card dark:bg-background"
           style={{
-            background: "#FAFAF8",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}
+          }}>
         >
           <div className="container">
             <ProductRail
@@ -218,11 +218,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {phoneProducts.length >= 3 && (
         <section
+          className="bg-card dark:bg-background"
           style={{
-            background: "#FAFAF8",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}
+          }}>
         >
           <div className="container">
             <ProductRail
@@ -274,11 +274,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
       {gamingProducts.length >= 3 && (
         <section
+          className="bg-card dark:bg-background"
           style={{
-            background: "#FAFAF8",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}
+          }}>
         >
           <div className="container">
             <ProductRail
@@ -301,11 +301,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
+        className="bg-card dark:bg-background"
         style={{
-          background: "#FAFAF8",
           paddingTop: "clamp(40px, 5.5vw, 88px)",
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
-        }}
+        }}>
       >
         <div className="container">
           <motion.div
