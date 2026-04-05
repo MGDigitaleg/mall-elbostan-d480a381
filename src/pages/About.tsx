@@ -49,7 +49,7 @@ const About = () => (
         { label: "فرع وسط البلد", to: "/downtown-branch" },
         { label: "فرع القاهرة الجديدة", to: "/new-cairo-branch" },
       ]}
-      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلاً" }}
+      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلًا" }}
     />
 
     {/* ═══════════ 2 · TWO BRANCHES ═══════════ */}
