@@ -620,8 +620,8 @@ function SceneCTA() {
           style={{
             fontSize: 18, lineHeight: 1.9, color: "rgba(255,255,255,0.72)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 400ms, transform 850ms ${EASE} 400ms`,
+            transform: visible ? "translateY(0)" : `translateY(${isMobile ? 6 : 10}px)`,
+            transition: `opacity 700ms ${ease} 300ms, transform 700ms ${ease} 300ms`,
           }}
         >
           استكشف، قارن، ثم اختر المسار الأنسب لك.
@@ -632,8 +632,8 @@ function SceneCTA() {
           className="mt-10 flex flex-col md:flex-row items-center justify-center gap-3"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 600ms, transform 850ms ${EASE} 600ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 6 : 10}px) scale(${isMobile ? 0.97 : 1})`,
+            transition: `opacity 700ms ${ease} 450ms, transform 700ms ${ease} 450ms`,
           }}
         >
           <Link to="/stores" className="w-full md:w-auto">
