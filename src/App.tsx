@@ -8,7 +8,7 @@ import { useGA4 } from "@/hooks/useGA4";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
-import { WhatsAppFab } from "./components/WhatsAppFab";
+
 
 /* ── Lazy-loaded pages for code-splitting ── */
 const Index = lazy(() => import("./pages/Index"));
