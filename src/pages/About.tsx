@@ -150,7 +150,7 @@ const About = () => (
               { value: "آلاف", label: "التصنيفات", sub: "تغطية واسعة ومتخصصة" },
               { value: "فرعان", label: "رئيسيان", sub: "وسط البلد والتجمع" },
             ].map((stat, i) => (
-              <AboutStatCard key={stat.label} stat={stat} index={i} />
+              <BranchStatCard key={stat.label} value={stat.value} label={stat.label} sub={stat.sub} index={i} variant="about" />
             ))}
           </div>
         </motion.div>
