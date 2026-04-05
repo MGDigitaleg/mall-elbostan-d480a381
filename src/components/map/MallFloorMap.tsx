@@ -45,6 +45,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
 
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, hideControls, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
   const pulseColor = atriumConfig?.pulseColor;
   const atriumLabel = atriumConfig?.label;
