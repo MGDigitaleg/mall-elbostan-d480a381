@@ -229,6 +229,15 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </g>
         ))}
 
+        {/* ── ClipPaths for unit logos ── */}
+        <defs>
+          {floor.units.map((unit) => (
+            <clipPath key={`clip-${unit.id}`} id={`clip-${unit.id}`}>
+              <polygon points={unit.polygon} />
+            </clipPath>
+          ))}
+        </defs>
+
         {/* ── Unit polygons ── */}
         <g id="units-layer">
           {floor.units.map((unit) => {
@@ -327,7 +336,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
                 {tenantLogo && hasName ? (
                   <>
-                    {/* Tenant logo — centered in unit */}
+                    {/* Tenant logo — clipped to unit polygon */}
                     <image
                       href={tenantLogo}
                       x={unit.labelX - logoW / 2}
@@ -336,6 +345,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       height={logoH}
                       preserveAspectRatio="xMidYMid meet"
                       opacity="0.95"
+                      clipPath={`url(#clip-${unit.id})`}
                     />
                     {/* Unit code below logo */}
                     <text
