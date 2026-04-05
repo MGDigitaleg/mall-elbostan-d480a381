@@ -249,7 +249,7 @@ const InteractiveMap = () => {
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
       <section className="sticky top-[56px] z-30 border-b border-border bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
-               style={{ boxShadow: "0 1px 4px hsl(220 30% 10% / 0.05), 0 4px 16px hsl(220 30% 10% / 0.02)" }}>
+               style={{ boxShadow: "0 1px 4px hsl(var(--foreground) / 0.05), 0 4px 16px hsl(var(--foreground) / 0.02)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="flex flex-wrap items-center justify-between gap-2 py-2.5">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
@@ -318,24 +318,23 @@ const InteractiveMap = () => {
                     </p>
                   </div>
                   <div className="p-3">
-                    <div className="grid grid-cols-3 gap-2 text-center">
+                     <div className="grid grid-cols-3 gap-2 text-center">
                       {[
-                        { v: floorOccupied, l: "مشغولة", color: "hsl(var(--foreground))", bg: "hsl(var(--muted) / 0.5)", border: "hsl(var(--border))" },
-                        { v: floorAvailable, l: "متاحة", color: "hsl(25 95% 45%)", bg: "hsl(35 100% 97%)", border: "hsl(25 95% 55% / 0.2)" },
-                        { v: floorComingSoon, l: "قريبًا", color: "hsl(190 85% 35%)", bg: "hsl(190 50% 96%)", border: "hsl(190 85% 40% / 0.2)" },
+                        { v: floorOccupied, l: "مشغولة", colorClass: "text-foreground", bgClass: "bg-muted/50 border border-border" },
+                        { v: floorAvailable, l: "متاحة", colorClass: "text-[hsl(25_95%_45%)] dark:text-[hsl(25_95%_65%)]", bgClass: "bg-[hsl(35_100%_97%)] dark:bg-[hsl(25_50%_15%)] border border-[hsl(25_95%_55%/0.2)]" },
+                        { v: floorComingSoon, l: "قريبًا", colorClass: "text-[hsl(190_85%_35%)] dark:text-[hsl(190_85%_55%)]", bgClass: "bg-[hsl(190_50%_96%)] dark:bg-[hsl(190_50%_15%)] border border-[hsl(190_85%_40%/0.2)]" },
                       ].map((s) => (
-                        <div key={s.l} className="rounded-lg py-3 transition-all" style={{ background: s.bg, border: `1px solid ${s.border}` }}>
-                          <p className="font-poppins text-[1.1rem] font-extrabold" style={{ color: s.color }}>{s.v}</p>
+                        <div key={s.l} className={`rounded-lg py-3 transition-all ${s.bgClass}`}>
+                          <p className={`font-poppins text-[1.1rem] font-extrabold ${s.colorClass}`}>{s.v}</p>
                           <p className="mt-0.5 text-[0.54rem] font-semibold text-muted-foreground">{s.l}</p>
                         </div>
                       ))}
                     </div>
 
                     {/* Quick CTA */}
-                    <Link to="/leasing" className="mt-2.5 flex items-center justify-between rounded-lg px-3 py-2 transition-all hover:shadow-sm"
-                          style={{ background: "hsl(25 95% 55% / 0.06)", border: "1px solid hsl(25 95% 55% / 0.12)" }}>
-                      <span className="text-[0.72rem] font-bold" style={{ color: "hsl(25 85% 40%)" }}>استفسر عن وحدة متاحة</span>
-                      <ChevronLeft className="h-3.5 w-3.5" style={{ color: "hsl(25 85% 40%)" }} />
+                    <Link to="/leasing" className="mt-2.5 flex items-center justify-between rounded-lg px-3 py-2 transition-all hover:shadow-sm bg-orange/5 dark:bg-orange/10 border border-orange/15">
+                      <span className="text-[0.72rem] font-bold text-orange dark:text-orange-foreground">استفسر عن وحدة متاحة</span>
+                      <ChevronLeft className="h-3.5 w-3.5 text-orange dark:text-orange-foreground" />
                     </Link>
                   </div>
                 </div>

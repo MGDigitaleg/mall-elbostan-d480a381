@@ -11,23 +11,23 @@ export type ActiveRewardContext = {
   isCategory?: boolean;
 };
 
-const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
-  occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
-  available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E" },
-  coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8" },
+const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string; darkBg: string; darkBorder: string; darkText: string }> = {
+  occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488", darkBg: "#1E1D1C", darkBorder: "#3A3835", darkText: "#C8C4BF" },
+  available: { bg: "#FDE4C4", border: "#E8740E40", text: "#B85C08", dot: "#E8740E", darkBg: "#2A1D0D", darkBorder: "#E8740E40", darkText: "#F5A623" },
+  coming_soon: { bg: "#C8E8F4", border: "#0A9AB840", text: "#0A7A96", dot: "#0A9AB8", darkBg: "#0D1F2A", darkBorder: "#0A9AB840", darkText: "#22D3EE" },
 };
 
 function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
   return (
-    <div className="rounded-xl p-3.5" style={{ background: "linear-gradient(135deg, #EEF2FF, #E8ECFF)", border: "1px solid #C7D2FE" }}>
-      <div className="flex items-center gap-1.5 text-[0.66rem] font-bold uppercase tracking-widest" style={{ color: "#3B52CC" }}>
+    <div className="rounded-xl p-3.5 bg-accent/30 dark:bg-primary/10 border border-accent dark:border-primary/20">
+      <div className="flex items-center gap-1.5 text-[0.66rem] font-bold uppercase tracking-widest text-primary">
         <Gift className="h-3.5 w-3.5" />
         مكافأة نشطة
       </div>
-      <p className="mt-1.5 text-[0.88rem] font-bold light-heading">{ctx.prizeName}</p>
-      {ctx.storeName && <p className="mt-0.5 text-[0.78rem] light-body">من {ctx.storeName}</p>}
-      {ctx.claimRules && <p className="mt-1.5 text-[0.74rem] leading-5 light-body">{ctx.claimRules}</p>}
-      {ctx.isCategory && <p className="mt-1.5 text-[0.7rem] font-bold" style={{ color: "#3B52CC" }}>جميع المتاجر المُظلّلة مشاركة</p>}
+      <p className="mt-1.5 text-[0.88rem] font-bold text-foreground">{ctx.prizeName}</p>
+      {ctx.storeName && <p className="mt-0.5 text-[0.78rem] text-muted-foreground">من {ctx.storeName}</p>}
+      {ctx.claimRules && <p className="mt-1.5 text-[0.74rem] leading-5 text-muted-foreground">{ctx.claimRules}</p>}
+      {ctx.isCategory && <p className="mt-1.5 text-[0.7rem] font-bold text-primary">جميع المتاجر المُظلّلة مشاركة</p>}
     </div>
   );
 }
@@ -56,18 +56,25 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
           {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
             <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{UNIT_TENANT_NAMES[unit.id]}</p>
           )}
-          <p className="mt-0.5 text-[0.72rem] font-medium" style={{ color: "#64748B" }}>{floorLabelsAr[unit.floor]}</p>
+          <p className="mt-0.5 text-[0.72rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
         </div>
         <span
-          className="flex items-center gap-1.5 shrink-0 rounded-lg px-2.5 py-1.5 text-[0.7rem] font-bold"
+          className="flex items-center gap-1.5 shrink-0 rounded-lg px-2.5 py-1.5 text-[0.7rem] font-bold dark:hidden"
           style={{ background: badge.bg, border: `1px solid ${badge.border}`, color: badge.text }}
+        >
+          <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
+          {statusLabelsAr[unit.status]}
+        </span>
+        <span
+          className="hidden items-center gap-1.5 shrink-0 rounded-lg px-2.5 py-1.5 text-[0.7rem] font-bold dark:flex"
+          style={{ background: badge.darkBg, border: `1px solid ${badge.darkBorder}`, color: badge.darkText }}
         >
           <span className="h-2 w-2 rounded-full" style={{ background: badge.dot }} />
           {statusLabelsAr[unit.status]}
         </span>
       </div>
 
-      {/* Meta grid — enhanced */}
+      {/* Meta grid */}
       <div className="grid grid-cols-2 gap-1.5">
         {[
           { icon: Ruler, label: "المساحة", value: `${unit.area} م²` },
@@ -78,9 +85,9 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
           <div key={item.label} className="rounded-lg p-2.5 bg-secondary dark:bg-muted/30 border border-border">
             <div className="flex items-center gap-1.5">
               <div className="flex h-5 w-5 items-center justify-center rounded bg-muted dark:bg-muted/50">
-                <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
+                <item.icon className="h-2.5 w-2.5 text-muted-foreground" />
               </div>
-              <span className="text-[0.6rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
+              <span className="text-[0.6rem] font-semibold text-muted-foreground">{item.label}</span>
             </div>
             <p className="mt-1 text-[0.84rem] font-bold text-foreground">{item.value}</p>
           </div>
@@ -89,12 +96,12 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
 
       {/* Description */}
       {unit.description && (
-        <div className="rounded-xl border border-border bg-secondary/30 p-3">
-          <p className="text-[0.8rem] leading-[1.7] light-body">{unit.description}</p>
+        <div className="rounded-xl border border-border bg-secondary/30 dark:bg-muted/20 p-3">
+          <p className="text-[0.8rem] leading-[1.7] text-muted-foreground">{unit.description}</p>
         </div>
       )}
 
-      {/* CTAs — enhanced */}
+      {/* CTAs */}
       <div className="space-y-2 pt-1">
         {unit.status === "available" ? (
           <>
@@ -135,44 +142,47 @@ function EmptyPanel() {
     <div className="space-y-4">
       {/* prompt */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary dark:bg-muted/30">
           <Compass className="h-4.5 w-4.5 text-primary" />
         </div>
         <div>
-          <p className="text-[0.88rem] font-bold light-heading">اختر وحدة من الخريطة</p>
-          <p className="text-[0.74rem] light-muted">اضغط على أي وحدة لعرض تفاصيلها.</p>
+          <p className="text-[0.88rem] font-bold text-foreground">اختر وحدة من الخريطة</p>
+          <p className="text-[0.74rem] text-muted-foreground">اضغط على أي وحدة لعرض تفاصيلها.</p>
         </div>
       </div>
 
       {/* status guide */}
       <div className="space-y-1.5">
         {[
-          { bg: "#EDEBEA", dot: "#9B9488", label: "مشغولة", action: "اعرف المتجر", textColor: "#4A4540" },
-          { bg: "#FDE4C4", dot: "#E8740E", label: "متاحة", action: "استفسر عن الوحدة", textColor: "#B85C08" },
-          { bg: "#C8E8F4", dot: "#0A9AB8", label: "قريبًا", action: "تابع التحديثات", textColor: "#0A7A96" },
-        ].map((item) => (
-          <div key={item.label} className="flex items-center justify-between rounded-lg px-3.5 py-2.5" style={{ background: item.bg }}>
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: item.dot }} />
-              <span className="text-[0.78rem] font-bold" style={{ color: item.textColor }}>{item.label}</span>
+          { label: "مشغولة", action: "اعرف المتجر", status: "occupied" as MallUnitStatus },
+          { label: "متاحة", action: "استفسر عن الوحدة", status: "available" as MallUnitStatus },
+          { label: "قريبًا", action: "تابع التحديثات", status: "coming_soon" as MallUnitStatus },
+        ].map((item) => {
+          const badge = statusBadge[item.status];
+          return (
+            <div key={item.label} className="flex items-center justify-between rounded-lg px-3.5 py-2.5 bg-secondary dark:bg-muted/30 border border-border">
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full" style={{ background: badge.dot }} />
+                <span className="text-[0.78rem] font-bold text-foreground">{item.label}</span>
+              </div>
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <span className="text-[0.7rem] font-semibold">{item.action}</span>
+                <ArrowLeft className="h-2.5 w-2.5" />
+              </div>
             </div>
-            <div className="flex items-center gap-1 light-muted">
-              <span className="text-[0.7rem] font-semibold">{item.action}</span>
-              <ArrowLeft className="h-2.5 w-2.5" />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* quick links */}
       <div className="grid grid-cols-2 gap-2">
-        <Link to="/stores" className="rounded-xl border border-border bg-secondary/50 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
+        <Link to="/stores" className="rounded-xl border border-border bg-secondary/50 dark:bg-muted/20 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
           <Store className="mx-auto h-4 w-4 text-primary" />
-          <p className="mt-1.5 text-[0.74rem] font-bold light-heading">دليل المتاجر</p>
+          <p className="mt-1.5 text-[0.74rem] font-bold text-foreground">دليل المتاجر</p>
         </Link>
-        <Link to="/leasing" className="rounded-xl border border-border bg-secondary/50 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
+        <Link to="/leasing" className="rounded-xl border border-border bg-secondary/50 dark:bg-muted/20 p-3 text-center transition-all hover:border-primary/20 hover:shadow-sm">
           <Phone className="mx-auto h-4 w-4 text-primary" />
-          <p className="mt-1.5 text-[0.74rem] font-bold light-heading">استفسار التأجير</p>
+          <p className="mt-1.5 text-[0.74rem] font-bold text-foreground">استفسار التأجير</p>
         </Link>
       </div>
     </div>
@@ -189,19 +199,21 @@ export function UnitDetailsCard({ unit, rewardContext }: Props) {
     <div
       className="rounded-xl border bg-card transition-all duration-200 overflow-hidden"
       style={{
-        borderColor: unit ? statusBadge[unit.status].dot + "50" : "#D8DEE8",
+        borderColor: unit ? statusBadge[unit.status].dot + "50" : undefined,
         boxShadow: unit
           ? `0 0 0 1px ${statusBadge[unit.status].dot}20, 0 4px 20px hsl(0 0% 0% / 0.06)`
           : "var(--shadow-card)",
       }}
     >
       {/* Panel header */}
-      <div className="flex items-center gap-2 border-b px-4 py-2.5" style={{ borderColor: unit ? statusBadge[unit.status].dot + "20" : "#D8DEE8", background: unit ? statusBadge[unit.status].bg + "40" : "hsl(220 20% 97%)" }}>
+      <div
+        className="flex items-center gap-2 border-b border-border px-4 py-2.5 bg-muted/50"
+      >
         <div
           className="h-[3px] w-4 rounded-full transition-colors"
-          style={{ background: unit ? statusBadge[unit.status].dot : "#94A3B8" }}
+          style={{ background: unit ? statusBadge[unit.status].dot : undefined }}
         />
-        <h2 className="text-[0.66rem] font-bold uppercase tracking-[0.18em]" style={{ color: "#64748B" }}>
+        <h2 className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
           {unit ? "تفاصيل الوحدة" : "لوحة التفاصيل"}
         </h2>
       </div>
