@@ -463,13 +463,6 @@ const ProductDetail = () => {
                     </Button>
                   </a>
                 )}
-                {store?.whatsapp && (
-                  <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline-blue" className="h-10 rounded-lg px-5 text-[0.8rem] gap-1.5">
-                      <MessageCircle className="h-3.5 w-3.5" /> استفسر عبر واتساب
-                    </Button>
-                  </a>
-                )}
                 {store?.phone && (
                   <a href={`tel:${store.phone}`}>
                     <Button variant="ghost" className="h-10 rounded-lg px-4 text-[0.8rem] text-foreground/70 gap-1.5">

@@ -1,0 +1,1 @@
+UPDATE products SET image_url = '/images/products/samsung-s24-ultra.jpg' WHERE slug = 'samsung-s24-ultra-512';
