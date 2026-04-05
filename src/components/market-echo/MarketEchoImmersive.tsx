@@ -555,18 +555,18 @@ function SceneFinal() {
         </p>
 
         {/* Stats */}
-        <div className="mt-12 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
+        <div className={`mt-12 mx-auto grid ${isMobile ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"} gap-3 md:gap-4 justify-items-center`}>
           {stats.map((s, i) => (
             <div
               key={i}
               className="flex flex-col items-center justify-center w-full sm:w-[180px]"
               style={{
-                height: 120, borderRadius: 18,
+                height: isMobile ? 100 : 120, borderRadius: 18,
                 background: "rgba(255,255,255,0.035)",
                 border: "1px solid rgba(255,255,255,0.08)",
                 opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(18px)",
-                transition: `opacity 550ms ${EASE} ${600 + i * 150}ms, transform 550ms ${EASE} ${600 + i * 150}ms`,
+                transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 10 : 18}px) scale(${isMobile ? 0.95 : 1})`,
+                transition: `opacity ${isMobile ? 400 : 550}ms ${ease} ${(isMobile ? 350 : 600) + i * (isMobile ? 80 : 150)}ms, transform ${isMobile ? 400 : 550}ms ${ease} ${(isMobile ? 350 : 600) + i * (isMobile ? 80 : 150)}ms`,
               }}
             >
               <span className="text-[24px] md:text-[28px] font-[800] font-poppins" style={{ color: "#1D5CFF" }}>
