@@ -178,9 +178,9 @@ const ProductDetail = () => {
             <div className="grid gap-8 lg:grid-cols-2">
               {/* Image Gallery */}
               <div>
-                <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-white">
+                <div className="relative aspect-square overflow-hidden rounded-xl border border-border bg-[hsl(210_40%_96.1%)]">
                   {kzImages.length > 0 ? (
-                    <img src={kzImages[selectedImageIdx]?.image_url} alt={kzImages[selectedImageIdx]?.alt_text || kzProduct.title} className="h-full w-full object-contain p-4" />
+                    <img src={kzImages[selectedImageIdx]?.image_url} alt={kzImages[selectedImageIdx]?.alt_text || kzProduct.title} className="h-full w-full object-contain p-[clamp(10px,3%,18px)]" />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-12 w-12 text-muted-foreground/20" /></div>
                   )}
