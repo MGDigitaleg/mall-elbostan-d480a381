@@ -148,26 +148,7 @@ const About = () => (
               { value: "آلاف", label: "التصنيفات", sub: "تغطية واسعة ومتخصصة" },
               { value: "فرعان", label: "رئيسيان", sub: "وسط البلد والتجمع" },
             ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.45 }}
-                className="relative rounded-2xl p-5 text-center overflow-hidden"
-                style={{ background: "hsla(220, 45%, 13%, 0.8)", border: "1px solid hsla(0, 0%, 100%, 0.06)", boxShadow: "0 4px 24px hsla(220, 60%, 5%, 0.3)" }}
-              >
-                <div className="absolute inset-0 opacity-[0.03]" style={{ background: "linear-gradient(135deg, #2563EB, transparent 60%)" }} />
-                <p className="relative font-poppins text-[1.6rem] md:text-[1.9rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
-                  {stat.value}
-                </p>
-                <p className="relative mt-1.5 text-[0.88rem] font-bold" style={{ color: "#CDBB9A" }}>
-                  {stat.label}
-                </p>
-                <p className="relative mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#94A3B8" }}>
-                  {stat.sub}
-                </p>
-              </motion.div>
+              <AboutStatCard key={stat.label} stat={stat} index={i} />
             ))}
           </div>
         </motion.div>
