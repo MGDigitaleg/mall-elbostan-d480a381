@@ -177,6 +177,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <GA4Init />
+          <ScrollToTop />
           <div className="min-h-screen flex flex-col bg-background">
             <AppLayout />
           </div>
