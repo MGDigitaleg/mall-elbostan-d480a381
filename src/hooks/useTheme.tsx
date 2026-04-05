@@ -1,4 +1,4 @@
-/* Theme provider — refreshed */
+/* Theme provider */
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 
 type Theme = "light" | "dark";
