@@ -123,7 +123,7 @@ export function DowntownTeaser() {
                 className="overflow-hidden rounded-2xl"
                 style={{ border: "1px solid rgba(255,255,255,0.06)" }}
               >
-                <div className="aspect-[3/4] relative">
+                <div className="aspect-[4/5] max-h-[420px] relative">
                   <img
                     src={dtHero}
                     alt="مول البستان — المبنى التاريخي ليلًا في وسط البلد"
