@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
+import { useCountUp } from "@/hooks/useCountUp";
+import { parseStatValue } from "@/lib/statUtils";
 import { supabase } from "@/integrations/supabase/client";
 import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
@@ -140,15 +142,8 @@ const NewCairoBranch = () => {
                 { v: "10", l: "فئات تقنية" },
                 { v: "3", l: "أدوار" },
                 { v: "سوق", l: "منتجات رقمي" },
-              ].map((s) => (
-                <div
-                  key={s.l}
-                  className="rounded-xl px-4 py-5 text-center"
-                  style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}
-                >
-                  <p className="font-poppins text-[1.4rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                  <p className="mt-1 text-[0.72rem] font-semibold" style={{ color: "#7C8BA1" }}>{s.l}</p>
-                </div>
+              ].map((s, i) => (
+                <NCStatCard key={s.l} value={s.v} label={s.l} index={i} />
               ))}
             </div>
           </motion.div>
