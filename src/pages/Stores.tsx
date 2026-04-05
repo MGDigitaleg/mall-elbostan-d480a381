@@ -484,10 +484,10 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
         <div className="flex items-center gap-3.5">
           {/* Logo container with refined glass effect */}
           <div
-            className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl p-2 transition-all duration-300 group-hover:scale-105"
+            className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl transition-all duration-300 group-hover:scale-105"
             style={{
-              background: "linear-gradient(145deg, #ffffff, #f1f5f9)",
-              border: "1px solid #ffffff25",
+              background: "#fff",
+              padding: 3,
               boxShadow: "0 3px 16px hsl(0 0% 0% / 0.15), inset 0 1px 0 #ffffff80",
             }}
           >
