@@ -78,15 +78,16 @@ export function Header() {
   const isBranchActive = branchItems.some((b) => isActive(b.path));
 
   /* ----------- adaptive colors ----------- */
-  const textColor = isTransparent ? "rgba(248,250,252,0.92)" : "#334155";
-  const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : "#64748B";
+  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+  const textColor = isTransparent ? "rgba(248,250,252,0.92)" : (isDark ? "#E2E8F0" : "#334155");
+  const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : (isDark ? "#94A3B8" : "#64748B");
   const activeColor = isTransparent ? "#60A5FA" : "#2563EB";
   const activeBg = isTransparent ? "rgba(96,165,250,0.1)" : "rgba(37,99,235,0.06)";
-  const hoverBg = isTransparent ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.03)";
-  const borderColor = isTransparent ? "rgba(255,255,255,0.08)" : "rgba(216,222,232,0.5)";
-  const menuBtnBg = isTransparent ? "rgba(255,255,255,0.08)" : "#FAFAF8";
-  const menuBtnBorder = isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8";
-  const menuBtnColor = isTransparent ? "#E2E8F0" : "#334155";
+  const hoverBg = isTransparent ? "rgba(255,255,255,0.06)" : (isDark ? "rgba(255,255,255,0.05)" : "rgba(7,19,38,0.03)");
+  const borderColor = isTransparent ? "rgba(255,255,255,0.08)" : (isDark ? "rgba(255,255,255,0.08)" : "rgba(216,222,232,0.5)");
+  const menuBtnBg = isTransparent ? "rgba(255,255,255,0.08)" : (isDark ? "rgba(255,255,255,0.06)" : "#FAFAF8");
+  const menuBtnBorder = isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8");
+  const menuBtnColor = isTransparent ? "#E2E8F0" : (isDark ? "#E2E8F0" : "#334155");
 
   const navLinkStyle = (active: boolean) => ({
     color: active ? activeColor : textColor,
