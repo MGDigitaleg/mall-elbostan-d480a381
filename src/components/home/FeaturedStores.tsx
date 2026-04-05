@@ -35,7 +35,7 @@ export function FeaturedStores() {
 
   return (
     <section
-      className="bg-card"
+      className="bg-card dark:bg-background"
       style={{
         contain: "layout style",
         paddingTop: "clamp(20px, 3.5vw, 36px)",

@@ -37,7 +37,7 @@ export function MapTeaserPreview() {
   );
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border/60 bg-card shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+    <div className="overflow-hidden rounded-2xl border border-border/60 bg-card dark:bg-secondary shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
       {/* ── Section header bar ── */}
       <div className="flex items-center justify-between border-b border-border/50 px-5 py-3 md:px-6"
         style={{ background: "linear-gradient(135deg, hsl(var(--navy) / 0.03) 0%, transparent 100%)" }}>
@@ -60,10 +60,9 @@ export function MapTeaserPreview() {
 
       <div className="grid grid-cols-1 md:grid-cols-[1.3fr_0.7fr]">
         {/* ── RIGHT (RTL): Map preview ── */}
-        <div className="relative border-b border-border/50 md:border-b-0 md:border-l overflow-hidden flex items-center justify-center p-3 md:p-4"
-          style={{ background: "linear-gradient(180deg, #F8FAFB 0%, #F0F2F4 100%)" }}>
+        <div className="relative border-b border-border/50 md:border-b-0 md:border-l overflow-hidden flex items-center justify-center p-3 md:p-4 bg-muted/30 dark:bg-background/50">
           {/* Floor indicator badge */}
-          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-border/60 bg-white/90 px-2.5 py-1 shadow-sm backdrop-blur-sm">
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full border border-border/60 bg-card/90 px-2.5 py-1 shadow-sm backdrop-blur-sm">
             <Layers className="h-3 w-3 text-primary/70" />
             <span className="font-poppins text-[0.6rem] font-bold text-foreground/80">{floorLabelsAr[floor.id]}</span>
           </div>
@@ -96,13 +95,7 @@ export function MapTeaserPreview() {
           </div>
 
           {/* Featured unit card */}
-          <div className="rounded-lg border bg-background p-3"
-            style={{
-              borderColor: activeUnit.status === "available" ? "#E8740E30" : "hsl(var(--border))",
-              background: activeUnit.status === "available"
-                ? "linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)"
-                : undefined,
-            }}>
+          <div className={`rounded-lg border p-3 ${activeUnit.status === "available" ? "border-orange/30 bg-orange/5" : "border-border bg-background"}`}>
             <div className="flex items-center justify-between mb-1.5">
               <div className="flex items-center gap-2">
                 <span className="rounded-md border border-border bg-muted px-2 py-0.5 font-poppins text-[0.68rem] font-bold text-foreground">
