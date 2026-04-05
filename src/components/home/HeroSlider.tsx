@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
+import { useCountUp } from "@/hooks/useCountUp";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
@@ -206,25 +207,7 @@ export function HeroSlider() {
           }}
         >
           {stats.map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-2 md:flex-1 md:justify-center">
-              <div
-                className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg"
-                style={{ background: "hsla(0, 0%, 100%, 0.06)", border: "1px solid hsla(0, 0%, 100%, 0.05)" }}
-              >
-                <stat.icon className="h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: "#CDBB9A" }} />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-poppins text-[0.88rem] md:text-[1rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
-                  {stat.value}
-                </span>
-                <span className="text-[0.6rem] md:text-[0.65rem] font-medium leading-tight mt-0.5" style={{ color: "#94A3B8" }}>
-                  {stat.label}
-                </span>
-              </div>
-              {i < stats.length - 1 && (
-                <span className="hidden md:block mr-0 h-8 w-px" style={{ background: "hsla(0, 0%, 100%, 0.08)" }} />
-              )}
-            </div>
+            <CountUpStatItem key={stat.label} stat={stat} isLast={i >= stats.length - 1} />
           ))}
         </div>
       </div>
@@ -257,5 +240,55 @@ export function HeroSlider() {
 
       <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
     </section>
+  );
+}
+
+/* ── Animated stat item ── */
+
+function parseStatValue(value: string): { num: number; prefix: string; suffix: string } {
+  // "+460" → { num: 460, prefix: "+", suffix: "" }
+  // "+100 ألف" → { num: 100, prefix: "+", suffix: " ألف" }
+  // "فرعان" → null (text-only)
+  const match = value.match(/^([+]?)(\d+)(.*)/);
+  if (!match) return { num: 0, prefix: "", suffix: value };
+  return { num: parseInt(match[2], 10), prefix: match[1], suffix: match[3] };
+}
+
+function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; value: string; label: string }; isLast: boolean }) {
+  const parsed = parseStatValue(stat.value);
+  const isNumeric = parsed.num > 0;
+
+  const { ref, display } = useCountUp({
+    end: parsed.num,
+    prefix: parsed.prefix,
+    suffix: parsed.suffix,
+    duration: 2000,
+    startOnView: true,
+  });
+
+  return (
+    <div className="flex items-center gap-2 md:flex-1 md:justify-center">
+      <div
+        className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg"
+        style={{ background: "hsla(0, 0%, 100%, 0.06)", border: "1px solid hsla(0, 0%, 100%, 0.05)" }}
+      >
+        <stat.icon className="h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: "#CDBB9A" }} />
+      </div>
+      <div className="flex flex-col">
+        <span
+          ref={ref as React.Ref<HTMLSpanElement>}
+          className="font-poppins text-[0.88rem] md:text-[1rem] font-extrabold leading-none"
+          style={{ color: "#F8FAFC" }}
+        >
+          {isNumeric ? display : stat.value}
+        </span>
+        <span className="text-[0.6rem] md:text-[0.65rem] font-medium leading-tight mt-0.5" style={{ color: "#94A3B8" }}>
+          {stat.label}
+        </span>
+      </div>
+      {!isLast && (
+        <span className="hidden md:block mr-0 h-8 w-px" style={{ background: "hsla(0, 0%, 100%, 0.08)" }} />
+      )}
+    </div>
   );
 }
