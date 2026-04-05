@@ -134,7 +134,7 @@ const Stores = () => {
       </PageHero>
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
+      <section className="py-9 md:py-12 bg-[#FAFAF8] dark:bg-background">
         <div className="container max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -355,7 +355,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
-      <section className="relative overflow-hidden py-9 md:py-12" style={{ background: "#FAFAF8" }}>
+      <section className="relative overflow-hidden py-9 md:py-12 bg-[#FAFAF8] dark:bg-background">
         <div className="container max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}

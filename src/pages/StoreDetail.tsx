@@ -509,7 +509,7 @@ const StoreDetail = () => {
                               className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/20">
                           {r.logo_url ? (
                             <img src={r.logo_url} alt={r.name_ar}
-                                 className="h-12 w-12 rounded-xl border border-border bg-white object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
+                                 className="h-12 w-12 rounded-xl border border-border bg-white dark:bg-muted/30 object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
                                  loading="lazy" />
                           ) : (
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-muted/30">
