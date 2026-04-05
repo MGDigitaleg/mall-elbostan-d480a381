@@ -91,9 +91,9 @@ const About = () => (
             <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-[var(--shadow-card)]">
               <div className="overflow-hidden">
                 <img
-                  src={exteriorImage}
-                  alt="مول البستان — القاهرة الجديدة"
-                  className="aspect-[16/9] max-h-[180px] w-full object-cover object-[center_40%] transition-transform duration-500 group-hover:scale-[1.02]"
+                  src={aboutNewCairoCard}
+                  alt="مول البستان — القاهرة الجديدة من الداخل"
+                  className="aspect-[16/9] max-h-[180px] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
                 />
               </div>
