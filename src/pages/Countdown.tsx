@@ -47,7 +47,7 @@ const Countdown = () => {
               style={{ color: "#F8FAFC" }}
             >
               الافتتاح الكبير
-              <span className="block mt-3 text-primary">قريباً جداً</span>
+              <span className="block mt-5 text-primary">قريباً جداً</span>
             </h1>
             <p
               className="text-sm md:text-base max-w-md mx-auto leading-relaxed"
