@@ -180,7 +180,7 @@ const echoPhrases = [
 ];
 
 function SceneEchoes() {
-  const { ref, visible } = useReveal(0.12);
+  const { ref, visible, isMobile } = useReveal(0.12);
 
   return (
     <section ref={ref} className="relative overflow-hidden echo-scene-spacing" style={{ minHeight: "92svh" }}>
