@@ -305,7 +305,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 style={{ 
                   transition: "fill 0.2s, stroke 0.25s, stroke-width 0.25s, filter 0.25s",
                   filter: hoverBrightness || undefined,
-                  animation: unit.status === "available" && !isMuted ? "availablePulse 2.5s ease-in-out infinite" : undefined,
+                  animation: !isMuted ? (unit.status === "available" ? "availablePulse 2.5s ease-in-out infinite" : unit.status === "coming_soon" ? "comingSoonPulse 3s ease-in-out infinite" : undefined) : undefined,
                 }}
                 onClick={() => onSelectUnit(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
