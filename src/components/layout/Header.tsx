@@ -5,6 +5,7 @@ import { useKzCart } from "@/hooks/useKzCart";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeaderMenuSheet } from "@/components/layout/HeaderMenuSheet";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
