@@ -62,7 +62,7 @@ const About = () => (
             <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-[var(--shadow-card)]">
               <div className="overflow-hidden">
                 <img
-                  src={downtownNight}
+                  src={aboutDowntownCard}
                   alt="مول البستان — وسط البلد"
                   className="aspect-[16/9] max-h-[180px] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
