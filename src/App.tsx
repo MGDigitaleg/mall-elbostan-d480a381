@@ -168,21 +168,24 @@ function AppLayout() {
 }
 
 import { KzCartProvider } from "@/hooks/useKzCart";
+import { ThemeProvider } from "@/hooks/useTheme";
 
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
-      <KzCartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <GA4Init />
-          <ScrollToTop />
-          <div className="min-h-screen flex flex-col bg-background">
-            <AppLayout />
-          </div>
-        </BrowserRouter>
-      </KzCartProvider>
+      <ThemeProvider>
+        <KzCartProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <GA4Init />
+            <ScrollToTop />
+            <div className="min-h-screen flex flex-col bg-background">
+              <AppLayout />
+            </div>
+          </BrowserRouter>
+        </KzCartProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   </HelmetProvider>
 );
