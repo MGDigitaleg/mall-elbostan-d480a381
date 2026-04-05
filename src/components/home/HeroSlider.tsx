@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useLayoutEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch } from "lucide-react";
+import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
@@ -88,6 +88,11 @@ export function HeroSlider() {
   const next = useCallback(() => {
     setDirection(1);
     setCurrent((c) => (c + 1) % slides.length);
+  }, []);
+
+  const prev = useCallback(() => {
+    setDirection(-1);
+    setCurrent((c) => (c - 1 + slides.length) % slides.length);
   }, []);
 
   useEffect(() => {
@@ -274,6 +279,24 @@ export function HeroSlider() {
           ))}
         </div>
       </div>
+
+      {/* Desktop navigation arrows */}
+      <button
+        onClick={prev}
+        className="absolute top-1/2 right-4 z-10 hidden md:flex -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white/[0.12]"
+        style={{ borderColor: "hsla(0,0%,100%,0.12)", background: "hsla(220,45%,10%,0.5)", color: "#CBD5E1" }}
+        aria-label="الشريحة التالية"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+      <button
+        onClick={next}
+        className="absolute top-1/2 left-4 z-10 hidden md:flex -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white/[0.12]"
+        style={{ borderColor: "hsla(0,0%,100%,0.12)", background: "hsla(220,45%,10%,0.5)", color: "#CBD5E1" }}
+        aria-label="الشريحة السابقة"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
 
       {/* Slide indicators */}
       <div className="absolute bottom-3 md:bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1">
