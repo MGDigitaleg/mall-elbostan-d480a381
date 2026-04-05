@@ -60,8 +60,8 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       <div
          className="relative overflow-hidden"
         style={{
-          height: "clamp(145px, 18vw, 190px)",
-          background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
+          aspectRatio: "4/3",
+          background: isDark ? "rgba(255,255,255,0.03)" : "#F8FAFC",
           borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.06)",
         }}
       >
@@ -70,7 +70,7 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
             src={product.image_url}
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ padding: "clamp(12px, 1.5vw, 18px)", mixBlendMode: "multiply" }}
+            style={{ padding: "clamp(10px, 1.2vw, 14px)" }}
             loading="lazy"
           />
         ) : (
