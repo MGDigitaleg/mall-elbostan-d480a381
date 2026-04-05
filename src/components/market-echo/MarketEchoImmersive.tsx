@@ -183,7 +183,7 @@ function SceneEchoes() {
   const { ref, visible, isMobile } = useReveal(0.12);
 
   return (
-    <section ref={ref} className="relative overflow-hidden echo-scene-spacing" style={{ minHeight: "92svh" }}>
+    <section ref={ref} className="relative overflow-hidden echo-scene-spacing" style={{ minHeight: isMobile ? "75svh" : "92svh" }}>
       {/* Main content */}
       <div className="echo-container relative z-10 pt-20 md:pt-28">
         <span
