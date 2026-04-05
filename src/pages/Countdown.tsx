@@ -1,7 +1,5 @@
 import { SEOHead } from "@/components/SEOHead";
 import { CountdownTimer } from "@/components/CountdownTimer";
-import { Link } from "react-router-dom";
-import { MapPin, Sparkles, CalendarDays } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
 import ogCountdown from "@/assets/og-countdown.jpg";
 
@@ -9,12 +7,11 @@ const Countdown = () => {
   return (
     <>
       <SEOHead
-        title="العد التنازلي للافتتاح"
-        titleEn="Opening Countdown"
-        description="العد التنازلي لافتتاح مول البستان — ١ مايو ٢٠٢٦. أكبر وجهة تقنية في القاهرة الجديدة."
-        descriptionEn="Countdown to Mall Elbostan grand opening — May 1, 2026. The biggest tech destination in New Cairo."
+        title="قريبًا — الافتتاح الكبير"
+        titleEn="Coming Soon — Grand Opening"
+        description="مول البستان — أكبر وجهة تقنية متخصصة في القاهرة الجديدة. الافتتاح الكبير ١ مايو ٢٠٢٦."
+        descriptionEn="Mall Elbostan — the biggest tech destination in New Cairo. Grand opening May 1, 2026."
         ogImage={ogCountdown}
-        breadcrumbs={[{ name: "العد التنازلي", url: "/countdown" }]}
       />
 
       <div
@@ -77,45 +74,6 @@ const Countdown = () => {
             >
               <CountdownTimer />
             </div>
-          </div>
-
-          {/* Quick links */}
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              to="/opening-day"
-              className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all hover:scale-[1.03]"
-              style={{
-                background: "hsl(var(--primary))",
-                color: "hsl(var(--primary-foreground))",
-              }}
-            >
-              <CalendarDays className="h-4 w-4" />
-              تفاصيل الافتتاح
-            </Link>
-            <Link
-              to="/spin-win"
-              className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all hover:scale-[1.03]"
-              style={{
-                background: "hsl(0 0% 100% / 0.06)",
-                color: "#F8FAFC",
-                border: "1px solid hsl(0 0% 100% / 0.1)",
-              }}
-            >
-              <Sparkles className="h-4 w-4" />
-              أدر واربح
-            </Link>
-            <Link
-              to="/map"
-              className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition-all hover:scale-[1.03]"
-              style={{
-                background: "hsl(0 0% 100% / 0.06)",
-                color: "#F8FAFC",
-                border: "1px solid hsl(0 0% 100% / 0.1)",
-              }}
-            >
-              <MapPin className="h-4 w-4" />
-              الخريطة
-            </Link>
           </div>
         </div>
 
