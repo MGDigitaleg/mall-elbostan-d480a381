@@ -332,22 +332,24 @@ const timelineStops = [
 ];
 
 function SceneTimeline() {
-  const { ref, visible } = useReveal(0.08);
+  const { ref, visible, isMobile } = useReveal(0.08);
   const [lineProgress, setLineProgress] = useState(0);
 
   useEffect(() => {
     if (!visible) return;
     let frame: number;
     const start = performance.now();
-    const dur = 1400;
+    const dur = isMobile ? 1800 : 1400; // slower on mobile for smoother feel
     const tick = (now: number) => {
       const p = Math.min((now - start) / dur, 1);
-      setLineProgress(p);
+      // Ease-out curve for smoother deceleration on mobile
+      const eased = isMobile ? 1 - Math.pow(1 - p, 3) : p;
+      setLineProgress(eased);
       if (p < 1) frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [visible]);
+  }, [visible, isMobile]);
 
   return (
     <section ref={ref} className="echo-scene-spacing" style={{ minHeight: "180svh" }}>
