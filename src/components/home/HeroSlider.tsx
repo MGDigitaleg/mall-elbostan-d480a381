@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { GLOBAL_STAT_CARDS } from "@/lib/platformStats";
 import { useCountUp } from "@/hooks/useCountUp";
+import { parseStatValue } from "@/lib/statUtils";
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
@@ -245,14 +246,6 @@ export function HeroSlider() {
 
 /* ── Animated stat item ── */
 
-function parseStatValue(value: string): { num: number; prefix: string; suffix: string } {
-  // "+460" → { num: 460, prefix: "+", suffix: "" }
-  // "+100 ألف" → { num: 100, prefix: "+", suffix: " ألف" }
-  // "فرعان" → null (text-only)
-  const match = value.match(/^([+]?)(\d+)(.*)/);
-  if (!match) return { num: 0, prefix: "", suffix: value };
-  return { num: parseInt(match[2], 10), prefix: match[1], suffix: match[3] };
-}
 
 function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; value: string; label: string }; isLast: boolean }) {
   const parsed = parseStatValue(stat.value);
