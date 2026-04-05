@@ -262,8 +262,8 @@ export function ProductRail({
             className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
             style={{ gap: "clamp(12px, 1.2vw, 16px)", scrollbarWidth: "none" }}
           >
-            {displayed.map((product) => (
-              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(170px, 18vw, 220px)" }}>
+          {displayed.map((product) => (
+              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(150px, 15vw, 190px)" }}>
                 <ProductCard product={product} theme={theme} />
               </div>
             ))}
