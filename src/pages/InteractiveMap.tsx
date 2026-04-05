@@ -248,8 +248,8 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
-      <section className="sticky top-[56px] z-30 border-b bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
-               style={{ borderColor: "hsl(220 20% 88%)", boxShadow: "0 1px 4px hsl(220 30% 10% / 0.05), 0 4px 16px hsl(220 30% 10% / 0.02)" }}>
+      <section className="sticky top-[56px] z-30 border-b border-border bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
+               style={{ boxShadow: "0 1px 4px hsl(220 30% 10% / 0.05), 0 4px 16px hsl(220 30% 10% / 0.02)" }}>
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="flex flex-wrap items-center justify-between gap-2 py-2.5">
             <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
@@ -257,16 +257,15 @@ const InteractiveMap = () => {
             <div className="flex items-center gap-3">
               <MapLegend />
               {/* Floor stats strip */}
-              <div className="hidden items-center gap-2 rounded-xl px-3.5 py-2 text-[0.7rem] md:flex"
-                   style={{ background: "hsl(220 20% 96%)", border: "1px solid hsl(220 20% 90%)" }}>
+              <div className="hidden items-center gap-2 rounded-xl px-3.5 py-2 text-[0.7rem] md:flex bg-muted/50 border border-border">
                 <span className="font-bold text-foreground">{floor.units.length}</span>
                 <span className="text-muted-foreground">وحدة</span>
-                <span className="h-3.5 w-px" style={{ background: "hsl(220 20% 86%)" }} />
+                <span className="h-3.5 w-px bg-border" />
                 <span className="font-bold" style={{ color: "hsl(25 95% 50%)" }}>{floorAvailable}</span>
                 <span className="text-muted-foreground">متاحة</span>
                 {floorComingSoon > 0 && (
                   <>
-                    <span className="h-3.5 w-px" style={{ background: "hsl(220 20% 86%)" }} />
+                    <span className="h-3.5 w-px bg-border" />
                     <span className="font-bold" style={{ color: "hsl(190 85% 40%)" }}>{floorComingSoon}</span>
                     <span className="text-muted-foreground">قريبًا</span>
                   </>
@@ -291,10 +290,10 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="py-4 md:py-5" style={{ background: "hsl(38 25% 95%)" }}>
+      <section className="py-4 md:py-5 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
-            <div ref={mapRef} className="overflow-hidden rounded-2xl border bg-white shadow-sm" style={{ borderColor: "hsl(220 20% 88%)" }}>
+            <div ref={mapRef} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               <MallFloorMap
                 floor={floor}
                 selectedUnitId={activeUnit?.id ?? null}
@@ -311,8 +310,8 @@ const InteractiveMap = () => {
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
 
                 {/* Floor summary card — enhanced */}
-                <div className="rounded-xl border bg-card overflow-hidden" style={{ borderColor: "hsl(220 20% 88%)" }}>
-                  <div className="flex items-center gap-2 px-4 py-2.5 border-b" style={{ borderColor: "hsl(220 20% 92%)", background: "hsl(220 20% 97%)" }}>
+                <div className="rounded-xl border border-border bg-card overflow-hidden">
+                  <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-muted/50">
                     <div className="h-[3px] w-4 rounded-full bg-primary" />
                     <p className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-muted-foreground">
                       {floorLabelsAr[selectedFloor]}
@@ -321,7 +320,7 @@ const InteractiveMap = () => {
                   <div className="p-3">
                     <div className="grid grid-cols-3 gap-2 text-center">
                       {[
-                        { v: floorOccupied, l: "مشغولة", color: "hsl(220 15% 25%)", bg: "hsl(220 20% 97%)", border: "hsl(220 20% 90%)" },
+                        { v: floorOccupied, l: "مشغولة", color: "hsl(var(--foreground))", bg: "hsl(var(--muted) / 0.5)", border: "hsl(var(--border))" },
                         { v: floorAvailable, l: "متاحة", color: "hsl(25 95% 45%)", bg: "hsl(35 100% 97%)", border: "hsl(25 95% 55% / 0.2)" },
                         { v: floorComingSoon, l: "قريبًا", color: "hsl(190 85% 35%)", bg: "hsl(190 50% 96%)", border: "hsl(190 85% 40% / 0.2)" },
                       ].map((s) => (
@@ -347,7 +346,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ AVAILABLE UNITS GRID ═══════════ */}
-      <section className="py-6 md:py-8" style={{ background: "hsl(0 0% 99%)", borderTop: "1px solid hsl(220 20% 92%)" }}>
+      <section className="py-6 md:py-8 bg-background border-t border-border">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -410,7 +409,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ COMMERCIAL OPPORTUNITY ═══════════ */}
-      <section className="py-8 md:py-12" style={{ background: "hsl(38 25% 95%)" }}>
+      <section className="py-8 md:py-12 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -507,11 +506,11 @@ const InteractiveMap = () => {
                     </span>
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-2">
-                    <div className="rounded-lg py-2.5 px-3" style={{ background: "hsl(220 20% 97%)" }}>
+                    <div className="rounded-lg py-2.5 px-3 bg-muted/50">
                       <p className="text-[0.62rem] text-muted-foreground">الدور</p>
                       <p className="mt-0.5 text-[0.88rem] font-bold text-foreground">{floorLabelsAr[unit.floor]}</p>
                     </div>
-                    <div className="rounded-lg py-2.5 px-3" style={{ background: "hsl(220 20% 97%)" }}>
+                    <div className="rounded-lg py-2.5 px-3 bg-muted/50">
                       <p className="text-[0.62rem] text-muted-foreground">المساحة</p>
                       <p className="mt-0.5 text-[0.88rem] font-bold text-foreground">{unit.area} م²</p>
                     </div>
