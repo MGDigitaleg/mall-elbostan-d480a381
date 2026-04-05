@@ -171,18 +171,7 @@ const About = () => (
               { year: "2024", label: "التحول الرقمي", desc: "إطلاق الدليل التفاعلي وسوق المنتجات." },
               { year: "2026", label: "القاهرة الجديدة", desc: "فرع جديد بتجربة منظمة وحديثة." },
             ].map((item, i) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="heritage-surface rounded-xl p-4 text-center"
-              >
-                <p className="font-poppins text-[1.4rem] font-extrabold dark-heading">{item.year}</p>
-                <p className="mt-1 text-[0.82rem] font-bold" style={{ color: "#CDBB9A" }}>{item.label}</p>
-                <p className="mt-1.5 text-[0.76rem] leading-[1.6] dark-muted">{item.desc}</p>
-              </motion.div>
+              <TimelineCountCard key={item.year} item={item} index={i} />
             ))}
           </div>
         </motion.div>
