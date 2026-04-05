@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
-import downtownHeroDay from "@/assets/downtown-hero-enhanced.webp";
+import downtownHeroDay from "@/assets/downtown-hero-enhanced-clean.webp";
 import downtownHeroNight from "@/assets/downtown-hero-night.webp";
 import downtownGallery1 from "@/assets/downtown-gallery-1.webp";
 import downtownGallery2 from "@/assets/downtown-gallery-2.webp";
