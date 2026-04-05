@@ -246,14 +246,6 @@ export function HeroSlider() {
 
 /* ── Animated stat item ── */
 
-function parseStatValue(value: string): { num: number; prefix: string; suffix: string } {
-  // "+460" → { num: 460, prefix: "+", suffix: "" }
-  // "+100 ألف" → { num: 100, prefix: "+", suffix: " ألف" }
-  // "فرعان" → null (text-only)
-  const match = value.match(/^([+]?)(\d+)(.*)/);
-  if (!match) return { num: 0, prefix: "", suffix: value };
-  return { num: parseInt(match[2], 10), prefix: match[1], suffix: match[3] };
-}
 
 function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; value: string; label: string }; isLast: boolean }) {
   const parsed = parseStatValue(stat.value);

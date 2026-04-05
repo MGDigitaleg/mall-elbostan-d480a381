@@ -18,6 +18,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useCountUp } from "@/hooks/useCountUp";
+import { parseStatValue } from "@/lib/statUtils";
 import aboutDowntownCard from "@/assets/about-downtown-card.webp";
 import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
@@ -282,11 +283,6 @@ const About = () => (
 export default About;
 
 /* ── Count-up stat card ── */
-function parseStatValue(value: string) {
-  const match = value.match(/^([+]?)(\d+)(.*)/);
-  if (!match) return { num: 0, prefix: "", suffix: value };
-  return { num: parseInt(match[2], 10), prefix: match[1], suffix: match[3] };
-}
 
 function AboutStatCard({ stat, index }: { stat: { value: string; label: string; sub: string }; index: number }) {
   const parsed = parseStatValue(stat.value);
