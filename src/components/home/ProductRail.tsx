@@ -34,6 +34,7 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
+/* ─── Product Card ─── */
 function ProductCard({ product, theme = "light" }: { product: Product; theme?: "light" | "dark" }) {
   const store = product.stores;
   const isDark = theme === "dark";
@@ -41,19 +42,35 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
   return (
     <Link
       to={`/products/${product.slug}`}
-      className={`group flex flex-col overflow-hidden rounded-xl border transition-all duration-300 hover:shadow-md ${
-        isDark
-          ? "border-white/[0.08] bg-white/[0.04] hover:border-primary/20 hover:shadow-primary/[0.06]"
-          : "border-border/60 bg-white hover:border-primary/15 hover:shadow-primary/[0.06]"
-      }`}
+      className="group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
+      style={{
+        borderRadius: 18,
+        border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(22,41,84,0.10)",
+        background: isDark ? "rgba(255,255,255,0.04)" : "#fff",
+        boxShadow: "0 6px 22px rgba(15,23,42,0.04)",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 28px rgba(15,23,42,0.08)";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 22px rgba(15,23,42,0.04)";
+      }}
     >
-      {/* Image — reduced from aspect-square to ~65% ratio */}
-      <div className={`relative aspect-[4/3] overflow-hidden ${isDark ? "bg-white/[0.03]" : "bg-[#F5F6F8]"}`}>
+      {/* ── Image zone ── */}
+      <div
+        className="relative overflow-hidden"
+        style={{
+          height: "clamp(145px, 18vw, 190px)",
+          background: isDark ? "rgba(255,255,255,0.03)" : "#F8FAFC",
+          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.08)",
+        }}
+      >
         {product.image_url ? (
           <img
             src={product.image_url}
             alt={product.name_ar}
-            className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"
+            className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+            style={{ padding: "clamp(8px, 1.2vw, 12px)" }}
             loading="lazy"
           />
         ) : (
@@ -62,56 +79,105 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
           </div>
         )}
 
+        {/* Category chip */}
         {store?.category && (
-          <span className={`absolute top-2 right-2 rounded-md px-1.5 py-[2px] text-[0.52rem] font-bold leading-tight backdrop-blur-sm ${
-            isDark ? "bg-white/10 text-white/80" : "bg-foreground/75 text-white"
-          }`}>
+          <span
+            className="absolute top-2 right-2 backdrop-blur-sm"
+            style={{
+              height: 22,
+              display: "inline-flex",
+              alignItems: "center",
+              paddingInline: 8,
+              borderRadius: 999,
+              fontSize: 10,
+              fontWeight: 700,
+              lineHeight: 1,
+              color: isDark ? "rgba(255,255,255,0.8)" : "#fff",
+              background: isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.72)",
+            }}
+          >
             {store.category}
           </span>
         )}
 
+        {/* Featured badge */}
         {product.featured && (
-          <span className="absolute top-2 left-2 flex items-center gap-0.5 rounded-md bg-primary/90 px-1.5 py-[2px] text-[0.5rem] font-bold text-white leading-tight backdrop-blur-sm">
-            <Sparkles className="h-2 w-2" />
+          <span
+            className="absolute top-2 left-2 flex items-center gap-0.5 backdrop-blur-sm"
+            style={{
+              height: 22,
+              paddingInline: 8,
+              borderRadius: 999,
+              fontSize: 10,
+              fontWeight: 700,
+              lineHeight: 1,
+              color: "#fff",
+              background: "hsl(var(--primary) / 0.88)",
+            }}
+          >
+            <Sparkles className="h-2.5 w-2.5" />
             مميز
           </span>
         )}
       </div>
 
-      {/* Info — tighter padding */}
-      <div className={`flex flex-1 flex-col justify-between border-t p-2.5 ${
-        isDark ? "border-white/[0.06]" : "border-border/40"
-      }`}>
+      {/* ── Content zone ── */}
+      <div
+        className="flex flex-1 flex-col justify-between"
+        style={{ padding: "clamp(10px, 1.2vw, 14px)" }}
+      >
         <div>
-          <p className={`text-[0.72rem] font-bold line-clamp-2 leading-[1.4] group-hover:text-primary transition-colors ${
-            isDark ? "text-white/90" : "text-foreground"
-          }`}>
+          {/* Title */}
+          <p
+            className={`font-bold line-clamp-2 group-hover:text-primary transition-colors ${
+              isDark ? "text-white/90" : "text-foreground"
+            }`}
+            style={{ fontSize: "clamp(14px, 1.5vw, 18px)", lineHeight: 1.35, marginBottom: 2 }}
+          >
             {product.name_ar}
           </p>
+
+          {/* Shop name */}
           {store && (
-            <div className="mt-1 flex items-center gap-1">
+            <div className="flex items-center gap-1.5" style={{ marginTop: 4 }}>
               {store.logo_url ? (
                 <img
                   src={store.logo_url}
                   alt={store.name_ar}
-                  className="h-3.5 w-3.5 rounded-sm object-contain border border-border/50 bg-white shrink-0"
+                  className="rounded-sm object-contain shrink-0"
+                  style={{
+                    width: 16,
+                    height: 16,
+                    border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(22,41,84,0.1)",
+                    background: "#fff",
+                  }}
                 />
               ) : (
-                <Store className="h-2.5 w-2.5 text-muted-foreground/25 shrink-0" />
+                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 13, height: 13 }} />
               )}
-              <span className={`text-[0.58rem] line-clamp-1 ${isDark ? "text-white/40" : "text-muted-foreground"}`}>
+              <span
+                className={`line-clamp-1 ${isDark ? "text-white/50" : "text-muted-foreground"}`}
+                style={{ fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 500, opacity: 0.75 }}
+              >
                 {store.name_ar}
               </span>
             </div>
           )}
         </div>
 
+        {/* Price */}
         {product.price ? (
-          <p className="mt-1.5 font-poppins text-[0.8rem] font-extrabold text-primary">
+          <p
+            className="font-poppins font-extrabold text-primary"
+            style={{ fontSize: "clamp(16px, 1.6vw, 20px)", marginTop: 4 }}
+          >
             {Number(product.price).toLocaleString("ar-EG")} جم
           </p>
         ) : product.price_note ? (
-          <p className="mt-1.5 text-[0.66rem] font-bold text-primary">
+          <p
+            className="font-bold text-primary"
+            style={{ fontSize: "clamp(12px, 1.1vw, 14px)", marginTop: 4 }}
+          >
             {product.price_note}
           </p>
         ) : null}
@@ -120,6 +186,7 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
   );
 }
 
+/* ─── ProductRail ─── */
 export function ProductRail({
   title,
   subtitle,
@@ -138,8 +205,7 @@ export function ProductRail({
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
-    const amount = 280;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" });
+    scrollRef.current.scrollBy({ left: dir === "left" ? -260 : 260, behavior: "smooth" });
   };
 
   if (displayed.length === 0) return null;
@@ -152,73 +218,74 @@ export function ProductRail({
       viewport={{ once: true, margin: "-60px" }}
     >
       {/* Header */}
-      <div className="mb-4 flex items-end justify-between gap-4">
+      <div style={{ marginBottom: 16 }} className="flex items-end justify-between gap-4">
         <div>
           {kicker && (
-            <p className={`text-[0.64rem] font-semibold tracking-[0.04em] mb-1 ${
-              isDark ? "text-[#60A5FA]" : "section-kicker"
-            }`}>
+            <p
+              className={isDark ? "text-[#60A5FA]" : "section-kicker"}
+              style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.04em", marginBottom: 4 }}
+            >
               {kicker}
             </p>
           )}
-          <h2 className={`text-[0.95rem] md:text-[1.08rem] font-bold leading-[1.2] ${
-            isDark ? "text-[#F8FAFC]" : "text-foreground"
-          }`} style={{ fontFamily: "var(--font-arabic-display)" }}>
+          <h2
+            className={isDark ? "text-[#F8FAFC]" : "text-foreground"}
+            style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(15px, 1.4vw, 18px)", fontWeight: 700, lineHeight: 1.2 }}
+          >
             {title}
           </h2>
           {subtitle && (
-            <p className={`mt-0.5 text-[0.72rem] leading-[1.6] max-w-md ${
-              isDark ? "text-[#94A3B8]" : "text-muted-foreground"
-            }`}>
+            <p
+              className={isDark ? "text-[#94A3B8]" : "text-muted-foreground"}
+              style={{ marginTop: 2, fontSize: "clamp(12px, 1vw, 14px)", lineHeight: 1.6, maxWidth: "28rem" }}
+            >
               {subtitle}
             </p>
           )}
         </div>
         <Link to={ctaTo} className="hidden lg:inline-flex shrink-0">
-          <Button variant="ghost" className={`gap-1.5 text-[0.74rem] font-bold ${
-            isDark ? "text-[#60A5FA] hover:text-[#93BBFD]" : "text-primary hover:text-primary/80"
-          }`}>
+          <Button
+            variant="ghost"
+            className={`gap-1 font-bold ${isDark ? "text-[#60A5FA] hover:text-[#93BBFD]" : "text-primary hover:text-primary/80"}`}
+            style={{ fontSize: 13 }}
+          >
             {ctaLabel} <ArrowLeft className="h-3 w-3" />
           </Button>
         </Link>
       </div>
 
-      {/* Product display */}
+      {/* Grid or Rail */}
       {layout === "rail" ? (
         <div className="relative">
           <div
             ref={scrollRef}
-            className="flex gap-2.5 md:gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
-            style={{ scrollbarWidth: "none" }}
+            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
+            style={{ gap: "clamp(12px, 1.2vw, 16px)", scrollbarWidth: "none" }}
           >
             {displayed.map((product) => (
-              <div
-                key={product.id}
-                className="w-[170px] md:w-[200px] lg:w-[215px] shrink-0 snap-start"
-              >
+              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(170px, 18vw, 220px)" }}>
                 <ProductCard product={product} theme={theme} />
               </div>
             ))}
           </div>
           <button
             onClick={() => scroll("right")}
-            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm transition-all hover:shadow-md"
-            style={{ borderColor: isDark ? "#ffffff15" : undefined }}
+            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
           >
             <ChevronRight className="h-3.5 w-3.5 text-foreground" />
           </button>
           <button
             onClick={() => scroll("left")}
-            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm transition-all hover:shadow-md"
-            style={{ borderColor: isDark ? "#ffffff15" : undefined }}
+            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
           >
             <ChevronLeft className="h-3.5 w-3.5 text-foreground" />
           </button>
         </div>
       ) : (
-        <div className={`grid gap-2.5 md:gap-3 grid-cols-2 md:grid-cols-3 ${
-          columns === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4 xl:grid-cols-5"
-        }`}>
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          style={{ gap: "clamp(12px, 1.2vw, 16px)", rowGap: "clamp(16px, 1.5vw, 20px)" }}
+        >
           {displayed.map((product) => (
             <ProductCard key={product.id} product={product} theme={theme} />
           ))}
