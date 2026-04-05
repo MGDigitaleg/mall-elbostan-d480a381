@@ -4,6 +4,8 @@ import { Building2, Award, Users, Globe, MapPin, Phone, Mail, Clock, ExternalLin
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useCountUp } from "@/hooks/useCountUp";
+import { parseStatValue } from "@/lib/statUtils";
 import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
@@ -97,17 +99,10 @@ const DowntownBranch = () => (
               { v: "+30", l: "عامًا في السوق" },
               { v: "مئات", l: "التجار والعلامات" },
               { v: "1990", l: "سنة التأسيس" },
-            ].map((s) => (
-              <div
-                key={s.l}
-                className="rounded-xl px-4 py-5 text-center"
-                style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}
-              >
-                <p className="font-poppins text-[1.4rem] font-extrabold" style={{ color: "#F8FAFC" }}>{s.v}</p>
-                <p className="mt-1 text-[0.72rem] font-semibold" style={{ color: "#7C8BA1" }}>{s.l}</p>
-              </div>
-            ))}
-          </div>
+              ].map((s, i) => (
+                <DTStatCard key={s.l} value={s.v} label={s.l} index={i} />
+              ))}
+            </div>
         </motion.div>
       </div>
     </section>
