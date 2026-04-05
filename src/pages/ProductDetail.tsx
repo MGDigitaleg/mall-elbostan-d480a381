@@ -407,8 +407,8 @@ const ProductDetail = () => {
               {mallGallery.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto pb-1">
                   {mallGallery.map((img, i) => (
-                    <div key={i} className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-white ${i === 0 ? "border-primary border-2" : "border-border"}`}>
-                      <img src={img} alt={`${mallProduct!.name_ar} ${i + 1}`} className="h-full w-full object-contain p-1" />
+                    <div key={i} className={`h-16 w-16 shrink-0 overflow-hidden rounded-lg border bg-[hsl(210_40%_96.1%)] ${i === 0 ? "border-primary border-2" : "border-border"}`}>
+                      <img src={img} alt={`${mallProduct!.name_ar} ${i + 1}`} className="h-full w-full object-contain p-0.5" />
                     </div>
                   ))}
                 </div>
