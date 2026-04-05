@@ -16,8 +16,8 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import exteriorImage from "@/assets/mall-exterior.webp";
-import downtownNight from "@/assets/downtown-night.webp";
+import aboutDowntownCard from "@/assets/about-downtown-card.webp";
+import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
@@ -45,7 +45,7 @@ const About = () => (
         { label: "فرع وسط البلد", to: "/downtown-branch" },
         { label: "فرع القاهرة الجديدة", to: "/new-cairo-branch" },
       ]}
-      image={{ src: exteriorImage, alt: "الواجهة الرئيسية لمول البستان — القاهرة الجديدة" }}
+      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلاً" }}
     />
 
     {/* ═══════════ 2 · TWO BRANCHES ═══════════ */}
@@ -62,7 +62,7 @@ const About = () => (
             <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-[var(--shadow-card)]">
               <div className="overflow-hidden">
                 <img
-                  src={downtownNight}
+                  src={aboutDowntownCard}
                   alt="مول البستان — وسط البلد"
                   className="aspect-[16/9] max-h-[180px] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
@@ -91,9 +91,9 @@ const About = () => (
             <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-[var(--shadow-card)]">
               <div className="overflow-hidden">
                 <img
-                  src={exteriorImage}
-                  alt="مول البستان — القاهرة الجديدة"
-                  className="aspect-[16/9] max-h-[180px] w-full object-cover object-[center_40%] transition-transform duration-500 group-hover:scale-[1.02]"
+                  src={aboutNewCairoCard}
+                  alt="مول البستان — القاهرة الجديدة من الداخل"
+                  className="aspect-[16/9] max-h-[180px] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
                 />
               </div>
