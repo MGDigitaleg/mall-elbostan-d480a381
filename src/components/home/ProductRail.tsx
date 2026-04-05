@@ -272,12 +272,14 @@ export function ProductRail({
           </div>
           <button
             onClick={() => scroll("right")}
+            aria-label="التمرير لليمين"
             className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card/90 shadow-sm hover:shadow-md"
           >
             <ChevronRight className="h-3 w-3 text-foreground" />
           </button>
           <button
             onClick={() => scroll("left")}
+            aria-label="التمرير لليسار"
             className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card/90 shadow-sm hover:shadow-md"
           >
             <ChevronLeft className="h-3 w-3 text-foreground" />
