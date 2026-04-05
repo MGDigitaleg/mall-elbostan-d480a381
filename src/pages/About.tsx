@@ -16,8 +16,8 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
-import exteriorImage from "@/assets/mall-exterior.webp";
-import downtownNight from "@/assets/downtown-night.webp";
+import aboutDowntownCard from "@/assets/about-downtown-card.webp";
+import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
