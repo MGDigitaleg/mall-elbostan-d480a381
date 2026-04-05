@@ -17,7 +17,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import exteriorImage from "@/assets/mall-exterior.webp";
-import downtownImage from "@/assets/downtown-exterior.webp";
+import downtownNight from "@/assets/downtown-night.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
@@ -62,7 +62,7 @@ const About = () => (
             <div className="group rounded-2xl border border-border bg-card overflow-hidden transition-shadow hover:shadow-[var(--shadow-card)]">
               <div className="overflow-hidden">
                 <img
-                  src={downtownImage}
+                  src={downtownNight}
                   alt="مول البستان — وسط البلد"
                   className="aspect-[16/9] max-h-[180px] w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
                   loading="lazy"
