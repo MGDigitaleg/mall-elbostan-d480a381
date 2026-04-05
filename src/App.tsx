@@ -87,16 +87,56 @@ function KzSlugRedirect() {
 function AppLayout() {
   const location = useLocation();
   const isAdmin = adminPaths.some((p) => location.pathname.startsWith(p));
+  const isImmersive = immersivePaths.some((p) => location.pathname === p);
+  const hasDarkHero = darkHeroPages.some(
+    (p) => (p === "/" ? location.pathname === "/" : location.pathname === p)
+  );
+
+  const showChrome = !isAdmin && !isImmersive;
 
   return (
     <>
-      <main className="flex-1">
+      {showChrome && <Header />}
+      <main className={showChrome ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
         <Suspense fallback={<PageFallback />}>
           <Routes>
-            {/* Coming Soon — all public routes redirect to countdown */}
-            <Route path="/" element={<Countdown />} />
+            {/* Public */}
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/new-cairo-branch" element={<NewCairoBranch />} />
+            <Route path="/downtown-branch" element={<DowntownBranch />} />
+            <Route path="/downtown-directory" element={<DowntownDirectory />} />
+            <Route path="/downtown-directory/:slug" element={<DowntownMerchantDetail />} />
+            <Route path="/stores" element={<Stores />} />
+            <Route path="/stores/:slug" element={<StoreDetail />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/join-marketplace" element={<JoinMarketplace />} />
+            <Route path="/map" element={<InteractiveMap />} />
+            <Route path="/leasing" element={<Leasing />} />
+            <Route path="/spin-win" element={<SpinWin />} />
+            <Route path="/opening-day" element={<OpeningDay />} />
+            <Route path="/daily-deals" element={<DailyDeals />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/reward-terms" element={<RewardTerms />} />
+            <Route path="/market-echo" element={<MarketEcho />} />
+            <Route path="/countdown" element={<Countdown />} />
 
-            {/* Admin routes remain accessible */}
+            {/* Kasr Zero */}
+            <Route path="/kz" element={<KzHome />} />
+            <Route path="/kz/products" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
+            <Route path="/kz/products/:slug" element={<KzSlugRedirect />} />
+            <Route path="/kz/category/:slug" element={<Navigate to="/products?shop_name=kasr-zero" replace />} />
+            <Route path="/kz/search" element={<Navigate to="/products" replace />} />
+            <Route path="/kz/cart" element={<KzCart />} />
+
+            {/* Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/downtown-merchants" element={<AdminDowntownMerchants />} />
@@ -118,11 +158,11 @@ function AppLayout() {
             <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
             <Route path="/admin/kz-products" element={<AdminKzProducts />} />
 
-            {/* Everything else → countdown */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
+      {showChrome && <Footer />}
     </>
   );
 }
