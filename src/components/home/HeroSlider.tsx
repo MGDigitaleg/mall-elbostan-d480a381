@@ -258,7 +258,7 @@ function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; va
   const parsed = parseStatValue(stat.value);
   const isNumeric = parsed.num > 0;
 
-  const { ref, display } = useCountUp({
+  const { ref, display, started } = useCountUp({
     end: parsed.num,
     prefix: parsed.prefix,
     suffix: parsed.suffix,
@@ -269,10 +269,20 @@ function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; va
   return (
     <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-center sm:gap-2 md:flex-1 md:justify-center">
       <div
-        className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg"
-        style={{ background: "hsla(0, 0%, 100%, 0.06)", border: "1px solid hsla(0, 0%, 100%, 0.05)" }}
+        className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg transition-all duration-1000"
+        style={{
+          background: started ? "hsla(38, 30%, 70%, 0.12)" : "hsla(0, 0%, 100%, 0.06)",
+          border: `1px solid ${started ? "hsla(38, 30%, 70%, 0.18)" : "hsla(0, 0%, 100%, 0.05)"}`,
+          boxShadow: started ? "0 0 12px 2px hsla(38, 30%, 70%, 0.15)" : "none",
+        }}
       >
-        <stat.icon className="h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: "#CDBB9A" }} />
+        <stat.icon
+          className="h-3.5 w-3.5 md:h-4 md:w-4 transition-all duration-1000"
+          style={{
+            color: "#CDBB9A",
+            filter: started ? "drop-shadow(0 0 4px hsla(38, 30%, 70%, 0.5))" : "none",
+          }}
+        />
       </div>
       <div className="flex flex-col items-center sm:items-start">
         <span
