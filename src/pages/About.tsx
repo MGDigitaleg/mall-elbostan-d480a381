@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -16,6 +17,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
+import { useCountUp } from "@/hooks/useCountUp";
 import aboutDowntownCard from "@/assets/about-downtown-card.webp";
 import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
