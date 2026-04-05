@@ -31,8 +31,8 @@ export function DowntownTeaser() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(170deg, #0C0A06 0%, #1A150C 35%, #0F0D08 100%)",
-        paddingTop: "clamp(52px, 7vw, 112px)",
-        paddingBottom: "clamp(52px, 7vw, 112px)",
+        paddingTop: "clamp(36px, 5vw, 72px)",
+        paddingBottom: "clamp(36px, 5vw, 72px)",
       }}
     >
       {/* Subtle warm glow */}
