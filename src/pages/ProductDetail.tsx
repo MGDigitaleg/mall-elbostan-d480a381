@@ -198,8 +198,8 @@ const ProductDetail = () => {
                 {kzImages.length > 1 && (
                   <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
                     {kzImages.map((img: any, i: number) => (
-                      <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-white transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
-                        <img src={img.image_url} alt="" className="h-full w-full object-contain p-1" />
+                      <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-[hsl(210_40%_96.1%)] transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
+                        <img src={img.image_url} alt="" className="h-full w-full object-contain p-0.5" />
                       </button>
                     ))}
                   </div>
