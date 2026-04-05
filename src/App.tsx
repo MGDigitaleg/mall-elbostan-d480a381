@@ -56,6 +56,12 @@ const queryClient = new QueryClient();
 
 function GA4Init() { useGA4(); return null; }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 /* Routes that should NOT show the public header/footer/widgets */
 const adminPaths = ["/admin"];
 const immersivePaths = ["/market-echo"];
