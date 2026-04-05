@@ -3,7 +3,7 @@ import { ArrowLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
-import dtHero from "@/assets/downtown-hero-night-premium.webp";
+import dtHero from "@/assets/downtown-hero-night-clean2.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
