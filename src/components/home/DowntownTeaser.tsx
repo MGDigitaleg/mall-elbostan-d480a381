@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
-import dtHero from "@/assets/downtown-hero-night-restored.webp";
+import dtHero from "@/assets/downtown-hero-night-clean.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
@@ -31,8 +31,8 @@ export function DowntownTeaser() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(170deg, #0C0A06 0%, #1A150C 35%, #0F0D08 100%)",
-        paddingTop: "clamp(52px, 7vw, 112px)",
-        paddingBottom: "clamp(52px, 7vw, 112px)",
+        paddingTop: "clamp(36px, 5vw, 72px)",
+        paddingBottom: "clamp(36px, 5vw, 72px)",
       }}
     >
       {/* Subtle warm glow */}
@@ -50,7 +50,7 @@ export function DowntownTeaser() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
         >
-          <div className="grid gap-8 lg:gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="grid gap-6 lg:gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
             {/* Right: Content */}
             <div className="order-2 lg:order-1">
               <p
@@ -123,7 +123,7 @@ export function DowntownTeaser() {
                 className="overflow-hidden rounded-2xl"
                 style={{ border: "1px solid rgba(255,255,255,0.06)" }}
               >
-                <div className="aspect-[3/4] relative">
+                <div className="aspect-[4/5] max-h-[420px] relative">
                   <img
                     src={dtHero}
                     alt="مول البستان — المبنى التاريخي ليلًا في وسط البلد"
