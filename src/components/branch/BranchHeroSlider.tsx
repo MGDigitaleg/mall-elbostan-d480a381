@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { ChevronLeft, ChevronRight } from "lucide-react";
 interface HeroSlide {
   src: string;
   alt: string;
