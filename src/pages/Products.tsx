@@ -466,7 +466,7 @@ export function ProductCard({ product, index }: { product: UnifiedProduct; index
             <img
               src={product.product_image}
               alt={product.product_name}
-              className="h-full w-full object-contain p-3 transition-transform duration-200 group-hover:scale-105"
+              className="h-full w-full object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
               loading="lazy"
             />
           ) : (
