@@ -333,8 +333,8 @@ const ProductDetail = () => {
                     const ri = rp.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
                     return (
                       <Link key={rp.id} to={`/products/${rp.slug}`} className="group rounded-xl border border-border bg-card overflow-hidden transition-all hover:border-primary/20 hover:shadow-md">
-                        <div className="aspect-square overflow-hidden bg-white">
-                          {ri ? <img src={ri.image_url} alt={rp.title} className="h-full w-full object-contain p-3 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/20" /></div>}
+                        <div className="aspect-square overflow-hidden bg-[hsl(210_40%_96.1%)]">
+                          {ri ? <img src={ri.image_url} alt={rp.title} className="h-full w-full object-contain p-1.5 transition-transform group-hover:scale-105" loading="lazy" /> : <div className="flex h-full w-full items-center justify-center"><ShoppingBag className="h-6 w-6 text-muted-foreground/20" /></div>}
                         </div>
                         <div className="p-3">
                           <p className="text-[0.76rem] font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors">{rp.title}</p>
