@@ -4,7 +4,7 @@ export function MapLegend() {
       {[
         { fill: "#E2DDD5", stroke: "#9B9488", label: "مشغولة", darkFill: "#2A2826", darkStroke: "#6B6358" },
         { fill: "#FDE4C4", stroke: "#E8740E", label: "متاحة", darkFill: "#2A1D0D", darkStroke: "#E8740E" },
-        { fill: "#C8E8F4", stroke: "#0A9AB8", label: "قريبًا", darkFill: "#0D1F2A", darkStroke: "#0A9AB8" },
+        { fill: "#C8E8F4", stroke: "#0A9AB8", label: "قريباً", darkFill: "#0D1F2A", darkStroke: "#0A9AB8" },
       ].map((item) => (
         <div key={item.label} className="flex items-center gap-1.5">
           <span

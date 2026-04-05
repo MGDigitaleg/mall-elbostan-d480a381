@@ -49,7 +49,7 @@ const About = () => (
         { label: "فرع وسط البلد", to: "/downtown-branch" },
         { label: "فرع القاهرة الجديدة", to: "/new-cairo-branch" },
       ]}
-      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلًا" }}
+      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلاً" }}
     />
 
     {/* ═══════════ 2 · TWO BRANCHES ═══════════ */}
@@ -145,7 +145,7 @@ const About = () => (
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { value: "+460", label: "محلًا", sub: "عبر فرعين رئيسيين" },
+              { value: "+460", label: "محلاً", sub: "عبر فرعين رئيسيين" },
               { value: "+100 ألف", label: "منتج", sub: "في كل فئات التقنية" },
               { value: "آلاف", label: "التصنيفات", sub: "تغطية واسعة ومتخصصة" },
               { value: "فرعان", label: "رئيسيان", sub: "وسط البلد والتجمع" },
@@ -168,7 +168,7 @@ const About = () => (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { year: "1990", label: "البداية", desc: "افتتاح مول البستان في وسط البلد." },
-              { year: "2000+", label: "سنوات الثقة", desc: "المول يصبح مرجعًا في سوق الإلكترونيات." },
+              { year: "2000+", label: "سنوات الثقة", desc: "المول يصبح مرجعاً في سوق الإلكترونيات." },
               { year: "2024", label: "التحول الرقمي", desc: "إطلاق الدليل التفاعلي وسوق المنتجات." },
               { year: "2026", label: "القاهرة الجديدة", desc: "فرع جديد بتجربة منظمة وحديثة." },
             ].map((item, i) => (
@@ -190,7 +190,7 @@ const About = () => (
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عامًا و+460 محلًا عبر فرعين." },
+              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عاماً و+460 محلاً عبر فرعين." },
               { icon: Layers, title: "+100 ألف منتج", desc: "آلاف التصنيفات الفرعية تحت سقف واحد." },
               { icon: Store, title: "محلات متخصصة", desc: "تجّار بخبرة حقيقية في كل فئة تقنية." },
               { icon: MapPin, title: "فرعان رئيسيان", desc: "وسط البلد والقاهرة الجديدة." },

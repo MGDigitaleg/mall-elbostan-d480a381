@@ -290,7 +290,7 @@ export function LocationMapSection(props: LocationMapProps) {
                   <p className="mt-2 text-[0.72rem] text-muted-foreground">
                     {distance < 1 ? `${Math.round(distance * 1000)} م` : `${distance.toFixed(1)} كم`}
                     <span className="mx-1">·</span>
-                    <span className="font-semibold text-foreground">{eta} تقريبًا</span>
+                    <span className="font-semibold text-foreground">{eta} تقريباً</span>
                   </p>
                 ) : (
                   <button

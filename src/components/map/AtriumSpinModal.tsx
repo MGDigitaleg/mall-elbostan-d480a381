@@ -194,7 +194,7 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap }: Props) {
                   <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] light-muted mb-2">كيف يعمل النظام</p>
                   <div className="space-y-2">
                     {[
-                      { n: "1", t: "يتم اختيار متجر مشارك عشوائيًا" },
+                      { n: "1", t: "يتم اختيار متجر مشارك عشوائياً" },
                       { n: "2", t: "يتم اختيار مكافأة من مكافآت المتجر" },
                       { n: "3", t: "تحصل على رمز استلام فريد وكود QR" },
                     ].map((s) => (
@@ -245,7 +245,7 @@ export function AtriumSpinModal({ open, onClose, onWin, onViewOnMap }: Props) {
                   أدر العجلة
                 </Button>
                 <p className="mt-2 text-center text-[0.68rem] light-muted">
-                  مشاركة واحدة يوميًا لكل رقم هاتف
+                  مشاركة واحدة يومياً لكل رقم هاتف
                 </p>
               </form>
             )}
@@ -443,9 +443,9 @@ function NoWinResult({ message, onClose }: { message?: string; onClose: () => vo
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-secondary">
         <Gift className="h-6 w-6 text-muted-foreground" />
       </div>
-      <h2 className="mt-4 text-[1.05rem] font-extrabold light-heading">شكرًا لمشاركتك</h2>
+      <h2 className="mt-4 text-[1.05rem] font-extrabold light-heading">شكراً لمشاركتك</h2>
       <p className="mx-auto mt-2 max-w-xs text-[0.86rem] leading-7 light-body">
-        {message ?? "لم تتوفر مكافأة هذه المرة — لكن عروض الافتتاح بانتظارك. جرّب مرة أخرى غدًا."}
+        {message ?? "لم تتوفر مكافأة هذه المرة — لكن عروض الافتتاح بانتظارك. جرّب مرة أخرى غداً."}
       </p>
       <Button variant="secondary" className="mt-5 h-10 w-full rounded-xl text-[0.86rem] font-bold" onClick={onClose}>
         العودة إلى الخريطة

@@ -41,7 +41,7 @@ const AdminDashboard = () => {
         </div>
       </header>
       <main className="container py-10">
-        <h2 className="text-2xl font-bold text-foreground mb-8">مرحبًا بك في لوحة التحكم</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-8">مرحباً بك في لوحة التحكم</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {adminSections.map((section) => (
             <Link key={section.path} to={section.path} className="card-premium p-6 hover:glow-blue transition-all group">

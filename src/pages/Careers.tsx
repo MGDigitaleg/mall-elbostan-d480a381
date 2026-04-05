@@ -44,7 +44,7 @@ const Careers = () => {
       toast({ title: "خطأ", description: "حدث خطأ. حاول مرة أخرى.", variant: "destructive" });
     } else {
       setSubmitted(true);
-      toast({ title: "تم الإرسال", description: "شكرًا لتقديمك. سنتواصل معك قريبًا!" });
+      toast({ title: "تم الإرسال", description: "شكراً لتقديمك. سنتواصل معك قريباً!" });
     }
   };
 
@@ -55,7 +55,7 @@ const Careers = () => {
         <div className="text-center mb-12">
           <Briefcase className="w-16 h-16 text-primary mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gradient-blue mb-4 md:text-3xl">فرص العمل</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">فرص مهنية في بيئة تجارية متخصصة — انضم لفريق مول البستان وكن جزءًا من وجهة تقنية رائدة.</p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">فرص مهنية في بيئة تجارية متخصصة — انضم لفريق مول البستان وكن جزءاً من وجهة تقنية رائدة.</p>
         </div>
 
         {isLoading ? <LoadingGrid count={3} /> : jobs && jobs.length > 0 ? (
@@ -71,7 +71,7 @@ const Careers = () => {
               </div>
             ))}
           </div>
-        ) : <EmptyState title="لا توجد فرص شاغرة حاليًا" description="تابعنا لمعرفة الفرص الجديدة فور إعلانها." />}
+        ) : <EmptyState title="لا توجد فرص شاغرة حالياً" description="تابعنا لمعرفة الفرص الجديدة فور إعلانها." />}
 
         {/* Application Form */}
         <div className="max-w-xl mx-auto">

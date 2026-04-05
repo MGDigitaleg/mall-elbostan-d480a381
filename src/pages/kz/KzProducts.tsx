@@ -106,7 +106,7 @@ const KzProducts = () => {
                 value={sortBy} onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className="h-9 rounded-lg border border-border bg-card px-3 text-[0.76rem] font-semibold outline-none"
               >
-                <option value="featured">الأكثر تميزًا</option>
+                <option value="featured">الأكثر تميزاً</option>
                 <option value="newest">الأحدث</option>
                 <option value="price_asc">السعر: الأقل</option>
                 <option value="price_desc">السعر: الأعلى</option>

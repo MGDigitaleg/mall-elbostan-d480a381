@@ -118,7 +118,7 @@ const KzHome = () => {
           <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="text-[0.72rem] font-bold uppercase tracking-wider text-primary">منتجات مميزة</p>
-              <h2 className="mt-1 text-[1.2rem] font-extrabold text-foreground">الأكثر طلبًا</h2>
+              <h2 className="mt-1 text-[1.2rem] font-extrabold text-foreground">الأكثر طلباً</h2>
             </div>
             <Link to="/products?shop_name=kasr-zero" className="flex items-center gap-1.5 text-[0.78rem] font-bold text-primary hover:underline">
               عرض الكل <ArrowLeft className="h-3.5 w-3.5" />
@@ -181,7 +181,7 @@ const KzHome = () => {
           ) : (
             <div className="rounded-xl border border-border bg-card p-8 text-center">
               <ShoppingBag className="mx-auto mb-3 h-8 w-8 text-muted-foreground/30" />
-              <p className="text-[0.88rem] font-bold text-foreground">قريبًا</p>
+              <p className="text-[0.88rem] font-bold text-foreground">قريباً</p>
               <p className="mt-1 text-[0.78rem] text-muted-foreground">نعمل على إضافة المنتجات — تابعنا</p>
             </div>
           )}

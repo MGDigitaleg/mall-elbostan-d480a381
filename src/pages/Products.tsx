@@ -337,7 +337,7 @@ const Products = () => {
                   className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
                 >
-                  <option value="featured">الأكثر تميزًا</option>
+                  <option value="featured">الأكثر تميزاً</option>
                   <option value="price_asc">السعر: الأقل</option>
                   <option value="price_desc">السعر: الأعلى</option>
                   <option value="newest">الأحدث</option>

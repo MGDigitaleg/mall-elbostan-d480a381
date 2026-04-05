@@ -136,7 +136,7 @@ export function MapTeaserPreview() {
             {[
               { color: "#E8740E", label: "متاحة" },
               { color: "#4A4540", label: "مؤجّرة" },
-              { color: "#93C5FD", label: "قريبًا" },
+              { color: "#93C5FD", label: "قريباً" },
             ].map((item) => (
               <span key={item.label} className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full" style={{ background: item.color }} />

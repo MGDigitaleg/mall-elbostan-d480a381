@@ -14,8 +14,8 @@ import downtownGallery1Night from "@/assets/downtown-gallery-1-night-clean.webp"
 import downtownGallery2Night from "@/assets/downtown-gallery-2-night-clean.webp";
 
 const heroSlides = [
-  { src: downtownGallery1, alt: "واجهة مول البستان من الزاوية الرئيسية — وسط البلد نهارًا" },
-  { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلًا" },
+  { src: downtownGallery1, alt: "واجهة مول البستان من الزاوية الرئيسية — وسط البلد نهاراً" },
+  { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلاً" },
   { src: downtownGallery1Night, alt: "واجهة مول البستان بإضاءة ليلية — وسط البلد" },
   { src: downtownGallery2Night, alt: "الواجهة الرئيسية لمول البستان وقت الغروب — وسط البلد" },
 ];
@@ -95,7 +95,7 @@ const DowntownBranch = () => (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
             {[
               { v: "+400", l: "محل" },
-              { v: "+30", l: "عامًا في السوق" },
+              { v: "+30", l: "عاماً في السوق" },
               { v: "مئات", l: "التجار والعلامات" },
               { v: "1990", l: "سنة التأسيس" },
               ].map((s, i) => (
@@ -208,7 +208,7 @@ const DowntownBranch = () => (
               { icon: MapPin, label: "العنوان", value: "شارع البستان، وسط البلد، القاهرة", color: "#2563EB" },
               { icon: Phone, label: "الخط الساخن", value: "15215", color: "#06B6D4", dir: "ltr" as const },
               { icon: Mail, label: "البريد", value: "info@albostan-mall.com", color: "#F97316", dir: "ltr" as const },
-              { icon: Clock, label: "المواعيد", value: "يوميًا من الصباح حتى المساء", color: "#10B981" },
+              { icon: Clock, label: "المواعيد", value: "يومياً من الصباح حتى المساء", color: "#10B981" },
             ].map((c) => (
               <div
                 key={c.label}
@@ -230,7 +230,7 @@ const DowntownBranch = () => (
           </div>
 
           <p className="mt-5 text-[0.8rem] max-w-sm mx-auto" style={{ color: "#7C8BA1" }}>
-            إحدى مشروعات <strong style={{ color: "#CBD5E1" }}>مجموعة العباسي</strong> — أكثر من 30 عامًا في تطوير وإدارة المنشآت التجارية المتخصصة.
+            إحدى مشروعات <strong style={{ color: "#CBD5E1" }}>مجموعة العباسي</strong> — أكثر من 30 عاماً في تطوير وإدارة المنشآت التجارية المتخصصة.
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-2.5">

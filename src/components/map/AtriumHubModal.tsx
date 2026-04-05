@@ -217,7 +217,7 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                     {[
                       { label: "خصومات مباشرة", sub: "من المتاجر" },
                       { label: "هدايا حقيقية", sub: "إكسسوارات ومنتجات" },
-                      { label: "مرتبط بالخريطة", sub: "اعرف المكان فورًا" },
+                      { label: "مرتبط بالخريطة", sub: "اعرف المكان فوراً" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-lg border border-border bg-card p-3 text-center">
                         <p className="text-[0.76rem] font-bold light-heading">{item.label}</p>
@@ -259,7 +259,7 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       </div>
                     ))
                   ) : (
-                    <EmptyState icon={Tag} text="العروض ستتوفر قريبًا مع افتتاح المول" />
+                    <EmptyState icon={Tag} text="العروض ستتوفر قريباً مع افتتاح المول" />
                   )}
                   <Link to="/daily-deals" className="block">
                     <Button variant="outline-blue" className="h-9 w-full rounded-xl text-[0.82rem] font-bold">
@@ -291,7 +291,7 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       ))}
                     </div>
                   ) : (
-                    <EmptyState icon={Store} text="المتاجر المميزة ستظهر هنا قريبًا" />
+                    <EmptyState icon={Store} text="المتاجر المميزة ستظهر هنا قريباً" />
                   )}
                   <Link to="/stores" className="block">
                     <Button variant="outline-blue" className="h-9 w-full rounded-xl text-[0.82rem] font-bold">
@@ -321,7 +321,7 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       </div>
                     ))
                   ) : (
-                    <EmptyState icon={Calendar} text="الفعاليات ستُعلن قريبًا" />
+                    <EmptyState icon={Calendar} text="الفعاليات ستُعلن قريباً" />
                   )}
                 </div>
               )}
