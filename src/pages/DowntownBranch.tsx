@@ -7,20 +7,16 @@ import { motion } from "framer-motion";
 import { LocationMapSection, DOWNTOWN_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 
-import downtownHeroDay from "@/assets/downtown-hero-enhanced-clean.webp";
 import downtownHeroNight from "@/assets/downtown-hero-night-clean2.webp";
 import downtownGallery1 from "@/assets/downtown-gallery-1-clean.webp";
-import downtownGallery2 from "@/assets/downtown-gallery-2-clean.webp";
 import downtownGallery1Night from "@/assets/downtown-gallery-1-night-clean.webp";
 import downtownGallery2Night from "@/assets/downtown-gallery-2-night-clean.webp";
 
 const heroSlides = [
-  { src: downtownHeroDay, alt: "واجهة مول البستان التجاري — وسط البلد نهاراً" },
+  { src: downtownGallery1, alt: "واجهة مول البستان من الزاوية الرئيسية — وسط البلد نهاراً" },
   { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلاً" },
-  { src: downtownGallery1, alt: "المبنى من زاوية جانبية — نهاراً" },
-  { src: downtownGallery1Night, alt: "المبنى من زاوية جانبية — ليلاً" },
-  { src: downtownGallery2, alt: "الواجهة الرئيسية — نهاراً" },
-  { src: downtownGallery2Night, alt: "الواجهة الرئيسية — ليلاً" },
+  { src: downtownGallery1Night, alt: "واجهة مول البستان بإضاءة ليلية — وسط البلد" },
+  { src: downtownGallery2Night, alt: "الواجهة الرئيسية لمول البستان وقت الغروب — وسط البلد" },
 ];
 
 const sectionReveal = {
