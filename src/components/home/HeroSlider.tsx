@@ -196,13 +196,14 @@ export function HeroSlider() {
       <div className="relative z-10 mx-auto flex h-full min-h-[560px] md:min-h-[580px] max-h-[660px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[72px] md:pt-[76px] pb-14">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
           {/* Text block */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              custom={direction}
+              variants={textVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
               className="max-w-[28rem] space-y-3 md:space-y-4"
             >
               <span
