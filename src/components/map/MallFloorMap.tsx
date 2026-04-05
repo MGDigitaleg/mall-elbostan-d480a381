@@ -232,9 +232,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         {/* ── ClipPaths for logo badges ── */}
         <defs>
           {floor.units.map((unit) => {
-            const badgeW = 66;
-            const badgeH = 46;
-            const badgeR = 7;
+            const badgeW = 80;
+            const badgeH = 56;
+            const badgeR = 8;
             const bx = unit.labelX - badgeW / 2;
             const by = unit.labelY - badgeH / 2 - 6;
             return (
@@ -323,9 +323,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               : (isSelected ? "#9B6520" : "#7A7468");
 
             // Badge dimensions for logo container
-            const badgeW = 66;
-            const badgeH = 46;
-            const badgeR = 7;
+            const badgeW = 80;
+            const badgeH = 56;
+            const badgeR = 8;
             const badgeX = unit.labelX - badgeW / 2;
             const badgeY = unit.labelY - badgeH / 2 - 6;
 
