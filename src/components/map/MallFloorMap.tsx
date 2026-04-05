@@ -236,6 +236,14 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
         {/* ── ClipPaths for logo badges ── */}
         <defs>
+          <style>{`
+            @keyframes badgeBounceIn {
+              0% { transform: scale(0); opacity: 0; }
+              60% { transform: scale(1.08); opacity: 1; }
+              80% { transform: scale(0.96); }
+              100% { transform: scale(1); opacity: 1; }
+            }
+          `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
             const badgeH = 56;
@@ -313,7 +321,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
         {/* ── Unit labels — with logos when available ── */}
         <g id="labels-layer">
-          {floor.units.map((unit) => {
+          {floor.units.map((unit, idx) => {
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
             const tenantLogo = TENANT_LOGOS[unit.id];
@@ -349,6 +357,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       transformOrigin: `${unit.labelX}px ${badgeY + badgeH / 2}px`,
                       transform: hoveredBadgeId === unit.id ? "scale(1.12)" : "scale(1)",
                       transition: "transform 0.2s ease-out",
+                      animation: `badgeBounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1) ${idx * 0.04}s both`,
                     }}
                     filter="url(#badgeShadow)"
                     onMouseEnter={() => setHoveredBadgeId(unit.id)}
