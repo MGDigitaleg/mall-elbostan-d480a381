@@ -118,7 +118,7 @@ const DowntownBranch = () => (
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="overflow-hidden rounded-2xl" style={{ border: "1px solid rgba(0,0,0,0.06)" }}>
             <img
-              src={downtownHeroDay}
+              src={downtownGallery1}
               alt="واجهة مول البستان الكاملة — وسط البلد"
               className="w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
               style={{ maxHeight: "380px" }}
