@@ -247,6 +247,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               0%, 100% { opacity: 1; }
               50% { opacity: 0.55; }
             }
+            @keyframes comingSoonPulse {
+              0%, 100% { opacity: 1; }
+              50% { opacity: 0.6; }
+            }
           `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
