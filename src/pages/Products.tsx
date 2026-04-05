@@ -510,7 +510,7 @@ export function ProductCard({ product, index }: { product: UnifiedProduct; index
             {product.shop_name && (
               <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem]" style={{ color: "#64748B" }}>
                 {product.storeLogo ? (
-                  <img src={product.storeLogo} alt="" className="h-3.5 w-3.5 rounded-sm bg-white object-contain" />
+                  <img src={product.storeLogo} alt="" className="h-4 w-4 rounded-sm bg-white object-contain" style={{ padding: 1 }} />
                 ) : (
                   <Store className="h-3 w-3" />
                 )}
