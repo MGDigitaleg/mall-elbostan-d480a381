@@ -74,7 +74,7 @@ type ProductRow = {
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
 
-  /* Single data source for all product sections */
+  /* ── Single data source for all product sections ── */
   const { data: allProducts } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
@@ -92,21 +92,35 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
   const products = allProducts ?? [];
 
-  /* Derive sections from single dataset */
+  /* ── Derive sections from single dataset ── */
   const latestProducts = useMemo(() => products.slice(0, 12), [products]);
-  const featuredProducts = useMemo(() => products.filter((p) => p.featured).slice(0, 8), [products]);
+
+  const featuredProducts = useMemo(
+    () => products.filter((p) => p.featured).slice(0, 8),
+    [products]
+  );
+
+  /* Trending: featured first, then by recency — different slice than latest */
+  const trendingProducts = useMemo(() => {
+    const sorted = [...products].sort((a, b) => {
+      if (a.featured !== b.featured) return b.featured ? 1 : -1;
+      return 0; // keep original (newest-first) order
+    });
+    // Skip the first 12 to avoid repeating latest section
+    return sorted.slice(8, 16);
+  }, [products]);
 
   /* Category-based blocks */
   const phoneProducts = useMemo(
-    () => products.filter((p) => (p as any).stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
+    () => products.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
     [products]
   );
   const computerProducts = useMemo(
-    () => products.filter((p) => (p as any).stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
+    () => products.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
     [products]
   );
   const gamingProducts = useMemo(
-    () => products.filter((p) => (p as any).stores?.category === "الألعاب والترفيه").slice(0, 8),
+    () => products.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
     [products]
   );
 
@@ -118,10 +132,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
       <CategoryStrip />
 
-      {/* ═══════════ 3 · DEALS / OFFERS ═══════════ */}
-      <DealsTeaser />
-
-      {/* ═══════════ 4 · NEW ARRIVALS ═══════════ */}
+      {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
       <section
         style={{
           background: "#FAFAF8",
@@ -145,7 +156,34 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 5 · FEATURED PRODUCTS RAIL ═══════════ */}
+      {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
+      <DealsTeaser />
+
+      {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
+      {trendingProducts.length >= 3 && (
+        <section
+          style={{
+            background: "#FAFAF8",
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}
+        >
+          <div className="container">
+            <ProductRail
+              kicker="الأكثر طلبًا"
+              title="المنتجات الرائجة"
+              subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
+              products={trendingProducts}
+              ctaLabel="تصفّح المنتجات"
+              ctaTo="/products"
+              layout="rail"
+              theme="light"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
       {featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
@@ -172,10 +210,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </section>
       )}
 
-      {/* ═══════════ 6 · FEATURED STORES ═══════════ */}
+      {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
       <FeaturedStores />
 
-      {/* ═══════════ 7 · CATEGORY: PHONES ═══════════ */}
+      {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {phoneProducts.length >= 3 && (
         <section
           style={{
@@ -200,7 +238,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </section>
       )}
 
-      {/* ═══════════ 8 · CATEGORY: COMPUTERS ═══════════ */}
+      {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
       {computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
@@ -224,7 +262,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </section>
       )}
 
-      {/* ═══════════ 9 · CATEGORY: GAMING ═══════════ */}
+      {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
       {gamingProducts.length >= 3 && (
         <section
           style={{
@@ -249,10 +287,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </section>
       )}
 
-      {/* ═══════════ 10 · MERCHANT LOGO WALL ═══════════ */}
+      {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
-      {/* ═══════════ 11 · MAP TEASER ═══════════ */}
+      {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
         style={{
           background: "#FAFAF8",
@@ -282,7 +320,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 12 · SPIN & WIN ═══════════ */}
+      {/* ═══════════ 13 · SPIN & WIN ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -341,10 +379,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 13 · DOWNTOWN HERITAGE ═══════════ */}
+      {/* ═══════════ 14 · DOWNTOWN HERITAGE ═══════════ */}
       <DowntownTeaser />
 
-      {/* ═══════════ 14 · FAQ ═══════════ */}
+      {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
@@ -404,7 +442,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 15 · FINAL CTA ═══════════ */}
+      {/* ═══════════ 16 · FINAL CTA ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
