@@ -42,13 +42,15 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
   return (
     <Link
       to={`/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
       style={{
         borderRadius: 10,
-        border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(22,41,84,0.08)",
-        background: isDark ? "rgba(255,255,255,0.04)" : "#fff",
+        border: isDark ? "1px solid rgba(255,255,255,0.08)" : undefined,
+        background: isDark ? "rgba(255,255,255,0.04)" : undefined,
         boxShadow: "0 2px 8px rgba(15,23,42,0.03)",
       }}
+      className={`group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 ${
+        !isDark ? "bg-card border border-border/40 dark:bg-secondary dark:border-border/60" : ""
+      }`}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 16px rgba(15,23,42,0.07)";
       }}
@@ -58,11 +60,11 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
     >
       {/* ── Image zone ── */}
       <div
-        className="relative overflow-hidden"
+        className={`relative overflow-hidden ${isDark ? "" : "dark:bg-muted/30"}`}
         style={{
           aspectRatio: "4/3",
           background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
-          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.05)",
+          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid hsl(var(--border) / 0.3)",
         }}
       >
         {product.image_url ? (
