@@ -202,7 +202,7 @@ export function HeroSlider() {
             <div key={stat.label} className="flex items-center gap-2">
               <stat.icon className="h-3.5 w-3.5" style={{ color: "#CDBB9A80" }} />
               <span className="font-poppins text-[0.92rem] font-extrabold" style={{ color: "#F8FAFC" }}>
-                {typeof stat.value === "number" ? (stat.value > 0 ? `${stat.value}+` : "—") : stat.value}
+                {stat.value}
               </span>
               <span className="text-[0.66rem] font-medium" style={{ color: "#94A3B8" }}>
                 {stat.label}
