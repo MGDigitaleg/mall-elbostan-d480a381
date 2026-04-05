@@ -368,7 +368,7 @@ const StoreDetail = () => {
                       {storeProducts.map((product) => (
                         <Link key={product.id} to={`/products/${product.slug}`}
                               className="group flex flex-col bg-card p-4 transition-colors hover:bg-muted/20">
-                          <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white">
+                          <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white dark:bg-muted/30">
                             {product.image_url ? (
                               <img src={product.image_url} alt={product.name_ar}
                                    className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105" loading="lazy" />
@@ -418,7 +418,7 @@ const StoreDetail = () => {
                         return (
                           <Link key={kp.id} to={`/products/${kp.slug}`}
                                 className="group flex flex-col bg-card p-4 transition-colors hover:bg-muted/20">
-                            <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white">
+                            <div className="mb-3 aspect-square overflow-hidden rounded-xl border border-border bg-white dark:bg-muted/30">
                               {mainImg ? (
                                 <img src={mainImg.image_url} alt={kp.title}
                                      className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105" loading="lazy" />
@@ -509,7 +509,7 @@ const StoreDetail = () => {
                               className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/20">
                           {r.logo_url ? (
                             <img src={r.logo_url} alt={r.name_ar}
-                                 className="h-12 w-12 rounded-xl border border-border bg-white object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
+                                 className="h-12 w-12 rounded-xl border border-border bg-white dark:bg-muted/30 object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
                                  loading="lazy" />
                           ) : (
                             <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-muted/30">

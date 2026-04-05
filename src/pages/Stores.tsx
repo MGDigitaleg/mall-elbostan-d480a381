@@ -134,7 +134,7 @@ const Stores = () => {
       </PageHero>
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-9 md:py-12" style={{ background: "#FAFAF8" }}>
+      <section className="py-9 md:py-12 bg-[#FAFAF8] dark:bg-background">
         <div className="container max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -173,10 +173,10 @@ const Stores = () => {
                     setSelectedCategory(isActive ? "" : cat);
                     document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-card"
                   style={{
-                    borderColor: isActive ? `${meta.color}50` : "#E2E8F015",
-                    background: isActive ? `linear-gradient(155deg, ${meta.color}0A, white)` : "white",
+                    borderColor: isActive ? `${meta.color}50` : "hsl(var(--border))",
+                    background: isActive ? `linear-gradient(155deg, ${meta.color}0A, hsl(var(--card)))` : undefined,
                     boxShadow: isActive
                       ? `0 0 0 1px ${meta.color}20, 0 12px 32px ${meta.color}15`
                       : "0 1px 6px hsl(0 0% 0% / 0.04)",
@@ -199,8 +199,8 @@ const Stores = () => {
                   </div>
 
                   <div className="mt-4">
-                    <p className="text-[0.78rem] font-bold light-heading line-clamp-1">{cat}</p>
-                    <p className="mt-0.5 text-[0.6rem] light-muted">{meta.label}</p>
+                    <p className="text-[0.78rem] font-bold text-foreground line-clamp-1">{cat}</p>
+                    <p className="mt-0.5 text-[0.6rem] text-muted-foreground">{meta.label}</p>
                   </div>
 
                   <div className="mt-3.5 flex items-center justify-between">
@@ -355,7 +355,7 @@ const Stores = () => {
       </section>
 
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
-      <section className="relative overflow-hidden py-9 md:py-12" style={{ background: "#FAFAF8" }}>
+      <section className="relative overflow-hidden py-9 md:py-12 bg-[#FAFAF8] dark:bg-background">
         <div className="container max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
