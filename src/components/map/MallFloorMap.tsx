@@ -349,6 +349,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       transformOrigin: `${unit.labelX}px ${badgeY + badgeH / 2}px`,
                       transform: hoveredBadgeId === unit.id ? "scale(1.12)" : "scale(1)",
                       transition: "transform 0.2s ease-out",
+                      animation: `badgeBounceIn 0.5s cubic-bezier(0.34,1.56,0.64,1) ${idx * 0.04}s both`,
                     }}
                     filter="url(#badgeShadow)"
                     onMouseEnter={() => setHoveredBadgeId(unit.id)}
