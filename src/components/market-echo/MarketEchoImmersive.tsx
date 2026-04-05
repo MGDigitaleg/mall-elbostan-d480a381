@@ -535,8 +535,8 @@ function SceneFinal() {
           style={{
             color: "rgba(255,255,255,0.96)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(14px)",
-            transition: `opacity 850ms ${EASE} 200ms, transform 850ms ${EASE} 200ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+            transition: `opacity 700ms ${ease} 150ms, transform 700ms ${ease} 150ms`,
           }}
         >
           من البستان <span style={{ color: "#D9C8A2" }}>تعرف السوق.</span>
