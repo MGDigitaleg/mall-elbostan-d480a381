@@ -116,9 +116,11 @@ function SceneOpening() {
             style={{
               color: i === words.length - 1 ? "#D9C8A2" : "rgba(255,255,255,0.96)",
               opacity: step >= 2 ? 1 : 0,
-              filter: step >= 2 ? "blur(0px)" : "blur(4px)",
-              transform: step >= 2 ? "translateY(0)" : "translateY(14px)",
-              transition: `opacity 650ms ${EASE} ${i * 120}ms, transform 650ms ${EASE} ${i * 120}ms, filter 650ms ${EASE} ${i * 120}ms`,
+              filter: step >= 2 ? "blur(0px)" : (isMobile ? "blur(0px)" : "blur(4px)"),
+              transform: step >= 2 ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.97 : 1})`,
+              transition: isMobile
+                ? `opacity 500ms ${EASE_MOBILE} ${i * 80}ms, transform 500ms ${EASE_MOBILE} ${i * 80}ms`
+                : `opacity 650ms ${EASE} ${i * 120}ms, transform 650ms ${EASE} ${i * 120}ms, filter 650ms ${EASE} ${i * 120}ms`,
             }}
           >
             {w}
