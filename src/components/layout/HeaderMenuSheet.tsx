@@ -71,7 +71,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
       <SheetContent
         side="right"
         className="flex w-[90vw] max-w-[24rem] flex-col border-0 px-0 py-0"
-        style={{ background: "#FAFBFC" }}
+        style={{ background: "hsl(var(--card))" }}
       >
         {/* Header */}
         <div
