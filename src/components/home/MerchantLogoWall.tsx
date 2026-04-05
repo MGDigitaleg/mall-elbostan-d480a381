@@ -48,7 +48,7 @@ export function MerchantLogoWall() {
               to={`/stores/${store.slug}`}
               className="group flex flex-col items-center gap-2 rounded-lg p-3 transition-all heritage-surface hover:border-primary/20 hover:shadow-[0_4px_20px_rgba(37,99,235,0.1)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-white/[0.15] bg-white p-1.5 transition-transform group-hover:scale-105">
+              <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl bg-white transition-transform group-hover:scale-105" style={{ padding: 3 }}>
                 {store.logo_url ? (
                   <img src={store.logo_url} alt={store.name_ar} className="h-full w-full object-contain" loading="lazy" />
                 ) : (
