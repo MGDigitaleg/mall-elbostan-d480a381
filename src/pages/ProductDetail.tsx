@@ -395,8 +395,8 @@ const ProductDetail = () => {
           <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
             {/* Image */}
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
-              <div className="overflow-hidden rounded-xl border border-border bg-white">
-                <div className="flex aspect-square items-center justify-center p-4 md:p-6">
+              <div className="overflow-hidden rounded-xl border border-border bg-[hsl(210_40%_96.1%)]">
+                <div className="flex aspect-square items-center justify-center p-[clamp(10px,3%,18px)]">
                   {mallProduct!.image_url ? (
                     <img src={mallProduct!.image_url} alt={mallProduct!.name_ar} className="h-full w-full object-contain" />
                   ) : (
