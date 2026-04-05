@@ -17,6 +17,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
+import { BranchStatCard } from "@/components/branch/BranchStatCard";
 import { useCountUp } from "@/hooks/useCountUp";
 import { parseStatValue } from "@/lib/statUtils";
 import aboutDowntownCard from "@/assets/about-downtown-card.webp";
