@@ -260,31 +260,31 @@ export function ProductRail({
           <div
             ref={scrollRef}
             className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
-            style={{ gap: "clamp(12px, 1.2vw, 16px)", scrollbarWidth: "none" }}
+            style={{ gap: "clamp(8px, 1vw, 12px)", scrollbarWidth: "none" }}
           >
           {displayed.map((product) => (
-              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(150px, 15vw, 190px)" }}>
+              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(130px, 13vw, 165px)" }}>
                 <ProductCard product={product} theme={theme} />
               </div>
             ))}
           </div>
           <button
             onClick={() => scroll("right")}
-            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
+            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
           >
-            <ChevronRight className="h-3.5 w-3.5 text-foreground" />
+            <ChevronRight className="h-3 w-3 text-foreground" />
           </button>
           <button
             onClick={() => scroll("left")}
-            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-7 w-7 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
+            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
           >
-            <ChevronLeft className="h-3.5 w-3.5 text-foreground" />
+            <ChevronLeft className="h-3 w-3 text-foreground" />
           </button>
         </div>
       ) : (
         <div
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-          style={{ gap: "clamp(12px, 1.2vw, 16px)", rowGap: "clamp(16px, 1.5vw, 20px)" }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+          style={{ gap: "clamp(8px, 1vw, 12px)", rowGap: "clamp(10px, 1.2vw, 14px)" }}
         >
           {displayed.map((product) => (
             <ProductCard key={product.id} product={product} theme={theme} />
