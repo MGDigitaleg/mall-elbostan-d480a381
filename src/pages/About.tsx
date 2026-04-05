@@ -74,7 +74,7 @@ const About = () => (
               </div>
               <div className="p-5 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex h-5 items-center rounded-full px-2.5 text-[0.62rem] font-bold" style={{ background: "#CDBB9A20", color: "#9A8866", border: "1px solid #CDBB9A30" }}>
+                  <span className="inline-flex h-5 items-center rounded-full px-2.5 text-[0.62rem] font-bold bg-[#CDBB9A20] text-[#9A8866] border border-[#CDBB9A30] dark:bg-[#CDBB9A15] dark:text-[#CDBB9A] dark:border-[#CDBB9A25]">
                     الأصل
                   </span>
                   <span className="font-poppins text-[0.7rem] font-semibold text-muted-foreground">منذ 1990</span>
@@ -84,9 +84,9 @@ const About = () => (
                   المرجع الذي بناه السوق المصري على مدار ثلاثة عقود. مئات التجار، خبرات متراكمة، ووجهة معروفة في عالم الإلكترونيات.
                 </p>
                 <Link to="/downtown-branch">
-                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
-                    اكتشف فرع وسط البلد <ArrowLeft className="h-3.5 w-3.5" />
-                  </Button>
+                    <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">
+                     اكتشف فرع وسط البلد <ArrowLeft className="h-3.5 w-3.5" />
+                   </Button>
                 </Link>
               </div>
             </div>
@@ -113,9 +113,9 @@ const About = () => (
                   نفس الاسم مع خريطة تفاعلية ودليل رقمي، في موقع يخدم مدينتي والرحاب والتجمع الخامس. تنظيم أوضح وتجربة حديثة.
                 </p>
                 <Link to="/new-cairo-branch">
-                  <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold hover:text-primary/80" style={{ color: "#5B9AFF" }}>
-                    اكتشف فرع القاهرة الجديدة <ArrowLeft className="h-3.5 w-3.5" />
-                  </Button>
+                    <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">
+                     اكتشف فرع القاهرة الجديدة <ArrowLeft className="h-3.5 w-3.5" />
+                   </Button>
                 </Link>
               </div>
             </div>
@@ -137,9 +137,9 @@ const About = () => (
       <div className="relative container max-w-[900px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="text-center mb-6">
-            <p className="text-[0.62rem] font-bold tracking-[0.18em] uppercase mb-2" style={{ color: "#CDBB9A" }}>المنظومة بالأرقام</p>
-            <h2 className="text-[1.3rem] md:text-[1.5rem] font-bold" style={{ color: "#F8FAFC" }}>
-              أكبر من مول — <span style={{ color: "#5B9AFF" }}>منظومة تقنية متكاملة.</span>
+            <p className="text-[0.62rem] font-bold tracking-[0.18em] uppercase mb-2 text-[#CDBB9A]">المنظومة بالأرقام</p>
+            <h2 className="text-[1.3rem] md:text-[1.5rem] font-bold text-[#F8FAFC]">
+              أكبر من مول — <span className="text-primary">منظومة تقنية متكاملة.</span>
             </h2>
           </div>
 
@@ -223,13 +223,13 @@ const About = () => (
               { icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح المنتجات من كل المحلات.", to: "/products" },
               { icon: Users, label: "دليل المحلات", desc: "تعرّف على كل محل وتخصصه.", to: "/stores" },
             ].map((item) => (
-              <Link key={item.label} to={item.to} className="heritage-surface rounded-xl p-5 text-center group transition-all hover:border-[#2D6BFF30]" style={{ border: "1px solid transparent" }}>
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl" style={{ background: "#2D6BFF14", border: "1px solid #2D6BFF25" }}>
-                  <item.icon className="h-4.5 w-4.5" style={{ color: "#5B9AFF" }} />
+              <Link key={item.label} to={item.to} className="heritage-surface rounded-xl p-5 text-center group transition-all border border-transparent hover:border-primary/20">
+                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/[0.08] border border-primary/[0.15]">
+                  <item.icon className="h-4.5 w-4.5 text-primary" />
                 </div>
                 <p className="text-[0.88rem] font-bold dark-heading">{item.label}</p>
                 <p className="mt-1 text-[0.76rem] leading-[1.6] dark-muted">{item.desc}</p>
-                <span className="mt-2.5 inline-flex items-center gap-1 text-[0.76rem] font-bold group-hover:gap-2 transition-all" style={{ color: "#5B9AFF" }}>
+                <span className="mt-2.5 inline-flex items-center gap-1 text-[0.76rem] font-bold text-primary group-hover:gap-2 transition-all">
                   استكشف <ArrowLeft className="h-3 w-3" />
                 </span>
               </Link>
@@ -244,9 +244,9 @@ const About = () => (
       <div className="container max-w-[720px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
-            <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase light-muted">ابدأ من هنا</span>
-            <div className="h-[2px] w-5 rounded-full" style={{ background: "#CDBB9A" }} />
+            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
+            <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase text-muted-foreground">ابدأ من هنا</span>
+            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
           </div>
           <h2 className="mx-auto max-w-[22rem] text-[1.2rem] font-bold leading-[1.15] md:text-[1.45rem] light-heading">
             ابدأ من هنا.
