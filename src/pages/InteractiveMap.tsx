@@ -1,6 +1,6 @@
 // v2 – dark-mode refresh
 import { useMemo, useState, useCallback, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
 import {
   Building2,
@@ -295,15 +295,25 @@ const InteractiveMap = () => {
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
             <div ref={mapRef} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-              <MallFloorMap
-                floor={floor}
-                selectedUnitId={activeUnit?.id ?? null}
-                mutedUnitIds={mutedUnitIds}
-                onSelectUnit={setSelectedUnit}
-                onAtriumClick={handleAtriumClick}
-                atriumConfig={atriumConfig}
-                highlightedUnitIds={highlightedUnitIds}
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedFloor}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <MallFloorMap
+                    floor={floor}
+                    selectedUnitId={activeUnit?.id ?? null}
+                    mutedUnitIds={mutedUnitIds}
+                    onSelectUnit={setSelectedUnit}
+                    onAtriumClick={handleAtriumClick}
+                    atriumConfig={atriumConfig}
+                    highlightedUnitIds={highlightedUnitIds}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {!isMobile && (
