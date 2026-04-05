@@ -21,7 +21,7 @@ interface Props {
 
 export function OpeningGaming({ competitions }: Props) {
   return (
-    <section className="py-12 md:py-16" style={{ background: "hsl(38 25% 96%)" }}>
+    <section className="py-12 md:py-16 bg-secondary dark:bg-background">
       <div className="container max-w-[1200px]">
         <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="mb-10 flex items-center gap-4">
