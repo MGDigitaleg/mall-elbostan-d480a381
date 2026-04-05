@@ -116,30 +116,18 @@ const DowntownBranch = () => (
       </div>
     </section>
 
-    {/* ═══════════ 4 · GALLERY MOSAIC ═══════════ */}
-    <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+    {/* ═══════════ 4 · BUILDING SHOWCASE ═══════════ */}
+    <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
       <div className="container max-w-5xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <p className="section-kicker mb-4">من داخل المول</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            <div className="col-span-2 md:col-span-2 row-span-2 overflow-hidden rounded-2xl">
-              <img src={downtownHeroDay} alt="واجهة مول البستان — وسط البلد نهاراً" className="h-full w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <img src={downtownHeroNight} alt="واجهة المول ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <img src={downtownGallery1} alt="المبنى من زاوية جانبية — نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <img src={downtownGallery1Night} alt="المبنى من زاوية جانبية — ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <img src={downtownGallery2} alt="الواجهة الرئيسية — نهاراً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <img src={downtownGallery2Night} alt="الواجهة الرئيسية — ليلاً" className="aspect-square w-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-            </div>
+          <div className="overflow-hidden rounded-2xl" style={{ border: "1px solid rgba(0,0,0,0.06)" }}>
+            <img
+              src={downtownHeroDay}
+              alt="واجهة مول البستان الكاملة — وسط البلد"
+              className="w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+              style={{ maxHeight: "380px" }}
+              loading="lazy"
+            />
           </div>
         </motion.div>
       </div>
