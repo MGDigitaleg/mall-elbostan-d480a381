@@ -346,9 +346,9 @@
 
   /* ── Section background modifiers ── */
   .section-soft { background: hsl(var(--secondary)); }
-  .section-warm { background: hsl(34 16% 95%); }
+  .section-warm { background: hsl(var(--secondary)); }
   .section-ivory { background: var(--gradient-ivory); }
-  .section-stone { background: hsl(var(--warm-stone)); }
+  .section-stone { background: hsl(var(--background)); }
 
   /* ── Heritage dark sections ── */
   .heritage-section {
@@ -411,7 +411,7 @@
 
   .section-title {
     @apply text-[1.15rem] font-bold leading-[1.12] md:text-[1.35rem] lg:text-[1.5rem];
-    color: #0F172A;
+    color: hsl(var(--foreground));
     letter-spacing: -0.018em;
   }
 
