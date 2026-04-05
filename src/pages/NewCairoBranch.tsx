@@ -136,8 +136,8 @@ const NewCairoBranch = () => {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
               {[
-                { v: `${storeCount ?? 27}`, l: "محل نشط" },
-                { v: "6", l: "فئات تقنية" },
+                { v: `+${storeCount && storeCount > 27 ? storeCount : 60}`, l: "محل" },
+                { v: "10", l: "فئات تقنية" },
                 { v: "3", l: "أدوار" },
                 { v: "سوق", l: "منتجات رقمي" },
               ].map((s) => (
