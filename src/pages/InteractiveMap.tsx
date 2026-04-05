@@ -18,6 +18,7 @@ import {
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
+import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
@@ -564,6 +565,9 @@ const InteractiveMap = () => {
           </div>
         </div>
       </section>
+
+      {/* ═══════════ MERCHANT LOGO WALL ═══════════ */}
+      <MerchantLogoWall />
 
       {/* ── Mobile drawer ── */}
       <Drawer open={isMobile && !!activeUnit} onOpenChange={(open) => !open && setSelectedUnit(null)}>
