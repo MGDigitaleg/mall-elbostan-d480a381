@@ -60,10 +60,10 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
     >
       {/* ── Image zone ── */}
       <div
-        className={`relative overflow-hidden ${isDark ? "" : "dark:bg-muted/30"}`}
+        className={`relative overflow-hidden ${isDark ? "" : "bg-muted/30 dark:bg-muted/20"}`}
         style={{
           aspectRatio: "4/3",
-          background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
+          background: isDark ? "rgba(255,255,255,0.03)" : undefined,
           borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid hsl(var(--border) / 0.3)",
         }}
       >
@@ -272,13 +272,13 @@ export function ProductRail({
           </div>
           <button
             onClick={() => scroll("right")}
-            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
+            className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card/90 shadow-sm hover:shadow-md"
           >
             <ChevronRight className="h-3 w-3 text-foreground" />
           </button>
           <button
             onClick={() => scroll("left")}
-            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border bg-white/90 shadow-sm hover:shadow-md"
+            className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-6 w-6 items-center justify-center rounded-full border border-border bg-card/90 shadow-sm hover:shadow-md"
           >
             <ChevronLeft className="h-3 w-3 text-foreground" />
           </button>
