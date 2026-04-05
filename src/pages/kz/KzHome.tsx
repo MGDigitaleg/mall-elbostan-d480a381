@@ -113,7 +113,7 @@ const KzHome = () => {
       )}
 
       {/* Featured Products */}
-      <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 bg-secondary dark:bg-background">
         <div className="container max-w-[1200px]">
           <div className="mb-6 flex items-end justify-between">
             <div>

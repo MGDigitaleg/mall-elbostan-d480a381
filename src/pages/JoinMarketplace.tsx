@@ -74,7 +74,7 @@ const JoinMarketplace = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 bg-secondary dark:bg-background">
         <div className="container max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="chapter-shell pt-4 mb-8">
@@ -128,7 +128,7 @@ const JoinMarketplace = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 bg-secondary dark:bg-background">
         <div className="container max-w-xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             {submitted ? (

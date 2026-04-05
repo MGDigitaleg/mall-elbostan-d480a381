@@ -77,7 +77,7 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
         ].map((item) => (
           <div key={item.label} className="rounded-lg p-2.5 bg-secondary dark:bg-muted/30 border border-border">
             <div className="flex items-center gap-1.5">
-              <div className="flex h-5 w-5 items-center justify-center rounded" style={{ background: "#EDF2F7" }}>
+              <div className="flex h-5 w-5 items-center justify-center rounded bg-muted dark:bg-muted/50">
                 <item.icon className="h-2.5 w-2.5" style={{ color: "#64748B" }} />
               </div>
               <span className="text-[0.6rem] font-semibold" style={{ color: "#94A3B8" }}>{item.label}</span>
