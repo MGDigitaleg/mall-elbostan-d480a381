@@ -57,6 +57,8 @@ const statIcons = [Store, ShoppingBag, Layers, GitBranch];
 export function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const touchStart = useRef<number | null>(null);
 
   // Preload the first hero image so the browser discovers it before JS renders the <img>
   useLayoutEffect(() => {
@@ -76,16 +78,61 @@ export function HeroSlider() {
     label: s.label,
   }));
 
-  const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
+  const goTo = useCallback((index: number) => {
+    setCurrent((prev) => {
+      setDirection(index > prev ? 1 : -1);
+      return index;
+    });
+  }, []);
+
+  const next = useCallback(() => {
+    setDirection(1);
+    setCurrent((c) => (c + 1) % slides.length);
+  }, []);
 
   useEffect(() => {
     if (isPaused) return;
-    const t = setInterval(next, 3500);
+    const t = setInterval(next, 5000);
     return () => clearInterval(t);
   }, [isPaused, next]);
 
+  // Touch/swipe support
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  }, []);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left → next (RTL: previous visual)
+        setDirection(-1);
+        setCurrent((c) => (c + 1) % slides.length);
+      } else {
+        // Swipe right → prev (RTL: next visual)
+        setDirection(1);
+        setCurrent((c) => (c - 1 + slides.length) % slides.length);
+      }
+    }
+    touchStart.current = null;
+  }, []);
+
   const slide = slides[current];
   const CtaIcon = slide.cta.icon;
+
+  // Image transition variants - smooth crossfade with subtle Ken Burns
+  const imageVariants = useMemo(() => ({
+    enter: { opacity: 0, scale: 1.05 },
+    center: { opacity: 1, scale: 1, transition: { opacity: { duration: 0.8, ease: "easeOut" }, scale: { duration: 6, ease: "easeOut" } } },
+    exit: { opacity: 0, transition: { duration: 0.6, ease: "easeIn" } },
+  }), []);
+
+  // Text transition variants - slide with direction
+  const textVariants = useMemo(() => ({
+    enter: (d: number) => ({ opacity: 0, x: d * 30 }),
+    center: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.15 } },
+    exit: (d: number) => ({ opacity: 0, x: d * -20, transition: { duration: 0.3 } }),
+  }), []);
 
   return (
     <section
@@ -93,25 +140,27 @@ export function HeroSlider() {
       style={{ contain: "layout style" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* Full-bleed background */}
-      <AnimatePresence mode="popLayout">
+      {/* Full-bleed background - true crossfade */}
+      <AnimatePresence initial={false}>
         <motion.div
           key={current}
           className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          variants={imageVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
         >
           <img
             src={slide.image}
             alt={slide.alt}
             className="h-full w-full object-cover"
             style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 80%" }}
-            loading="eager"
+            loading={current === 0 ? "eager" : "lazy"}
             decoding="async"
-            fetchPriority="high"
+            fetchPriority={current === 0 ? "high" : undefined}
           />
         </motion.div>
       </AnimatePresence>
