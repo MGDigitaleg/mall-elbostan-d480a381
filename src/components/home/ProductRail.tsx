@@ -334,22 +334,26 @@ export function ProductRail({
               </div>
             ))}
           </div>
-          <button
-            onClick={() => scroll("right")}
-            aria-label="التمرير لليمين"
-            className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-            style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
-          >
-            <ChevronRight className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
-          </button>
-          <button
-            onClick={() => scroll("left")}
-            aria-label="التمرير لليسار"
-            className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-            style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
-          >
-            <ChevronLeft className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
-          </button>
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              aria-label="التمرير لليمين"
+              className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+            >
+              <ChevronRight className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+            </button>
+          )}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              aria-label="التمرير لليسار"
+              className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+            >
+              <ChevronLeft className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+            </button>
+          )}
         </div>
       ) : (
         <div
