@@ -596,7 +596,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           }
 
           // Tooltip for non-occupied (available / coming soon)
-          const statusLabel = unit.status === "available" ? "متاح للإيجار" : "قريباً";
+          const statusLabel = unit.status === "available" ? "متاح للإيجار" : "قريبًا";
           const statusColor = unit.status === "available" ? "#F97316" : "#06B6D4";
           const detailText = `${unit.code} · ${floorLabel} · ${areaText}`;
           const topLen = statusLabel.length * 8 + 30;

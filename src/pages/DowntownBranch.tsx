@@ -14,8 +14,8 @@ import downtownGallery1Night from "@/assets/downtown-gallery-1-night-clean.webp"
 import downtownGallery2Night from "@/assets/downtown-gallery-2-night-clean.webp";
 
 const heroSlides = [
-  { src: downtownGallery1, alt: "واجهة مول البستان من الزاوية الرئيسية — وسط البلد نهاراً" },
-  { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلاً" },
+  { src: downtownGallery1, alt: "واجهة مول البستان من الزاوية الرئيسية — وسط البلد نهارًا" },
+  { src: downtownHeroNight, alt: "مول البستان — وسط البلد ليلًا" },
   { src: downtownGallery1Night, alt: "واجهة مول البستان بإضاءة ليلية — وسط البلد" },
   { src: downtownGallery2Night, alt: "الواجهة الرئيسية لمول البستان وقت الغروب — وسط البلد" },
 ];

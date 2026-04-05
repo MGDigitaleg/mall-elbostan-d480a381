@@ -44,7 +44,7 @@ const Careers = () => {
       toast({ title: "خطأ", description: "حدث خطأ. حاول مرة أخرى.", variant: "destructive" });
     } else {
       setSubmitted(true);
-      toast({ title: "تم الإرسال", description: "شكراً لتقديمك. سنتواصل معك قريباً!" });
+      toast({ title: "تم الإرسال", description: "شكرًا لتقديمك. سنتواصل معك قريبًا!" });
     }
   };
 

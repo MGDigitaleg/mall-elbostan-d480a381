@@ -459,7 +459,7 @@ const InteractiveMap = () => {
               <div className="grid grid-cols-2 gap-2.5">
                 {[
                   { icon: MapPin, label: "موقع مقصود", desc: "قلب المنطقة التجارية" },
-                  { icon: Users, label: "جمهور بنيّة شراء", desc: "عملاء مستهدفون يومياً" },
+                  { icon: Users, label: "جمهور بنيّة شراء", desc: "عملاء مستهدفون يوميًا" },
                   { icon: TrendingUp, label: "طلب متنامٍ", desc: "سوق التكنولوجيا ينمو" },
                   { icon: Layers, label: "تصنيف دقيق", desc: "كل دور بتخصصه" },
                 ].map((p) => (
