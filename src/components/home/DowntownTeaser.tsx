@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 
-import dtHero from "@/assets/downtown-hero-night-enhanced.webp";
+import dtHero from "@/assets/downtown-hero-night-restored.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
