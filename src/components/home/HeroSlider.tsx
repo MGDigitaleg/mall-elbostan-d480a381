@@ -199,7 +199,7 @@ export function HeroSlider() {
 
         {/* Stats bar at bottom of hero */}
         <div
-          className="mt-auto rounded-2xl border backdrop-blur-md px-4 py-3 md:px-6 md:py-3.5 flex items-center justify-center md:justify-start gap-4 md:gap-0"
+          className="mt-auto rounded-2xl border backdrop-blur-md px-3 py-3 sm:px-4 md:px-6 md:py-3.5 grid grid-cols-4 gap-1 sm:gap-3 md:flex md:items-center md:justify-start md:gap-0"
           style={{
             borderColor: "hsla(0, 0%, 100%, 0.08)",
             background: "hsla(220, 45%, 10%, 0.55)",
@@ -267,22 +267,22 @@ function CountUpStatItem({ stat, isLast }: { stat: { icon: React.ElementType; va
   });
 
   return (
-    <div className="flex items-center gap-2 md:flex-1 md:justify-center">
+    <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-center sm:gap-2 md:flex-1 md:justify-center">
       <div
         className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-lg"
         style={{ background: "hsla(0, 0%, 100%, 0.06)", border: "1px solid hsla(0, 0%, 100%, 0.05)" }}
       >
         <stat.icon className="h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: "#CDBB9A" }} />
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center sm:items-start">
         <span
           ref={ref as React.Ref<HTMLSpanElement>}
-          className="font-poppins text-[0.88rem] md:text-[1rem] font-extrabold leading-none"
+          className="font-poppins text-[0.82rem] sm:text-[0.88rem] md:text-[1rem] font-extrabold leading-none"
           style={{ color: "#F8FAFC" }}
         >
           {isNumeric ? display : stat.value}
         </span>
-        <span className="text-[0.6rem] md:text-[0.65rem] font-medium leading-tight mt-0.5" style={{ color: "#94A3B8" }}>
+        <span className="text-[0.58rem] sm:text-[0.6rem] md:text-[0.65rem] font-medium leading-tight mt-0.5" style={{ color: "#94A3B8" }}>
           {stat.label}
         </span>
       </div>
