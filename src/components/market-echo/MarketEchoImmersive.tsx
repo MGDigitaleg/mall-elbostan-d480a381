@@ -4,22 +4,39 @@ import { ArrowRight, Store, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EASE = "cubic-bezier(0.22,1,0.36,1)";
+const EASE_MOBILE = "cubic-bezier(0.25,0.46,0.45,0.94)";
 
-/* ─── useReveal ─── */
+/* ─── Mobile detection ─── */
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return mobile;
+}
+
+/* ─── useReveal — lower threshold on mobile for better trigger ─── */
 function useReveal(threshold = 0.25) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const isMobile = useIsMobile();
+  const effectiveThreshold = isMobile ? Math.min(threshold, 0.1) : threshold;
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold },
+      { threshold: effectiveThreshold, rootMargin: isMobile ? "0px 0px -30px 0px" : "0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, visible };
+  }, [effectiveThreshold, isMobile]);
+  return { ref, visible, isMobile };
 }
 
 /* ═══════════════════════════════════════════════
@@ -57,17 +74,20 @@ function BackButton() {
    ═══════════════════════════════════════════════ */
 function SceneOpening() {
   const [step, setStep] = useState(0);
+  const isMobile = useIsMobile();
   const words = ["الاسم", "الذي", "ظل", "يتردد", "في", "السوق."];
 
   useEffect(() => {
+    // Faster reveal on mobile for snappier feel
+    const d = isMobile ? 0.7 : 1;
     const timers = [
-      setTimeout(() => setStep(1), 500),   // kicker
-      setTimeout(() => setStep(2), 800),   // title
-      setTimeout(() => setStep(3), 1600),  // support
-      setTimeout(() => setStep(4), 2200),  // CTA
+      setTimeout(() => setStep(1), 400 * d),
+      setTimeout(() => setStep(2), 700 * d),
+      setTimeout(() => setStep(3), 1400 * d),
+      setTimeout(() => setStep(4), 1900 * d),
     ];
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
@@ -96,9 +116,11 @@ function SceneOpening() {
             style={{
               color: i === words.length - 1 ? "#D9C8A2" : "rgba(255,255,255,0.96)",
               opacity: step >= 2 ? 1 : 0,
-              filter: step >= 2 ? "blur(0px)" : "blur(4px)",
-              transform: step >= 2 ? "translateY(0)" : "translateY(14px)",
-              transition: `opacity 650ms ${EASE} ${i * 120}ms, transform 650ms ${EASE} ${i * 120}ms, filter 650ms ${EASE} ${i * 120}ms`,
+              filter: step >= 2 ? "blur(0px)" : (isMobile ? "blur(0px)" : "blur(4px)"),
+              transform: step >= 2 ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.97 : 1})`,
+              transition: isMobile
+                ? `opacity 500ms ${EASE_MOBILE} ${i * 80}ms, transform 500ms ${EASE_MOBILE} ${i * 80}ms`
+                : `opacity 650ms ${EASE} ${i * 120}ms, transform 650ms ${EASE} ${i * 120}ms, filter 650ms ${EASE} ${i * 120}ms`,
             }}
           >
             {w}
@@ -158,10 +180,10 @@ const echoPhrases = [
 ];
 
 function SceneEchoes() {
-  const { ref, visible } = useReveal(0.12);
+  const { ref, visible, isMobile } = useReveal(0.12);
 
   return (
-    <section ref={ref} className="relative overflow-hidden echo-scene-spacing" style={{ minHeight: "92svh" }}>
+    <section ref={ref} className="relative overflow-hidden echo-scene-spacing" style={{ minHeight: isMobile ? "75svh" : "92svh" }}>
       {/* Main content */}
       <div className="echo-container relative z-10 pt-20 md:pt-28">
         <span
@@ -244,13 +266,14 @@ const presentItems = [
 ];
 
 function ScenePresent() {
-  const { ref, visible } = useReveal(0.25);
+  const { ref, visible, isMobile } = useReveal(0.25);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
     <section
       ref={ref}
       className="flex items-center justify-center echo-scene-spacing"
-      style={{ minHeight: "76svh" }}
+      style={{ minHeight: isMobile ? "60svh" : "76svh" }}
     >
       <div className="echo-container">
         <div className="mx-auto max-w-[760px] text-center">
@@ -259,22 +282,22 @@ function ScenePresent() {
             style={{
               color: "rgba(255,255,255,0.96)",
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(14px)",
-              transition: `opacity 850ms ${EASE}, transform 850ms ${EASE}`,
+              transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+              transition: `opacity 700ms ${ease}, transform 700ms ${ease}`,
             }}
           >
             ما كان الناس يقولونه قديمًا، نقدمه اليوم بشكل أوضح.
           </h2>
 
-          <div className="mt-[34px] flex flex-col items-center" style={{ gap: 22 }}>
+          <div className="mt-[34px] flex flex-col items-center" style={{ gap: isMobile ? 18 : 22 }}>
             {presentItems.map((item, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3"
                 style={{
                   opacity: visible ? 1 : 0,
-                  transform: visible ? "translateX(0)" : "translateX(12px)",
-                  transition: `opacity 550ms ${EASE} ${400 + i * 180}ms, transform 550ms ${EASE} ${400 + i * 180}ms`,
+                  transform: visible ? "translateX(0) scale(1)" : `translateX(${isMobile ? 6 : 12}px) scale(${isMobile ? 0.97 : 1})`,
+                  transition: `opacity ${isMobile ? 450 : 550}ms ${ease} ${(isMobile ? 250 : 400) + i * (isMobile ? 120 : 180)}ms, transform ${isMobile ? 450 : 550}ms ${ease} ${(isMobile ? 250 : 400) + i * (isMobile ? 120 : 180)}ms`,
                 }}
               >
                 <div
@@ -309,22 +332,24 @@ const timelineStops = [
 ];
 
 function SceneTimeline() {
-  const { ref, visible } = useReveal(0.08);
+  const { ref, visible, isMobile } = useReveal(0.08);
   const [lineProgress, setLineProgress] = useState(0);
 
   useEffect(() => {
     if (!visible) return;
     let frame: number;
     const start = performance.now();
-    const dur = 1400;
+    const dur = isMobile ? 1800 : 1400; // slower on mobile for smoother feel
     const tick = (now: number) => {
       const p = Math.min((now - start) / dur, 1);
-      setLineProgress(p);
+      // Ease-out curve for smoother deceleration on mobile
+      const eased = isMobile ? 1 - Math.pow(1 - p, 3) : p;
+      setLineProgress(eased);
       if (p < 1) frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [visible]);
+  }, [visible, isMobile]);
 
   return (
     <section ref={ref} className="echo-scene-spacing" style={{ minHeight: "180svh" }}>
@@ -489,16 +514,17 @@ const stats = [
 ];
 
 function SceneFinal() {
-  const { ref, visible } = useReveal(0.25);
+  const { ref, visible, isMobile } = useReveal(0.25);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
-    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing" style={{ minHeight: "72svh" }}>
+    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing" style={{ minHeight: isMobile ? "60svh" : "72svh" }}>
       <div className="echo-container text-center">
         <span
           className="block mb-4"
           style={{
             fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "#D9C8A2",
-            opacity: visible ? 1 : 0, transition: `opacity 850ms ${EASE}`,
+            opacity: visible ? 1 : 0, transition: `opacity 700ms ${ease}`,
           }}
         >
           البستان بالأرقام
@@ -509,8 +535,8 @@ function SceneFinal() {
           style={{
             color: "rgba(255,255,255,0.96)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(14px)",
-            transition: `opacity 850ms ${EASE} 200ms, transform 850ms ${EASE} 200ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+            transition: `opacity 700ms ${ease} 150ms, transform 700ms ${ease} 150ms`,
           }}
         >
           من البستان <span style={{ color: "#D9C8A2" }}>تعرف السوق.</span>
@@ -521,26 +547,26 @@ function SceneFinal() {
           style={{
             fontSize: 18, lineHeight: 1.9, color: "rgba(255,255,255,0.72)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 400ms, transform 850ms ${EASE} 400ms`,
+            transform: visible ? "translateY(0)" : `translateY(${isMobile ? 6 : 10}px)`,
+            transition: `opacity 700ms ${ease} 300ms, transform 700ms ${ease} 300ms`,
           }}
         >
           واليوم تعرفه أسرع عبر دليل المحلات والخريطة والمنتجات.
         </p>
 
         {/* Stats */}
-        <div className="mt-12 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 justify-items-center">
+        <div className={`mt-12 mx-auto grid ${isMobile ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-2 md:grid-cols-4"} gap-3 md:gap-4 justify-items-center`}>
           {stats.map((s, i) => (
             <div
               key={i}
               className="flex flex-col items-center justify-center w-full sm:w-[180px]"
               style={{
-                height: 120, borderRadius: 18,
+                height: isMobile ? 100 : 120, borderRadius: 18,
                 background: "rgba(255,255,255,0.035)",
                 border: "1px solid rgba(255,255,255,0.08)",
                 opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(18px)",
-                transition: `opacity 550ms ${EASE} ${600 + i * 150}ms, transform 550ms ${EASE} ${600 + i * 150}ms`,
+                transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 10 : 18}px) scale(${isMobile ? 0.95 : 1})`,
+                transition: `opacity ${isMobile ? 400 : 550}ms ${ease} ${(isMobile ? 350 : 600) + i * (isMobile ? 80 : 150)}ms, transform ${isMobile ? 400 : 550}ms ${ease} ${(isMobile ? 350 : 600) + i * (isMobile ? 80 : 150)}ms`,
               }}
             >
               <span className="text-[24px] md:text-[28px] font-[800] font-poppins" style={{ color: "#1D5CFF" }}>
@@ -561,16 +587,17 @@ function SceneFinal() {
    SCENE 6 — Exit CTA
    ═══════════════════════════════════════════════ */
 function SceneCTA() {
-  const { ref, visible } = useReveal(0.3);
+  const { ref, visible, isMobile } = useReveal(0.3);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
-    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing pb-20" style={{ minHeight: "56svh" }}>
+    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing pb-20" style={{ minHeight: isMobile ? "50svh" : "56svh" }}>
       <div className="echo-container text-center">
         <span
           className="block mb-4"
           style={{
             fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "#D9C8A2",
-            opacity: visible ? 1 : 0, transition: `opacity 850ms ${EASE}`,
+            opacity: visible ? 1 : 0, transition: `opacity 700ms ${ease}`,
           }}
         >
           ابدأ من هنا
@@ -581,8 +608,8 @@ function SceneCTA() {
           style={{
             color: "rgba(255,255,255,0.96)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(14px)",
-            transition: `opacity 850ms ${EASE} 200ms, transform 850ms ${EASE} 200ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+            transition: `opacity 700ms ${ease} 150ms, transform 700ms ${ease} 150ms`,
           }}
         >
           المول جاهز — والقرار بيدك.
@@ -593,8 +620,8 @@ function SceneCTA() {
           style={{
             fontSize: 18, lineHeight: 1.9, color: "rgba(255,255,255,0.72)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 400ms, transform 850ms ${EASE} 400ms`,
+            transform: visible ? "translateY(0)" : `translateY(${isMobile ? 6 : 10}px)`,
+            transition: `opacity 700ms ${ease} 300ms, transform 700ms ${ease} 300ms`,
           }}
         >
           استكشف، قارن، ثم اختر المسار الأنسب لك.
@@ -605,8 +632,8 @@ function SceneCTA() {
           className="mt-10 flex flex-col md:flex-row items-center justify-center gap-3"
           style={{
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 600ms, transform 850ms ${EASE} 600ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 6 : 10}px) scale(${isMobile ? 0.97 : 1})`,
+            transition: `opacity 700ms ${ease} 450ms, transform 700ms ${ease} 450ms`,
           }}
         >
           <Link to="/stores" className="w-full md:w-auto">
