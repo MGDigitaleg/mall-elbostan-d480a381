@@ -88,22 +88,20 @@ export function FeaturedStores() {
                 <motion.div key={store.id} variants={cardReveal}>
                   <Link
                     to={`/stores/${store.slug}`}
-                    className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
+                    
+                    className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 bg-background border border-border/40 dark:border-border/60 dark:bg-card"
                     style={{
                       borderRadius: 14,
-                      border: "1px solid rgba(22,41,84,0.08)",
-                      background: "var(--background)",
                       padding: "clamp(8px, 1vw, 12px)",
                     }}
                   >
                     {/* Logo — dominant */}
                     <div
-                      className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
+                      className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-white dark:bg-white/90"
                       style={{
                         width: "clamp(44px, 5vw, 56px)",
                         height: "clamp(44px, 5vw, 56px)",
                         borderRadius: 12,
-                        background: "#fff",
                         padding: 3,
                         marginBottom: 6,
                       }}
