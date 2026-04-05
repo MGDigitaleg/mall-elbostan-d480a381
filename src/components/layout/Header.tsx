@@ -211,7 +211,7 @@ export function Header() {
             <BrandLogo
               align="center"
               imageClassName="h-auto max-w-[176px]"
-              variant={isTransparent ? "light" : "dark"}
+              variant={(isTransparent || isDark) ? "light" : "dark"}
             />
           </Link>
 
@@ -284,7 +284,7 @@ export function Header() {
           </nav>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" variant={isTransparent ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <div className="flex items-center justify-end gap-2">
@@ -351,7 +351,7 @@ export function Header() {
           )}
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={isTransparent ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
