@@ -283,7 +283,16 @@ export function ProductRail({
 
       {/* Grid or Rail */}
       {layout === "rail" ? (
-        <div className="relative">
+        <div className="relative group/rail">
+          {/* Edge fade indicators */}
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12"
+            style={{ background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)" }}
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12"
+            style={{ background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)" }}
+          />
           <div
             ref={scrollRef}
             className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
