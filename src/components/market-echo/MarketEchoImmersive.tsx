@@ -587,16 +587,17 @@ function SceneFinal() {
    SCENE 6 — Exit CTA
    ═══════════════════════════════════════════════ */
 function SceneCTA() {
-  const { ref, visible } = useReveal(0.3);
+  const { ref, visible, isMobile } = useReveal(0.3);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
-    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing pb-20" style={{ minHeight: "56svh" }}>
+    <section ref={ref} className="flex flex-col items-center justify-center echo-scene-spacing pb-20" style={{ minHeight: isMobile ? "50svh" : "56svh" }}>
       <div className="echo-container text-center">
         <span
           className="block mb-4"
           style={{
             fontSize: 14, fontWeight: 600, letterSpacing: "0.06em", color: "#D9C8A2",
-            opacity: visible ? 1 : 0, transition: `opacity 850ms ${EASE}`,
+            opacity: visible ? 1 : 0, transition: `opacity 700ms ${ease}`,
           }}
         >
           ابدأ من هنا
@@ -607,8 +608,8 @@ function SceneCTA() {
           style={{
             color: "rgba(255,255,255,0.96)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(14px)",
-            transition: `opacity 850ms ${EASE} 200ms, transform 850ms ${EASE} 200ms`,
+            transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+            transition: `opacity 700ms ${ease} 150ms, transform 700ms ${ease} 150ms`,
           }}
         >
           المول جاهز — والقرار بيدك.
