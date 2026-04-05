@@ -427,9 +427,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.code}
                     </text>
-                  </>
+                  </g>
                 ) : (
-                  <>
+                  <g pointerEvents="none">
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 3}
