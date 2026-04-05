@@ -69,9 +69,8 @@ export function FeaturedProducts() {
 
   return (
     <section
-      className="min-h-[420px]"
+      className="min-h-[420px] bg-card dark:bg-background"
       style={{
-        background: "#FAFAF8",
         contain: "layout style",
         paddingTop: "clamp(52px, 7vw, 112px)",
         paddingBottom: "clamp(52px, 7vw, 112px)",
@@ -160,10 +159,10 @@ export function FeaturedProducts() {
                   <Link
                     key={product.id}
                     to={`/products/${product.slug}`}
-                    className="group flex flex-col rounded-2xl border border-border/70 bg-white overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
+                    className="group flex flex-col rounded-2xl border border-border/70 bg-card dark:bg-secondary overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
                   >
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-[#F5F6F8]">
+                    <div className="relative aspect-square overflow-hidden bg-[#F5F6F8] dark:bg-muted/30">
                       {product.image_url ? (
                         <img
                           src={product.image_url}
