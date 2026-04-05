@@ -14,7 +14,7 @@ const cardReveal = {
   hidden: { opacity: 0, y: 14 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.32 } },
 };
-const stagger = { visible: { transition: { staggerChildren: 0.05 } } };
+const stagger = { visible: { transition: { staggerChildren: 0.04 } } };
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -35,40 +35,39 @@ export function FeaturedStores() {
 
   return (
     <section
-      className="bg-card min-h-[260px]"
+      className="bg-card"
       style={{
         contain: "layout style",
-        paddingTop: "clamp(40px, 5.5vw, 88px)",
-        paddingBottom: "clamp(40px, 5.5vw, 88px)",
+        paddingTop: "clamp(36px, 5vw, 80px)",
+        paddingBottom: "clamp(36px, 5vw, 80px)",
       }}
     >
       <div className="container">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="mb-4 flex items-end justify-between gap-4">
             <div>
               <p className="section-kicker">محلات مميزة</p>
-              <h2
-                className="section-title"
-                style={{ fontFamily: "var(--font-arabic-display)" }}
-              >
+              <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)" }}>
                 أبرز المحلات.
               </h2>
             </div>
             <Link to="/stores" className="hidden lg:inline-flex">
-              <Button variant="ghost" className="gap-1.5 text-[0.78rem] font-bold text-primary hover:text-primary/80">
-                دليل المحلات <ArrowLeft className="h-3.5 w-3.5" />
+              <Button variant="ghost" className="gap-1.5 text-[0.74rem] font-bold text-primary hover:text-primary/80">
+                دليل المحلات <ArrowLeft className="h-3 w-3" />
               </Button>
             </Link>
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="rounded-xl border border-border bg-background p-5">
-                  <Skeleton className="mx-auto h-12 w-12 rounded-xl" />
-                  <Skeleton className="mx-auto mt-3 h-4 w-2/3" />
-                  <Skeleton className="mx-auto mt-2 h-3 w-1/2" />
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="flex items-center gap-3 rounded-xl border border-border bg-background p-3">
+                  <Skeleton className="h-11 w-11 rounded-xl shrink-0" />
+                  <div className="space-y-1.5 flex-1">
+                    <Skeleton className="h-3.5 w-3/4" />
+                    <Skeleton className="h-2.5 w-1/2" />
+                  </div>
                 </div>
               ))}
             </div>
@@ -78,16 +77,16 @@ export function FeaturedStores() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4"
+              className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4"
             >
               {stores!.map((store) => (
                 <motion.div key={store.id} variants={cardReveal}>
                   <Link
                     to={`/stores/${store.slug}`}
-                    className="group flex flex-col items-center overflow-hidden rounded-xl border border-border/70 bg-background p-5 text-center transition-all hover:border-primary/15 hover:shadow-sm"
+                    className="group flex items-center gap-3 overflow-hidden rounded-xl border border-border/60 bg-background p-3 transition-all hover:border-primary/15 hover:shadow-sm"
                   >
-                    {/* Logo */}
-                    <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-xl border border-border bg-white p-1.5 transition-transform duration-300 group-hover:scale-105">
+                    {/* Logo — larger & prominent */}
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border/70 bg-white p-1 transition-transform duration-300 group-hover:scale-105">
                       {store.logo_url ? (
                         <img
                           src={store.logo_url}
@@ -96,39 +95,32 @@ export function FeaturedStores() {
                           loading="lazy"
                         />
                       ) : (
-                        <Store className="h-6 w-6 text-muted-foreground/25" />
+                        <Store className="h-5 w-5 text-muted-foreground/25" />
                       )}
                     </div>
 
-                    {/* Name */}
-                    <h3 className="mt-3 text-[0.82rem] font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
-                      {store.name_ar}
-                    </h3>
-
-                    {/* Category */}
-                    {store.category && (
-                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-muted/40 px-2 py-0.5 text-[0.58rem] font-medium text-muted-foreground">
-                        <Tag className="h-2 w-2" />
-                        {store.category}
-                      </span>
-                    )}
-
-                    {/* Unit */}
-                    {store.unit_code && (
-                      <span className="mt-1 text-[0.58rem] font-medium text-primary/60">
-                        {store.unit_code}
-                      </span>
-                    )}
+                    {/* Text */}
+                    <div className="min-w-0">
+                      <h3 className="text-[0.76rem] font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+                        {store.name_ar}
+                      </h3>
+                      {store.category && (
+                        <span className="mt-0.5 flex items-center gap-1 text-[0.56rem] font-medium text-muted-foreground line-clamp-1">
+                          <Tag className="h-2 w-2 shrink-0" />
+                          {store.category}
+                        </span>
+                      )}
+                    </div>
                   </Link>
                 </motion.div>
               ))}
             </motion.div>
           )}
 
-          <div className="mt-5 text-center lg:hidden">
+          <div className="mt-4 text-center lg:hidden">
             <Link to="/stores">
-              <Button variant="outline-blue" className="h-9 gap-1.5 rounded-xl px-5 text-[0.78rem] font-bold">
-                جميع المحلات <ArrowLeft className="h-3.5 w-3.5" />
+              <Button variant="outline-blue" className="h-8 gap-1 rounded-lg px-4 text-[0.72rem] font-bold">
+                جميع المحلات <ArrowLeft className="h-3 w-3" />
               </Button>
             </Link>
           </div>
