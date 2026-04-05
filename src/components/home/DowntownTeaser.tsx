@@ -50,7 +50,7 @@ export function DowntownTeaser() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
         >
-          <div className="grid gap-8 lg:gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="grid gap-6 lg:gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
             {/* Right: Content */}
             <div className="order-2 lg:order-1">
               <p
