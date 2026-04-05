@@ -317,47 +317,54 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             const isSelected = selectedUnitId === unit.id;
             const hasBrandBg = !!brandBg;
 
-            // Determine if text on brand bg should be light or dark
             const isLightBg = brandBg && (brandBg === "#FFFFFF" || brandBg === "#F5F0E8" || brandBg === "#E8DDD0" || brandBg === "#E8E0D0" || brandBg === "#E0D8C8" || brandBg === "#FDE4C4" || brandBg === "#C8A96E" || brandBg === "#FDD835" || brandBg === "#FF6B00");
             const codeColor = hasBrandBg
-              ? (isLightBg ? "#4A4540" : "#FFFFFF90")
+              ? (isLightBg ? "#4A4540" : "#FFFFFFA0")
               : (isSelected ? "#9B6520" : "#7A7468");
 
-            // Calculate bounding box from polygon to size logo proportionally
-            const pts = unit.polygon.split(/\s+/).map((p: string) => {
-              const [px, py] = p.split(",").map(Number);
-              return { x: px, y: py };
-            });
-            const minX = Math.min(...pts.map((p) => p.x));
-            const maxX = Math.max(...pts.map((p) => p.x));
-            const minY = Math.min(...pts.map((p) => p.y));
-            const maxY = Math.max(...pts.map((p) => p.y));
-            const unitW = maxX - minX;
-            const unitH = maxY - minY;
+            // Badge dimensions for logo container
+            const badgeW = 52;
+            const badgeH = 36;
+            const badgeR = 6;
+            const badgeX = unit.labelX - badgeW / 2;
+            const badgeY = unit.labelY - badgeH / 2 - 6;
 
-            // Logo fills ~85% width and ~60% height of unit for better visibility
-            const logoW = Math.max(50, Math.min(unitW * 0.85, 150));
-            const logoH = Math.max(30, Math.min(unitH * 0.58, 95));
+            // Logo image with padding inside badge
+            const logoPad = 3;
+            const logoImgW = badgeW - logoPad * 2;
+            const logoImgH = badgeH - logoPad * 2;
 
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
                 {tenantLogo && hasName ? (
                   <>
-                    {/* Tenant logo — clipped to unit polygon */}
+                    {/* White rounded badge background */}
+                    <rect
+                      x={badgeX}
+                      y={badgeY}
+                      width={badgeW}
+                      height={badgeH}
+                      rx={badgeR}
+                      ry={badgeR}
+                      fill="#FFFFFF"
+                      stroke={hasBrandBg ? brandBg + "60" : "#00000015"}
+                      strokeWidth="1"
+                      opacity="0.95"
+                    />
+                    {/* Tenant logo clipped to rounded badge */}
                     <image
                       href={tenantLogo}
-                      x={unit.labelX - logoW / 2}
-                      y={unit.labelY - logoH / 2 - 8}
-                      width={logoW}
-                      height={logoH}
+                      x={badgeX + logoPad}
+                      y={badgeY + logoPad}
+                      width={logoImgW}
+                      height={logoImgH}
                       preserveAspectRatio="xMidYMid meet"
-                      opacity="0.95"
                       clipPath={`url(#clip-${unit.id})`}
                     />
-                    {/* Unit code below logo */}
+                    {/* Unit code below badge */}
                     <text
                       x={unit.labelX}
-                      y={unit.labelY + logoH / 2 + 2}
+                      y={badgeY + badgeH + 10}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       className="text-[8px] font-semibold"
