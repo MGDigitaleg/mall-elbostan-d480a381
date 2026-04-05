@@ -58,6 +58,7 @@ interface HeaderMenuSheetProps {
 export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const handleLinkClick = () => {
     // Small delay for visual feedback before closing
