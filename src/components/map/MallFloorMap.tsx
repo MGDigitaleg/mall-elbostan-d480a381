@@ -229,6 +229,15 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
           </g>
         ))}
 
+        {/* ── ClipPaths for unit logos ── */}
+        <defs>
+          {floor.units.map((unit) => (
+            <clipPath key={`clip-${unit.id}`} id={`clip-${unit.id}`}>
+              <polygon points={unit.polygon} />
+            </clipPath>
+          ))}
+        </defs>
+
         {/* ── Unit polygons ── */}
         <g id="units-layer">
           {floor.units.map((unit) => {
