@@ -306,12 +306,18 @@ export function ProductRail({
         <div className="relative group/rail">
           {/* Edge fade indicators */}
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12"
-            style={{ background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)" }}
+            className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
+            style={{
+              background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)",
+              opacity: canScrollRight ? 1 : 0,
+            }}
           />
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12"
-            style={{ background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)" }}
+            className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
+            style={{
+              background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)",
+              opacity: canScrollLeft ? 1 : 0,
+            }}
           />
           <div
             ref={scrollRef}
