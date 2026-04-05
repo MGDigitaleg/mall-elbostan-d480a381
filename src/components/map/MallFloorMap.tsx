@@ -109,7 +109,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   );
 
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl", className)} style={{ background: "#F0EBE3", border: "1px solid #C8C3BB", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}>
+    <div className={cn("relative overflow-hidden rounded-2xl border border-border", className)} style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}>
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
@@ -122,11 +122,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               key={btn.label}
               onClick={btn.action}
               disabled={btn.disabled}
-              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25"
-              style={{ background: "hsl(0 0% 100% / 0.92)", border: "1px solid #C8C3BB", boxShadow: "0 1px 4px hsl(0 0% 0% / 0.08)" }}
+              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25 bg-card/95 border border-border shadow-sm"
               aria-label={btn.label}
             >
-              <btn.icon className="h-4 w-4" style={{ color: "#4A4540" }} />
+              <btn.icon className="h-4 w-4 text-foreground/70" />
             </button>
           ))}
         </div>
@@ -134,7 +133,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
       {/* Zoom badge */}
       {zoom > 1 && (
-        <div className="absolute top-3 right-3 z-10 rounded-lg px-2.5 py-1 text-[0.68rem] font-bold" style={{ background: "hsl(0 0% 100% / 0.92)", border: "1px solid #C8C3BB", color: "#4A4540" }}>
+        <div className="absolute top-3 right-3 z-10 rounded-lg px-2.5 py-1 text-[0.68rem] font-bold bg-card/95 border border-border text-foreground">
           {Math.round(zoom * 100)}%
         </div>
       )}

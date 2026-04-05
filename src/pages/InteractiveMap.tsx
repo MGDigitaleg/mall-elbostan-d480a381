@@ -318,14 +318,14 @@ const InteractiveMap = () => {
                     </p>
                   </div>
                   <div className="p-3">
-                    <div className="grid grid-cols-3 gap-2 text-center">
+                     <div className="grid grid-cols-3 gap-2 text-center">
                       {[
-                        { v: floorOccupied, l: "مشغولة", color: "hsl(var(--foreground))", bg: "hsl(var(--muted) / 0.5)", border: "hsl(var(--border))" },
-                        { v: floorAvailable, l: "متاحة", color: "hsl(25 95% 45%)", bg: "hsl(35 100% 97%)", border: "hsl(25 95% 55% / 0.2)" },
-                        { v: floorComingSoon, l: "قريبًا", color: "hsl(190 85% 35%)", bg: "hsl(190 50% 96%)", border: "hsl(190 85% 40% / 0.2)" },
+                        { v: floorOccupied, l: "مشغولة", colorClass: "text-foreground", bgClass: "bg-muted/50 border border-border" },
+                        { v: floorAvailable, l: "متاحة", colorClass: "text-[hsl(25_95%_45%)] dark:text-[hsl(25_95%_65%)]", bgClass: "bg-[hsl(35_100%_97%)] dark:bg-[hsl(25_50%_15%)] border border-[hsl(25_95%_55%/0.2)]" },
+                        { v: floorComingSoon, l: "قريبًا", colorClass: "text-[hsl(190_85%_35%)] dark:text-[hsl(190_85%_55%)]", bgClass: "bg-[hsl(190_50%_96%)] dark:bg-[hsl(190_50%_15%)] border border-[hsl(190_85%_40%/0.2)]" },
                       ].map((s) => (
-                        <div key={s.l} className="rounded-lg py-3 transition-all" style={{ background: s.bg, border: `1px solid ${s.border}` }}>
-                          <p className="font-poppins text-[1.1rem] font-extrabold" style={{ color: s.color }}>{s.v}</p>
+                        <div key={s.l} className={`rounded-lg py-3 transition-all ${s.bgClass}`}>
+                          <p className={`font-poppins text-[1.1rem] font-extrabold ${s.colorClass}`}>{s.v}</p>
                           <p className="mt-0.5 text-[0.54rem] font-semibold text-muted-foreground">{s.l}</p>
                         </div>
                       ))}
