@@ -30,7 +30,7 @@
     --popover: 60 9% 98%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 222 100% 59%;            /* #2D6BFF accent blue */
+    --primary: 222 100% 56%;            /* #1F61FF accent blue — WCAG AA compliant with white text */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 40 12% 93%;            /* warm ivory darker */
@@ -53,7 +53,7 @@
 
     --border: 220 18% 85%;              /* #D8DEE8 soft border */
     --input: 220 18% 85%;
-    --ring: 222 100% 59%;
+    --ring: 222 100% 56%;
 
     --radius: 0.625rem;
 
@@ -71,7 +71,7 @@
     --neutral-light: 40 12% 95%;
 
     /* ─── Premium gradients ─── */
-    --gradient-blue: linear-gradient(135deg, #2D6BFF, #4A82FF);
+    --gradient-blue: linear-gradient(135deg, #1F61FF, #4278FF);
     --gradient-hero: linear-gradient(168deg, #071326, #0B1B34);
     --gradient-card: linear-gradient(180deg, #FAFAF8, #F5F2EC);
     --gradient-section: linear-gradient(180deg, #F5F2EC, #EDE9E0);
@@ -91,7 +91,7 @@
     /* ─── Sidebar (admin) ─── */
     --sidebar-background: 218 72% 9%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 222 100% 59%;
+    --sidebar-primary: 222 100% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 216 52% 16%;
     --sidebar-accent-foreground: 210 40% 98%;
