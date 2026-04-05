@@ -191,7 +191,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}
+          }}>
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
           </div>
@@ -244,7 +244,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}
+          }}>
           {/* Dark overlay glow for depth */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
@@ -329,7 +329,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           background: "linear-gradient(135deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}
+        }}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -442,7 +442,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}
+        }}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -501,7 +501,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
-        }}
+        }}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
