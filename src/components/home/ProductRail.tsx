@@ -58,11 +58,11 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
     >
       {/* ── Image zone ── */}
       <div
-        className="relative overflow-hidden"
+         className="relative overflow-hidden"
         style={{
           height: "clamp(145px, 18vw, 190px)",
-          background: isDark ? "rgba(255,255,255,0.03)" : "#F8FAFC",
-          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.08)",
+          background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
+          borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.06)",
         }}
       >
         {product.image_url ? (
@@ -70,7 +70,7 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
             src={product.image_url}
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ padding: "clamp(8px, 1.2vw, 12px)" }}
+            style={{ padding: "clamp(12px, 1.5vw, 18px)", mixBlendMode: "multiply" }}
             loading="lazy"
           />
         ) : (
