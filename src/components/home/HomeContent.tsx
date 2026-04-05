@@ -382,12 +382,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 14 · MARKET ECHO TEASER ═══════════ */}
       <section
-        className="relative overflow-hidden"
+        className="relative overflow-hidden bg-background"
         style={{
-          background: "#F5F2EC",
           paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
         }}
+      >
         <div className="container max-w-[720px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <Link to="/market-echo" className="group block">
