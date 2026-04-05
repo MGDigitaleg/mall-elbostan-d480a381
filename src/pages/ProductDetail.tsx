@@ -538,7 +538,7 @@ const ProductDetail = () => {
             </div>
             <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-4">
               {relatedMallProducts.map((rp) => (
-                <Link key={rp.id} to={`/products/${rp.slug}`} className="group flex flex-col bg-white dark:bg-card transition-colors hover:bg-secondary/40">
+                <Link key={rp.id} to={`/products/${rp.slug}`} className="group flex flex-col bg-card transition-colors hover:bg-secondary/40">
                   <div className="flex aspect-square items-center justify-center bg-[hsl(210_40%_96.1%)] dark:bg-muted/30 p-1.5">
                     {rp.image_url ? (
                       <img src={rp.image_url} alt={rp.name_ar} className="h-full w-full object-contain transition-transform group-hover:scale-105" loading="lazy" />
