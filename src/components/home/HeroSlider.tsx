@@ -280,7 +280,7 @@ export function HeroSlider() {
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => setCurrent(i)}
+            onClick={() => goTo(i)}
             className="relative flex items-center justify-center transition-all duration-500"
             style={{ width: i === current ? 40 : 24, height: 24, padding: "9px 0" }}
             aria-label={`شريحة ${i + 1}`}
@@ -297,7 +297,7 @@ export function HeroSlider() {
                     style={{ background: "#CDBB9A" }}
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ duration: 3.5, ease: "linear" }}
+                    transition={{ duration: 5, ease: "linear" }}
                   />
                 </>
               )}
