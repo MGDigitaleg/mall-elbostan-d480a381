@@ -1,3 +1,4 @@
+// force HMR refresh
 import { motion } from "framer-motion";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
