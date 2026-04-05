@@ -239,18 +239,19 @@ export function HeroSlider() {
               className="block w-full rounded-full overflow-hidden relative"
               style={{ height: 6, background: i === current ? "transparent" : "#ffffff20" }}
             >
-            {i === current && (
-              <>
-                <div className="absolute inset-0 rounded-full" style={{ background: "#CDBB9A40" }} />
-                <motion.div
-                  className="absolute inset-0 rounded-full origin-right"
-                  style={{ background: "#CDBB9A" }}
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 3.5, ease: "linear" }}
-                />
-              </>
-            )}
+              {i === current && (
+                <>
+                  <div className="absolute inset-0 rounded-full" style={{ background: "#CDBB9A40" }} />
+                  <motion.div
+                    className="absolute inset-0 rounded-full origin-right"
+                    style={{ background: "#CDBB9A" }}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 3.5, ease: "linear" }}
+                  />
+                </>
+              )}
+            </span>
           </button>
         ))}
       </div>
