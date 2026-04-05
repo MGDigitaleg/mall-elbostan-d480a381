@@ -30,12 +30,12 @@ const Countdown = () => {
         />
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center gap-10 text-center max-w-2xl">
+        <div className="relative z-10 flex flex-col items-center gap-14 md:gap-16 text-center max-w-2xl">
           {/* Logo */}
           <BrandLogo variant="light" className="h-14 md:h-20" />
 
           {/* Heading */}
-          <div className="space-y-5">
+          <div className="space-y-6 md:space-y-7">
             <p
               className="font-poppins text-[0.65rem] font-bold tracking-[0.25em] uppercase"
               style={{ color: "hsl(var(--primary))" }}
@@ -43,14 +43,14 @@ const Countdown = () => {
               ١ مايو ٢٠٢٦
             </p>
             <h1
-              className="text-3xl md:text-5xl font-bold leading-[1.35]"
+              className="text-3xl md:text-5xl font-bold leading-[1.45]"
               style={{ color: "#F8FAFC" }}
             >
               الافتتاح الكبير
-              <span className="block mt-3 text-primary">قريباً جداً</span>
+              <span className="block mt-4 text-primary">قريباً جداً</span>
             </h1>
             <p
-              className="text-sm md:text-base max-w-md mx-auto leading-relaxed"
+              className="text-sm md:text-base max-w-md mx-auto leading-relaxed pt-2"
               style={{ color: "hsl(220 14% 55%)" }}
             >
               أكبر وجهة تقنية متخصصة في القاهرة الجديدة — أكثر من 150 وحدة تجارية في انتظارك.
