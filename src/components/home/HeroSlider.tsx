@@ -109,9 +109,9 @@ export function HeroSlider() {
             alt={slide.alt}
             className="h-full w-full object-cover"
             style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 80%" }}
-            loading={current === 0 ? "eager" : "lazy"}
+            loading="eager"
             decoding="async"
-            fetchPriority={current === 0 ? "high" : "auto"}
+            fetchPriority="high"
           />
         </motion.div>
       </AnimatePresence>
