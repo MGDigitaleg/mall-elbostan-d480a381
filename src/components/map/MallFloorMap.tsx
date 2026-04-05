@@ -345,6 +345,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                   <g
                     pointerEvents="all"
                     style={{ cursor: "pointer" }}
+                    filter="url(#badgeShadow)"
                     onMouseEnter={() => setHoveredBadgeId(unit.id)}
                     onMouseLeave={() => setHoveredBadgeId(null)}
                     onClick={() => onSelectUnit(unit)}
