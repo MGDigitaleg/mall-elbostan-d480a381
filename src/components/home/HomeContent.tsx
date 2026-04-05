@@ -141,7 +141,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
         }}>
-      >
         <div className="container">
           <ProductRail
             kicker="من محلات المول"
@@ -306,7 +305,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(40px, 5.5vw, 88px)",
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
         }}>
-      >
         <div className="container">
           <motion.div
             variants={sectionReveal}
@@ -337,7 +335,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
         }}
-      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -396,7 +393,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
         }}
-      >
         <div className="container max-w-[720px]">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <Link to="/market-echo" className="group block">
@@ -452,7 +448,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
         }}
-      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -512,7 +507,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
         }}
-      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
