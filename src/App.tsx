@@ -162,7 +162,7 @@ function AppLayout() {
         </Suspense>
       </main>
       {showChrome && <Footer />}
-      {showChrome && <WhatsAppFab />}
+      
     </>
   );
 }
