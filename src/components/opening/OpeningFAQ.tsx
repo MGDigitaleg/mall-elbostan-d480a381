@@ -20,7 +20,7 @@ export function OpeningFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-12 md:py-16" style={{ background: "hsl(38 25% 96%)" }}>
+    <section className="py-12 md:py-16 bg-secondary dark:bg-background">
       <div className="container max-w-[860px]">
         <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           {/* Header */}
@@ -43,10 +43,9 @@ export function OpeningFAQ() {
               return (
                 <div
                   key={i}
-                  className="overflow-hidden rounded-xl border transition-all"
+                  className="overflow-hidden rounded-xl border border-border transition-all bg-card"
                   style={{
-                    background: isOpen ? "hsl(0 0% 100%)" : "hsl(0 0% 100% / 0.7)",
-                    borderColor: isOpen ? "hsl(var(--primary) / 0.15)" : "hsl(220 20% 88%)",
+                    borderColor: isOpen ? "hsl(var(--primary) / 0.15)" : undefined,
                     boxShadow: isOpen ? "0 4px 16px hsl(220 30% 10% / 0.06)" : "none",
                   }}
                 >
@@ -57,8 +56,8 @@ export function OpeningFAQ() {
                     <span
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-poppins text-[0.68rem] font-bold transition-colors"
                       style={{
-                        background: isOpen ? "hsl(var(--primary) / 0.1)" : "hsl(220 20% 95%)",
-                        color: isOpen ? "hsl(var(--primary))" : "hsl(220 15% 50%)",
+                        background: isOpen ? "hsl(var(--primary) / 0.1)" : "hsl(var(--muted))",
+                        color: isOpen ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
                       }}
                     >
                       {String(i + 1).padStart(2, "0")}

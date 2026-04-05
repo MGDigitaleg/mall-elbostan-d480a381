@@ -12,7 +12,7 @@ const steps = [
 
 export function OpeningRoadmap() {
   return (
-    <section className="py-10 md:py-14" style={{ background: "hsl(38 25% 96%)" }}>
+    <section className="py-10 md:py-14 bg-secondary dark:bg-background">
       <div className="container max-w-[1200px]">
         <div className="mb-6 text-center">
           <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em] text-primary">قبل الزيارة</p>
