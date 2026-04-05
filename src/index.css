@@ -5,6 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   :root {
     --font-cairo: 'Alexandria', sans-serif;
     --font-arabic-display: 'IBM Plex Sans Arabic', sans-serif;
