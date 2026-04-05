@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -55,6 +55,12 @@ import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinRe
 const queryClient = new QueryClient();
 
 function GA4Init() { useGA4(); return null; }
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 
 /* Routes that should NOT show the public header/footer/widgets */
 const adminPaths = ["/admin"];
@@ -171,6 +177,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <GA4Init />
+          <ScrollToTop />
           <div className="min-h-screen flex flex-col bg-background">
             <AppLayout />
           </div>
