@@ -5,6 +5,7 @@ import { useKzCart } from "@/hooks/useKzCart";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeaderMenuSheet } from "@/components/layout/HeaderMenuSheet";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const primaryNavItems = [
   { label: "الرئيسية", path: "/" },
@@ -77,15 +78,16 @@ export function Header() {
   const isBranchActive = branchItems.some((b) => isActive(b.path));
 
   /* ----------- adaptive colors ----------- */
-  const textColor = isTransparent ? "rgba(248,250,252,0.92)" : "#334155";
-  const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : "#64748B";
+  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
+  const textColor = isTransparent ? "rgba(248,250,252,0.92)" : (isDark ? "#E2E8F0" : "#334155");
+  const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : (isDark ? "#94A3B8" : "#64748B");
   const activeColor = isTransparent ? "#60A5FA" : "#2563EB";
   const activeBg = isTransparent ? "rgba(96,165,250,0.1)" : "rgba(37,99,235,0.06)";
-  const hoverBg = isTransparent ? "rgba(255,255,255,0.06)" : "rgba(7,19,38,0.03)";
-  const borderColor = isTransparent ? "rgba(255,255,255,0.08)" : "rgba(216,222,232,0.5)";
-  const menuBtnBg = isTransparent ? "rgba(255,255,255,0.08)" : "#FAFAF8";
-  const menuBtnBorder = isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8";
-  const menuBtnColor = isTransparent ? "#E2E8F0" : "#334155";
+  const hoverBg = isTransparent ? "rgba(255,255,255,0.06)" : (isDark ? "rgba(255,255,255,0.05)" : "rgba(7,19,38,0.03)");
+  const borderColor = isTransparent ? "rgba(255,255,255,0.08)" : (isDark ? "rgba(255,255,255,0.08)" : "rgba(216,222,232,0.5)");
+  const menuBtnBg = isTransparent ? "rgba(255,255,255,0.08)" : (isDark ? "rgba(255,255,255,0.06)" : "#FAFAF8");
+  const menuBtnBorder = isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8");
+  const menuBtnColor = isTransparent ? "#E2E8F0" : (isDark ? "#E2E8F0" : "#334155");
 
   const navLinkStyle = (active: boolean) => ({
     color: active ? activeColor : textColor,
@@ -101,13 +103,13 @@ export function Header() {
         background: isTransparent
           ? "transparent"
           : scrolled
-            ? "rgba(250,250,248,0.97)"
-            : "rgba(250,250,248,0.92)",
+            ? (isDark ? "rgba(11,18,32,0.97)" : "rgba(250,250,248,0.97)")
+            : (isDark ? "rgba(11,18,32,0.92)" : "rgba(250,250,248,0.92)"),
         backdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
         WebkitBackdropFilter: isTransparent ? "none" : "blur(20px) saturate(1.3)",
         borderBottom: isTransparent ? "1px solid transparent" : `1px solid ${borderColor}`,
         boxShadow: !isTransparent && scrolled
-          ? "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)"
+          ? (isDark ? "0 1px 3px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.15)" : "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)")
           : "none",
         transition: "background 0.4s, box-shadow 0.4s, border-color 0.4s, backdrop-filter 0.4s",
       }}
@@ -165,9 +167,9 @@ export function Header() {
                 <div
                   className="absolute right-0 top-full mt-2 w-[280px] rounded-xl p-1.5"
                   style={{
-                    background: isTransparent ? "rgba(7,19,38,0.92)" : "rgba(250,250,248,0.98)",
+                    background: isTransparent ? "rgba(7,19,38,0.92)" : (isDark ? "rgba(17,27,46,0.98)" : "rgba(250,250,248,0.98)"),
                     backdropFilter: "blur(20px)",
-                    border: `1px solid ${isTransparent ? "rgba(255,255,255,0.1)" : "rgba(216,222,232,0.6)"}`,
+                    border: `1px solid ${(isTransparent || isDark) ? "rgba(255,255,255,0.1)" : "rgba(216,222,232,0.6)"}`,
                     boxShadow: "0 8px 32px rgba(7,19,38,0.15), 0 2px 8px rgba(7,19,38,0.08)",
                     animation: "fadeInDown 0.15s ease-out",
                   }}
@@ -181,7 +183,7 @@ export function Header() {
                         className="flex items-center gap-3 rounded-lg px-3.5 py-2.5 transition-all duration-200"
                         style={{
                           background: active ? activeBg : "transparent",
-                          color: active ? activeColor : (isTransparent ? "#CBD5E1" : "#334155"),
+                          color: active ? activeColor : ((isTransparent || isDark) ? "#CBD5E1" : "#334155"),
                         }}
                         onMouseEnter={(e) => { if (!active) (e.currentTarget.style.background = hoverBg); }}
                         onMouseLeave={(e) => { if (!active) (e.currentTarget.style.background = "transparent"); }}
@@ -209,7 +211,7 @@ export function Header() {
             <BrandLogo
               align="center"
               imageClassName="h-auto max-w-[176px]"
-              variant={isTransparent ? "light" : "dark"}
+              variant={(isTransparent || isDark) ? "light" : "dark"}
             />
           </Link>
 
@@ -237,6 +239,8 @@ export function Header() {
                 )}
               </Link>
             )}
+
+            <ThemeToggle isTransparent={isTransparent} />
 
             <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
 
@@ -280,10 +284,11 @@ export function Header() {
           </nav>
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" variant={isTransparent ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-auto max-w-[156px]" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <div className="flex items-center justify-end gap-2">
+            <ThemeToggle isTransparent={isTransparent} />
             {isKzPage && (
               <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
                 <ShoppingCart className="h-3.5 w-3.5" />
@@ -346,7 +351,7 @@ export function Header() {
           )}
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={isTransparent ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-[2.5rem] w-auto max-w-[140px]" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
