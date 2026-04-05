@@ -44,23 +44,23 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       to={`/products/${product.slug}`}
       className="group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5"
       style={{
-        borderRadius: 18,
+        borderRadius: 14,
         border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(22,41,84,0.10)",
         background: isDark ? "rgba(255,255,255,0.04)" : "#fff",
-        boxShadow: "0 6px 22px rgba(15,23,42,0.04)",
+        boxShadow: "0 4px 16px rgba(15,23,42,0.03)",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 28px rgba(15,23,42,0.08)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 22px rgba(15,23,42,0.07)";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 22px rgba(15,23,42,0.04)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(15,23,42,0.03)";
       }}
     >
       {/* ── Image zone ── */}
       <div
-         className="relative overflow-hidden"
+        className="relative overflow-hidden"
         style={{
-          aspectRatio: "4/3",
+          aspectRatio: "5/4",
           background: isDark ? "rgba(255,255,255,0.03)" : "#F8FAFC",
           borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(22,41,84,0.06)",
         }}
@@ -70,26 +70,26 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
             src={product.image_url}
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ padding: "clamp(10px, 1.2vw, 14px)" }}
+            style={{ padding: "clamp(6px, 0.8vw, 10px)" }}
             loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <ShoppingBag className="h-6 w-6 text-muted-foreground/10" />
+            <ShoppingBag className="h-5 w-5 text-muted-foreground/10" />
           </div>
         )}
 
         {/* Category chip */}
         {store?.category && (
           <span
-            className="absolute top-2 right-2 backdrop-blur-sm"
+            className="absolute top-1.5 right-1.5 backdrop-blur-sm"
             style={{
-              height: 22,
+              height: 18,
               display: "inline-flex",
               alignItems: "center",
-              paddingInline: 8,
+              paddingInline: 6,
               borderRadius: 999,
-              fontSize: 10,
+              fontSize: 9,
               fontWeight: 700,
               lineHeight: 1,
               color: isDark ? "rgba(255,255,255,0.8)" : "#fff",
@@ -103,19 +103,19 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
         {/* Featured badge */}
         {product.featured && (
           <span
-            className="absolute top-2 left-2 flex items-center gap-0.5 backdrop-blur-sm"
+            className="absolute top-1.5 left-1.5 flex items-center gap-0.5 backdrop-blur-sm"
             style={{
-              height: 22,
-              paddingInline: 8,
+              height: 18,
+              paddingInline: 6,
               borderRadius: 999,
-              fontSize: 10,
+              fontSize: 9,
               fontWeight: 700,
               lineHeight: 1,
               color: "#fff",
               background: "hsl(var(--primary) / 0.88)",
             }}
           >
-            <Sparkles className="h-2.5 w-2.5" />
+            <Sparkles className="h-2 w-2" />
             مميز
           </span>
         )}
@@ -124,7 +124,7 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       {/* ── Content zone ── */}
       <div
         className="flex flex-1 flex-col justify-between"
-        style={{ padding: "clamp(10px, 1.2vw, 14px)" }}
+        style={{ padding: "clamp(6px, 0.8vw, 10px)" }}
       >
         <div>
           {/* Title */}
@@ -132,32 +132,32 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
             className={`font-bold line-clamp-2 group-hover:text-primary transition-colors ${
               isDark ? "text-white/90" : "text-foreground"
             }`}
-            style={{ fontSize: "clamp(14px, 1.5vw, 18px)", lineHeight: 1.35, marginBottom: 2 }}
+            style={{ fontSize: "clamp(11px, 1.1vw, 14px)", lineHeight: 1.3, marginBottom: 1 }}
           >
             {product.name_ar}
           </p>
 
           {/* Shop name */}
           {store && (
-            <div className="flex items-center gap-1.5" style={{ marginTop: 4 }}>
+            <div className="flex items-center gap-1" style={{ marginTop: 2 }}>
               {store.logo_url ? (
                 <img
                   src={store.logo_url}
                   alt={store.name_ar}
                   className="rounded-sm object-contain shrink-0"
                   style={{
-                    width: 16,
-                    height: 16,
+                    width: 13,
+                    height: 13,
                     border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(22,41,84,0.1)",
                     background: "#fff",
                   }}
                 />
               ) : (
-                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 13, height: 13 }} />
+                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 11, height: 11 }} />
               )}
               <span
                 className={`line-clamp-1 ${isDark ? "text-white/50" : "text-muted-foreground"}`}
-                style={{ fontSize: "clamp(11px, 1.1vw, 13px)", fontWeight: 500, opacity: 0.75 }}
+                style={{ fontSize: "clamp(9px, 0.9vw, 11px)", fontWeight: 500, opacity: 0.75 }}
               >
                 {store.name_ar}
               </span>
@@ -169,14 +169,14 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
         {product.price ? (
           <p
             className="font-poppins font-extrabold text-primary"
-            style={{ fontSize: "clamp(16px, 1.6vw, 20px)", marginTop: 4 }}
+            style={{ fontSize: "clamp(12px, 1.2vw, 16px)", marginTop: 3 }}
           >
             {Number(product.price).toLocaleString("ar-EG")} جم
           </p>
         ) : product.price_note ? (
           <p
             className="font-bold text-primary"
-            style={{ fontSize: "clamp(12px, 1.1vw, 14px)", marginTop: 4 }}
+            style={{ fontSize: "clamp(10px, 0.9vw, 12px)", marginTop: 3 }}
           >
             {product.price_note}
           </p>
