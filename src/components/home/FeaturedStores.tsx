@@ -97,12 +97,11 @@ export function FeaturedStores() {
                   >
                     {/* Logo — dominant */}
                     <div
-                      className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
+                      className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-white dark:bg-white/90"
                       style={{
                         width: "clamp(44px, 5vw, 56px)",
                         height: "clamp(44px, 5vw, 56px)",
                         borderRadius: 12,
-                        background: "#fff",
                         padding: 3,
                         marginBottom: 6,
                       }}
