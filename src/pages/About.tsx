@@ -17,7 +17,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import exteriorImage from "@/assets/mall-exterior.webp";
-import downtownImage from "@/assets/downtown-exterior.webp";
+import downtownNight from "@/assets/downtown-night.webp";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 18 },
