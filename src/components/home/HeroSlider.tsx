@@ -283,19 +283,19 @@ export function HeroSlider() {
       {/* Desktop navigation arrows */}
       <button
         onClick={prev}
-        className="absolute top-1/2 right-4 z-10 hidden md:flex -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white/[0.12]"
+        className="group absolute top-1/2 right-4 z-10 hidden md:flex -translate-y-1/2 h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 hover:border-[hsla(38,30%,70%,0.4)] hover:shadow-[0_0_16px_hsla(38,30%,70%,0.2)]"
         style={{ borderColor: "hsla(0,0%,100%,0.12)", background: "hsla(220,45%,10%,0.5)", color: "#CBD5E1" }}
         aria-label="الشريحة التالية"
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-5 w-5 transition-all duration-300 group-hover:text-[#CDBB9A] group-hover:scale-110" />
       </button>
       <button
         onClick={next}
-        className="absolute top-1/2 left-4 z-10 hidden md:flex -translate-y-1/2 h-10 w-10 items-center justify-center rounded-full border transition-colors hover:bg-white/[0.12]"
+        className="group absolute top-1/2 left-4 z-10 hidden md:flex -translate-y-1/2 h-11 w-11 items-center justify-center rounded-full border transition-all duration-300 hover:scale-110 hover:border-[hsla(38,30%,70%,0.4)] hover:shadow-[0_0_16px_hsla(38,30%,70%,0.2)]"
         style={{ borderColor: "hsla(0,0%,100%,0.12)", background: "hsla(220,45%,10%,0.5)", color: "#CBD5E1" }}
         aria-label="الشريحة السابقة"
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-5 w-5 transition-all duration-300 group-hover:text-[#CDBB9A] group-hover:scale-110" />
       </button>
 
       {/* Slide indicators */}
