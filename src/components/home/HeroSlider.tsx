@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Compass, Gift, Store, ShoppingBag, Layers, GitBranch } from "lucide-react";
@@ -58,6 +58,18 @@ export function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Preload the first hero image so the browser discovers it before JS renders the <img>
+  useLayoutEffect(() => {
+    const firstImage = slides[0].image;
+    if (typeof firstImage === "string" && !document.querySelector(`link[href="${firstImage}"]`)) {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = firstImage;
+      link.fetchPriority = "high";
+      document.head.appendChild(link);
+    }
+  }, []);
   const stats = GLOBAL_STAT_CARDS.map((s, i) => ({
     icon: statIcons[i],
     value: s.value,
