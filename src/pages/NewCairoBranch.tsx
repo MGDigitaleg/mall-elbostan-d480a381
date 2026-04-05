@@ -87,7 +87,7 @@ const NewCairoBranch = () => {
       </BranchHeroSlider>
 
       {/* ═══════════ 2 · IDENTITY INTRO ═══════════ */}
-      <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 bg-secondary dark:bg-background">
         <div className="container max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <div className="max-w-2xl mx-auto text-center">
@@ -150,7 +150,7 @@ const NewCairoBranch = () => {
       </section>
 
       {/* ═══════════ 4 · GALLERY MOSAIC ═══════════ */}
-      <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+      <section className="py-10 md:py-14 bg-secondary dark:bg-background">
         <div className="container max-w-5xl">
           <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
             <p className="section-kicker mb-4">من داخل المول</p>
@@ -264,7 +264,7 @@ const NewCairoBranch = () => {
 
       {/* ═══════════ 7 · FEATURED PRODUCTS ═══════════ */}
       {featuredProducts && featuredProducts.length > 0 && (
-        <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+        <section className="py-10 md:py-14 bg-secondary dark:bg-background">
           <div className="container max-w-5xl">
             <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
               <div className="mb-4 flex items-end justify-between gap-4">

@@ -44,7 +44,7 @@ const DowntownBranch = () => (
     />
 
     {/* ═══════════ 2 · IDENTITY INTRO ═══════════ */}
-    <section className="py-10 md:py-14" style={{ background: "#FAFAF8" }}>
+    <section className="py-10 md:py-14 bg-secondary dark:bg-background">
       <div className="container max-w-5xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="max-w-2xl mx-auto text-center">
@@ -107,7 +107,7 @@ const DowntownBranch = () => (
     </section>
 
     {/* ═══════════ 4 · BUILDING SHOWCASE ═══════════ */}
-    <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
+    <section className="py-8 md:py-10 bg-secondary dark:bg-background">
       <div className="container max-w-5xl">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
           <div className="overflow-hidden rounded-2xl" style={{ border: "1px solid rgba(0,0,0,0.06)" }}>

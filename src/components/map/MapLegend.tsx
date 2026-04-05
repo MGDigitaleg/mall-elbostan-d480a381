@@ -11,7 +11,7 @@ export function MapLegend() {
             className="h-3.5 w-3.5 rounded"
             style={{ background: item.fill, border: `2px solid ${item.stroke}`, boxShadow: `0 0 0 1px ${item.stroke}20` }}
           />
-          <span className="text-[0.74rem] font-bold" style={{ color: "#334155" }}>{item.label}</span>
+          <span className="text-[0.74rem] font-bold text-foreground">{item.label}</span>
         </div>
       ))}
     </div>

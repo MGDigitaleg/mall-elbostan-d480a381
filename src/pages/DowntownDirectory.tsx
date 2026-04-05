@@ -164,7 +164,7 @@ const DowntownDirectory = () => {
       </section>
 
       {/* Filters & Directory */}
-      <section className="py-8 md:py-10" style={{ background: "#FAFAF8" }}>
+      <section className="py-8 md:py-10 bg-secondary dark:bg-background">
         <div className="container max-w-5xl">
           {/* Search & Filters */}
           <div className="mb-6 space-y-3">

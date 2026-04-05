@@ -86,7 +86,7 @@ const Contact = () => {
       />
 
       {/* ═══════════ INQUIRY TYPE SELECTOR ═══════════ */}
-      <section className="py-4 md:py-5" style={{ background: "#FAFAF8" }}>
+      <section className="py-4 md:py-5 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-12">
           <motion.div variants={reveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <div className="mb-3">
@@ -129,7 +129,7 @@ const Contact = () => {
       </section>
 
       {/* ═══════════ FORM + CONTACT INFO ═══════════ */}
-      <section className="py-5 md:py-7" style={{ background: "#F5F2EC" }}>
+      <section className="py-5 md:py-7 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1200px] px-5 md:px-8 lg:px-12">
           <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
 
