@@ -313,7 +313,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
         {/* ── Unit labels — with logos when available ── */}
         <g id="labels-layer">
-          {floor.units.map((unit) => {
+          {floor.units.map((unit, idx) => {
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
             const tenantLogo = TENANT_LOGOS[unit.id];
