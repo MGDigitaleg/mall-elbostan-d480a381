@@ -45,6 +45,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
 
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, hideControls, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
   const pulseColor = atriumConfig?.pulseColor;
   const atriumLabel = atriumConfig?.label;
@@ -307,7 +308,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         ))}
 
         {/* ── Unit labels — with logos when available ── */}
-        <g id="labels-layer" pointerEvents="none">
+        <g id="labels-layer">
           {floor.units.map((unit) => {
             const isMuted = mutedUnitIds.has(unit.id);
             const tenantName = TENANT_NAMES[unit.id];
@@ -337,7 +338,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             return (
               <g key={`label-${unit.id}`} opacity={isMuted ? 0.15 : 1}>
                 {tenantLogo && hasName ? (
-                  <>
+                  <g
+                    pointerEvents="all"
+                    style={{ cursor: "pointer" }}
+                    onMouseEnter={() => setHoveredBadgeId(unit.id)}
+                    onMouseLeave={() => setHoveredBadgeId(null)}
+                    onClick={() => onSelectUnit(unit)}
+                  >
                     {/* White rounded badge background */}
                     <rect
                       x={badgeX}
@@ -347,9 +354,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                       rx={badgeR}
                       ry={badgeR}
                       fill="#FFFFFF"
-                      stroke={hasBrandBg ? brandBg + "60" : "#00000015"}
-                      strokeWidth="1"
+                      stroke={hoveredBadgeId === unit.id ? "#2563EB" : (hasBrandBg ? brandBg + "60" : "#00000015")}
+                      strokeWidth={hoveredBadgeId === unit.id ? 2 : 1}
                       opacity="0.95"
+                      style={{ transition: "stroke 0.2s, stroke-width 0.2s" }}
                     />
                     {/* Tenant logo clipped to rounded badge */}
                     <image
@@ -372,9 +380,33 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.code}
                     </text>
-                  </>
+                    {/* Tooltip on hover */}
+                    {hoveredBadgeId === unit.id && tenantName && (
+                      <g>
+                        <rect
+                          x={unit.labelX - 55}
+                          y={badgeY - 28}
+                          width={110}
+                          height={22}
+                          rx={6}
+                          fill="#0B1220"
+                          opacity="0.92"
+                        />
+                        <text
+                          x={unit.labelX}
+                          y={badgeY - 14}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                          className="text-[10px] font-bold"
+                          fill="#FFFFFF"
+                        >
+                          {tenantName}
+                        </text>
+                      </g>
+                    )}
+                  </g>
                 ) : hasName ? (
-                  <>
+                  <g pointerEvents="none">
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 5}
@@ -395,9 +427,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.code}
                     </text>
-                  </>
+                  </g>
                 ) : (
-                  <>
+                  <g pointerEvents="none">
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 3}
@@ -418,7 +450,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     >
                       {unit.area} م²
                     </text>
-                  </>
+                  </g>
                 )}
 
                 {/* Status dot for non-occupied */}
