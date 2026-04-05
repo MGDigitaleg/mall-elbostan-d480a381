@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
@@ -16,6 +17,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
+import { useCountUp } from "@/hooks/useCountUp";
 import aboutDowntownCard from "@/assets/about-downtown-card.webp";
 import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
@@ -146,26 +148,7 @@ const About = () => (
               { value: "آلاف", label: "التصنيفات", sub: "تغطية واسعة ومتخصصة" },
               { value: "فرعان", label: "رئيسيان", sub: "وسط البلد والتجمع" },
             ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.45 }}
-                className="relative rounded-2xl p-5 text-center overflow-hidden"
-                style={{ background: "hsla(220, 45%, 13%, 0.8)", border: "1px solid hsla(0, 0%, 100%, 0.06)", boxShadow: "0 4px 24px hsla(220, 60%, 5%, 0.3)" }}
-              >
-                <div className="absolute inset-0 opacity-[0.03]" style={{ background: "linear-gradient(135deg, #2563EB, transparent 60%)" }} />
-                <p className="relative font-poppins text-[1.6rem] md:text-[1.9rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
-                  {stat.value}
-                </p>
-                <p className="relative mt-1.5 text-[0.88rem] font-bold" style={{ color: "#CDBB9A" }}>
-                  {stat.label}
-                </p>
-                <p className="relative mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#94A3B8" }}>
-                  {stat.sub}
-                </p>
-              </motion.div>
+              <AboutStatCard key={stat.label} stat={stat} index={i} />
             ))}
           </div>
         </motion.div>
@@ -297,3 +280,53 @@ const About = () => (
 );
 
 export default About;
+
+/* ── Count-up stat card ── */
+function parseStatValue(value: string) {
+  const match = value.match(/^([+]?)(\d+)(.*)/);
+  if (!match) return { num: 0, prefix: "", suffix: value };
+  return { num: parseInt(match[2], 10), prefix: match[1], suffix: match[3] };
+}
+
+function AboutStatCard({ stat, index }: { stat: { value: string; label: string; sub: string }; index: number }) {
+  const parsed = parseStatValue(stat.value);
+  const isNumeric = parsed.num > 0;
+
+  const { ref, display, started } = useCountUp({
+    end: parsed.num,
+    prefix: parsed.prefix,
+    suffix: parsed.suffix,
+    duration: 2200,
+    startOnView: true,
+  });
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1, duration: 0.45 }}
+      className="relative rounded-2xl p-5 text-center overflow-hidden"
+      style={{ background: "hsla(220, 45%, 13%, 0.8)", border: "1px solid hsla(0, 0%, 100%, 0.06)", boxShadow: "0 4px 24px hsla(220, 60%, 5%, 0.3)" }}
+    >
+      <div className="absolute inset-0 opacity-[0.03]" style={{ background: "linear-gradient(135deg, #2563EB, transparent 60%)" }} />
+      <div
+        className="absolute inset-0 transition-opacity duration-1000 rounded-2xl"
+        style={{ opacity: started ? 0.06 : 0, boxShadow: "inset 0 0 30px hsla(38, 30%, 70%, 0.3)" }}
+      />
+      <p
+        ref={ref as React.Ref<HTMLParagraphElement>}
+        className="relative font-poppins text-[1.6rem] md:text-[1.9rem] font-extrabold leading-none"
+        style={{ color: "#F8FAFC" }}
+      >
+        {isNumeric ? display : stat.value}
+      </p>
+      <p className="relative mt-1.5 text-[0.88rem] font-bold" style={{ color: "#CDBB9A" }}>
+        {stat.label}
+      </p>
+      <p className="relative mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#94A3B8" }}>
+        {stat.sub}
+      </p>
+    </motion.div>
+  );
+}
