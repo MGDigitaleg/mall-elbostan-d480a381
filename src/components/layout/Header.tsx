@@ -244,7 +244,7 @@ export function Header() {
 
             <ThemeToggle isTransparent={isTransparent} />
 
-            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : "#D8DEE8" }} />
+            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8") }} />
 
             <Link to="/spin-win">
               <Button
