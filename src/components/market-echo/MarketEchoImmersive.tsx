@@ -266,13 +266,14 @@ const presentItems = [
 ];
 
 function ScenePresent() {
-  const { ref, visible } = useReveal(0.25);
+  const { ref, visible, isMobile } = useReveal(0.25);
+  const ease = isMobile ? EASE_MOBILE : EASE;
 
   return (
     <section
       ref={ref}
       className="flex items-center justify-center echo-scene-spacing"
-      style={{ minHeight: "76svh" }}
+      style={{ minHeight: isMobile ? "60svh" : "76svh" }}
     >
       <div className="echo-container">
         <div className="mx-auto max-w-[760px] text-center">
@@ -281,22 +282,22 @@ function ScenePresent() {
             style={{
               color: "rgba(255,255,255,0.96)",
               opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(14px)",
-              transition: `opacity 850ms ${EASE}, transform 850ms ${EASE}`,
+              transform: visible ? "translateY(0) scale(1)" : `translateY(${isMobile ? 8 : 14}px) scale(${isMobile ? 0.98 : 1})`,
+              transition: `opacity 700ms ${ease}, transform 700ms ${ease}`,
             }}
           >
             ما كان الناس يقولونه قديمًا، نقدمه اليوم بشكل أوضح.
           </h2>
 
-          <div className="mt-[34px] flex flex-col items-center" style={{ gap: 22 }}>
+          <div className="mt-[34px] flex flex-col items-center" style={{ gap: isMobile ? 18 : 22 }}>
             {presentItems.map((item, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3"
                 style={{
                   opacity: visible ? 1 : 0,
-                  transform: visible ? "translateX(0)" : "translateX(12px)",
-                  transition: `opacity 550ms ${EASE} ${400 + i * 180}ms, transform 550ms ${EASE} ${400 + i * 180}ms`,
+                  transform: visible ? "translateX(0) scale(1)" : `translateX(${isMobile ? 6 : 12}px) scale(${isMobile ? 0.97 : 1})`,
+                  transition: `opacity ${isMobile ? 450 : 550}ms ${ease} ${(isMobile ? 250 : 400) + i * (isMobile ? 120 : 180)}ms, transform ${isMobile ? 450 : 550}ms ${ease} ${(isMobile ? 250 : 400) + i * (isMobile ? 120 : 180)}ms`,
                 }}
               >
                 <div
