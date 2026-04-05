@@ -406,7 +406,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     )}
                   </g>
                 ) : hasName ? (
-                  <>
+                  <g pointerEvents="none">
                     <text
                       x={unit.labelX}
                       y={unit.labelY - 5}
