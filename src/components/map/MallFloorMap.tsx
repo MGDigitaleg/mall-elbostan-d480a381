@@ -189,6 +189,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             <feDropShadow dx="0.5" dy="1" stdDeviation="1.5" floodColor="#000" floodOpacity="0.06" />
           </filter>
 
+          <filter id="badgeShadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="3" floodColor="#000" floodOpacity="0.18" />
+          </filter>
+
           <pattern id="glassHatch" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
             <line x1="0" y1="0" x2="0" y2="20" stroke="#B0D4E8" strokeWidth="0.4" strokeOpacity="0.2" />
           </pattern>
