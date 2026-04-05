@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag, Store, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -206,7 +206,27 @@ export function ProductRail({
   const dragStart = useRef({ x: 0, scrollLeft: 0 });
   const isDark = theme === "dark";
   const displayed = maxItems ? products.slice(0, maxItems) : products;
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 2);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateScrollState();
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, [updateScrollState, displayed.length]);
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
     scrollRef.current.scrollBy({ left: dir === "left" ? -260 : 260, behavior: "smooth" });
@@ -286,12 +306,18 @@ export function ProductRail({
         <div className="relative group/rail">
           {/* Edge fade indicators */}
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12"
-            style={{ background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)" }}
+            className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
+            style={{
+              background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)",
+              opacity: canScrollRight ? 1 : 0,
+            }}
           />
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12"
-            style={{ background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)" }}
+            className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
+            style={{
+              background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)",
+              opacity: canScrollLeft ? 1 : 0,
+            }}
           />
           <div
             ref={scrollRef}
@@ -308,22 +334,26 @@ export function ProductRail({
               </div>
             ))}
           </div>
-          <button
-            onClick={() => scroll("right")}
-            aria-label="التمرير لليمين"
-            className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-            style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
-          >
-            <ChevronRight className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
-          </button>
-          <button
-            onClick={() => scroll("left")}
-            aria-label="التمرير لليسار"
-            className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-            style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
-          >
-            <ChevronLeft className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
-          </button>
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              aria-label="التمرير لليمين"
+              className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+            >
+              <ChevronRight className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+            </button>
+          )}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              aria-label="التمرير لليسار"
+              className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+            >
+              <ChevronLeft className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+            </button>
+          )}
         </div>
       ) : (
         <div
