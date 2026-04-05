@@ -1,7 +1,30 @@
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+
+/**
+ * Injects a <link rel="preload"> for the LCP hero image into the built HTML.
+ * Vite hashes asset filenames, so we scan the output bundle for the hero image
+ * and inject the preload tag at build time so the browser discovers it immediately.
+ */
+function heroImagePreload(): Plugin {
+  return {
+    name: "hero-image-preload",
+    enforce: "post",
+    transformIndexHtml(html, ctx) {
+      // Only in build mode where ctx.bundle exists
+      if (!ctx.bundle) return html;
+      for (const [fileName] of Object.entries(ctx.bundle)) {
+        if (fileName.match(/downtown-hero-night-clean2.*\.webp$/)) {
+          const tag = `<link rel="preload" as="image" href="/${fileName}" fetchpriority="high" />`;
+          return html.replace("</head>", `${tag}\n  </head>`);
+        }
+      }
+      return html;
+    },
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -12,7 +35,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), heroImagePreload(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
