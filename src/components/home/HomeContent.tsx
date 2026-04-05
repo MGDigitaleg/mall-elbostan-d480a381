@@ -382,6 +382,59 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 14 · DOWNTOWN HERITAGE ═══════════ */}
       <DowntownTeaser />
 
+      {/* ═══════════ 14.5 · MARKET ECHO TEASER ═══════════ */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          background: "#F5F2EC",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
+        }}
+      >
+        <div className="container max-w-[720px]">
+          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+            <Link to="/market-echo" className="group block">
+              <div
+                className="relative rounded-2xl overflow-hidden p-6 md:p-8 text-center transition-all duration-300 group-hover:shadow-lg"
+                style={{
+                  background: "linear-gradient(160deg, #04152F 0%, #071B44 50%, #04152F 100%)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                {/* Subtle grid texture */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                     style={{
+                       backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
+                       backgroundSize: "88px 88px",
+                     }}
+                />
+
+                <div className="relative">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A50, transparent)" }} />
+                    <span className="font-poppins text-[0.56rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>
+                      صدى السوق
+                    </span>
+                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A50, transparent)" }} />
+                  </div>
+
+                  <h3 className="text-[1.05rem] md:text-[1.2rem] font-bold leading-[1.25]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F1F5F9" }}>
+                    ٣٥ سنة والسوق يبدأ من هنا.
+                  </h3>
+                  <p className="mt-2 text-[0.78rem] leading-[1.7] max-w-[22rem] mx-auto" style={{ color: "#7C8BA1" }}>
+                    قصة اسم بناه التجار والزبائن — ليس الإعلانات.
+                  </p>
+
+                  <div className="mt-4 inline-flex items-center gap-1.5 text-[0.78rem] font-bold transition-all group-hover:gap-2.5" style={{ color: "#5B9AFF" }}>
+                    اكتشف القصة <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
         className="relative overflow-hidden"
