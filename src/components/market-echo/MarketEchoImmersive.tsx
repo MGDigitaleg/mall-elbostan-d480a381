@@ -4,22 +4,39 @@ import { ArrowRight, Store, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EASE = "cubic-bezier(0.22,1,0.36,1)";
+const EASE_MOBILE = "cubic-bezier(0.25,0.46,0.45,0.94)";
 
-/* ─── useReveal ─── */
+/* ─── Mobile detection ─── */
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    setMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return mobile;
+}
+
+/* ─── useReveal — lower threshold on mobile for better trigger ─── */
 function useReveal(threshold = 0.25) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
+  const isMobile = useIsMobile();
+  const effectiveThreshold = isMobile ? Math.min(threshold, 0.1) : threshold;
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold },
+      { threshold: effectiveThreshold, rootMargin: isMobile ? "0px 0px -30px 0px" : "0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, visible };
+  }, [effectiveThreshold, isMobile]);
+  return { ref, visible, isMobile };
 }
 
 /* ═══════════════════════════════════════════════

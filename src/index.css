@@ -667,6 +667,20 @@
   animation: echoPulseOnce 1.2s ease-out 2.4s 1;
 }
 
+/* ── Mobile-specific smooth scroll & transitions ── */
+@media (max-width: 767px) {
+  .echo-drift {
+    animation-duration: 16s;
+  }
+  @keyframes echoMobileFadeIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .echo-mobile-reveal {
+    animation: echoMobileFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
 /* Echo page layout utilities */
 .echo-container {
   max-width: 1280px;
