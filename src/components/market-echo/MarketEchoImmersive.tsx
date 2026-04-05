@@ -547,8 +547,8 @@ function SceneFinal() {
           style={{
             fontSize: 18, lineHeight: 1.9, color: "rgba(255,255,255,0.72)",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(10px)",
-            transition: `opacity 850ms ${EASE} 400ms, transform 850ms ${EASE} 400ms`,
+            transform: visible ? "translateY(0)" : `translateY(${isMobile ? 6 : 10}px)`,
+            transition: `opacity 700ms ${ease} 300ms, transform 700ms ${ease} 300ms`,
           }}
         >
           واليوم تعرفه أسرع عبر دليل المحلات والخريطة والمنتجات.
