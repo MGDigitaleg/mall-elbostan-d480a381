@@ -81,7 +81,6 @@ export function Header() {
   const isBranchActive = branchItems.some((b) => isActive(b.path));
 
   /* ----------- adaptive colors ----------- */
-  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
   const textColor = isTransparent ? "rgba(248,250,252,0.92)" : (isDark ? "#E2E8F0" : "#334155");
   const textColorMuted = isTransparent ? "rgba(148,163,184,0.9)" : (isDark ? "#94A3B8" : "#64748B");
   const activeColor = isTransparent ? "#60A5FA" : "#2563EB";
