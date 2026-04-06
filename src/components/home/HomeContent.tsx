@@ -236,7 +236,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <FeaturedStores />
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {phoneProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -260,7 +260,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {computerProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton dark /> : computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -268,12 +268,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
-          {/* Dark overlay glow for depth */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
             <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
           </div>
-          {/* Subtle grid texture */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
           <div className="container relative">
             <ProductRail
@@ -290,7 +288,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {gamingProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : gamingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
