@@ -39,6 +39,9 @@ export function DowntownTeaser() {
                 alt="مول البستان — المبنى التاريخي ليلاً في وسط البلد"
                 className="absolute inset-0 h-full w-full object-cover"
                 loading="lazy"
+                width={1264}
+                height={752}
+                sizes="(max-width: 1024px) 100vw, 55vw"
               />
               <div
                 className="absolute inset-0 lg:hidden"

@@ -6,14 +6,14 @@
 export function optimizeImageUrl(url: string | null, displayWidth: number): string {
   if (!url) return "";
   
-  // For retina displays, serve 2x the display size
-  const targetWidth = Math.min(displayWidth * 2, 800);
+  // For retina displays, serve 1.5x the display size (capped at 600)
+  const targetWidth = Math.min(Math.round(displayWidth * 1.5), 600);
 
   // Unsplash URLs: rewrite w= parameter
   if (url.includes("images.unsplash.com")) {
-    const base = url.replace(/[?&]w=\d+/, "");
+    const base = url.replace(/[?&]w=\d+/, "").replace(/[?&]q=\d+/, "");
     const separator = base.includes("?") ? "&" : "?";
-    return `${base}${separator}w=${targetWidth}&q=75&auto=format`;
+    return `${base}${separator}w=${targetWidth}&q=60&auto=format`;
   }
 
   return url;
@@ -29,6 +29,6 @@ export function unsplashSrcSet(url: string | null, sizes: number[]): string {
   const separator = base.includes("?") ? "&" : "?";
   
   return sizes
-    .map((w) => `${base}${separator}w=${w}&q=75&auto=format ${w}w`)
+    .map((w) => `${base}${separator}w=${w}&q=60&auto=format ${w}w`)
     .join(", ");
 }
