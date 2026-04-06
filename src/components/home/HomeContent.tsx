@@ -19,10 +19,19 @@ import {
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { CategoryStrip } from "@/components/home/CategoryStrip";
 import { ProductRail } from "@/components/home/ProductRail";
-import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
-import { DowntownTeaser } from "@/components/home/DowntownTeaser";
-import { DealsTeaser } from "@/components/home/DealsTeaser";
-import { FeaturedStores } from "@/components/home/FeaturedStores";
+
+const MerchantLogoWall = lazy(() =>
+  import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
+);
+const DowntownTeaser = lazy(() =>
+  import("@/components/home/DowntownTeaser").then((m) => ({ default: m.DowntownTeaser }))
+);
+const DealsTeaser = lazy(() =>
+  import("@/components/home/DealsTeaser").then((m) => ({ default: m.DealsTeaser }))
+);
+const FeaturedStores = lazy(() =>
+  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
+);
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
