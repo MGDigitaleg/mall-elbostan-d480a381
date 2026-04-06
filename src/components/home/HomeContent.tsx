@@ -138,22 +138,30 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
       {isLoadingProducts && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="container">
-            <div className="h-8 w-48 rounded bg-muted/20 mb-4" />
-            <div className="h-5 w-72 rounded bg-muted/10 mb-8" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[1,2,3,4,5,6,7,8].map(i => (
-                <div key={i} className="rounded-xl bg-muted/10" style={{ aspectRatio: "1/1.3" }} />
-              ))}
-            </div>
-          </div>
-        </section>
+        <>
+          {/* Skeleton placeholders matching the number of product sections that will appear,
+              preventing CLS when data loads and multiple sections pop in at once */}
+          {[1, 2, 3, 4, 5, 6].map((idx) => (
+            <section
+              key={idx}
+              className={idx % 2 === 0 ? "relative overflow-hidden" : "bg-card dark:bg-background"}
+              style={{
+                paddingTop: "clamp(48px, 6vw, 96px)",
+                paddingBottom: "clamp(48px, 6vw, 96px)",
+                ...(idx % 2 === 0 ? { background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" } : {}),
+              }}>
+              <div className="container">
+                <div className="h-8 w-48 rounded bg-muted/20 mb-4" />
+                <div className="h-5 w-72 rounded bg-muted/10 mb-8" />
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="rounded-xl bg-muted/10" style={{ aspectRatio: "1/1.3" }} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          ))}
+        </>
       )}
       {!isLoadingProducts && latestProducts.length > 0 && (
         <section
