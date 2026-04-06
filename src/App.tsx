@@ -112,7 +112,7 @@ function AppLayout() {
   return (
     <>
       {showChrome && <Header />}
-      <main className={showChrome ? (hasDarkHero ? "flex-1" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px]") : "flex-1"}>
+      <main className={showChrome ? (hasDarkHero ? "flex-1 min-h-[calc(100vh-660px)]" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px] min-h-[calc(100vh-660px)]") : "flex-1"}>
         <Suspense fallback={<PageFallback />}>
           <Routes>
             {/* Public */}
