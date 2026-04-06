@@ -20,6 +20,8 @@ export function BrandLogo({ className, imageClassName, subtitle, align = "start"
         <img
           src={src}
           alt="شعار مول البستان"
+          width={176}
+          height={66}
           className={cn("block h-[3.7rem] w-auto max-w-full object-contain md:h-[4.1rem]", imageClassName)}
           loading="eager"
         />
