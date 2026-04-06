@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 export function MerchantLogoWall() {
-  const { data: stores } = useQuery({
+  const { data: stores, isLoading } = useQuery({
     queryKey: ["all-stores-logos"],
     queryFn: async () => {
       const { data } = await supabase
@@ -17,7 +17,33 @@ export function MerchantLogoWall() {
     },
   });
 
-  if (!stores || stores.length === 0) return null;
+  if (!isLoading && (!stores || stores.length === 0)) return null;
+
+  if (isLoading) {
+    return (
+      <section
+        className="heritage-deep relative overflow-hidden"
+        style={{
+          contain: "layout style",
+          paddingTop: "clamp(32px, 4vw, 64px)",
+          paddingBottom: "clamp(32px, 4vw, 64px)",
+        }}
+      >
+        <div className="container animate-pulse">
+          <div className="h-4 w-24 rounded bg-muted/20 mb-2" />
+          <div className="h-6 w-40 rounded bg-muted/20 mb-4" />
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-1.5">
+            {Array.from({ length: 18 }).map((_, i) => (
+              <div key={i} className="flex flex-col items-center gap-1 py-2 px-1.5">
+                <div className="h-10 w-10 rounded-lg bg-muted/10" />
+                <div className="h-2.5 w-10 rounded bg-muted/10" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   // Show max 18 logos (3 rows of 6)
   const displayed = stores.slice(0, 18);

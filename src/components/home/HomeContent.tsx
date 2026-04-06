@@ -158,27 +158,29 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <CategoryStrip />
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      <section
-        className="bg-card dark:bg-background"
-        style={{
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}>
-        <div className="container">
-          <ProductRail
-            kicker="من محلات المول"
-            title="أحدث المنتجات"
-            subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
-            products={latestProducts}
-            ctaLabel="عرض كل المنتجات"
-            ctaTo="/products"
-            layout="grid"
-            columns={4}
-            maxItems={12}
-            theme="light"
-          />
-        </div>
-      </section>
+      {isLoadingProducts ? <SectionSkeleton /> : latestProducts.length > 0 && (
+        <section
+          className="bg-card dark:bg-background"
+          style={{
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}>
+          <div className="container">
+            <ProductRail
+              kicker="من محلات المول"
+              title="أحدث المنتجات"
+              subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
+              products={latestProducts}
+              ctaLabel="عرض كل المنتجات"
+              ctaTo="/products"
+              layout="grid"
+              columns={4}
+              maxItems={12}
+              theme="light"
+            />
+          </div>
+        </section>
+      )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
       <DealsTeaser />
