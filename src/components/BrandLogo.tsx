@@ -21,7 +21,7 @@ export function BrandLogo({ className, imageClassName, subtitle, align = "start"
           height={66}
           className={cn(
             "block h-[3.7rem] w-auto max-w-full object-contain md:h-[4.1rem]",
-            variant === "light" && "brightness-0 invert",
+            variant === "light" && "invert mix-blend-screen",
             imageClassName
           )}
           loading="eager"
