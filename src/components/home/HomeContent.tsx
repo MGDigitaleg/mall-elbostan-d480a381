@@ -125,31 +125,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
     () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
     [productsWithImages]
   );
-  /* ── Skeleton placeholder for sections while loading ── */
-  const SectionSkeleton = useCallback(({ dark = false }: { dark?: boolean }) => (
-    <section
-      className={dark ? "relative overflow-hidden" : "bg-card dark:bg-background"}
-      style={{
-        ...(dark ? { background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" } : {}),
-        paddingTop: "clamp(48px, 6vw, 96px)",
-        paddingBottom: "clamp(48px, 6vw, 96px)",
-        minHeight: 320,
-      }}
-    >
-      <div className="container">
-        <div className="space-y-4 animate-pulse">
-          <div className="h-3 w-20 rounded bg-muted/20" />
-          <div className="h-5 w-44 rounded bg-muted/20" />
-          <div className="h-3 w-64 rounded bg-muted/15 mt-1" />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-4">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div key={i} className="rounded-xl bg-muted/10" style={{ aspectRatio: "1/1.15" }} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  ), []);
+
+
 
   return (
     <>
