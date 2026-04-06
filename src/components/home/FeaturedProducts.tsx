@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
+import { optimizeImageUrl, unsplashSrcSet } from "@/lib/imageUtils";
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
@@ -165,7 +166,9 @@ export function FeaturedProducts() {
                     <div className="relative aspect-square overflow-hidden bg-muted/30 dark:bg-muted/20">
                       {product.image_url ? (
                         <img
-                          src={product.image_url}
+                          src={optimizeImageUrl(product.image_url, 250)}
+                          srcSet={unsplashSrcSet(product.image_url, [250, 500]) || undefined}
+                          sizes="(max-width: 640px) 45vw, 250px"
                           alt={product.name_ar}
                           className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
                           loading="lazy"

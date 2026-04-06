@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag, Store, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { optimizeImageUrl, unsplashSrcSet } from "@/lib/imageUtils";
 
 type Product = {
   id: string;
@@ -69,7 +70,9 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       >
         {product.image_url ? (
           <img
-            src={product.image_url}
+            src={optimizeImageUrl(product.image_url, 200)}
+            srcSet={unsplashSrcSet(product.image_url, [200, 400]) || undefined}
+            sizes="(max-width: 640px) 150px, 200px"
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
             style={{ padding: "clamp(4px, 0.5vw, 8px)" }}
