@@ -16,19 +16,25 @@ export function BrandLogo({ className, imageClassName, subtitle, align = "start"
 
   return (
     <div className={cn("flex flex-col gap-0.5", align === "center" ? "items-center text-center" : "items-start text-right", className)}>
-      <div className={cn(framed && "brand-mark-frame logo-stage")}>
+      {framed ? (
+        <div className="brand-mark-frame logo-stage">
+          <img
+            src={src}
+            alt="شعار مول البستان"
+            className={cn("block h-auto w-auto object-contain", imageClassName)}
+            loading="eager"
+            draggable={false}
+          />
+        </div>
+      ) : (
         <img
           src={src}
           alt="شعار مول البستان"
-          width={176}
-          height={66}
-          className={cn(
-            "block h-[3.7rem] w-auto max-w-full object-contain md:h-[4.1rem]",
-            imageClassName
-          )}
+          className={cn("block h-auto w-auto object-contain", imageClassName)}
           loading="eager"
+          draggable={false}
         />
-      </div>
+      )}
       {subtitle ? <span className="text-[0.62rem] font-semibold tracking-[0.2em] text-muted-foreground uppercase">{subtitle}</span> : null}
     </div>
   );
