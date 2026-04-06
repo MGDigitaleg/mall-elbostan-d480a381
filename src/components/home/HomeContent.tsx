@@ -184,7 +184,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <DealsTeaser />
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {trendingProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -207,7 +207,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {featuredProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton dark /> : featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
