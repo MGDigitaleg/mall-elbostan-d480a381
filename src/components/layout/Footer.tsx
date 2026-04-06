@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoBrand from "@/assets/logo-brand.png";
+import logoWhite from "@/assets/logo-brand-white.png";
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp } from "lucide-react";
 
@@ -88,7 +88,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="space-y-5">
             <Link to="/" className="inline-block">
-              <img src={logoBrand} alt="مول البستان" width={118} height={52} style={{ width: 118, height: 52 }} className="invert mix-blend-screen opacity-90 transition-opacity hover:opacity-100" />
+              <img src={logoWhite} alt="مول البستان" width={118} height={52} style={{ width: 118, height: 52 }} className="opacity-90 transition-opacity hover:opacity-100" />
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.85] font-light" style={{ color: "#8896AB" }}>
