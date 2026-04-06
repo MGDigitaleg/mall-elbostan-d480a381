@@ -84,7 +84,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
 
   /* ── Single data source for all product sections ── */
-  const { data: allProducts, isLoading: isLoadingProducts } = useQuery({
+  const { data: allProducts } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
       const { data } = await supabase
@@ -146,33 +146,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {isLoadingProducts && (
-        <>
-          {/* Skeleton placeholders matching the number of product sections that will appear,
-              preventing CLS when data loads and multiple sections pop in at once */}
-          {[1, 2, 3, 4, 5, 6].map((idx) => (
-            <section
-              key={idx}
-              className={idx % 2 === 0 ? "relative overflow-hidden" : "bg-card dark:bg-background"}
-              style={{
-                paddingTop: "clamp(48px, 6vw, 96px)",
-                paddingBottom: "clamp(48px, 6vw, 96px)",
-                ...(idx % 2 === 0 ? { background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" } : {}),
-              }}>
-              <div className="container">
-                <div className="h-8 w-48 rounded bg-muted/20 mb-4" />
-                <div className="h-5 w-72 rounded bg-muted/10 mb-8" />
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="rounded-xl bg-muted/10" style={{ aspectRatio: "1/1.3" }} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          ))}
-        </>
-      )}
-      {!isLoadingProducts && latestProducts.length > 0 && (
+      {latestProducts.length > 0 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -201,7 +175,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {!isLoadingProducts && trendingProducts.length >= 3 && (
+      {trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -225,7 +199,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {!isLoadingProducts && featuredProducts.length >= 3 && (
+      {featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -255,7 +229,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense></section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {!isLoadingProducts && phoneProducts.length >= 3 && (
+      {phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -280,7 +254,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {!isLoadingProducts && computerProducts.length >= 3 && (
+      {computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -309,7 +283,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {!isLoadingProducts && gamingProducts.length >= 3 && (
+      {gamingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
