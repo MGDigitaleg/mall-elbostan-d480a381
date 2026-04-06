@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useMemo, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -75,7 +75,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
 
   /* ── Single data source for all product sections ── */
-  const { data: allProducts } = useQuery({
+  const { data: allProducts, isLoading: isLoadingProducts } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
       const { data } = await supabase
@@ -125,6 +125,29 @@ export function HomeContent({ faqs }: HomeContentProps) {
     () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
     [productsWithImages]
   );
+  /* ── Skeleton placeholder for sections while loading ── */
+  const SectionSkeleton = useCallback(({ dark = false }: { dark?: boolean }) => (
+    <section
+      className={dark ? "relative overflow-hidden" : "bg-card dark:bg-background"}
+      style={{
+        ...(dark ? { background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" } : {}),
+        paddingTop: "clamp(48px, 6vw, 96px)",
+        paddingBottom: "clamp(48px, 6vw, 96px)",
+      }}
+    >
+      <div className="container">
+        <div className="space-y-4 animate-pulse">
+          <div className="h-4 w-24 rounded bg-muted/20" />
+          <div className="h-6 w-48 rounded bg-muted/20" />
+          <div className="grid grid-cols-4 gap-3 pt-4">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="rounded-xl bg-muted/10 aspect-square" />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ), []);
 
   return (
     <>
@@ -161,7 +184,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <DealsTeaser />
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {trendingProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -184,7 +207,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {featuredProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton dark /> : featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -213,7 +236,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <FeaturedStores />
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {phoneProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -237,7 +260,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {computerProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton dark /> : computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -245,12 +268,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
-          {/* Dark overlay glow for depth */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
             <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
           </div>
-          {/* Subtle grid texture */}
           <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
           <div className="container relative">
             <ProductRail
@@ -267,7 +288,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {gamingProducts.length >= 3 && (
+      {isLoadingProducts ? <SectionSkeleton /> : gamingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
