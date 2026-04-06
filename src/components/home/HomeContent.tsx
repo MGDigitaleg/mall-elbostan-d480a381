@@ -175,7 +175,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {!isLoadingProducts && trendingProducts.length >= 3 && (
+      {trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -199,7 +199,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {!isLoadingProducts && featuredProducts.length >= 3 && (
+      {featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -229,7 +229,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense></section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {!isLoadingProducts && phoneProducts.length >= 3 && (
+      {phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -254,7 +254,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {!isLoadingProducts && computerProducts.length >= 3 && (
+      {computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -283,7 +283,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {!isLoadingProducts && gamingProducts.length >= 3 && (
+      {gamingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
