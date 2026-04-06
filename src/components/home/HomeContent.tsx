@@ -429,6 +429,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden bg-background"
         style={{
+          contain: "layout",
           paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
         }}
@@ -478,12 +479,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <Suspense fallback={null}><DowntownTeaser /></Suspense>
+      <section style={{ contain: "layout" }}><Suspense fallback={null}><DowntownTeaser /></Suspense></section>
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
+          contain: "layout",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
@@ -543,6 +545,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
+          contain: "layout",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
