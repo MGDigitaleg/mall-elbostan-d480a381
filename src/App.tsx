@@ -87,7 +87,7 @@ const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-d
 
 function PageFallback() {
   return (
-    <div className="flex items-center justify-center min-h-[50vh]">
+    <div className="flex items-center justify-center" style={{ minHeight: "calc(100vh - 64px)" }}>
       <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
     </div>
   );
