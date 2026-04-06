@@ -137,7 +137,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <CategoryStrip />
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton /> : latestProducts.length > 0 && (
+      {!isLoadingProducts && latestProducts.length > 0 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -165,7 +165,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <DealsTeaser />
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton /> : trendingProducts.length >= 3 && (
+      {!isLoadingProducts && trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -188,7 +188,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton dark /> : featuredProducts.length >= 3 && (
+      {!isLoadingProducts && featuredProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -217,7 +217,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <FeaturedStores />
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton /> : phoneProducts.length >= 3 && (
+      {!isLoadingProducts && phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -241,7 +241,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton dark /> : computerProducts.length >= 3 && (
+      {!isLoadingProducts && computerProducts.length >= 3 && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -269,7 +269,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {isLoadingProducts ? <SectionSkeleton /> : gamingProducts.length >= 3 && (
+      {!isLoadingProducts && gamingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
