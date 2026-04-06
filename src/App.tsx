@@ -50,8 +50,23 @@ const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
 const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
 
-import { AdminStores, AdminUnits, AdminEvents, AdminRewards, AdminDeals, AdminJobs, AdminBlog, AdminFaqs, AdminProducts, AdminProductCategories } from "./pages/admin/AdminPages";
-import { AdminCompetitionStores, AdminStorePrizes, AdminSpinWinners, AdminSpinReports } from "./pages/admin/AdminSpinSystem";
+
+
+// Wrapper components for lazy-loaded admin named exports
+const AdminStores = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores })));
+const AdminUnits = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits })));
+const AdminEvents = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents })));
+const AdminRewards = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards })));
+const AdminDeals = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminDeals })));
+const AdminJobs = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminJobs })));
+const AdminBlog = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminBlog })));
+const AdminFaqs = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminFaqs })));
+const AdminProducts = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProducts })));
+const AdminProductCategories = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProductCategories })));
+const AdminCompetitionStores = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminCompetitionStores })));
+const AdminStorePrizes = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminStorePrizes })));
+const AdminSpinWinners = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners })));
+const AdminSpinReports = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports })));
 
 const queryClient = new QueryClient();
 
