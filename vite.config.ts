@@ -13,7 +13,6 @@ function heroImagePreload(): Plugin {
     name: "hero-image-preload",
     enforce: "post",
     transformIndexHtml(html, ctx) {
-      // Only in build mode where ctx.bundle exists
       if (!ctx.bundle) return html;
       const preloads: string[] = [];
       for (const [fileName] of Object.entries(ctx.bundle)) {
@@ -29,6 +28,25 @@ function heroImagePreload(): Plugin {
   };
 }
 
+/**
+ * Converts Vite-injected CSS <link> tags to async-loading pattern
+ * so the inline skeleton can paint immediately (improving FCP).
+ * The skeleton uses inline styles, so it doesn't need the main CSS.
+ */
+function asyncCssPlugin(): Plugin {
+  return {
+    name: "async-css",
+    enforce: "post",
+    transformIndexHtml(html) {
+      // Convert <link rel="stylesheet" href="/assets/index-*.css"> to async
+      return html.replace(
+        /<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/g,
+        `<link rel="stylesheet" href="$1" media="print" onload="this.media='all'" /><noscript><link rel="stylesheet" href="$1" /></noscript>`
+      );
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
@@ -38,7 +56,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), heroImagePreload(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), heroImagePreload(), asyncCssPlugin(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
