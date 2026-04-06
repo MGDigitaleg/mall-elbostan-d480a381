@@ -84,7 +84,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
 
   /* ── Single data source for all product sections ── */
-  const { data: allProducts, isLoading: isLoadingProducts } = useQuery({
+  const { data: allProducts } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
       const { data } = await supabase
