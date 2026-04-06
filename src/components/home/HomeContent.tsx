@@ -197,7 +197,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <Suspense fallback={null}><DealsTeaser /></Suspense>
+      <Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       {!isLoadingProducts && trendingProducts.length >= 3 && (
@@ -249,7 +249,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <Suspense fallback={null}><FeaturedStores /></Suspense>
+      <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {!isLoadingProducts && phoneProducts.length >= 3 && (
@@ -328,7 +328,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <Suspense fallback={null}><MerchantLogoWall /></Suspense>
+      <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
