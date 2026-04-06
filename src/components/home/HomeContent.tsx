@@ -197,7 +197,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <DealsTeaser />
+      <Suspense fallback={null}><DealsTeaser /></Suspense>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       {!isLoadingProducts && trendingProducts.length >= 3 && (
@@ -249,7 +249,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <FeaturedStores />
+      <Suspense fallback={null}><FeaturedStores /></Suspense>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {!isLoadingProducts && phoneProducts.length >= 3 && (
@@ -328,7 +328,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <MerchantLogoWall />
+      <Suspense fallback={null}><MerchantLogoWall /></Suspense>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
@@ -470,7 +470,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <DowntownTeaser />
+      <Suspense fallback={null}><DowntownTeaser /></Suspense>
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
