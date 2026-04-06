@@ -140,10 +140,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
   return (
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
-      <HeroSlider />
+      <section style={{ contain: "layout" }}><HeroSlider /></section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
-      <CategoryStrip />
+      <section style={{ contain: "layout" }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
       {isLoadingProducts && (
@@ -176,6 +176,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <section
           className="bg-card dark:bg-background"
           style={{
+            contain: "layout",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
@@ -197,13 +198,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       {!isLoadingProducts && trendingProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
+            contain: "layout",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
@@ -227,6 +229,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <section
           className="relative overflow-hidden"
           style={{
+            contain: "layout",
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
@@ -249,13 +252,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
+      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense></section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {!isLoadingProducts && phoneProducts.length >= 3 && (
         <section
           className="bg-card dark:bg-background"
           style={{
+            contain: "layout",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
@@ -280,6 +284,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <section
           className="relative overflow-hidden"
           style={{
+            contain: "layout",
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
@@ -308,6 +313,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <section
           className="bg-card dark:bg-background"
           style={{
+            contain: "layout",
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
@@ -328,12 +334,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
+      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense></section>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
         className="bg-card dark:bg-background"
         style={{
+          contain: "layout",
           paddingTop: "clamp(40px, 5.5vw, 88px)",
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
         }}>
@@ -363,6 +370,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
+          contain: "layout",
           background: "linear-gradient(135deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
