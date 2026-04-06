@@ -133,15 +133,17 @@ export function HomeContent({ faqs }: HomeContentProps) {
         ...(dark ? { background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)" } : {}),
         paddingTop: "clamp(48px, 6vw, 96px)",
         paddingBottom: "clamp(48px, 6vw, 96px)",
+        minHeight: 320,
       }}
     >
       <div className="container">
         <div className="space-y-4 animate-pulse">
-          <div className="h-4 w-24 rounded bg-muted/20" />
-          <div className="h-6 w-48 rounded bg-muted/20" />
-          <div className="grid grid-cols-4 gap-3 pt-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="rounded-xl bg-muted/10 aspect-square" />
+          <div className="h-3 w-20 rounded bg-muted/20" />
+          <div className="h-5 w-44 rounded bg-muted/20" />
+          <div className="h-3 w-64 rounded bg-muted/15 mt-1" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 pt-4">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+              <div key={i} className="rounded-xl bg-muted/10" style={{ aspectRatio: "1/1.15" }} />
             ))}
           </div>
         </div>
@@ -158,27 +160,29 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <CategoryStrip />
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      <section
-        className="bg-card dark:bg-background"
-        style={{
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}>
-        <div className="container">
-          <ProductRail
-            kicker="من محلات المول"
-            title="أحدث المنتجات"
-            subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
-            products={latestProducts}
-            ctaLabel="عرض كل المنتجات"
-            ctaTo="/products"
-            layout="grid"
-            columns={4}
-            maxItems={12}
-            theme="light"
-          />
-        </div>
-      </section>
+      {isLoadingProducts ? <SectionSkeleton /> : latestProducts.length > 0 && (
+        <section
+          className="bg-card dark:bg-background"
+          style={{
+            paddingTop: "clamp(48px, 6vw, 96px)",
+            paddingBottom: "clamp(48px, 6vw, 96px)",
+          }}>
+          <div className="container">
+            <ProductRail
+              kicker="من محلات المول"
+              title="أحدث المنتجات"
+              subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
+              products={latestProducts}
+              ctaLabel="عرض كل المنتجات"
+              ctaTo="/products"
+              layout="grid"
+              columns={4}
+              maxItems={12}
+              theme="light"
+            />
+          </div>
+        </section>
+      )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
       <DealsTeaser />
