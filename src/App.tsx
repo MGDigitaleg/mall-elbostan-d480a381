@@ -50,8 +50,7 @@ const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
 const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
 
-const AdminPages = lazy(() => import("./pages/admin/AdminPages"));
-const AdminSpinSystem = lazy(() => import("./pages/admin/AdminSpinSystem"));
+
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores })));
