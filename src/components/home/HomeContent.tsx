@@ -19,10 +19,19 @@ import {
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { CategoryStrip } from "@/components/home/CategoryStrip";
 import { ProductRail } from "@/components/home/ProductRail";
-import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
-import { DowntownTeaser } from "@/components/home/DowntownTeaser";
-import { DealsTeaser } from "@/components/home/DealsTeaser";
-import { FeaturedStores } from "@/components/home/FeaturedStores";
+
+const MerchantLogoWall = lazy(() =>
+  import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
+);
+const DowntownTeaser = lazy(() =>
+  import("@/components/home/DowntownTeaser").then((m) => ({ default: m.DowntownTeaser }))
+);
+const DealsTeaser = lazy(() =>
+  import("@/components/home/DealsTeaser").then((m) => ({ default: m.DealsTeaser }))
+);
+const FeaturedStores = lazy(() =>
+  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
+);
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -188,7 +197,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <DealsTeaser />
+      <Suspense fallback={null}><DealsTeaser /></Suspense>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       {!isLoadingProducts && trendingProducts.length >= 3 && (
@@ -240,7 +249,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <FeaturedStores />
+      <Suspense fallback={null}><FeaturedStores /></Suspense>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {!isLoadingProducts && phoneProducts.length >= 3 && (
@@ -319,7 +328,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <MerchantLogoWall />
+      <Suspense fallback={null}><MerchantLogoWall /></Suspense>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
@@ -461,7 +470,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <DowntownTeaser />
+      <Suspense fallback={null}><DowntownTeaser /></Suspense>
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section

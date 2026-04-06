@@ -1,5 +1,3 @@
-// force HMR refresh
-import { motion } from "framer-motion";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
@@ -41,9 +39,9 @@ const Index = () => {
         jsonLd={[organizationLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
       />
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45 }} style={{ minHeight: "100vh" }}>
+      <div style={{ minHeight: "100vh" }}>
         <HomeContent faqs={faqs ?? []} featuredStores={featuredStores ?? []} upcomingEvents={upcomingEvents ?? []} />
-      </motion.div>
+      </div>
     </MainLayout>
   );
 };
