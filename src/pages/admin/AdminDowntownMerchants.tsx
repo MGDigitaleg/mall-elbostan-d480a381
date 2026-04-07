@@ -119,7 +119,7 @@ export default function AdminDowntownMerchants() {
         else cleanData[f.key] = val || null;
       });
       if (editId) {
-        const { error } = await supabase.from("downtown_merchants").update(cleanData).eq("id", editId);
+        const { error } = await supabase.from("downtown_merchants").update(cleanData as never).eq("id", editId);
         if (error) throw error;
       } else {
         const { error } = await supabase.from("downtown_merchants").insert(cleanData as never);
