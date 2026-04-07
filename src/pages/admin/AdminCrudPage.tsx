@@ -44,7 +44,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
       });
 
       if (editId) {
-        const { error } = await supabase.from(table).update(cleanData).eq("id", editId);
+        const { error } = await supabase.from(table).update(cleanData as never).eq("id", editId);
         if (error) throw error;
       } else {
         const { error } = await supabase.from(table).insert(cleanData as never);
