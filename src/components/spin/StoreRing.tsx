@@ -115,7 +115,7 @@ export function StoreRing({ floorId, innerSize, ringThickness = 92 }: Props) {
             <div className="h-9 w-9 rounded-full bg-card border border-border shadow-sm flex items-center justify-center overflow-hidden">
               {logo ? (
                 <img
-                  src={optimizeImageUrl(logo, { width: 64, quality: 85 })}
+                  src={optimizeImageUrl(logo, 64)}
                   alt={displayName}
                   className="h-full w-full object-contain p-0.5"
                   loading="lazy"
