@@ -358,17 +358,51 @@ export function AdminSpinWinners() {
   const [filterPrizeType, setFilterPrizeType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
-  const { data: sessions, isLoading } = useQuery({
-    queryKey: ["admin-spin-sessions"],
+  // Pagination (server-side)
+  const PAGE_SIZE = 50;
+  const [page, setPage] = useState(0);
+
+  // Reset to first page when filters change
+  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}`;
+  const lastFilterKey = useRef(filterKey);
+  if (lastFilterKey.current !== filterKey) {
+    lastFilterKey.current = filterKey;
+    if (page !== 0) setPage(0);
+  }
+
+  const buildFilteredQuery = () => {
+    let q = supabase
+      .from("spin_sessions")
+      .select(
+        "*, store_prizes(name_ar, category, prize_type), competition_stores(stores:store_id(name_ar, unit_code))",
+        { count: "exact" }
+      );
+    if (filterStatus !== "all") q = q.eq("claim_status", filterStatus);
+    if (filterPrizeType !== "all") q = q.eq("prize_type", filterPrizeType);
+    if (filterFrom) q = q.gte("created_at", new Date(filterFrom).toISOString());
+    if (filterTo) {
+      const to = new Date(filterTo);
+      to.setHours(23, 59, 59, 999);
+      q = q.lte("created_at", to.toISOString());
+    }
+    return q;
+  };
+
+  const { data: pageData, isLoading } = useQuery({
+    queryKey: ["admin-spin-sessions", filterKey, page],
     queryFn: async () => {
-      const { data } = await supabase
-        .from("spin_sessions")
-        .select("*, store_prizes(name_ar, category, prize_type), competition_stores(stores:store_id(name_ar, unit_code))")
+      const from = page * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      const { data, count } = await buildFilteredQuery()
         .order("created_at", { ascending: false })
-        .limit(1000);
-      return data ?? [];
+        .range(from, to);
+      return { rows: data ?? [], total: count ?? 0 };
     },
   });
+
+  const sessions = pageData?.rows ?? [];
+  const totalCount = pageData?.total ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   const handleVerify = async () => {
     if (!searchCode.trim()) return;
