@@ -726,6 +726,53 @@ export function AdminSpinWinners() {
         </div>
       </div>
 
+      {/* 14-day winners sparkline */}
+      {sparkData && sparkData.length > 0 && (
+        <div className="card-premium p-4 mb-3">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs font-bold text-muted-foreground flex items-center gap-2">
+              <BarChart3 className="w-3.5 h-3.5" /> الفائزون آخر 14 يوم
+            </p>
+            <p className="text-xs text-muted-foreground">
+              إجمالي: {sparkData.reduce((s, d) => s + d.count, 0).toLocaleString("ar-EG")}
+            </p>
+          </div>
+          {(() => {
+            const w = 600, h = 56, pad = 4;
+            const max = Math.max(1, ...sparkData.map((d) => d.count));
+            const stepX = (w - pad * 2) / Math.max(1, sparkData.length - 1);
+            const points = sparkData.map((d, i) => {
+              const x = pad + i * stepX;
+              const y = h - pad - (d.count / max) * (h - pad * 2);
+              return { x, y, ...d };
+            });
+            const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+            const areaPath = `${path} L${points[points.length - 1].x.toFixed(1)},${h - pad} L${points[0].x.toFixed(1)},${h - pad} Z`;
+            const lastPoint = points[points.length - 1];
+            return (
+              <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-14" preserveAspectRatio="none" role="img" aria-label="رسم بياني للفائزين خلال 14 يوم">
+                <defs>
+                  <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+                <path d={areaPath} fill="url(#sparkFill)" />
+                <path d={path} fill="none" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" />
+                <circle cx={lastPoint.x} cy={lastPoint.y} r="2.5" fill="hsl(var(--primary))" />
+                {points.map((p) => (
+                  <title key={p.day}>{`${p.day}: ${p.count}`}</title>
+                ))}
+              </svg>
+            );
+          })()}
+          <div className="flex justify-between mt-1 text-[10px] text-muted-foreground font-mono">
+            <span>{sparkData[0].day.slice(5)}</span>
+            <span>{sparkData[sparkData.length - 1].day.slice(5)}</span>
+          </div>
+        </div>
+      )}
+
       {/* Stats summary (based on applied filters) */}
       {statsData && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
