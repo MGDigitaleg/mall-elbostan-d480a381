@@ -60,12 +60,18 @@ const AdminVisitorTokens = () => {
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("visitor_verifications")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) toast.error("فشل تحميل الأكواد");
-    else setTokens(data || []);
+    const [tokensRes, sessionsRes] = await Promise.all([
+      supabase.from("visitor_verifications").select("*").order("created_at", { ascending: false }),
+      supabase.from("spin_sessions").select("visitor_token, created_at").not("visitor_token", "is", null).order("created_at", { ascending: false }),
+    ]);
+    if (tokensRes.error) toast.error("فشل تحميل الأكواد");
+    else {
+      const lastUsed = new Map<string, string>();
+      (sessionsRes.data || []).forEach((s: { visitor_token: string | null; created_at: string }) => {
+        if (s.visitor_token && !lastUsed.has(s.visitor_token)) lastUsed.set(s.visitor_token, s.created_at);
+      });
+      setTokens((tokensRes.data || []).map(t => ({ ...t, last_used_at: lastUsed.get(t.token) || null })));
+    }
     setLoading(false);
   };
 
