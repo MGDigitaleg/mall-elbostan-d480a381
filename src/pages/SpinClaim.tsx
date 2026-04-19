@@ -1,12 +1,41 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Loader2, ShieldCheck, AlertCircle, CheckCircle2, Clock, Store, Gift, ArrowLeft, Search } from "lucide-react";
+import { Loader2, ShieldCheck, AlertCircle, CheckCircle2, Clock, Store, Gift, ArrowLeft, Search, ScanLine, X } from "lucide-react";
+import { Scanner, type IDetectedBarcode } from "@yudiel/react-qr-scanner";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+
+/**
+ * Extract a claim code from a scanned QR payload.
+ * Accepts: raw code (SP-XXXXXX or XXXX-XXXX-XXXX), full claim URL,
+ * or JSON payload from the spin edge function (with claim_code field).
+ */
+function extractClaimCode(raw: string): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+
+  // Try JSON payload (signed qr_data from the spin function)
+  if (trimmed.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (typeof parsed?.claim_code === "string") return parsed.claim_code.toUpperCase();
+    } catch {
+      /* not JSON */
+    }
+  }
+
+  // Try URL with /claim/<code>
+  const urlMatch = trimmed.match(/\/claim\/([A-Z0-9-]+)/i);
+  if (urlMatch) return urlMatch[1].toUpperCase();
+
+  // Plain code — uppercase and strip whitespace
+  return trimmed.toUpperCase();
+}
 
 type SessionInfo = {
   id: string;
