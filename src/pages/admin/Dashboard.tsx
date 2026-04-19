@@ -37,7 +37,8 @@ const AdminDashboard = () => {
       <header className="glass sticky top-0 z-50">
         <div className="container flex h-16 items-center justify-between">
           <h1 className="text-xl font-bold text-gradient-blue">لوحة تحكم مول البستان</h1>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
+            <CampaignStatusBadge />
             <Link to="/"><Button variant="ghost" size="sm"><Settings className="w-4 h-4 ml-1" /> الموقع</Button></Link>
             <Button variant="ghost" size="sm" onClick={signOut}><LogOut className="w-4 h-4 ml-1" /> خروج</Button>
           </div>
