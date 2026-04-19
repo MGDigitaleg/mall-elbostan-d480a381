@@ -633,7 +633,7 @@ export function AdminSpinWinners() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((s: any) => (
+              {sessions.map((s: any) => (
                 <tr key={s.id} className="border-b border-border/50 hover:bg-secondary/30">
                   <td className="py-2 px-3">{s.full_name}</td>
                   <td className="py-2 px-3 font-mono text-xs" dir="ltr">{s.phone}</td>
@@ -652,7 +652,25 @@ export function AdminSpinWinners() {
               ))}
             </tbody>
           </table>
-          {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد نتائج مطابقة للفلاتر</p>}
+          {sessions.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد نتائج مطابقة للفلاتر</p>}
+
+          {/* Pagination */}
+          {totalCount > 0 && (
+            <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
+              <p className="text-xs text-muted-foreground">
+                عرض {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, totalCount)} من {totalCount}
+              </p>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}>
+                  السابق
+                </Button>
+                <span className="text-xs text-muted-foreground font-mono">{page + 1} / {totalPages}</span>
+                <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page + 1 >= totalPages}>
+                  التالي
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </AdminShell>
