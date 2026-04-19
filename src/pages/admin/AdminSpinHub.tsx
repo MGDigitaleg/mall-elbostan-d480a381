@@ -13,6 +13,7 @@ import {
   QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users,
 } from "lucide-react";
 import { CampaignToggleCard } from "@/components/admin/CampaignToggleCard";
+import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
 
 type PrizeType = "instant" | "grand" | "visitor";
 
