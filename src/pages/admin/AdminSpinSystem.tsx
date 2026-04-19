@@ -639,6 +639,18 @@ export function AdminSpinWinners() {
             </Button>
           </div>
         </div>
+        <div className="mb-3">
+          <label className="text-xs text-muted-foreground mb-1 block">بحث (الاسم / الهاتف / كود الاستلام)</label>
+          <div className="relative">
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <Input
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="ابحث بالاسم أو الهاتف أو الكود..."
+              className="bg-secondary border-border h-9 pr-9"
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <div>
             <label className="text-xs text-muted-foreground mb-1 block">من تاريخ</label>
