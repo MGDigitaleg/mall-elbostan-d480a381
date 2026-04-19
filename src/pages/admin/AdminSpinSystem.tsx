@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, Plus, Pencil, Trash2, Store, Gift, CheckCircle, XCircle,
-  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users, Download
+  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users, Download, Copy, Check
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════
@@ -361,6 +361,18 @@ export function AdminSpinWinners() {
   // Search (debounced)
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const handleCopyCode = async (code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      toast({ title: "تم نسخ الكود", description: code });
+      setTimeout(() => setCopiedCode((c) => (c === code ? null : c)), 1500);
+    } catch {
+      toast({ title: "تعذّر النسخ", variant: "destructive" });
+    }
+  };
   useEffect(() => {
     const t = setTimeout(() => setSearchTerm(searchInput.trim()), 350);
     return () => clearTimeout(t);
@@ -843,16 +855,36 @@ export function AdminSpinWinners() {
                   </td>
                   <td className="py-2 px-3">
                     {s.claim_code ? (
-                      <a
-                        href={`/spin-win/claim/${s.claim_code}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="فتح صفحة التحقق في تبويب جديد"
-                        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
-                      >
-                        <QrCode className="w-3 h-3" />
-                        تحقق
-                      </a>
+                      <div className="inline-flex items-center gap-1">
+                        <a
+                          href={`/spin-win/claim/${s.claim_code}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="فتح صفحة التحقق في تبويب جديد"
+                          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
+                        >
+                          <QrCode className="w-3 h-3" />
+                          تحقق
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => handleCopyCode(s.claim_code!)}
+                          title="نسخ كود الاستلام"
+                          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
+                        >
+                          {copiedCode === s.claim_code ? (
+                            <>
+                              <Check className="w-3 h-3 text-success" />
+                              تم
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              نسخ
+                            </>
+                          )}
+                        </button>
+                      </div>
                     ) : (
                       <span className="text-xs text-muted-foreground">—</span>
                     )}
