@@ -178,6 +178,7 @@ function AppLayout() {
             <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
             <Route path="/admin/kz-products" element={<AdminKzProducts />} />
             <Route path="/admin/spin-system" element={<AdminSpinHub />} />
+            <Route path="/admin/visitor-tokens" element={<AdminVisitorTokens />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
