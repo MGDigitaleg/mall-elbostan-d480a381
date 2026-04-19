@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLeft, Trophy, Crown, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -62,6 +62,17 @@ const SpinWin = () => {
   const [result, setResult] = useState<SpinResponse | null>(null);
   const [targetIndex, setTargetIndex] = useState<number | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
+
+  // Responsive wheel/ring sizing for small viewports
+  const [viewportW, setViewportW] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
+  useEffect(() => {
+    const onResize = () => setViewportW(window.innerWidth);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  const isNarrow = viewportW < 480;
+  const wheelSize = isNarrow ? 240 : 320;
+  const ringThickness = isNarrow ? 60 : 88;
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -285,7 +296,7 @@ const SpinWin = () => {
               <div className="relative flex items-center justify-center">
                 {/* Outer store ring */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <StoreRing floorId={floorId} innerSize={320} ringThickness={88} />
+                  <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
                 </div>
 
                 {/* Inner wheel */}
@@ -295,6 +306,7 @@ const SpinWin = () => {
                     spinning={true}
                     targetIndex={targetIndex}
                     onSettled={handleSettled}
+                    size={wheelSize}
                   />
                 </div>
               </div>
