@@ -296,7 +296,7 @@ const SpinWin = () => {
               <div className="relative flex items-center justify-center">
                 {/* Outer store ring */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <StoreRing floorId={floorId} innerSize={320} ringThickness={88} />
+                  <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
                 </div>
 
                 {/* Inner wheel */}
@@ -306,6 +306,7 @@ const SpinWin = () => {
                     spinning={true}
                     targetIndex={targetIndex}
                     onSettled={handleSettled}
+                    size={wheelSize}
                   />
                 </div>
               </div>

@@ -14,6 +14,8 @@ type Props = {
   targetIndex: number | null;
   /** Called once after the spin animation completes. */
   onSettled?: () => void;
+  /** Diameter in px. Default 320. */
+  size?: number;
 };
 
 /**
@@ -21,8 +23,7 @@ type Props = {
  * Renders an SVG wheel with N labeled segments. Animation is CSS rotate.
  * Visuals only — outcome is decided server-side and passed as targetIndex.
  */
-export function PrizeWheel({ segments, spinning, targetIndex, onSettled }: Props) {
-  const size = 320;
+export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 320 }: Props) {
   const radius = size / 2;
   const segCount = segments.length;
   const segAngle = 360 / segCount;
