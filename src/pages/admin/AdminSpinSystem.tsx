@@ -361,6 +361,18 @@ export function AdminSpinWinners() {
   // Search (debounced)
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const handleCopyCode = async (code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      toast({ title: "تم نسخ الكود", description: code });
+      setTimeout(() => setCopiedCode((c) => (c === code ? null : c)), 1500);
+    } catch {
+      toast({ title: "تعذّر النسخ", variant: "destructive" });
+    }
+  };
   useEffect(() => {
     const t = setTimeout(() => setSearchTerm(searchInput.trim()), 350);
     return () => clearTimeout(t);
