@@ -83,6 +83,8 @@ const SpinClaim = () => {
   const [redeeming, setRedeeming] = useState(false);
   const [session, setSession] = useState<SessionInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [scanError, setScanError] = useState<string | null>(null);
 
   /* ── Verify staff session (admin role required for verify-claim) ── */
   useEffect(() => {
