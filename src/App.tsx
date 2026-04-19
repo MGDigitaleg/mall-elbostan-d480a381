@@ -23,6 +23,7 @@ const JoinMarketplace = lazy(() => import("./pages/JoinMarketplace"));
 const InteractiveMap = lazy(() => import("./pages/InteractiveMap"));
 const Leasing = lazy(() => import("./pages/Leasing"));
 const SpinWin = lazy(() => import("./pages/SpinWin"));
+const SpinClaim = lazy(() => import("./pages/SpinClaim"));
 const OpeningDay = lazy(() => import("./pages/OpeningDay"));
 const DailyDeals = lazy(() => import("./pages/DailyDeals"));
 const Careers = lazy(() => import("./pages/Careers"));
@@ -131,6 +132,8 @@ function AppLayout() {
             <Route path="/map" element={<InteractiveMap />} />
             <Route path="/leasing" element={<Leasing />} />
             <Route path="/spin-win" element={<SpinWin />} />
+            <Route path="/spin-win/claim" element={<SpinClaim />} />
+            <Route path="/spin-win/claim/:code" element={<SpinClaim />} />
             <Route path="/opening-day" element={<OpeningDay />} />
             <Route path="/daily-deals" element={<DailyDeals />} />
             <Route path="/careers" element={<Careers />} />
