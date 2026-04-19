@@ -614,6 +614,7 @@ function WinnersTab() {
                 <th className="py-3 px-3 font-bold text-muted-foreground">النوع</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">الكود</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">الحالة</th>
+                <th className="py-3 px-3 font-bold text-muted-foreground">الوقت المنقضي</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">التاريخ</th>
               </tr>
             </thead>
