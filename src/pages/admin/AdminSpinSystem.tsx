@@ -455,33 +455,26 @@ export function AdminSpinWinners() {
     no_prize: { label: "بدون مكافأة", color: "bg-gray-100 text-gray-500" },
   };
 
-  // Apply filters
-  const filtered = (sessions ?? []).filter((s: any) => {
-    if (filterStatus !== "all" && s.claim_status !== filterStatus) return false;
-    if (filterPrizeType !== "all") {
-      const t = s.store_prizes?.prize_type ?? s.prize_type ?? "";
-      if (t !== filterPrizeType) return false;
-    }
-    if (filterFrom) {
-      if (new Date(s.created_at) < new Date(filterFrom)) return false;
-    }
-    if (filterTo) {
-      const to = new Date(filterTo);
-      to.setHours(23, 59, 59, 999);
-      if (new Date(s.created_at) > to) return false;
-    }
-    return true;
-  });
-
+  // Server-side filtering — current page rows only.
+  // CSV exports ALL matching rows by re-querying without pagination.
   const resetFilters = () => {
     setFilterFrom(""); setFilterTo(""); setFilterPrizeType("all"); setFilterStatus("all");
   };
 
-  const exportCSV = () => {
-    if (filtered.length === 0) {
+  const exportCSV = async () => {
+    if (totalCount === 0) {
       toast({ title: "لا توجد بيانات للتصدير", variant: "destructive" });
       return;
     }
+    const { data: allRows } = await buildFilteredQuery()
+      .order("created_at", { ascending: false })
+      .limit(5000);
+    const rowsData = allRows ?? [];
+    if (rowsData.length === 0) {
+      toast({ title: "لا توجد بيانات للتصدير", variant: "destructive" });
+      return;
+    }
+
     const headers = [
       "الاسم", "الهاتف", "البريد", "المكافأة", "نوع المكافأة",
       "المتجر", "كود الوحدة", "رمز الاستلام", "الحالة",
@@ -494,7 +487,7 @@ export function AdminSpinWinners() {
     const fmt = (d: string | null | undefined) =>
       d ? new Date(d).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" }) : "";
 
-    const rows = filtered.map((s: any) => [
+    const rows = rowsData.map((s: any) => [
       s.full_name,
       s.phone,
       s.email ?? "",
@@ -511,7 +504,6 @@ export function AdminSpinWinners() {
     ]);
 
     const csv = [headers, ...rows].map((r) => r.map(escape).join(",")).join("\r\n");
-    // BOM for Excel UTF-8 (Arabic) compatibility
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -522,7 +514,7 @@ export function AdminSpinWinners() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast({ title: "تم التصدير", description: `${filtered.length} سجل` });
+    toast({ title: "تم التصدير", description: `${rowsData.length} سجل` });
   };
 
   if (authLoading) return <AdminShell loading />;
