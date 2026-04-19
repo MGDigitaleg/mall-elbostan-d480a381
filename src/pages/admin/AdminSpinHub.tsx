@@ -13,6 +13,7 @@ import {
   QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users,
 } from "lucide-react";
 import { CampaignToggleCard } from "@/components/admin/CampaignToggleCard";
+import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
 
 type PrizeType = "instant" | "grand" | "visitor";
 
@@ -677,6 +678,7 @@ function Shell({ children, title, loading }: { children?: React.ReactNode; title
             <Link to="/admin" className="text-primary hover:underline"><ArrowRight className="w-5 h-5" /></Link>
             <h1 className="text-xl font-bold text-foreground">{title}</h1>
           </div>
+          <CampaignStatusBadge asLink={false} />
         </div>
       </header>
       <main className="container py-8">{children}</main>
