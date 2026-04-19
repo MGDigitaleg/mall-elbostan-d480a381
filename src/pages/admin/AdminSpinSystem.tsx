@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useRequireAdmin } from "@/hooks/useAuth";
@@ -358,17 +358,51 @@ export function AdminSpinWinners() {
   const [filterPrizeType, setFilterPrizeType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
-  const { data: sessions, isLoading } = useQuery({
-    queryKey: ["admin-spin-sessions"],
+  // Pagination (server-side)
+  const PAGE_SIZE = 50;
+  const [page, setPage] = useState(0);
+
+  // Reset to first page when filters change
+  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}`;
+  const lastFilterKey = useRef(filterKey);
+  if (lastFilterKey.current !== filterKey) {
+    lastFilterKey.current = filterKey;
+    if (page !== 0) setPage(0);
+  }
+
+  const buildFilteredQuery = () => {
+    let q = supabase
+      .from("spin_sessions")
+      .select(
+        "*, store_prizes(name_ar, category, prize_type), competition_stores(stores:store_id(name_ar, unit_code))",
+        { count: "exact" }
+      );
+    if (filterStatus !== "all") q = q.eq("claim_status", filterStatus);
+    if (filterPrizeType !== "all") q = q.eq("prize_type", filterPrizeType);
+    if (filterFrom) q = q.gte("created_at", new Date(filterFrom).toISOString());
+    if (filterTo) {
+      const to = new Date(filterTo);
+      to.setHours(23, 59, 59, 999);
+      q = q.lte("created_at", to.toISOString());
+    }
+    return q;
+  };
+
+  const { data: pageData, isLoading } = useQuery({
+    queryKey: ["admin-spin-sessions", filterKey, page],
     queryFn: async () => {
-      const { data } = await supabase
-        .from("spin_sessions")
-        .select("*, store_prizes(name_ar, category, prize_type), competition_stores(stores:store_id(name_ar, unit_code))")
+      const from = page * PAGE_SIZE;
+      const to = from + PAGE_SIZE - 1;
+      const { data, count } = await buildFilteredQuery()
         .order("created_at", { ascending: false })
-        .limit(1000);
-      return data ?? [];
+        .range(from, to);
+      return { rows: data ?? [], total: count ?? 0 };
     },
   });
+
+  const sessions = pageData?.rows ?? [];
+  const totalCount = pageData?.total ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   const handleVerify = async () => {
     if (!searchCode.trim()) return;
@@ -421,33 +455,26 @@ export function AdminSpinWinners() {
     no_prize: { label: "بدون مكافأة", color: "bg-gray-100 text-gray-500" },
   };
 
-  // Apply filters
-  const filtered = (sessions ?? []).filter((s: any) => {
-    if (filterStatus !== "all" && s.claim_status !== filterStatus) return false;
-    if (filterPrizeType !== "all") {
-      const t = s.store_prizes?.prize_type ?? s.prize_type ?? "";
-      if (t !== filterPrizeType) return false;
-    }
-    if (filterFrom) {
-      if (new Date(s.created_at) < new Date(filterFrom)) return false;
-    }
-    if (filterTo) {
-      const to = new Date(filterTo);
-      to.setHours(23, 59, 59, 999);
-      if (new Date(s.created_at) > to) return false;
-    }
-    return true;
-  });
-
+  // Server-side filtering — current page rows only.
+  // CSV exports ALL matching rows by re-querying without pagination.
   const resetFilters = () => {
     setFilterFrom(""); setFilterTo(""); setFilterPrizeType("all"); setFilterStatus("all");
   };
 
-  const exportCSV = () => {
-    if (filtered.length === 0) {
+  const exportCSV = async () => {
+    if (totalCount === 0) {
       toast({ title: "لا توجد بيانات للتصدير", variant: "destructive" });
       return;
     }
+    const { data: allRows } = await buildFilteredQuery()
+      .order("created_at", { ascending: false })
+      .limit(5000);
+    const rowsData = allRows ?? [];
+    if (rowsData.length === 0) {
+      toast({ title: "لا توجد بيانات للتصدير", variant: "destructive" });
+      return;
+    }
+
     const headers = [
       "الاسم", "الهاتف", "البريد", "المكافأة", "نوع المكافأة",
       "المتجر", "كود الوحدة", "رمز الاستلام", "الحالة",
@@ -460,7 +487,7 @@ export function AdminSpinWinners() {
     const fmt = (d: string | null | undefined) =>
       d ? new Date(d).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" }) : "";
 
-    const rows = filtered.map((s: any) => [
+    const rows = rowsData.map((s: any) => [
       s.full_name,
       s.phone,
       s.email ?? "",
@@ -477,7 +504,6 @@ export function AdminSpinWinners() {
     ]);
 
     const csv = [headers, ...rows].map((r) => r.map(escape).join(",")).join("\r\n");
-    // BOM for Excel UTF-8 (Arabic) compatibility
     const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -488,7 +514,7 @@ export function AdminSpinWinners() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast({ title: "تم التصدير", description: `${filtered.length} سجل` });
+    toast({ title: "تم التصدير", description: `${rowsData.length} سجل` });
   };
 
   if (authLoading) return <AdminShell loading />;
@@ -545,9 +571,9 @@ export function AdminSpinWinners() {
           </p>
           <div className="flex gap-2">
             <Button variant="ghost" size="sm" onClick={resetFilters}>إعادة ضبط</Button>
-            <Button variant="cta" size="sm" onClick={exportCSV} disabled={filtered.length === 0}>
+            <Button variant="cta" size="sm" onClick={exportCSV} disabled={totalCount === 0}>
               <Download className="w-4 h-4 ml-1" />
-              تصدير CSV ({filtered.length})
+              تصدير CSV ({totalCount})
             </Button>
           </div>
         </div>
@@ -607,7 +633,7 @@ export function AdminSpinWinners() {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((s: any) => (
+              {sessions.map((s: any) => (
                 <tr key={s.id} className="border-b border-border/50 hover:bg-secondary/30">
                   <td className="py-2 px-3">{s.full_name}</td>
                   <td className="py-2 px-3 font-mono text-xs" dir="ltr">{s.phone}</td>
@@ -626,7 +652,25 @@ export function AdminSpinWinners() {
               ))}
             </tbody>
           </table>
-          {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد نتائج مطابقة للفلاتر</p>}
+          {sessions.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد نتائج مطابقة للفلاتر</p>}
+
+          {/* Pagination */}
+          {totalCount > 0 && (
+            <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
+              <p className="text-xs text-muted-foreground">
+                عرض {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, totalCount)} من {totalCount}
+              </p>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={page === 0}>
+                  السابق
+                </Button>
+                <span className="text-xs text-muted-foreground font-mono">{page + 1} / {totalPages}</span>
+                <Button variant="ghost" size="sm" onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={page + 1 >= totalPages}>
+                  التالي
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </AdminShell>
