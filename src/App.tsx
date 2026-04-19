@@ -49,6 +49,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
 const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
+const AdminSpinHub = lazy(() => import("./pages/admin/AdminSpinHub"));
 
 
 
@@ -172,6 +173,7 @@ function AppLayout() {
             <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
             <Route path="/admin/spin-reports" element={<AdminSpinReports />} />
             <Route path="/admin/kz-products" element={<AdminKzProducts />} />
+            <Route path="/admin/spin-system" element={<AdminSpinHub />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
