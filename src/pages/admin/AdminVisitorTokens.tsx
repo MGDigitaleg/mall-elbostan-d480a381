@@ -25,7 +25,20 @@ interface VisitorToken {
   used_count: number;
   notes: string | null;
   created_at: string;
+  last_used_at?: string | null;
 }
+
+const formatRelative = (iso: string | null | undefined): string => {
+  if (!iso) return "—";
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return "الآن";
+  if (m < 60) return `منذ ${m} دقيقة`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `منذ ${h} ساعة`;
+  const d = Math.floor(h / 24);
+  return `منذ ${d} يوم`;
+};
 
 const generateToken = () => {
   const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
