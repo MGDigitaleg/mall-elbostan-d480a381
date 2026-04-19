@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket } from "lucide-react";
 
 const adminSections = [
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
@@ -11,6 +11,7 @@ const adminSections = [
   { title: "دليل وسط البلد", icon: Building2, path: "/admin/downtown-merchants", desc: "إدارة دليل محلات فرع وسط البلد والتوثيق" },
   { title: "الفعاليات", icon: Calendar, path: "/admin/events", desc: "إدارة فعاليات الافتتاح" },
   { title: "نظام أدر واربح", icon: Sparkles, path: "/admin/spin-system", desc: "مخزون الجوائز · أكواد الزوار · الفائزون" },
+  { title: "أكواد الزوار", icon: Ticket, path: "/admin/visitor-tokens", desc: "إنشاء/تعطيل/تتبع أكواد التحقق من الزوار" },
   { title: "المكافآت القديمة", icon: Gift, path: "/admin/rewards", desc: "نظام المكافآت القديم" },
   { title: "متاجر المسابقة", icon: Trophy, path: "/admin/competition-stores", desc: "إدارة المتاجر المشاركة في أدر واربح" },
   { title: "مكافآت المتاجر", icon: Award, path: "/admin/store-prizes", desc: "إدارة مكافآت كل متجر" },
