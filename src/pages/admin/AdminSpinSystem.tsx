@@ -358,12 +358,20 @@ export function AdminSpinWinners() {
   const [filterPrizeType, setFilterPrizeType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
+  // Search (debounced)
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setSearchTerm(searchInput.trim()), 350);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
   // Pagination (server-side)
   const PAGE_SIZE = 50;
   const [page, setPage] = useState(0);
 
-  // Reset to first page when filters change
-  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}`;
+  // Reset to first page when filters or search change
+  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}|${searchTerm}`;
   const lastFilterKey = useRef(filterKey);
   if (lastFilterKey.current !== filterKey) {
     lastFilterKey.current = filterKey;
@@ -384,6 +392,13 @@ export function AdminSpinWinners() {
       const to = new Date(filterTo);
       to.setHours(23, 59, 59, 999);
       q = q.lte("created_at", to.toISOString());
+    }
+    if (searchTerm) {
+      const escaped = searchTerm.replace(/[%,()]/g, " ");
+      const pattern = `%${escaped}%`;
+      q = q.or(
+        `full_name.ilike.${pattern},phone.ilike.${pattern},claim_code.ilike.${pattern}`
+      );
     }
     return q;
   };
