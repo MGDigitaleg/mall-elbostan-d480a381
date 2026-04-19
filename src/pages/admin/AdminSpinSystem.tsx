@@ -855,16 +855,36 @@ export function AdminSpinWinners() {
                   </td>
                   <td className="py-2 px-3">
                     {s.claim_code ? (
-                      <a
-                        href={`/spin-win/claim/${s.claim_code}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title="فتح صفحة التحقق في تبويب جديد"
-                        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
-                      >
-                        <QrCode className="w-3 h-3" />
-                        تحقق
-                      </a>
+                      <div className="inline-flex items-center gap-1">
+                        <a
+                          href={`/spin-win/claim/${s.claim_code}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="فتح صفحة التحقق في تبويب جديد"
+                          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
+                        >
+                          <QrCode className="w-3 h-3" />
+                          تحقق
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => handleCopyCode(s.claim_code!)}
+                          title="نسخ كود الاستلام"
+                          className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
+                        >
+                          {copiedCode === s.claim_code ? (
+                            <>
+                              <Check className="w-3 h-3 text-success" />
+                              تم
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              نسخ
+                            </>
+                          )}
+                        </button>
+                      </div>
                     ) : (
                       <span className="text-xs text-muted-foreground">—</span>
                     )}
