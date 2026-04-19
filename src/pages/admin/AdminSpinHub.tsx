@@ -12,6 +12,7 @@ import {
   ArrowRight, Plus, Pencil, Trash2, Gift, CheckCircle, XCircle,
   QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users,
 } from "lucide-react";
+import { CampaignToggleCard } from "@/components/admin/CampaignToggleCard";
 
 type PrizeType = "instant" | "grand" | "visitor";
 
@@ -32,6 +33,7 @@ export default function AdminSpinHub() {
 
   return (
     <Shell title="نظام أدر واربح">
+      <CampaignToggleCard campaignKey="spin_win" />
       <div className="mb-6 flex flex-wrap gap-2 border-b border-border">
         {[
           { key: "inventory", label: "مخزون الجوائز", icon: Gift },

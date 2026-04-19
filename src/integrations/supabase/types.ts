@@ -77,6 +77,36 @@ export type Database = {
         }
         Relationships: []
       }
+      campaign_settings: {
+        Row: {
+          id: string
+          is_active: boolean
+          key: string
+          paused_message_ar: string | null
+          paused_title_ar: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id?: string
+          is_active?: boolean
+          key: string
+          paused_message_ar?: string | null
+          paused_title_ar?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          is_active?: boolean
+          key?: string
+          paused_message_ar?: string | null
+          paused_title_ar?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       competition_stores: {
         Row: {
           created_at: string
