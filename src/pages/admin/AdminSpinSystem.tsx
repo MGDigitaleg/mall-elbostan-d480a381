@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useRequireAdmin } from "@/hooks/useAuth";
@@ -358,12 +358,20 @@ export function AdminSpinWinners() {
   const [filterPrizeType, setFilterPrizeType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
+  // Search (debounced)
+  const [searchInput, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    const t = setTimeout(() => setSearchTerm(searchInput.trim()), 350);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
   // Pagination (server-side)
   const PAGE_SIZE = 50;
   const [page, setPage] = useState(0);
 
-  // Reset to first page when filters change
-  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}`;
+  // Reset to first page when filters or search change
+  const filterKey = `${filterFrom}|${filterTo}|${filterPrizeType}|${filterStatus}|${searchTerm}`;
   const lastFilterKey = useRef(filterKey);
   if (lastFilterKey.current !== filterKey) {
     lastFilterKey.current = filterKey;
@@ -384,6 +392,13 @@ export function AdminSpinWinners() {
       const to = new Date(filterTo);
       to.setHours(23, 59, 59, 999);
       q = q.lte("created_at", to.toISOString());
+    }
+    if (searchTerm) {
+      const escaped = searchTerm.replace(/[%,()]/g, " ");
+      const pattern = `%${escaped}%`;
+      q = q.or(
+        `full_name.ilike.${pattern},phone.ilike.${pattern},claim_code.ilike.${pattern}`
+      );
     }
     return q;
   };
@@ -505,6 +520,7 @@ export function AdminSpinWinners() {
   // CSV exports ALL matching rows by re-querying without pagination.
   const resetFilters = () => {
     setFilterFrom(""); setFilterTo(""); setFilterPrizeType("all"); setFilterStatus("all");
+    setSearchInput(""); setSearchTerm("");
   };
 
   const exportCSV = async () => {
@@ -621,6 +637,18 @@ export function AdminSpinWinners() {
               <Download className="w-4 h-4 ml-1" />
               تصدير CSV ({totalCount})
             </Button>
+          </div>
+        </div>
+        <div className="mb-3">
+          <label className="text-xs text-muted-foreground mb-1 block">بحث (الاسم / الهاتف / كود الاستلام)</label>
+          <div className="relative">
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <Input
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="ابحث بالاسم أو الهاتف أو الكود..."
+              className="bg-secondary border-border h-9 pr-9"
+            />
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
