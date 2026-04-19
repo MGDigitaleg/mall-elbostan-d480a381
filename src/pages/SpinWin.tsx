@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { PrizeWheel, type WheelSegment } from "@/components/spin/PrizeWheel";
 import { StoreRing } from "@/components/spin/StoreRing";
+import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
@@ -343,10 +344,17 @@ const SpinWin = () => {
                   </div>
 
                   <div className="p-6 md:p-8 space-y-4 text-right">
-                    {/* Claim code */}
+                    {/* Claim code + QR */}
                     <div className="border-2 border-dashed border-primary/30 bg-primary/5 p-5 rounded-xl text-center">
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">رمز الاستلام</p>
-                      <p className="font-mono text-2xl md:text-3xl font-extrabold text-foreground tracking-[0.15em] mb-3">
+                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">رمز الاستلام</p>
+                      <div className="mb-3 flex justify-center">
+                        <ClaimQRCode
+                          value={result.result.qr_data || result.result.claim_code}
+                          claimCode={result.result.claim_code}
+                          size={140}
+                        />
+                      </div>
+                      <p className="font-mono text-xl md:text-2xl font-extrabold text-foreground tracking-[0.15em] mb-2">
                         {result.result.claim_code}
                       </p>
                       <button
@@ -356,6 +364,9 @@ const SpinWin = () => {
                         {codeCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                         {codeCopied ? "تم النسخ" : "نسخ الرمز"}
                       </button>
+                      <p className="mt-2 text-[0.7rem] text-muted-foreground">
+                        أظهر الـ QR لموظف المتجر للتحقق والاستلام
+                      </p>
                     </div>
 
                     {/* Sponsor store (if any) */}

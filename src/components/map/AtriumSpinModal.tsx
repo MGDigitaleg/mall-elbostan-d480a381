@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
 
 /* ─── Types ─── */
 export type SpinPrizeResult = {
@@ -368,13 +369,20 @@ function WinResult({
         </div>
       )}
 
-      {/* Claim code — prominent */}
+      {/* Claim code + QR — prominent */}
       <div className="rounded-xl border-2 border-primary/20 p-4 text-center" style={{ background: "hsl(var(--primary) / 0.04)" }}>
-        <div className="flex items-center justify-center gap-2 mb-2">
+        <div className="flex items-center justify-center gap-2 mb-3">
           <QrCode className="h-3.5 w-3.5 text-primary" />
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.15em] text-primary">رمز الاستلام</p>
         </div>
-        <p className="font-poppins text-[1.4rem] font-extrabold tracking-[0.15em] light-heading">{data.claim_code}</p>
+        <div className="mb-3 flex justify-center">
+          <ClaimQRCode
+            value={data.qr_data || data.claim_code}
+            claimCode={data.claim_code}
+            size={128}
+          />
+        </div>
+        <p className="font-poppins text-[1.2rem] font-extrabold tracking-[0.15em] light-heading">{data.claim_code}</p>
         <button
           onClick={onCopyCode}
           className="mt-2 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-bold text-primary transition-colors hover:bg-primary/10"
