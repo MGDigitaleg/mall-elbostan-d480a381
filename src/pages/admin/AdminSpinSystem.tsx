@@ -571,9 +571,9 @@ export function AdminSpinWinners() {
           </p>
           <div className="flex gap-2">
             <Button variant="ghost" size="sm" onClick={resetFilters}>إعادة ضبط</Button>
-            <Button variant="cta" size="sm" onClick={exportCSV} disabled={filtered.length === 0}>
+            <Button variant="cta" size="sm" onClick={exportCSV} disabled={totalCount === 0}>
               <Download className="w-4 h-4 ml-1" />
-              تصدير CSV ({filtered.length})
+              تصدير CSV ({totalCount})
             </Button>
           </div>
         </div>
