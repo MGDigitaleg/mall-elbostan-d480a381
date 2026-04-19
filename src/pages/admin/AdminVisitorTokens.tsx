@@ -223,6 +223,7 @@ const AdminVisitorTokens = () => {
                         )}
                         {t.valid_to && <div>صالح حتى: {new Date(t.valid_to).toLocaleString("ar-EG")}</div>}
                         {t.issued_by && <div>الإصدار: {t.issued_by}</div>}
+                        <div>آخر استخدام: <span className={t.last_used_at ? "text-foreground font-semibold" : ""}>{formatRelative(t.last_used_at)}</span></div>
                         {t.notes && <div className="italic">{t.notes}</div>}
                       </div>
                     </div>
