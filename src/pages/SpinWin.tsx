@@ -181,6 +181,27 @@ const SpinWin = () => {
         </div>
       </section>
 
+      {/* ─── Campaign paused gate ─── */}
+      {!campaignLoading && campaign && !campaign.is_active ? (
+        <section className="container py-16 md:py-24">
+          <div className="max-w-xl mx-auto card-premium p-8 md:p-12 text-center">
+            <div className="w-16 h-16 mx-auto rounded-full bg-orange/15 text-orange flex items-center justify-center mb-5">
+              <ClockIcon className="w-8 h-8" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-3">
+              {campaign.paused_title_ar || "الحملة قريباً"}
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              {campaign.paused_message_ar || 'حملة "أدر واربح" غير مفعّلة حالياً. تابعنا على قنواتنا الرسمية لمعرفة موعد انطلاق الحملة.'}
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link to="/"><Button variant="outline">العودة للرئيسية</Button></Link>
+              <Link to="/new-cairo-branch"><Button>تعرّف على فرع التجمع</Button></Link>
+            </div>
+          </div>
+        </section>
+      ) : (
+      <>
       {/* ─── Main ─── */}
       <section className="container py-10 md:py-14">
         <AnimatePresence mode="wait">
