@@ -404,6 +404,52 @@ export function AdminSpinWinners() {
   const totalCount = pageData?.total ?? 0;
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
+  // Stats query — aggregates across ALL filtered rows (not just current page)
+  const { data: statsData } = useQuery({
+    queryKey: ["admin-spin-sessions-stats", filterKey],
+    queryFn: async () => {
+      let q = supabase
+        .from("spin_sessions")
+        .select("claim_status, created_at, redeemed_at");
+      if (filterStatus !== "all") q = q.eq("claim_status", filterStatus);
+      if (filterPrizeType !== "all") q = q.eq("prize_type", filterPrizeType);
+      if (filterFrom) q = q.gte("created_at", new Date(filterFrom).toISOString());
+      if (filterTo) {
+        const to = new Date(filterTo);
+        to.setHours(23, 59, 59, 999);
+        q = q.lte("created_at", to.toISOString());
+      }
+      const { data } = await q.limit(10000);
+      const rows = data ?? [];
+      const total = rows.length;
+      const redeemedRows = rows.filter((r) => r.claim_status === "redeemed" && r.redeemed_at);
+      const redeemed = redeemedRows.length;
+      const pending = rows.filter((r) => r.claim_status === "pending").length;
+      const rate = total > 0 ? (redeemed / total) * 100 : 0;
+      const avgMs =
+        redeemedRows.length > 0
+          ? redeemedRows.reduce(
+              (sum, r) => sum + (new Date(r.redeemed_at as string).getTime() - new Date(r.created_at).getTime()),
+              0
+            ) / redeemedRows.length
+          : 0;
+      return { total, redeemed, pending, rate, avgMs };
+    },
+  });
+
+  const formatDuration = (ms: number) => {
+    if (!ms || ms <= 0) return "—";
+    const minutes = Math.round(ms / 60000);
+    if (minutes < 60) return `${minutes} د`;
+    const hours = Math.floor(minutes / 60);
+    const remMin = minutes % 60;
+    if (hours < 24) return remMin > 0 ? `${hours} س ${remMin} د` : `${hours} س`;
+    const days = Math.floor(hours / 24);
+    const remHours = hours % 24;
+    return remHours > 0 ? `${days} ي ${remHours} س` : `${days} ي`;
+  };
+
+
   const handleVerify = async () => {
     if (!searchCode.trim()) return;
     setVerifyLoading(true);
@@ -617,7 +663,43 @@ export function AdminSpinWinners() {
         </div>
       </div>
 
+      {/* Stats summary (based on applied filters) */}
+      {statsData && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Users className="w-4 h-4" />
+              <p className="text-xs">إجمالي الفائزين</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.total.toLocaleString("ar-EG")}</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <CheckCircle className="w-4 h-4" />
+              <p className="text-xs">تم الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.redeemed.toLocaleString("ar-EG")}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">قيد الانتظار: {statsData.pending.toLocaleString("ar-EG")}</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <TrendingUp className="w-4 h-4" />
+              <p className="text-xs">نسبة الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.rate.toFixed(1)}%</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Clock className="w-4 h-4" />
+              <p className="text-xs">متوسط وقت الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{formatDuration(statsData.avgMs)}</p>
+          </div>
+        </div>
+      )}
+
       {/* Sessions list */}
+
       {isLoading ? <p className="text-muted-foreground">جاري التحميل...</p> : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
