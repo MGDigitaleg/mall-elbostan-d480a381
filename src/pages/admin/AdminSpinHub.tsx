@@ -563,6 +563,19 @@ function WinnersTab() {
     no_prize: { label: "بدون مكافأة", color: "bg-gray-100 text-gray-500" },
   };
 
+  const formatRelative = (iso: string) => {
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return { text: "الآن", fresh: true };
+    if (mins < 60) return { text: `منذ ${mins} دقيقة`, fresh: true };
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return { text: `منذ ${hrs} ساعة`, fresh: hrs < 6 };
+    const days = Math.floor(hrs / 24);
+    if (days < 30) return { text: `منذ ${days} يوم`, fresh: false };
+    const months = Math.floor(days / 30);
+    return { text: `منذ ${months} شهر`, fresh: false };
+  };
+
   return (
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
