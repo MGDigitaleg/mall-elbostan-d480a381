@@ -55,6 +55,7 @@ type SpinResponse = {
 
 const SpinWin = () => {
   const { toast } = useToast();
+  const { data: campaign, isLoading: campaignLoading } = useCampaignStatus("spin_win");
   const [step, setStep] = useState<"register" | "spinning" | "result">("register");
   const [form, setForm] = useState({ full_name: "", phone: "", email: "", visitor_token: "" });
   const [showVisitorField, setShowVisitorField] = useState(false);
