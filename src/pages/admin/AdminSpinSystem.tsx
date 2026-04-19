@@ -712,6 +712,7 @@ export function AdminSpinWinners() {
                 <th className="py-2 px-3 font-bold text-muted-foreground">الرمز</th>
                 <th className="py-2 px-3 font-bold text-muted-foreground">الحالة</th>
                 <th className="py-2 px-3 font-bold text-muted-foreground">التاريخ</th>
+                <th className="py-2 px-3 font-bold text-muted-foreground">إجراءات</th>
               </tr>
             </thead>
             <tbody>
@@ -729,6 +730,22 @@ export function AdminSpinWinners() {
                   </td>
                   <td className="py-2 px-3 text-xs text-muted-foreground">
                     {new Date(s.created_at).toLocaleDateString("ar-EG")}
+                  </td>
+                  <td className="py-2 px-3">
+                    {s.claim_code ? (
+                      <a
+                        href={`/spin-win/claim/${s.claim_code}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="فتح صفحة التحقق في تبويب جديد"
+                        className="inline-flex items-center gap-1 rounded-md border border-border px-2 py-1 text-xs font-bold text-foreground hover:bg-secondary transition"
+                      >
+                        <QrCode className="w-3 h-3" />
+                        تحقق
+                      </a>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">—</span>
+                    )}
                   </td>
                 </tr>
               ))}
