@@ -49,6 +49,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
 const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
 const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
+const AdminSpinHub = lazy(() => import("./pages/admin/AdminSpinHub"));
 
 
 
