@@ -639,6 +639,16 @@ function WinnersTab() {
                         {statusLabels[s.claim_status]?.label ?? s.claim_status}
                       </span>
                     </td>
+                    <td className="py-2 px-3 text-xs">
+                      {(() => {
+                        const r = formatRelative(s.created_at);
+                        return (
+                          <span className={r.fresh ? "font-bold text-primary" : "text-muted-foreground"}>
+                            {r.text}
+                          </span>
+                        );
+                      })()}
+                    </td>
                     <td className="py-2 px-3 text-xs text-muted-foreground">
                       {new Date(s.created_at).toLocaleDateString("ar-EG")}
                     </td>
