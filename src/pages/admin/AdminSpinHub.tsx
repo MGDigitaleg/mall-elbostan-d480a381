@@ -678,6 +678,7 @@ function Shell({ children, title, loading }: { children?: React.ReactNode; title
             <Link to="/admin" className="text-primary hover:underline"><ArrowRight className="w-5 h-5" /></Link>
             <h1 className="text-xl font-bold text-foreground">{title}</h1>
           </div>
+          <CampaignStatusBadge asLink={false} />
         </div>
       </header>
       <main className="container py-8">{children}</main>
