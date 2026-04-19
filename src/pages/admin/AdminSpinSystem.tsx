@@ -464,6 +464,41 @@ export function AdminSpinWinners() {
     return remHours > 0 ? `${days} ي ${remHours} س` : `${days} ي`;
   };
 
+  // 14-day sparkline data (respects prize/status/search filters; ignores date range)
+  const { data: sparkData } = useQuery({
+    queryKey: ["admin-spin-sparkline-14d", filterPrizeType, filterStatus, searchTerm],
+    queryFn: async () => {
+      const since = new Date();
+      since.setDate(since.getDate() - 13);
+      since.setHours(0, 0, 0, 0);
+
+      let q = supabase
+        .from("spin_sessions")
+        .select("created_at")
+        .gte("created_at", since.toISOString());
+      if (filterStatus !== "all") q = q.eq("claim_status", filterStatus);
+      if (filterPrizeType !== "all") q = q.eq("prize_type", filterPrizeType);
+      if (searchTerm) {
+        const escaped = searchTerm.replace(/[%,()]/g, " ");
+        const pattern = `%${escaped}%`;
+        q = q.or(`full_name.ilike.${pattern},phone.ilike.${pattern},claim_code.ilike.${pattern}`);
+      }
+      const { data } = await q.limit(10000);
+
+      const buckets = new Map<string, number>();
+      for (let i = 0; i < 14; i++) {
+        const d = new Date(since);
+        d.setDate(since.getDate() + i);
+        buckets.set(d.toISOString().slice(0, 10), 0);
+      }
+      (data ?? []).forEach((r) => {
+        const key = new Date(r.created_at as string).toISOString().slice(0, 10);
+        if (buckets.has(key)) buckets.set(key, (buckets.get(key) ?? 0) + 1);
+      });
+      return Array.from(buckets.entries()).map(([day, count]) => ({ day, count }));
+    },
+  });
+
 
   const handleVerify = async () => {
     if (!searchCode.trim()) return;
