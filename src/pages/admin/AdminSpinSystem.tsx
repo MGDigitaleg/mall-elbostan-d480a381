@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, Plus, Pencil, Trash2, Store, Gift, CheckCircle, XCircle,
-  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users
+  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users, Download
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════
