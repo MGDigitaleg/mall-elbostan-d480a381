@@ -148,6 +148,21 @@ const SpinClaim = () => {
     navigate(`/spin-win/claim/${searchCode.trim().toUpperCase()}`);
   };
 
+  const handleScan = (results: IDetectedBarcode[]) => {
+    if (!results || results.length === 0) return;
+    const raw = results[0]?.rawValue;
+    const extracted = extractClaimCode(raw ?? "");
+    if (!extracted) {
+      setScanError("تعذّر قراءة الرمز — حاول مرة أخرى");
+      return;
+    }
+    setScannerOpen(false);
+    setScanError(null);
+    setSearchCode(extracted);
+    toast({ title: "تم مسح الرمز", description: extracted });
+    navigate(`/spin-win/claim/${extracted}`);
+  };
+
   const handleRedeem = async () => {
     if (!session) return;
     setRedeeming(true);
