@@ -663,7 +663,43 @@ export function AdminSpinWinners() {
         </div>
       </div>
 
+      {/* Stats summary (based on applied filters) */}
+      {statsData && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Users className="w-4 h-4" />
+              <p className="text-xs">إجمالي الفائزين</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.total.toLocaleString("ar-EG")}</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <CheckCircle className="w-4 h-4" />
+              <p className="text-xs">تم الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.redeemed.toLocaleString("ar-EG")}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">قيد الانتظار: {statsData.pending.toLocaleString("ar-EG")}</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <TrendingUp className="w-4 h-4" />
+              <p className="text-xs">نسبة الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{statsData.rate.toFixed(1)}%</p>
+          </div>
+          <div className="card-premium p-4">
+            <div className="flex items-center gap-2 text-muted-foreground mb-1">
+              <Clock className="w-4 h-4" />
+              <p className="text-xs">متوسط وقت الاستلام</p>
+            </div>
+            <p className="text-2xl font-bold text-foreground">{formatDuration(statsData.avgMs)}</p>
+          </div>
+        </div>
+      )}
+
       {/* Sessions list */}
+
       {isLoading ? <p className="text-muted-foreground">جاري التحميل...</p> : (
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
