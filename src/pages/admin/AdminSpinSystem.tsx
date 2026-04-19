@@ -520,6 +520,7 @@ export function AdminSpinWinners() {
   // CSV exports ALL matching rows by re-querying without pagination.
   const resetFilters = () => {
     setFilterFrom(""); setFilterTo(""); setFilterPrizeType("all"); setFilterStatus("all");
+    setSearchInput(""); setSearchTerm("");
   };
 
   const exportCSV = async () => {
