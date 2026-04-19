@@ -563,6 +563,19 @@ function WinnersTab() {
     no_prize: { label: "بدون مكافأة", color: "bg-gray-100 text-gray-500" },
   };
 
+  const formatRelative = (iso: string) => {
+    const diffMs = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1) return { text: "الآن", fresh: true };
+    if (mins < 60) return { text: `منذ ${mins} دقيقة`, fresh: true };
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return { text: `منذ ${hrs} ساعة`, fresh: hrs < 6 };
+    const days = Math.floor(hrs / 24);
+    if (days < 30) return { text: `منذ ${days} يوم`, fresh: false };
+    const months = Math.floor(days / 30);
+    return { text: `منذ ${months} شهر`, fresh: false };
+  };
+
   return (
     <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -601,6 +614,7 @@ function WinnersTab() {
                 <th className="py-3 px-3 font-bold text-muted-foreground">النوع</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">الكود</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">الحالة</th>
+                <th className="py-3 px-3 font-bold text-muted-foreground">الوقت المنقضي</th>
                 <th className="py-3 px-3 font-bold text-muted-foreground">التاريخ</th>
               </tr>
             </thead>
@@ -624,6 +638,16 @@ function WinnersTab() {
                       <span className={`rounded-md px-2 py-0.5 text-[10px] font-bold ${statusLabels[s.claim_status]?.color ?? ""}`}>
                         {statusLabels[s.claim_status]?.label ?? s.claim_status}
                       </span>
+                    </td>
+                    <td className="py-2 px-3 text-xs">
+                      {(() => {
+                        const r = formatRelative(s.created_at);
+                        return (
+                          <span className={r.fresh ? "font-bold text-primary" : "text-muted-foreground"}>
+                            {r.text}
+                          </span>
+                        );
+                      })()}
                     </td>
                     <td className="py-2 px-3 text-xs text-muted-foreground">
                       {new Date(s.created_at).toLocaleDateString("ar-EG")}
