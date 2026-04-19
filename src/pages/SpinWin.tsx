@@ -14,6 +14,8 @@ import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
+import { useCampaignStatus } from "@/hooks/useCampaignStatus";
+import { Clock as ClockIcon } from "lucide-react";
 
 /* ─── 8 visible wheel segments (visual only — backend decides outcome) ─── */
 const WHEEL_SEGMENTS: WheelSegment[] = [
