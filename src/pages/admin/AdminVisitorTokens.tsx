@@ -25,7 +25,20 @@ interface VisitorToken {
   used_count: number;
   notes: string | null;
   created_at: string;
+  last_used_at?: string | null;
 }
+
+const formatRelative = (iso: string | null | undefined): string => {
+  if (!iso) return "—";
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return "الآن";
+  if (m < 60) return `منذ ${m} دقيقة`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `منذ ${h} ساعة`;
+  const d = Math.floor(h / 24);
+  return `منذ ${d} يوم`;
+};
 
 const generateToken = () => {
   const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
@@ -47,12 +60,18 @@ const AdminVisitorTokens = () => {
 
   const load = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from("visitor_verifications")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (error) toast.error("فشل تحميل الأكواد");
-    else setTokens(data || []);
+    const [tokensRes, sessionsRes] = await Promise.all([
+      supabase.from("visitor_verifications").select("*").order("created_at", { ascending: false }),
+      supabase.from("spin_sessions").select("visitor_token, created_at").not("visitor_token", "is", null).order("created_at", { ascending: false }),
+    ]);
+    if (tokensRes.error) toast.error("فشل تحميل الأكواد");
+    else {
+      const lastUsed = new Map<string, string>();
+      (sessionsRes.data || []).forEach((s: { visitor_token: string | null; created_at: string }) => {
+        if (s.visitor_token && !lastUsed.has(s.visitor_token)) lastUsed.set(s.visitor_token, s.created_at);
+      });
+      setTokens((tokensRes.data || []).map(t => ({ ...t, last_used_at: lastUsed.get(t.token) || null })));
+    }
     setLoading(false);
   };
 
@@ -204,6 +223,7 @@ const AdminVisitorTokens = () => {
                         )}
                         {t.valid_to && <div>صالح حتى: {new Date(t.valid_to).toLocaleString("ar-EG")}</div>}
                         {t.issued_by && <div>الإصدار: {t.issued_by}</div>}
+                        <div>آخر استخدام: <span className={t.last_used_at ? "text-foreground font-semibold" : ""}>{formatRelative(t.last_used_at)}</span></div>
                         {t.notes && <div className="italic">{t.notes}</div>}
                       </div>
                     </div>
