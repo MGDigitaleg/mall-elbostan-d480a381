@@ -1,12 +1,41 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Loader2, ShieldCheck, AlertCircle, CheckCircle2, Clock, Store, Gift, ArrowLeft, Search } from "lucide-react";
+import { Loader2, ShieldCheck, AlertCircle, CheckCircle2, Clock, Store, Gift, ArrowLeft, Search, ScanLine, X } from "lucide-react";
+import { Scanner, type IDetectedBarcode } from "@yudiel/react-qr-scanner";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+
+/**
+ * Extract a claim code from a scanned QR payload.
+ * Accepts: raw code (SP-XXXXXX or XXXX-XXXX-XXXX), full claim URL,
+ * or JSON payload from the spin edge function (with claim_code field).
+ */
+function extractClaimCode(raw: string): string | null {
+  if (!raw) return null;
+  const trimmed = raw.trim();
+
+  // Try JSON payload (signed qr_data from the spin function)
+  if (trimmed.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (typeof parsed?.claim_code === "string") return parsed.claim_code.toUpperCase();
+    } catch {
+      /* not JSON */
+    }
+  }
+
+  // Try URL with /claim/<code>
+  const urlMatch = trimmed.match(/\/claim\/([A-Z0-9-]+)/i);
+  if (urlMatch) return urlMatch[1].toUpperCase();
+
+  // Plain code — uppercase and strip whitespace
+  return trimmed.toUpperCase();
+}
 
 type SessionInfo = {
   id: string;
@@ -54,6 +83,8 @@ const SpinClaim = () => {
   const [redeeming, setRedeeming] = useState(false);
   const [session, setSession] = useState<SessionInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [scanError, setScanError] = useState<string | null>(null);
 
   /* ── Verify staff session (admin role required for verify-claim) ── */
   useEffect(() => {
@@ -115,6 +146,21 @@ const SpinClaim = () => {
     e.preventDefault();
     if (!searchCode.trim()) return;
     navigate(`/spin-win/claim/${searchCode.trim().toUpperCase()}`);
+  };
+
+  const handleScan = (results: IDetectedBarcode[]) => {
+    if (!results || results.length === 0) return;
+    const raw = results[0]?.rawValue;
+    const extracted = extractClaimCode(raw ?? "");
+    if (!extracted) {
+      setScanError("تعذّر قراءة الرمز — حاول مرة أخرى");
+      return;
+    }
+    setScannerOpen(false);
+    setScanError(null);
+    setSearchCode(extracted);
+    toast({ title: "تم مسح الرمز", description: extracted });
+    navigate(`/spin-win/claim/${extracted}`);
   };
 
   const handleRedeem = async () => {
@@ -204,7 +250,7 @@ const SpinClaim = () => {
         </div>
 
         {/* Search form */}
-        <form onSubmit={handleSearch} className="mb-6 flex gap-2">
+        <form onSubmit={handleSearch} className="mb-3 flex gap-2">
           <Input
             value={searchCode}
             onChange={(e) => setSearchCode(e.target.value.toUpperCase())}
@@ -217,6 +263,60 @@ const SpinClaim = () => {
             تحقق
           </Button>
         </form>
+
+        {/* Scan QR button */}
+        <div className="mb-6">
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full h-11 gap-2"
+            onClick={() => { setScanError(null); setScannerOpen(true); }}
+          >
+            <ScanLine className="h-4 w-4" />
+            مسح QR بالكاميرا
+          </Button>
+        </div>
+
+        {/* QR Scanner Dialog */}
+        <Dialog open={scannerOpen} onOpenChange={setScannerOpen}>
+          <DialogContent className="max-w-md p-0 overflow-hidden">
+            <DialogHeader className="px-5 pt-5 pb-3 border-b border-border">
+              <DialogTitle className="text-base font-extrabold flex items-center gap-2">
+                <ScanLine className="h-4 w-4 text-primary" />
+                مسح رمز QR
+              </DialogTitle>
+              <DialogDescription className="text-xs text-muted-foreground">
+                وجّه الكاميرا نحو رمز QR على شاشة الفائز
+              </DialogDescription>
+            </DialogHeader>
+            <div className="relative bg-black aspect-square">
+              {scannerOpen && (
+                <Scanner
+                  onScan={handleScan}
+                  onError={(err) => {
+                    console.error("Scanner error:", err);
+                    setScanError("تعذّر فتح الكاميرا — تأكد من منح الإذن");
+                  }}
+                  constraints={{ facingMode: "environment" }}
+                  scanDelay={300}
+                  styles={{ container: { width: "100%", height: "100%" } }}
+                />
+              )}
+            </div>
+            {scanError && (
+              <div className="px-5 py-3 bg-rose-50 border-t border-rose-200 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
+                <p className="text-xs text-rose-900">{scanError}</p>
+              </div>
+            )}
+            <div className="px-5 py-3 border-t border-border flex justify-end">
+              <Button variant="ghost" size="sm" onClick={() => setScannerOpen(false)}>
+                <X className="h-3.5 w-3.5 ml-1" />
+                إغلاق
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Loading */}
         {loading && (
