@@ -998,10 +998,13 @@ export type Database = {
           phone: string
           phone_hash: string
           prize_id: string | null
+          prize_type: string | null
           qr_data: string | null
           redeemed_at: string | null
           redeemed_by: string | null
           spin_date: string
+          visitor_token: string | null
+          visitor_verified: boolean
         }
         Insert: {
           claim_code?: string | null
@@ -1015,10 +1018,13 @@ export type Database = {
           phone: string
           phone_hash: string
           prize_id?: string | null
+          prize_type?: string | null
           qr_data?: string | null
           redeemed_at?: string | null
           redeemed_by?: string | null
           spin_date?: string
+          visitor_token?: string | null
+          visitor_verified?: boolean
         }
         Update: {
           claim_code?: string | null
@@ -1032,10 +1038,13 @@ export type Database = {
           phone?: string
           phone_hash?: string
           prize_id?: string | null
+          prize_type?: string | null
           qr_data?: string | null
           redeemed_at?: string | null
           redeemed_by?: string | null
           spin_date?: string
+          visitor_token?: string | null
+          visitor_verified?: boolean
         }
         Relationships: [
           {
@@ -1061,11 +1070,14 @@ export type Database = {
           category: string | null
           competition_store_id: string
           created_at: string
+          grand_probability: number
           id: string
           image_url: string | null
           is_active: boolean
+          is_grand: boolean
           name_ar: string
           name_en: string | null
+          prize_type: string
           probability_weight: number
           redemption_rules_ar: string | null
           redemption_rules_en: string | null
@@ -1073,6 +1085,7 @@ export type Database = {
           total_quantity: number
           updated_at: string
           validity_days: number | null
+          visitor_only: boolean
         }
         Insert: {
           active_from?: string | null
@@ -1080,11 +1093,14 @@ export type Database = {
           category?: string | null
           competition_store_id: string
           created_at?: string
+          grand_probability?: number
           id?: string
           image_url?: string | null
           is_active?: boolean
+          is_grand?: boolean
           name_ar: string
           name_en?: string | null
+          prize_type?: string
           probability_weight?: number
           redemption_rules_ar?: string | null
           redemption_rules_en?: string | null
@@ -1092,6 +1108,7 @@ export type Database = {
           total_quantity?: number
           updated_at?: string
           validity_days?: number | null
+          visitor_only?: boolean
         }
         Update: {
           active_from?: string | null
@@ -1099,11 +1116,14 @@ export type Database = {
           category?: string | null
           competition_store_id?: string
           created_at?: string
+          grand_probability?: number
           id?: string
           image_url?: string | null
           is_active?: boolean
+          is_grand?: boolean
           name_ar?: string
           name_en?: string | null
+          prize_type?: string
           probability_weight?: number
           redemption_rules_ar?: string | null
           redemption_rules_en?: string | null
@@ -1111,6 +1131,7 @@ export type Database = {
           total_quantity?: number
           updated_at?: string
           validity_days?: number | null
+          visitor_only?: boolean
         }
         Relationships: [
           {
@@ -1375,6 +1396,51 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      visitor_verifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          issued_by: string | null
+          max_uses: number | null
+          method: string
+          notes: string | null
+          token: string
+          updated_at: string
+          used_count: number
+          valid_from: string
+          valid_to: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          issued_by?: string | null
+          max_uses?: number | null
+          method?: string
+          notes?: string | null
+          token: string
+          updated_at?: string
+          used_count?: number
+          valid_from?: string
+          valid_to?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          issued_by?: string | null
+          max_uses?: number | null
+          method?: string
+          notes?: string | null
+          token?: string
+          updated_at?: string
+          used_count?: number
+          valid_from?: string
+          valid_to?: string | null
         }
         Relationships: []
       }
