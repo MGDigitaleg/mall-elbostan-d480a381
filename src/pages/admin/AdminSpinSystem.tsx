@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, Plus, Pencil, Trash2, Store, Gift, CheckCircle, XCircle,
-  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users
+  BarChart3, QrCode, Search, Clock, Award, TrendingUp, Users, Download
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════
@@ -352,14 +352,20 @@ export function AdminSpinWinners() {
   const [verifyResult, setVerifyResult] = useState<any>(null);
   const [verifyLoading, setVerifyLoading] = useState(false);
 
+  // Filters
+  const [filterFrom, setFilterFrom] = useState("");
+  const [filterTo, setFilterTo] = useState("");
+  const [filterPrizeType, setFilterPrizeType] = useState<string>("all");
+  const [filterStatus, setFilterStatus] = useState<string>("all");
+
   const { data: sessions, isLoading } = useQuery({
     queryKey: ["admin-spin-sessions"],
     queryFn: async () => {
       const { data } = await supabase
         .from("spin_sessions")
-        .select("*, store_prizes(name_ar, category), competition_stores(stores:store_id(name_ar, unit_code))")
+        .select("*, store_prizes(name_ar, category, prize_type), competition_stores(stores:store_id(name_ar, unit_code))")
         .order("created_at", { ascending: false })
-        .limit(100);
+        .limit(1000);
       return data ?? [];
     },
   });
@@ -415,6 +421,76 @@ export function AdminSpinWinners() {
     no_prize: { label: "بدون مكافأة", color: "bg-gray-100 text-gray-500" },
   };
 
+  // Apply filters
+  const filtered = (sessions ?? []).filter((s: any) => {
+    if (filterStatus !== "all" && s.claim_status !== filterStatus) return false;
+    if (filterPrizeType !== "all") {
+      const t = s.store_prizes?.prize_type ?? s.prize_type ?? "";
+      if (t !== filterPrizeType) return false;
+    }
+    if (filterFrom) {
+      if (new Date(s.created_at) < new Date(filterFrom)) return false;
+    }
+    if (filterTo) {
+      const to = new Date(filterTo);
+      to.setHours(23, 59, 59, 999);
+      if (new Date(s.created_at) > to) return false;
+    }
+    return true;
+  });
+
+  const resetFilters = () => {
+    setFilterFrom(""); setFilterTo(""); setFilterPrizeType("all"); setFilterStatus("all");
+  };
+
+  const exportCSV = () => {
+    if (filtered.length === 0) {
+      toast({ title: "لا توجد بيانات للتصدير", variant: "destructive" });
+      return;
+    }
+    const headers = [
+      "الاسم", "الهاتف", "البريد", "المكافأة", "نوع المكافأة",
+      "المتجر", "كود الوحدة", "رمز الاستلام", "الحالة",
+      "تاريخ الفوز", "تاريخ الاستلام", "صالح حتى", "أكّد بواسطة",
+    ];
+    const escape = (v: unknown) => {
+      const s = v === null || v === undefined ? "" : String(v);
+      return `"${s.replace(/"/g, '""')}"`;
+    };
+    const fmt = (d: string | null | undefined) =>
+      d ? new Date(d).toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" }) : "";
+
+    const rows = filtered.map((s: any) => [
+      s.full_name,
+      s.phone,
+      s.email ?? "",
+      s.store_prizes?.name_ar ?? "",
+      s.store_prizes?.prize_type ?? s.prize_type ?? "",
+      (s.competition_stores as any)?.stores?.name_ar ?? "",
+      (s.competition_stores as any)?.stores?.unit_code ?? "",
+      s.claim_code ?? "",
+      statusLabels[s.claim_status]?.label ?? s.claim_status,
+      fmt(s.created_at),
+      fmt(s.redeemed_at),
+      fmt(s.expires_at),
+      s.redeemed_by ?? "",
+    ]);
+
+    const csv = [headers, ...rows].map((r) => r.map(escape).join(",")).join("\r\n");
+    // BOM for Excel UTF-8 (Arabic) compatibility
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    const stamp = new Date().toISOString().slice(0, 10);
+    a.download = `spin-winners-${stamp}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({ title: "تم التصدير", description: `${filtered.length} سجل` });
+  };
+
   if (authLoading) return <AdminShell loading />;
 
   return (
@@ -461,6 +537,60 @@ export function AdminSpinWinners() {
         )}
       </div>
 
+      {/* Filters + Export */}
+      <div className="card-premium p-4 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <p className="font-bold text-foreground flex items-center gap-2">
+            <Search className="w-4 h-4" /> فلاتر التصدير
+          </p>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="sm" onClick={resetFilters}>إعادة ضبط</Button>
+            <Button variant="cta" size="sm" onClick={exportCSV} disabled={filtered.length === 0}>
+              <Download className="w-4 h-4 ml-1" />
+              تصدير CSV ({filtered.length})
+            </Button>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">من تاريخ</label>
+            <Input type="date" value={filterFrom} onChange={(e) => setFilterFrom(e.target.value)} className="bg-secondary border-border h-9" />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">إلى تاريخ</label>
+            <Input type="date" value={filterTo} onChange={(e) => setFilterTo(e.target.value)} className="bg-secondary border-border h-9" />
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">نوع المكافأة</label>
+            <select
+              value={filterPrizeType}
+              onChange={(e) => setFilterPrizeType(e.target.value)}
+              className="w-full h-9 rounded-lg border border-border bg-secondary px-3 text-sm"
+            >
+              <option value="all">الكل</option>
+              <option value="instant">فورية (Instant)</option>
+              <option value="grand">كبرى (Grand)</option>
+              <option value="visitor">زائر (Visitor)</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-xs text-muted-foreground mb-1 block">حالة الاستلام</label>
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="w-full h-9 rounded-lg border border-border bg-secondary px-3 text-sm"
+            >
+              <option value="all">الكل</option>
+              <option value="pending">قيد الانتظار</option>
+              <option value="redeemed">تم الاستلام</option>
+              <option value="expired">منتهي</option>
+              <option value="cancelled">ملغي</option>
+              <option value="no_prize">بدون مكافأة</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       {/* Sessions list */}
       {isLoading ? <p className="text-muted-foreground">جاري التحميل...</p> : (
         <div className="overflow-x-auto">
@@ -477,7 +607,7 @@ export function AdminSpinWinners() {
               </tr>
             </thead>
             <tbody>
-              {sessions?.map((s: any) => (
+              {filtered.map((s: any) => (
                 <tr key={s.id} className="border-b border-border/50 hover:bg-secondary/30">
                   <td className="py-2 px-3">{s.full_name}</td>
                   <td className="py-2 px-3 font-mono text-xs" dir="ltr">{s.phone}</td>
@@ -496,7 +626,7 @@ export function AdminSpinWinners() {
               ))}
             </tbody>
           </table>
-          {sessions?.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد مشاركات</p>}
+          {filtered.length === 0 && <p className="text-center text-muted-foreground py-8">لا توجد نتائج مطابقة للفلاتر</p>}
         </div>
       )}
     </AdminShell>
