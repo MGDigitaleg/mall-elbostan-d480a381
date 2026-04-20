@@ -1,6 +1,6 @@
 import { lazy, Suspense, useMemo } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Reveal } from "@/components/home/Reveal";
 import {
   ArrowLeft,
   Compass,
