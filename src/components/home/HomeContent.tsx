@@ -179,17 +179,18 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </section>
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 320px" } as React.CSSProperties}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
       <section
         className="bg-card dark:bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
           display: trendingProducts.length >= 3 ? undefined : "none",
-        }}>
+        } as React.CSSProperties}>
         <div className="container">
           <ProductRail
             kicker="الأكثر طلباً"
@@ -209,12 +210,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
           display: featuredProducts.length >= 3 ? undefined : "none",
-        }}>
+        } as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -234,7 +236,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <section style={{ contain: "layout" }}>
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 400px" } as React.CSSProperties}>
         <LazySection minHeight={400}>
           <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
         </LazySection>
@@ -244,11 +246,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="bg-card dark:bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
           display: phoneProducts.length >= 3 ? undefined : "none",
-        }}>
+        } as React.CSSProperties}>
         <div className="container">
           <ProductRail
             kicker="الهواتف والإكسسوارات"
@@ -268,12 +271,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
           display: computerProducts.length >= 3 ? undefined : "none",
-        }}>
+        } as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
@@ -298,11 +302,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="bg-card dark:bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
           display: gamingProducts.length >= 3 ? undefined : "none",
-        }}>
+        } as React.CSSProperties}>
         <div className="container">
           <ProductRail
             kicker="الألعاب والترفيه"
@@ -319,7 +324,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contain: "layout" }}>
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
         <LazySection minHeight={280}>
           <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
         </LazySection>
@@ -329,10 +334,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="bg-card dark:bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 400px",
           paddingTop: "clamp(40px, 5.5vw, 88px)",
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
-        }}>
+        } as React.CSSProperties}>
         <div className="container">
           <Reveal className="mx-auto max-w-[58rem]">
             <Suspense fallback={
@@ -353,11 +359,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           background: "linear-gradient(135deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}>
+        } as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -412,10 +419,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 300px",
           paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
-        }}
+        } as React.CSSProperties}
       >
         <div className="container max-w-[720px]">
           <Reveal>
@@ -462,7 +470,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <section style={{ contain: "layout" }}>
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 420px" } as React.CSSProperties}>
         <LazySection minHeight={420}>
           <Suspense fallback={<div style={{ minHeight: 420 }} />}><DowntownTeaser /></Suspense>
         </LazySection>
@@ -472,11 +480,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}>
+        } as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -532,11 +541,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 500px",
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
-        }}>
+        } as React.CSSProperties}>
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
