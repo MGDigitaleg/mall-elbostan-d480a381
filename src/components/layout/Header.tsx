@@ -327,11 +327,11 @@ export function Header() {
         {/* ── Mobile ── */}
         <div
           className={`grid items-center gap-3 md:hidden ${isKzPage ? "grid-cols-[auto_auto_1fr_auto]" : "grid-cols-[auto_1fr_auto]"}`}
-          style={{ minHeight: scrolled ? "52px" : "58px", transition: "min-height 0.4s" }}
+          style={{ minHeight: scrolled ? "44px" : "48px", transition: "min-height 0.4s" }}
         >
           <Link to="/map">
             <button
-              className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200"
               style={{
                 border: `1px solid ${isTransparent ? "rgba(96,165,250,0.2)" : "rgba(37,99,235,0.18)"}`,
                 background: isTransparent ? "rgba(96,165,250,0.08)" : "rgba(37,99,235,0.06)",
