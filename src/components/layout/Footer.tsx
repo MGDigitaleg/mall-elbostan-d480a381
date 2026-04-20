@@ -120,7 +120,7 @@ export function Footer() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <footer className="relative overflow-hidden min-h-[750px] sm:min-h-[640px] md:min-h-[640px] lg:min-h-[560px]" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)" }}>
+    <footer className="relative overflow-hidden min-h-[750px] sm:min-h-[640px] md:min-h-[640px] lg:min-h-[560px]" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", overflowAnchor: "none" }}>
       {/* Decorative top border */}
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
