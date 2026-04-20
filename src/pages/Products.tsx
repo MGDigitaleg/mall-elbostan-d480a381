@@ -20,6 +20,7 @@ import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PageHero } from "@/components/PageHero";
 import { ProductRail } from "@/components/home/ProductRail";
+import { BackToTop } from "@/components/BackToTop";
 
 const PAGE_SIZE = 24;
 
