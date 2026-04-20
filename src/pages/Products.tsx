@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   X,
   ArrowLeft,
   SlidersHorizontal,
+  Loader2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -19,6 +20,8 @@ import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PageHero } from "@/components/PageHero";
 import { ProductRail } from "@/components/home/ProductRail";
+
+const PAGE_SIZE = 24;
 
 /* ══════════════════════════════════════════════
    Unified product type for display
