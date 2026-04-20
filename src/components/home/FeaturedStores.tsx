@@ -4,17 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { motion } from "framer-motion";
-
-const sectionReveal = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-};
-const cardReveal = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.28 } },
-};
-const stagger = { visible: { transition: { staggerChildren: 0.03 } } };
+import { Reveal } from "@/components/home/Reveal";
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -43,7 +33,7 @@ export function FeaturedStores() {
       }}
     >
       <div className="container">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+        <Reveal rootMargin="-60px" offset={12}>
           {/* Header */}
           <div style={{ marginBottom: 12 }} className="flex items-end justify-between gap-4">
             <div>
@@ -76,71 +66,65 @@ export function FeaturedStores() {
               ))}
             </div>
           ) : (
-            <motion.div
-              variants={stagger}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
+            <div
               className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
               style={{ gap: "clamp(8px, 1vw, 12px)" }}
             >
               {stores!.map((store) => (
-                <motion.div key={store.id} variants={cardReveal}>
-                  <Link
-                    to={`/stores/${store.slug}`}
-                    
-                    className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 bg-background border border-border/40 dark:border-border/60 dark:bg-card"
+                <Link
+                  key={store.id}
+                  to={`/stores/${store.slug}`}
+                  className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 bg-background border border-border/40 dark:border-border/60 dark:bg-card"
+                  style={{
+                    borderRadius: 14,
+                    padding: "clamp(8px, 1vw, 12px)",
+                  }}
+                >
+                  {/* Logo — dominant */}
+                  <div
+                    className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-white dark:bg-white/90"
                     style={{
-                      borderRadius: 14,
-                      padding: "clamp(8px, 1vw, 12px)",
+                      width: "clamp(44px, 5vw, 56px)",
+                      height: "clamp(44px, 5vw, 56px)",
+                      borderRadius: 12,
+                      padding: 3,
+                      marginBottom: 6,
                     }}
                   >
-                    {/* Logo — dominant */}
-                    <div
-                      className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-white dark:bg-white/90"
-                      style={{
-                        width: "clamp(44px, 5vw, 56px)",
-                        height: "clamp(44px, 5vw, 56px)",
-                        borderRadius: 12,
-                        padding: 3,
-                        marginBottom: 6,
-                      }}
-                    >
-                      {store.logo_url ? (
-                        <img
-                          src={store.logo_url}
-                          alt={store.name_ar}
-                          className="object-contain"
-                          style={{ width: "100%", height: "100%" }}
-                          loading="lazy"
-                        />
-                      ) : (
-                        <Store className="text-muted-foreground/25" style={{ width: 22, height: 22 }} />
-                      )}
-                    </div>
-
-                    {/* Name */}
-                    <h3
-                      className="text-center font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors"
-                      style={{ fontSize: "clamp(11px, 1.1vw, 13px)", lineHeight: 1.3 }}
-                    >
-                      {store.name_ar}
-                    </h3>
-
-                    {/* Category */}
-                    {store.category && (
-                      <span
-                        className="inline-flex items-center gap-0.5 text-muted-foreground"
-                        style={{ fontSize: 10, fontWeight: 600, opacity: 0.7, marginTop: 2 }}
-                      >
-                        <Tag style={{ width: 8, height: 8 }} />
-                        {store.category}
-                      </span>
+                    {store.logo_url ? (
+                      <img
+                        src={store.logo_url}
+                        alt={store.name_ar}
+                        className="object-contain"
+                        style={{ width: "100%", height: "100%" }}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <Store className="text-muted-foreground/25" style={{ width: 22, height: 22 }} />
                     )}
-                  </Link>
-                </motion.div>
+                  </div>
+
+                  {/* Name */}
+                  <h3
+                    className="text-center font-bold text-foreground line-clamp-1 group-hover:text-primary transition-colors"
+                    style={{ fontSize: "clamp(11px, 1.1vw, 13px)", lineHeight: 1.3 }}
+                  >
+                    {store.name_ar}
+                  </h3>
+
+                  {/* Category */}
+                  {store.category && (
+                    <span
+                      className="inline-flex items-center gap-0.5 text-muted-foreground"
+                      style={{ fontSize: 10, fontWeight: 600, opacity: 0.7, marginTop: 2 }}
+                    >
+                      <Tag style={{ width: 8, height: 8 }} />
+                      {store.category}
+                    </span>
+                  )}
+                </Link>
               ))}
-            </motion.div>
+            </div>
           )}
 
           <div className="mt-3 text-center lg:hidden">
@@ -150,7 +134,7 @@ export function FeaturedStores() {
               </Button>
             </Link>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
