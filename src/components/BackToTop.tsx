@@ -39,7 +39,7 @@ export function BackToTop({ threshold = 600 }: Props) {
       // StickyCTA is already positioned 56px above viewport bottom (above MobileBottomNav).
       // Lift BackToTop above the CTA card with a 12px gap.
       const h = el.getBoundingClientRect().height;
-      setStickyOffset(Math.round(h + 56 + 12));
+      setStickyOffset(Math.round(h + 48 + 12));
     };
 
     measure();
