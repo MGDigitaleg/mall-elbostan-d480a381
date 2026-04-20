@@ -89,6 +89,7 @@ type ProductRow = {
 
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
+  const isMobile = useIsMobile();
 
   /* ── Single data source for all product sections ── */
   const { data: allProducts } = useQuery({
