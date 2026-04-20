@@ -1479,6 +1479,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      decrement_prize_stock: { Args: { p_prize_id: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

@@ -165,12 +165,31 @@ Deno.serve(async (req) => {
       exp: expiresAt,
     });
 
-    // ── Decrement stock atomically (best-effort) ──
-    await supabase
-      .from("store_prizes")
-      .update({ remaining_stock: selectedPrize.remaining_stock - 1 })
-      .eq("id", selectedPrize.id)
-      .gt("remaining_stock", 0);
+    // ── Decrement stock atomically ──
+    const { data: decremented } = await supabase.rpc("decrement_prize_stock", {
+      p_prize_id: selectedPrize.id,
+    });
+
+    if (!decremented) {
+      // Stock ran out between selection and decrement
+      const claimCode2 = generateClaimCode();
+      await supabase.from("spin_sessions").insert({
+        full_name: full_name.trim(),
+        phone: phone.trim(),
+        email: email?.trim() || null,
+        phone_hash: phoneHash,
+        spin_date: today,
+        claim_code: claimCode2,
+        claim_status: "no_prize",
+        visitor_verified: visitorVerified,
+        visitor_token: visitorTokenValue,
+      });
+      return json({
+        success: true,
+        won: false,
+        message: "نفدت الجوائز الحالية — تابعنا للمفاجآت القادمة.",
+      });
+    }
 
     // ── Bump visitor token usage ──
     if (visitorTokenValue) {
