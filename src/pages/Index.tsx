@@ -3,6 +3,7 @@ import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { HomeContent } from "@/components/home/HomeContent";
+import { BackToTop } from "@/components/BackToTop";
 
 const Index = () => {
   const { data: featuredStores } = useQuery({
@@ -40,6 +41,7 @@ const Index = () => {
       />
 
       <HomeContent faqs={faqs ?? []} featuredStores={featuredStores ?? []} upcomingEvents={upcomingEvents ?? []} />
+      <BackToTop />
     </MainLayout>
   );
 };
