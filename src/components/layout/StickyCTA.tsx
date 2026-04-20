@@ -28,7 +28,7 @@ export function StickyCTA({ label, to, onClick, hint }: Props) {
       data-sticky-cta="true"
       className="fixed right-0 left-0 z-30 md:hidden px-4"
       style={{
-        bottom: "calc(56px + env(safe-area-inset-bottom))",
+        bottom: "calc(48px + env(safe-area-inset-bottom))",
         paddingBottom: 8,
       }}
     >
