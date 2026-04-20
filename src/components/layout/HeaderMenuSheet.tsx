@@ -9,17 +9,43 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 
-const navSections = [
+type BadgeKind = "new" | "soon" | "hot";
+
+const badgeStyles: Record<BadgeKind, { label: string; bg: string; color: string; border: string }> = {
+  new: {
+    label: "جديد",
+    bg: "hsl(var(--primary) / 0.14)",
+    color: "hsl(var(--primary))",
+    border: "1px solid hsl(var(--primary) / 0.32)",
+  },
+  soon: {
+    label: "قريباً",
+    bg: "rgba(249,115,22,0.14)",
+    color: "#F97316",
+    border: "1px solid rgba(249,115,22,0.34)",
+  },
+  hot: {
+    label: "مميز",
+    bg: "rgba(16,185,129,0.14)",
+    color: "#10B981",
+    border: "1px solid rgba(16,185,129,0.34)",
+  },
+};
+
+const navSections: Array<{
+  title: string;
+  items: Array<{ label: string; path: string; icon: typeof Home; badge?: BadgeKind }>;
+}> = [
   {
     title: "المول",
     items: [
       { label: "الرئيسية", path: "/", icon: Home },
       { label: "عن البستان", path: "/about", icon: Info },
-      { label: "صدى السوق", path: "/market-echo", icon: Radio },
+      { label: "صدى السوق", path: "/market-echo", icon: Radio, badge: "new" },
       { label: "دليل المحلات", path: "/stores", icon: Store },
       { label: "منتجات المحلات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },
-      { label: "العروض اليومية", path: "/daily-deals", icon: Tag },
+      { label: "العروض اليومية", path: "/daily-deals", icon: Tag, badge: "soon" },
     ],
   },
   {
@@ -34,8 +60,8 @@ const navSections = [
     title: "خدمات",
     items: [
       { label: "الوحدات المتاحة", path: "/leasing", icon: Briefcase },
-      { label: "يوم الافتتاح", path: "/opening-day", icon: Sparkles },
-      { label: "أدر واربح", path: "/spin-win", icon: Gamepad2 },
+      { label: "يوم الافتتاح", path: "/opening-day", icon: Sparkles, badge: "soon" },
+      { label: "أدر واربح", path: "/spin-win", icon: Gamepad2, badge: "hot" },
       { label: "انضم كتاجر", path: "/join-marketplace", icon: ShoppingBag },
       { label: "فرص العمل", path: "/careers", icon: Briefcase },
     ],
@@ -172,6 +198,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 {section.items.map((item) => {
                   const active = isActive(item.path);
                   const Icon = item.icon;
+                  const badge = item.badge ? badgeStyles[item.badge] : null;
                   return (
                     <Link
                       key={item.path}
@@ -197,7 +224,19 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                       >
                         <Icon className="h-4 w-4" />
                       </span>
-                      {item.label}
+                      <span className="flex-1">{item.label}</span>
+                      {badge && (
+                        <span
+                          className="shrink-0 rounded-full px-2 py-0.5 text-[0.62rem] font-bold leading-none"
+                          style={{
+                            background: badge.bg,
+                            color: badge.color,
+                            border: badge.border,
+                          }}
+                        >
+                          {badge.label}
+                        </span>
+                      )}
                     </Link>
                   );
                 })}
