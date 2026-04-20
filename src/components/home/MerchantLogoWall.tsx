@@ -3,8 +3,10 @@ import { ArrowLeft, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function MerchantLogoWall() {
+  const isMobile = useIsMobile();
   const { data: stores, isLoading } = useQuery({
     queryKey: ["all-stores-logos"],
     queryFn: async () => {
@@ -45,8 +47,8 @@ export function MerchantLogoWall() {
     );
   }
 
-  // Show max 18 logos (3 rows of 6)
-  const displayed = stores.slice(0, 18);
+  // Mobile: 8 logos (2 rows of 4). Desktop: 18 logos (3 rows of 6).
+  const displayed = stores.slice(0, isMobile ? 8 : 18);
 
   return (
     <section
