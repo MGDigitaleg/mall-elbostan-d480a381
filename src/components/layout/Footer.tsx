@@ -71,7 +71,7 @@ export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="relative overflow-hidden min-h-[660px] md:min-h-[660px]" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", contain: "layout style" }}>
+    <footer className="relative overflow-hidden min-h-[1180px] sm:min-h-[820px] md:min-h-[640px] lg:min-h-[560px]" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", contain: "layout style", contentVisibility: "auto", containIntrinsicSize: "1180px" }}>
       {/* Decorative top border */}
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
