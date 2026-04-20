@@ -12,6 +12,7 @@ type Props = {
  */
 export function BackToTop({ threshold = 600 }: Props) {
   const [visible, setVisible] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > threshold);
@@ -19,6 +20,11 @@ export function BackToTop({ threshold = 600 }: Props) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [threshold]);
+
+  // Mobile: clear the bottom nav (~56px) + safe-area. Desktop: comfortable margin.
+  const bottom = isMobile
+    ? "calc(72px + env(safe-area-inset-bottom))"
+    : "24px";
 
   return (
     <button
@@ -29,7 +35,7 @@ export function BackToTop({ threshold = 600 }: Props) {
         visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"
       }`}
       style={{
-        bottom: "calc(72px + env(safe-area-inset-bottom))",
+        bottom,
         border: "1px solid #2563EB55",
         background: "#0B1220E6",
         color: "#60A5FA",
