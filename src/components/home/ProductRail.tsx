@@ -33,6 +33,8 @@ type Props = {
   theme?: "light" | "dark";
   density?: Density;
   fillMode?: "exact" | "auto";
+  loading?: boolean;
+  skeletonCount?: number;
 };
 
 /* ─── Columns per tier+density (matches getGridClasses below) ─── */
@@ -301,6 +303,8 @@ export function ProductRail({
   theme = "light",
   density = "standard",
   fillMode = "auto",
+  loading = false,
+  skeletonCount,
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -371,9 +375,48 @@ export function ProductRail({
     }
   }, []);
 
-  if (displayed.length === 0) return null;
+  if (!loading && displayed.length === 0) return null;
 
   const railSize = getRailWidth(tier, density);
+
+  /* Skeleton items (sized identically to real cards) */
+  const cols = getColsForTier(tier, density);
+  const skelCount = skeletonCount ?? (effectiveLayout === "rail" ? (tier === "mobile" ? 4 : 6) : cols * 2);
+  const skeletonItems = loading ? Array.from({ length: skelCount }) : [];
+
+  const SkeletonCard = () => {
+    const sizes = getSizes(tier);
+    const shimmerBg = isDark ? "rgba(255,255,255,0.06)" : "hsl(var(--muted) / 0.6)";
+    return (
+      <div
+        style={{
+          borderRadius: 12,
+          border: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid hsl(var(--border) / 0.4)",
+          background: isDark ? "rgba(255,255,255,0.04)" : "hsl(var(--card))",
+          overflow: "hidden",
+        }}
+        className="flex flex-col"
+        aria-hidden="true"
+      >
+        <div
+          className="animate-pulse"
+          style={{
+            aspectRatio: sizes.aspect,
+            background: isDark ? "rgba(255,255,255,0.05)" : "#F1F5F9",
+          }}
+        />
+        <div className="flex flex-col gap-2" style={{ padding: sizes.padding }}>
+          <div className="animate-pulse rounded" style={{ height: sizes.titleSize * 1.2, background: shimmerBg, width: "92%" }} />
+          <div className="animate-pulse rounded" style={{ height: sizes.titleSize * 1.2, background: shimmerBg, width: "70%" }} />
+          <div className="flex items-center gap-1.5" style={{ marginTop: 4 }}>
+            <div className="animate-pulse rounded-sm" style={{ width: sizes.logoSize, height: sizes.logoSize, background: shimmerBg }} />
+            <div className="animate-pulse rounded" style={{ height: sizes.storeSize * 1.2, width: "45%", background: shimmerBg }} />
+          </div>
+          <div className="animate-pulse rounded" style={{ height: sizes.priceSize * 1.2, width: "38%", background: shimmerBg, marginTop: 6 }} />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <motion.div
