@@ -8,6 +8,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { StickyCTA } from "@/components/layout/StickyCTA";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
@@ -421,6 +422,7 @@ const Leasing = () => {
           </motion.div>
         </div>
       </section>
+      <StickyCTA label="استفسر عن وحدة" to="#leasing-form" hint="رد خلال يوم عمل واحد" />
     </MainLayout>
   );
 };

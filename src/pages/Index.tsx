@@ -39,9 +39,7 @@ const Index = () => {
         jsonLd={[organizationLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
       />
 
-      <div style={{ minHeight: "100vh" }}>
-        <HomeContent faqs={faqs ?? []} featuredStores={featuredStores ?? []} upcomingEvents={upcomingEvents ?? []} />
-      </div>
+      <HomeContent faqs={faqs ?? []} featuredStores={featuredStores ?? []} upcomingEvents={upcomingEvents ?? []} />
     </MainLayout>
   );
 };

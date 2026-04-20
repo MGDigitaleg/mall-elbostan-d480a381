@@ -16,10 +16,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HeroSlider } from "@/components/home/HeroSlider";
 import { CategoryStrip } from "@/components/home/CategoryStrip";
 import { ProductRail } from "@/components/home/ProductRail";
+import { LazySection } from "@/components/home/LazySection";
+import { useIsMobile } from "@/hooks/use-mobile";
 
+const HeroSlider = lazy(() =>
+  import("@/components/home/HeroSlider").then((m) => ({ default: m.HeroSlider }))
+);
+const HeroSliderMobile = lazy(() =>
+  import("@/components/home/HeroSliderMobile").then((m) => ({ default: m.HeroSliderMobile }))
+);
 const MerchantLogoWall = lazy(() =>
   import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
 );
@@ -82,6 +89,7 @@ type ProductRow = {
 
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
+  const isMobile = useIsMobile();
 
   /* ── Single data source for all product sections ── */
   const { data: allProducts } = useQuery({
@@ -140,7 +148,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
   return (
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
-      <section style={{ contain: "layout" }}><HeroSlider /></section>
+      <section style={{ contain: "layout" }}>
+        <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
+          {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
+        </Suspense>
+      </section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
       <section style={{ contain: "layout" }}><CategoryStrip /></section>
@@ -226,7 +238,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={400}>
+          <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {phoneProducts.length >= 3 && (
@@ -308,7 +324,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={280}>
+          <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
@@ -453,7 +473,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={null}><DowntownTeaser /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={420}>
+          <Suspense fallback={<div style={{ minHeight: 420 }} />}><DowntownTeaser /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
