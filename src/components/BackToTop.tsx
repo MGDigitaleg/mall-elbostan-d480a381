@@ -59,7 +59,7 @@ export function BackToTop({ threshold = 600 }: Props) {
   const bottom = isMobile
     ? stickyOffset !== null
       ? `calc(${stickyOffset}px + env(safe-area-inset-bottom))`
-      : "calc(72px + env(safe-area-inset-bottom))"
+      : "calc(64px + env(safe-area-inset-bottom))"
     : "24px";
 
   return (
