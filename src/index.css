@@ -640,6 +640,9 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* RTL-aware snap padding for product rails */
+  .scroll-snap-rtl-start { scroll-padding-inline-start: 16px; }
+
   /* ── Map premium frame ── */
   .map-frame {
     background: hsl(var(--card));
