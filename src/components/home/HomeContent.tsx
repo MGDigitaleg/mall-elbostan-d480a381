@@ -151,14 +151,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
-      <section style={{ contain: "layout" }}><CategoryStrip /></section>
+      <section style={{ contain: "layout", minHeight: 296 }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {(productsLoading || latestProducts.length > 0) && (
-        <section
+      <section
           className="bg-card dark:bg-background"
           style={{
             contain: "layout",
+            minHeight: latestProducts.length > 0 || productsLoading ? 400 : 0,
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
