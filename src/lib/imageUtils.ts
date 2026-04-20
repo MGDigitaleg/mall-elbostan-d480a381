@@ -23,7 +23,7 @@ export function optimizeImageUrl(url: string | null, displayWidth: number): stri
  * Generate srcSet for Unsplash images across multiple breakpoints.
  * Defaults to mobile-first sizes.
  */
-export function unsplashSrcSet(url: string | null, sizes: number[] = [320, 640, 828, 1080]): string {
+export function unsplashSrcSet(url: string | null, sizes: number[] = [200, 400, 640, 828]): string {
   if (!url || !url.includes("images.unsplash.com")) return "";
 
   const base = url.replace(/[?&]w=\d+/, "").replace(/[?&]q=\d+/, "").replace(/[?&]auto=\w+/, "");
