@@ -219,6 +219,29 @@ const Products = () => {
     return Array.from(set);
   }, [allProducts]);
 
+  /* ── Brand list (from products that pass shop/section/mall filters) ── */
+  const brandList = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const p of allProducts) {
+      if (!p.brand) continue;
+      const b = p.brand.trim();
+      if (!b) continue;
+      counts.set(b, (counts.get(b) ?? 0) + 1);
+    }
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
+  }, [allProducts]);
+
+  /* ── Price bounds across all products ── */
+  const priceBounds = useMemo<[number, number]>(() => {
+    const prices = allProducts.map(p => p.price).filter((p): p is number => typeof p === "number" && p > 0);
+    if (prices.length === 0) return [0, 100000];
+    const min = Math.floor(Math.min(...prices));
+    const max = Math.ceil(Math.max(...prices));
+    return [min, max === min ? min + 1 : max];
+  }, [allProducts]);
+
   /* ── Filter & Sort ── */
   const filteredProducts = useMemo(() => {
     let list = allProducts;
@@ -233,6 +256,15 @@ const Products = () => {
 
     if (selectedMall !== "all") {
       list = list.filter(p => p.mall === selectedMall);
+    }
+
+    if (selectedBrand !== "all") {
+      list = list.filter(p => p.brand?.trim() === selectedBrand);
+    }
+
+    if (priceRange) {
+      const [lo, hi] = priceRange;
+      list = list.filter(p => typeof p.price === "number" && p.price >= lo && p.price <= hi);
     }
 
     if (searchTerm.trim()) {
@@ -251,9 +283,9 @@ const Products = () => {
       case "newest": return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-  }, [allProducts, selectedShop, selectedSection, selectedMall, searchTerm, sortBy]);
+  }, [allProducts, selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
 
-  const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
+  const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || selectedBrand !== "all" || priceRange !== null || searchTerm.trim().length > 0;
 
   /* ── Quick filter chips: match merged sections by keywords ── */
   const quickChips = useMemo(() => {
