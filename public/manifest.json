@@ -1,0 +1,24 @@
+{
+  "name": "مول البستان — وجهة التكنولوجيا الأولى",
+  "short_name": "مول البستان",
+  "description": "أكبر مول متخصص في التكنولوجيا والإلكترونيات في مصر",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "background_color": "#0B1220",
+  "theme_color": "#0B1220",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
