@@ -493,15 +493,25 @@ export function ProductRail({
             onMouseUp={onMouseUp}
             onMouseLeave={onMouseUp}
           >
-            {displayed.map((product) => (
-              <div
-                key={product.id}
-                className="shrink-0 snap-start"
-                style={{ width: railSize.width, maxWidth: railSize.maxWidth }}
-              >
-                <ProductCard product={product} theme={theme} tier={tier} density={density} />
-              </div>
-            ))}
+            {loading
+              ? skeletonItems.map((_, i) => (
+                  <div
+                    key={`skel-${i}`}
+                    className="shrink-0 snap-start"
+                    style={{ width: railSize.width, maxWidth: railSize.maxWidth }}
+                  >
+                    <SkeletonCard />
+                  </div>
+                ))
+              : displayed.map((product) => (
+                  <div
+                    key={product.id}
+                    className="shrink-0 snap-start"
+                    style={{ width: railSize.width, maxWidth: railSize.maxWidth }}
+                  >
+                    <ProductCard product={product} theme={theme} tier={tier} density={density} />
+                  </div>
+                ))}
           </div>
           {canScrollRight && (
             <button
@@ -526,9 +536,11 @@ export function ProductRail({
         </div>
       ) : (
         <div className={getGridClasses(density)} style={{ gap: 12, rowGap: 16 }}>
-          {displayed.map((product) => (
-            <ProductCard key={product.id} product={product} theme={theme} tier={tier} density={density} />
-          ))}
+          {loading
+            ? skeletonItems.map((_, i) => <SkeletonCard key={`skel-${i}`} />)
+            : displayed.map((product) => (
+                <ProductCard key={product.id} product={product} theme={theme} tier={tier} density={density} />
+              ))}
         </div>
       )}
 
