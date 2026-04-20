@@ -352,9 +352,98 @@ const Products = () => {
     setSelectedSection("all");
     setSelectedShop("all");
     setSelectedMall("all");
+    setSelectedBrand("all");
+    setPriceRange(null);
     setSearchTerm("");
     setSortBy("featured");
   }, []);
+
+  /* ── Sidebar filter content (shared between desktop sidebar & mobile sheet) ── */
+  const FilterSidebar = ({ className = "" }: { className?: string }) => (
+    <div className={`flex flex-col gap-5 ${className}`}>
+      {/* Price Range */}
+      <div>
+        <h3 className="mb-3 text-[0.76rem] font-bold" style={{ color: "#CBD5E1" }}>نطاق السعر</h3>
+        <div className="px-1">
+          <Slider
+            min={priceBounds[0]}
+            max={priceBounds[1]}
+            step={Math.max(1, Math.floor((priceBounds[1] - priceBounds[0]) / 100))}
+            value={priceRange ?? priceBounds}
+            onValueChange={(val) => {
+              const [lo, hi] = val as [number, number];
+              if (lo === priceBounds[0] && hi === priceBounds[1]) {
+                setPriceRange(null);
+              } else {
+                setPriceRange([lo, hi]);
+              }
+            }}
+            className="my-2"
+          />
+          <div className="flex items-center justify-between text-[0.68rem] font-poppins" style={{ color: "#94A3B8" }}>
+            <span>{(priceRange?.[0] ?? priceBounds[0]).toLocaleString("ar-EG")} ج.م</span>
+            <span>{(priceRange?.[1] ?? priceBounds[1]).toLocaleString("ar-EG")} ج.م</span>
+          </div>
+        </div>
+        {priceRange && (
+          <button
+            onClick={() => setPriceRange(null)}
+            className="mt-2 flex items-center gap-1 text-[0.66rem] font-semibold transition-colors hover:text-white"
+            style={{ color: "#5B9AFF" }}
+          >
+            <X className="h-3 w-3" /> إلغاء فلتر السعر
+          </button>
+        )}
+      </div>
+
+      {/* Brand Filter */}
+      {brandList.length > 0 && (
+        <div>
+          <h3 className="mb-3 text-[0.76rem] font-bold" style={{ color: "#CBD5E1" }}>العلامة التجارية</h3>
+          <div className="flex flex-col gap-1 max-h-[240px] overflow-y-auto scrollbar-hide">
+            <button
+              onClick={() => setSelectedBrand("all")}
+              className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[0.72rem] font-semibold text-right transition-all"
+              style={{
+                background: selectedBrand === "all" ? "#2563EB20" : "transparent",
+                color: selectedBrand === "all" ? "#60A5FA" : "#94A3B8",
+                border: selectedBrand === "all" ? "1px solid #2563EB40" : "1px solid transparent",
+              }}
+            >
+              <span>الكل</span>
+              <span className="font-poppins text-[0.62rem]" style={{ color: "#64748B" }}>{allProducts.length}</span>
+            </button>
+            {brandList.slice(0, 20).map((b) => (
+              <button
+                key={b.name}
+                onClick={() => setSelectedBrand(selectedBrand === b.name ? "all" : b.name)}
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[0.72rem] font-semibold text-right transition-all"
+                style={{
+                  background: selectedBrand === b.name ? "#2563EB20" : "transparent",
+                  color: selectedBrand === b.name ? "#60A5FA" : "#94A3B8",
+                  border: selectedBrand === b.name ? "1px solid #2563EB40" : "1px solid transparent",
+                }}
+              >
+                <span>{b.name}</span>
+                <span className="font-poppins text-[0.62rem]" style={{ color: "#64748B" }}>{b.count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Reset all */}
+      {hasActiveFilters && (
+        <button
+          onClick={clearFilters}
+          className="mt-2 flex h-9 w-full items-center justify-center gap-1.5 rounded-lg text-[0.74rem] font-bold transition-all"
+          style={{ border: "1px solid #ffffff18", background: "#ffffff08", color: "#CBD5E1" }}
+        >
+          <X className="h-3.5 w-3.5" /> إعادة ضبط كل الفلاتر
+        </button>
+      )}
+    </div>
+  );
 
   return (
     <MainLayout>
