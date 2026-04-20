@@ -10,7 +10,6 @@ import {
   MonitorSmartphone,
   type LucideIcon,
 } from "lucide-react";
-import { motion } from "framer-motion";
 
 const CATEGORIES: { label: string; icon: LucideIcon; slug: string }[] = [
   { label: "الهواتف والإكسسوارات", icon: Smartphone, slug: "الهواتف والإكسسوارات" },
@@ -23,11 +22,6 @@ const CATEGORIES: { label: string; icon: LucideIcon; slug: string }[] = [
   { label: "الشاشات", icon: MonitorSmartphone, slug: "الشاشات" },
 ];
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } },
-};
-
 export function CategoryStrip() {
   return (
     <section
@@ -36,15 +30,11 @@ export function CategoryStrip() {
         background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
         paddingTop: "clamp(28px, 3.5vw, 48px)",
         paddingBottom: "clamp(28px, 3.5vw, 48px)",
+        minHeight: 180,
       }}
     >
       <div className="container">
-        <motion.div
-          variants={sectionReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
-        >
+        <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-[0.82rem] font-bold" style={{ color: "#E2E8F0" }}>
               تصفّح حسب الفئة
@@ -81,7 +71,7 @@ export function CategoryStrip() {
               </Link>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

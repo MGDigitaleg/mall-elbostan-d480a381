@@ -2,7 +2,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag, Store, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+
 import { optimizeImageUrl, unsplashSrcSet } from "@/lib/imageUtils";
 
 type Product = {
@@ -49,10 +49,6 @@ function getColsForTier(tier: Tier, density: Density): number {
   return 6;
 }
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
 
 /* ─── useDeviceTier hook (matchMedia at 640 + 1024) ─── */
 function useDeviceTier(): Tier {
@@ -419,12 +415,7 @@ export function ProductRail({
   };
 
   return (
-    <motion.div
-      variants={sectionReveal}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-    >
+    <div>
       {/* Header */}
       <div style={{ marginBottom: 16 }} className="flex items-end justify-between gap-4">
         <div>
@@ -555,6 +546,6 @@ export function ProductRail({
           </Button>
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }

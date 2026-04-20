@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useLayoutEffect, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Compass, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -56,19 +56,7 @@ export function HeroSliderMobile() {
   const [current, setCurrent] = useState(0);
   const touchStart = useRef<number | null>(null);
 
-  // Preload first hero for LCP
-  useLayoutEffect(() => {
-    const first = slides[0].image;
-    if (typeof first === "string" && !document.querySelector(`link[data-hero-pre="1"]`)) {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = first;
-      link.fetchPriority = "high";
-      link.setAttribute("data-hero-pre", "1");
-      document.head.appendChild(link);
-    }
-  }, []);
+  // Preload removed — handled via <link rel="preload"> in index.html
 
   const next = useCallback(() => setCurrent((c) => (c + 1) % slides.length), []);
 
@@ -100,26 +88,30 @@ export function HeroSliderMobile() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Stack of images — only active is opaque */}
-      {slides.map((s, i) => (
-        <img
-          key={i}
-          src={s.image}
-          alt={s.alt}
-          width={828}
-          height={1100}
-          className="absolute inset-0 h-full w-full object-cover"
-          style={{
-            objectPosition: "center 70%",
-            opacity: i === current ? 1 : 0,
-            transition: "opacity 600ms ease-in-out",
-            filter: "saturate(0.9) brightness(1.05)",
-          }}
-          loading={i === 0 ? "eager" : "lazy"}
-          decoding={i === 0 ? "sync" : "async"}
-          fetchPriority={i === 0 ? "high" : "low"}
-        />
-      ))}
+      {/* Only render current + next slide for performance */}
+      {slides.map((s, i) => {
+        const next = (current + 1) % slides.length;
+        if (i !== current && i !== next) return null;
+        return (
+          <img
+            key={i}
+            src={s.image}
+            alt={s.alt}
+            width={828}
+            height={1100}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              objectPosition: "center 70%",
+              opacity: i === current ? 1 : 0,
+              transition: "opacity 600ms ease-in-out",
+              filter: "saturate(0.9) brightness(1.05)",
+            }}
+            loading={i === 0 ? "eager" : "lazy"}
+            decoding={i === 0 ? "sync" : "async"}
+            fetchPriority={i === 0 ? "high" : "low"}
+          />
+        );
+      })}
 
       {/* Overlay */}
       <div
