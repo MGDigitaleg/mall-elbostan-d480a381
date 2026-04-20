@@ -88,7 +88,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const isMobile = useIsMobile();
 
   /* ── Single data source for all product sections ── */
-  const { data: allProducts } = useQuery({
+  const { data: allProducts, isLoading: productsLoading } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
       const { data } = await supabase
