@@ -4,7 +4,6 @@ import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag, Store, Sparkles } fr
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { optimizeImageUrl, unsplashSrcSet } from "@/lib/imageUtils";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 type Product = {
   id: string;
@@ -18,6 +17,9 @@ type Product = {
   stores: { name_ar: string; slug: string; logo_url: string | null; category: string | null } | null;
 };
 
+type Density = "standard" | "premium";
+type Tier = "mobile" | "tablet" | "desktop";
+
 type Props = {
   title: string;
   subtitle?: string;
@@ -29,6 +31,7 @@ type Props = {
   columns?: 4 | 5;
   maxItems?: number;
   theme?: "light" | "dark";
+  density?: Density;
 };
 
 const sectionReveal = {
@@ -36,70 +39,135 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
+/* ─── useDeviceTier hook (matchMedia at 640 + 1024) ─── */
+function useDeviceTier(): Tier {
+  const [tier, setTier] = useState<Tier>(() => {
+    if (typeof window === "undefined") return "desktop";
+    if (window.matchMedia("(max-width: 639px)").matches) return "mobile";
+    if (window.matchMedia("(max-width: 1023px)").matches) return "tablet";
+    return "desktop";
+  });
+
+  useEffect(() => {
+    const mqMobile = window.matchMedia("(max-width: 639px)");
+    const mqTablet = window.matchMedia("(min-width: 640px) and (max-width: 1023px)");
+    const update = () => {
+      if (mqMobile.matches) setTier("mobile");
+      else if (mqTablet.matches) setTier("tablet");
+      else setTier("desktop");
+    };
+    update();
+    mqMobile.addEventListener("change", update);
+    mqTablet.addEventListener("change", update);
+    return () => {
+      mqMobile.removeEventListener("change", update);
+      mqTablet.removeEventListener("change", update);
+    };
+  }, []);
+
+  return tier;
+}
+
+/* ─── Tier-based size tokens ─── */
+type Sizes = {
+  aspect: string;
+  padding: string;
+  titleSize: number;
+  storeSize: number;
+  priceSize: number;
+  logoSize: number;
+};
+
+function getSizes(tier: Tier): Sizes {
+  switch (tier) {
+    case "mobile":
+      return { aspect: "1/1", padding: "10px 12px 12px", titleSize: 13, storeSize: 11, priceSize: 14, logoSize: 14 };
+    case "tablet":
+      return { aspect: "4/3", padding: "12px 14px 14px", titleSize: 13.5, storeSize: 11, priceSize: 14.5, logoSize: 14 };
+    case "desktop":
+    default:
+      return { aspect: "4/3", padding: "10px 12px 12px", titleSize: 13, storeSize: 10.5, priceSize: 13.5, logoSize: 13 };
+  }
+}
+
 /* ─── Product Card ─── */
-function ProductCard({ product, theme = "light" }: { product: Product; theme?: "light" | "dark" }) {
+function ProductCard({
+  product,
+  theme = "light",
+  tier,
+  density,
+}: {
+  product: Product;
+  theme?: "light" | "dark";
+  tier: Tier;
+  density: Density;
+}) {
   const store = product.stores;
   const isDark = theme === "dark";
+  const sizes = getSizes(tier);
+  const isPremium = density === "premium";
 
   return (
     <Link
       to={`/products/${product.slug}`}
       style={{
-        borderRadius: 10,
+        borderRadius: 12,
         border: isDark ? "1px solid rgba(255,255,255,0.08)" : undefined,
         background: isDark ? "rgba(255,255,255,0.04)" : undefined,
         boxShadow: "0 2px 8px rgba(15,23,42,0.03)",
       }}
-      className={`group flex flex-col overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 ${
+      className={`group flex flex-col overflow-hidden transition-all duration-200 ease-out hover:-translate-y-0.5 ${
         !isDark ? "bg-card border border-border/40 dark:bg-secondary dark:border-border/60" : ""
-      }`}
+      } ${isPremium ? "hover:border-primary/40" : ""}`}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 16px rgba(15,23,42,0.07)";
+        (e.currentTarget as HTMLElement).style.boxShadow = isPremium
+          ? "0 10px 24px rgba(37,99,235,0.12)"
+          : "0 6px 16px rgba(15,23,42,0.08)";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 8px rgba(15,23,42,0.03)";
       }}
     >
-      {/* ── Image zone ── */}
+      {/* Image zone */}
       <div
         className={`relative overflow-hidden ${isDark ? "" : "bg-muted/30 dark:bg-muted/20"}`}
         style={{
-          aspectRatio: "4/3",
-          background: isDark ? "rgba(255,255,255,0.03)" : undefined,
+          aspectRatio: sizes.aspect,
+          background: isDark ? "rgba(255,255,255,0.03)" : "#F1F5F9",
           borderBottom: isDark ? "1px solid rgba(255,255,255,0.06)" : "1px solid hsl(var(--border) / 0.3)",
         }}
       >
         {product.image_url ? (
           <img
-            src={optimizeImageUrl(product.image_url, 200)}
-            srcSet={unsplashSrcSet(product.image_url, [200, 400]) || undefined}
-            sizes="(max-width: 640px) 150px, 200px"
+            src={optimizeImageUrl(product.image_url, 400)}
+            srcSet={unsplashSrcSet(product.image_url, [200, 400, 600]) || undefined}
+            sizes={tier === "mobile" ? "70vw" : tier === "tablet" ? "33vw" : "20vw"}
             alt={product.name_ar}
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
-            style={{ padding: "clamp(4px, 0.5vw, 8px)" }}
+            style={{ padding: tier === "mobile" ? 10 : 8 }}
             loading="lazy"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
-            <ShoppingBag className="h-4 w-4 text-muted-foreground/10" />
+            <ShoppingBag className="h-5 w-5 text-muted-foreground/20" />
           </div>
         )}
 
         {/* Category chip */}
         {store?.category && (
           <span
-            className="absolute top-1 right-1 backdrop-blur-sm"
+            className="absolute top-1.5 right-1.5 backdrop-blur-sm"
             style={{
-              height: 16,
+              height: 18,
               display: "inline-flex",
               alignItems: "center",
-              paddingInline: 5,
+              paddingInline: 6,
               borderRadius: 999,
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 700,
               lineHeight: 1,
-              color: isDark ? "rgba(255,255,255,0.8)" : "#fff",
-              background: isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.68)",
+              color: isDark ? "rgba(255,255,255,0.85)" : "#fff",
+              background: isDark ? "rgba(255,255,255,0.12)" : "rgba(15,23,42,0.7)",
             }}
           >
             {store.category}
@@ -109,61 +177,56 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
         {/* Featured badge */}
         {product.featured && (
           <span
-            className="absolute top-1 left-1 flex items-center gap-0.5 backdrop-blur-sm"
+            className="absolute top-1.5 left-1.5 flex items-center gap-0.5 backdrop-blur-sm"
             style={{
-              height: 16,
-              paddingInline: 5,
+              height: 18,
+              paddingInline: 6,
               borderRadius: 999,
-              fontSize: 8,
+              fontSize: 9,
               fontWeight: 700,
               lineHeight: 1,
               color: "#fff",
-              background: "hsl(var(--primary) / 0.88)",
+              background: "hsl(var(--primary) / 0.9)",
             }}
           >
-            <Sparkles className="h-2 w-2" />
+            <Sparkles className="h-2.5 w-2.5" />
             مميز
           </span>
         )}
       </div>
 
-      {/* ── Content zone ── */}
-      <div
-        className="flex flex-1 flex-col justify-between"
-        style={{ padding: "6px 8px 8px" }}
-      >
+      {/* Content zone */}
+      <div className="flex flex-1 flex-col justify-between" style={{ padding: sizes.padding }}>
         <div>
-          {/* Title */}
           <p
-            className={`font-bold line-clamp-1 group-hover:text-primary transition-colors ${
+            className={`font-bold line-clamp-2 group-hover:text-primary transition-colors ${
               isDark ? "text-white/90" : "text-foreground"
             }`}
-            style={{ fontSize: "clamp(10px, 1vw, 12.5px)", lineHeight: 1.3 }}
+            style={{ fontSize: sizes.titleSize, lineHeight: 1.35, minHeight: sizes.titleSize * 1.35 * 2 }}
           >
             {product.name_ar}
           </p>
 
-          {/* Shop name */}
           {store && (
-            <div className="flex items-center gap-1" style={{ marginTop: 1 }}>
+            <div className="flex items-center gap-1.5" style={{ marginTop: 4 }}>
               {store.logo_url ? (
                 <img
                   src={store.logo_url}
                   alt={store.name_ar}
                   className="rounded-sm object-contain shrink-0"
                   style={{
-                    width: 11,
-                    height: 11,
+                    width: sizes.logoSize,
+                    height: sizes.logoSize,
                     border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(22,41,84,0.08)",
                     background: "#fff",
                   }}
                 />
               ) : (
-                <Store className="shrink-0 text-muted-foreground/25" style={{ width: 10, height: 10 }} />
+                <Store className="shrink-0 text-muted-foreground/30" style={{ width: sizes.logoSize, height: sizes.logoSize }} />
               )}
               <span
-                className={`line-clamp-1 ${isDark ? "text-white/50" : "text-muted-foreground"}`}
-                style={{ fontSize: "clamp(8px, 0.75vw, 10px)", fontWeight: 500, opacity: 0.7 }}
+                className={`line-clamp-1 ${isDark ? "text-white/55" : "text-muted-foreground"}`}
+                style={{ fontSize: sizes.storeSize, fontWeight: 500 }}
               >
                 {store.name_ar}
               </span>
@@ -171,18 +234,17 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
           )}
         </div>
 
-        {/* Price */}
         {product.price ? (
           <p
             className="font-poppins font-extrabold text-primary"
-            style={{ fontSize: "clamp(10px, 1vw, 13px)", marginTop: 2 }}
+            style={{ fontSize: sizes.priceSize, marginTop: 6 }}
           >
             {Number(product.price).toLocaleString("ar-EG")} جم
           </p>
         ) : product.price_note ? (
           <p
             className="font-bold text-primary"
-            style={{ fontSize: "clamp(9px, 0.8vw, 11px)", marginTop: 2 }}
+            style={{ fontSize: sizes.priceSize - 1, marginTop: 6 }}
           >
             {product.price_note}
           </p>
@@ -190,6 +252,27 @@ function ProductCard({ product, theme = "light" }: { product: Product; theme?: "
       </div>
     </Link>
   );
+}
+
+/* ─── Grid column classes per density ─── */
+function getGridClasses(density: Density): string {
+  if (density === "premium") {
+    // one column less per breakpoint = larger card
+    return "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4";
+  }
+  return "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6";
+}
+
+/* ─── Mobile rail card width ─── */
+function getRailWidth(tier: Tier, density: Density): { width: string; maxWidth: number } {
+  if (tier === "mobile") {
+    return density === "premium" ? { width: "70vw", maxWidth: 280 } : { width: "62vw", maxWidth: 240 };
+  }
+  // Tablet/desktop rail (only used when explicitly layout="rail" AND tier != mobile)
+  if (tier === "tablet") {
+    return density === "premium" ? { width: "38vw", maxWidth: 320 } : { width: "30vw", maxWidth: 240 };
+  }
+  return density === "premium" ? { width: "22vw", maxWidth: 280 } : { width: "17vw", maxWidth: 220 };
 }
 
 /* ─── ProductRail ─── */
@@ -201,17 +284,18 @@ export function ProductRail({
   ctaLabel = "عرض الكل",
   ctaTo = "/products",
   layout = "grid",
-  columns = 4,
   maxItems,
   theme = "light",
+  density = "standard",
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const dragStart = useRef({ x: 0, scrollLeft: 0 });
   const isDark = theme === "dark";
-  const isMobile = useIsMobile();
-  /* On mobile, always render as horizontal rail for native-app feel */
-  const effectiveLayout = isMobile ? "rail" : layout;
+  const tier = useDeviceTier();
+
+  /* Mobile is always rail (app-like). Tablet/desktop respect layout prop. */
+  const effectiveLayout = tier === "mobile" ? "rail" : layout;
   const displayed = maxItems ? products.slice(0, maxItems) : products;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -234,9 +318,11 @@ export function ProductRail({
       window.removeEventListener("resize", updateScrollState);
     };
   }, [updateScrollState, displayed.length]);
+
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "left" ? -260 : 260, behavior: "smooth" });
+    const step = tier === "mobile" ? 240 : 320;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
   };
 
   const onMouseDown = useCallback((e: React.MouseEvent) => {
@@ -263,6 +349,8 @@ export function ProductRail({
   }, []);
 
   if (displayed.length === 0) return null;
+
+  const railSize = getRailWidth(tier, density);
 
   return (
     <motion.div
@@ -311,33 +399,41 @@ export function ProductRail({
       {/* Grid or Rail */}
       {effectiveLayout === "rail" ? (
         <div className="relative group/rail">
-          {/* Edge fade indicators */}
+          {/* Edge fades */}
           <div
             className="pointer-events-none absolute inset-y-0 right-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
             style={{
-              background: isDark ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)",
+              background: isDark
+                ? "linear-gradient(to left, hsla(220,30%,8%,0.9), transparent)"
+                : "linear-gradient(to left, hsla(0,0%,100%,0.9), transparent)",
               opacity: canScrollRight ? 1 : 0,
             }}
           />
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-8 md:w-12 transition-opacity duration-300"
             style={{
-              background: isDark ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)" : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)",
+              background: isDark
+                ? "linear-gradient(to right, hsla(220,30%,8%,0.9), transparent)"
+                : "linear-gradient(to right, hsla(0,0%,100%,0.9), transparent)",
               opacity: canScrollLeft ? 1 : 0,
             }}
           />
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-1"
-            style={{ gap: "clamp(8px, 1vw, 12px)", scrollbarWidth: "none", cursor: "grab" }}
+            className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-2 scroll-snap-rtl-start"
+            style={{ gap: tier === "mobile" ? 12 : 14, scrollbarWidth: "none", cursor: "grab" }}
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
             onMouseLeave={onMouseUp}
           >
-          {displayed.map((product) => (
-              <div key={product.id} className="shrink-0 snap-start" style={{ width: isMobile ? "47vw" : "clamp(130px, 13vw, 165px)", maxWidth: isMobile ? 200 : undefined }}>
-                <ProductCard product={product} theme={theme} />
+            {displayed.map((product) => (
+              <div
+                key={product.id}
+                className="shrink-0 snap-start"
+                style={{ width: railSize.width, maxWidth: railSize.maxWidth }}
+              >
+                <ProductCard product={product} theme={theme} tier={tier} density={density} />
               </div>
             ))}
           </div>
@@ -345,30 +441,27 @@ export function ProductRail({
             <button
               onClick={() => scroll("right")}
               aria-label="التمرير لليمين"
-              className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+              className="group absolute -right-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-9 w-9 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md bg-background"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.7)" : undefined }}
             >
-              <ChevronRight className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+              <ChevronRight className={`h-4 w-4 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
             </button>
           )}
           {canScrollLeft && (
             <button
               onClick={() => scroll("left")}
               aria-label="التمرير لليسار"
-              className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-8 w-8 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md"
-              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.6)" : undefined }}
+              className="group absolute -left-3 top-1/2 -translate-y-1/2 z-10 hidden md:flex h-9 w-9 items-center justify-center rounded-full border shadow-sm transition-all duration-300 hover:scale-110 hover:shadow-md bg-background"
+              style={{ borderColor: isDark ? "hsla(0,0%,100%,0.12)" : undefined, background: isDark ? "hsla(220,45%,10%,0.7)" : undefined }}
             >
-              <ChevronLeft className={`h-3.5 w-3.5 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
+              <ChevronLeft className={`h-4 w-4 transition-colors duration-300 ${isDark ? "text-[#CBD5E1] group-hover:text-[#CDBB9A]" : "text-foreground group-hover:text-primary"}`} />
             </button>
           )}
         </div>
       ) : (
-        <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
-          style={{ gap: "clamp(8px, 1vw, 12px)", rowGap: "clamp(10px, 1.2vw, 14px)" }}
-        >
+        <div className={getGridClasses(density)} style={{ gap: 12, rowGap: 16 }}>
           {displayed.map((product) => (
-            <ProductCard key={product.id} product={product} theme={theme} />
+            <ProductCard key={product.id} product={product} theme={theme} tier={tier} density={density} />
           ))}
         </div>
       )}
@@ -378,9 +471,9 @@ export function ProductRail({
         <Link to={ctaTo}>
           <Button
             variant={isDark ? "outline-blue" : "cta"}
-            className="h-8 rounded-lg px-4 text-[0.72rem] font-bold gap-1"
+            className="h-9 rounded-lg px-5 text-[0.78rem] font-bold gap-1"
           >
-            {ctaLabel} <ArrowLeft className="h-2.5 w-2.5" />
+            {ctaLabel} <ArrowLeft className="h-3 w-3" />
           </Button>
         </Link>
       </div>
