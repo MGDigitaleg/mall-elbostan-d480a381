@@ -15,6 +15,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHero } from "@/components/PageHero";
+import { ProductRail } from "@/components/home/ProductRail";
 
 /* ══════════════════════════════════════════════
    Unified product type for display
