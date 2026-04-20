@@ -157,6 +157,7 @@ function ProductCard({
             className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
             style={{ padding: tier === "mobile" ? 10 : 8 }}
             loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center">
