@@ -208,6 +208,7 @@ export function FeaturedProducts() {
                                 src={store.logo_url}
                                 alt={store.name_ar}
                                 className="h-4 w-4 rounded object-contain border border-border bg-card shrink-0"
+                                loading="lazy"
                               />
                             ) : (
                               <Store className="h-3 w-3 text-muted-foreground/25 shrink-0" />

@@ -225,6 +225,7 @@ function ProductCard({
                   src={store.logo_url}
                   alt={store.name_ar}
                   className="rounded-sm object-contain shrink-0"
+                  loading="lazy"
                   style={{
                     width: sizes.logoSize,
                     height: sizes.logoSize,
