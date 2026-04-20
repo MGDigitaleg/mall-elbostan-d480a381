@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLeft, Trophy, Crown, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { StickyCTA } from "@/components/layout/StickyCTA";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -533,6 +534,7 @@ const SpinWin = () => {
       </section>
       </>
       )}
+      <StickyCTA label="ابدأ اللعب" to="#spin-form" hint="جوائز حقيقية يوم الافتتاح" />
     </MainLayout>
   );
 };
