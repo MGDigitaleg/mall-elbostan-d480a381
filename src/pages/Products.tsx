@@ -344,7 +344,7 @@ const Products = () => {
       )}
 
       {/* ═══ Trending Rail (standard density, light theme) ═══ */}
-      {!hasActiveFilters && trendingHighlights.length >= 6 && (
+      {!hasActiveFilters && (isLoading || trendingHighlights.length >= 6) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -363,6 +363,7 @@ const Products = () => {
               layout="grid"
               theme="light"
               density="standard"
+              loading={isLoading}
             />
           </div>
         </section>
