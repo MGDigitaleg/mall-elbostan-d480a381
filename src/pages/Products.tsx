@@ -304,8 +304,13 @@ const Products = () => {
         );
         return match ? { ...g, sectionId: match.id } : null;
       })
-      .filter((c): c is { key: string; label: string; keywords: string[]; sectionId: string } => c !== null);
-  }, [mergedSections]);
+      .filter((c): c is { key: string; label: string; keywords: string[]; sectionId: string } => c !== null)
+      .map((c) => ({
+        ...c,
+        count: allProducts.filter((p) => p.section === c.sectionId).length,
+      }))
+      .filter((c) => c.count > 0);
+  }, [mergedSections, allProducts]);
 
   /* ── Featured products for premium top rail ── */
   const featuredHighlights = useMemo(() => {
