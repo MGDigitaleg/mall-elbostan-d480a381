@@ -849,7 +849,7 @@ const Products = () => {
                 <>
                   <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                     {visibleProducts.map((product, i) => (
-                      <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
+                      <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} onNavigate={saveScrollState} />
                     ))}
                   </div>
 
