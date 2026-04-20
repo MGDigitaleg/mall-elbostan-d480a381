@@ -177,7 +177,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
             />
           </div>
         </section>
-      )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
