@@ -335,13 +335,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
         }}>
         <div className="container">
-          <motion.div
-            variants={sectionReveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="mx-auto max-w-[58rem]"
-          >
+          <Reveal className="mx-auto max-w-[58rem]">
             <Suspense fallback={
               <div className="flex items-center justify-center rounded-2xl border border-border bg-card py-20">
                 <div className="flex flex-col items-center gap-3">
@@ -352,7 +346,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             }>
               <MapTeaserPreview />
             </Suspense>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
