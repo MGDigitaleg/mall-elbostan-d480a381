@@ -142,7 +142,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
 
   return (
-    <div style={{ minHeight: "300vh" }}>
+    <div>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section style={{ contain: "layout", minHeight: isMobile ? 520 : 580 }}>
         <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
@@ -182,58 +182,56 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {(productsLoading || trendingProducts.length >= 3) && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            contain: "layout",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="container">
-            <ProductRail
-              kicker="الأكثر طلباً"
-              title="المنتجات الرائجة"
-              subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
-              products={trendingProducts}
-              ctaLabel="تصفّح المنتجات"
-              ctaTo="/products"
-              layout="rail"
-              theme="light"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-      )}
+      <section
+        className="bg-card dark:bg-background"
+        style={{
+          contain: "layout",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+          display: (productsLoading || trendingProducts.length >= 3) ? undefined : "none",
+        }}>
+        <div className="container">
+          <ProductRail
+            kicker="الأكثر طلباً"
+            title="المنتجات الرائجة"
+            subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
+            products={trendingProducts}
+            ctaLabel="تصفّح المنتجات"
+            ctaTo="/products"
+            layout="rail"
+            theme="light"
+            loading={productsLoading}
+          />
+        </div>
+      </section>
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {(productsLoading || featuredProducts.length >= 3) && (
-        <section
-          className="relative overflow-hidden"
-          style={{
-            contain: "layout",
-            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-          </div>
-          <div className="container relative">
-            <ProductRail
-              kicker="اختيارات مميزة"
-              title="منتجات مميزة من المول"
-              products={featuredProducts}
-              ctaLabel="عرض المنتجات المميزة"
-              ctaTo="/products"
-              layout="grid"
-              theme="dark"
-              density="premium"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-      )}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          contain: "layout",
+          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+          display: (productsLoading || featuredProducts.length >= 3) ? undefined : "none",
+        }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+        </div>
+        <div className="container relative">
+          <ProductRail
+            kicker="اختيارات مميزة"
+            title="منتجات مميزة من المول"
+            products={featuredProducts}
+            ctaLabel="عرض المنتجات المميزة"
+            ctaTo="/products"
+            layout="grid"
+            theme="dark"
+            density="premium"
+            loading={productsLoading}
+          />
+        </div>
+      </section>
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
       <section style={{ contain: "layout" }}>
@@ -243,85 +241,82 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {(productsLoading || phoneProducts.length >= 3) && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            contain: "layout",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="container">
-            <ProductRail
-              kicker="الهواتف والإكسسوارات"
-              title="أحدث الهواتف وملحقاتها"
-              products={phoneProducts}
-              ctaLabel="عرض الكل"
-              ctaTo="/products?category=الهواتف والإكسسوارات"
-              layout="grid"
-              columns={4}
-              theme="light"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-      )}
+      <section
+        className="bg-card dark:bg-background"
+        style={{
+          contain: "layout",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+          display: (productsLoading || phoneProducts.length >= 3) ? undefined : "none",
+        }}>
+        <div className="container">
+          <ProductRail
+            kicker="الهواتف والإكسسوارات"
+            title="أحدث الهواتف وملحقاتها"
+            products={phoneProducts}
+            ctaLabel="عرض الكل"
+            ctaTo="/products?category=الهواتف والإكسسوارات"
+            layout="grid"
+            columns={4}
+            theme="light"
+            loading={productsLoading}
+          />
+        </div>
+      </section>
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {(productsLoading || computerProducts.length >= 3) && (
-        <section
-          className="relative overflow-hidden"
-          style={{
-            contain: "layout",
-            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
-          </div>
-          <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-          <div className="container relative">
-            <ProductRail
-              kicker="الكمبيوتر والأجهزة"
-              title="أجهزة الكمبيوتر والملحقات"
-              products={computerProducts}
-              ctaLabel="عرض الكل"
-              ctaTo="/products?category=الكمبيوتر والأجهزة"
-              layout="grid"
-              theme="dark"
-              density="premium"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-      )}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          contain: "layout",
+          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+          display: (productsLoading || computerProducts.length >= 3) ? undefined : "none",
+        }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
+        </div>
+        <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="container relative">
+          <ProductRail
+            kicker="الكمبيوتر والأجهزة"
+            title="أجهزة الكمبيوتر والملحقات"
+            products={computerProducts}
+            ctaLabel="عرض الكل"
+            ctaTo="/products?category=الكمبيوتر والأجهزة"
+            layout="grid"
+            theme="dark"
+            density="premium"
+            loading={productsLoading}
+          />
+        </div>
+      </section>
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {(productsLoading || gamingProducts.length >= 3) && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            contain: "layout",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          }}>
-          <div className="container">
-            <ProductRail
-              kicker="الألعاب والترفيه"
-              title="أحدث ألعاب الفيديو والأجهزة"
-              products={gamingProducts}
-              ctaLabel="عرض الكل"
-              ctaTo="/products?category=الألعاب والترفيه"
-              layout="grid"
-              columns={4}
-              theme="light"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-      )}
+      <section
+        className="bg-card dark:bg-background"
+        style={{
+          contain: "layout",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
+          display: (productsLoading || gamingProducts.length >= 3) ? undefined : "none",
+        }}>
+        <div className="container">
+          <ProductRail
+            kicker="الألعاب والترفيه"
+            title="أحدث ألعاب الفيديو والأجهزة"
+            products={gamingProducts}
+            ctaLabel="عرض الكل"
+            ctaTo="/products?category=الألعاب والترفيه"
+            layout="grid"
+            columns={4}
+            theme="light"
+            loading={productsLoading}
+          />
+        </div>
+      </section>
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
       <section style={{ contain: "layout" }}>
