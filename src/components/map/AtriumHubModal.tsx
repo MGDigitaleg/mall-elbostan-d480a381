@@ -81,6 +81,18 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
   const { data: campaign } = useCampaignStatus("spin_win");
   const campaignActive = campaign?.is_active ?? true;
 
+  // Track modal open
+  useEffect(() => {
+    if (open) {
+      trackEvent("atrium_hub_open", {
+        source: "interactive_map_atrium",
+        initial_tab: config.mode,
+        campaign_active: campaignActive,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   const { data: deals } = useQuery({
     queryKey: ["hub-deals"],
     queryFn: async () => {
