@@ -32,7 +32,20 @@ type Props = {
   maxItems?: number;
   theme?: "light" | "dark";
   density?: Density;
+  fillMode?: "exact" | "auto";
 };
+
+/* ─── Columns per tier+density (matches getGridClasses below) ─── */
+function getColsForTier(tier: Tier, density: Density): number {
+  if (density === "premium") {
+    if (tier === "mobile") return 2;
+    if (tier === "tablet") return 3;
+    return 4;
+  }
+  if (tier === "mobile") return 2;
+  if (tier === "tablet") return 4;
+  return 6;
+}
 
 const sectionReveal = {
   hidden: { opacity: 0, y: 14 },
@@ -287,6 +300,7 @@ export function ProductRail({
   maxItems,
   theme = "light",
   density = "standard",
+  fillMode = "auto",
 }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -296,7 +310,16 @@ export function ProductRail({
 
   /* Mobile is always rail (app-like). Tablet/desktop respect layout prop. */
   const effectiveLayout = tier === "mobile" ? "rail" : layout;
-  const displayed = maxItems ? products.slice(0, maxItems) : products;
+  let displayed = maxItems ? products.slice(0, maxItems) : products;
+
+  /* Auto-fill: trim to a multiple of the active column count so no row is partial */
+  if (fillMode === "auto" && effectiveLayout === "grid" && tier !== "mobile") {
+    const cols = getColsForTier(tier, density);
+    if (displayed.length >= cols) {
+      const fullRows = Math.floor(displayed.length / cols) * cols;
+      displayed = displayed.slice(0, fullRows);
+    }
+  }
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
