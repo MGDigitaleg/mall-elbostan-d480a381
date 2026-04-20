@@ -257,6 +257,27 @@ const Products = () => {
       }));
   }, [allProducts]);
 
+  /* ── Trending products (after featured) — most-recent non-featured with images ── */
+  const trendingHighlights = useMemo(() => {
+    return allProducts
+      .filter((p) => p.product_image)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .slice(0, 18)
+      .map((p) => ({
+        id: p.id,
+        name_ar: p.product_name,
+        slug: p.slug,
+        price: p.price,
+        price_note: p.priceNote,
+        image_url: p.product_image,
+        featured: p.featured,
+        brand: p.brand,
+        stores: p.shop_name
+          ? { name_ar: p.shop_name, slug: p.storeSlug ?? "", logo_url: p.storeLogo, category: p.section }
+          : null,
+      }));
+  }, [allProducts]);
+
   const clearFilters = useCallback(() => {
     setSelectedSection("all");
     setSelectedShop("all");
@@ -316,6 +337,31 @@ const Products = () => {
               layout="rail"
               theme="dark"
               density="premium"
+            />
+          </div>
+        </section>
+      )}
+
+      {/* ═══ Trending Rail (standard density, light theme) ═══ */}
+      {!hasActiveFilters && trendingHighlights.length >= 6 && (
+        <section
+          className="bg-card dark:bg-background"
+          style={{
+            paddingTop: "clamp(40px, 5vw, 72px)",
+            paddingBottom: "clamp(40px, 5vw, 72px)",
+          }}
+        >
+          <div className="container max-w-[1200px]">
+            <ProductRail
+              kicker="الأكثر طلباً"
+              title="المنتجات الرائجة"
+              subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
+              products={trendingHighlights}
+              ctaLabel="تصفّح كل المنتجات"
+              ctaTo="#products"
+              layout="grid"
+              theme="light"
+              density="standard"
             />
           </div>
         </section>
