@@ -667,14 +667,20 @@ const Products = () => {
               </span>
               <button
                 onClick={() => setSelectedSection("all")}
-                className="h-8 rounded-full px-3 text-[0.74rem] font-bold transition-all"
+                className="flex h-8 items-center gap-1.5 rounded-full px-3 text-[0.74rem] font-bold transition-all"
                 style={{
                   border: selectedSection === "all" ? "1px solid #2563EB" : "1px solid #ffffff14",
                   background: selectedSection === "all" ? "#2563EB" : "#ffffff08",
                   color: selectedSection === "all" ? "#fff" : "#CBD5E1",
                 }}
               >
-                الكل
+                <span>الكل</span>
+                <span
+                  className="font-poppins text-[0.62rem] font-semibold"
+                  style={{ color: selectedSection === "all" ? "#DBEAFE" : "#64748B" }}
+                >
+                  {allProducts.length}
+                </span>
               </button>
               {quickChips.map((chip) => {
                 const active = selectedSection === chip.sectionId;
@@ -682,14 +688,20 @@ const Products = () => {
                   <button
                     key={chip.key}
                     onClick={() => setSelectedSection(active ? "all" : chip.sectionId)}
-                    className="h-8 rounded-full px-3 text-[0.74rem] font-bold transition-all hover:border-primary/50"
+                    className="flex h-8 items-center gap-1.5 rounded-full px-3 text-[0.74rem] font-bold transition-all hover:border-primary/50"
                     style={{
                       border: active ? "1px solid #2563EB" : "1px solid #ffffff14",
                       background: active ? "#2563EB" : "#ffffff08",
                       color: active ? "#fff" : "#CBD5E1",
                     }}
                   >
-                    {chip.label}
+                    <span>{chip.label}</span>
+                    <span
+                      className="font-poppins text-[0.62rem] font-semibold"
+                      style={{ color: active ? "#DBEAFE" : "#64748B" }}
+                    >
+                      {chip.count}
+                    </span>
                   </button>
                 );
               })}
