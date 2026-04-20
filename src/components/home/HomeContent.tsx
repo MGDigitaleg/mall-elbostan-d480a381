@@ -584,6 +584,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }
