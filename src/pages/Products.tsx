@@ -237,6 +237,26 @@ const Products = () => {
 
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
 
+  /* ── Quick filter chips: match merged sections by keywords ── */
+  const quickChips = useMemo(() => {
+    const groups: { key: string; label: string; keywords: string[] }[] = [
+      { key: "phones", label: "هواتف", keywords: ["هاتف", "هواتف", "موبايل", "phone", "mobile"] },
+      { key: "computers", label: "كمبيوتر ولابتوب", keywords: ["كمبيوتر", "حاسب", "لابتوب", "laptop", "computer", "pc"] },
+      { key: "gaming", label: "جيمنج", keywords: ["جيم", "ألعاب", "العاب", "gaming", "console"] },
+      { key: "accessories", label: "إكسسوارات", keywords: ["إكسسوار", "اكسسوار", "accessor"] },
+      { key: "audio", label: "صوتيات", keywords: ["صوت", "سماعة", "سماعات", "audio", "headphone"] },
+      { key: "parts", label: "قطع غيار", keywords: ["قطع", "غيار", "part", "spare"] },
+    ];
+    return groups
+      .map((g) => {
+        const match = mergedSections.find((s) =>
+          g.keywords.some((kw) => s.label.toLowerCase().includes(kw.toLowerCase()))
+        );
+        return match ? { ...g, sectionId: match.id } : null;
+      })
+      .filter((c): c is { key: string; label: string; keywords: string[]; sectionId: string } => c !== null);
+  }, [mergedSections]);
+
   /* ── Featured products for premium top rail ── */
   const featuredHighlights = useMemo(() => {
     return allProducts
