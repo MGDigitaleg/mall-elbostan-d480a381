@@ -419,10 +419,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden bg-background"
         style={{
-          contain: "layout",
+          contentVisibility: "auto",
+          containIntrinsicSize: "auto 300px",
           paddingTop: "clamp(40px, 5vw, 72px)",
           paddingBottom: "clamp(40px, 5vw, 72px)",
-        }}
+        } as React.CSSProperties}
       >
         <div className="container max-w-[720px]">
           <Reveal>
