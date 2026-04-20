@@ -12,6 +12,7 @@ import {
   type MallUnit,
   type MallUnitStatus,
 } from "@/lib/mallFloorGeometry";
+import { trackEvent } from "@/lib/analytics";
 
 const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: string; dot: string }> = {
   occupied: { bg: "#EDEBEA", border: "#C8C4BF", text: "#4A4540", dot: "#9B9488" },
@@ -78,7 +79,15 @@ export function HeroMiniMap() {
             selectedUnitId={activeUnit.id}
             mutedUnitIds={emptySet}
             onSelectUnit={setSelectedUnit}
-            onAtriumClick={() => navigate("/spin-win")}
+            onAtriumClick={() => {
+              trackEvent("atrium_click", {
+                source: "homepage_hero_mini_map",
+                placement: "hero_mini_map_atrium",
+                destination: "/spin-win",
+                floor: selectedFloor,
+              });
+              navigate("/spin-win");
+            }}
             className="min-h-[200px] md:min-h-[240px]"
           />
         </div>
