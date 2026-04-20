@@ -1,76 +1,47 @@
 
 
-# خطة شاملة لتحسين أداء الموبايل وتجربة الموبايل
+# تصغير الفوتر على الموبايل
 
-الهدف: تقليل وقت التحميل الأول على الموبايل (LCP < 2.5s)، تقليل JS المرسل، وتحسين تجربة اللمس والتنقل لتكون "نسخة موبايل" حقيقية مش مجرد تصغير للديسكتوب.
+الهدف: تقليل الارتفاع الحالي للفوتر على الموبايل من ~1180px إلى ~720px مع الحفاظ على كل المعلومات الأساسية وعدم زيادة CLS.
 
-## المحاور الستة
+## التعديلات
 
-### 1) تخفيف الـ Hero والـ Above-the-fold (الأولوية القصوى)
-- `HeroSlider` يتحمّل حالياً مباشرة (eager). على الموبايل: استبداله بنسخة خفيفة `HeroSliderMobile` بصورة واحدة ثابتة + `fetchpriority="high"` و `loading="eager"`، بدون animations / framer-motion.
-- صور الـ Hero: تقديمها بصيغة WebP بأبعاد موبايل (640w / 828w) عبر `optimizeImageUrl` مع `srcset` و `sizes="100vw"`.
-- إزالة `backdrop-filter: blur(20px) saturate(1.3)` من الهيدر على الموبايل (مكلف على GPU) — استبدال بخلفية صلبة شبه شفافة.
+### 1) أعمدة التنقل: من 3 أعمدة عمودية → Accordion مدمج
+حالياً الأعمدة الثلاثة (المول / السوق والخدمات / تواصل ومعلومات) معروضة كاملة ومكدسة عمودياً = ارتفاع كبير جداً.
+- على الموبايل: عرضها كـ **3 accordions مطوية افتراضياً** (يفتحها المستخدم بالنقر).
+- العنوان فقط ظاهر + سهم صغير → يوفر ~500px من الارتفاع.
+- على الديسكتوب: يظل الشكل الحالي (3 أعمدة مفتوحة).
 
-### 2) تقليل الأقسام المعروضة على الموبايل
-الـ HomeContent فيه 14 قسم. على الموبايل نعرض 7 فقط فوق الـ fold ونكسل الباقي:
-- **يظهر eager**: Hero, CategoryStrip, LatestProducts (6 منتجات بدل 12), DealsTeaser
-- **lazy + IntersectionObserver**: FeaturedStores, Trending, Featured, Phones, Computers, Gaming, MerchantWall, MapTeaser, SpinWin, MarketEcho, Downtown, FAQ
-- استخدام `react-intersection-observer` أو `loading="lazy"` على الصور + Suspense fallback بارتفاع ثابت لمنع CLS.
+### 2) ضغط Brand Column
+- تقليل padding وspacing بين العناصر (`space-y-5` → `space-y-3` على الموبايل).
+- نص الوصف: سطر واحد بدلاً من سطرين.
+- زرّا CTA (استكشف الخريطة / التأجير): تصغير الـ height من `h-10` إلى `h-9` ونقصان padding.
 
-### 3) Code-splitting أعمق + تخفيف الـ bundle
-- `framer-motion` ثقيل (~60KB gzipped). على الموبايل نستبدله بـ CSS transitions بسيطة في الأقسام الرئيسية (Hero, ProductRail). نحتفظ به فقط في الصفحات الإيمرسيف (MarketEcho).
-- إنشاء `useIsMobile()` على مستوى التطبيق وتمريره لتجنّب رندر مكونات desktop-only (مثل dropdown الفروع في الهيدر, HeroMiniMap).
-- Lazy-load `HeroSlider` و `CategoryStrip` و `ProductRail` بدل الاستيراد المباشر.
+### 3) Contact Strip أكثر إحكاماً
+- على الموبايل: تقليل padding من `py-4 px-5` → `py-3 px-4`.
+- تصغير حجم الأيقونات الملوّنة من `h-8 w-8` → `h-7 w-7`.
+- gap أصغر بين العناصر (`gap-4` → `gap-2.5`).
 
-### 4) تحسين الصور (أكبر مكسب أداء)
-- مراجعة `src/lib/imageUtils.ts` للتأكد من توليد `srcset` متعدد الأحجام (320/640/828/1080).
-- كل صور المنتجات: `loading="lazy"` ما عدا أول 4 منتجات في الـ LCP rail.
-- تحويل صور الـ Hero واللوجوهات لـ AVIF/WebP عبر Supabase image transform.
-- إضافة `width` و `height` صريحين على كل `<img>` لمنع CLS.
+### 4) إخفاء App Badges على الموبايل
+- قسم "تطبيق المول قريباً" + شارتا App Store / Google Play: **إخفاؤها كلياً على الموبايل** (`hidden sm:flex`) لأنها ليست أولوية الآن (التطبيق "قريباً" فقط) وتأخذ مساحة كبيرة.
 
-### 5) تجربة موبايل حقيقية (UX)
-- **Bottom Navigation Bar ثابت** على الموبايل (الرئيسية / المحلات / الخريطة / السلة / القائمة) بدل الاعتماد على الهامبرغر فقط.
-- **Sticky CTA** أسفل الشاشة في صفحات: التأجير, Spin & Win, Product Detail.
-- زيادة touch targets لـ 44×44px كحد أدنى.
-- تكبير حجم الخط الأساسي على الموبايل من `0.8rem` إلى `0.875rem` لقابلية القراءة.
-- `ProductRail` على الموبايل: snap-scroll أفقي بدل grid 4 أعمدة مضغوط.
-- إخفاء الأقسام الديكورية الثقيلة (radial gradients, grid overlays) على الموبايل.
+### 5) Bottom Bar أكثر إحكاماً
+- تقليل `mt-9 pt-6` → `mt-6 pt-4` على الموبايل.
+- روابط الشروط/الخصوصية/Developed by: في سطر واحد بفواصل بدلاً من gap-5.
 
-### 6) قياسات تقنية إضافية
-- `<link rel="preconnect">` لـ Supabase storage و GA4.
-- `<link rel="preload" as="image">` لصورة الـ Hero الأولى.
-- React Query: `staleTime: 5min` للـ home queries لتفادي refetch عند العودة للصفحة.
-- إزالة `min-height: 100vh` المضاعفة في `Index.tsx` و `AppLayout` (تسبب double layout).
-- ضغط الـ `MerchantLogoWall` على الموبايل: عرض 8 لوجوهات بدل كل اللوجوهات.
+### 6) تحديث min-height + contain-intrinsic-size
+بعد التصغير، تعديل قيم CLS-prevention:
+- `min-h-[1180px]` → `min-h-[720px]` للموبايل
+- `sm:min-h-[820px]` → `sm:min-h-[640px]`
+- `contain-intrinsic-size: 1180px` → `720px`
+- (قيم md/lg تبقى كما هي)
 
-## الملفات المتأثرة (تقديري)
+## الملفات المعدّلة
+- `src/components/layout/Footer.tsx` (تعديل واحد فقط)
 
-```text
-src/components/home/HeroSlider.tsx           → نسخة موبايل خفيفة
-src/components/home/HomeContent.tsx          → lazy sections + isMobile gating
-src/components/home/ProductRail.tsx          → snap-scroll موبايل
-src/components/home/CategoryStrip.tsx        → تبسيط
-src/components/layout/Header.tsx             → إزالة blur على الموبايل
-src/components/layout/MobileBottomNav.tsx    → جديد
-src/components/layout/StickyCTA.tsx          → جديد
-src/lib/imageUtils.ts                        → srcset متعدد الأحجام
-src/hooks/use-mobile.tsx                     → استخدام موسّع
-src/index.css                                → media queries موبايل
-index.html                                   → preconnect / preload
-```
-
-## التنفيذ على مراحل
-
-**المرحلة 1 (أكبر أثر — LCP)**: Hero موبايل + preload + srcset + إزالة blur من الهيدر + lazy للأقسام تحت الـ fold.
-
-**المرحلة 2 (UX موبايل)**: Bottom Nav + Sticky CTA + snap-scroll للـ ProductRail + touch targets.
-
-**المرحلة 3 (تنظيف وتقليل JS)**: استبدال framer-motion بـ CSS في الصفحات العامة, تقليل الـ home queries data, ضغط MerchantLogoWall.
-
-**المرحلة 4 (قياس وتأكيد)**: تشغيل Lighthouse mobile قبل/بعد، استهداف: Performance ≥ 85, LCP < 2.5s, CLS < 0.1, TBT < 300ms.
-
-## المخرجات المتوقعة
-- تقليل JS المُرسل على الموبايل بحوالي 40-50%.
-- LCP من ~4s إلى < 2.5s على شبكة 4G.
-- شعور "نسخة موبايل أصلية" مع bottom nav و sticky CTA و scroll أفقي للمنتجات.
+## النتيجة المتوقعة
+- ارتفاع الفوتر على الموبايل: **~720px بدلاً من ~1180px** (تقليل ~40%).
+- كل المعلومات لا تزال متاحة (الـ accordions تفتح عند الحاجة).
+- لا زيادة في CLS — قيم `min-h` و `contain-intrinsic-size` محدّثة بدقة.
+- الديسكتوب: لا تغيير في الشكل النهائي.
 
