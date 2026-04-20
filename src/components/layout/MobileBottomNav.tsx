@@ -44,12 +44,12 @@ export function MobileBottomNav() {
               to={it.path}
               className="flex flex-col items-center justify-center gap-0.5 transition-colors"
               style={{
-                minHeight: 56,
+                minHeight: 48,
                 color: active ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
               }}
             >
-              <Icon className="h-[18px] w-[18px]" strokeWidth={active ? 2.4 : 1.8} />
-              <span className="text-[0.62rem]" style={{ fontWeight: active ? 700 : 500 }}>
+              <Icon className="h-[16px] w-[16px]" strokeWidth={active ? 2.4 : 1.8} />
+              <span className="text-[0.6rem] leading-tight" style={{ fontWeight: active ? 700 : 500 }}>
                 {it.label}
               </span>
             </Link>
@@ -62,13 +62,13 @@ export function MobileBottomNav() {
             <button
               className="flex flex-col items-center justify-center gap-0.5 transition-colors"
               style={{
-                minHeight: 56,
+                minHeight: 48,
                 color: "hsl(var(--muted-foreground))",
               }}
               aria-label="القائمة"
             >
-              <Menu className="h-[18px] w-[18px]" strokeWidth={1.8} />
-              <span className="text-[0.62rem]" style={{ fontWeight: 500 }}>
+              <Menu className="h-[16px] w-[16px]" strokeWidth={1.8} />
+              <span className="text-[0.6rem] leading-tight" style={{ fontWeight: 500 }}>
                 القائمة
               </span>
             </button>
