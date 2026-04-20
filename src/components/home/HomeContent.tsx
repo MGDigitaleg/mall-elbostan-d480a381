@@ -88,7 +88,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const isMobile = useIsMobile();
 
   /* ── Single data source for all product sections ── */
-  const { data: allProducts } = useQuery({
+  const { data: allProducts, isLoading: productsLoading } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
       const { data } = await supabase
@@ -154,7 +154,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {latestProducts.length > 0 && (
+      {(productsLoading || latestProducts.length > 0) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -173,6 +173,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               columns={4}
               theme="light"
+              loading={productsLoading}
             />
           </div>
         </section>
