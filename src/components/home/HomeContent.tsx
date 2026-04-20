@@ -228,6 +228,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products"
               layout="rail"
               theme="dark"
+              density="premium"
             />
           </div>
         </section>
