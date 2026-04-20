@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoWhite from "@/assets/logo-brand-white.png";
+import logoWhite from "@/assets/logo-brand-white.webp";
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp } from "lucide-react";
 
