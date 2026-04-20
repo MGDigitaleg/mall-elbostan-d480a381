@@ -602,6 +602,34 @@ const Products = () => {
                   <option value="price_desc">السعر: الأعلى</option>
                   <option value="newest">الأحدث</option>
                 </select>
+
+                {/* Mobile filters trigger */}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <button
+                      className="lg:hidden flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
+                      style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                      فلاتر متقدمة
+                      {(priceRange || selectedBrand !== "all") && (
+                        <span className="ml-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold" style={{ background: "#2563EB", color: "#fff" }}>
+                          {(priceRange ? 1 : 0) + (selectedBrand !== "all" ? 1 : 0)}
+                        </span>
+                      )}
+                    </button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-[300px] sm:w-[340px] bg-[#0B1220] border-[#ffffff14]" style={{ direction: "rtl" }}>
+                    <SheetHeader>
+                      <SheetTitle className="text-right text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>
+                        الفلاتر المتقدمة
+                      </SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-5">
+                      <FilterSidebar />
+                    </div>
+                  </SheetContent>
+                </Sheet>
               </div>
             </div>
 
