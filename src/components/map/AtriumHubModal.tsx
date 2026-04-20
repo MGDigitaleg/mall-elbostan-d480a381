@@ -236,7 +236,29 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
 
                   {/* Primary + Secondary CTAs */}
                   <div className="space-y-2">
-                    <Link to="/spin-win" onClick={onClose} className="block">
+                    <Link
+                      to="/spin-win"
+                      onClick={() => {
+                        if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === "function") {
+                          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag("event", "spin_win_cta_click", {
+                            event_category: "engagement",
+                            event_label: "atrium_hub_modal_primary",
+                            source: "interactive_map_atrium",
+                            campaign_active: campaignActive,
+                          });
+                        }
+                        if (typeof window !== "undefined" && Array.isArray((window as unknown as { dataLayer?: unknown[] }).dataLayer)) {
+                          (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
+                            event: "spin_win_cta_click",
+                            source: "interactive_map_atrium",
+                            placement: "atrium_hub_modal_primary",
+                            campaign_active: campaignActive,
+                          });
+                        }
+                        onClose();
+                      }}
+                      className="block"
+                    >
                       <Button
                         variant="cta"
                         disabled={!campaignActive}
