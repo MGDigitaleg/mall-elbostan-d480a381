@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import {
   X,
   ArrowLeft,
   SlidersHorizontal,
+  Loader2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -19,6 +20,8 @@ import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PageHero } from "@/components/PageHero";
 import { ProductRail } from "@/components/home/ProductRail";
+
+const PAGE_SIZE = 24;
 
 /* ══════════════════════════════════════════════
    Unified product type for display
@@ -286,6 +289,38 @@ const Products = () => {
   }, [allProducts, selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
 
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || selectedBrand !== "all" || priceRange !== null || searchTerm.trim().length > 0;
+
+  /* ── Infinite scroll: visible count ── */
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Reset pagination when filters/sort change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
+
+  const visibleProducts = useMemo(
+    () => filteredProducts.slice(0, visibleCount),
+    [filteredProducts, visibleCount]
+  );
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // IntersectionObserver to auto-load more
+  useEffect(() => {
+    if (!hasMore) return;
+    const node = sentinelRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((c) => Math.min(c + PAGE_SIZE, filteredProducts.length));
+        }
+      },
+      { rootMargin: "400px 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, filteredProducts.length]);
 
   /* ── Quick filter chips: match merged sections by keywords ── */
   const quickChips = useMemo(() => {
@@ -749,11 +784,34 @@ const Products = () => {
                   ))}
                 </div>
               ) : filteredProducts.length > 0 ? (
-                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-                  {filteredProducts.map((product, i) => (
-                    <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
-                  ))}
-                </div>
+                <>
+                  <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                    {visibleProducts.map((product, i) => (
+                      <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
+                    ))}
+                  </div>
+
+                  {/* Infinite scroll sentinel + status */}
+                  {hasMore ? (
+                    <div ref={sentinelRef} className="mt-6 flex flex-col items-center justify-center gap-3 py-6">
+                      <div className="flex items-center gap-2 text-[0.74rem] font-semibold" style={{ color: "#94A3B8" }}>
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" style={{ color: "#5B9AFF" }} />
+                        جارٍ تحميل المزيد...
+                      </div>
+                      <button
+                        onClick={() => setVisibleCount((c) => Math.min(c + PAGE_SIZE, filteredProducts.length))}
+                        className="h-9 rounded-lg px-5 text-[0.76rem] font-bold transition-all"
+                        style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
+                      >
+                        تحميل المزيد ({filteredProducts.length - visibleCount})
+                      </button>
+                    </div>
+                  ) : filteredProducts.length > PAGE_SIZE ? (
+                    <div className="mt-6 text-center text-[0.72rem] font-semibold" style={{ color: "#475569" }}>
+                      عرضت كل المنتجات ({filteredProducts.length})
+                    </div>
+                  ) : null}
+                </>
               ) : (
                 <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
               )}
