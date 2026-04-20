@@ -691,36 +691,57 @@ const Products = () => {
             </div>
           )}
 
-
-          {isLoading ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="rounded-xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
-                  <Skeleton className="aspect-square w-full rounded-none bg-[#ffffff08]" />
-                  <div className="p-3 space-y-2">
-                    <Skeleton className="h-2 w-12 bg-[#ffffff06]" />
-                    <Skeleton className="h-3 w-full bg-[#ffffff08]" />
-                    <Skeleton className="h-3 w-3/4 bg-[#ffffff08]" />
-                    <div className="flex items-center gap-1.5 pt-1">
-                      <Skeleton className="h-3.5 w-3.5 rounded-sm bg-[#ffffff06]" />
-                      <Skeleton className="h-2.5 w-16 bg-[#ffffff06]" />
-                    </div>
-                    <div className="flex items-center justify-between pt-1">
-                      <Skeleton className="h-4 w-14 bg-[#ffffff08]" />
-                    </div>
-                  </div>
+          {/* Layout: Sidebar (desktop) + Grid */}
+          <div className="flex flex-col lg:flex-row lg:gap-6">
+            {/* Desktop sidebar (RTL: appears on the right visually) */}
+            <aside className="hidden lg:block lg:w-[240px] lg:shrink-0">
+              <div
+                className="sticky top-32 rounded-xl p-4"
+                style={{ border: "1px solid #ffffff10", background: "#ffffff04" }}
+              >
+                <div className="mb-4 flex items-center gap-2">
+                  <SlidersHorizontal className="h-3.5 w-3.5" style={{ color: "#5B9AFF" }} />
+                  <h2 className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>
+                    الفلاتر
+                  </h2>
                 </div>
-              ))}
+                <FilterSidebar />
+              </div>
+            </aside>
+
+            {/* Grid column */}
+            <div className="flex-1 min-w-0">
+              {isLoading ? (
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
+                      <Skeleton className="aspect-square w-full rounded-none bg-[#ffffff08]" />
+                      <div className="p-3 space-y-2">
+                        <Skeleton className="h-2 w-12 bg-[#ffffff06]" />
+                        <Skeleton className="h-3 w-full bg-[#ffffff08]" />
+                        <Skeleton className="h-3 w-3/4 bg-[#ffffff08]" />
+                        <div className="flex items-center gap-1.5 pt-1">
+                          <Skeleton className="h-3.5 w-3.5 rounded-sm bg-[#ffffff06]" />
+                          <Skeleton className="h-2.5 w-16 bg-[#ffffff06]" />
+                        </div>
+                        <div className="flex items-center justify-between pt-1">
+                          <Skeleton className="h-4 w-14 bg-[#ffffff08]" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  {filteredProducts.map((product, i) => (
+                    <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
+              )}
             </div>
-          ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {filteredProducts.map((product, i) => (
-                <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
-              ))}
-            </div>
-          ) : (
-            <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
-          )}
+          </div>
         </div>
       </section>
 
