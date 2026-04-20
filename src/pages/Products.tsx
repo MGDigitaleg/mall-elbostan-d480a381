@@ -8,6 +8,7 @@ import {
   Store,
   X,
   ArrowLeft,
+  ArrowUp,
   SlidersHorizontal,
   Loader2,
 } from "lucide-react";
