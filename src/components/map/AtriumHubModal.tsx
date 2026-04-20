@@ -266,22 +266,12 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                     <Link
                       to="/spin-win"
                       onClick={() => {
-                        if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === "function") {
-                          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag("event", "spin_win_cta_click", {
-                            event_category: "engagement",
-                            event_label: "atrium_hub_modal_primary",
-                            source: "interactive_map_atrium",
-                            campaign_active: campaignActive,
-                          });
-                        }
-                        if (typeof window !== "undefined" && Array.isArray((window as unknown as { dataLayer?: unknown[] }).dataLayer)) {
-                          (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
-                            event: "spin_win_cta_click",
-                            source: "interactive_map_atrium",
-                            placement: "atrium_hub_modal_primary",
-                            campaign_active: campaignActive,
-                          });
-                        }
+                        trackEvent("spin_win_cta_click", {
+                          event_label: "atrium_hub_modal_primary",
+                          source: "interactive_map_atrium",
+                          placement: "atrium_hub_modal_primary",
+                          campaign_active: campaignActive,
+                        });
                         onClose();
                       }}
                       className="block"
@@ -299,7 +289,16 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       variant="outline-blue"
                       disabled={!campaignActive}
                       className="h-10 w-full rounded-xl text-[0.82rem] font-bold"
-                      onClick={() => { onClose(); onOpenSpinWheel(); }}
+                      onClick={() => {
+                        trackEvent("spin_win_quick_register_click", {
+                          event_label: "atrium_hub_modal_secondary",
+                          source: "interactive_map_atrium",
+                          placement: "atrium_hub_modal_secondary",
+                          campaign_active: campaignActive,
+                        });
+                        onClose();
+                        onOpenSpinWheel();
+                      }}
                     >
                       تسجيل سريع هنا
                     </Button>
