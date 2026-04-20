@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Props = {
   threshold?: number;
