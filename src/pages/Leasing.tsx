@@ -13,6 +13,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { trackLeadSubmit, trackEvent } from "@/lib/analytics";
 import entranceImage from "@/assets/mall-entrance.webp";
 
 const reveal = {
@@ -53,9 +54,17 @@ const Leasing = () => {
     });
     setLoading(false);
     if (error) {
+      trackEvent("lead_submit_error", { lead_type: "leasing", source: "leasing_page" });
       toast({ title: "خطأ", description: "حدث خطأ. حاول مرة أخرى.", variant: "destructive" });
       return;
     }
+    trackLeadSubmit("leasing", {
+      source: "leasing_page",
+      placement: "leasing_inquiry_form",
+      has_company: Boolean(form.company.trim()),
+      has_email: Boolean(form.email.trim()),
+      has_message: Boolean(form.message.trim()),
+    });
     setSubmitted(true);
     toast({ title: "تم الإرسال", description: "هنرجع لك في أقرب وقت." });
   };

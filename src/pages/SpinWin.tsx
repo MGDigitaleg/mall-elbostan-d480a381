@@ -16,6 +16,7 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
 import { useCampaignStatus } from "@/hooks/useCampaignStatus";
+import { trackSpinSubmit, trackSpinResult, trackEvent } from "@/lib/analytics";
 import { Clock as ClockIcon } from "lucide-react";
 
 /* ─── 8 visible wheel segments (visual only — backend decides outcome) ─── */
@@ -90,6 +91,11 @@ const SpinWin = () => {
     }
 
     setLoading(true);
+    trackSpinSubmit({
+      placement: "spin_win_page_form",
+      has_email: Boolean(form.email.trim()),
+      has_visitor_token: Boolean(form.visitor_token.trim()),
+    });
     try {
       const { data, error } = await supabase.functions.invoke("spin", {
         body: {
@@ -102,6 +108,7 @@ const SpinWin = () => {
 
       if (error) throw error;
       if (data?.error) {
+        trackEvent("spin_win_error", { reason: String(data.error).slice(0, 80) });
         toast({ title: "تنبيه", description: data.error, variant: "destructive" });
         setLoading(false);
         return;
@@ -110,10 +117,16 @@ const SpinWin = () => {
       const idx = data.won
         ? pickSegmentIndex(data.result?.prize?.name_ar, data.result?.is_grand)
         : 6;
+      trackSpinResult(Boolean(data.won), {
+        is_grand: Boolean(data.result?.is_grand),
+        prize_type: data.result?.prize?.prize_type ?? null,
+        prize_name: data.result?.prize?.name_ar ?? null,
+      });
       setResult(data);
       setTargetIndex(idx);
       setStep("spinning");
     } catch {
+      trackEvent("spin_win_error", { reason: "network_or_unknown" });
       toast({ title: "خطأ", description: "حدث خطأ — حاول مرة أخرى", variant: "destructive" });
     } finally {
       setLoading(false);
