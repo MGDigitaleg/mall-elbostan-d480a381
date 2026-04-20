@@ -1,6 +1,6 @@
 import { lazy, Suspense, useMemo } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Reveal } from "@/components/home/Reveal";
 import {
   ArrowLeft,
   Compass,
@@ -55,10 +55,6 @@ const fallbackFaqs = [
   { id: "faq-6", question_ar: "كيف أتقدم باستفسار تجاري؟", answer_ar: "من صفحة التأجير أو التواصل." },
 ];
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
 
 type HomeContentProps = {
   faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
@@ -339,13 +335,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
         }}>
         <div className="container">
-          <motion.div
-            variants={sectionReveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-60px" }}
-            className="mx-auto max-w-[58rem]"
-          >
+          <Reveal className="mx-auto max-w-[58rem]">
             <Suspense fallback={
               <div className="flex items-center justify-center rounded-2xl border border-border bg-card py-20">
                 <div className="flex flex-col items-center gap-3">
@@ -356,7 +346,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             }>
               <MapTeaserPreview />
             </Suspense>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
@@ -374,7 +364,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
 
         <div className="container relative">
-          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <Reveal>
             <div className="mx-auto max-w-[54rem]">
               <div className="text-center mb-7">
                 <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 mb-3" style={{ background: "#F9731610", border: "1px solid #F9731620" }}>
@@ -415,7 +405,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
@@ -429,7 +419,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         }}
       >
         <div className="container max-w-[720px]">
-          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <Reveal>
             <Link to="/market-echo" className="group block">
               <div
                 className="relative rounded-2xl overflow-hidden p-6 md:p-8 text-center transition-all duration-300 group-hover:shadow-lg"
@@ -468,7 +458,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 </div>
               </div>
             </Link>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
@@ -493,7 +483,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
 
         <div className="container relative max-w-5xl">
-          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <Reveal>
             <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
               <div className="lg:sticky lg:top-24">
                 <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-3" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
@@ -535,7 +525,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 ))}
               </Accordion>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
 
@@ -553,7 +543,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
 
         <div className="container relative max-w-[700px]">
-          <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <Reveal>
             <div className="flex items-center justify-center gap-3 mb-5">
               <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A60, transparent)" }} />
               <span className="font-poppins text-[0.58rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>ابدأ من هنا</span>
@@ -587,7 +577,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 </Link>
               ))}
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
     </>
