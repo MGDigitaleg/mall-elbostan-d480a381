@@ -8,6 +8,7 @@ import { useGA4 } from "@/hooks/useGA4";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
+import { MobileBottomNav } from "./components/layout/MobileBottomNav";
 
 
 /* ── Lazy-loaded pages for code-splitting ── */
@@ -71,7 +72,15 @@ const AdminStorePrizes = lazy(() => import("./pages/admin/AdminSpinSystem").then
 const AdminSpinWinners = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners })));
 const AdminSpinReports = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports })));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes — avoid refetch on mobile back-nav
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function GA4Init() { useGA4(); return null; }
 
@@ -185,6 +194,7 @@ function AppLayout() {
         </Suspense>
       </main>
       {showChrome && <Footer />}
+      {showChrome && <MobileBottomNav />}
     </>
   );
 }
