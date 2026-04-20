@@ -148,7 +148,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
   return (
     <>
       {/* ═══════════ 1 · HERO ═══════════ */}
-      <section style={{ contain: "layout" }}><HeroSlider /></section>
+      <section style={{ contain: "layout" }}>
+        <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
+          {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
+        </Suspense>
+      </section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
       <section style={{ contain: "layout" }}><CategoryStrip /></section>
