@@ -142,7 +142,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
 
   return (
-    <>
+    <div style={{ minHeight: "300vh" }}>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section style={{ contain: "layout", minHeight: isMobile ? 520 : 580 }}>
         <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
