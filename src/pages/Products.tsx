@@ -290,6 +290,38 @@ const Products = () => {
 
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || selectedBrand !== "all" || priceRange !== null || searchTerm.trim().length > 0;
 
+  /* ── Infinite scroll: visible count ── */
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  // Reset pagination when filters/sort change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
+
+  const visibleProducts = useMemo(
+    () => filteredProducts.slice(0, visibleCount),
+    [filteredProducts, visibleCount]
+  );
+  const hasMore = visibleCount < filteredProducts.length;
+
+  // IntersectionObserver to auto-load more
+  useEffect(() => {
+    if (!hasMore) return;
+    const node = sentinelRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisibleCount((c) => Math.min(c + PAGE_SIZE, filteredProducts.length));
+        }
+      },
+      { rootMargin: "400px 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, filteredProducts.length]);
+
   /* ── Quick filter chips: match merged sections by keywords ── */
   const quickChips = useMemo(() => {
     const groups: { key: string; label: string; keywords: string[] }[] = [
