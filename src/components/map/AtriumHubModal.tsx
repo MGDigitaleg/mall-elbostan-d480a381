@@ -1,5 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+/* ── Tracking helper: fires to GA4 (gtag) and GTM (dataLayer) ── */
+function trackEvent(name: string, params: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as {
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
+  };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", name, { event_category: "engagement", ...params });
+  }
+  if (Array.isArray(w.dataLayer)) {
+    w.dataLayer.push({ event: name, ...params });
+  }
+}
 import { Link } from "react-router-dom";
 import {
   Gift, Store, Layers, Tag, Calendar, Compass, ArrowLeft, X,
