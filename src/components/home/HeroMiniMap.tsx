@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Building2, MapPin, Ruler, Tag } from "lucide-react";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
 import { FloorTabs } from "@/components/map/FloorTabs";
@@ -25,6 +25,7 @@ const statusBadge: Record<MallUnitStatus, { bg: string; border: string; text: st
  * This is the hero's primary visual element — not a thumbnail.
  */
 export function HeroMiniMap() {
+  const navigate = useNavigate();
   const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
 
   const floor = useMemo(
@@ -77,6 +78,7 @@ export function HeroMiniMap() {
             selectedUnitId={activeUnit.id}
             mutedUnitIds={emptySet}
             onSelectUnit={setSelectedUnit}
+            onAtriumClick={() => navigate("/spin-win")}
             className="min-h-[200px] md:min-h-[240px]"
           />
         </div>
