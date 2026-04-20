@@ -15,6 +15,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageHero } from "@/components/PageHero";
+import { ProductRail } from "@/components/home/ProductRail";
 
 /* ══════════════════════════════════════════════
    Unified product type for display
@@ -236,6 +237,26 @@ const Products = () => {
 
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
 
+  /* ── Featured products for premium top rail ── */
+  const featuredHighlights = useMemo(() => {
+    return allProducts
+      .filter((p) => p.featured && p.product_image)
+      .slice(0, 10)
+      .map((p) => ({
+        id: p.id,
+        name_ar: p.product_name,
+        slug: p.slug,
+        price: p.price,
+        price_note: p.priceNote,
+        image_url: p.product_image,
+        featured: p.featured,
+        brand: p.brand,
+        stores: p.shop_name
+          ? { name_ar: p.shop_name, slug: p.storeSlug ?? "", logo_url: p.storeLogo, category: p.section }
+          : null,
+      }));
+  }, [allProducts]);
+
   const clearFilters = useCallback(() => {
     setSelectedSection("all");
     setSelectedShop("all");
@@ -267,6 +288,38 @@ const Products = () => {
       />
 
       <div className="band-primary" />
+
+      {/* ═══ Premium Featured Rail (top, no filters active) ═══ */}
+      {!hasActiveFilters && featuredHighlights.length >= 3 && (
+        <section
+          className="relative overflow-hidden"
+          style={{
+            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+            paddingTop: "clamp(40px, 5vw, 72px)",
+            paddingBottom: "clamp(40px, 5vw, 72px)",
+          }}
+        >
+          <div className="absolute inset-0 pointer-events-none">
+            <div
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]"
+              style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }}
+            />
+          </div>
+          <div className="container relative max-w-[1200px]">
+            <ProductRail
+              kicker="اختيارات مميزة"
+              title="منتجات مميزة من المول"
+              subtitle="أبرز ما اختارته محلات مول البستان لك."
+              products={featuredHighlights}
+              ctaLabel="تصفّح الكل"
+              ctaTo="#products"
+              layout="rail"
+              theme="dark"
+              density="premium"
+            />
+          </div>
+        </section>
+      )}
 
       <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
         <div className="container max-w-[1200px]">
