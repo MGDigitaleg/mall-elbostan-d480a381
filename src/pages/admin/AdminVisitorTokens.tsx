@@ -70,7 +70,14 @@ const AdminVisitorTokens = () => {
       (sessionsRes.data || []).forEach((s: { visitor_token: string | null; created_at: string }) => {
         if (s.visitor_token && !lastUsed.has(s.visitor_token)) lastUsed.set(s.visitor_token, s.created_at);
       });
-      setTokens((tokensRes.data || []).map(t => ({ ...t, last_used_at: lastUsed.get(t.token) || null })));
+      const enriched = (tokensRes.data || []).map(t => ({ ...t, last_used_at: lastUsed.get(t.token) || null }));
+      enriched.sort((a, b) => {
+        const aTime = a.last_used_at ? new Date(a.last_used_at).getTime() : 0;
+        const bTime = b.last_used_at ? new Date(b.last_used_at).getTime() : 0;
+        if (aTime !== bTime) return bTime - aTime;
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      });
+      setTokens(enriched);
     }
     setLoading(false);
   };
