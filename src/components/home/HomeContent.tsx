@@ -366,7 +366,44 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="container relative">
           <Reveal>
             <div className="mx-auto max-w-[54rem]">
-...
+              <div className="text-center mb-7">
+                <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 mb-3" style={{ background: "#F9731610", border: "1px solid #F9731620" }}>
+                  <Gift className="h-3 w-3" style={{ color: "#F97316" }} />
+                  <span className="text-[0.66rem] font-bold" style={{ color: "#F97316" }}>حملة الافتتاح</span>
+                </div>
+                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+                  أدر العجلة واربح يوم الافتتاح.
+                </h2>
+                <p className="mt-2 text-[0.8rem] leading-[1.7] max-w-md mx-auto" style={{ color: "#94A3B8" }}>
+                  جوائز حقيقية من محلات المول — سجّل الآن واحضر يوم الافتتاح.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2.5 md:gap-3 mb-7">
+                {[
+                  { n: "01", title: "تصفّح المحلات", desc: "اعرف المحلات المشاركة.", color: "#2563EB" },
+                  { n: "02", title: "أدر واربح", desc: "سجّل واحفظ نتيجتك.", color: "#06B6D4" },
+                  { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح.", color: "#F97316" },
+                ].map((s) => (
+                  <div key={s.n} className="rounded-xl p-4 md:p-5 text-center"
+                       style={{ background: "#ffffff04", border: "1px solid #ffffff0A" }}>
+                    <div className="mx-auto mb-2.5 flex h-9 w-9 items-center justify-center rounded-lg"
+                         style={{ background: `${s.color}12`, border: `1px solid ${s.color}20` }}>
+                      <span className="font-poppins text-[0.7rem] font-extrabold" style={{ color: s.color }}>{s.n}</span>
+                    </div>
+                    <p className="text-[0.82rem] font-bold" style={{ color: "#F1F5F9" }}>{s.title}</p>
+                    <p className="mt-1 text-[0.7rem] leading-[1.55]" style={{ color: "#7C8BA1" }}>{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center">
+                <Link to="/spin-win">
+                  <Button variant="cta" className="h-10 rounded-xl px-6 font-bold text-[0.82rem] shadow-lg shadow-primary/15">
+                    <Gift className="ml-1.5 h-3.5 w-3.5" />أدر واربح الآن
+                  </Button>
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -384,7 +421,42 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="container max-w-[720px]">
           <Reveal>
             <Link to="/market-echo" className="group block">
-...
+              <div
+                className="relative rounded-2xl overflow-hidden p-6 md:p-8 text-center transition-all duration-300 group-hover:shadow-lg"
+                style={{
+                  background: "linear-gradient(160deg, #04152F 0%, #071B44 50%, #04152F 100%)",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                }}
+              >
+                {/* Subtle grid texture */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                     style={{
+                       backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
+                       backgroundSize: "88px 88px",
+                     }}
+                />
+
+                <div className="relative">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A50, transparent)" }} />
+                    <span className="font-poppins text-[0.56rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>
+                      صدى السوق
+                    </span>
+                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A50, transparent)" }} />
+                  </div>
+
+                  <h3 className="text-[1.05rem] md:text-[1.2rem] font-bold leading-[1.25]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F1F5F9" }}>
+                    ٣٥ سنة والسوق يبدأ من هنا.
+                  </h3>
+                  <p className="mt-2 text-[0.78rem] leading-[1.7] max-w-[22rem] mx-auto" style={{ color: "#7C8BA1" }}>
+                    قصة اسم بناه التجار والزبائن — ليس الإعلانات.
+                  </p>
+
+                  <div className="mt-4 inline-flex items-center gap-1.5 text-[0.78rem] font-bold transition-all group-hover:gap-2.5" style={{ color: "#5B9AFF" }}>
+                    اكتشف القصة <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
+                  </div>
+                </div>
+              </div>
             </Link>
           </Reveal>
         </div>
@@ -413,7 +485,44 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="container relative max-w-5xl">
           <Reveal>
             <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
-...
+              <div className="lg:sticky lg:top-24">
+                <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-3" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
+                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+                  إجابات سريعة.
+                </h2>
+                <p className="mt-2.5 text-[0.8rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
+                  أبرز الأسئلة حول الموقع والافتتاح والتأجير.
+                </p>
+                <Link to="/faq" className="mt-4 inline-flex">
+                  <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
+                          style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
+                    جميع الأسئلة <ArrowLeft className="h-3 w-3" />
+                  </Button>
+                </Link>
+              </div>
+
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
+                {faqItems.map((faq, i) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={faq.id}
+                    className="overflow-hidden rounded-xl border px-4 transition-colors data-[state=open]:bg-white/[0.03]"
+                    style={{ background: "#ffffff03", borderColor: "#ffffff0A" }}
+                  >
+                    <AccordionTrigger className="min-h-[3rem] py-3.5 text-right text-[0.84rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
+                      <span className="flex items-center gap-2.5">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-poppins text-[0.6rem] font-extrabold"
+                              style={{ background: "#2563EB12", color: "#60A5FA", border: "1px solid #2563EB20" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {faq.question_ar}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-3.5 pr-9 text-[0.78rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+                      {faq.answer_ar}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
               </Accordion>
             </div>
           </Reveal>
@@ -436,7 +545,36 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <div className="container relative max-w-[700px]">
           <Reveal>
             <div className="flex items-center justify-center gap-3 mb-5">
-...
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A60, transparent)" }} />
+              <span className="font-poppins text-[0.58rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>ابدأ من هنا</span>
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A60, transparent)" }} />
+            </div>
+
+            <h2 className="mx-auto max-w-[22rem] text-center text-[1.15rem] md:text-[1.4rem] font-bold leading-[1.15]"
+                style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+              ابدأ من هنا.
+            </h2>
+            <p className="mx-auto mt-2.5 max-w-[20rem] text-center text-[0.82rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+              دليل المحلات، الخريطة التفاعلية، والوحدات المتاحة.
+            </p>
+
+            <div className="mx-auto mt-7 grid gap-2.5 sm:grid-cols-3">
+              {[
+                { icon: Compass, label: "الخريطة التفاعلية", desc: "خريطة لكل دور.", to: "/map", color: "#2563EB" },
+                { icon: Store, label: "دليل المحلات", desc: "تصفّح المحلات.", to: "/stores", color: "#06B6D4" },
+                { icon: Phone, label: "استفسار التأجير", desc: "وحدات جاهزة.", to: "/leasing", color: "#F97316" },
+              ].map((item) => (
+                <Link key={item.to} to={item.to} className="group">
+                  <div className="rounded-xl p-4 text-center transition-all duration-300 hover:bg-white/[0.03]"
+                       style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}>
+                    <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-lg"
+                         style={{ background: `${item.color}10`, border: `1px solid ${item.color}18` }}>
+                      <item.icon className="h-4 w-4" style={{ color: item.color }} />
+                    </div>
+                    <p className="text-[0.82rem] font-bold" style={{ color: "#F1F5F9" }}>{item.label}</p>
+                    <p className="mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#7C8BA1" }}>{item.desc}</p>
+                  </div>
+                </Link>
               ))}
             </div>
           </Reveal>
