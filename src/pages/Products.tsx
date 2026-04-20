@@ -8,12 +8,15 @@ import {
   Store,
   X,
   ArrowLeft,
+  SlidersHorizontal,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Slider } from "@/components/ui/slider";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PageHero } from "@/components/PageHero";
 import { ProductRail } from "@/components/home/ProductRail";
 
@@ -48,10 +51,20 @@ const Products = () => {
   const urlMall = searchParams.get("mall") ?? "all";
   const urlSearch = searchParams.get("q") ?? "";
 
+  const urlBrand = searchParams.get("brand") ?? "all";
+  const urlPriceMin = Number(searchParams.get("price_min") ?? "");
+  const urlPriceMax = Number(searchParams.get("price_max") ?? "");
+
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedShop, setSelectedShop] = useState(urlShopName);
   const [selectedSection, setSelectedSection] = useState(urlSection);
   const [selectedMall, setSelectedMall] = useState(urlMall);
+  const [selectedBrand, setSelectedBrand] = useState(urlBrand);
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(
+    Number.isFinite(urlPriceMin) && Number.isFinite(urlPriceMax) && urlPriceMin > 0 && urlPriceMax > 0
+      ? [urlPriceMin, urlPriceMax]
+      : null
+  );
   const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
 
   // Sync URL when filters change
@@ -60,9 +73,14 @@ const Products = () => {
     if (selectedShop !== "all") params.set("shop_name", selectedShop);
     if (selectedSection !== "all") params.set("section", selectedSection);
     if (selectedMall !== "all") params.set("mall", selectedMall);
+    if (selectedBrand !== "all") params.set("brand", selectedBrand);
+    if (priceRange) {
+      params.set("price_min", String(priceRange[0]));
+      params.set("price_max", String(priceRange[1]));
+    }
     if (searchTerm.trim()) params.set("q", searchTerm.trim());
     setSearchParams(params, { replace: true });
-  }, [selectedShop, selectedSection, selectedMall, searchTerm, setSearchParams]);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, setSearchParams]);
 
   /* ── Fetch mall products ── */
   const { data: mallProducts, isLoading: loadingMall } = useQuery({
@@ -201,6 +219,29 @@ const Products = () => {
     return Array.from(set);
   }, [allProducts]);
 
+  /* ── Brand list (from products that pass shop/section/mall filters) ── */
+  const brandList = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const p of allProducts) {
+      if (!p.brand) continue;
+      const b = p.brand.trim();
+      if (!b) continue;
+      counts.set(b, (counts.get(b) ?? 0) + 1);
+    }
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
+  }, [allProducts]);
+
+  /* ── Price bounds across all products ── */
+  const priceBounds = useMemo<[number, number]>(() => {
+    const prices = allProducts.map(p => p.price).filter((p): p is number => typeof p === "number" && p > 0);
+    if (prices.length === 0) return [0, 100000];
+    const min = Math.floor(Math.min(...prices));
+    const max = Math.ceil(Math.max(...prices));
+    return [min, max === min ? min + 1 : max];
+  }, [allProducts]);
+
   /* ── Filter & Sort ── */
   const filteredProducts = useMemo(() => {
     let list = allProducts;
@@ -215,6 +256,15 @@ const Products = () => {
 
     if (selectedMall !== "all") {
       list = list.filter(p => p.mall === selectedMall);
+    }
+
+    if (selectedBrand !== "all") {
+      list = list.filter(p => p.brand?.trim() === selectedBrand);
+    }
+
+    if (priceRange) {
+      const [lo, hi] = priceRange;
+      list = list.filter(p => typeof p.price === "number" && p.price >= lo && p.price <= hi);
     }
 
     if (searchTerm.trim()) {
@@ -233,9 +283,9 @@ const Products = () => {
       case "newest": return sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-  }, [allProducts, selectedShop, selectedSection, selectedMall, searchTerm, sortBy]);
+  }, [allProducts, selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
 
-  const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
+  const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || selectedBrand !== "all" || priceRange !== null || searchTerm.trim().length > 0;
 
   /* ── Quick filter chips: match merged sections by keywords ── */
   const quickChips = useMemo(() => {
@@ -302,9 +352,98 @@ const Products = () => {
     setSelectedSection("all");
     setSelectedShop("all");
     setSelectedMall("all");
+    setSelectedBrand("all");
+    setPriceRange(null);
     setSearchTerm("");
     setSortBy("featured");
   }, []);
+
+  /* ── Sidebar filter content (shared between desktop sidebar & mobile sheet) ── */
+  const FilterSidebar = ({ className = "" }: { className?: string }) => (
+    <div className={`flex flex-col gap-5 ${className}`}>
+      {/* Price Range */}
+      <div>
+        <h3 className="mb-3 text-[0.76rem] font-bold" style={{ color: "#CBD5E1" }}>نطاق السعر</h3>
+        <div className="px-1">
+          <Slider
+            min={priceBounds[0]}
+            max={priceBounds[1]}
+            step={Math.max(1, Math.floor((priceBounds[1] - priceBounds[0]) / 100))}
+            value={priceRange ?? priceBounds}
+            onValueChange={(val) => {
+              const [lo, hi] = val as [number, number];
+              if (lo === priceBounds[0] && hi === priceBounds[1]) {
+                setPriceRange(null);
+              } else {
+                setPriceRange([lo, hi]);
+              }
+            }}
+            className="my-2"
+          />
+          <div className="flex items-center justify-between text-[0.68rem] font-poppins" style={{ color: "#94A3B8" }}>
+            <span>{(priceRange?.[0] ?? priceBounds[0]).toLocaleString("ar-EG")} ج.م</span>
+            <span>{(priceRange?.[1] ?? priceBounds[1]).toLocaleString("ar-EG")} ج.م</span>
+          </div>
+        </div>
+        {priceRange && (
+          <button
+            onClick={() => setPriceRange(null)}
+            className="mt-2 flex items-center gap-1 text-[0.66rem] font-semibold transition-colors hover:text-white"
+            style={{ color: "#5B9AFF" }}
+          >
+            <X className="h-3 w-3" /> إلغاء فلتر السعر
+          </button>
+        )}
+      </div>
+
+      {/* Brand Filter */}
+      {brandList.length > 0 && (
+        <div>
+          <h3 className="mb-3 text-[0.76rem] font-bold" style={{ color: "#CBD5E1" }}>العلامة التجارية</h3>
+          <div className="flex flex-col gap-1 max-h-[240px] overflow-y-auto scrollbar-hide">
+            <button
+              onClick={() => setSelectedBrand("all")}
+              className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[0.72rem] font-semibold text-right transition-all"
+              style={{
+                background: selectedBrand === "all" ? "#2563EB20" : "transparent",
+                color: selectedBrand === "all" ? "#60A5FA" : "#94A3B8",
+                border: selectedBrand === "all" ? "1px solid #2563EB40" : "1px solid transparent",
+              }}
+            >
+              <span>الكل</span>
+              <span className="font-poppins text-[0.62rem]" style={{ color: "#64748B" }}>{allProducts.length}</span>
+            </button>
+            {brandList.slice(0, 20).map((b) => (
+              <button
+                key={b.name}
+                onClick={() => setSelectedBrand(selectedBrand === b.name ? "all" : b.name)}
+                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[0.72rem] font-semibold text-right transition-all"
+                style={{
+                  background: selectedBrand === b.name ? "#2563EB20" : "transparent",
+                  color: selectedBrand === b.name ? "#60A5FA" : "#94A3B8",
+                  border: selectedBrand === b.name ? "1px solid #2563EB40" : "1px solid transparent",
+                }}
+              >
+                <span>{b.name}</span>
+                <span className="font-poppins text-[0.62rem]" style={{ color: "#64748B" }}>{b.count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Reset all */}
+      {hasActiveFilters && (
+        <button
+          onClick={clearFilters}
+          className="mt-2 flex h-9 w-full items-center justify-center gap-1.5 rounded-lg text-[0.74rem] font-bold transition-all"
+          style={{ border: "1px solid #ffffff18", background: "#ffffff08", color: "#CBD5E1" }}
+        >
+          <X className="h-3.5 w-3.5" /> إعادة ضبط كل الفلاتر
+        </button>
+      )}
+    </div>
+  );
 
   return (
     <MainLayout>
@@ -463,6 +602,34 @@ const Products = () => {
                   <option value="price_desc">السعر: الأعلى</option>
                   <option value="newest">الأحدث</option>
                 </select>
+
+                {/* Mobile filters trigger */}
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <button
+                      className="lg:hidden flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
+                      style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                      فلاتر متقدمة
+                      {(priceRange || selectedBrand !== "all") && (
+                        <span className="ml-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold" style={{ background: "#2563EB", color: "#fff" }}>
+                          {(priceRange ? 1 : 0) + (selectedBrand !== "all" ? 1 : 0)}
+                        </span>
+                      )}
+                    </button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-[300px] sm:w-[340px] bg-[#0B1220] border-[#ffffff14]" style={{ direction: "rtl" }}>
+                    <SheetHeader>
+                      <SheetTitle className="text-right text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>
+                        الفلاتر المتقدمة
+                      </SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-5">
+                      <FilterSidebar />
+                    </div>
+                  </SheetContent>
+                </Sheet>
               </div>
             </div>
 
@@ -524,36 +691,57 @@ const Products = () => {
             </div>
           )}
 
-
-          {isLoading ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <div key={i} className="rounded-xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
-                  <Skeleton className="aspect-square w-full rounded-none bg-[#ffffff08]" />
-                  <div className="p-3 space-y-2">
-                    <Skeleton className="h-2 w-12 bg-[#ffffff06]" />
-                    <Skeleton className="h-3 w-full bg-[#ffffff08]" />
-                    <Skeleton className="h-3 w-3/4 bg-[#ffffff08]" />
-                    <div className="flex items-center gap-1.5 pt-1">
-                      <Skeleton className="h-3.5 w-3.5 rounded-sm bg-[#ffffff06]" />
-                      <Skeleton className="h-2.5 w-16 bg-[#ffffff06]" />
-                    </div>
-                    <div className="flex items-center justify-between pt-1">
-                      <Skeleton className="h-4 w-14 bg-[#ffffff08]" />
-                    </div>
-                  </div>
+          {/* Layout: Sidebar (desktop) + Grid */}
+          <div className="flex flex-col lg:flex-row lg:gap-6">
+            {/* Desktop sidebar (RTL: appears on the right visually) */}
+            <aside className="hidden lg:block lg:w-[240px] lg:shrink-0">
+              <div
+                className="sticky top-32 rounded-xl p-4"
+                style={{ border: "1px solid #ffffff10", background: "#ffffff04" }}
+              >
+                <div className="mb-4 flex items-center gap-2">
+                  <SlidersHorizontal className="h-3.5 w-3.5" style={{ color: "#5B9AFF" }} />
+                  <h2 className="text-[0.82rem] font-bold" style={{ color: "#F8FAFC" }}>
+                    الفلاتر
+                  </h2>
                 </div>
-              ))}
+                <FilterSidebar />
+              </div>
+            </aside>
+
+            {/* Grid column */}
+            <div className="flex-1 min-w-0">
+              {isLoading ? (
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  {Array.from({ length: 12 }).map((_, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden" style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}>
+                      <Skeleton className="aspect-square w-full rounded-none bg-[#ffffff08]" />
+                      <div className="p-3 space-y-2">
+                        <Skeleton className="h-2 w-12 bg-[#ffffff06]" />
+                        <Skeleton className="h-3 w-full bg-[#ffffff08]" />
+                        <Skeleton className="h-3 w-3/4 bg-[#ffffff08]" />
+                        <div className="flex items-center gap-1.5 pt-1">
+                          <Skeleton className="h-3.5 w-3.5 rounded-sm bg-[#ffffff06]" />
+                          <Skeleton className="h-2.5 w-16 bg-[#ffffff06]" />
+                        </div>
+                        <div className="flex items-center justify-between pt-1">
+                          <Skeleton className="h-4 w-14 bg-[#ffffff08]" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : filteredProducts.length > 0 ? (
+                <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+                  {filteredProducts.map((product, i) => (
+                    <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
+                  ))}
+                </div>
+              ) : (
+                <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
+              )}
             </div>
-          ) : filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-              {filteredProducts.map((product, i) => (
-                <ProductCard key={`${product.source}-${product.id}`} product={product} index={i} />
-              ))}
-            </div>
-          ) : (
-            <EmptyState hasFilters={hasActiveFilters} onClear={clearFilters} />
-          )}
+          </div>
         </div>
       </section>
 
