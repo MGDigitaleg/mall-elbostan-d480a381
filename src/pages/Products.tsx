@@ -51,10 +51,20 @@ const Products = () => {
   const urlMall = searchParams.get("mall") ?? "all";
   const urlSearch = searchParams.get("q") ?? "";
 
+  const urlBrand = searchParams.get("brand") ?? "all";
+  const urlPriceMin = Number(searchParams.get("price_min") ?? "");
+  const urlPriceMax = Number(searchParams.get("price_max") ?? "");
+
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedShop, setSelectedShop] = useState(urlShopName);
   const [selectedSection, setSelectedSection] = useState(urlSection);
   const [selectedMall, setSelectedMall] = useState(urlMall);
+  const [selectedBrand, setSelectedBrand] = useState(urlBrand);
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(
+    Number.isFinite(urlPriceMin) && Number.isFinite(urlPriceMax) && urlPriceMin > 0 && urlPriceMax > 0
+      ? [urlPriceMin, urlPriceMax]
+      : null
+  );
   const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
 
   // Sync URL when filters change
@@ -63,9 +73,14 @@ const Products = () => {
     if (selectedShop !== "all") params.set("shop_name", selectedShop);
     if (selectedSection !== "all") params.set("section", selectedSection);
     if (selectedMall !== "all") params.set("mall", selectedMall);
+    if (selectedBrand !== "all") params.set("brand", selectedBrand);
+    if (priceRange) {
+      params.set("price_min", String(priceRange[0]));
+      params.set("price_max", String(priceRange[1]));
+    }
     if (searchTerm.trim()) params.set("q", searchTerm.trim());
     setSearchParams(params, { replace: true });
-  }, [selectedShop, selectedSection, selectedMall, searchTerm, setSearchParams]);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, setSearchParams]);
 
   /* ── Fetch mall products ── */
   const { data: mallProducts, isLoading: loadingMall } = useQuery({
