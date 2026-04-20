@@ -30,7 +30,7 @@ export function CategoryStrip() {
         background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
         paddingTop: "clamp(28px, 3.5vw, 48px)",
         paddingBottom: "clamp(28px, 3.5vw, 48px)",
-        minHeight: 180,
+        minHeight: 296,
       }}
     >
       <div className="container">
