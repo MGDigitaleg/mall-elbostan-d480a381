@@ -371,7 +371,7 @@ export function ProductRail({
     }
   }, []);
 
-  if (!loading && displayed.length === 0) return null;
+  if (!loading && displayed.length === 0) return <></>;
 
   const railSize = getRailWidth(tier, density);
 
