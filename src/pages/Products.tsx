@@ -487,7 +487,44 @@ const Products = () => {
             )}
           </div>
 
-          {/* Products grid */}
+          {/* Quick category chips */}
+          {quickChips.length > 0 && (
+            <div className="mb-4 flex flex-wrap items-center gap-2">
+              <span className="text-[0.7rem] font-semibold tracking-wide" style={{ color: "#64748B" }}>
+                تصفية سريعة:
+              </span>
+              <button
+                onClick={() => setSelectedSection("all")}
+                className="h-8 rounded-full px-3 text-[0.74rem] font-bold transition-all"
+                style={{
+                  border: selectedSection === "all" ? "1px solid #2563EB" : "1px solid #ffffff14",
+                  background: selectedSection === "all" ? "#2563EB" : "#ffffff08",
+                  color: selectedSection === "all" ? "#fff" : "#CBD5E1",
+                }}
+              >
+                الكل
+              </button>
+              {quickChips.map((chip) => {
+                const active = selectedSection === chip.sectionId;
+                return (
+                  <button
+                    key={chip.key}
+                    onClick={() => setSelectedSection(active ? "all" : chip.sectionId)}
+                    className="h-8 rounded-full px-3 text-[0.74rem] font-bold transition-all hover:border-primary/50"
+                    style={{
+                      border: active ? "1px solid #2563EB" : "1px solid #ffffff14",
+                      background: active ? "#2563EB" : "#ffffff08",
+                      color: active ? "#fff" : "#CBD5E1",
+                    }}
+                  >
+                    {chip.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+
           {isLoading ? (
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               {Array.from({ length: 10 }).map((_, i) => (
