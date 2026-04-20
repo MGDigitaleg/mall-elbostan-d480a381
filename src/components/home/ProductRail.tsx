@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, ShoppingBag, Store, Sparkles } fr
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { optimizeImageUrl, unsplashSrcSet } from "@/lib/imageUtils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Product = {
   id: string;
@@ -208,6 +209,9 @@ export function ProductRail({
   const isDragging = useRef(false);
   const dragStart = useRef({ x: 0, scrollLeft: 0 });
   const isDark = theme === "dark";
+  const isMobile = useIsMobile();
+  /* On mobile, always render as horizontal rail for native-app feel */
+  const effectiveLayout = isMobile ? "rail" : layout;
   const displayed = maxItems ? products.slice(0, maxItems) : products;
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -305,7 +309,7 @@ export function ProductRail({
       </div>
 
       {/* Grid or Rail */}
-      {layout === "rail" ? (
+      {effectiveLayout === "rail" ? (
         <div className="relative group/rail">
           {/* Edge fade indicators */}
           <div
