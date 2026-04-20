@@ -4,12 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { motion } from "framer-motion";
-
-const sectionReveal = {
-  hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
-};
+import { Reveal } from "@/components/home/Reveal";
 
 const PROMO_CARDS = [
   {
@@ -68,12 +63,7 @@ export function DealsTeaser() {
       </div>
 
       <div className="container relative">
-        <motion.div
-          variants={sectionReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
+        <Reveal rootMargin="-60px" offset={12}>
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#F97316" }}>
@@ -235,7 +225,7 @@ export function DealsTeaser() {
               </Button>
             </Link>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

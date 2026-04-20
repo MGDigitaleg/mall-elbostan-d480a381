@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { Reveal } from "@/components/home/Reveal";
 
 import dtHero from "@/assets/downtown-hero-night-clean2.webp";
-
-const sectionReveal = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-};
 
 export function DowntownTeaser() {
   return (
@@ -19,12 +14,7 @@ export function DowntownTeaser() {
       }}
     >
       <div className="container relative">
-        <motion.div
-          variants={sectionReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-        >
+        <Reveal rootMargin="-80px" offset={14}>
           <div
             className="grid lg:grid-cols-[1.15fr_1fr] items-stretch overflow-hidden rounded-2xl"
             style={{
@@ -128,7 +118,7 @@ export function DowntownTeaser() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );
