@@ -237,6 +237,26 @@ const Products = () => {
 
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || searchTerm.trim().length > 0;
 
+  /* ── Featured products for premium top rail ── */
+  const featuredHighlights = useMemo(() => {
+    return allProducts
+      .filter((p) => p.featured && p.product_image)
+      .slice(0, 10)
+      .map((p) => ({
+        id: p.id,
+        name_ar: p.product_name,
+        slug: p.slug,
+        price: p.price,
+        price_note: p.priceNote,
+        image_url: p.product_image,
+        featured: p.featured,
+        brand: p.brand,
+        stores: p.shop_name
+          ? { name_ar: p.shop_name, slug: p.storeSlug ?? "", logo_url: p.storeLogo, category: p.section }
+          : null,
+      }));
+  }, [allProducts]);
+
   const clearFilters = useCallback(() => {
     setSelectedSection("all");
     setSelectedShop("all");
