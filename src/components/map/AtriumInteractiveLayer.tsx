@@ -66,12 +66,39 @@ export function AtriumInteractiveLayer({ mode, customColor, customLabel, onClick
         </circle>
       )}
 
-      {/* ── Always-visible center label — branded, not generic ── */}
+      {/* ── Spin & Win badge above center — clear visual cue ── */}
       <g pointerEvents="none">
-        {/* Background pill */}
+        {/* Pulsing halo behind badge */}
+        <circle cx={cx} cy={cy - 22} r="3" fill="#F97316" opacity="0.7">
+          <animate attributeName="r" values="3;7;3" dur="2s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.7;0.15;0.7" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <rect
+          x={cx - 32}
+          y={cy - 28}
+          width="64"
+          height="12"
+          rx="3"
+          fill="#F97316"
+          opacity="0.95"
+        />
+        <text
+          x={cx}
+          y={cy - 19.5}
+          textAnchor="middle"
+          className="text-[7px] font-extrabold"
+          fill="#FFFFFF"
+          style={{ letterSpacing: "0.05em" }}
+        >
+          SPIN &amp; WIN
+        </text>
+      </g>
+
+      {/* ── Always-visible center label ── */}
+      <g pointerEvents="none">
         <rect
           x={cx - 38}
-          y={cy - 10}
+          y={cy - 7}
           width="76"
           height="20"
           rx="5"
@@ -81,7 +108,7 @@ export function AtriumInteractiveLayer({ mode, customColor, customLabel, onClick
         />
         <text
           x={cx}
-          y={cy + 3}
+          y={cy + 6}
           textAnchor="middle"
           className="text-[9px] font-bold"
           fill="#E8ECF2"
@@ -119,9 +146,9 @@ export function AtriumInteractiveLayer({ mode, customColor, customLabel, onClick
       {/* Expanded tooltip on hover */}
       {hovered && (
         <g pointerEvents="none">
-          <rect x={cx - 56} y={cy - 36} width="112" height="18" rx="5" fill="#1A2A44" opacity="0.92" />
-          <text x={cx} y={cy - 24.5} textAnchor="middle" className="text-[8px] font-semibold" fill="#9BB8C8">
-            اضغط لاستكشاف العروض والمتاجر
+          <rect x={cx - 70} y={cy + 18} width="140" height="18" rx="5" fill="#1A2A44" opacity="0.95" />
+          <text x={cx} y={cy + 29.5} textAnchor="middle" className="text-[8px] font-semibold" fill="#FDE4C4">
+            اضغط للوصول إلى مركز المكافآت
           </text>
         </g>
       )}

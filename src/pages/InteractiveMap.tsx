@@ -15,7 +15,9 @@ import {
   ChevronLeft,
   Sparkles,
   LayoutGrid,
+  SlidersHorizontal,
 } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
@@ -249,46 +251,95 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ CONTROL BAR ═══════════ */}
-      <section className="sticky top-[56px] z-30 border-b border-border bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
-               style={{ boxShadow: "0 1px 4px hsl(var(--foreground) / 0.05), 0 4px 16px hsl(var(--foreground) / 0.02)" }}>
-        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="flex flex-wrap items-center justify-between gap-2 py-2.5">
-            <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
+      {(() => {
+        const activeFiltersCount =
+          (searchTerm.trim() ? 1 : 0) +
+          (categoryFilter !== "all" ? 1 : 0) +
+          (statusFilter !== "all" ? 1 : 0) +
+          (availableOnly ? 1 : 0);
+        return (
+          <section className="sticky top-[56px] z-30 border-b border-border bg-card/[0.97] backdrop-blur-xl md:top-[64px] xl:top-[68px]"
+                   style={{ boxShadow: "0 1px 4px hsl(var(--foreground) / 0.05), 0 4px 16px hsl(var(--foreground) / 0.02)" }}>
+            <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
+              {/* Mobile compact row */}
+              <div className="flex items-center justify-between gap-2 py-1.5 md:hidden">
+                <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <button
+                      className="relative flex h-9 items-center gap-1.5 rounded-lg border border-border bg-background px-3 text-[0.74rem] font-bold text-foreground"
+                      aria-label="فلترة وبحث"
+                    >
+                      <SlidersHorizontal className="h-3.5 w-3.5" />
+                      <span>فلترة</span>
+                      {activeFiltersCount > 0 && (
+                        <span className="ml-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 font-poppins text-[0.6rem] font-bold text-primary-foreground">
+                          {activeFiltersCount}
+                        </span>
+                      )}
+                    </button>
+                  </SheetTrigger>
+                  <SheetContent side="bottom" className="rounded-t-2xl">
+                    <SheetHeader>
+                      <SheetTitle className="text-right text-[0.95rem] font-bold light-heading">فلترة وبحث</SheetTitle>
+                    </SheetHeader>
+                    <div className="mt-4">
+                      <MapFilters
+                        searchTerm={searchTerm}
+                        onSearchChange={setSearchTerm}
+                        statusFilter={statusFilter}
+                        onStatusChange={setStatusFilter}
+                        categoryFilter={categoryFilter}
+                        onCategoryChange={setCategoryFilter}
+                        availableOnly={availableOnly}
+                        onAvailableOnlyChange={setAvailableOnly}
+                      />
+                    </div>
+                    <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                      <MapLegend />
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
 
-            <div className="flex items-center gap-3">
-              <MapLegend />
-              {/* Floor stats strip */}
-              <div className="hidden items-center gap-2 rounded-xl px-3.5 py-2 text-[0.7rem] md:flex bg-muted/50 border border-border">
-                <span className="font-bold text-foreground">{floor.units.length}</span>
-                <span className="text-muted-foreground">وحدة</span>
-                <span className="h-3.5 w-px bg-border" />
-                <span className="font-bold" style={{ color: "hsl(25 95% 50%)" }}>{floorAvailable}</span>
-                <span className="text-muted-foreground">متاحة</span>
-                {floorComingSoon > 0 && (
-                  <>
+              {/* Desktop full bar */}
+              <div className="hidden flex-wrap items-center justify-between gap-2 py-2.5 md:flex">
+                <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
+                <div className="flex items-center gap-3">
+                  <MapLegend />
+                  <div className="hidden items-center gap-2 rounded-xl px-3.5 py-2 text-[0.7rem] md:flex bg-muted/50 border border-border">
+                    <span className="font-bold text-foreground">{floor.units.length}</span>
+                    <span className="text-muted-foreground">وحدة</span>
                     <span className="h-3.5 w-px bg-border" />
-                    <span className="font-bold" style={{ color: "hsl(190 85% 40%)" }}>{floorComingSoon}</span>
-                    <span className="text-muted-foreground">قريباً</span>
-                  </>
-                )}
+                    <span className="font-bold" style={{ color: "hsl(25 95% 50%)" }}>{floorAvailable}</span>
+                    <span className="text-muted-foreground">متاحة</span>
+                    {floorComingSoon > 0 && (
+                      <>
+                        <span className="h-3.5 w-px bg-border" />
+                        <span className="font-bold" style={{ color: "hsl(190 85% 40%)" }}>{floorComingSoon}</span>
+                        <span className="text-muted-foreground">قريباً</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="hidden pb-2.5 md:block">
+                <MapFilters
+                  searchTerm={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  statusFilter={statusFilter}
+                  onStatusChange={setStatusFilter}
+                  categoryFilter={categoryFilter}
+                  onCategoryChange={setCategoryFilter}
+                  availableOnly={availableOnly}
+                  onAvailableOnlyChange={setAvailableOnly}
+                />
               </div>
             </div>
-          </div>
-
-          <div className="pb-2.5">
-            <MapFilters
-              searchTerm={searchTerm}
-              onSearchChange={setSearchTerm}
-              statusFilter={statusFilter}
-              onStatusChange={setStatusFilter}
-              categoryFilter={categoryFilter}
-              onCategoryChange={setCategoryFilter}
-              availableOnly={availableOnly}
-              onAvailableOnlyChange={setAvailableOnly}
-            />
-          </div>
-        </div>
-      </section>
+          </section>
+        );
+      })()}
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
       <section className="py-4 md:py-5 bg-secondary dark:bg-background">

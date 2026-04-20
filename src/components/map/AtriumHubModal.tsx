@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Gift, Store, Layers, Tag, Calendar, Compass, ArrowLeft, X,
-  Smartphone, Monitor, Gamepad2, Printer, Wrench, Shield,
+  Smartphone, Monitor, Gamepad2, Printer, Wrench, Shield, Sparkles,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { useCampaignStatus } from "@/hooks/useCampaignStatus";
 import type { MallCategory } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr } from "@/lib/mallFloorGeometry";
 
@@ -28,7 +29,7 @@ export type AtriumConfig = {
 };
 
 const MODE_META: Record<AtriumMode, { icon: typeof Gift; label: string; desc: string }> = {
-  spin:       { icon: Gift,     label: "المكافآت",      desc: "خصومات وهدايا حقيقية" },
+  spin:       { icon: Gift,     label: "Spin & Win",    desc: "خصومات وهدايا حقيقية من المتاجر" },
   offers:     { icon: Tag,      label: "العروض",        desc: "أحدث خصومات المتاجر" },
   featured:   { icon: Store,    label: "متاجر مميّزة",  desc: "أبرز العلامات" },
   events:     { icon: Calendar, label: "الفعاليات",     desc: "أحداث قادمة" },
@@ -62,6 +63,8 @@ type Props = {
 
 export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilterCategory }: Props) {
   const [activeTab, setActiveTab] = useState<AtriumMode>(config.mode);
+  const { data: campaign } = useCampaignStatus("spin_win");
+  const campaignActive = campaign?.is_active ?? true;
 
   const { data: deals } = useQuery({
     queryKey: ["hub-deals"],
@@ -142,9 +145,8 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
               <X className="h-3.5 w-3.5" />
             </button>
 
-            {/* ── Header — branded command center ── */}
+            {/* ── Header ── */}
             <div className="relative px-6 pb-4 pt-5" style={{ background: "hsl(var(--primary) / 0.03)", borderBottom: "1px solid hsl(var(--border))" }}>
-              {/* Decorative line */}
               <div className="mb-3 flex items-center gap-2.5">
                 <div className="h-[3px] w-8 rounded-full" style={{ background: "hsl(var(--heritage))" }} />
                 <span className="font-poppins text-[0.62rem] font-bold uppercase tracking-[0.22em]" style={{ color: "hsl(var(--heritage))" }}>
@@ -158,12 +160,20 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                 </div>
                 <div>
                   <h2 className="text-[1rem] font-extrabold light-heading">مركز التفاعل</h2>
-                  <p className="text-[0.74rem] light-muted">قلب المول — عروض ومكافآت ومتاجر واكتشاف</p>
+                  <p className="text-[0.74rem] light-muted">قلب المول — Spin &amp; Win وعروض ومتاجر</p>
                 </div>
+              </div>
+
+              {/* Campaign status strip */}
+              <div className="mt-3 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2">
+                <span className={`h-2 w-2 rounded-full ${campaignActive ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground/40"}`} />
+                <span className="text-[0.72rem] font-bold light-heading">
+                  {campaignActive ? "حملة Spin & Win جارية الآن" : (campaign?.paused_title_ar ?? "الحملة ستفتح قريباً")}
+                </span>
               </div>
             </div>
 
-            {/* ── Tab bar — refined chips ── */}
+            {/* ── Tab bar ── */}
             <div className="flex gap-1 overflow-x-auto px-5 py-2.5 scrollbar-hide" style={{ borderBottom: "1px solid hsl(var(--border))" }}>
               {tabs.map((tab) => {
                 const meta = MODE_META[tab];
@@ -187,32 +197,30 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
             </div>
 
             {/* ── Content ── */}
-            <div className="overflow-y-auto p-5" style={{ maxHeight: "calc(90vh - 170px)" }}>
+            <div className="overflow-y-auto p-5" style={{ maxHeight: "calc(90vh - 220px)" }}>
 
-              {/* Section title — dynamic per tab */}
               <div className="mb-4">
                 <h3 className="text-[0.92rem] font-bold light-heading">{activeMeta.label}</h3>
                 <p className="mt-0.5 text-[0.74rem] light-muted">{activeMeta.desc}</p>
               </div>
 
-              {/* ── SPIN — premium activation, not casino ── */}
+              {/* ── SPIN ── */}
               {activeTab === "spin" && (
                 <div className="space-y-4">
                   <div className="rounded-xl border border-border p-4" style={{ background: "hsl(var(--secondary) / 0.3)" }}>
                     <div className="flex items-start gap-3">
                       <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-card">
-                        <Gift className="h-4 w-4 text-primary" />
+                        <Sparkles className="h-4 w-4 text-primary" />
                       </div>
                       <div>
-                        <p className="text-[0.84rem] font-bold light-heading">مكافآت من متاجر المول</p>
+                        <p className="text-[0.84rem] font-bold light-heading">جوائز حقيقية من متاجر المول</p>
                         <p className="mt-1 text-[0.78rem] leading-6 light-body">
-                          خصومات وهدايا مقدّمة من علامات حقيقية داخل المول. بعد الفوز، يظهر موقع المتجر مباشرة على الخريطة.
+                          أدر العجلة، اربح خصماً أو هدية من علامة حقيقية، ويظهر موقع المتجر مباشرة على الخريطة.
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Value props — editorial, not listy */}
                   <div className="grid grid-cols-3 gap-2">
                     {[
                       { label: "خصومات مباشرة", sub: "من المتاجر" },
@@ -226,14 +234,32 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                     ))}
                   </div>
 
-                  <Button
-                    variant="cta"
-                    className="h-11 w-full rounded-xl text-[0.88rem] font-bold"
-                    onClick={() => { onClose(); onOpenSpinWheel(); }}
-                  >
-                    سجّل واحصل على مكافأتك
-                  </Button>
-                  <p className="text-center text-[0.68rem] light-muted">مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح</p>
+                  {/* Primary + Secondary CTAs */}
+                  <div className="space-y-2">
+                    <Link to="/spin-win" onClick={onClose} className="block">
+                      <Button
+                        variant="cta"
+                        disabled={!campaignActive}
+                        className="h-11 w-full rounded-xl text-[0.88rem] font-bold"
+                      >
+                        <Sparkles className="ml-1.5 h-4 w-4" />
+                        أدر واربح الآن
+                      </Button>
+                    </Link>
+                    <Button
+                      variant="outline-blue"
+                      disabled={!campaignActive}
+                      className="h-10 w-full rounded-xl text-[0.82rem] font-bold"
+                      onClick={() => { onClose(); onOpenSpinWheel(); }}
+                    >
+                      تسجيل سريع هنا
+                    </Button>
+                  </div>
+                  <p className="text-center text-[0.68rem] light-muted">
+                    {campaignActive
+                      ? "مشاركة واحدة لكل رقم هاتف — الاستلام يوم الافتتاح"
+                      : (campaign?.paused_message_ar ?? "ترقّب — الحملة ستبدأ قريباً")}
+                  </p>
                 </div>
               )}
 
@@ -326,7 +352,7 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                 </div>
               )}
 
-              {/* ── CATEGORIES — premium discovery grid ── */}
+              {/* ── CATEGORIES ── */}
               {activeTab === "categories" && (
                 <div className="grid grid-cols-2 gap-2">
                   {allCategories.map((cat) => {
