@@ -9,9 +9,11 @@ type Props = {
 /**
  * Floating "Back to top" button. Appears once user scrolls past `threshold` (px).
  * Positioned bottom-left to avoid clashing with right-aligned UI on RTL pages.
+ * On mobile, automatically lifts above any StickyCTA card to prevent overlap.
  */
 export function BackToTop({ threshold = 600 }: Props) {
   const [visible, setVisible] = useState(false);
+  const [stickyOffset, setStickyOffset] = useState<number | null>(null);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -21,9 +23,43 @@ export function BackToTop({ threshold = 600 }: Props) {
     return () => window.removeEventListener("scroll", onScroll);
   }, [threshold]);
 
-  // Mobile: clear the bottom nav (~56px) + safe-area. Desktop: comfortable margin.
+  // Detect StickyCTA presence on mobile and measure its height dynamically.
+  useEffect(() => {
+    if (!isMobile) {
+      setStickyOffset(null);
+      return;
+    }
+
+    const measure = () => {
+      const el = document.querySelector<HTMLElement>("[data-sticky-cta]");
+      if (!el) {
+        setStickyOffset(null);
+        return;
+      }
+      // StickyCTA is already positioned 56px above viewport bottom (above MobileBottomNav).
+      // Lift BackToTop above the CTA card with a 12px gap.
+      const h = el.getBoundingClientRect().height;
+      setStickyOffset(Math.round(h + 56 + 12));
+    };
+
+    measure();
+
+    const observer = new MutationObserver(measure);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [isMobile]);
+
+  // Mobile: clear the bottom nav (~56px) + safe-area, or sit above StickyCTA when present.
+  // Desktop: comfortable margin.
   const bottom = isMobile
-    ? "calc(72px + env(safe-area-inset-bottom))"
+    ? stickyOffset !== null
+      ? `calc(${stickyOffset}px + env(safe-area-inset-bottom))`
+      : "calc(72px + env(safe-area-inset-bottom))"
     : "24px";
 
   return (
@@ -45,4 +81,3 @@ export function BackToTop({ threshold = 600 }: Props) {
     </button>
   );
 }
-
