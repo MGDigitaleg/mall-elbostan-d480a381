@@ -311,7 +311,7 @@ const Products = () => {
       <div className="band-primary" />
 
       {/* ═══ Premium Featured Rail (top, no filters active) ═══ */}
-      {!hasActiveFilters && featuredHighlights.length >= 3 && (
+      {!hasActiveFilters && (isLoading || featuredHighlights.length >= 3) && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -337,13 +337,14 @@ const Products = () => {
               layout="rail"
               theme="dark"
               density="premium"
+              loading={isLoading}
             />
           </div>
         </section>
       )}
 
       {/* ═══ Trending Rail (standard density, light theme) ═══ */}
-      {!hasActiveFilters && trendingHighlights.length >= 6 && (
+      {!hasActiveFilters && (isLoading || trendingHighlights.length >= 6) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -362,6 +363,7 @@ const Products = () => {
               layout="grid"
               theme="light"
               density="standard"
+              loading={isLoading}
             />
           </div>
         </section>
