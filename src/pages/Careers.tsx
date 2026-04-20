@@ -20,7 +20,7 @@ const Careers = () => {
   const { data: jobs, isLoading } = useQuery({
     queryKey: ["open-jobs"],
     queryFn: async () => {
-      const { data } = await supabase.from("jobs").select("*").eq("status", "open").order("created_at", { ascending: false });
+      const { data } = await supabase.from("jobs").select("id, title_ar, title_en, description_ar, description_en, company_or_store, job_type, application_deadline, status").eq("status", "open").order("created_at", { ascending: false });
       return data ?? [];
     },
   });
