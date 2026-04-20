@@ -8,7 +8,6 @@ import {
   Store,
   X,
   ArrowLeft,
-  ArrowUp,
   SlidersHorizontal,
   Loader2,
 } from "lucide-react";
@@ -21,6 +20,7 @@ import { Slider } from "@/components/ui/slider";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { PageHero } from "@/components/PageHero";
 import { ProductRail } from "@/components/home/ProductRail";
+import { BackToTop } from "@/components/BackToTop";
 
 const PAGE_SIZE = 24;
 
@@ -349,15 +349,6 @@ const Products = () => {
       );
     } catch {}
   }, [visibleCount]);
-
-  // Back-to-top button visibility
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setShowBackToTop(window.scrollY > 600);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const visibleProducts = useMemo(
     () => filteredProducts.slice(0, visibleCount),
@@ -919,18 +910,7 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Back to top floating button */}
-      <button
-        type="button"
-        aria-label="الرجوع لأعلى"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-6 left-6 z-40 flex h-11 w-11 items-center justify-center rounded-full shadow-lg backdrop-blur-md transition-all duration-300 ${
-          showBackToTop ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-2 pointer-events-none"
-        }`}
-        style={{ border: "1px solid #2563EB55", background: "#0B1220E6", color: "#60A5FA" }}
-      >
-        <ArrowUp className="h-4 w-4" />
-      </button>
+      <BackToTop />
     </MainLayout>
   );
 };
