@@ -183,7 +183,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
 
       {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      {trendingProducts.length >= 3 && (
+      {(productsLoading || trendingProducts.length >= 3) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -201,13 +201,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products"
               layout="rail"
               theme="light"
+              loading={productsLoading}
             />
           </div>
         </section>
       )}
 
       {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      {featuredProducts.length >= 3 && (
+      {(productsLoading || featuredProducts.length >= 3) && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -229,6 +230,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               theme="dark"
               density="premium"
+              loading={productsLoading}
             />
           </div>
         </section>
@@ -242,7 +244,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      {phoneProducts.length >= 3 && (
+      {(productsLoading || phoneProducts.length >= 3) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -260,13 +262,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               columns={4}
               theme="light"
+              loading={productsLoading}
             />
           </div>
         </section>
       )}
 
       {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      {computerProducts.length >= 3 && (
+      {(productsLoading || computerProducts.length >= 3) && (
         <section
           className="relative overflow-hidden"
           style={{
@@ -290,13 +293,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               theme="dark"
               density="premium"
+              loading={productsLoading}
             />
           </div>
         </section>
       )}
 
       {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      {gamingProducts.length >= 3 && (
+      {(productsLoading || gamingProducts.length >= 3) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -314,6 +318,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               columns={4}
               theme="light"
+              loading={productsLoading}
             />
           </div>
         </section>
