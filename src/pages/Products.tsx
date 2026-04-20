@@ -916,7 +916,7 @@ const Products = () => {
    ProductCard — single reusable card
    ══════════════════════════════════════════════════════════ */
 
-export function ProductCard({ product, index }: { product: UnifiedProduct; index: number }) {
+export function ProductCard({ product, index, onNavigate }: { product: UnifiedProduct; index: number; onNavigate?: () => void }) {
   const detailPath = `/products/${product.slug}`;
 
   const hasDiscount = product.comparePrice && product.comparePrice > (product.price ?? 0);
@@ -932,6 +932,7 @@ export function ProductCard({ product, index }: { product: UnifiedProduct; index
     >
       <Link
         to={detailPath}
+        onClick={() => onNavigate?.()}
         className="group flex flex-col rounded-xl overflow-hidden transition-all duration-200"
         style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
         onMouseEnter={(e) => {
