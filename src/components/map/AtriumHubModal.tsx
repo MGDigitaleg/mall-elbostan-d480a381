@@ -1,5 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+/* ── Tracking helper: fires to GA4 (gtag) and GTM (dataLayer) ── */
+function trackEvent(name: string, params: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as {
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: unknown[];
+  };
+  if (typeof w.gtag === "function") {
+    w.gtag("event", name, { event_category: "engagement", ...params });
+  }
+  if (Array.isArray(w.dataLayer)) {
+    w.dataLayer.push({ event: name, ...params });
+  }
+}
 import { Link } from "react-router-dom";
 import {
   Gift, Store, Layers, Tag, Calendar, Compass, ArrowLeft, X,
@@ -65,6 +80,18 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
   const [activeTab, setActiveTab] = useState<AtriumMode>(config.mode);
   const { data: campaign } = useCampaignStatus("spin_win");
   const campaignActive = campaign?.is_active ?? true;
+
+  // Track modal open
+  useEffect(() => {
+    if (open) {
+      trackEvent("atrium_hub_open", {
+        source: "interactive_map_atrium",
+        initial_tab: config.mode,
+        campaign_active: campaignActive,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const { data: deals } = useQuery({
     queryKey: ["hub-deals"],
@@ -239,22 +266,12 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                     <Link
                       to="/spin-win"
                       onClick={() => {
-                        if (typeof window !== "undefined" && typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === "function") {
-                          (window as unknown as { gtag: (...args: unknown[]) => void }).gtag("event", "spin_win_cta_click", {
-                            event_category: "engagement",
-                            event_label: "atrium_hub_modal_primary",
-                            source: "interactive_map_atrium",
-                            campaign_active: campaignActive,
-                          });
-                        }
-                        if (typeof window !== "undefined" && Array.isArray((window as unknown as { dataLayer?: unknown[] }).dataLayer)) {
-                          (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
-                            event: "spin_win_cta_click",
-                            source: "interactive_map_atrium",
-                            placement: "atrium_hub_modal_primary",
-                            campaign_active: campaignActive,
-                          });
-                        }
+                        trackEvent("spin_win_cta_click", {
+                          event_label: "atrium_hub_modal_primary",
+                          source: "interactive_map_atrium",
+                          placement: "atrium_hub_modal_primary",
+                          campaign_active: campaignActive,
+                        });
                         onClose();
                       }}
                       className="block"
@@ -272,7 +289,16 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                       variant="outline-blue"
                       disabled={!campaignActive}
                       className="h-10 w-full rounded-xl text-[0.82rem] font-bold"
-                      onClick={() => { onClose(); onOpenSpinWheel(); }}
+                      onClick={() => {
+                        trackEvent("spin_win_quick_register_click", {
+                          event_label: "atrium_hub_modal_secondary",
+                          source: "interactive_map_atrium",
+                          placement: "atrium_hub_modal_secondary",
+                          campaign_active: campaignActive,
+                        });
+                        onClose();
+                        onOpenSpinWheel();
+                      }}
                     >
                       تسجيل سريع هنا
                     </Button>
