@@ -154,7 +154,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section style={{ contain: "layout" }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {latestProducts.length > 0 && (
+      {(productsLoading || latestProducts.length > 0) && (
         <section
           className="bg-card dark:bg-background"
           style={{
@@ -173,6 +173,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               layout="grid"
               columns={4}
               theme="light"
+              loading={productsLoading}
             />
           </div>
         </section>
