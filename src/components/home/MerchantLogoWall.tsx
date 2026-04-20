@@ -35,7 +35,7 @@ export function MerchantLogoWall() {
           <div className="h-4 w-24 rounded bg-muted/20 mb-2" />
           <div className="h-6 w-40 rounded bg-muted/20 mb-4" />
           <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-9 gap-1.5">
-            {Array.from({ length: 18 }).map((_, i) => (
+            {Array.from({ length: isMobile ? 8 : 18 }).map((_, i) => (
               <div key={i} className="flex flex-col items-center gap-1 py-2 px-1.5">
                 <div className="h-10 w-10 rounded-lg bg-muted/10" />
                 <div className="h-2.5 w-10 rounded bg-muted/10" />
