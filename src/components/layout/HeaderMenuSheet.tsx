@@ -198,6 +198,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 {section.items.map((item) => {
                   const active = isActive(item.path);
                   const Icon = item.icon;
+                  const badge = item.badge ? badgeStyles[item.badge] : null;
                   return (
                     <Link
                       key={item.path}
@@ -223,7 +224,19 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                       >
                         <Icon className="h-4 w-4" />
                       </span>
-                      {item.label}
+                      <span className="flex-1">{item.label}</span>
+                      {badge && (
+                        <span
+                          className="shrink-0 rounded-full px-2 py-0.5 text-[0.62rem] font-bold leading-none"
+                          style={{
+                            background: badge.bg,
+                            color: badge.color,
+                            border: badge.border,
+                          }}
+                        >
+                          {badge.label}
+                        </span>
+                      )}
                     </Link>
                   );
                 })}
