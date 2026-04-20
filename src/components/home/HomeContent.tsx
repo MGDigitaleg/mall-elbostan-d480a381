@@ -109,10 +109,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
 
   /* ── Derive sections from single dataset ── */
-  const latestProducts = useMemo(() => productsWithImages.slice(0, 12), [productsWithImages]);
+  const latestProducts = useMemo(() => productsWithImages.slice(0, 18), [productsWithImages]);
 
   const featuredProducts = useMemo(
-    () => productsWithImages.filter((p) => p.featured).slice(0, 8),
+    () => productsWithImages.filter((p) => p.featured).slice(0, 12),
     [productsWithImages]
   );
 
@@ -122,20 +122,20 @@ export function HomeContent({ faqs }: HomeContentProps) {
       if (a.featured !== b.featured) return b.featured ? 1 : -1;
       return 0;
     });
-    return sorted.slice(8, 16);
+    return sorted.slice(6, 24);
   }, [productsWithImages]);
 
   /* Category-based blocks */
   const phoneProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 8),
+    () => productsWithImages.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 12),
     [productsWithImages]
   );
   const computerProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 8),
+    () => productsWithImages.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 12),
     [productsWithImages]
   );
   const gamingProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 8),
+    () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 12),
     [productsWithImages]
   );
 
@@ -172,7 +172,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products"
               layout="grid"
               columns={4}
-              maxItems={12}
               theme="light"
             />
           </div>
@@ -226,7 +225,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               products={featuredProducts}
               ctaLabel="عرض المنتجات المميزة"
               ctaTo="/products"
-              layout="rail"
+              layout="grid"
               theme="dark"
               density="premium"
             />
@@ -259,7 +258,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products?category=الهواتف والإكسسوارات"
               layout="grid"
               columns={4}
-              maxItems={8}
               theme="light"
             />
           </div>
@@ -288,7 +286,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               products={computerProducts}
               ctaLabel="عرض الكل"
               ctaTo="/products?category=الكمبيوتر والأجهزة"
-              layout="rail"
+              layout="grid"
               theme="dark"
               density="premium"
             />
@@ -314,7 +312,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products?category=الألعاب والترفيه"
               layout="grid"
               columns={4}
-              maxItems={8}
               theme="light"
             />
           </div>
