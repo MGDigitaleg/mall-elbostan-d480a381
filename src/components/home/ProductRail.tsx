@@ -336,7 +336,7 @@ export function ProductRail({
             onMouseLeave={onMouseUp}
           >
           {displayed.map((product) => (
-              <div key={product.id} className="shrink-0 snap-start" style={{ width: "clamp(130px, 13vw, 165px)" }}>
+              <div key={product.id} className="shrink-0 snap-start" style={{ width: isMobile ? "47vw" : "clamp(130px, 13vw, 165px)", maxWidth: isMobile ? 200 : undefined }}>
                 <ProductCard product={product} theme={theme} />
               </div>
             ))}
