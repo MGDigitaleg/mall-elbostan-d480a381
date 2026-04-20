@@ -332,12 +332,24 @@ const Products = () => {
       { key: "audio", label: "صوتيات", keywords: ["صوت", "سماعة", "سماعات", "audio", "headphone"] },
       { key: "parts", label: "قطع غيار", keywords: ["قطع", "غيار", "part", "spare"] },
     ];
+    const usedSectionIds = new Set<string>();
     return groups
       .map((g) => {
-        const match = mergedSections.find((s) =>
-          g.keywords.some((kw) => s.label.toLowerCase().includes(kw.toLowerCase()))
+        const lowerKeywords = g.keywords.map((k) => k.toLowerCase());
+        // Prefer exact label match first, then substring match — and skip already-used sections
+        const exact = mergedSections.find(
+          (s) => !usedSectionIds.has(s.id) && lowerKeywords.includes(s.label.toLowerCase())
         );
-        return match ? { ...g, sectionId: match.id } : null;
+        const substring =
+          exact ??
+          mergedSections.find(
+            (s) =>
+              !usedSectionIds.has(s.id) &&
+              lowerKeywords.some((kw) => s.label.toLowerCase().includes(kw))
+          );
+        if (!substring) return null;
+        usedSectionIds.add(substring.id);
+        return { ...g, sectionId: substring.id };
       })
       .filter((c): c is { key: string; label: string; keywords: string[]; sectionId: string } => c !== null)
       .map((c) => ({
