@@ -22,6 +22,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
+import { BackToTop } from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -392,6 +393,7 @@ const Stores = () => {
           </motion.div>
         </div>
       </section>
+      <BackToTop />
     </MainLayout>
   );
 };
