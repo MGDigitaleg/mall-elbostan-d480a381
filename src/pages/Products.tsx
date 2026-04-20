@@ -291,13 +291,63 @@ const Products = () => {
   const hasActiveFilters = selectedSection !== "all" || selectedShop !== "all" || selectedMall !== "all" || selectedBrand !== "all" || priceRange !== null || searchTerm.trim().length > 0;
 
   /* ── Infinite scroll: visible count ── */
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const SCROLL_KEY = "products:scrollState";
+  const restoredRef = useRef(false);
+  const filtersChangedByUserRef = useRef(false);
+
+  const [visibleCount, setVisibleCount] = useState(() => {
+    if (typeof window === "undefined") return PAGE_SIZE;
+    try {
+      const raw = sessionStorage.getItem(SCROLL_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (typeof saved.visibleCount === "number" && saved.visibleCount >= PAGE_SIZE) {
+          return saved.visibleCount;
+        }
+      }
+    } catch {}
+    return PAGE_SIZE;
+  });
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  // Reset pagination when filters/sort change
+  // Reset pagination when filters/sort change (only after user interaction, not on initial mount)
   useEffect(() => {
+    if (!filtersChangedByUserRef.current) {
+      filtersChangedByUserRef.current = true;
+      return;
+    }
     setVisibleCount(PAGE_SIZE);
+    try { sessionStorage.removeItem(SCROLL_KEY); } catch {}
   }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy]);
+
+  // Restore scroll position once products are loaded (one-time)
+  useEffect(() => {
+    if (restoredRef.current) return;
+    if (isLoading) return;
+    if (filteredProducts.length === 0) return;
+    try {
+      const raw = sessionStorage.getItem(SCROLL_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (typeof saved.scrollY === "number") {
+          requestAnimationFrame(() => {
+            window.scrollTo({ top: saved.scrollY, behavior: "auto" });
+          });
+        }
+      }
+    } catch {}
+    restoredRef.current = true;
+  }, [isLoading, filteredProducts.length]);
+
+  // Save state when leaving via product link (handler passed to ProductCard)
+  const saveScrollState = useCallback(() => {
+    try {
+      sessionStorage.setItem(
+        SCROLL_KEY,
+        JSON.stringify({ scrollY: window.scrollY, visibleCount })
+      );
+    } catch {}
+  }, [visibleCount]);
 
   const visibleProducts = useMemo(
     () => filteredProducts.slice(0, visibleCount),
