@@ -55,10 +55,6 @@ const fallbackFaqs = [
   { id: "faq-6", question_ar: "كيف أتقدم باستفسار تجاري؟", answer_ar: "من صفحة التأجير أو التواصل." },
 ];
 
-const sectionReveal = {
-  hidden: { opacity: 0, y: 14 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
-};
 
 type HomeContentProps = {
   faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
