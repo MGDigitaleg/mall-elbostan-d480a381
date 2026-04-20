@@ -326,12 +326,12 @@ export function Header() {
 
         {/* ── Mobile ── */}
         <div
-          className={`grid items-center gap-3 md:hidden ${isKzPage ? "grid-cols-[auto_auto_1fr_auto]" : "grid-cols-[auto_1fr_auto]"}`}
-          style={{ minHeight: scrolled ? "44px" : "48px", transition: "min-height 0.4s" }}
+          className={`grid items-center gap-2 md:hidden ${isKzPage ? "grid-cols-[auto_auto_1fr_auto]" : "grid-cols-[auto_1fr_auto]"}`}
+          style={{ minHeight: scrolled ? "40px" : "44px", transition: "min-height 0.4s" }}
         >
           <Link to="/map">
             <button
-              className="inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200"
               style={{
                 border: `1px solid ${isTransparent ? "rgba(96,165,250,0.2)" : "rgba(37,99,235,0.18)"}`,
                 background: isTransparent ? "rgba(96,165,250,0.08)" : "rgba(37,99,235,0.06)",
@@ -339,32 +339,32 @@ export function Header() {
               }}
               aria-label="افتح الخريطة"
             >
-              <Compass className="h-4 w-4" />
+              <Compass className="h-3.5 w-3.5" />
             </button>
           </Link>
 
           {isKzPage && (
-            <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+            <Link to="/kz/cart" className="relative inline-flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
               <ShoppingCart className="h-3.5 w-3.5" />
               {totalItems > 0 && (
-                <span className="absolute -top-1.5 -left-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
+                <span className="absolute -top-1.5 -left-1.5 flex h-[15px] min-w-[15px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
               )}
             </Link>
           )}
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[32px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-[34px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
             isActive={isActive}
             trigger={
               <button
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-md transition-all duration-200"
                 style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}
                 aria-label="فتح القائمة"
               >
-                <Menu size={16} />
+                <Menu size={15} />
               </button>
             }
           />
