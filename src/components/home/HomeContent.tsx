@@ -290,6 +290,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
               ctaTo="/products?category=الكمبيوتر والأجهزة"
               layout="rail"
               theme="dark"
+              density="premium"
             />
           </div>
         </section>
