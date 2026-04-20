@@ -238,7 +238,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={400}>
+          <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
       {phoneProducts.length >= 3 && (
@@ -320,7 +324,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       )}
 
       {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={280}>
+          <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 12 · MAP TEASER ═══════════ */}
       <section
@@ -465,7 +473,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <section style={{ contain: "layout" }}><Suspense fallback={null}><DowntownTeaser /></Suspense></section>
+      <section style={{ contain: "layout" }}>
+        <LazySection minHeight={420}>
+          <Suspense fallback={<div style={{ minHeight: 420 }} />}><DowntownTeaser /></Suspense>
+        </LazySection>
+      </section>
 
       {/* ═══════════ 15 · FAQ ═══════════ */}
       <section
