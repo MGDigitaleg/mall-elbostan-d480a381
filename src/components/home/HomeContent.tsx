@@ -142,7 +142,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
 
   return (
-    <>
+    <div style={{ minHeight: "300vh" }}>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section style={{ contain: "layout", minHeight: isMobile ? 520 : 580 }}>
         <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
@@ -151,14 +151,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
-      <section style={{ contain: "layout" }}><CategoryStrip /></section>
+      <section style={{ contain: "layout", minHeight: 296 }}><CategoryStrip /></section>
 
       {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      {(productsLoading || latestProducts.length > 0) && (
-        <section
+      <section
           className="bg-card dark:bg-background"
           style={{
             contain: "layout",
+            minHeight: latestProducts.length > 0 || productsLoading ? 400 : 0,
             paddingTop: "clamp(48px, 6vw, 96px)",
             paddingBottom: "clamp(48px, 6vw, 96px)",
           }}>
@@ -177,7 +177,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
             />
           </div>
         </section>
-      )}
 
       {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
       <section style={{ contain: "layout" }}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
@@ -585,6 +584,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </Reveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }
