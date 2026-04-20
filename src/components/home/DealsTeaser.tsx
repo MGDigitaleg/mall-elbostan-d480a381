@@ -179,7 +179,7 @@ export function DealsTeaser() {
                             {store && (
                               <Link to={`/stores/${store.slug}`} className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
                                 {store.logo_url ? (
-                                  <img src={store.logo_url} alt={store.name_ar} className="h-3.5 w-3.5 rounded object-contain border border-white/10 bg-white shrink-0" />
+                                  <img src={store.logo_url} alt={store.name_ar} className="h-3.5 w-3.5 rounded object-contain border border-white/10 bg-white shrink-0" loading="lazy" />
                                 ) : (
                                   <Store className="h-2.5 w-2.5 shrink-0" style={{ color: "#64748B" }} />
                                 )}

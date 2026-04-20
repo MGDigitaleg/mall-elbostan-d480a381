@@ -137,7 +137,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
             <Link to="/" className="inline-block">
-              <img src={logoWhite} alt="مول البستان" width={118} height={52} style={{ width: 118, height: 52 }} className="opacity-90 transition-opacity hover:opacity-100" />
+              <img src={logoWhite} alt="مول البستان" width={118} height={52} style={{ width: 118, height: 52 }} className="opacity-90 transition-opacity hover:opacity-100" loading="lazy" decoding="async" />
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.7] font-light" style={{ color: "#8896AB" }}>
