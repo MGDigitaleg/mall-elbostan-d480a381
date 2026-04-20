@@ -344,8 +344,8 @@ export function Header() {
           </Link>
 
           {isKzPage && (
-            <Link to="/kz/cart" className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
-              <ShoppingCart className="h-4 w-4" />
+            <Link to="/kz/cart" className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200" style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}>
+              <ShoppingCart className="h-3.5 w-3.5" />
               {totalItems > 0 && (
                 <span className="absolute -top-1.5 -left-1.5 flex h-[16px] min-w-[16px] items-center justify-center rounded-full px-0.5 text-[0.55rem] font-bold text-white" style={{ background: "#2563EB" }}>{totalItems}</span>
               )}
@@ -353,18 +353,18 @@ export function Header() {
           )}
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[38px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-[32px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
             isActive={isActive}
             trigger={
               <button
-                className="inline-flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200"
                 style={{ border: `1px solid ${menuBtnBorder}`, background: menuBtnBg, color: menuBtnColor }}
                 aria-label="فتح القائمة"
               >
-                <Menu size={17} />
+                <Menu size={16} />
               </button>
             }
           />
