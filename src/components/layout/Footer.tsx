@@ -137,7 +137,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
             <Link to="/" className="inline-block">
-              <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" />
+              <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.7] font-light" style={{ color: "#8896AB" }}>
