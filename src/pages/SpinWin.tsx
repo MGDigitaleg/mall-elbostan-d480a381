@@ -63,6 +63,7 @@ const SpinWin = () => {
   const [step, setStep] = useState<"register" | "spinning">("register");
   const [settled, setSettled] = useState(false);
   const [form, setForm] = useState({ full_name: "", phone: "", email: "", visitor_token: "" });
+  const [phoneError, setPhoneError] = useState(false);
   const [showVisitorField, setShowVisitorField] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -90,9 +91,11 @@ const SpinWin = () => {
       return;
     }
     if (!isValidPhoneNumber(form.phone)) {
+      setPhoneError(true);
       toast({ title: "رقم غير صحيح", description: "يرجى إدخال رقم هاتف صحيح", variant: "destructive" });
       return;
     }
+    setPhoneError(false);
     if (!agreeTerms) {
       toast({ title: "الشروط والأحكام", description: "يرجى الموافقة على الشروط للمتابعة", variant: "destructive" });
       return;
@@ -266,9 +269,10 @@ const SpinWin = () => {
                     international
                     defaultCountry="EG"
                     value={form.phone}
-                    onChange={(val) => setForm({ ...form, phone: val || "" })}
-                    className="phone-input-custom bg-secondary/50 border border-border rounded-md h-12 px-3"
+                    onChange={(val) => { setForm({ ...form, phone: val || "" }); if (phoneError) setPhoneError(false); }}
+                    className={`phone-input-custom bg-secondary/50 border rounded-md h-12 px-3 ${phoneError ? "border-destructive" : "border-border"}`}
                   />
+                  {phoneError && <p className="text-xs text-destructive mt-1">يرجى إدخال رقم هاتف صحيح</p>}
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-foreground">البريد الإلكتروني <span className="text-muted-foreground font-normal">(اختياري)</span></label>
