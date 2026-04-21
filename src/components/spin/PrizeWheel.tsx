@@ -102,9 +102,13 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
             const seg = segments[i];
             const fill = toneColors[seg.tone];
             const textAngle = i * segAngle + segAngle / 2 - 90;
-            const tx = radius + radius * 0.58 * Math.cos(textAngle * (Math.PI / 180));
-            const ty = radius + radius * 0.58 * Math.sin(textAngle * (Math.PI / 180));
+            const tx = radius + radius * 0.62 * Math.cos(textAngle * (Math.PI / 180));
+            const ty = radius + radius * 0.62 * Math.sin(textAngle * (Math.PI / 180));
             const isWinner = isSettled && targetIndex === i;
+            const fontSize = Math.max(9, size * 0.034);
+            const spaceIdx = seg.label.indexOf(" ");
+            const line1 = spaceIdx > 0 ? seg.label.slice(0, spaceIdx) : seg.label;
+            const line2 = spaceIdx > 0 ? seg.label.slice(spaceIdx + 1) : "";
             return (
               <g key={seg.id}>
                 <path
@@ -123,11 +127,16 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
                   dominantBaseline="middle"
                   transform={`rotate(${textAngle + 90}, ${tx}, ${ty})`}
                   fill="hsl(0 0% 100%)"
-                  fontSize={Math.max(11, size * 0.038)}
+                  fontSize={fontSize}
                   fontWeight={700}
                   style={{ fontFamily: "inherit", opacity: isSettled && !isWinner ? 0.5 : 1, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
                 >
-                  {seg.label}
+                  {line2 ? (
+                    <>
+                      <tspan x={tx} dy={`-${fontSize * 0.6}px`}>{line1}</tspan>
+                      <tspan x={tx} dy={`${fontSize * 1.2}px`}>{line2}</tspan>
+                    </>
+                  ) : line1}
                 </text>
               </g>
             );
