@@ -806,3 +806,26 @@
   /* Touch-target safety: ensure links/buttons are at least 40px tall */
   a, button { -webkit-tap-highlight-color: transparent; }
 }
+
+/* Phone input (react-phone-number-input) */
+.phone-input-custom {
+  direction: ltr;
+}
+.phone-input-custom .PhoneInputInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  height: 100%;
+  font-size: 0.875rem;
+  color: hsl(var(--foreground));
+}
+.phone-input-custom .PhoneInputCountry {
+  margin-inline-end: 0.5rem;
+}
+.phone-input-custom .PhoneInputCountrySelect {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+.PhoneInputCountrySelectArrow {
+  border-color: hsl(var(--muted-foreground)) !important;
+}

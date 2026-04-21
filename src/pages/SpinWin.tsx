@@ -6,6 +6,8 @@ import { StickyCTA } from "@/components/layout/StickyCTA";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -83,8 +85,12 @@ const SpinWin = () => {
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.full_name.trim() || !form.phone.trim()) {
+    if (!form.full_name.trim() || !form.phone) {
       toast({ title: "بيانات ناقصة", description: "يرجى ملء الاسم ورقم الهاتف", variant: "destructive" });
+      return;
+    }
+    if (!isValidPhoneNumber(form.phone)) {
+      toast({ title: "رقم غير صحيح", description: "يرجى إدخال رقم هاتف صحيح", variant: "destructive" });
       return;
     }
     if (!agreeTerms) {
@@ -256,14 +262,12 @@ const SpinWin = () => {
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold text-foreground">رقم الهاتف <span className="text-destructive">*</span></label>
-                  <Input
-                    placeholder="01xxxxxxxxx"
+                  <PhoneInput
+                    international
+                    defaultCountry="EG"
                     value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="bg-secondary/50 border-border h-12 text-left"
-                    maxLength={20}
-                    required
-                    dir="ltr"
+                    onChange={(val) => setForm({ ...form, phone: val || "" })}
+                    className="phone-input-custom bg-secondary/50 border border-border rounded-md h-12 px-3"
                   />
                 </div>
                 <div className="space-y-1.5">
