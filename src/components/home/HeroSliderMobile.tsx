@@ -84,7 +84,7 @@ export function HeroSliderMobile() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ minHeight: "520px", maxHeight: "620px", contain: "layout style" }}
+      style={{ minHeight: "520px", maxHeight: "620px", contain: "layout style", background: "#0a1628" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -97,8 +97,8 @@ export function HeroSliderMobile() {
             key={i}
             src={s.image}
             alt={s.alt}
-            width={828}
-            height={1100}
+            width={1376}
+            height={768}
             className="absolute inset-0 h-full w-full object-cover"
             style={{
               objectPosition: "center 70%",
