@@ -82,9 +82,9 @@ export function HeroSliderMobile() {
   const slide = slides[current];
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ minHeight: "520px", maxHeight: "620px", contain: "layout style", background: "#0a1628" }}
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{ contain: "layout style", background: "#0a1628" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
