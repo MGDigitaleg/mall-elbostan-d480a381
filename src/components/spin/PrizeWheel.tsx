@@ -89,15 +89,33 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
         className="relative rounded-full shadow-2xl shadow-primary/30 ring-4 ring-primary/20"
       >
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="block">
+          <defs>
+            <filter id="glow-pulse" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
           {paths.map((d, i) => {
             const seg = segments[i];
             const fill = toneColors[seg.tone];
             const textAngle = i * segAngle + segAngle / 2 - 90;
             const tx = radius + radius * 0.62 * Math.cos(textAngle * (Math.PI / 180));
             const ty = radius + radius * 0.62 * Math.sin(textAngle * (Math.PI / 180));
+            const isWinner = isSettled && targetIndex === i;
             return (
               <g key={seg.id}>
-                <path d={d} fill={fill} stroke="hsl(220 30% 12%)" strokeWidth={2} />
+                <path
+                  d={d}
+                  fill={fill}
+                  stroke="hsl(220 30% 12%)"
+                  strokeWidth={2}
+                  filter={isWinner ? "url(#glow-pulse)" : undefined}
+                  className={isWinner ? "animate-[winner-pulse_1.5s_ease-in-out_infinite]" : ""}
+                  style={isWinner ? { opacity: 1 } : { opacity: isSettled ? 0.55 : 1 }}
+                />
                 <text
                   x={tx}
                   y={ty}
@@ -107,7 +125,7 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
                   fill="hsl(0 0% 100%)"
                   fontSize={11}
                   fontWeight={700}
-                  style={{ fontFamily: "inherit" }}
+                  style={{ fontFamily: "inherit", opacity: isSettled && !isWinner ? 0.5 : 1 }}
                 >
                   {seg.label}
                 </text>
