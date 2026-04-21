@@ -46,6 +46,7 @@ export function ClaimQRCode({ value, claimCode, size = 144 }: Props) {
   return (
     <div className="flex flex-col items-center gap-2">
       <div
+        data-qr-wrapper
         ref={wrapperRef}
         className="rounded-xl border border-border bg-white p-3"
         style={{ boxShadow: "0 4px 12px hsl(222 36% 6% / 0.08)" }}
