@@ -112,7 +112,7 @@ export function StoreRing({ floorId, innerSize, ringThickness = 92 }: Props) {
             }}
             title={displayName}
           >
-            <div className="h-9 w-9 rounded-full bg-navy border border-primary/20 shadow-md shadow-primary/10 flex items-center justify-center overflow-hidden">
+            <div className="h-10 w-10 rounded-full bg-card border border-border shadow-md shadow-primary/10 flex items-center justify-center overflow-hidden">
               {logo ? (
                 <img
                   src={optimizeImageUrl(logo, 64)}
@@ -129,9 +129,6 @@ export function StoreRing({ floorId, innerSize, ringThickness = 92 }: Props) {
                 <StoreIcon className="h-3.5 w-3.5 text-muted-foreground/60" />
               )}
             </div>
-            <span className="text-[9px] font-semibold text-navy-foreground/70 text-center leading-tight line-clamp-1 max-w-[64px]">
-              {displayName}
-            </span>
           </div>
         );
       })}
