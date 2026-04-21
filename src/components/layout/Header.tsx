@@ -353,7 +353,7 @@ export function Header() {
           )}
 
           <Link to="/" className="justify-self-center">
-            <BrandLogo align="center" imageClassName="h-[34px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
+            <BrandLogo align="center" imageClassName="h-[38px] w-auto" variant={(isTransparent || isDark) ? "light" : "dark"} />
           </Link>
 
           <HeaderMenuSheet
