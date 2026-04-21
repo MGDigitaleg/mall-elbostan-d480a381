@@ -1,60 +1,52 @@
 
 
-# خطة تحميل اللوجوهات الحقيقية من المواقع الرسمية
+# خطة: تحديث اللوجوهات المتبقية وترتيب كسر زيرو أولاً
 
-## ملخص
-استبدال اللوجوهات المُنشأة بالذكاء الاصطناعي بالشعارات الحقيقية المحملة مباشرة من المواقع الرسمية للمحلات وصفحاتهم على السوشيال ميديا.
+## 1. جعل كسر زيرو أول محل في "أبرز المحلات"
 
-## المصادر المحددة للوجوهات
+**الملف:** `src/components/home/FeaturedStores.tsx`
 
-### المحلات التي لها مواقع رسمية (سيتم تحميل اللوجو مباشرة)
+- بعد جلب البيانات من Supabase، نعيد ترتيب المصفوفة بحيث يظهر كسر زيرو (slug: `kasr-zero`) دائماً في المركز الأول
+- نفس المنطق يُطبق على `MerchantLogoWall.tsx` لضمان ظهوره أولاً في حائط اللوجوهات أيضاً
 
-| المحل | مصدر اللوجو | الرابط |
-|---|---|---|
-| **2B** | موقع رسمي - هيدر | `2b.com.eg` |
-| **Sharaf DG** | موقع رسمي - SVG | `sharafdg.com` |
-| **Compu Marts** | Shopify store - هيدر | `compumarts.com` |
-| **Games 2 Egypt** | موقع رسمي - هيدر | `games2egypt.com/Images/Regions/1/1` |
-| **El Badr** | متجر OpenCart - هيدر | `elbadrgroupeg.store` |
-| **Digital Plus** | موقع رسمي - هيدر | `dpsy.com` |
-| **Kasr Zero** | موقع رسمي | `kasrzero.net` |
+**الملف:** `src/components/home/MerchantLogoWall.tsx`
+- نفس إعادة الترتيب لوضع كسر زيرو في الصدارة
 
-### المحلات بدون موقع رسمي (بحث في فيسبوك وجوجل)
+## 2. محاولة جلب اللوجوهات الحقيقية للمحلات المتبقية
+
+سنستخدم browser tools لزيارة صفحات البحث والسوشيال ميديا لاستخراج اللوجوهات الحقيقية للمحلات التالية:
 
 | المحل | طريقة البحث |
 |---|---|
-| Static, Infinity, Info Max, Prime Technology | بحث عبر Google Images + Facebook |
-| Go Plus, HK, WiFi, Kareem Store, Spark | بحث عبر Facebook pages |
-| Express Home, Time Tech, Mix & Apex | بحث عبر Facebook pages |
-| Al Hoda, Al Sahaba, Red Line, Print Show, XPRS | بحث عبر Facebook + Google Maps |
-| i7, Quick Fix, Egypt Laptop | بحث عبر Facebook + Google Maps |
+| Infinity | infinitystoregypt.com / Facebook |
+| Info Max | infomaxstore.com / Facebook |
+| Go Plus | Facebook / Google Images |
+| HK | Facebook / Google Images |
+| WiFi | Facebook / Google Images |
+| Kareem Store | Facebook / Google Images |
+| Spark | Facebook / Google Images |
+| Express Home | Facebook / Google Images |
+| Time Tech | Facebook / Google Images |
+| Mix & Apex | Facebook / Google Images |
+| Al Hoda | Facebook / Google Images |
+| Al Sahaba | Facebook / Google Images |
+| Red Line | Facebook / Google Images |
+| Print Show | Facebook / Google Images |
+| XPRS | Facebook / Google Images |
+| i7 | Facebook / Google Images |
+| Quick Fix | Facebook / Google Images |
+| Egypt Laptop | Facebook / Google Images |
+| Prime Technology | Facebook / Google Images |
 
-## خطوات التنفيذ
-
-### 1. تحميل اللوجوهات من المواقع الرسمية
-- زيارة كل موقع عبر أدوات المتصفح (browser tools)
-- التقاط screenshot لكل موقع لتحديد اللوجو
-- تحميل ملف اللوجو الأصلي (PNG/SVG/WebP) من المصدر مباشرة
-- المحلات المستهدفة: 2B, Sharaf DG, Compu Marts, Games2Egypt, El Badr, Digital Plus, Kasr Zero
-
-### 2. البحث عن لوجوهات المحلات بدون موقع
-- البحث في Google Images عن كل محل + "logo"
-- البحث في صفحات Facebook عن profile picture
-- البحث في Google Maps listings
-- تحميل أفضل نسخة متاحة
-
-### 3. معالجة الصور
-- تحويل كل لوجو إلى WebP بجودة عالية
-- توحيد الأبعاد (مربع ~200x200px مع padding)
-- ضمان خلفية شفافة
-- حفظ بنفس أسماء الملفات الحالية في `public/logos/tenants/`
-
-### 4. المحلات التي لا يوجد لها لوجو متاح
-- الاحتفاظ باللوجو الحالي مؤقتا
-- توثيق قائمة المحلات التي تحتاج لوجو رسمي من المالك
+**المعالجة:**
+- تحميل اللوجو الحقيقي من المصدر مباشرة (لا إنشاء بالذكاء الاصطناعي)
+- تحويل إلى WebP بخلفية شفافة وأبعاد 200x200px
+- حفظ بنفس أسماء الملفات في `public/logos/tenants/`
+- المحلات التي لا يُعثر لها على لوجو حقيقي تبقى كما هي
 
 ## التفاصيل التقنية
-- **الملفات**: `public/logos/tenants/*.webp` فقط
-- **الأدوات**: browser tools لزيارة المواقع + curl لتحميل الصور + ImageMagick/Python للتحويل
-- **لا تعديل في الكود**: نفس المسارات والأسماء
+
+- **ملفات الكود المعدلة:** `FeaturedStores.tsx` و `MerchantLogoWall.tsx` (إضافة sort logic لكسر زيرو)
+- **ملفات الصور:** `public/logos/tenants/*.webp` (استبدال بالحقيقي فقط)
+- **لا تعديل في قاعدة البيانات**
 
