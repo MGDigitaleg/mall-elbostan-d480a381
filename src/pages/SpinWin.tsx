@@ -365,7 +365,7 @@ const SpinWin = () => {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                    className="card-premium overflow-hidden max-w-md mx-auto w-full"
+                    className="bg-navy/80 border border-primary/20 rounded-2xl overflow-hidden max-w-md mx-auto w-full backdrop-blur-sm shadow-xl shadow-primary/10"
                   >
                     {result.won && result.result ? (
                       <>
