@@ -1,6 +1,7 @@
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
+import { HeroSkeleton } from "@/components/home/HeroSkeleton";
 import {
   ArrowLeft,
   Compass,
@@ -150,7 +151,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
     <div>
       {/* ═══════════ 1 · HERO ═══════════ */}
       <section style={{ contain: "layout", minHeight: isMobile ? 520 : 580 }}>
-        <Suspense fallback={<div style={{ minHeight: isMobile ? 520 : 580, background: "#071326" }} />}>
+        <Suspense fallback={<HeroSkeleton mobile={isMobile} />}>
           {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
         </Suspense>
       </section>
