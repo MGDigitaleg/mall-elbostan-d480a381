@@ -353,7 +353,7 @@ const SpinWin = () => {
                     </div>
                   </div>
                   {!settled && (
-                    <p className="text-center mt-8 text-sm text-muted-foreground">
+                    <p className="text-center mt-8 text-sm text-navy-foreground/60">
                       جاري تحديد جائزتك...
                     </p>
                   )}
