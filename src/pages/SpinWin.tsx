@@ -482,25 +482,114 @@ const SpinWin = () => {
                                   const xml = new XMLSerializer().serializeToString(svg);
                                   const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
                                   const url = URL.createObjectURL(blob);
-                                  const img = new Image();
-                                  img.onload = () => {
+                                  const qrImg = new Image();
+                                  qrImg.onload = () => {
+                                    const W = 640, H = 880;
                                     const canvas = document.createElement("canvas");
-                                    canvas.width = 512; canvas.height = 512;
+                                    canvas.width = W; canvas.height = H;
                                     const ctx = canvas.getContext("2d");
                                     if (!ctx) return;
-                                    ctx.fillStyle = "#fff";
-                                    ctx.fillRect(0, 0, 512, 512);
-                                    ctx.drawImage(img, 0, 0, 512, 512);
+
+                                    // Background
+                                    ctx.fillStyle = "#0B1220";
+                                    ctx.fillRect(0, 0, W, H);
+
+                                    // Top blue banner
+                                    const grd = ctx.createLinearGradient(0, 0, W, 160);
+                                    grd.addColorStop(0, "#2563EB");
+                                    grd.addColorStop(1, "#1D4ED8");
+                                    ctx.fillStyle = grd;
+                                    ctx.beginPath();
+                                    ctx.moveTo(0, 0); ctx.lineTo(W, 0); ctx.lineTo(W, 140);
+                                    ctx.quadraticCurveTo(W / 2, 175, 0, 140); ctx.closePath();
+                                    ctx.fill();
+
+                                    // Prize text
+                                    ctx.textAlign = "center";
+                                    ctx.fillStyle = "rgba(255,255,255,0.7)";
+                                    ctx.font = "bold 16px 'IBM Plex Sans Arabic', sans-serif";
+                                    ctx.fillText("مبروك! حصلت على", W / 2, 55);
+                                    ctx.fillStyle = "#ffffff";
+                                    ctx.font = "bold 28px 'IBM Plex Sans Arabic', sans-serif";
+                                    const prizeName = result.result?.prize?.name_ar ?? "جائزة";
+                                    ctx.fillText(prizeName, W / 2, 100);
+
+                                    // QR code
+                                    const qrSize = 220;
+                                    const qrX = (W - qrSize) / 2, qrY = 190;
+                                    ctx.fillStyle = "#ffffff";
+                                    ctx.beginPath();
+                                    ctx.roundRect(qrX - 16, qrY - 16, qrSize + 32, qrSize + 32, 16);
+                                    ctx.fill();
+                                    ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+
+                                    // Claim code
+                                    const code = result.result?.claim_code ?? "";
+                                    ctx.fillStyle = "#ffffff";
+                                    ctx.font = "bold 13px 'IBM Plex Sans Arabic', sans-serif";
+                                    ctx.fillText("رمز الاستلام", W / 2, 460);
+                                    ctx.font = "bold 26px 'Courier New', monospace";
+                                    ctx.fillStyle = "#60A5FA";
+                                    ctx.fillText(code, W / 2, 500);
+
+                                    // Divider
+                                    ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                                    ctx.lineWidth = 1;
+                                    ctx.beginPath(); ctx.moveTo(80, 530); ctx.lineTo(W - 80, 530); ctx.stroke();
+
+                                    // Redemption rules
+                                    const rules = result.result?.prize?.redemption_rules_ar;
+                                    if (rules) {
+                                      ctx.fillStyle = "rgba(255,255,255,0.6)";
+                                      ctx.font = "14px 'IBM Plex Sans Arabic', sans-serif";
+                                      ctx.fillText("كيفية الاستلام", W / 2, 565);
+                                      ctx.fillStyle = "rgba(255,255,255,0.85)";
+                                      ctx.font = "14px 'IBM Plex Sans Arabic', sans-serif";
+                                      // Wrap text
+                                      const words = rules.split(" ");
+                                      let line = "", y = 590;
+                                      for (const word of words) {
+                                        const test = line + word + " ";
+                                        if (ctx.measureText(test).width > W - 100) {
+                                          ctx.fillText(line.trim(), W / 2, y);
+                                          line = word + " "; y += 22;
+                                        } else { line = test; }
+                                      }
+                                      if (line.trim()) ctx.fillText(line.trim(), W / 2, y);
+                                    }
+
+                                    // Expiry
+                                    if (result.result?.expires_at) {
+                                      ctx.fillStyle = "rgba(255,255,255,0.45)";
+                                      ctx.font = "12px 'IBM Plex Sans Arabic', sans-serif";
+                                      const expDate = new Date(result.result.expires_at).toLocaleDateString("ar-EG", {
+                                        day: "numeric", month: "long", year: "numeric",
+                                      });
+                                      ctx.fillText(`صالح حتى ${expDate}`, W / 2, 660);
+                                    }
+
+                                    // Store sponsor
+                                    if (result.result?.store?.name_ar) {
+                                      ctx.fillStyle = "rgba(255,255,255,0.5)";
+                                      ctx.font = "12px 'IBM Plex Sans Arabic', sans-serif";
+                                      ctx.fillText(`الجائزة من: ${result.result.store.name_ar}`, W / 2, 690);
+                                    }
+
+                                    // Footer branding
+                                    ctx.fillStyle = "rgba(255,255,255,0.3)";
+                                    ctx.font = "bold 14px 'IBM Plex Sans Arabic', sans-serif";
+                                    ctx.fillText("مول البستان — mallelbostan.com", W / 2, H - 30);
+
                                     URL.revokeObjectURL(url);
                                     const a = document.createElement("a");
-                                    a.download = `mall-elbostan-prize-${result.result?.claim_code ?? "code"}.png`;
+                                    a.download = `mall-elbostan-prize-${code}.png`;
                                     a.href = canvas.toDataURL("image/png");
                                     a.click();
                                   };
-                                  img.src = url;
+                                  qrImg.src = url;
                                 }}
-                                className="h-10 px-3 rounded-lg border border-primary/20 text-navy-foreground hover:bg-primary/10 flex items-center justify-center transition-colors"
-                                title="حفظ QR كصورة"
+                                className="h-10 px-3 rounded-lg border border-primary/20 text-navy-foreground hover:bg-primary/10 flex items-center justify-center gap-1.5 transition-colors text-xs font-medium"
+                                title="حفظ البطاقة كصورة"
                               >
                                 <Download className="w-4 h-4" />
                               </button>
