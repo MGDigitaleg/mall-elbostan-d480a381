@@ -348,11 +348,14 @@ const SpinWin = () => {
               <div className={`grid grid-cols-1 ${settled ? "md:grid-cols-2" : ""} gap-6 md:gap-10 items-center`}>
                 {/* Wheel column */}
                 <div className="flex flex-col items-center">
-                  <div className="relative flex items-center justify-center">
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div
+                    className="relative mx-auto"
+                    style={{ width: wheelSize + ringThickness * 2, height: wheelSize + ringThickness * 2 }}
+                  >
+                    <div className="absolute inset-0 pointer-events-none">
                       <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
                     </div>
-                    <div className="relative z-10">
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
                       <PrizeWheel
                         segments={WHEEL_SEGMENTS}
                         spinning={true}
