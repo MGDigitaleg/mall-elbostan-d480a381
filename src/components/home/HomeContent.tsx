@@ -150,7 +150,15 @@ export function HomeContent({ faqs }: HomeContentProps) {
   return (
     <div>
       {/* ═══════════ 1 · HERO ═══════════ */}
-      <section style={{ contain: "layout", minHeight: isMobile ? 520 : 580 }}>
+      <section
+        style={{
+          contain: "layout style",
+          height: isMobile ? 520 : 580,
+          maxHeight: isMobile ? 620 : 660,
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
         <Suspense fallback={<HeroSkeleton mobile={isMobile} />}>
           {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
         </Suspense>
