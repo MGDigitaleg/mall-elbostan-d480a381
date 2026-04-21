@@ -231,7 +231,7 @@ const SpinWin = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               onSubmit={handleStart}
-              className="card-premium p-6 md:p-8 space-y-5 text-right max-w-xl mx-auto"
+              className="card-premium p-6 md:p-8 space-y-5 text-right max-w-xl mx-auto" dir="rtl"
             >
               <div className="text-center mb-2">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 mb-3">
@@ -242,32 +242,42 @@ const SpinWin = () => {
               </div>
 
               <div className="space-y-3">
-                <Input
-                  placeholder="الاسم الكامل *"
-                  value={form.full_name}
-                  onChange={(e) => setForm({ ...form, full_name: e.target.value })}
-                  className="bg-secondary/50 border-border h-12"
-                  maxLength={100}
-                  required
-                />
-                <Input
-                  placeholder="رقم الهاتف *"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  className="bg-secondary/50 border-border h-12"
-                  maxLength={20}
-                  required
-                  dir="ltr"
-                />
-                <Input
-                  placeholder="البريد الإلكتروني (اختياري)"
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="bg-secondary/50 border-border h-12"
-                  maxLength={120}
-                  dir="ltr"
-                />
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-foreground">الاسم الكامل <span className="text-destructive">*</span></label>
+                  <Input
+                    placeholder="أدخل اسمك الكامل"
+                    value={form.full_name}
+                    onChange={(e) => setForm({ ...form, full_name: e.target.value })}
+                    className="bg-secondary/50 border-border h-12 text-right"
+                    maxLength={100}
+                    required
+                    dir="rtl"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-foreground">رقم الهاتف <span className="text-destructive">*</span></label>
+                  <Input
+                    placeholder="01xxxxxxxxx"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="bg-secondary/50 border-border h-12 text-left"
+                    maxLength={20}
+                    required
+                    dir="ltr"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-foreground">البريد الإلكتروني <span className="text-muted-foreground font-normal">(اختياري)</span></label>
+                  <Input
+                    placeholder="example@email.com"
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="bg-secondary/50 border-border h-12 text-left"
+                    maxLength={120}
+                    dir="ltr"
+                  />
+                </div>
 
                 {/* Visitor token (collapsible) */}
                 <div className="pt-1">
@@ -275,10 +285,10 @@ const SpinWin = () => {
                     <button
                       type="button"
                       onClick={() => setShowVisitorField(true)}
-                      className="text-xs text-primary hover:underline font-semibold inline-flex items-center gap-1.5"
+                      className="text-xs text-primary hover:underline font-semibold inline-flex items-center gap-1.5 flex-row-reverse"
                     >
-                      <ShieldCheck className="w-3.5 h-3.5" />
                       عندي كود زائر من الفرع
+                      <ShieldCheck className="w-3.5 h-3.5" />
                     </button>
                   ) : (
                     <div className="space-y-1.5 bg-primary/5 border border-primary/20 rounded-xl p-3">
@@ -290,7 +300,7 @@ const SpinWin = () => {
                         placeholder="مثال: BOSTAN-VISITOR-XXXX"
                         value={form.visitor_token}
                         onChange={(e) => setForm({ ...form, visitor_token: e.target.value.toUpperCase() })}
-                        className="bg-card border-border h-11 font-mono text-sm"
+                        className="bg-card border-border h-11 font-mono text-sm text-left"
                         dir="ltr"
                       />
                       <p className="text-[11px] text-muted-foreground">
@@ -302,12 +312,12 @@ const SpinWin = () => {
               </div>
 
               {/* Terms */}
-              <label className="flex items-start gap-2 text-xs text-muted-foreground cursor-pointer">
+              <label className="flex items-start gap-2.5 text-xs text-muted-foreground cursor-pointer flex-row-reverse">
                 <input
                   type="checkbox"
                   checked={agreeTerms}
                   onChange={(e) => setAgreeTerms(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-border accent-primary"
+                  className="mt-0.5 h-4 w-4 rounded border-border accent-primary shrink-0"
                 />
                 <span>
                   أوافق على{" "}
