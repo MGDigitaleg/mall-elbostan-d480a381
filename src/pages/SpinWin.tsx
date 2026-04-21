@@ -220,7 +220,8 @@ const SpinWin = () => {
       ) : (
       <>
       {/* ─── Main ─── */}
-      <section className="container py-10 md:py-14">
+      <section className="bg-navy py-10 md:py-14">
+        <div className="container">
         <AnimatePresence mode="wait">
           {/* Registration */}
           {step === "register" && (
