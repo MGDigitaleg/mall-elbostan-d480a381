@@ -4,6 +4,7 @@ import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag }
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
 import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES } from "@/lib/tenantMapLookup";
+import { TenantLogo } from "@/components/TenantLogo";
 export type ActiveRewardContext = {
   prizeName: string;
   claimRules?: string | null;
@@ -42,10 +43,11 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       {/* Logo + Header */}
       {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
         <div className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border">
-          <img
+          <TenantLogo
             src={UNIT_TENANT_LOGOS[unit.id]}
             alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
-            className="h-12 w-auto max-w-[160px] object-contain"
+            size="md"
+            rounded="lg"
           />
         </div>
       )}
