@@ -1,62 +1,62 @@
 
 
-# خطة تحسين صفحة أدر واربح — توسيط العجلة، تحسين النصوص، واستعادة الخلفية الفاتحة
+# اصلاح جذري لتوسيط العجلة داخل حلقة اللوجوهات
 
-## ملخص المشاكل
-1. **العجلة غير متوسطة** داخل حلقة اللوجوهات — اللوجوهات تتداخل مع العجلة
-2. **النصوص على العجلة** صغيرة وصعبة القراءة ومتداخلة
-3. **الخلفية داكنة** رغم وجود dark mode أصلاً — يجب استعادة الخلفية الفاتحة
+## المشكلة الجذرية
 
----
+الحاوية الأب (السطر 351 في `SpinWin.tsx`) ليس لها أبعاد صريحة. الـ `StoreRing` موضوع بـ `absolute inset-0` لكن حجم الحاوية يتحدد فقط من الـ `PrizeWheel` (الذي هو أصغر). النتيجة: اللوجوهات تخرج عن الحاوية وتظهر غير متوسطة.
 
-## التغييرات المطلوبة
+```text
+الحالي:
+┌─ container (حجمه = wheelSize فقط) ──┐
+│  StoreRing (absolute, total > container) → يتسرب خارج الحاوية
+│  PrizeWheel (relative, wheelSize)
+└─────────────────────────────────────┘
 
-### 1. استعادة الخلفية الفاتحة لقسم العجلة
-**ملف:** `src/pages/SpinWin.tsx`
+المطلوب:
+┌─ container (حجمه = wheelSize + ringThickness*2) ─┐
+│  ┌─ StoreRing (absolute inset-0, يناسب الحاوية) ─┐│
+│  │  ┌─ PrizeWheel (centered inside) ─┐           ││
+│  │  └────────────────────────────────┘           ││
+│  └───────────────────────────────────────────────┘│
+└───────────────────────────────────────────────────┘
+```
 
-- تغيير `bg-navy` في القسم الرئيسي (السطر 223) إلى خلفية فاتحة تتبع الـ theme (`bg-background`)
-- تحديث ألوان النصوص من `text-navy-foreground` إلى `text-foreground` و `text-muted-foreground`
-- بطاقة النتيجة: تغيير `bg-navy/80` إلى `bg-card` مع حدود مناسبة
+## الحل
 
-### 2. توسيط العجلة داخل حلقة اللوجوهات
-**ملف:** `src/pages/SpinWin.tsx`
+### ملف: `src/pages/SpinWin.tsx`
 
-- زيادة `ringThickness` لإبعاد اللوجوهات عن حافة العجلة (من 88 إلى 100+ على الديسكتوب)
-- التأكد أن الحاوية `relative flex items-center justify-center` تعطي مساحة كافية عبر تحديد `min-height` و `min-width` بناءً على الحجم الكلي للحلقة
+**تغيير واحد في حاوية العجلة (السطر 351):**
 
-**ملف:** `src/components/spin/StoreRing.tsx`
+اعطاء الحاوية أبعاد صريحة تساوي الحجم الكلي للحلقة (`wheelSize + ringThickness * 2`) بدلاً من ترك الحجم يتحدد تلقائياً من الـ PrizeWheel فقط.
 
-- إخفاء أسماء المحلات النصية أسفل اللوجوهات (الـ `span` في السطر 132) لتقليل التداخل البصري، والإبقاء على اللوجو فقط مع `title` attribute للوصولية
-- تكبير حجم اللوجو قليلاً من `h-9 w-9` إلى `h-10 w-10`
+```tsx
+// حساب الحجم الكلي
+const totalRingSize = wheelSize + ringThickness * 2;
 
-### 3. تحسين نصوص شرائح العجلة
-**ملف:** `src/components/spin/PrizeWheel.tsx`
+// الحاوية بأبعاد صريحة
+<div 
+  className="relative mx-auto"
+  style={{ width: totalRingSize, height: totalRingSize }}
+>
+  {/* StoreRing — absolute inset-0 يملأ الحاوية بالكامل */}
+  <div className="absolute inset-0">
+    <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
+  </div>
+  {/* PrizeWheel — centered inside */}
+  <div className="absolute inset-0 flex items-center justify-center z-10">
+    <PrizeWheel ... size={wheelSize} />
+  </div>
+</div>
+```
 
-- زيادة حجم الخط من `fontSize={11}` إلى حجم ديناميكي يتناسب مع `size` (مثلاً `Math.max(11, size * 0.038)`)
-- تحريك النص أقرب لحافة الشريحة (تغيير معامل `0.62` إلى `0.58`) ليكون أبعد عن المركز وأسهل في القراءة
-- إضافة `textShadow` خفيف لتحسين التباين
-
----
-
-## التفاصيل التقنية
-
-### الألوان المستبدلة في `SpinWin.tsx`
-| الحالي | الجديد |
-|--------|--------|
-| `bg-navy` (القسم الرئيسي) | `bg-background` |
-| `text-navy-foreground/60` | `text-muted-foreground` |
-| `bg-navy/80 border-primary/20` (بطاقة النتيجة) | `bg-card border-border` |
-
-### حجم الحلقة المحدث
-| الحالة | `ringThickness` الحالي | الجديد |
-|--------|----------------------|--------|
-| ديسكتوب (قبل النتيجة) | 88 | 104 |
-| ديسكتوب (بعد النتيجة) | 72 | 80 |
-| موبايل (قبل النتيجة) | 60 | 72 |
-| موبايل (بعد النتيجة) | 48 | 56 |
+هذا يضمن:
+1. الحاوية بالضبط بحجم الحلقة الخارجية
+2. الـ StoreRing يتطابق مع أبعاد الحاوية (لأنه يحسب `total = innerSize + ringThickness * 2` داخلياً)
+3. الـ PrizeWheel متوسط تماماً داخل الحاوية
 
 ### الملفات المتأثرة
-- `src/pages/SpinWin.tsx` — خلفية فاتحة + أحجام الحلقة
-- `src/components/spin/PrizeWheel.tsx` — حجم الخط وموضع النص
-- `src/components/spin/StoreRing.tsx` — إخفاء الأسماء وتكبير اللوجو
+- `src/pages/SpinWin.tsx` — تغيير هيكل حاوية العجلة فقط (السطور 350-364)
+
+لا حاجة لتعديل `StoreRing.tsx` أو `PrizeWheel.tsx` — المشكلة كانت فقط في طريقة تركيب الحاوية.
 
