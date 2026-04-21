@@ -33,7 +33,7 @@ const WHEEL_SEGMENTS: WheelSegment[] = [
 
 /** Map a server prize to a wheel segment index (visual landing). */
 function pickSegmentIndex(prizeNameAr: string | undefined, isGrand: boolean | undefined): number {
-  if (isGrand) return 7; // "مفاجأة فاخرة"
+  if (isGrand) return 7;
   if (!prizeNameAr) return 6;
   if (prizeNameAr.includes("25")) return 0;
   if (prizeNameAr.includes("20")) return 1;
@@ -58,7 +58,8 @@ type SpinResponse = {
 const SpinWin = () => {
   const { toast } = useToast();
   const { data: campaign, isLoading: campaignLoading } = useCampaignStatus("spin_win");
-  const [step, setStep] = useState<"register" | "spinning" | "result">("register");
+  const [step, setStep] = useState<"register" | "spinning">("register");
+  const [settled, setSettled] = useState(false);
   const [form, setForm] = useState({ full_name: "", phone: "", email: "", visitor_token: "" });
   const [showVisitorField, setShowVisitorField] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -68,7 +69,7 @@ const SpinWin = () => {
   const [targetIndex, setTargetIndex] = useState<number | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
 
-  // Responsive wheel/ring sizing for small viewports
+  // Responsive wheel/ring sizing
   const [viewportW, setViewportW] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
   useEffect(() => {
     const onResize = () => setViewportW(window.innerWidth);
@@ -76,8 +77,9 @@ const SpinWin = () => {
     return () => window.removeEventListener("resize", onResize);
   }, []);
   const isNarrow = viewportW < 480;
-  const wheelSize = isNarrow ? 240 : 320;
-  const ringThickness = isNarrow ? 60 : 88;
+  const isMd = viewportW >= 768;
+  const wheelSize = settled ? (isNarrow ? 200 : isMd ? 280 : 240) : (isNarrow ? 240 : 320);
+  const ringThickness = settled ? (isNarrow ? 48 : 72) : (isNarrow ? 60 : 88);
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,6 +126,7 @@ const SpinWin = () => {
       });
       setResult(data);
       setTargetIndex(idx);
+      setSettled(false);
       setStep("spinning");
     } catch {
       trackEvent("spin_win_error", { reason: "network_or_unknown" });
@@ -134,7 +137,7 @@ const SpinWin = () => {
   };
 
   const handleSettled = () => {
-    setStep("result");
+    setSettled(true);
   };
 
   const copyCode = () => {
@@ -318,172 +321,174 @@ const SpinWin = () => {
             </motion.form>
           )}
 
-          {/* Spinning + Wheel */}
+          {/* Spinning — wheel stays visible, result appears beside it */}
           {step === "spinning" && (
             <motion.div
               key="spinning"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="max-w-3xl mx-auto"
+              className="max-w-5xl mx-auto"
             >
               <div className="flex justify-center mb-6">
                 <FloorTabs selected={floorId} onChange={setFloorId} />
               </div>
 
-              <div className="relative flex items-center justify-center">
-                {/* Outer store ring */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
+              <div className={`grid grid-cols-1 ${settled ? "md:grid-cols-2" : ""} gap-6 md:gap-10 items-center`}>
+                {/* Wheel column */}
+                <div className="flex flex-col items-center">
+                  <div className="relative flex items-center justify-center">
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <StoreRing floorId={floorId} innerSize={wheelSize} ringThickness={ringThickness} />
+                    </div>
+                    <div className="relative z-10">
+                      <PrizeWheel
+                        segments={WHEEL_SEGMENTS}
+                        spinning={true}
+                        targetIndex={targetIndex}
+                        onSettled={handleSettled}
+                        size={wheelSize}
+                      />
+                    </div>
+                  </div>
+                  {!settled && (
+                    <p className="text-center mt-8 text-sm text-muted-foreground">
+                      جاري تحديد جائزتك...
+                    </p>
+                  )}
                 </div>
 
-                {/* Inner wheel */}
-                <div className="relative z-10">
-                  <PrizeWheel
-                    segments={WHEEL_SEGMENTS}
-                    spinning={true}
-                    targetIndex={targetIndex}
-                    onSettled={handleSettled}
-                    size={wheelSize}
-                  />
-                </div>
+                {/* Result column — appears after settled */}
+                {settled && result && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 22 }}
+                    className="card-premium overflow-hidden max-w-md mx-auto w-full"
+                  >
+                    {result.won && result.result ? (
+                      <>
+                        {/* Banner */}
+                        <div className={`p-5 md:p-6 text-center relative overflow-hidden ${
+                          isGrand
+                            ? "bg-gradient-to-br from-navy via-navy to-primary"
+                            : isVisitor
+                              ? "bg-gradient-to-br from-orange via-orange to-orange/80"
+                              : "bg-gradient-blue"
+                        }`}>
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.12)_0%,_transparent_55%)]" />
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}
+                            className="relative"
+                          >
+                            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm mb-3">
+                              {isGrand ? <Crown className="h-6 w-6 text-white" /> : <Gift className="h-6 w-6 text-white" />}
+                            </div>
+                            <p className="text-white/85 text-xs font-medium mb-1">
+                              {isGrand ? "الجائزة الكبرى" : isVisitor ? "جائزة خاصة لزوار الفرع" : "مبروك! حصلت على"}
+                            </p>
+                            <h2 className="text-xl md:text-2xl font-extrabold text-white">
+                              {result.result.prize.name_ar}
+                            </h2>
+                          </motion.div>
+                        </div>
+
+                        <div className="p-5 md:p-6 space-y-3 text-right">
+                          {/* Claim code + QR */}
+                          <div className="border-2 border-dashed border-primary/30 bg-primary/5 p-4 rounded-xl text-center">
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2">رمز الاستلام</p>
+                            <div className="mb-2 flex justify-center">
+                              <ClaimQRCode
+                                value={result.result.qr_data || result.result.claim_code}
+                                claimCode={result.result.claim_code}
+                                size={110}
+                              />
+                            </div>
+                            <p className="font-mono text-lg font-extrabold text-foreground tracking-[0.15em] mb-1.5">
+                              {result.result.claim_code}
+                            </p>
+                            <button
+                              onClick={copyCode}
+                              className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-medium"
+                            >
+                              {codeCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                              {codeCopied ? "تم النسخ" : "نسخ الرمز"}
+                            </button>
+                            <p className="mt-1.5 text-[0.65rem] text-muted-foreground">
+                              أظهر الـ QR لموظف المتجر للتحقق والاستلام
+                            </p>
+                          </div>
+
+                          {/* Sponsor store */}
+                          {result.result.store?.name_ar && !isGrand && !isVisitor && (
+                            <div className="flex items-center gap-3 bg-secondary/50 p-3 rounded-xl">
+                              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 shrink-0">
+                                <Store className="h-4 w-4 text-primary" />
+                              </div>
+                              <div className="flex-1">
+                                <p className="text-[10px] text-muted-foreground">الجائزة من</p>
+                                <p className="font-bold text-foreground text-sm">{result.result.store.name_ar}</p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Redemption rules */}
+                          {result.result.prize.redemption_rules_ar && (
+                            <div className="bg-secondary/50 p-3 rounded-xl">
+                              <p className="font-bold text-foreground text-xs mb-1 flex items-center gap-1.5">
+                                <FileText className="w-3.5 h-3.5 text-primary" />
+                                كيفية الاستلام
+                              </p>
+                              <p className="text-xs text-muted-foreground leading-relaxed">
+                                {result.result.prize.redemption_rules_ar}
+                              </p>
+                            </div>
+                          )}
+
+                          {result.result.expires_at && (
+                            <div className="flex items-center justify-center gap-1.5 text-[10px] text-muted-foreground">
+                              <Clock className="w-3 h-3" />
+                              <span>
+                                صالح حتى{" "}
+                                {new Date(result.result.expires_at).toLocaleDateString("ar-EG", {
+                                  day: "numeric", month: "long", year: "numeric",
+                                })}
+                              </span>
+                            </div>
+                          )}
+
+                          <div className="flex gap-2 pt-1">
+                            <Link to="/map" className="flex-1">
+                              <Button variant="cta" className="w-full h-10 gap-2 text-sm">
+                                <MapPin className="w-3.5 h-3.5" />
+                                خريطة المول
+                              </Button>
+                            </Link>
+                            <Link to="/reward-terms">
+                              <Button variant="outline" className="h-10 px-3">
+                                <ChevronLeft className="w-4 h-4" />
+                              </Button>
+                            </Link>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="p-6 text-center">
+                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-muted mb-4">
+                          <Sparkles className="h-7 w-7 text-muted-foreground" />
+                        </div>
+                        <h2 className="text-xl font-bold text-foreground mb-2">شكراً لمشاركتك</h2>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                          {result.message ?? "لم تتوفر مكافأة هذه المرة — جرّب مرة أخرى غداً."}
+                        </p>
+                        <Link to="/"><Button variant="outline" size="sm">العودة للرئيسية</Button></Link>
+                      </div>
+                    )}
+                  </motion.div>
+                )}
               </div>
-
-              <p className="text-center mt-8 text-sm text-muted-foreground">
-                جاري تحديد جائزتك...
-              </p>
-            </motion.div>
-          )}
-
-          {/* Result */}
-          {step === "result" && result && (
-            <motion.div
-              key="result"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="card-premium overflow-hidden max-w-xl mx-auto"
-            >
-              {result.won && result.result ? (
-                <>
-                  {/* Banner */}
-                  <div className={`p-6 md:p-8 text-center relative overflow-hidden ${
-                    isGrand
-                      ? "bg-gradient-to-br from-navy via-navy to-primary"
-                      : isVisitor
-                        ? "bg-gradient-to-br from-orange via-orange to-orange/80"
-                        : "bg-gradient-blue"
-                  }`}>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.12)_0%,_transparent_55%)]" />
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}
-                      className="relative"
-                    >
-                      <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm mb-4">
-                        {isGrand ? <Crown className="h-8 w-8 text-white" /> : <Gift className="h-8 w-8 text-white" />}
-                      </div>
-                      <p className="text-white/85 text-sm font-medium mb-1">
-                        {isGrand ? "الجائزة الكبرى" : isVisitor ? "جائزة خاصة لزوار الفرع" : "مبروك! حصلت على"}
-                      </p>
-                      <h2 className="text-2xl md:text-3xl font-extrabold text-white">
-                        {result.result.prize.name_ar}
-                      </h2>
-                    </motion.div>
-                  </div>
-
-                  <div className="p-6 md:p-8 space-y-4 text-right">
-                    {/* Claim code + QR */}
-                    <div className="border-2 border-dashed border-primary/30 bg-primary/5 p-5 rounded-xl text-center">
-                      <p className="text-xs font-bold uppercase tracking-widest text-primary mb-3">رمز الاستلام</p>
-                      <div className="mb-3 flex justify-center">
-                        <ClaimQRCode
-                          value={result.result.qr_data || result.result.claim_code}
-                          claimCode={result.result.claim_code}
-                          size={140}
-                        />
-                      </div>
-                      <p className="font-mono text-xl md:text-2xl font-extrabold text-foreground tracking-[0.15em] mb-2">
-                        {result.result.claim_code}
-                      </p>
-                      <button
-                        onClick={copyCode}
-                        className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-primary/80 transition-colors font-medium"
-                      >
-                        {codeCopied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                        {codeCopied ? "تم النسخ" : "نسخ الرمز"}
-                      </button>
-                      <p className="mt-2 text-[0.7rem] text-muted-foreground">
-                        أظهر الـ QR لموظف المتجر للتحقق والاستلام
-                      </p>
-                    </div>
-
-                    {/* Sponsor store (if any) */}
-                    {result.result.store?.name_ar && !isGrand && !isVisitor && (
-                      <div className="flex items-center gap-4 bg-secondary/50 p-4 rounded-xl">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 shrink-0">
-                          <Store className="h-5 w-5 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs text-muted-foreground">الجائزة من</p>
-                          <p className="font-bold text-foreground">{result.result.store.name_ar}</p>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Redemption rules */}
-                    {result.result.prize.redemption_rules_ar && (
-                      <div className="bg-secondary/50 p-4 rounded-xl">
-                        <p className="font-bold text-foreground text-sm mb-1.5 flex items-center gap-2">
-                          <FileText className="w-4 h-4 text-primary" />
-                          كيفية الاستلام
-                        </p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {result.result.prize.redemption_rules_ar}
-                        </p>
-                      </div>
-                    )}
-
-                    {result.result.expires_at && (
-                      <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>
-                          صالح حتى{" "}
-                          {new Date(result.result.expires_at).toLocaleDateString("ar-EG", {
-                            day: "numeric", month: "long", year: "numeric",
-                          })}
-                        </span>
-                      </div>
-                    )}
-
-                    <div className="flex gap-3 pt-2">
-                      <Link to="/map" className="flex-1">
-                        <Button variant="cta" className="w-full h-11 gap-2">
-                          <MapPin className="w-4 h-4" />
-                          خريطة المول
-                        </Button>
-                      </Link>
-                      <Link to="/reward-terms">
-                        <Button variant="outline" className="h-11 px-4">
-                          <ChevronLeft className="w-4 h-4" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="p-8 text-center">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-muted mb-5">
-                    <Sparkles className="h-8 w-8 text-muted-foreground" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-foreground mb-3">شكراً لمشاركتك</h2>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {result.message ?? "لم تتوفر مكافأة هذه المرة — جرّب مرة أخرى غداً."}
-                  </p>
-                  <Link to="/"><Button variant="outline">العودة للرئيسية</Button></Link>
-                </div>
-              )}
             </motion.div>
           )}
         </AnimatePresence>
