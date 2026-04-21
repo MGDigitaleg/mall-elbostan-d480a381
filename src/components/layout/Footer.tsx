@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logoWhite from "@/assets/logo-brand-white.webp";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown } from "lucide-react";
 import { useState } from "react";
@@ -137,7 +137,7 @@ export function Footer() {
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
             <Link to="/" className="inline-block">
-              <img src={logoWhite} alt="مول البستان" width={600} height={349} className="h-[60px] w-auto object-contain opacity-90 transition-opacity hover:opacity-100" loading="lazy" decoding="async" />
+              <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" />
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.7] font-light" style={{ color: "#8896AB" }}>
