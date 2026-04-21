@@ -98,7 +98,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
         </span>
       </div>
 
-      <ul className={`space-y-2.5 ${openMobile ? "block" : "hidden"} lg:block pt-2 lg:pt-0`}>
+      <ul className={`space-y-2.5 overflow-hidden transition-all duration-200 lg:block pt-2 lg:pt-0 ${openMobile ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"}`}>
         {col.links.map((link) => (
           <li key={link.path}>
             <Link
@@ -136,7 +136,7 @@ export function Footer() {
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
-            <Link to="/" className="inline-block">
+            <Link to="/" className="inline-block" style={{ minHeight: 64 }}>
               <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
