@@ -102,8 +102,8 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
             const seg = segments[i];
             const fill = toneColors[seg.tone];
             const textAngle = i * segAngle + segAngle / 2 - 90;
-            const tx = radius + radius * 0.62 * Math.cos(textAngle * (Math.PI / 180));
-            const ty = radius + radius * 0.62 * Math.sin(textAngle * (Math.PI / 180));
+            const tx = radius + radius * 0.58 * Math.cos(textAngle * (Math.PI / 180));
+            const ty = radius + radius * 0.58 * Math.sin(textAngle * (Math.PI / 180));
             const isWinner = isSettled && targetIndex === i;
             return (
               <g key={seg.id}>
@@ -123,9 +123,9 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
                   dominantBaseline="middle"
                   transform={`rotate(${textAngle + 90}, ${tx}, ${ty})`}
                   fill="hsl(0 0% 100%)"
-                  fontSize={11}
+                  fontSize={Math.max(11, size * 0.038)}
                   fontWeight={700}
-                  style={{ fontFamily: "inherit", opacity: isSettled && !isWinner ? 0.5 : 1 }}
+                  style={{ fontFamily: "inherit", opacity: isSettled && !isWinner ? 0.5 : 1, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}
                 >
                   {seg.label}
                 </text>

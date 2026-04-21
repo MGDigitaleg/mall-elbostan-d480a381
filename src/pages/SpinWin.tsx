@@ -79,7 +79,7 @@ const SpinWin = () => {
   const isNarrow = viewportW < 480;
   const isMd = viewportW >= 768;
   const wheelSize = settled ? (isNarrow ? 200 : isMd ? 280 : 240) : (isNarrow ? 240 : 320);
-  const ringThickness = settled ? (isNarrow ? 48 : 72) : (isNarrow ? 60 : 88);
+  const ringThickness = settled ? (isNarrow ? 56 : 80) : (isNarrow ? 72 : 104);
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -220,7 +220,7 @@ const SpinWin = () => {
       ) : (
       <>
       {/* ─── Main ─── */}
-      <section className="bg-navy py-10 md:py-14">
+      <section className="bg-background py-10 md:py-14">
         <div className="container">
         <AnimatePresence mode="wait">
           {/* Registration */}
@@ -353,7 +353,7 @@ const SpinWin = () => {
                     </div>
                   </div>
                   {!settled && (
-                    <p className="text-center mt-8 text-sm text-navy-foreground/60">
+                    <p className="text-center mt-8 text-sm text-muted-foreground">
                       جاري تحديد جائزتك...
                     </p>
                   )}
@@ -365,7 +365,7 @@ const SpinWin = () => {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                    className="bg-navy/80 border border-primary/20 rounded-2xl overflow-hidden max-w-md mx-auto w-full backdrop-blur-sm shadow-xl shadow-primary/10"
+                    className="bg-card border border-border rounded-2xl overflow-hidden max-w-md mx-auto w-full shadow-xl shadow-primary/10"
                   >
                     {result.won && result.result ? (
                       <>
@@ -588,7 +588,7 @@ const SpinWin = () => {
                                   };
                                   qrImg.src = url;
                                 }}
-                                className="h-10 px-3 rounded-lg border border-primary/20 text-navy-foreground hover:bg-primary/10 flex items-center justify-center gap-1.5 transition-colors text-xs font-medium"
+                                className="h-10 px-3 rounded-lg border border-border text-foreground hover:bg-primary/10 flex items-center justify-center gap-1.5 transition-colors text-xs font-medium"
                                 title="حفظ البطاقة كصورة"
                               >
                                 <Download className="w-4 h-4" />
