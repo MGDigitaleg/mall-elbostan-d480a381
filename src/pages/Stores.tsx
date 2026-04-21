@@ -18,6 +18,7 @@ import {
   Wrench,
   X,
 } from "lucide-react";
+import { TenantLogo } from "@/components/TenantLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -484,20 +485,15 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
         />
 
         <div className="flex items-center gap-3.5">
-          {/* Logo container with refined glass effect */}
-          <div
-            className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl transition-all duration-300 group-hover:scale-105"
-            style={{
-              background: "#fff",
-              padding: 3,
-              boxShadow: "0 3px 16px hsl(0 0% 0% / 0.15), inset 0 1px 0 #ffffff80",
-            }}
-          >
-            {store.logo_url ? (
-              <img src={store.logo_url} alt={store.name_ar} className="h-full w-full object-contain" loading="lazy" />
-            ) : (
-              <Store className="h-7 w-7" style={{ color: accentColor }} />
-            )}
+          {/* Logo — unified component */}
+          <div className="transition-all duration-300 group-hover:scale-105" style={{ boxShadow: "0 3px 16px hsl(0 0% 0% / 0.15)" }}>
+            <TenantLogo
+              src={store.logo_url}
+              alt={store.name_ar}
+              size="md"
+              rounded="xl"
+              darkContext
+            />
           </div>
 
           <div className="min-w-0 flex-1">
