@@ -35,6 +35,7 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
   return (
     <section
       className="relative flex min-h-[480px] items-end overflow-hidden md:min-h-[520px]"
+      style={{ background: "#0a1628" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -51,11 +52,13 @@ export function BranchHeroSlider({ slides, kicker, title, subtitle, children }: 
           <img
             src={slides[current].src}
             alt={slides[current].alt}
+            width={1376}
+            height={768}
             className="h-full w-full object-cover"
             style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)" }}
             loading={current === 0 ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={current === 0 ? "high" : "auto"}
+            decoding={current === 0 ? "sync" : "async"}
+            fetchPriority={current === 0 ? "high" : "low"}
           />
         </motion.div>
       </AnimatePresence>

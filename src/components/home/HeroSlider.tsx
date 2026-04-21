@@ -142,7 +142,7 @@ export function HeroSlider() {
   return (
     <section
       className="relative min-h-[560px] md:min-h-[580px] max-h-[660px] overflow-hidden"
-      style={{ contain: "layout style" }}
+      style={{ contain: "layout style", background: "#0a1628" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -161,11 +161,13 @@ export function HeroSlider() {
           <img
             src={slide.image}
             alt={slide.alt}
+            width={1376}
+            height={768}
             className="h-full w-full object-cover"
             style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 80%" }}
             loading={current === 0 ? "eager" : "lazy"}
-            decoding="async"
-            fetchPriority={current === 0 ? "high" : undefined}
+            decoding={current === 0 ? "sync" : "async"}
+            fetchPriority={current === 0 ? "high" : "low"}
           />
         </motion.div>
       </AnimatePresence>
