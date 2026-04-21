@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLeft, Trophy, Crown, ShieldCheck } from "lucide-react";
+import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLeft, Trophy, Crown, ShieldCheck, Share2, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
@@ -460,18 +460,64 @@ const SpinWin = () => {
                             </div>
                           )}
 
-                          <div className="flex gap-2 pt-1">
-                            <Link to="/map" className="flex-1">
-                              <Button variant="cta" className="w-full h-10 gap-2 text-sm">
-                                <MapPin className="w-3.5 h-3.5" />
-                                خريطة المول
-                              </Button>
-                            </Link>
-                            <Link to="/reward-terms">
-                              <Button variant="outline" className="h-10 px-3">
-                                <ChevronLeft className="w-4 h-4" />
-                              </Button>
-                            </Link>
+                          {/* Share & actions */}
+                          <div className="flex flex-col gap-2 pt-1">
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => {
+                                  const prizeName = result.result?.prize?.name_ar ?? "جائزة";
+                                  const code = result.result?.claim_code ?? "";
+                                  const text = `🎉 ربحت ${prizeName} من مول البستان!\nرمز الاستلام: ${code}\nاستخدمه عند الشراء من أي متجر مشارك.\nhttps://mallelbostan.com/spin-win`;
+                                  window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+                                }}
+                                className="flex-1 h-10 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold flex items-center justify-center gap-2 transition-colors"
+                              >
+                                <Share2 className="w-3.5 h-3.5" />
+                                شارك على واتساب
+                              </button>
+                              <button
+                                onClick={() => {
+                                  const svg = document.querySelector("[data-qr-wrapper] svg") as SVGElement | null;
+                                  if (!svg) return;
+                                  const xml = new XMLSerializer().serializeToString(svg);
+                                  const blob = new Blob([xml], { type: "image/svg+xml;charset=utf-8" });
+                                  const url = URL.createObjectURL(blob);
+                                  const img = new Image();
+                                  img.onload = () => {
+                                    const canvas = document.createElement("canvas");
+                                    canvas.width = 512; canvas.height = 512;
+                                    const ctx = canvas.getContext("2d");
+                                    if (!ctx) return;
+                                    ctx.fillStyle = "#fff";
+                                    ctx.fillRect(0, 0, 512, 512);
+                                    ctx.drawImage(img, 0, 0, 512, 512);
+                                    URL.revokeObjectURL(url);
+                                    const a = document.createElement("a");
+                                    a.download = `mall-elbostan-prize-${result.result?.claim_code ?? "code"}.png`;
+                                    a.href = canvas.toDataURL("image/png");
+                                    a.click();
+                                  };
+                                  img.src = url;
+                                }}
+                                className="h-10 px-3 rounded-lg border border-primary/20 text-navy-foreground hover:bg-primary/10 flex items-center justify-center transition-colors"
+                                title="حفظ QR كصورة"
+                              >
+                                <Download className="w-4 h-4" />
+                              </button>
+                            </div>
+                            <div className="flex gap-2">
+                              <Link to="/map" className="flex-1">
+                                <Button variant="cta" className="w-full h-10 gap-2 text-sm">
+                                  <MapPin className="w-3.5 h-3.5" />
+                                  خريطة المول
+                                </Button>
+                              </Link>
+                              <Link to="/reward-terms">
+                                <Button variant="outline" className="h-10 px-3">
+                                  <ChevronLeft className="w-4 h-4" />
+                                </Button>
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </>
