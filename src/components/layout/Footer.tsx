@@ -69,14 +69,19 @@ function SocialIcon({ children, href, label }: { children: React.ReactNode; href
 }
 
 function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]; openMobile: boolean; onToggle: () => void }) {
+  const linkCount = col.links.length;
+  // Reserve exact height: heading ~32px + links * 28px line-height + gaps
+  const desktopHeight = 32 + linkCount * 28 + (linkCount - 1) * 10;
+
   return (
-    <div>
+    <div style={{ minHeight: undefined }} className="lg:min-h-0" data-footer-col>
       {/* Mobile: accordion trigger */}
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={openMobile}
-        className="flex w-full items-center justify-between py-2 lg:hidden"
+        className="flex w-full items-center justify-between lg:hidden"
+        style={{ height: 40 }}
       >
         <div className="flex items-center gap-2">
           <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
@@ -91,19 +96,22 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
       </button>
 
       {/* Desktop: static heading */}
-      <div className="mb-4 hidden items-center gap-2 lg:flex">
+      <div className="mb-4 hidden items-center gap-2 lg:flex" style={{ height: 20 }}>
         <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
         <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" role="heading" aria-level={2} style={{ color: "#CDBB9A" }}>
           {col.title}
         </span>
       </div>
 
-      <ul className={`space-y-2.5 overflow-hidden transition-all duration-200 lg:block pt-2 lg:pt-0 ${openMobile ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"}`}>
+      <ul
+        className={`space-y-2.5 overflow-hidden transition-all duration-200 lg:block pt-2 lg:pt-0 ${openMobile ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"}`}
+        style={{ contain: "layout style" }}
+      >
         {col.links.map((link) => (
-          <li key={link.path}>
+          <li key={link.path} style={{ height: 20 }}>
             <Link
               to={link.path}
-              className="text-[0.8rem] transition-colors duration-200 hover:text-white"
+              className="text-[0.8rem] leading-[20px] transition-colors duration-200 hover:text-white inline-block"
               style={{ color: "#7C8BA1" }}
             >
               {link.label}
@@ -120,7 +128,7 @@ export function Footer() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", overflowAnchor: "none", contain: "layout style paint", minHeight: 500 } as React.CSSProperties}>
+    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", overflowAnchor: "none", contain: "layout style paint" } as React.CSSProperties}>
       {/* Decorative top border */}
       <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
@@ -136,7 +144,7 @@ export function Footer() {
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
-            <Link to="/" className="inline-block" style={{ minHeight: 64 }}>
+            <Link to="/" className="inline-flex items-center" style={{ height: 64 }}>
               <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
