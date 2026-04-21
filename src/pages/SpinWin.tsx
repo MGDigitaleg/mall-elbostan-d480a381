@@ -552,7 +552,7 @@ const SpinWin = () => {
       </section>
       </>
       )}
-      <StickyCTA label="ابدأ اللعب" to="#spin-form" hint="جوائز حقيقية يوم الافتتاح" />
+      {step === "register" && <StickyCTA label="ابدأ اللعب" to="#spin-form" hint="جوائز حقيقية يوم الافتتاح" />}
     </MainLayout>
   );
 };
