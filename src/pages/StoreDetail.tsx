@@ -13,6 +13,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { TenantLogo } from "@/components/TenantLogo";
 import fallbackCover from "@/assets/mall-interior.webp";
 
 /* ── Animations ── */
@@ -180,17 +181,21 @@ const StoreDetail = () => {
           <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-2xl space-y-6">
             {/* Logo + Name */}
             <div className="flex items-center gap-5">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl p-2.5 backdrop-blur-sm"
-                   style={{
-                     background: "linear-gradient(145deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.04))",
-                     border: "1px solid hsl(0 0% 100% / 0.14)",
-                     boxShadow: "0 8px 32px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
-                   }}>
-                {store.logo_url ? (
-                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full rounded-xl object-contain" decoding="async" />
-                ) : (
-                  <Store className="h-9 w-9 text-white/30" />
-                )}
+              <div
+                    className="flex shrink-0 items-center justify-center rounded-2xl backdrop-blur-sm"
+                    style={{
+                      background: "linear-gradient(145deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.04))",
+                      border: "1px solid hsl(0 0% 100% / 0.14)",
+                      boxShadow: "0 8px 32px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
+                      padding: 6,
+                    }}>
+                <TenantLogo
+                  src={store.logo_url}
+                  alt={store.name_ar}
+                  size="lg"
+                  rounded="xl"
+                  darkContext
+                />
               </div>
               <div>
                 <h1 className="text-[1.85rem] font-bold leading-[1.1] text-white md:text-[2.5rem]"
