@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export type WheelSegment = {
   id: string;
@@ -28,12 +28,13 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
   const segCount = segments.length;
   const segAngle = 360 / segCount;
   const [rotation, setRotation] = useState(0);
+  const [isSettled, setIsSettled] = useState(false);
   const settledRef = useRef(false);
 
   useEffect(() => {
     if (spinning && targetIndex !== null) {
       settledRef.current = false;
-      // Land so that the middle of targetIndex segment aligns with the top pointer (-90deg).
+      setIsSettled(false);
       const landingAngle = -(targetIndex * segAngle + segAngle / 2);
       const fullTurns = 360 * 6; // 6 full spins
       const next = fullTurns + landingAngle;
@@ -41,6 +42,7 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
       const t = setTimeout(() => {
         if (!settledRef.current) {
           settledRef.current = true;
+          setIsSettled(true);
           onSettled?.();
         }
       }, 4200);
