@@ -144,7 +144,7 @@ export function Footer() {
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5">
-            <Link to="/" className="inline-block" style={{ minHeight: 64 }}>
+            <Link to="/" className="inline-flex items-center" style={{ height: 64 }}>
               <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
