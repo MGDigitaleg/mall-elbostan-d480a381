@@ -22,12 +22,8 @@ import { ProductRail } from "@/components/home/ProductRail";
 import { LazySection } from "@/components/home/LazySection";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const HeroSlider = lazy(() =>
-  import("@/components/home/HeroSlider").then((m) => ({ default: m.HeroSlider }))
-);
-const HeroSliderMobile = lazy(() =>
-  import("@/components/home/HeroSliderMobile").then((m) => ({ default: m.HeroSliderMobile }))
-);
+import { HeroSlider } from "@/components/home/HeroSlider";
+import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
 const MerchantLogoWall = lazy(() =>
   import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
 );
