@@ -55,8 +55,12 @@ export function PageHero({
           <img
             src={image.src}
             alt={image.alt}
+            width={1376}
+            height={768}
             className="h-full w-full object-cover img-grade-dark"
             loading="eager"
+            decoding="sync"
+            fetchPriority="high"
           />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to top, #071326 5%, #07132690 40%, #07132660 100%)" }} />
         </div>
