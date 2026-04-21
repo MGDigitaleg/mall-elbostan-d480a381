@@ -550,6 +550,7 @@ const SpinWin = () => {
             </ul>
           </div>
         )}
+        </div>
       </section>
       </>
       )}
