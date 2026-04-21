@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, Archive, HelpCircle, Filter } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import { TenantLogo } from "@/components/TenantLogo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -256,13 +257,12 @@ const DowntownDirectory = () => {
                       to={`/downtown-directory/${m.slug ?? m.id}`}
                       className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-all hover:border-primary/20 hover:shadow-md"
                     >
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-card dark:bg-muted/30">
-                        {m.logo_url ? (
-                          <img src={m.logo_url} alt={m.name_ar} className="h-8 w-8 object-contain" loading="lazy" decoding="async" />
-                        ) : (
-                          <Store className="h-5 w-5 text-primary" />
-                        )}
-                      </div>
+                      <TenantLogo
+                        src={m.logo_url}
+                        alt={m.name_ar}
+                        size="sm"
+                        rounded="xl"
+                      />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div>

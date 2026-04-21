@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { TenantLogo } from "@/components/TenantLogo";
 
 const statusConfig: Record<string, { label: string; bg: string; text: string; border: string; icon: typeof CheckCircle }> = {
   "Verified":               { label: "موثّق", bg: "rgba(16,185,129,0.08)", text: "#10B981", border: "rgba(16,185,129,0.2)", icon: ShieldCheck },
@@ -155,19 +156,22 @@ const DowntownMerchantDetail = () => {
           {/* Merchant identity */}
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
             <div
-              className="flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-2xl"
+              className="shrink-0 rounded-2xl"
               style={{
                 background: "rgba(255,255,255,0.06)",
                 border: "1px solid rgba(255,255,255,0.1)",
                 boxShadow: "0 8px 32px rgba(0,0,0,0.25)",
                 backdropFilter: "blur(8px)",
+                padding: 8,
               }}
             >
-              {merchant.logo_url ? (
-                <img src={merchant.logo_url} alt={merchant.name_ar} className="h-14 w-14 rounded-lg object-contain" />
-              ) : (
-                <Store className="h-9 w-9" style={{ color: "#4B8BFF" }} />
-              )}
+              <TenantLogo
+                src={merchant.logo_url}
+                alt={merchant.name_ar}
+                size="lg"
+                rounded="xl"
+                darkContext
+              />
             </div>
 
             <div className="flex-1 space-y-2">
