@@ -8,10 +8,8 @@ export function HeroSkeleton({ mobile = false }: { mobile?: boolean }) {
 
   return (
     <div
-      className="relative overflow-hidden"
+      className="absolute inset-0 overflow-hidden"
       style={{
-        minHeight: minH,
-        maxHeight: mobile ? 620 : 660,
         background: "#0a1628",
         contain: "layout style",
       }}
