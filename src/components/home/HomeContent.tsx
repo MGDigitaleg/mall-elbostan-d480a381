@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from "react";
+import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
 import {
@@ -58,14 +58,6 @@ const fallbackFaqs = [
 
 type HomeContentProps = {
   faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
-  featuredStores: Array<{
-    id: string; name_ar: string; category: string | null;
-    slug: string; logo_url: string | null; short_description_ar: string | null;
-  }>;
-  upcomingEvents: Array<{
-    id: string; title_ar: string; description_ar: string | null;
-    image_url: string | null; event_date: string | null;
-  }>;
 };
 
 type ProductRow = {
@@ -87,7 +79,18 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
   const isMobile = useIsMobile();
 
-  /* ── Single data source for all product sections ── */
+  /* Defer product fetch until after the hero has painted (idle callback).
+     This prevents the Supabase request from competing with hero image for bandwidth. */
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if ("requestIdleCallback" in window) {
+      const id = (window as any).requestIdleCallback(() => setReady(true), { timeout: 1200 });
+      return () => (window as any).cancelIdleCallback(id);
+    }
+    const t = setTimeout(() => setReady(true), 300);
+    return () => clearTimeout(t);
+  }, []);
+
   const { data: allProducts, isLoading: productsLoading } = useQuery({
     queryKey: ["home-all-products"],
     queryFn: async () => {
@@ -101,6 +104,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
         .limit(60);
       return (data ?? []) as ProductRow[];
     },
+    enabled: ready,
+    staleTime: 3 * 60 * 1000,
   });
 
   const products = allProducts ?? [];
