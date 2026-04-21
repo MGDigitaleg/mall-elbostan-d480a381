@@ -64,7 +64,7 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
 
   const toneColors: Record<WheelSegment["tone"], string> = {
     primary: "hsl(var(--primary))",
-    secondary: "hsl(var(--secondary))",
+    secondary: "hsl(220 30% 18%)",
     accent: "hsl(var(--orange))",
   };
 
@@ -84,7 +84,7 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
           ease: [0.17, 0.67, 0.21, 0.99],
         }}
         style={{ width: size, height: size }}
-        className="relative rounded-full shadow-2xl shadow-primary/20 ring-4 ring-card"
+        className="relative rounded-full shadow-2xl shadow-primary/30 ring-4 ring-primary/20"
       >
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="block">
           {paths.map((d, i) => {
@@ -95,14 +95,14 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
             const ty = radius + radius * 0.62 * Math.sin(textAngle * (Math.PI / 180));
             return (
               <g key={seg.id}>
-                <path d={d} fill={fill} stroke="hsl(var(--card))" strokeWidth={2} />
+                <path d={d} fill={fill} stroke="hsl(220 30% 12%)" strokeWidth={2} />
                 <text
                   x={tx}
                   y={ty}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   transform={`rotate(${textAngle + 90}, ${tx}, ${ty})`}
-                  fill={seg.tone === "secondary" ? "hsl(var(--foreground))" : "hsl(var(--primary-foreground))"}
+                  fill="hsl(0 0% 100%)"
                   fontSize={11}
                   fontWeight={700}
                   style={{ fontFamily: "inherit" }}
@@ -115,8 +115,8 @@ export function PrizeWheel({ segments, spinning, targetIndex, onSettled, size = 
         </svg>
 
         {/* Center hub */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-card border-4 border-primary/30 shadow-lg flex items-center justify-center">
-          <div className="w-3 h-3 rounded-full bg-primary" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-navy border-4 border-primary/30 shadow-lg flex items-center justify-center">
+          <div className="w-3 h-3 rounded-full bg-white" />
         </div>
       </motion.div>
     </div>

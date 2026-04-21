@@ -220,7 +220,8 @@ const SpinWin = () => {
       ) : (
       <>
       {/* ─── Main ─── */}
-      <section className="container py-10 md:py-14">
+      <section className="bg-navy py-10 md:py-14">
+        <div className="container">
         <AnimatePresence mode="wait">
           {/* Registration */}
           {step === "register" && (
@@ -352,7 +353,7 @@ const SpinWin = () => {
                     </div>
                   </div>
                   {!settled && (
-                    <p className="text-center mt-8 text-sm text-muted-foreground">
+                    <p className="text-center mt-8 text-sm text-navy-foreground/60">
                       جاري تحديد جائزتك...
                     </p>
                   )}
@@ -364,7 +365,7 @@ const SpinWin = () => {
                     initial={{ opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 22 }}
-                    className="card-premium overflow-hidden max-w-md mx-auto w-full"
+                    className="bg-navy/80 border border-primary/20 rounded-2xl overflow-hidden max-w-md mx-auto w-full backdrop-blur-sm shadow-xl shadow-primary/10"
                   >
                     {result.won && result.result ? (
                       <>
@@ -549,6 +550,7 @@ const SpinWin = () => {
             </ul>
           </div>
         )}
+        </div>
       </section>
       </>
       )}
