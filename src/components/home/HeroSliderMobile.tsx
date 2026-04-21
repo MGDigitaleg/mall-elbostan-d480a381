@@ -123,7 +123,7 @@ export function HeroSliderMobile() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16">
+      <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16" style={{ position: "absolute", inset: 0 }}>
         {/* Countdown chip */}
         <div className="mb-4 flex justify-center">
           <div
