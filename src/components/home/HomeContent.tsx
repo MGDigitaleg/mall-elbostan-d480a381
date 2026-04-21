@@ -155,9 +155,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           position: "relative",
         }}
       >
-        <Suspense fallback={<HeroSkeleton mobile={isMobile} />}>
-          {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
-        </Suspense>
+        {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
 
       {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
