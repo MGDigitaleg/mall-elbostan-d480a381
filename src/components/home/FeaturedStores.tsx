@@ -70,7 +70,7 @@ export function FeaturedStores() {
               className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
               style={{ gap: "clamp(8px, 1vw, 12px)" }}
             >
-              {stores!.map((store) => (
+              {[...stores!].sort((a, b) => a.slug === 'kasr-zero' ? -1 : b.slug === 'kasr-zero' ? 1 : 0).map((store) => (
                 <Link
                   key={store.id}
                   to={`/stores/${store.slug}`}
