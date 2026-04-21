@@ -140,8 +140,8 @@ export function HeroSlider() {
   }), []);
 
   return (
-    <section
-      className="relative min-h-[560px] md:min-h-[580px] max-h-[660px] overflow-hidden"
+    <div
+      className="absolute inset-0 overflow-hidden"
       style={{ contain: "layout style", background: "#0a1628" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -332,7 +332,7 @@ export function HeroSlider() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
-    </section>
+    </div>
   );
 }
 

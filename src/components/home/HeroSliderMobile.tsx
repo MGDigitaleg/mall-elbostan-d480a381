@@ -82,9 +82,9 @@ export function HeroSliderMobile() {
   const slide = slides[current];
 
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ minHeight: "520px", maxHeight: "620px", contain: "layout style", background: "#0a1628" }}
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{ contain: "layout style", background: "#0a1628" }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
@@ -123,7 +123,7 @@ export function HeroSliderMobile() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16">
+      <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16" style={{ position: "absolute", inset: 0 }}>
         {/* Countdown chip */}
         <div className="mb-4 flex justify-center">
           <div
@@ -219,6 +219,6 @@ export function HeroSliderMobile() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
