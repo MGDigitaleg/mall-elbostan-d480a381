@@ -332,7 +332,7 @@ export function HeroSlider() {
       </div>
 
       <div className="absolute bottom-0 left-0 right-0 h-px z-10" style={{ background: "linear-gradient(90deg, transparent 10%, #2D6BFF20, transparent 90%)" }} />
-    </section>
+    </div>
   );
 }
 
