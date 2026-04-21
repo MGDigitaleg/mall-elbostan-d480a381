@@ -219,6 +219,6 @@ export function HeroSliderMobile() {
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
