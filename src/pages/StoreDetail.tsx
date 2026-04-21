@@ -512,15 +512,14 @@ const StoreDetail = () => {
                       {relatedStores.map((r) => (
                         <Link key={r.id} to={`/stores/${r.slug}`}
                               className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/20">
-                          {r.logo_url ? (
-                            <img src={r.logo_url} alt={r.name_ar}
-                                 className="h-12 w-12 rounded-xl border border-border bg-white dark:bg-muted/30 object-contain p-1.5 transition-transform duration-200 group-hover:scale-105"
-                                 loading="lazy" />
-                          ) : (
-                            <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-muted/30">
-                              <Store className="h-5 w-5 text-muted-foreground/40" />
-                            </div>
-                          )}
+                          <div className="transition-transform duration-200 group-hover:scale-105">
+                            <TenantLogo
+                              src={r.logo_url}
+                              alt={r.name_ar}
+                              size="md"
+                              rounded="xl"
+                            />
+                          </div>
                           <div className="min-w-0 flex-1">
                             <p className="text-[0.82rem] font-bold text-foreground transition-colors group-hover:text-primary truncate">{r.name_ar}</p>
                             <div className="mt-0.5 flex items-center gap-2">
