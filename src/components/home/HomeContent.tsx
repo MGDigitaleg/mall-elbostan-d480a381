@@ -486,7 +486,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 420px" } as React.CSSProperties}>
+      <section style={{ minHeight: 420 }}>
         <LazySection minHeight={420}>
           <Suspense fallback={<div style={{ minHeight: 420 }} />}><DowntownTeaser /></Suspense>
         </LazySection>
