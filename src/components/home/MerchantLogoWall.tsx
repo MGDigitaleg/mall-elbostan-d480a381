@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Store } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { TenantLogo } from "@/components/TenantLogo";
 
 export function MerchantLogoWall() {
   const isMobile = useIsMobile();
@@ -80,12 +81,14 @@ export function MerchantLogoWall() {
               to={`/stores/${store.slug}`}
               className="group flex flex-col items-center gap-1 rounded-lg py-2 px-1.5 transition-all heritage-surface hover:border-primary/20 hover:shadow-[0_4px_20px_rgba(37,99,235,0.1)]"
             >
-              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-white dark:bg-white/90 transition-transform group-hover:scale-105" style={{ padding: 2 }}>
-                {store.logo_url ? (
-                  <img src={store.logo_url} alt={store.name_ar} className="h-full w-full object-contain" loading="lazy" />
-                ) : (
-                  <Store className="h-4 w-4" style={{ color: "#5B9AFF" }} />
-                )}
+              <div className="transition-transform group-hover:scale-105">
+                <TenantLogo
+                  src={store.logo_url}
+                  alt={store.name_ar}
+                  size="sm"
+                  rounded="lg"
+                  darkContext
+                />
               </div>
               <p className="text-[0.58rem] font-bold dark-heading line-clamp-1 text-center leading-tight">
                 {store.name_en || store.name_ar}

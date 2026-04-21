@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Store, Tag } from "lucide-react";
+import { ArrowLeft, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/home/Reveal";
+import { TenantLogo } from "@/components/TenantLogo";
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -80,28 +81,14 @@ export function FeaturedStores() {
                     padding: "clamp(8px, 1vw, 12px)",
                   }}
                 >
-                  {/* Logo — dominant */}
-                  <div
-                    className="flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-white dark:bg-white/90"
-                    style={{
-                      width: "clamp(44px, 5vw, 56px)",
-                      height: "clamp(44px, 5vw, 56px)",
-                      borderRadius: 12,
-                      padding: 3,
-                      marginBottom: 6,
-                    }}
-                  >
-                    {store.logo_url ? (
-                      <img
-                        src={store.logo_url}
-                        alt={store.name_ar}
-                        className="object-contain"
-                        style={{ width: "100%", height: "100%" }}
-                        loading="lazy"
-                      />
-                    ) : (
-                      <Store className="text-muted-foreground/25" style={{ width: 22, height: 22 }} />
-                    )}
+                  {/* Logo — unified component */}
+                  <div className="mb-1.5 transition-transform duration-300 group-hover:scale-105">
+                    <TenantLogo
+                      src={store.logo_url}
+                      alt={store.name_ar}
+                      size="sm"
+                      rounded="lg"
+                    />
                   </div>
 
                   {/* Name */}
