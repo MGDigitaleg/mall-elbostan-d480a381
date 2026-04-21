@@ -1,7 +1,7 @@
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
-import { HeroSkeleton } from "@/components/home/HeroSkeleton";
+
 import {
   ArrowLeft,
   Compass,
