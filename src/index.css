@@ -790,6 +790,12 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ─── Prize wheel winner pulse ─── */
+@keyframes winner-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
 /* ─── Mobile bottom-nav offset: prevent footer/content overlap ─── */
 @media (max-width: 767px) {
   body {
