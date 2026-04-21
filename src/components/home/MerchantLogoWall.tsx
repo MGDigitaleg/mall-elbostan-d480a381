@@ -48,7 +48,8 @@ export function MerchantLogoWall() {
   }
 
   // Mobile: 8 logos (2 rows of 4). Desktop: 18 logos (3 rows of 6).
-  const displayed = stores.slice(0, isMobile ? 8 : 18);
+  const sorted = [...stores].sort((a, b) => a.slug === 'kasr-zero' ? -1 : b.slug === 'kasr-zero' ? 1 : 0);
+  const displayed = sorted.slice(0, isMobile ? 8 : 18);
 
   return (
     <section
