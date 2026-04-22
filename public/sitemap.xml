@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage — highest priority -->
   <url>
     <loc>https://mallelbostan.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://mallelbostan.com/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mallelbostan.com/new-cairo-branch</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+
+  <!-- Core commercial pages -->
   <url>
     <loc>https://mallelbostan.com/stores</loc>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://mallelbostan.com/products</loc>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
@@ -30,14 +28,16 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://mallelbostan.com/spin-win</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
+
+  <!-- Engagement pages -->
   <url>
     <loc>https://mallelbostan.com/opening-day</loc>
     <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://mallelbostan.com/spin-win</loc>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
@@ -46,13 +46,32 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mallelbostan.com/careers</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
+    <loc>https://mallelbostan.com/countdown</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Branch pages -->
+  <url>
+    <loc>https://mallelbostan.com/new-cairo-branch</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mallelbostan.com/blog</loc>
+    <loc>https://mallelbostan.com/downtown-branch</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mallelbostan.com/downtown-directory</loc>
     <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Informational pages -->
+  <url>
+    <loc>https://mallelbostan.com/about</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
@@ -61,10 +80,46 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://mallelbostan.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://mallelbostan.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://mallelbostan.com/careers</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://mallelbostan.com/join-marketplace</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Kasr Zero storefront -->
+  <url>
+    <loc>https://mallelbostan.com/kz</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://mallelbostan.com/kz/products</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Heritage / Brand -->
+  <url>
+    <loc>https://mallelbostan.com/market-echo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Legal -->
   <url>
     <loc>https://mallelbostan.com/privacy</loc>
     <changefreq>yearly</changefreq>
@@ -79,10 +134,5 @@
     <loc>https://mallelbostan.com/reward-terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://mallelbostan.com/countdown</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
   </url>
 </urlset>
