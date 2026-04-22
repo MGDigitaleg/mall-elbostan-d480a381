@@ -6,6 +6,7 @@ const corsHeaders = {
 };
 
 const BASE_URL = "https://mallelbostan.com";
+const SPLIT_THRESHOLD = 500;
 
 const STATIC_ROUTES = [
   { loc: "/", priority: "1.0", changefreq: "daily" },
@@ -46,6 +47,148 @@ function urlEntry(loc: string, lastmod?: string, changefreq = "weekly", priority
   </url>`;
 }
 
+function wrapUrlset(entries: string[]): string {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries.join("\n")}
+</urlset>`;
+}
+
+function buildSitemapIndex(sitemaps: { loc: string; lastmod?: string }[]): string {
+  const items = sitemaps
+    .map(
+      (s) =>
+        `  <sitemap>
+    <loc>${escapeXml(s.loc)}</loc>${s.lastmod ? `\n    <lastmod>${s.lastmod}</lastmod>` : ""}
+  </sitemap>`
+    )
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${items}
+</sitemapindex>`;
+}
+
+function xmlResponse(body: string) {
+  return new Response(body, {
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    },
+  });
+}
+
+interface DynamicData {
+  stores: { slug: string; updated_at: string }[];
+  products: { slug: string; updated_at: string }[];
+  blog: { slug: string; updated_at: string }[];
+  downtown: { slug: string; updated_at: string }[];
+  kzProducts: { slug: string; updated_at: string }[];
+}
+
+function latestDate(items: { updated_at: string }[]): string | undefined {
+  if (items.length === 0) return undefined;
+  return items.reduce((a, b) => (a.updated_at > b.updated_at ? a : b)).updated_at.slice(0, 10);
+}
+
+async function fetchAllData(supabase: ReturnType<typeof createClient>): Promise<DynamicData> {
+  const [storesRes, productsRes, blogRes, downtownRes, kzProductsRes] = await Promise.all([
+    supabase.from("stores").select("slug, updated_at").neq("status", "hidden"),
+    supabase.from("products").select("slug, updated_at").eq("status", "published"),
+    supabase.from("blog_posts").select("slug, updated_at, published_at").not("published_at", "is", null),
+    supabase.from("downtown_merchants").select("slug, updated_at").eq("is_active", true),
+    supabase.from("kz_products").select("slug, updated_at").eq("status", "published"),
+  ]);
+
+  return {
+    stores: (storesRes.data ?? []) as { slug: string; updated_at: string }[],
+    products: (productsRes.data ?? []) as { slug: string; updated_at: string }[],
+    blog: (blogRes.data ?? []) as { slug: string; updated_at: string }[],
+    downtown: (downtownRes.data ?? []) as { slug: string; updated_at: string }[],
+    kzProducts: (kzProductsRes.data ?? []) as { slug: string; updated_at: string }[],
+  };
+}
+
+function totalUrls(data: DynamicData): number {
+  return (
+    STATIC_ROUTES.length +
+    data.stores.length +
+    data.products.length +
+    data.blog.length +
+    data.downtown.length +
+    data.kzProducts.length
+  );
+}
+
+/** Build a single flat sitemap with all URLs */
+function buildFlatSitemap(data: DynamicData): string {
+  const entries: string[] = [];
+
+  for (const route of STATIC_ROUTES) {
+    entries.push(urlEntry(`${BASE_URL}${route.loc}`, undefined, route.changefreq, route.priority));
+  }
+  for (const s of data.stores) {
+    entries.push(urlEntry(`${BASE_URL}/stores/${s.slug}`, s.updated_at, "weekly", "0.7"));
+  }
+  for (const p of data.products) {
+    entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
+  }
+  for (const p of data.blog) {
+    entries.push(urlEntry(`${BASE_URL}/blog/${p.slug}`, p.updated_at, "monthly", "0.6"));
+  }
+  for (const m of data.downtown) {
+    entries.push(urlEntry(`${BASE_URL}/downtown-directory/${m.slug}`, m.updated_at, "monthly", "0.5"));
+  }
+  for (const p of data.kzProducts) {
+    entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
+  }
+
+  return wrapUrlset(entries);
+}
+
+/** Build sub-sitemap for a specific section */
+function buildSubSitemap(section: string, data: DynamicData): string {
+  const entries: string[] = [];
+
+  switch (section) {
+    case "pages":
+      for (const route of STATIC_ROUTES) {
+        entries.push(urlEntry(`${BASE_URL}${route.loc}`, undefined, route.changefreq, route.priority));
+      }
+      for (const m of data.downtown) {
+        entries.push(urlEntry(`${BASE_URL}/downtown-directory/${m.slug}`, m.updated_at, "monthly", "0.5"));
+      }
+      break;
+
+    case "stores":
+      for (const s of data.stores) {
+        entries.push(urlEntry(`${BASE_URL}/stores/${s.slug}`, s.updated_at, "weekly", "0.7"));
+      }
+      break;
+
+    case "products":
+      for (const p of data.products) {
+        entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
+      }
+      for (const p of data.kzProducts) {
+        entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
+      }
+      break;
+
+    case "blog":
+      for (const p of data.blog) {
+        entries.push(urlEntry(`${BASE_URL}/blog/${p.slug}`, p.updated_at, "monthly", "0.6"));
+      }
+      break;
+
+    default:
+      break;
+  }
+
+  return wrapUrlset(entries);
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -56,59 +199,43 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Fetch all dynamic content in parallel
-    const [storesRes, productsRes, blogRes, downtownRes, kzProductsRes] = await Promise.all([
-      supabase.from("stores").select("slug, updated_at").neq("status", "hidden"),
-      supabase.from("products").select("slug, updated_at").eq("status", "published"),
-      supabase.from("blog_posts").select("slug, updated_at, published_at").not("published_at", "is", null),
-      supabase.from("downtown_merchants").select("slug, updated_at").eq("is_active", true),
-      supabase.from("kz_products").select("slug, updated_at").eq("status", "published"),
-    ]);
+    const url = new URL(req.url);
+    const section = url.searchParams.get("section");
 
-    const entries: string[] = [];
+    const data = await fetchAllData(supabase);
+    const total = totalUrls(data);
 
-    // Static routes
-    for (const route of STATIC_ROUTES) {
-      entries.push(urlEntry(`${BASE_URL}${route.loc}`, undefined, route.changefreq, route.priority));
+    // If a specific section is requested, return that sub-sitemap
+    if (section) {
+      return xmlResponse(buildSubSitemap(section, data));
     }
 
-    // Stores
-    for (const store of storesRes.data ?? []) {
-      entries.push(urlEntry(`${BASE_URL}/stores/${store.slug}`, store.updated_at, "weekly", "0.7"));
+    // Below threshold → single flat sitemap
+    if (total <= SPLIT_THRESHOLD) {
+      return xmlResponse(buildFlatSitemap(data));
     }
 
-    // Products
-    for (const product of productsRes.data ?? []) {
-      entries.push(urlEntry(`${BASE_URL}/products/${product.slug}`, product.updated_at, "weekly", "0.6"));
-    }
+    // Above threshold → sitemap index pointing to sub-sitemaps
+    const fnUrl = `${supabaseUrl}/functions/v1/sitemap`;
+    const today = new Date().toISOString().slice(0, 10);
 
-    // Blog posts
-    for (const post of blogRes.data ?? []) {
-      entries.push(urlEntry(`${BASE_URL}/blog/${post.slug}`, post.updated_at, "monthly", "0.6"));
-    }
-
-    // Downtown merchants
-    for (const merchant of downtownRes.data ?? []) {
-      entries.push(urlEntry(`${BASE_URL}/downtown-directory/${merchant.slug}`, merchant.updated_at, "monthly", "0.5"));
-    }
-
-    // KZ Products
-    for (const product of kzProductsRes.data ?? []) {
-      entries.push(urlEntry(`${BASE_URL}/products/${product.slug}`, product.updated_at, "weekly", "0.6"));
-    }
-
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${entries.join("\n")}
-</urlset>`;
-
-    return new Response(xml, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/xml; charset=utf-8",
-        "Cache-Control": "public, max-age=3600, s-maxage=3600",
+    const sitemaps = [
+      { loc: `${fnUrl}?section=pages`, lastmod: today },
+      {
+        loc: `${fnUrl}?section=stores`,
+        lastmod: latestDate(data.stores) ?? today,
       },
-    });
+      {
+        loc: `${fnUrl}?section=products`,
+        lastmod: latestDate([...data.products, ...data.kzProducts]) ?? today,
+      },
+      {
+        loc: `${fnUrl}?section=blog`,
+        lastmod: latestDate(data.blog) ?? today,
+      },
+    ];
+
+    return xmlResponse(buildSitemapIndex(sitemaps));
   } catch (error) {
     console.error("Sitemap generation error:", error);
     return new Response("Internal Server Error", {
