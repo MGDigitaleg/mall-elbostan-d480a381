@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildProductLd } from "@/components/SEOHead";
-import { getProductOgImage } from "@/lib/ogImageUtils";
+import { getProductOgImage, getProductOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -161,6 +161,9 @@ const ProductDetail = () => {
           titleEn={kzProduct.title}
           description={kzProduct.seo_description || kzProduct.short_description || kzProduct.title}
           ogImage={getProductOgImage({ name_ar: kzProduct.title, image_url: kzProduct.kz_product_images?.[0]?.image_url })}
+          ogImageWidth={OG_IMAGE_WIDTH}
+          ogImageHeight={OG_IMAGE_HEIGHT}
+          ogImageAlt={getProductOgAlt(kzProduct.title, kzProduct.brand)}
           keywords={`${kzProduct.title}, ${kzProduct.brand ?? ''}, مول البستان, اسعار, Kasr Zero`}
           breadcrumbs={[
             { name: "المنتجات", url: "/products" },
@@ -203,7 +206,7 @@ const ProductDetail = () => {
                   <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
                     {kzImages.map((img: any, i: number) => (
                       <button key={img.id} onClick={() => setSelectedImageIdx(i)} className={`shrink-0 h-16 w-16 rounded-lg border-2 overflow-hidden bg-[hsl(210_40%_96.1%)] dark:bg-muted/30 transition-all ${i === selectedImageIdx ? "border-primary" : "border-border hover:border-primary/30"}`}>
-                        <img src={img.image_url} alt="" className="h-full w-full object-contain p-0.5" />
+                        <img src={img.image_url} alt={img.alt_text || `${kzProduct.title} — صورة ${i + 1}`} className="h-full w-full object-contain p-0.5" />
                       </button>
                     ))}
                   </div>
@@ -369,6 +372,9 @@ const ProductDetail = () => {
         titleEn={mallProduct!.name_en ?? undefined}
         description={mallProduct!.short_description_ar ?? `${mallProduct!.name_ar} — متوفر في مول البستان`}
         ogImage={getProductOgImage({ name_ar: mallProduct!.name_ar, image_url: mallProduct!.image_url, category_name: (mallProduct as any)?.product_categories?.name_ar })}
+        ogImageWidth={OG_IMAGE_WIDTH}
+        ogImageHeight={OG_IMAGE_HEIGHT}
+        ogImageAlt={getProductOgAlt(mallProduct!.name_ar, mallProduct!.brand)}
         keywords={`${mallProduct!.name_ar}, ${mallProduct!.brand ?? ''}, ${mallProduct!.name_en ?? ''}, مول البستان, اسعار`}
         breadcrumbs={[
           { name: "المنتجات", url: "/products" },

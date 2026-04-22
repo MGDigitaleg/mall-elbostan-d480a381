@@ -11,7 +11,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildStoreLd } from "@/components/SEOHead";
-import { getStoreOgImage } from "@/lib/ogImageUtils";
+import { getStoreOgImage, getStoreOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
@@ -148,6 +148,9 @@ const StoreDetail = () => {
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} — محل متخصص في مول البستان القاهرة الجديدة`}
         ogImage={getStoreOgImage(store)}
+        ogImageWidth={OG_IMAGE_WIDTH}
+        ogImageHeight={OG_IMAGE_HEIGHT}
+        ogImageAlt={getStoreOgAlt(store.name_ar, store.category)}
         keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, القاهرة الجديدة`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
         jsonLd={buildStoreLd(store)}
@@ -157,7 +160,7 @@ const StoreDetail = () => {
       <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
         {/* Background image with overlay */}
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="h-full w-full object-cover" loading="eager" decoding="async" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
+          <img src={heroImage} alt={`${store.name_ar} — غلاف المحل`} className="h-full w-full object-cover" loading="eager" decoding="async" style={{ filter: "saturate(0.6) brightness(0.35) contrast(1.1)" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsla(218, 55%, 7%, 0.75) 0%, hsla(218, 55%, 7%, 0.92) 60%, hsla(218, 55%, 7%, 0.98) 100%)" }} />
         </div>
 
