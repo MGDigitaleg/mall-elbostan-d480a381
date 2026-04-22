@@ -47,7 +47,30 @@ const statusConfig: Record<string, { text: string; color: string; bg: string; bo
   "coming-soon": { text: "قريباً", color: "#06B6D4", bg: "#06B6D415", border: "#06B6D430" },
 };
 
-const Stores = () => {
+/* ── Category-specific SEO intro content ── */
+const categorySeoContent: Record<string, string> = {
+  "الكمبيوتر والأجهزة": "تصفّح أفضل محلات الكمبيوتر واللابتوبات في مول البستان. أجهزة ديسكتوب، لابتوبات للعمل والدراسة والجيمنج، ملحقات، وشاشات من أبرز الماركات العالمية — كل ذلك في مكان واحد بالتجمع الخامس.",
+  "الهواتف والإكسسوارات": "اعثر على أحدث الهواتف الذكية والإكسسوارات في مول البستان. سماعات، شواحن، كفرات، وأجهزة ذكية من جميع الماركات بأسعار تنافسية في القاهرة الجديدة.",
+  "الألعاب والترفيه": "اكتشف عالم الجيمنج في مول البستان — أجهزة بلايستيشن، إكس بوكس، كروت شاشة، كراسي جيمنج، وملحقات الألعاب المتقدمة بالتجمع الخامس.",
+  "الطباعة والتصوير": "محلات الطباعة والتصوير في مول البستان — طابعات، سكانرات، أحبار، وخدمات طباعة احترافية لكل احتياجات العمل والمشاريع.",
+  "الشبكات والأنظمة الأمنية": "حلول الشبكات والأمن في مول البستان — راوترات، كاميرات مراقبة، أنظمة إنذار، وتجهيزات البنية التحتية التقنية.",
+  "الصيانة والدعم الفني": "خدمات صيانة وإصلاح الكمبيوتر والموبايل في مول البستان — دعم فني متخصص، استبدال شاشات، إصلاح لابتوبات، واستعادة بيانات.",
+};
+
+function StoreSeoIntro({ category, totalStores, activeCount }: { category: string; totalStores: number; activeCount: number }) {
+  const content = category ? categorySeoContent[category] : null;
+  return (
+    <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(16px, 2vw, 24px)", paddingBottom: "clamp(12px, 1.5vw, 20px)" }}>
+      <div className="container max-w-[1200px]">
+        <p className="text-[0.78rem] leading-[2] text-muted-foreground max-w-3xl">
+          {content ?? `يضم مول البستان ${totalStores > 0 ? totalStores : "أكثر من 150"} محل تجاري متخصص في الكمبيوتر، الموبايلات، الجيمنج، الإكسسوارات، والصيانة.${activeCount > 0 ? ` ${activeCount} محل نشط حالياً` : ""} على 3 أدوار في التجمع الخامس بالقاهرة الجديدة.`}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") ?? "";
   const [search, setSearch] = useState("");
