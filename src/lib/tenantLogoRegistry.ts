@@ -326,6 +326,21 @@ export function getTenantLogoPath(slug: string): string | null {
   return _bySlug.get(slug)?.logoPath ?? null;
 }
 
+/**
+ * Returns the logo URL only if the tenant is verified or sourced.
+ * For "generated" or "missing" statuses, returns null so TenantLogo falls back to initials.
+ * If the tenant isn't in the registry at all, passes through the DB logo_url as-is.
+ */
+export function getVerifiedLogoUrl(slug: string | undefined, dbLogoUrl: string | null | undefined): string | null {
+  if (!slug) return dbLogoUrl ?? null;
+  const entry = _bySlug.get(slug);
+  if (!entry) return dbLogoUrl ?? null; // Not in registry — trust DB value
+  if (entry.verified === "verified" || entry.verified === "sourced") {
+    return entry.logoPath ?? dbLogoUrl ?? null;
+  }
+  return null; // Generated/missing → show initials
+}
+
 /** Check if a tenant logo is verified (official source confirmed). */
 export function isTenantLogoVerified(slug: string): boolean {
   const entry = _bySlug.get(slug);

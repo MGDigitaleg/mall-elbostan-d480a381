@@ -15,6 +15,7 @@ import { getStoreOgImage, getStoreOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from 
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
+import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import fallbackCover from "@/assets/mall-interior.webp";
 
 /* ── Animations ── */
@@ -197,7 +198,7 @@ const StoreDetail = () => {
                       padding: 6,
                     }}>
                 <TenantLogo
-                  src={store.logo_url}
+                  src={getVerifiedLogoUrl(store.slug, store.logo_url)}
                   alt={store.name_ar}
                   fallbackName={store.name_ar}
                   size="lg"
@@ -522,7 +523,7 @@ const StoreDetail = () => {
                               className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/20">
                           <div className="transition-transform duration-200 group-hover:scale-105">
                             <TenantLogo
-                              src={r.logo_url}
+                              src={getVerifiedLogoUrl(r.slug, r.logo_url)}
                               alt={r.name_ar}
                               fallbackName={r.name_ar}
                               size="md"
