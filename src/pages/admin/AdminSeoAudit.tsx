@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -99,6 +101,24 @@ export default function AdminSeoAudit() {
   const { loading } = useRequireAdmin();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
+  const [pinging, setPinging] = useState(false);
+
+  const handlePingIndexing = useCallback(async () => {
+    setPinging(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("ping-indexing", { method: "POST" });
+      if (error) throw error;
+      if (data?.success) {
+        toast.success(`تم إرسال ${data.urlsSubmitted} صفحة لمحركات البحث`);
+      } else {
+        toast.info(data?.error ?? "يرجى إعداد مفتاح IndexNow أولاً");
+      }
+    } catch {
+      toast.error("فشل إرسال الطلب");
+    } finally {
+      setPinging(false);
+    }
+  }, []);
 
   const scored = useMemo(() => PAGES.map((p) => ({ ...p, score: getScore(p) })), []);
 
@@ -157,6 +177,16 @@ export default function AdminSeoAudit() {
                 robots.txt
               </Button>
             </a>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5"
+              disabled={pinging}
+              onClick={handlePingIndexing}
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${pinging ? "animate-spin" : ""}`} />
+              {pinging ? "جاري الإرسال..." : "IndexNow Ping"}
+            </Button>
             <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
               <Button variant="default" size="sm" className="gap-1.5">
                 <Globe className="h-3.5 w-3.5" />
