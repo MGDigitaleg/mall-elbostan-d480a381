@@ -1,12 +1,11 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { initialize, svg2png } from "https://esm.sh/svg2png-wasm@0.6.1";
 
 /**
  * Dynamic OG Image Generator
- * Generates branded 1200×630 OG images as PNG (default) or SVG for stores/products without images.
+ * Generates branded 1200×630 OG images as PNG (default) or SVG.
+ * PNG is rendered server-side via svg2png-wasm for full social platform compatibility.
  * Usage: /og-image?title=...&type=store|product&category=...&format=png|svg
- *
- * PNG conversion uses resvg-wasm for server-side SVG→PNG rendering,
- * ensuring compatibility with all social platforms (Facebook, Twitter, WhatsApp, LinkedIn).
  */
 
 const corsHeaders = {
@@ -107,44 +106,16 @@ function generateSvg(title: string, type: string, category?: string): string {
 </svg>`;
 }
 
-/* ── PNG conversion via resvg-wasm ── */
+/* ── Initialize WASM once at cold start ── */
+let wasmReady = false;
 
-let resvgInitialized = false;
-let Resvg: any = null;
-
-async function initResvg() {
-  if (resvgInitialized) return;
-  try {
-    const mod = await import("https://esm.sh/@aspect-dev/resvg-wasm@1.1.1");
-    const wasmUrl = "https://esm.sh/@aspect-dev/resvg-wasm@1.1.1/resvg.wasm";
-    const wasmResp = await fetch(wasmUrl);
-    const wasmBytes = await wasmResp.arrayBuffer();
-    await mod.initResvg(new Uint8Array(wasmBytes));
-    Resvg = mod.Resvg;
-    resvgInitialized = true;
-  } catch {
-    // Fallback: try alternate package
-    try {
-      const mod = await import("https://esm.sh/@aspect-dev/resvg-wasm@1.1.1");
-      Resvg = mod.Resvg;
-      resvgInitialized = true;
-    } catch {
-      resvgInitialized = false;
-    }
-  }
-}
-
-async function svgToPng(svg: string): Promise<Uint8Array | null> {
-  await initResvg();
-  if (!Resvg) return null;
-  try {
-    const renderer = new Resvg(svg, { fitTo: { mode: "width", value: 1200 } });
-    const pngData = renderer.render();
-    const pngBuffer = pngData.asPng();
-    return pngBuffer;
-  } catch {
-    return null;
-  }
+async function ensureWasm() {
+  if (wasmReady) return;
+  const wasmRes = await fetch(
+    "https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"
+  );
+  await initialize(wasmRes);
+  wasmReady = true;
 }
 
 serve(async (req) => {
@@ -159,11 +130,11 @@ serve(async (req) => {
     const category = url.searchParams.get("category") || undefined;
     const format = url.searchParams.get("format") || "png";
 
-    const svg = generateSvg(title, type, category);
+    const svgString = generateSvg(title, type, category);
 
     // Return SVG if explicitly requested
     if (format === "svg") {
-      return new Response(svg, {
+      return new Response(svgString, {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/svg+xml",
@@ -172,10 +143,14 @@ serve(async (req) => {
       });
     }
 
-    // Default: convert to PNG for maximum platform compatibility
-    const pngBytes = await svgToPng(svg);
+    // Default: convert to PNG
+    try {
+      await ensureWasm();
+      const pngBytes: Uint8Array = await svg2png(svgString, {
+        width: 1200,
+        height: 630,
+      });
 
-    if (pngBytes) {
       return new Response(pngBytes, {
         headers: {
           ...corsHeaders,
@@ -183,16 +158,17 @@ serve(async (req) => {
           "Cache-Control": "public, max-age=604800, immutable",
         },
       });
+    } catch (_pngErr) {
+      // Fallback: return SVG if PNG conversion fails
+      return new Response(svgString, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/svg+xml",
+          "Cache-Control": "public, max-age=604800, immutable",
+          "X-OG-Fallback": "svg",
+        },
+      });
     }
-
-    // Fallback: return SVG if PNG conversion fails
-    return new Response(svg, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "image/svg+xml",
-        "Cache-Control": "public, max-age=604800, immutable",
-      },
-    });
   } catch (err) {
     return new Response(JSON.stringify({ error: (err as Error).message }), {
       status: 500,
