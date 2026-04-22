@@ -152,7 +152,7 @@ export function HeroSlider() {
       <AnimatePresence initial={false}>
         <motion.div
           key={current}
-          className="absolute inset-0"
+          className="absolute inset-0 will-change-[opacity,transform]"
           variants={imageVariants}
           initial="enter"
           animate="center"
@@ -164,7 +164,7 @@ export function HeroSlider() {
             width={1376}
             height={768}
             className="h-full w-full object-cover"
-            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 80%" }}
+            style={{ filter: "saturate(0.85) brightness(1.08) contrast(0.95)", objectPosition: "center 40%" }}
             loading={current === 0 ? "eager" : "lazy"}
             decoding={current === 0 ? "sync" : "async"}
             fetchPriority={current === 0 ? "high" : "low"}
@@ -200,7 +200,7 @@ export function HeroSlider() {
       />
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[560px] md:min-h-[580px] max-h-[660px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[72px] md:pt-[76px] pb-14">
+      <div className="relative z-10 mx-auto flex h-full min-h-[560px] md:min-h-[580px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[72px] md:pt-[76px] pb-14">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
           {/* Text block */}
           <AnimatePresence mode="wait" custom={direction}>
