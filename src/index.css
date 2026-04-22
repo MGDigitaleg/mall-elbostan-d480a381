@@ -21,7 +21,7 @@
     --font-poppins: 'Inter', sans-serif;
 
     /* ─── Premium brand palette ─── */
-    --background: 40 12% 96%;           /* #F6F3EE warm ivory */
+    --background: 40 12% 95%;           /* #F5F2EC warm ivory */
     --foreground: 222 47% 11%;          /* #0F172A */
 
     --card: 60 9% 98%;                  /* #FAFAF8 clean soft white */
@@ -51,15 +51,11 @@
     --success: 160 55% 38%;
     --success-foreground: 0 0% 100%;
 
-    /* ─── Gold accent (luxury) ─── */
-    --gold: 42 76% 55%;                 /* subtle gold for premium accents */
-    --gold-muted: 42 40% 72%;
-
-    --border: 220 18% 87%;              /* softer border */
+    --border: 220 18% 85%;              /* #D8DEE8 soft border */
     --input: 220 18% 85%;
     --ring: 222 100% 56%;
 
-    --radius: 0.75rem;
+    --radius: 0.625rem;
 
     /* ─── Dark surfaces ─── */
     --navy: 218 72% 9%;                 /* #071326 premium dark navy */
@@ -82,16 +78,15 @@
     --gradient-warm: linear-gradient(180deg, #F5F2EC, #FAFAF8);
     --gradient-ivory: linear-gradient(180deg, #F5F2EC, #FAFAF8);
 
-    /* ─── Architectural shadows — deeper, more layered ─── */
-    --shadow-blue: 0 8px 32px hsl(222 100% 59% / 0.14);
-    --shadow-card: 0 1px 2px hsl(218 72% 9% / 0.03), 0 4px 12px hsl(218 72% 9% / 0.04), 0 12px 28px hsl(218 72% 9% / 0.03);
-    --shadow-elevated: 0 2px 4px hsl(218 72% 9% / 0.04), 0 8px 24px hsl(218 72% 9% / 0.06), 0 24px 56px hsl(218 72% 9% / 0.05);
-    --shadow-soft: 0 1px 3px hsl(218 72% 9% / 0.02), 0 4px 10px hsl(218 72% 9% / 0.02);
-    --shadow-premium: 0 1px 2px hsl(218 72% 9% / 0.03), 0 6px 20px hsl(218 72% 9% / 0.04), 0 16px 44px hsl(218 72% 9% / 0.04);
+    /* ─── Architectural shadows ─── */
+    --shadow-blue: 0 8px 28px hsl(222 100% 59% / 0.12);
+    --shadow-card: 0 1px 3px hsl(218 72% 9% / 0.04), 0 6px 20px hsl(218 72% 9% / 0.03);
+    --shadow-elevated: 0 2px 6px hsl(218 72% 9% / 0.05), 0 16px 44px hsl(218 72% 9% / 0.06);
+    --shadow-soft: 0 1px 3px hsl(218 72% 9% / 0.03);
+    --shadow-premium: 0 1px 3px hsl(218 72% 9% / 0.04), 0 10px 32px hsl(218 72% 9% / 0.05);
     --shadow-inset: inset 0 1px 3px hsl(218 72% 9% / 0.05);
-    --shadow-hero-card: 0 2px 6px hsl(218 72% 9% / 0.08), 0 24px 72px hsl(218 72% 9% / 0.12);
-    --shadow-deep: 0 4px 8px hsl(218 72% 9% / 0.05), 0 32px 80px hsl(218 72% 9% / 0.08);
-    --shadow-luxury: 0 1px 2px hsl(218 72% 9% / 0.04), 0 8px 24px hsl(218 72% 9% / 0.05), 0 32px 80px hsl(218 72% 9% / 0.06);
+    --shadow-hero-card: 0 2px 6px hsl(218 72% 9% / 0.08), 0 20px 56px hsl(218 72% 9% / 0.1);
+    --shadow-deep: 0 4px 8px hsl(218 72% 9% / 0.05), 0 24px 64px hsl(218 72% 9% / 0.07);
 
     /* ─── Sidebar (admin) ─── */
     --sidebar-background: 218 72% 9%;
@@ -158,21 +153,21 @@
     font-feature-settings: "ss01" 1, "liga" 1;
   }
 
-  /* ── Editorial heading system — luxury scale ── */
+  /* ── Editorial heading system ── */
   h1 {
     font-family: var(--font-arabic-display);
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.08;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
     text-wrap: balance;
-    color: hsl(var(--foreground));
+    color: hsl(var(--foreground)); /* #0F172A */
   }
 
   h2 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
-    letter-spacing: -0.025em;
-    line-height: 1.1;
+    letter-spacing: -0.02em;
+    line-height: 1.12;
     text-wrap: balance;
     color: hsl(var(--foreground));
   }
@@ -180,8 +175,8 @@
   h3 {
     font-family: var(--font-arabic-display);
     font-weight: 700;
-    letter-spacing: -0.018em;
-    line-height: 1.15;
+    letter-spacing: -0.012em;
+    line-height: 1.18;
     text-wrap: balance;
     color: hsl(var(--foreground));
   }
@@ -189,8 +184,8 @@
   h4 {
     font-family: var(--font-cairo);
     font-weight: 700;
-    letter-spacing: -0.008em;
-    line-height: 1.2;
+    letter-spacing: -0.005em;
+    line-height: 1.24;
     color: hsl(var(--foreground));
   }
 
@@ -254,27 +249,20 @@
     box-shadow: var(--shadow-premium);
   }
 
-  /* ── Card variants — luxury refinement ── */
+  /* ── Card variants ── */
   .card-premium {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.6);
+    border: 1px solid hsl(var(--border) / 0.8);
     border-radius: var(--radius);
     box-shadow: var(--shadow-card);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  }
-
-  .card-premium:hover {
-    box-shadow: var(--shadow-elevated);
-    border-color: hsl(var(--border));
   }
 
   .card-architectural {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.4);
-    border-radius: calc(var(--radius) * 0.8);
+    border: 1px solid hsl(var(--border) / 0.5);
+    border-radius: calc(var(--radius) * 0.6);
     box-shadow: var(--shadow-soft);
     position: relative;
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .card-architectural::before {
@@ -284,30 +272,24 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: hsl(var(--primary) / 0.2);
+    background: hsl(var(--primary) / 0.25);
     border-radius: 2px 0 0 2px;
-    transition: background 0.3s ease;
-  }
-
-  .card-architectural:hover::before {
-    background: hsl(var(--primary) / 0.45);
   }
 
   .card-layered {
     background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(38 12% 96%) 100%);
-    border: 1px solid hsl(var(--border) / 0.4);
+    border: 1px solid hsl(var(--border) / 0.5);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.08);
+    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.1);
   }
 
   .card-editorial {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.35);
-    border-radius: calc(var(--radius) * 0.7);
+    border: 1px solid hsl(var(--border) / 0.4);
+    border-radius: calc(var(--radius) * 0.5);
     box-shadow: var(--shadow-premium);
     position: relative;
     overflow: hidden;
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .card-editorial::after {
@@ -317,20 +299,14 @@
     inset-inline-start: 0;
     inset-inline-end: 0;
     height: 2px;
-    background: linear-gradient(90deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.04));
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.35), hsl(var(--primary) / 0.06));
   }
 
   .soft-card {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.5);
-    border-radius: calc(var(--radius) * 0.9);
+    border: 1px solid hsl(var(--border) / 0.6);
+    border-radius: calc(var(--radius) * 0.8);
     box-shadow: var(--shadow-soft);
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  .soft-card:hover {
-    box-shadow: var(--shadow-card);
-    border-color: hsl(var(--border) / 0.8);
   }
 
   /* ── Heritage surface — dark section cards ── */
@@ -437,23 +413,23 @@
   }
 
   .section-kicker {
-    @apply mb-3 text-[0.62rem] font-bold tracking-[0.28em] uppercase;
+    @apply mb-2 text-[0.6rem] font-bold tracking-[0.25em] uppercase;
     color: hsl(var(--primary));
     font-family: var(--font-poppins);
-    letter-spacing: 0.24em;
+    letter-spacing: 0.22em;
   }
 
   .section-title {
-    @apply text-[1.25rem] font-bold leading-[1.08] md:text-[1.5rem] lg:text-[1.75rem];
+    @apply text-[1.15rem] font-bold leading-[1.12] md:text-[1.35rem] lg:text-[1.5rem];
     color: hsl(var(--foreground));
-    letter-spacing: -0.025em;
+    letter-spacing: -0.018em;
   }
 
-  /* ── Spacing system — luxury breathing ── */
-  .page-section { @apply py-10 md:py-14 lg:py-16; }
+  /* ── Spacing system ── */
+  .page-section { @apply py-8 md:py-10 lg:py-12; }
 
   .page-shell {
-    @apply px-6 py-6 md:px-10 md:py-8 lg:px-12 lg:py-10;
+    @apply px-5 py-5 md:px-8 md:py-6 lg:px-10 lg:py-8;
   }
 
   /* ── Image treatment ── */

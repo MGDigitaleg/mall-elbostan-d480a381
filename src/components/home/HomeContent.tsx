@@ -152,14 +152,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contentVisibility: "auto",
           containIntrinsicSize: "auto 400px",
-          paddingTop: "clamp(48px, 6.5vw, 104px)",
-          paddingBottom: "clamp(48px, 6.5vw, 104px)",
+          paddingTop: "clamp(40px, 5.5vw, 88px)",
+          paddingBottom: "clamp(40px, 5.5vw, 88px)",
         } as React.CSSProperties}
       >
         <div className="container">
           <Reveal className="mx-auto max-w-[58rem]">
             <Suspense fallback={
-              <div className="flex items-center justify-center rounded-2xl border border-border bg-card py-24">
+              <div className="flex items-center justify-center rounded-2xl border border-border bg-card py-20">
                 <div className="flex flex-col items-center gap-3">
                   <Compass className="h-8 w-8 text-primary/30 animate-pulse" />
                   <p className="text-[0.8rem] text-muted-foreground">جارٍ تحميل الخريطة...</p>
@@ -184,8 +184,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 500px",
-          paddingTop: "clamp(56px, 7vw, 112px)",
-          paddingBottom: "clamp(56px, 7vw, 112px)",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
           ...(selectedProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -226,53 +226,52 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          background: "linear-gradient(160deg, #050E1C 0%, #0B1930 50%, #071326 100%)",
-          paddingTop: "clamp(56px, 7vw, 112px)",
-          paddingBottom: "clamp(56px, 7vw, 112px)",
+          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+          paddingTop: "clamp(48px, 6vw, 96px)",
+          paddingBottom: "clamp(48px, 6vw, 96px)",
         }}
       >
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-          <div className="absolute bottom-0 right-[20%] w-[300px] h-[300px] rounded-full opacity-[0.015]" style={{ background: "radial-gradient(circle, #CDBB9A 0%, transparent 70%)" }} />
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
 
         <div className="container relative max-w-5xl">
           <Reveal>
-            <div className="grid items-start gap-10 lg:grid-cols-[0.75fr_1.25fr]">
+            <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
               <div className="lg:sticky lg:top-24">
-                <p className="text-[0.62rem] font-bold tracking-[0.24em] uppercase mb-4" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
-                <h2 className="text-[1.25rem] md:text-[1.5rem] font-bold leading-[1.1]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC", letterSpacing: "-0.02em" }}>
+                <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-3" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
+                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
                   إجابات سريعة.
                 </h2>
-                <p className="mt-3 text-[0.82rem] leading-[1.75] max-w-[20rem]" style={{ color: "#94A3B8" }}>
+                <p className="mt-2.5 text-[0.8rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
                   أبرز الأسئلة حول الموقع والافتتاح والتأجير.
                 </p>
-                <Link to="/faq" className="mt-5 inline-flex">
-                  <Button className="h-10 rounded-xl border px-5 text-[0.8rem] font-bold gap-1.5 transition-all duration-300 hover:bg-white/8"
+                <Link to="/faq" className="mt-4 inline-flex">
+                  <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
                           style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
                     جميع الأسئلة <ArrowLeft className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
-              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-3">
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
                 {faqItems.map((faq, i) => (
                   <AccordionItem
                     key={faq.id}
                     value={faq.id}
-                    className="overflow-hidden rounded-2xl border px-5 transition-all duration-300 data-[state=open]:bg-white/[0.03]"
-                    style={{ background: "#ffffff03", borderColor: "#ffffff08" }}
+                    className="overflow-hidden rounded-xl border px-4 transition-colors data-[state=open]:bg-white/[0.03]"
+                    style={{ background: "#ffffff03", borderColor: "#ffffff0A" }}
                   >
-                    <AccordionTrigger className="min-h-[3.25rem] py-4 text-right text-[0.86rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
-                      <span className="flex items-center gap-3">
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-poppins text-[0.62rem] font-extrabold"
-                              style={{ background: "#2563EB10", color: "#60A5FA", border: "1px solid #2563EB1A" }}>
+                    <AccordionTrigger className="min-h-[3rem] py-3.5 text-right text-[0.84rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
+                      <span className="flex items-center gap-2.5">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-poppins text-[0.6rem] font-extrabold"
+                              style={{ background: "#2563EB12", color: "#60A5FA", border: "1px solid #2563EB20" }}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         {faq.question_ar}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-4 pr-10 text-[0.8rem] leading-[1.85]" style={{ color: "#94A3B8" }}>
+                    <AccordionContent className="pb-3.5 pr-9 text-[0.78rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
                       {faq.answer_ar}
                     </AccordionContent>
                   </AccordionItem>
@@ -287,46 +286,46 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         className="relative overflow-hidden"
         style={{
-          background: "linear-gradient(160deg, #050E1C 0%, #0B1930 50%, #071326 100%)",
-          paddingTop: "clamp(64px, 8vw, 128px)",
-          paddingBottom: "clamp(64px, 8vw, 128px)",
+          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+          paddingTop: "clamp(56px, 7vw, 112px)",
+          paddingBottom: "clamp(56px, 7vw, 112px)",
         }}
       >
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
 
         <div className="container relative max-w-[700px]">
           <Reveal>
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px w-12 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A50, transparent)" }} />
-              <span className="font-poppins text-[0.6rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>ابدأ من هنا</span>
-              <div className="h-px w-12 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A50, transparent)" }} />
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A60, transparent)" }} />
+              <span className="font-poppins text-[0.58rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>ابدأ من هنا</span>
+              <div className="h-px w-10 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A60, transparent)" }} />
             </div>
 
-            <h2 className="mx-auto max-w-[22rem] text-center text-[1.3rem] md:text-[1.6rem] font-bold leading-[1.08]"
-                style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC", letterSpacing: "-0.025em" }}>
+            <h2 className="mx-auto max-w-[22rem] text-center text-[1.15rem] md:text-[1.4rem] font-bold leading-[1.15]"
+                style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
               ابدأ من هنا.
             </h2>
-            <p className="mx-auto mt-3 max-w-[22rem] text-center text-[0.84rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
+            <p className="mx-auto mt-2.5 max-w-[20rem] text-center text-[0.82rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
               دليل المحلات، الخريطة التفاعلية، والوحدات المتاحة.
             </p>
 
-            <div className="mx-auto mt-8 grid gap-3 sm:grid-cols-3">
+            <div className="mx-auto mt-7 grid gap-2.5 sm:grid-cols-3">
               {[
                 { icon: Compass, label: "الخريطة التفاعلية", desc: "خريطة لكل دور.", to: "/map", color: "#2563EB" },
                 { icon: Store, label: "دليل المحلات", desc: "تصفّح المحلات.", to: "/stores", color: "#06B6D4" },
                 { icon: Phone, label: "استفسار التأجير", desc: "وحدات جاهزة.", to: "/leasing", color: "#F97316" },
               ].map((item) => (
                 <Link key={item.to} to={item.to} className="group">
-                  <div className="rounded-2xl p-5 text-center transition-all duration-300 hover:bg-white/[0.04]"
-                       style={{ background: "#ffffff03", border: "1px solid #ffffff06" }}>
-                    <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl"
-                         style={{ background: `${item.color}0D`, border: `1px solid ${item.color}1A`, boxShadow: `0 4px 16px ${item.color}08` }}>
-                      <item.icon className="h-5 w-5" style={{ color: item.color }} />
+                  <div className="rounded-xl p-4 text-center transition-all duration-300 hover:bg-white/[0.03]"
+                       style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}>
+                    <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-lg"
+                         style={{ background: `${item.color}10`, border: `1px solid ${item.color}18` }}>
+                      <item.icon className="h-4 w-4" style={{ color: item.color }} />
                     </div>
-                    <p className="text-[0.84rem] font-bold" style={{ color: "#F1F5F9" }}>{item.label}</p>
-                    <p className="mt-1.5 text-[0.72rem] leading-[1.6]" style={{ color: "#7C8BA1" }}>{item.desc}</p>
+                    <p className="text-[0.82rem] font-bold" style={{ color: "#F1F5F9" }}>{item.label}</p>
+                    <p className="mt-1 text-[0.7rem] leading-[1.5]" style={{ color: "#7C8BA1" }}>{item.desc}</p>
                   </div>
                 </Link>
               ))}

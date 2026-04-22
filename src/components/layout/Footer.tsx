@@ -128,18 +128,18 @@ export function Footer() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #050C18 0%, #060E1C 30%, #071326 60%, #0A0F1A 100%)", overflowAnchor: "none", contain: "layout style paint", minHeight: 480 } as React.CSSProperties}>
-      {/* Decorative top border — richer gold/blue gradient */}
-      <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A35 25%, #2563EB40 50%, #CDBB9A35 75%, transparent 95%)" }} />
+    <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", overflowAnchor: "none", contain: "layout style paint", minHeight: 460 } as React.CSSProperties}>
+      {/* Decorative top border */}
+      <div className="h-[2px] w-full" style={{ background: "linear-gradient(90deg, transparent 5%, #CDBB9A40 30%, #2563EB50 50%, #CDBB9A40 70%, transparent 95%)" }} />
 
-      {/* Ambient glow — deeper, more layered */}
+      {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
-        <div className="absolute bottom-0 right-[15%] h-[300px] w-[300px] rounded-full opacity-[0.015]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
-        <div className="absolute inset-0 opacity-[0.008]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
+        <div className="absolute bottom-0 right-[15%] h-[250px] w-[250px] rounded-full opacity-[0.02]" style={{ background: "radial-gradient(circle, #CDBB9A, transparent 70%)" }} />
+        <div className="absolute inset-0 opacity-[0.012]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "80px 80px" }} />
       </div>
 
-      <div className="container relative pt-12 pb-6 md:pt-20 md:pb-10 lg:pt-24">
+      <div className="container relative pt-10 pb-5 md:pt-16 md:pb-8 lg:pt-20">
         {/* ── TOP: Brand + Navigation ── */}
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}

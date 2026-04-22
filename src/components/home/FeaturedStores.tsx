@@ -30,17 +30,17 @@ export function FeaturedStores() {
       className="bg-card dark:bg-background"
       style={{
         contain: "layout style",
-        paddingTop: "clamp(28px, 4vw, 48px)",
-        paddingBottom: "clamp(28px, 4vw, 48px)",
+        paddingTop: "clamp(20px, 3.5vw, 36px)",
+        paddingBottom: "clamp(20px, 3.5vw, 36px)",
       }}
     >
       <div className="container">
         <Reveal rootMargin="-60px" offset={12}>
           {/* Header */}
-          <div style={{ marginBottom: 16 }} className="flex items-end justify-between gap-4">
+          <div style={{ marginBottom: 12 }} className="flex items-end justify-between gap-4">
             <div>
-              <p className="section-kicker" style={{ fontSize: 11, marginBottom: 6 }}>محلات مميزة</p>
-              <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(16px, 1.5vw, 20px)" }}>
+              <p className="section-kicker" style={{ fontSize: 11, marginBottom: 4 }}>محلات مميزة</p>
+              <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(15px, 1.4vw, 18px)" }}>
                 أبرز المحلات.
               </h2>
             </div>
@@ -76,10 +76,10 @@ export function FeaturedStores() {
                 <Link
                   key={store.id}
                   to={`/stores/${store.slug}`}
-                  className="group flex flex-col items-center overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 bg-background border border-border/30 dark:border-border/60 dark:bg-card hover:shadow-[var(--shadow-card)] hover:border-border/60"
+                  className="group flex flex-col items-center overflow-hidden transition-all duration-[180ms] ease-out hover:-translate-y-0.5 bg-background border border-border/40 dark:border-border/60 dark:bg-card"
                   style={{
-                    borderRadius: 16,
-                    padding: "clamp(10px, 1.2vw, 16px)",
+                    borderRadius: 14,
+                    padding: "clamp(8px, 1vw, 12px)",
                   }}
                 >
                   {/* Logo — unified component */}
