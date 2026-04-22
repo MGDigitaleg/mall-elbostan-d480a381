@@ -5,10 +5,8 @@ import { Reveal } from "@/components/home/Reveal";
 import {
   ArrowLeft,
   Compass,
-  Gift,
   Phone,
   Store,
-  ShoppingBag,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,31 +15,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { CategoryStrip } from "@/components/home/CategoryStrip";
 import { ProductRail } from "@/components/home/ProductRail";
 import { LazySection } from "@/components/home/LazySection";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
+import { QuickActions } from "@/components/home/QuickActions";
+import { WhyElBostan } from "@/components/home/WhyElBostan";
+
+const FeaturedStores = lazy(() =>
+  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
+);
 const MerchantLogoWall = lazy(() =>
   import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
-);
-const DowntownTeaser = lazy(() =>
-  import("@/components/home/DowntownTeaser").then((m) => ({ default: m.DowntownTeaser }))
 );
 const DealsTeaser = lazy(() =>
   import("@/components/home/DealsTeaser").then((m) => ({ default: m.DealsTeaser }))
 );
-const FeaturedStores = lazy(() =>
-  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
+const DowntownTeaser = lazy(() =>
+  import("@/components/home/DowntownTeaser").then((m) => ({ default: m.DowntownTeaser }))
 );
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-
 const MapTeaserPreview = lazy(() =>
   import("@/components/home/MapTeaserPreview").then((m) => ({ default: m.MapTeaserPreview }))
 );
+
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { CategoryStrip } from "@/components/home/CategoryStrip";
 
 const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "في قلب القاهرة الجديدة، ضمن موقع يخدم مدينتي والرحاب والمناطق المحيطة." },
@@ -51,7 +52,6 @@ const fallbackFaqs = [
   { id: "faq-5", question_ar: "هل سيتوفر تسوّق إلكتروني؟", answer_ar: "السوق الرقمي مرحلة قادمة." },
   { id: "faq-6", question_ar: "كيف أتقدم باستفسار تجاري؟", answer_ar: "من صفحة التأجير أو التواصل." },
 ];
-
 
 type HomeContentProps = {
   faqs: Array<{ id: string; question_ar: string; answer_ar: string }>;
@@ -76,8 +76,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
   const isMobile = useIsMobile();
 
-  /* Defer product fetch until after the hero has painted (idle callback).
-     This prevents the Supabase request from competing with hero image for bandwidth. */
+  /* Defer product fetch */
   const [ready, setReady] = useState(false);
   useEffect(() => {
     if ("requestIdleCallback" in window) {
@@ -98,7 +97,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         )
         .eq("status", "published")
         .order("created_at", { ascending: false })
-        .limit(60);
+        .limit(24);
       return (data ?? []) as ProductRow[];
     },
     enabled: ready,
@@ -106,42 +105,16 @@ export function HomeContent({ faqs }: HomeContentProps) {
   });
 
   const products = allProducts ?? [];
-
-  /* ── Filter out products without images for homepage ── */
   const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
 
-  /* ── Derive sections from single dataset ── */
-  const latestProducts = useMemo(() => productsWithImages.slice(0, 18), [productsWithImages]);
-
-  const featuredProducts = useMemo(
-    () => productsWithImages.filter((p) => p.featured).slice(0, 12),
-    [productsWithImages]
-  );
-
-  /* Trending: featured first, then by recency — different slice than latest */
-  const trendingProducts = useMemo(() => {
+  /* Single curated selection — featured first, then latest */
+  const selectedProducts = useMemo(() => {
     const sorted = [...productsWithImages].sort((a, b) => {
       if (a.featured !== b.featured) return b.featured ? 1 : -1;
       return 0;
     });
-    return sorted.slice(6, 24);
+    return sorted.slice(0, 12);
   }, [productsWithImages]);
-
-  /* Category-based blocks */
-  const phoneProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الهواتف والإكسسوارات").slice(0, 12),
-    [productsWithImages]
-  );
-  const computerProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الكمبيوتر والأجهزة").slice(0, 12),
-    [productsWithImages]
-  );
-  const gamingProducts = useMemo(
-    () => productsWithImages.filter((p) => p.stores?.category === "الألعاب والترفيه").slice(0, 12),
-    [productsWithImages]
-  );
-
-
 
   return (
     <div>
@@ -158,189 +131,22 @@ export function HomeContent({ faqs }: HomeContentProps) {
         {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
 
-      {/* ═══════════ 2 · CATEGORY STRIP ═══════════ */}
-      <section style={{ contain: "layout", minHeight: 296, contentVisibility: "auto", containIntrinsicSize: "auto 296px" } as React.CSSProperties}><CategoryStrip /></section>
+      {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
+      <QuickActions />
 
-      {/* ═══════════ 3 · LATEST PRODUCTS ═══════════ */}
-      <section
-          className="bg-card dark:bg-background"
-          style={{
-            contain: "layout",
-            minHeight: 400,
-            contentVisibility: "auto",
-            containIntrinsicSize: "auto 500px",
-            paddingTop: "clamp(48px, 6vw, 96px)",
-            paddingBottom: "clamp(48px, 6vw, 96px)",
-          } as React.CSSProperties}>
-          <div className="container">
-            <ProductRail
-              kicker="من محلات المول"
-              title="أحدث المنتجات"
-              subtitle="تصفح أحدث ما أضافته محلات مول البستان في مكان واحد."
-              products={latestProducts}
-              ctaLabel="عرض كل المنتجات"
-              ctaTo="/products"
-              layout="grid"
-              columns={4}
-              theme="light"
-              loading={productsLoading}
-            />
-          </div>
-        </section>
-
-      {/* ═══════════ 4 · DEALS / OFFERS ═══════════ */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 320px" } as React.CSSProperties}><Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense></section>
-
-      {/* ═══════════ 5 · TRENDING / BEST-SELLING ═══════════ */}
-      <section
-        className="bg-card dark:bg-background"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 500px",
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-          ...(trendingProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
-        } as React.CSSProperties}>
-        <div className="container">
-          <ProductRail
-            kicker="الأكثر طلباً"
-            title="المنتجات الرائجة"
-            subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
-            products={trendingProducts}
-            ctaLabel="تصفّح المنتجات"
-            ctaTo="/products"
-            layout="rail"
-            theme="light"
-            loading={productsLoading}
-          />
-        </div>
-      </section>
-
-      {/* ═══════════ 6 · FEATURED PRODUCTS RAIL ═══════════ */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 500px",
-          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-          ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
-        } as React.CSSProperties}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-        </div>
-        <div className="container relative">
-          <ProductRail
-            kicker="اختيارات مميزة"
-            title="منتجات مميزة من المول"
-            products={featuredProducts}
-            ctaLabel="عرض المنتجات المميزة"
-            ctaTo="/products"
-            layout="grid"
-            theme="dark"
-            density="premium"
-            loading={productsLoading}
-          />
-        </div>
-      </section>
-
-      {/* ═══════════ 7 · FEATURED STORES ═══════════ */}
+      {/* ═══════════ 3 · FEATURED STORES ═══════════ */}
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 400px" } as React.CSSProperties}>
         <LazySection minHeight={400}>
           <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
         </LazySection>
       </section>
 
-      {/* ═══════════ 8 · CATEGORY: PHONES ═══════════ */}
-      <section
-        className="bg-card dark:bg-background"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 500px",
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-          ...(!phoneProducts.length && !productsLoading ? { display: "none" } : {}),
-        } as React.CSSProperties}>
-        <div className="container">
-          <ProductRail
-            kicker="الهواتف والإكسسوارات"
-            title="أحدث الهواتف وملحقاتها"
-            products={phoneProducts}
-            ctaLabel="عرض الكل"
-            ctaTo="/products?category=الهواتف والإكسسوارات"
-            layout="grid"
-            columns={4}
-            theme="light"
-            loading={productsLoading}
-          />
-        </div>
+      {/* ═══════════ 4 · CATEGORIES ═══════════ */}
+      <section style={{ contain: "layout", minHeight: 296, contentVisibility: "auto", containIntrinsicSize: "auto 296px" } as React.CSSProperties}>
+        <CategoryStrip />
       </section>
 
-      {/* ═══════════ 9 · CATEGORY: COMPUTERS ═══════════ */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 500px",
-          background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-          ...(!computerProducts.length && !productsLoading ? { display: "none" } : {}),
-        } as React.CSSProperties}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #06B6D4 0%, transparent 70%)" }} />
-        </div>
-        <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        <div className="container relative">
-          <ProductRail
-            kicker="الكمبيوتر والأجهزة"
-            title="أجهزة الكمبيوتر والملحقات"
-            products={computerProducts}
-            ctaLabel="عرض الكل"
-            ctaTo="/products?category=الكمبيوتر والأجهزة"
-            layout="grid"
-            theme="dark"
-            density="premium"
-            loading={productsLoading}
-          />
-        </div>
-      </section>
-
-      {/* ═══════════ 10 · CATEGORY: GAMING ═══════════ */}
-      <section
-        className="bg-card dark:bg-background"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 500px",
-          paddingTop: "clamp(48px, 6vw, 96px)",
-          paddingBottom: "clamp(48px, 6vw, 96px)",
-          ...(!gamingProducts.length && !productsLoading ? { display: "none" } : {}),
-        } as React.CSSProperties}>
-        <div className="container">
-          <ProductRail
-            kicker="الألعاب والترفيه"
-            title="أحدث ألعاب الفيديو والأجهزة"
-            products={gamingProducts}
-            ctaLabel="عرض الكل"
-            ctaTo="/products?category=الألعاب والترفيه"
-            layout="grid"
-            columns={4}
-            theme="light"
-            loading={productsLoading}
-          />
-        </div>
-      </section>
-
-      {/* ═══════════ 11 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
-        <LazySection minHeight={280}>
-          <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
-        </LazySection>
-      </section>
-
-      {/* ═══════════ 12 · MAP TEASER ═══════════ */}
+      {/* ═══════════ 5 · INTERACTIVE MAP TEASER ═══════════ */}
       <section
         className="bg-card dark:bg-background"
         style={{
@@ -348,7 +154,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 400px",
           paddingTop: "clamp(40px, 5.5vw, 88px)",
           paddingBottom: "clamp(40px, 5.5vw, 88px)",
-        } as React.CSSProperties}>
+        } as React.CSSProperties}
+      >
         <div className="container">
           <Reveal className="mx-auto max-w-[58rem]">
             <Suspense fallback={
@@ -365,135 +172,65 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 13 · SPIN & WIN ═══════════ */}
+      {/* ═══════════ 6 · DEALS / OFFERS ═══════════ */}
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 320px" } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense>
+      </section>
+
+      {/* ═══════════ 7 · SELECTED PRODUCTS (single section) ═══════════ */}
       <section
-        className="relative overflow-hidden"
+        className="bg-card dark:bg-background"
         style={{
+          contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 500px",
-          background: "linear-gradient(135deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        } as React.CSSProperties}>
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-        </div>
-
-        <div className="container relative">
-          <Reveal>
-            <div className="mx-auto max-w-[54rem]">
-              <div className="text-center mb-7">
-                <div className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 mb-3" style={{ background: "#F9731610", border: "1px solid #F9731620" }}>
-                  <Gift className="h-3 w-3" style={{ color: "#F97316" }} />
-                  <span className="text-[0.66rem] font-bold" style={{ color: "#F97316" }}>حملة الافتتاح</span>
-                </div>
-                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
-                  أدر العجلة واربح يوم الافتتاح.
-                </h2>
-                <p className="mt-2 text-[0.8rem] leading-[1.7] max-w-md mx-auto" style={{ color: "#94A3B8" }}>
-                  جوائز حقيقية من محلات المول — سجّل الآن واحضر يوم الافتتاح.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-2.5 md:gap-3 mb-7">
-                {[
-                  { n: "01", title: "تصفّح المحلات", desc: "اعرف المحلات المشاركة.", color: "#2563EB" },
-                  { n: "02", title: "أدر واربح", desc: "سجّل واحفظ نتيجتك.", color: "#06B6D4" },
-                  { n: "03", title: "احضر واستلم", desc: "أثبت حضورك يوم الافتتاح.", color: "#F97316" },
-                ].map((s) => (
-                  <div key={s.n} className="rounded-xl p-4 md:p-5 text-center"
-                       style={{ background: "#ffffff04", border: "1px solid #ffffff0A" }}>
-                    <div className="mx-auto mb-2.5 flex h-9 w-9 items-center justify-center rounded-lg"
-                         style={{ background: `${s.color}12`, border: `1px solid ${s.color}20` }}>
-                      <span className="font-poppins text-[0.7rem] font-extrabold" style={{ color: s.color }}>{s.n}</span>
-                    </div>
-                    <p className="text-[0.82rem] font-bold" style={{ color: "#F1F5F9" }}>{s.title}</p>
-                    <p className="mt-1 text-[0.7rem] leading-[1.55]" style={{ color: "#7C8BA1" }}>{s.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex justify-center">
-                <Link to="/spin-win">
-                  <Button variant="cta" className="h-10 rounded-xl px-6 font-bold text-[0.82rem] shadow-lg shadow-primary/15">
-                    <Gift className="ml-1.5 h-3.5 w-3.5" />أدر واربح الآن
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ═══════════ 14 · MARKET ECHO TEASER ═══════════ */}
-      <section
-        className="relative overflow-hidden bg-background"
-        style={{
-          contentVisibility: "auto",
-          containIntrinsicSize: "auto 300px",
-          paddingTop: "clamp(40px, 5vw, 72px)",
-          paddingBottom: "clamp(40px, 5vw, 72px)",
+          ...(selectedProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
-        <div className="container max-w-[720px]">
-          <Reveal>
-            <Link to="/market-echo" className="group block">
-              <div
-                className="relative rounded-2xl overflow-hidden p-6 md:p-8 text-center transition-all duration-300 group-hover:shadow-lg"
-                style={{
-                  background: "linear-gradient(160deg, #04152F 0%, #071B44 50%, #04152F 100%)",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                }}
-              >
-                {/* Subtle grid texture */}
-                <div className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                     style={{
-                       backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-                       backgroundSize: "88px 88px",
-                     }}
-                />
-
-                <div className="relative">
-                  <div className="flex items-center justify-center gap-2 mb-3">
-                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to left, #CDBB9A50, transparent)" }} />
-                    <span className="font-poppins text-[0.56rem] font-bold tracking-[0.2em] uppercase" style={{ color: "#CDBB9A" }}>
-                      صدى السوق
-                    </span>
-                    <div className="h-px w-8 rounded-full" style={{ background: "linear-gradient(to right, #CDBB9A50, transparent)" }} />
-                  </div>
-
-                  <h3 className="text-[1.05rem] md:text-[1.2rem] font-bold leading-[1.25]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F1F5F9" }}>
-                    ٣٥ سنة والسوق يبدأ من هنا.
-                  </h3>
-                  <p className="mt-2 text-[0.78rem] leading-[1.7] max-w-[22rem] mx-auto" style={{ color: "#7C8BA1" }}>
-                    قصة اسم بناه التجار والزبائن — ليس الإعلانات.
-                  </p>
-
-                  <div className="mt-4 inline-flex items-center gap-1.5 text-[0.78rem] font-bold transition-all group-hover:gap-2.5" style={{ color: "#5B9AFF" }}>
-                    اكتشف القصة <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </Reveal>
+        <div className="container">
+          <ProductRail
+            kicker="من محلات المول"
+            title="منتجات مختارة"
+            subtitle="تصفّح أبرز ما تقدمه محلات مول البستان."
+            products={selectedProducts}
+            ctaLabel="عرض كل المنتجات"
+            ctaTo="/products"
+            layout="grid"
+            columns={4}
+            theme="light"
+            loading={productsLoading}
+          />
         </div>
       </section>
 
-      {/* ═══════════ 14.5 · DOWNTOWN HERITAGE ═══════════ */}
+      {/* ═══════════ 8 · WHY EL BOSTAN ═══════════ */}
+      <WhyElBostan />
+
+      {/* ═══════════ 9 · MERCHANT LOGO WALL ═══════════ */}
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
+        <LazySection minHeight={280}>
+          <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
+        </LazySection>
+      </section>
+
+      {/* ═══════════ 10 · DOWNTOWN HERITAGE ═══════════ */}
       <section style={{ minHeight: 420 }}>
         <LazySection minHeight={420}>
           <Suspense fallback={<div style={{ minHeight: 420 }} />}><DowntownTeaser /></Suspense>
         </LazySection>
       </section>
 
-      {/* ═══════════ 15 · FAQ ═══════════ */}
+      {/* ═══════════ 11 · FAQ ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(48px, 6vw, 96px)",
           paddingBottom: "clamp(48px, 6vw, 96px)",
-        }}>
+        }}
+      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
@@ -545,14 +282,15 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 16 · FINAL CTA ═══════════ */}
+      {/* ═══════════ 12 · FINAL CTA ═══════════ */}
       <section
         className="relative overflow-hidden"
         style={{
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
-        }}>
+        }}
+      >
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
         </div>
