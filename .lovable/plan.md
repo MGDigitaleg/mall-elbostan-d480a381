@@ -1,31 +1,27 @@
 
 
-# تعديل حجم الخريطة وإلغاء زوم السكرول
+# Fix: Map Clipping Instead of Fitting
 
-## ملخص
-تصغير الخريطة التفاعلية لتناسب شاشة الديسكتوب بالكامل بدون سكرول، مع إلغاء خاصية الزوم عبر السكرول (scroll wheel zoom) والإبقاء على أزرار الزوم فقط.
+## Problem
+The `max-h` constraint combined with `overflow-hidden` is cutting off the map visually instead of scaling it down to fit within the viewport. The SVG map needs to shrink proportionally, not get clipped.
 
----
+## Solution
+Remove the `max-h` + `overflow-hidden` approach and instead use `aspect-ratio` with controlled width so the map scales down naturally within the viewport. The SVG already uses `preserveAspectRatio="xMidYMid meet"` which handles scaling — the container just needs to allow it.
 
-## التغييرات
+## Changes
 
-### 1. إلغاء زوم السكرول — `src/components/map/MallFloorMap.tsx`
-- حذف دالة `handleWheel` بالكامل وإزالة `onWheel` من الـ container div
-- هذا يلغي الزوم المزعج عند تمرير الصفحة فوق الخريطة ويترك السكرول العادي للصفحة يعمل بشكل طبيعي
-- أزرار الزوم (+ / - / reset) تبقى كما هي للاستخدام الاختياري
+### 1. `src/pages/InteractiveMap.tsx` — Fix map container sizing
+- Remove `max-h-[calc(100vh-200px)]` and `max-h-[calc(100vh-260px)]` from the map container
+- Remove `overflow-hidden` from the map container (keep it on the inner MallFloorMap component which already has its own overflow handling)
+- Add `aspect-square` to the map container so it maintains proportional sizing
+- Add `max-w-[calc(100vh-220px)] lg:max-w-[calc(100vh-280px)]` to limit the width based on viewport height, which naturally constrains the square map to fit on screen
+- Add `mx-auto` to center the map when it shrinks
+- Keep the fullscreen mode logic as-is (with `fixed inset-0`)
 
-### 2. تصغير حجم الخريطة على الديسكتوب — `src/pages/InteractiveMap.tsx`
-- إضافة `max-height` للخريطة على الديسكتوب (حوالي `calc(100vh - 260px)`) بحيث تظهر بالكامل ضمن الشاشة مع الهيدر وشريط التحكم
-- ضبط الـ aspect ratio أو الـ container ليكون أكثر انضباطاً بدون سكرول داخلي
+### 2. `src/components/map/MallFloorMap.tsx` — Ensure SVG fills container
+- Confirm the SVG `viewBox` and `preserveAspectRatio` are correct (they are — no change needed here)
+- The component's own `overflow-hidden` on the outer div is fine for zoom/pan clipping
 
-### 3. تعديل HeroMiniMap — `src/components/home/HeroMiniMap.tsx`
-- إلغاء `onWheel` إن كان يستخدم نفس المكوّن (MallFloorMap يمرر الزوم تلقائياً)
-
----
-
-## التفاصيل التقنية
-
-**الملفات المتأثرة:**
-- `src/components/map/MallFloorMap.tsx` — إزالة `handleWheel` و `onWheel`
-- `src/pages/InteractiveMap.tsx` — إضافة `max-h-[calc(100vh-260px)]` على container الخريطة في الديسكتوب
+## Result
+The map will scale down proportionally to fit the viewport height on both mobile and desktop, without any clipping. The fullscreen button continues to work for users who want a larger view.
 
