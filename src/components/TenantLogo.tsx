@@ -1,5 +1,6 @@
 import { Store } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { optimizeImageUrl } from "@/lib/imageUtils";
 
 /**
  * TenantLogo — Unified logo display component for all tenant branding.
@@ -8,6 +9,8 @@ import { cn } from "@/lib/utils";
  * - object-contain: never crops or distorts logos
  * - Consistent padding inside the container
  * - White background container for logo visibility
+ * - Explicit width/height to prevent CLS
+ * - Optimized image delivery for Supabase Storage URLs
  * - Graceful fallback for missing logos:
  *   1. If `fallbackName` provided → shows initials on a themed background
  *   2. Otherwise → generic Store icon
@@ -31,14 +34,16 @@ interface TenantLogoProps {
   darkContext?: boolean;
   /** Rounded corners variant */
   rounded?: "md" | "lg" | "xl" | "2xl";
+  /** Override loading behavior (default: lazy) */
+  loading?: "lazy" | "eager";
 }
 
-const sizeConfig: Record<TenantLogoSize, { container: string; icon: string; padding: number; fontSize: string }> = {
-  xs: { container: "h-8 w-8", icon: "h-3.5 w-3.5", padding: 2, fontSize: "0.55rem" },
-  sm: { container: "h-11 w-11", icon: "h-4 w-4", padding: 2, fontSize: "0.65rem" },
-  md: { container: "h-14 w-14", icon: "h-6 w-6", padding: 3, fontSize: "0.75rem" },
-  lg: { container: "h-20 w-20", icon: "h-8 w-8", padding: 4, fontSize: "0.95rem" },
-  xl: { container: "h-24 w-24", icon: "h-10 w-10", padding: 5, fontSize: "1.1rem" },
+const sizeConfig: Record<TenantLogoSize, { container: string; icon: string; padding: number; fontSize: string; px: number }> = {
+  xs: { container: "h-8 w-8", icon: "h-3.5 w-3.5", padding: 2, fontSize: "0.55rem", px: 32 },
+  sm: { container: "h-11 w-11", icon: "h-4 w-4", padding: 2, fontSize: "0.65rem", px: 44 },
+  md: { container: "h-14 w-14", icon: "h-6 w-6", padding: 3, fontSize: "0.75rem", px: 56 },
+  lg: { container: "h-20 w-20", icon: "h-8 w-8", padding: 4, fontSize: "0.95rem", px: 80 },
+  xl: { container: "h-24 w-24", icon: "h-10 w-10", padding: 5, fontSize: "1.1rem", px: 96 },
 };
 
 const roundedMap: Record<string, string> = {
@@ -84,6 +89,7 @@ export function TenantLogo({
   className,
   darkContext = false,
   rounded = "xl",
+  loading = "lazy",
 }: TenantLogoProps) {
   const config = sizeConfig[size];
   const roundedClass = roundedMap[rounded] ?? "rounded-xl";
@@ -91,6 +97,8 @@ export function TenantLogo({
 
   // Has a valid logo source
   if (src) {
+    const optimizedSrc = optimizeImageUrl(src, config.px);
+
     return (
       <div
         className={cn(
@@ -103,10 +111,12 @@ export function TenantLogo({
         style={{ padding: config.padding }}
       >
         <img
-          src={src}
-          alt={alt}
+          src={optimizedSrc}
+          alt={`شعار ${alt} — محل في مول البستان`}
+          width={config.px}
+          height={config.px}
           className="h-full w-full object-contain"
-          loading="lazy"
+          loading={loading}
           decoding="async"
         />
       </div>
@@ -127,6 +137,8 @@ export function TenantLogo({
           background: getColorForName(displayName),
           padding: config.padding,
         }}
+        role="img"
+        aria-label={`شعار ${displayName} — محل في مول البستان`}
         title={displayName}
       >
         <span
@@ -154,6 +166,8 @@ export function TenantLogo({
         className
       )}
       style={{ padding: config.padding }}
+      role="img"
+      aria-label="شعار محل في مول البستان"
     >
       <Store
         className={cn(
