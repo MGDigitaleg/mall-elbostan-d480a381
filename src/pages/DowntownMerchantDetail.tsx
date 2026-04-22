@@ -168,6 +168,7 @@ const DowntownMerchantDetail = () => {
               <TenantLogo
                 src={merchant.logo_url}
                 alt={merchant.name_ar}
+                fallbackName={merchant.name_ar}
                 size="lg"
                 rounded="xl"
                 darkContext

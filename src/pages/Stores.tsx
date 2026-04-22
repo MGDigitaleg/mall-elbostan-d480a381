@@ -490,6 +490,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
             <TenantLogo
               src={store.logo_url}
               alt={store.name_ar}
+              fallbackName={store.name_ar}
               size="md"
               rounded="xl"
               darkContext

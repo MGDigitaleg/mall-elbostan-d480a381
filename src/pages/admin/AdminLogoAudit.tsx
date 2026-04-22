@@ -133,7 +133,7 @@ const AdminLogoAudit = () => {
                   return (
                     <tr key={t.slug} className="border-b border-border/50 transition-colors hover:bg-muted/30">
                       <td className="px-4 py-3">
-                        <TenantLogo src={t.logoPath} alt={t.displayNameAr} size="sm" rounded="lg" />
+                        <TenantLogo src={t.logoPath} alt={t.displayNameAr} fallbackName={t.displayNameAr} size="sm" rounded="lg" />
                       </td>
                       <td className="px-4 py-3">
                         <p className="font-medium text-foreground">{t.displayNameAr}</p>
