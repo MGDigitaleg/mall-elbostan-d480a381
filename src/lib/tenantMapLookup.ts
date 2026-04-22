@@ -67,36 +67,46 @@ export const UNIT_TENANT_BG_COLORS: Record<string, string> = {
   "S-10": "#D4272E",   // Quick Fix – red
 };
 
-export const UNIT_TENANT_LOGOS: Record<string, string> = {
-  "G-01": "/logos/tenants/static.webp",
-  "G-02": "/logos/tenants/sharaf.webp",
-  "G-03": "/logos/tenants/2b.webp",
-  "G-05": "/logos/tenants/go-plus.webp",
-  "G-07": "/logos/tenants/al-hoda.webp",
-  "G-08": "/logos/tenants/al-sahaba.webp",
-  "G-09": "/logos/tenants/red-line.webp",
-  "G-11": "/logos/tenants/egypt-laptop.webp",
-  "G-12": "/logos/tenants/print-show.webp",
-  "G-13": "/logos/tenants/hk.webp",
-  "G-14": "/logos/tenants/wifi.webp",
-  "G-16": "/logos/tenants/kareem-store.webp",
-  "G-17": "/logos/tenants/kasr-zero.webp",
-  "F-04": "/logos/tenants/infinity.webp",
-  "F-06": "/logos/tenants/express-home.webp",
-  "F-07": "/logos/tenants/el-badr.webp",
-  "F-08": "/logos/tenants/el-badr.webp",
-  "F-09": "/logos/tenants/el-badr.webp",
-  "F-10": "/logos/tenants/time-tech.webp",
-  "F-11": "/logos/tenants/prime-technology.webp",
-  "F-13": "/logos/tenants/digital-plus.webp",
-  "F-14": "/logos/tenants/spark.webp",
-  "F-15": "/logos/tenants/games-to-egypt.webp",
-  "F-17": "/logos/tenants/xprs.webp",
-  "S-01": "/logos/tenants/info-max.webp",
-  "S-05": "/logos/tenants/mix-apex.webp",
-  "S-06": "/logos/tenants/i7.webp",
-  "S-07": "/logos/tenants/compu-marts.webp",
-  "S-08": "/logos/tenants/compu-marts.webp",
-  "S-09": "/logos/tenants/compu-marts.webp",
-  "S-10": "/logos/tenants/quick-fix.webp",
+// Only include verified/sourced tenant logos on the map — generated placeholders excluded
+import { isTenantLogoVerified, getTenantLogoPath } from "@/lib/tenantLogoRegistry";
+
+const _allMapLogos: Record<string, { slug: string; path: string }> = {
+  "G-01": { slug: "static", path: "/logos/tenants/static.webp" },
+  "G-02": { slug: "sharaf", path: "/logos/tenants/sharaf.webp" },
+  "G-03": { slug: "2b", path: "/logos/tenants/2b.webp" },
+  "G-05": { slug: "go-plus", path: "/logos/tenants/go-plus.webp" },
+  "G-07": { slug: "al-hoda", path: "/logos/tenants/al-hoda.webp" },
+  "G-08": { slug: "al-sahaba", path: "/logos/tenants/al-sahaba.webp" },
+  "G-09": { slug: "red-line", path: "/logos/tenants/red-line.webp" },
+  "G-11": { slug: "egypt-laptop", path: "/logos/tenants/egypt-laptop.webp" },
+  "G-12": { slug: "print-show", path: "/logos/tenants/print-show.webp" },
+  "G-13": { slug: "hk", path: "/logos/tenants/hk.webp" },
+  "G-14": { slug: "wifi", path: "/logos/tenants/wifi.webp" },
+  "G-16": { slug: "kareem-store", path: "/logos/tenants/kareem-store.webp" },
+  "G-17": { slug: "kasr-zero", path: "/logos/tenants/kasr-zero.webp" },
+  "F-04": { slug: "infinity", path: "/logos/tenants/infinity.webp" },
+  "F-06": { slug: "express-home", path: "/logos/tenants/express-home.webp" },
+  "F-07": { slug: "el-badr", path: "/logos/tenants/el-badr.webp" },
+  "F-08": { slug: "el-badr", path: "/logos/tenants/el-badr.webp" },
+  "F-09": { slug: "el-badr", path: "/logos/tenants/el-badr.webp" },
+  "F-10": { slug: "time-tech", path: "/logos/tenants/time-tech.webp" },
+  "F-11": { slug: "prime-technology", path: "/logos/tenants/prime-technology.webp" },
+  "F-13": { slug: "digital-plus", path: "/logos/tenants/digital-plus.webp" },
+  "F-14": { slug: "spark", path: "/logos/tenants/spark.webp" },
+  "F-15": { slug: "games-to-egypt", path: "/logos/tenants/games-to-egypt.webp" },
+  "F-17": { slug: "xprs", path: "/logos/tenants/xprs.webp" },
+  "S-01": { slug: "info-max", path: "/logos/tenants/info-max.webp" },
+  "S-05": { slug: "mix-apex", path: "/logos/tenants/mix-apex.webp" },
+  "S-06": { slug: "i7", path: "/logos/tenants/i7.webp" },
+  "S-07": { slug: "compu-marts", path: "/logos/tenants/compu-marts.webp" },
+  "S-08": { slug: "compu-marts", path: "/logos/tenants/compu-marts.webp" },
+  "S-09": { slug: "compu-marts", path: "/logos/tenants/compu-marts.webp" },
+  "S-10": { slug: "quick-fix", path: "/logos/tenants/quick-fix.webp" },
 };
+
+/** Only returns logo paths for verified/sourced tenants */
+export const UNIT_TENANT_LOGOS: Record<string, string> = Object.fromEntries(
+  Object.entries(_allMapLogos)
+    .filter(([, { slug }]) => isTenantLogoVerified(slug))
+    .map(([unit, { path }]) => [unit, path])
+);
