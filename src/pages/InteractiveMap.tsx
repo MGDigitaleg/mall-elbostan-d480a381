@@ -646,6 +646,144 @@ const InteractiveMap = () => {
         </div>
       </section>
 
+      {/* ═══════════ SEO LANDING SECTION ═══════════ */}
+      <section className="border-t border-border bg-background py-12 md:py-16">
+        <div className="mx-auto w-full max-w-[1280px] px-5 md:px-8 lg:px-14">
+          <div className="mb-8 max-w-[640px]">
+            <h2
+              className="text-[1.25rem] font-bold leading-[1.2] md:text-[1.55rem] text-foreground"
+              style={{ fontFamily: "var(--font-arabic-display)" }}
+            >
+              دليل مول البستان — محلات تكنولوجيا وإلكترونيات في القاهرة الجديدة
+            </h2>
+            <p className="mt-3 text-[0.82rem] leading-[1.9] text-muted-foreground">
+              يضم مول البستان أكثر من {allMallUnits.length} وحدة تجارية متخصصة في
+              الهواتف والإكسسوارات، أجهزة الكمبيوتر واللاب توب، قطع الغيار
+              والصيانة، الشبكات وأنظمة الأمان — موزّعة على {mallFloors.length} أدوار
+              في قلب التجمع الخامس بالقاهرة الجديدة.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {mallFloors.map((f) => {
+              const flAvail = f.units.filter((u) => u.status === "available").length;
+              const flOccupied = f.units.filter((u) => u.status === "occupied").length;
+              const categories = [...new Set(f.units.map((u) => u.category))];
+              const floorNameMap: Record<string, string> = {
+                ground: "الدور الأرضي",
+                first: "الدور الأول",
+                second: "الدور الثاني",
+              };
+              const floorDescMap: Record<string, string> = {
+                ground:
+                  "يضم الدور الأرضي محلات الهواتف والإكسسوارات ومراكز الصيانة المعتمدة — الوجهة الأولى لزوار المول.",
+                first:
+                  "الدور الأول مخصص لأجهزة الكمبيوتر واللاب توب وملحقاتها، مع وحدات متنوعة المساحات تناسب التجار والموزعين.",
+                second:
+                  "يحتضن الدور الثاني محلات الشبكات وأنظمة المراقبة والأمان، إضافة إلى وحدات تجارية متاحة للتأجير.",
+              };
+              const categoryLabelsAr: Record<string, string> = {
+                Accessories: "إكسسوارات",
+                Laptops: "لاب توب وكمبيوتر",
+                Components: "قطع غيار",
+                Networking: "شبكات",
+                Maintenance: "صيانة",
+                "Security Systems": "أنظمة أمان",
+              };
+
+              return (
+                <article
+                  key={f.id}
+                  className="rounded-xl border border-border bg-card p-5"
+                >
+                  <h3
+                    className="text-[1rem] font-bold text-foreground md:text-[1.1rem]"
+                    style={{ fontFamily: "var(--font-arabic-display)" }}
+                  >
+                    {floorNameMap[f.id] ?? floorLabelsAr[f.id]} — {f.units.length} وحدة تجارية
+                  </h3>
+                  <p className="mt-2 text-[0.78rem] leading-[1.85] text-muted-foreground">
+                    {floorDescMap[f.id] ?? ""}
+                  </p>
+
+                  <div className="mt-3 flex flex-wrap gap-2 text-[0.68rem]">
+                    <span className="rounded-full bg-primary/5 px-2.5 py-0.5 font-bold text-primary">
+                      {flOccupied} محل مؤجّر
+                    </span>
+                    {flAvail > 0 && (
+                      <span
+                        className="rounded-full px-2.5 py-0.5 font-bold"
+                        style={{ background: "#F9731610", color: "#E8740E" }}
+                      >
+                        {flAvail} وحدة متاحة
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {categories.map((cat) => (
+                      <span
+                        key={cat}
+                        className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[0.62rem] text-muted-foreground"
+                      >
+                        {categoryLabelsAr[cat] ?? cat}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-3 text-[0.74rem]">
+                    <Link to="/stores" className="font-bold text-primary hover:underline">
+                      تصفّح المحلات
+                    </Link>
+                    {flAvail > 0 && (
+                      <Link to="/leasing" className="font-bold hover:underline" style={{ color: "#E8740E" }}>
+                        استفسر عن التأجير
+                      </Link>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 max-w-[720px]">
+            <h3
+              className="text-[0.95rem] font-bold text-foreground"
+              style={{ fontFamily: "var(--font-arabic-display)" }}
+            >
+              لماذا مول البستان؟
+            </h3>
+            <p className="mt-2 text-[0.78rem] leading-[1.95] text-muted-foreground">
+              مول البستان هو أحدث مراكز التكنولوجيا في القاهرة الجديدة، يقع في
+              موقع استراتيجي يخدم سكان التجمع الخامس والرحاب ومدينتي. يوفّر
+              المول تجربة تسوّق متكاملة تشمل محلات الهواتف الذكية، أجهزة
+              الكمبيوتر المحمولة، قطع غيار الحاسب، معدات الشبكات، كاميرات
+              المراقبة وأنظمة الحماية، ومراكز الصيانة المتخصصة. بإجمالي{" "}
+              {allMallUnits.length} وحدة تجارية وأكثر من{" "}
+              {availableMallUnits.length} وحدة متاحة للتأجير، يُعدّ المول فرصة
+              استثمارية مميزة لتجار التجزئة والموزعين في قطاع التكنولوجيا.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              <Link to="/stores">
+                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                  <MapPin className="ml-1.5 h-3 w-3" /> دليل المحلات
+                </Button>
+              </Link>
+              <Link to="/leasing">
+                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                  <Building2 className="ml-1.5 h-3 w-3" /> فرص التأجير
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                  <Compass className="ml-1.5 h-3 w-3" /> عن المول
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════ FINAL CTA ═══════════ */}
       <section className="relative overflow-hidden py-10 md:py-14" style={{ background: "var(--gradient-hero)" }}>
         <div className="pointer-events-none absolute inset-0">
