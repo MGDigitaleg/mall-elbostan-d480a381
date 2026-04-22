@@ -466,19 +466,19 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ AVAILABLE UNITS GRID ═══════════ */}
-      <section className="py-6 md:py-8 bg-background border-t border-border">
+      <section className="border-t border-border bg-background py-10 md:py-12">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <p className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.25em]"
-                 style={{ color: "hsl(25 85% 45%)" }}>Available Units</p>
-              <h2 className="mt-1.5 text-[1.1rem] font-bold leading-tight md:text-[1.25rem] text-foreground"
+              <span className="font-poppins text-[0.6rem] font-bold uppercase tracking-[0.25em]"
+                    style={{ color: "hsl(25 85% 45%)" }}>Available Units</span>
+              <h2 className="mt-2 text-[1.15rem] font-bold leading-tight md:text-[1.3rem] text-foreground"
                   style={{ fontFamily: "var(--font-arabic-display)" }}>
                 {floorLabelsAr[selectedFloor]} — {floorAvailable} وحدة متاحة
               </h2>
             </div>
             <Link to="/leasing">
-              <Button variant="orange" size="sm" className="h-10 rounded-xl px-6 text-[0.78rem] font-bold shadow-sm">
+              <Button variant="orange" size="sm" className="h-11 rounded-xl px-7 text-[0.8rem] font-bold shadow-sm">
                 <Phone className="ml-1.5 h-3.5 w-3.5" /> استفسر الآن
               </Button>
             </Link>
@@ -486,13 +486,17 @@ const InteractiveMap = () => {
 
           {filteredUnits.filter((u) => u.status === "available").length > 0 ? (
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }}
-                        className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+                        className={`grid gap-3 ${
+                          filteredUnits.filter((u) => u.status === "available").length <= 3
+                            ? "sm:grid-cols-2 lg:grid-cols-3 max-w-[860px] mx-auto"
+                            : "sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+                        }`}>
               {filteredUnits.filter((u) => u.status === "available").map((unit) => (
                 <motion.button
                   key={unit.id}
                   variants={fadeUp}
                   onClick={() => { setSelectedUnit(unit); mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }}
-                  className={`group rounded-xl border p-4 text-right transition-all duration-200 ${
+                  className={`group min-h-[130px] rounded-xl border p-4 text-right transition-all duration-200 ${
                     activeUnit?.id === unit.id
                       ? "border-orange-400 shadow-[0_0_0_1px_hsl(25_95%_55%/0.3)]"
                       : "border-border bg-card hover:border-orange-300 hover:shadow-md hover:shadow-orange-500/5"
@@ -506,8 +510,8 @@ const InteractiveMap = () => {
                       {unit.area} م²
                     </span>
                   </div>
-                  <p className="mt-1.5 text-[0.7rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
-                  <div className="mt-2.5 flex items-center justify-between">
+                  <p className="mt-2 text-[0.7rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
+                  <div className="mt-3 flex items-center justify-between">
                     <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.6rem] font-bold"
                           style={{ background: "hsl(35 100% 95%)", color: "hsl(25 85% 40%)", border: "1px solid hsl(25 95% 55% / 0.2)" }}>
                       <div className="h-1.5 w-1.5 rounded-full" style={{ background: "hsl(25 95% 55%)" }} />
@@ -519,7 +523,7 @@ const InteractiveMap = () => {
               ))}
             </motion.div>
           ) : (
-            <div className="rounded-xl border border-dashed border-border bg-card px-6 py-8 text-center">
+            <div className="rounded-xl border border-dashed border-border bg-card px-6 py-10 text-center">
               <Compass className="mx-auto mb-3 h-7 w-7 text-muted-foreground/30" />
               <p className="text-[0.84rem] font-semibold text-muted-foreground">لا توجد وحدات متاحة ضمن الفلاتر الحالية.</p>
               <p className="mt-1 text-[0.72rem] text-muted-foreground/70">جرّب تغيير الفلاتر أو اختيار دور آخر</p>
@@ -529,7 +533,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ COMMERCIAL OPPORTUNITY ═══════════ */}
-      <section className="py-8 md:py-12 bg-secondary dark:bg-background">
+      <section className="border-t border-border bg-secondary py-10 md:py-12 dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -538,8 +542,8 @@ const InteractiveMap = () => {
                 <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 mb-3"
                      style={{ background: "hsl(var(--primary) / 0.06)", border: "1px solid hsl(var(--primary) / 0.12)" }}>
                   <TrendingUp className="h-3 w-3 text-primary" />
-                  <span className="font-poppins text-[0.56rem] font-bold uppercase tracking-[0.2em] text-primary">
-                    الفرصة التجارية
+                  <span className="font-poppins text-[0.6rem] font-bold uppercase tracking-[0.25em] text-primary">
+                    Commercial Leasing
                   </span>
                 </div>
                 <h2 className="text-[1.2rem] font-bold leading-tight md:text-[1.45rem] text-foreground"
@@ -556,7 +560,7 @@ const InteractiveMap = () => {
                 {mallFloors.map((f) => {
                   const avail = f.units.filter((u) => u.status === "available").length;
                   return (
-                    <div key={f.id} className="rounded-xl border border-border bg-card px-4 py-4 text-center transition-all hover:shadow-md hover:border-primary/20">
+                    <div key={f.id} className="flex min-h-[110px] flex-col items-center justify-center rounded-xl border border-border bg-card px-4 py-4 text-center transition-all hover:shadow-md hover:border-primary/20">
                       <p className="font-poppins text-[1.35rem] font-extrabold text-foreground">{avail}</p>
                       <p className="mt-1 text-[0.68rem] font-semibold text-muted-foreground">{f.label}</p>
                       <div className="mx-auto mt-2 h-1 w-8 rounded-full" style={{ background: avail > 0 ? "hsl(25 95% 55%)" : "hsl(220 20% 88%)" }} />
@@ -566,14 +570,14 @@ const InteractiveMap = () => {
               </div>
 
               {/* Value props */}
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-2 gap-3">
                 {[
                   { icon: MapPin, label: "موقع مقصود", desc: "قلب المنطقة التجارية" },
                   { icon: Users, label: "جمهور بنيّة شراء", desc: "عملاء مستهدفون يومياً" },
                   { icon: TrendingUp, label: "طلب متنامٍ", desc: "سوق التكنولوجيا ينمو" },
                   { icon: Layers, label: "تصنيف دقيق", desc: "كل دور بتخصصه" },
                 ].map((p) => (
-                  <div key={p.label} className="flex items-start gap-3 rounded-xl border border-border bg-card px-4 py-3.5 transition-all hover:border-primary/20 hover:shadow-sm">
+                  <div key={p.label} className="flex min-h-[72px] items-start gap-3 rounded-xl border border-border bg-card px-4 py-3.5 transition-all hover:border-primary/20 hover:shadow-sm">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
                       <p.icon className="h-4 w-4 text-primary" />
                     </div>
@@ -603,10 +607,10 @@ const InteractiveMap = () => {
             {/* Featured available units */}
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.45, delay: 0.1 }}
-                        className="space-y-3">
+                        className="space-y-3 rounded-2xl border border-border bg-muted/30 p-4 dark:bg-card/50">
               <div className="flex items-center gap-2 mb-1">
                 <div className="h-[3px] w-5 rounded-full" style={{ background: "hsl(25 95% 55%)" }} />
-                <p className="text-[0.72rem] font-bold tracking-[0.14em] uppercase text-muted-foreground">وحدات مميزة</p>
+                <p className="font-poppins text-[0.6rem] font-bold tracking-[0.25em] uppercase text-muted-foreground">Featured Units</p>
               </div>
               {availableMallUnits.slice(0, 3).map((unit) => (
                 <button
@@ -647,16 +651,17 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ SEO LANDING SECTION ═══════════ */}
-      <section className="border-t border-border bg-background py-12 md:py-16">
+      <section className="border-t border-border bg-background py-10 md:py-12">
         <div className="mx-auto w-full max-w-[1280px] px-5 md:px-8 lg:px-14">
-          <div className="mb-8 max-w-[640px]">
+          <div className="mb-8 text-center">
+            <span className="font-poppins text-[0.6rem] font-bold uppercase tracking-[0.25em] text-primary/80">Floor Directory</span>
             <h2
-              className="text-[1.25rem] font-bold leading-[1.2] md:text-[1.55rem] text-foreground"
+              className="mt-2 text-[1.25rem] font-bold leading-[1.2] md:text-[1.55rem] text-foreground"
               style={{ fontFamily: "var(--font-arabic-display)" }}
             >
               دليل مول البستان — محلات تكنولوجيا وإلكترونيات في القاهرة الجديدة
             </h2>
-            <p className="mt-3 text-[0.82rem] leading-[1.9] text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-[640px] text-[0.82rem] leading-[1.9] text-muted-foreground">
               يضم مول البستان أكثر من {allMallUnits.length} وحدة تجارية متخصصة في
               الهواتف والإكسسوارات، أجهزة الكمبيوتر واللاب توب، قطع الغيار
               والصيانة، الشبكات وأنظمة الأمان — موزّعة على {mallFloors.length} أدوار
@@ -690,29 +695,40 @@ const InteractiveMap = () => {
                 Maintenance: "صيانة",
                 "Security Systems": "أنظمة أمان",
               };
+              const floorIcons: Record<string, typeof Layers> = {
+                ground: MapPin,
+                first: Layers,
+                second: Building2,
+              };
+              const FloorIcon = floorIcons[f.id] ?? Layers;
 
               return (
                 <article
                   key={f.id}
-                  className="rounded-xl border border-border bg-card p-5"
+                  className="flex min-h-[240px] flex-col rounded-xl border border-border bg-card p-5 transition-all hover:shadow-md hover:border-primary/15"
                 >
-                  <h3
-                    className="text-[1rem] font-bold text-foreground md:text-[1.1rem]"
-                    style={{ fontFamily: "var(--font-arabic-display)" }}
-                  >
-                    {floorNameMap[f.id] ?? floorLabelsAr[f.id]} — {f.units.length} وحدة تجارية
-                  </h3>
-                  <p className="mt-2 text-[0.78rem] leading-[1.85] text-muted-foreground">
+                  <div className="mb-3 flex items-center gap-2.5">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg" style={{ background: "hsl(var(--primary) / 0.08)" }}>
+                      <FloorIcon className="h-4 w-4 text-primary" />
+                    </div>
+                    <h3
+                      className="text-[1rem] font-bold text-foreground md:text-[1.1rem]"
+                      style={{ fontFamily: "var(--font-arabic-display)" }}
+                    >
+                      {floorNameMap[f.id] ?? floorLabelsAr[f.id]} — {f.units.length} وحدة
+                    </h3>
+                  </div>
+                  <p className="text-[0.78rem] leading-[1.85] text-muted-foreground">
                     {floorDescMap[f.id] ?? ""}
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-2 text-[0.68rem]">
-                    <span className="rounded-full bg-primary/5 px-2.5 py-0.5 font-bold text-primary">
+                    <span className="rounded-full bg-primary/5 px-2.5 py-1 font-bold text-primary">
                       {flOccupied} محل مؤجّر
                     </span>
                     {flAvail > 0 && (
                       <span
-                        className="rounded-full px-2.5 py-0.5 font-bold"
+                        className="rounded-full px-2.5 py-1 font-bold"
                         style={{ background: "#F9731610", color: "#E8740E" }}
                       >
                         {flAvail} وحدة متاحة
@@ -720,18 +736,18 @@ const InteractiveMap = () => {
                     )}
                   </div>
 
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {categories.map((cat) => (
                       <span
                         key={cat}
-                        className="rounded-md border border-border bg-muted/50 px-2 py-0.5 text-[0.62rem] text-muted-foreground"
+                        className="rounded-md border border-border bg-muted/50 px-2.5 py-1 text-[0.62rem] text-muted-foreground"
                       >
                         {categoryLabelsAr[cat] ?? cat}
                       </span>
                     ))}
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-3 text-[0.74rem]">
+                  <div className="mt-auto pt-4 flex flex-wrap gap-3 text-[0.74rem]">
                     <Link to="/stores" className="font-bold text-primary hover:underline">
                       تصفّح المحلات
                     </Link>
@@ -765,17 +781,17 @@ const InteractiveMap = () => {
             </p>
             <div className="mt-4 flex flex-wrap gap-2.5">
               <Link to="/stores">
-                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                <Button variant="outline" size="sm" className="h-9 rounded-lg text-[0.72rem]">
                   <MapPin className="ml-1.5 h-3 w-3" /> دليل المحلات
                 </Button>
               </Link>
               <Link to="/leasing">
-                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                <Button variant="outline" size="sm" className="h-9 rounded-lg text-[0.72rem]">
                   <Building2 className="ml-1.5 h-3 w-3" /> فرص التأجير
                 </Button>
               </Link>
               <Link to="/about">
-                <Button variant="outline" size="sm" className="h-8 rounded-lg text-[0.72rem]">
+                <Button variant="outline" size="sm" className="h-9 rounded-lg text-[0.72rem]">
                   <Compass className="ml-1.5 h-3 w-3" /> عن المول
                 </Button>
               </Link>
@@ -785,7 +801,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ FINAL CTA ═══════════ */}
-      <section className="relative overflow-hidden py-10 md:py-14" style={{ background: "var(--gradient-hero)" }}>
+      <section className="relative overflow-hidden py-12 md:py-16" style={{ background: "var(--gradient-hero)" }}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full opacity-[0.05]"
                style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 65%)" }} />
@@ -796,7 +812,7 @@ const InteractiveMap = () => {
           <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 mb-4"
                style={{ background: "hsl(0 0% 100% / 0.05)", border: "1px solid hsl(0 0% 100% / 0.1)" }}>
             <Building2 className="h-3 w-3" style={{ color: "hsl(220 15% 55%)" }} />
-            <span className="font-poppins text-[0.56rem] font-bold tracking-[0.3em] uppercase" style={{ color: "hsl(220 15% 55%)" }}>
+            <span className="font-poppins text-[0.6rem] font-bold tracking-[0.25em] uppercase" style={{ color: "hsl(220 15% 55%)" }}>
               Commercial Leasing
             </span>
           </div>
@@ -804,17 +820,17 @@ const InteractiveMap = () => {
               style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
             تبحث عن وحدة تجارية في موقع فعّال؟
           </h2>
-          <p className="mx-auto mt-2.5 max-w-[360px] text-[0.82rem] leading-relaxed" style={{ color: "hsl(220 15% 52%)" }}>
+          <p className="mx-auto mt-3 max-w-[360px] text-[0.84rem] leading-relaxed" style={{ color: "hsl(220 15% 60%)" }}>
             وحدات متنوعة المساحات في قلب القاهرة الجديدة — ابدأ بالاستفسار الآن
           </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
             <Link to="/leasing">
-              <Button variant="orange" className="h-12 rounded-xl px-8 text-[0.86rem] font-bold shadow-lg shadow-orange-500/20">
+              <Button variant="orange" className="h-11 rounded-xl px-8 text-[0.84rem] font-bold shadow-lg shadow-orange-500/20">
                 <Phone className="ml-2 h-4 w-4" /> استفسار التأجير
               </Button>
             </Link>
             <Link to="/stores">
-              <Button className="h-12 rounded-xl px-8 text-[0.86rem] font-bold transition-all"
+              <Button className="h-11 rounded-xl px-8 text-[0.84rem] font-bold transition-all"
                       style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.12)", color: "hsl(220 20% 80%)" }}>
                 تصفّح المتاجر
               </Button>
