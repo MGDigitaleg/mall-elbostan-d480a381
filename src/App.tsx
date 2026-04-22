@@ -56,6 +56,7 @@ const AdminVisitorTokens = lazy(() => import("./pages/admin/AdminVisitorTokens")
 const AdminLogoAudit = lazy(() => import("./pages/admin/AdminLogoAudit"));
 const AdminSeoAudit = lazy(() => import("./pages/admin/AdminSeoAudit"));
 const AdminIndexingLogs = lazy(() => import("./pages/admin/AdminIndexingLogs"));
+const AdminSeoVerify = lazy(() => import("./pages/admin/AdminSeoVerify"));
 
 
 
