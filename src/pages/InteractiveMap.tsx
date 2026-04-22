@@ -404,27 +404,29 @@ const InteractiveMap = () => {
                 </div>
               )}
 
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedFloor}
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: mapLoaded ? 1 : 0, scale: mapLoaded ? 1 : 0.97 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="h-full"
-                >
-                  <MallFloorMap
-                    floor={floor}
-                    selectedUnitId={activeUnit?.id ?? null}
-                    mutedUnitIds={mutedUnitIds}
-                    onSelectUnit={setSelectedUnit}
-                    onAtriumClick={handleAtriumClick}
-                    atriumConfig={atriumConfig}
-                    highlightedUnitIds={highlightedUnitIds}
-                    className={isFullscreen ? "min-h-screen" : undefined}
-                  />
-                </motion.div>
-              </AnimatePresence>
+              <MapErrorBoundary>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={selectedFloor}
+                    initial={{ opacity: 0, scale: 0.97 }}
+                    animate={{ opacity: mapLoaded ? 1 : 0, scale: mapLoaded ? 1 : 0.97 }}
+                    exit={{ opacity: 0, scale: 0.97 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="h-full"
+                  >
+                    <MallFloorMap
+                      floor={floor}
+                      selectedUnitId={activeUnit?.id ?? null}
+                      mutedUnitIds={mutedUnitIds}
+                      onSelectUnit={setSelectedUnit}
+                      onAtriumClick={handleAtriumClick}
+                      atriumConfig={atriumConfig}
+                      highlightedUnitIds={highlightedUnitIds}
+                      className={isFullscreen ? "min-h-screen" : undefined}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </MapErrorBoundary>
             </div>
 
             {!isMobile && (
