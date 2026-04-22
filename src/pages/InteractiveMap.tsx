@@ -206,7 +206,7 @@ const InteractiveMap = () => {
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
 
-  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); localStorage.setItem("map-selected-floor", id); };
+  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); setMapLoaded(false); localStorage.setItem("map-selected-floor", id); };
 
   return (
     <MainLayout>
