@@ -39,9 +39,9 @@ export function FeaturedStores() {
           {/* Header */}
           <div style={{ marginBottom: 12 }} className="flex items-end justify-between gap-4">
             <div>
-              <p className="section-kicker" style={{ fontSize: 11, marginBottom: 4 }}>محلات مميزة</p>
+              <p className="section-kicker" style={{ fontSize: 11, marginBottom: 4 }}>محلات مميزة في المول</p>
               <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(15px, 1.4vw, 18px)" }}>
-                أبرز المحلات.
+                أبرز محلات الكمبيوتر والموبايلات.
               </h2>
             </div>
             <Link to="/stores" className="hidden lg:inline-flex">

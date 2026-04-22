@@ -36,15 +36,20 @@ export function CategoryStrip() {
       <div className="container">
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[0.82rem] font-bold" style={{ color: "#E2E8F0" }}>
-              تصفّح حسب الفئة
-            </h2>
+            <div>
+              <h2 className="text-[0.82rem] font-bold" style={{ color: "#E2E8F0" }}>
+                أقسام المول — كمبيوتر، موبايلات، جيمنج، وأكثر
+              </h2>
+              <p className="text-[0.62rem] mt-0.5" style={{ color: "#64748B" }}>
+                تصفّح محلات مول البستان حسب التخصص
+              </p>
+            </div>
             <Link
-              to="/products"
+              to="/stores"
               className="text-[0.7rem] font-semibold transition-colors hover:opacity-80"
               style={{ color: "#60A5FA" }}
             >
-              جميع الفئات
+              جميع المحلات
             </Link>
           </div>
 
