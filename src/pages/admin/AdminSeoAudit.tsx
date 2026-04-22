@@ -211,7 +211,11 @@ export default function AdminSeoAudit() {
               onClick={handlePingIndexing}
             >
               <RefreshCw className={`h-3.5 w-3.5 ${pinging ? "animate-spin" : ""}`} />
-              {pinging ? "جاري الإرسال..." : "IndexNow Ping"}
+              {pinging
+                ? "جاري الإرسال..."
+                : selectedPaths.size > 0
+                ? `Ping ${selectedPaths.size} صفحة`
+                : "Ping الكل"}
             </Button>
             <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
               <Button variant="default" size="sm" className="gap-1.5">
