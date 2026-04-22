@@ -11,6 +11,7 @@ interface SEOHeadProps {
   ogImage?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
+  ogImageAlt?: string;
   type?: "website" | "article";
   keywords?: string;
   articlePublishedTime?: string;
@@ -29,6 +30,7 @@ export function SEOHead({
   ogImage,
   ogImageWidth,
   ogImageHeight,
+  ogImageAlt,
   type = "website",
   keywords,
   articlePublishedTime,
@@ -39,8 +41,10 @@ export function SEOHead({
   noIndex,
 }: SEOHeadProps) {
   const location = useLocation();
-  const fullTitle = `${title} | مول البستان`;
-  const canonical = `${BASE_URL}${location.pathname}`;
+  const ogImg = ogImage ?? `${BASE_URL}/og-default.jpg`;
+  const ogW = ogImageWidth ?? 1200;
+  const ogH = ogImageHeight ?? 630;
+  const ogAlt = ogImageAlt ?? fullTitle;
   const ogImg = ogImage ?? `${BASE_URL}/og-default.jpg`;
 
   const breadcrumbLd = breadcrumbs
