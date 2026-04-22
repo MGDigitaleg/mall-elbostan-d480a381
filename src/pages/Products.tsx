@@ -556,7 +556,7 @@ const Products = () => {
         description="تصفّح جميع منتجات مول البستان — هواتف، أجهزة، لابتوبات، إكسسوارات، وقطع غيار من جميع المحلات."
         descriptionEn="Browse all products from Mall Elbostan stores — phones, devices, laptops, accessories, and components."
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
-        jsonLd={filtered.length > 0 ? buildProductListLd(filtered) : undefined}
+        jsonLd={filteredProducts.length > 0 ? buildProductListLd(filteredProducts) : undefined}
       />
 
       <PageHero
