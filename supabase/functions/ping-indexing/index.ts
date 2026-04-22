@@ -79,6 +79,23 @@ serve(async (req) => {
       : KEY_PAGES.map((p) => `${siteUrl}${p}`);
 
     const indexNowKey = Deno.env.get(indexNowKeyEnv);
+    const keyFileUrl = `${siteUrl}/${indexNowKey ?? "MISSING"}.txt`;
+
+    // ── Pre-flight: verify key file is reachable ──
+    let keyFileOk = false;
+    let keyFileError: string | null = null;
+    if (indexNowKey) {
+      try {
+        const probe = await fetch(keyFileUrl, { method: "HEAD" });
+        if (probe.status === 200) {
+          keyFileOk = true;
+        } else {
+          keyFileError = `Key file returned HTTP ${probe.status} at ${keyFileUrl}`;
+        }
+      } catch (e) {
+        keyFileError = `Key file unreachable: ${(e as Error).message}`;
+      }
+    }
     const results: { endpoint: string; status: number | string }[] = [];
 
     if (!indexNowKey) {
@@ -97,6 +114,30 @@ serve(async (req) => {
           resolvedEnv: requestedEnv ?? "auto",
           error: `${indexNowKeyEnv} not configured. Add an IndexNow key to enable search engine pinging.`,
           setup: `Generate a key at https://www.indexnow.org/genkey, add it as ${indexNowKeyEnv} secret, and place {key}.txt at ${siteUrl}/{key}.txt`,
+        }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // ── Key file missing → warn but still attempt (some engines tolerate it) ──
+    if (!keyFileOk) {
+      const warning = keyFileError ?? "Key file check skipped";
+      await sb.from("indexing_logs").insert({
+        source,
+        urls_submitted: 0,
+        url_list: [],
+        results: [{ check: "key_file", status: warning }],
+        success: false,
+        error_message: `Key file verification failed: ${warning}. Place ${indexNowKey}.txt at ${siteUrl}/${indexNowKey}.txt`,
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          resolvedEnv: requestedEnv ?? "auto",
+          keyFileUrl,
+          error: warning,
+          fix: `Upload a text file containing only "${indexNowKey}" to ${siteUrl}/${indexNowKey}.txt`,
         }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
