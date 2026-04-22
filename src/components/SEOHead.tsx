@@ -178,9 +178,8 @@ export const shoppingCenterLd = {
   alternateName: ["Mall Elbostan", "El Bostan Mall"],
   description: "مول البستان — أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في التجمع الخامس، القاهرة الجديدة. أكثر من 150 محل تجاري متخصص على 3 أدوار.",
   url: BASE_URL,
+  logo: `${BASE_URL}/favicon.png`,
   image: `${BASE_URL}/og-default.jpg`,
-  numberOfRooms: 150,
-  numberOfFloors: 3,
   foundingDate: "1990",
   address: {
     "@type": "PostalAddress",
@@ -195,20 +194,40 @@ export const shoppingCenterLd = {
     latitude: 30.03,
     longitude: 31.46,
   },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "10:00",
+      closes: "22:00",
+    },
+  ],
   hasMap: `${BASE_URL}/map`,
-  containsPlace: {
-    "@type": "ItemList",
-    name: "أقسام المول",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "محلات الهواتف والإكسسوارات" },
-      { "@type": "ListItem", position: 2, name: "محلات الكمبيوتر واللابتوبات" },
-      { "@type": "ListItem", position: 3, name: "محلات الألعاب والجيمنج" },
-      { "@type": "ListItem", position: 4, name: "الشبكات والأنظمة الأمنية" },
-      { "@type": "ListItem", position: 5, name: "الطباعة والتصوير" },
-      { "@type": "ListItem", position: 6, name: "الصيانة والدعم الفني" },
-    ],
-  },
+  containsPlace: [
+    { "@type": "Store", name: "محلات الهواتف والإكسسوارات", url: `${BASE_URL}/stores?category=${encodeURIComponent("الهواتف والإكسسوارات")}` },
+    { "@type": "Store", name: "محلات الكمبيوتر واللابتوبات", url: `${BASE_URL}/stores?category=${encodeURIComponent("الكمبيوتر والأجهزة")}` },
+    { "@type": "Store", name: "محلات الألعاب والجيمنج", url: `${BASE_URL}/stores?category=${encodeURIComponent("الألعاب والترفيه")}` },
+    { "@type": "Store", name: "الشبكات والأنظمة الأمنية", url: `${BASE_URL}/stores?category=${encodeURIComponent("الشبكات والأنظمة الأمنية")}` },
+    { "@type": "Store", name: "الطباعة والتصوير", url: `${BASE_URL}/stores?category=${encodeURIComponent("الطباعة والتصوير")}` },
+    { "@type": "Store", name: "الصيانة والدعم الفني", url: `${BASE_URL}/stores?category=${encodeURIComponent("الصيانة والدعم الفني")}` },
+  ],
 };
+
+/** Category directory — schema.org/ItemList for category landing pages */
+export function buildCategoryListLd(categories: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "أقسام مول البستان",
+    numberOfItems: categories.length,
+    itemListElement: categories.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      url: `${BASE_URL}${c.url}`,
+    })),
+  };
+}
 
 export const websiteLd = {
   "@context": "https://schema.org",
@@ -218,6 +237,7 @@ export const websiteLd = {
   alternateName: "Mall Elbostan",
   url: BASE_URL,
   inLanguage: ["ar", "en"],
+  publisher: { "@id": `${BASE_URL}/#organization` },
   potentialAction: {
     "@type": "SearchAction",
     target: {
