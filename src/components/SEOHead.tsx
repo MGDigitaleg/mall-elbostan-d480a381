@@ -141,3 +141,142 @@ export function buildEventLd(events: { title_ar: string; event_date?: string | n
     organizer: { "@type": "Organization", name: "مول البستان", url: BASE_URL },
   }));
 }
+
+/** Store detail — schema.org/Store */
+export function buildStoreLd(store: {
+  name_ar: string;
+  name_en?: string | null;
+  short_description_ar?: string | null;
+  category?: string | null;
+  phone?: string | null;
+  slug: string;
+  logo_url?: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    name: store.name_ar,
+    alternateName: store.name_en ?? undefined,
+    description: store.short_description_ar ?? `${store.name_ar} في مول البستان`,
+    url: `${BASE_URL}/stores/${store.slug}`,
+    image: store.logo_url ?? undefined,
+    telephone: store.phone ?? undefined,
+    department: store.category ?? undefined,
+    containedInPlace: {
+      "@type": "ShoppingCenter",
+      name: "مول البستان",
+      url: BASE_URL,
+    },
+  };
+}
+
+/** Stores directory — schema.org/ItemList */
+export function buildStoreListLd(stores: { name_ar: string; slug: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "دليل محلات مول البستان",
+    numberOfItems: stores.length,
+    itemListElement: stores.slice(0, 30).map((s, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: s.name_ar,
+      url: `${BASE_URL}/stores/${s.slug}`,
+    })),
+  };
+}
+
+/** Products directory — schema.org/ItemList */
+export function buildProductListLd(products: { name_ar: string; slug: string; price?: number | null; image_url?: string | null }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "منتجات مول البستان",
+    numberOfItems: products.length,
+    itemListElement: products.slice(0, 30).map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "Product",
+        name: p.name_ar,
+        url: `${BASE_URL}/products/${p.slug}`,
+        image: p.image_url ?? undefined,
+        ...(p.price ? { offers: { "@type": "Offer", price: p.price, priceCurrency: "EGP", availability: "https://schema.org/InStock" } } : {}),
+      },
+    })),
+  };
+}
+
+/** Job posting — schema.org/JobPosting */
+export function buildJobPostingLd(jobs: {
+  title_ar: string;
+  description_ar?: string | null;
+  company_or_store?: string | null;
+  job_type?: string | null;
+  application_deadline?: string | null;
+}[]) {
+  return jobs.map((j) => ({
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: j.title_ar,
+    description: j.description_ar ?? j.title_ar,
+    datePosted: new Date().toISOString().slice(0, 10),
+    validThrough: j.application_deadline ?? undefined,
+    employmentType: j.job_type === "full-time" ? "FULL_TIME" : j.job_type === "part-time" ? "PART_TIME" : undefined,
+    hiringOrganization: {
+      "@type": "Organization",
+      name: j.company_or_store ?? "مول البستان",
+      sameAs: BASE_URL,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: { "@type": "PostalAddress", addressLocality: "القاهرة الجديدة", addressCountry: "EG" },
+    },
+  }));
+}
+
+/** Blog post — schema.org/BlogPosting */
+export function buildBlogPostLd(post: {
+  title_ar: string;
+  excerpt_ar?: string | null;
+  content_ar?: string | null;
+  cover_image_url?: string | null;
+  published_at?: string | null;
+  slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title_ar,
+    description: post.excerpt_ar ?? "",
+    image: post.cover_image_url ?? undefined,
+    datePublished: post.published_at ?? undefined,
+    url: `${BASE_URL}/blog/${post.slug}`,
+    author: { "@type": "Organization", name: "مول البستان", url: BASE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "مول البستان",
+      url: BASE_URL,
+    },
+  };
+}
+
+/** Blog listing — schema.org/CollectionPage */
+export function buildBlogListLd(posts: { title_ar: string; slug: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "مدونة مول البستان",
+    url: `${BASE_URL}/blog`,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: posts.length,
+      itemListElement: posts.slice(0, 20).map((p, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: p.title_ar,
+        url: `${BASE_URL}/blog/${p.slug}`,
+      })),
+    },
+  };
+}

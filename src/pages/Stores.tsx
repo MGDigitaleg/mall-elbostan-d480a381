@@ -21,7 +21,7 @@ import {
 import { TenantLogo } from "@/components/TenantLogo";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildStoreListLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { BackToTop } from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
@@ -96,6 +96,7 @@ const Stores = () => {
         description="تصفح جميع المحلات في مول البستان — أجهزة، هواتف، جيمنج، صيانة، وأكثر. دليل تقني في القاهرة الجديدة."
         descriptionEn="Browse all stores at Mall Elbostan — phones, computers, gaming, and more."
         breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
+        jsonLd={filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
       />
 
       {/* ═══════════ HERO ═══════════ */}

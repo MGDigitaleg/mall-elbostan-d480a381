@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildBlogListLd } from "@/components/SEOHead";
 import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 
 const Blog = () => {
@@ -16,7 +16,7 @@ const Blog = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." descriptionEn="Latest news and articles about technology and Mall Elbostan." breadcrumbs={[{ name: "المدونة", url: "/blog" }]} />
+      <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." descriptionEn="Latest news and articles about technology and Mall Elbostan." breadcrumbs={[{ name: "المدونة", url: "/blog" }]} jsonLd={posts && posts.length > 0 ? buildBlogListLd(posts) : undefined} />
       <div className="container py-20">
         <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">المدونة</h1>
         {isLoading ? <LoadingGrid /> : posts && posts.length > 0 ? (
