@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildProductLd } from "@/components/SEOHead";
+import { getProductOgImage } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -159,7 +160,7 @@ const ProductDetail = () => {
           title={kzProduct.seo_title || kzProduct.title}
           titleEn={kzProduct.title}
           description={kzProduct.seo_description || kzProduct.short_description || kzProduct.title}
-          ogImage={kzProduct.kz_product_images?.[0]?.image_url ?? undefined}
+          ogImage={getProductOgImage({ name_ar: kzProduct.title, image_url: kzProduct.kz_product_images?.[0]?.image_url })}
           keywords={`${kzProduct.title}, ${kzProduct.brand ?? ''}, مول البستان, اسعار, Kasr Zero`}
           breadcrumbs={[
             { name: "المنتجات", url: "/products" },
@@ -367,7 +368,7 @@ const ProductDetail = () => {
         title={mallProduct!.name_ar}
         titleEn={mallProduct!.name_en ?? undefined}
         description={mallProduct!.short_description_ar ?? `${mallProduct!.name_ar} — متوفر في مول البستان`}
-        ogImage={mallProduct!.image_url ?? undefined}
+        ogImage={getProductOgImage({ name_ar: mallProduct!.name_ar, image_url: mallProduct!.image_url, category_name: (mallProduct as any)?.product_categories?.name_ar })}
         keywords={`${mallProduct!.name_ar}, ${mallProduct!.brand ?? ''}, ${mallProduct!.name_en ?? ''}, مول البستان, اسعار`}
         breadcrumbs={[
           { name: "المنتجات", url: "/products" },

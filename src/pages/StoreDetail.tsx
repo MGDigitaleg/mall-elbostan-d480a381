@@ -11,6 +11,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildStoreLd } from "@/components/SEOHead";
+import { getStoreOgImage } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
@@ -146,7 +147,7 @@ const StoreDetail = () => {
       <SEOHead
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} — محل متخصص في مول البستان القاهرة الجديدة`}
-        ogImage={store.logo_url ?? store.cover_image_url ?? undefined}
+        ogImage={getStoreOgImage(store)}
         keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, القاهرة الجديدة`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
         jsonLd={buildStoreLd(store)}
