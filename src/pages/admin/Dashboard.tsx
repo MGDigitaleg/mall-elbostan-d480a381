@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch, Globe } from "lucide-react";
 
 const adminSections = [
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
@@ -26,6 +26,7 @@ const adminSections = [
   { title: "أصول المستأجرين", icon: FolderTree, path: "/admin/tenant-assets", desc: "إدارة قائمة الشعارات والمطابقة والتصدير النهائي" },
   { title: "منتجات Kasr Zero", icon: Cpu, path: "/admin/kz-products", desc: "إدارة منتجات ومتغيرات وصور متجر Kasr Zero" },
   { title: "تدقيق اللوجوهات", icon: ScanSearch, path: "/admin/logo-audit", desc: "مراجعة حالة التحقق من شعارات المتاجر" },
+  { title: "تدقيق SEO", icon: Globe, path: "/admin/seo-audit", desc: "حالة فهرسة الصفحات وتحسين محركات البحث" },
 ];
 
 const AdminDashboard = () => {
