@@ -410,11 +410,7 @@ const InteractiveMap = () => {
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="h-full"
-                  onAnimationComplete={() => {
-                    if (!mapLoaded) {
-                      requestAnimationFrame(() => setMapLoaded(true));
-                    }
-                  }}
+                >
                 >
                   <MallFloorMap
                     floor={floor}
