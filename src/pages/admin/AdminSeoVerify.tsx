@@ -261,10 +261,7 @@ export default function AdminSeoVerify() {
     setRunning(true);
     setExpandedPath(null);
 
-    const newResults = PUBLIC_ROUTES.map((r) => ({
-      ...createEmptyResult(r.path, r.label),
-      status: "pending" as const,
-    }));
+    const newResults: SeoCheckResult[] = PUBLIC_ROUTES.map((r) => createEmptyResult(r.path, r.label));
     setResults([...newResults]);
 
     for (let i = 0; i < PUBLIC_ROUTES.length; i++) {
