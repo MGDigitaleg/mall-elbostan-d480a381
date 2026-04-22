@@ -345,7 +345,7 @@ const InteractiveMap = () => {
       <section className="py-4 md:py-5 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
-            <div ref={mapRef} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm lg:max-h-[calc(100vh-260px)]">
+            <div ref={mapRef} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-260px)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedFloor}
