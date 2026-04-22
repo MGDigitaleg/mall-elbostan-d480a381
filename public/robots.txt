@@ -32,6 +32,12 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /spin-win/claim
 Disallow: /kz/cart
+Disallow: /kz/search
+
+# Block filtered/parameterized pages from indexing
+Disallow: /products?*
+Disallow: /stores?*
+Disallow: /kz/products?*
 
 # Crawl delay
 Crawl-delay: 1

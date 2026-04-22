@@ -1,6 +1,7 @@
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
+import { SeoIntroFooter } from "@/components/home/SeoIntroFooter";
 
 import {
   ArrowLeft,
@@ -349,6 +350,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </Reveal>
         </div>
       </section>
+
+      {/* ═══════════ 13 · SEO INTERNAL LINKS ═══════════ */}
+      <SeoIntroFooter />
     </div>
   );
 }
