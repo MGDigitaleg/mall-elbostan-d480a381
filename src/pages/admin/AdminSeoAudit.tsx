@@ -159,6 +159,16 @@ export default function AdminSeoAudit() {
                 robots.txt
               </Button>
             </a>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-1.5"
+              disabled={pinging}
+              onClick={handlePingIndexing}
+            >
+              <RefreshCw className={`h-3.5 w-3.5 ${pinging ? "animate-spin" : ""}`} />
+              {pinging ? "جاري الإرسال..." : "IndexNow Ping"}
+            </Button>
             <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
               <Button variant="default" size="sm" className="gap-1.5">
                 <Globe className="h-3.5 w-3.5" />
