@@ -313,6 +313,14 @@ export default function AdminSeoAudit() {
             <table className="w-full text-sm" dir="rtl">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
+                  <th className="px-3 py-3 text-center w-10">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded accent-primary cursor-pointer"
+                      checked={filtered.length > 0 && filtered.every((p) => selectedPaths.has(p.path))}
+                      onChange={() => toggleAll(filtered.map((p) => p.path))}
+                    />
+                  </th>
                   <th className="px-4 py-3 text-right font-semibold text-muted-foreground">الصفحة</th>
                   <th className="px-4 py-3 text-center font-semibold text-muted-foreground">النتيجة</th>
                   <th className="px-4 py-3 text-center font-semibold text-muted-foreground">العنوان</th>
@@ -327,7 +335,19 @@ export default function AdminSeoAudit() {
               </thead>
               <tbody>
                 {filtered.map((p) => (
-                  <tr key={p.path} className="border-b border-border/50 transition-colors hover:bg-muted/20">
+                  <tr
+                    key={p.path}
+                    className={`border-b border-border/50 transition-colors hover:bg-muted/20 cursor-pointer ${selectedPaths.has(p.path) ? "bg-primary/5" : ""}`}
+                    onClick={() => togglePath(p.path)}
+                  >
+                    <td className="px-3 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded accent-primary cursor-pointer"
+                        checked={selectedPaths.has(p.path)}
+                        onChange={() => togglePath(p.path)}
+                      />
+                    </td>
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-bold text-foreground text-[0.82rem]">{p.labelAr}</p>
