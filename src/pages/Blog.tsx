@@ -16,7 +16,7 @@ const Blog = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا ومول البستان." descriptionEn="Latest news and articles about technology and Mall Elbostan." breadcrumbs={[{ name: "المدونة", url: "/blog" }]} jsonLd={posts && posts.length > 0 ? buildBlogListLd(posts) : undefined} />
+      <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا والإلكترونيات ومول البستان في القاهرة الجديدة." descriptionEn="Latest news and articles about technology and Mall Elbostan." keywords="مدونة مول البستان, اخبار التكنولوجيا, مقالات الكترونيات, القاهرة الجديدة, blog" breadcrumbs={[{ name: "المدونة", url: "/blog" }]} jsonLd={posts && posts.length > 0 ? buildBlogListLd(posts) : undefined} />
       <div className="container py-20">
         <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">المدونة</h1>
         {isLoading ? <LoadingGrid /> : posts && posts.length > 0 ? (
