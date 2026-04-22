@@ -304,6 +304,32 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* ═══════════ LOCAL SEO SECTION ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(24px, 3vw, 40px)" }}>
+        <div className="container max-w-4xl">
+          <h2 className="text-[0.92rem] font-bold text-foreground mb-3" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            الوصول إلى مول البستان
+          </h2>
+          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-2">
+            <p>
+              <strong className="text-foreground">العنوان:</strong> شارع التسعين، التجمع الخامس، القاهرة الجديدة، مصر.
+            </p>
+            <p>
+              <strong className="text-foreground">الموقع:</strong> يقع مول البستان في قلب التجمع الخامس ويخدم سكان القاهرة الجديدة، مدينتي، الرحاب، الشروق، والمناطق المحيطة.
+            </p>
+            <p>
+              <strong className="text-foreground">الافتتاح:</strong> الافتتاح الرسمي لفرع القاهرة الجديدة في 1 مايو 2026.
+              فرع وسط البلد يعمل منذ 1990.
+            </p>
+            <p>
+              للمزيد، تصفّح{" "}
+              <Link to="/about" className="text-primary font-semibold hover:underline">صفحة عن المول</Link> أو{" "}
+              <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
     </MainLayout>
   );
 };
