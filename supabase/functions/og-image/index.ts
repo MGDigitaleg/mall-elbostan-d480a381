@@ -2,10 +2,9 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { initialize, svg2png } from "https://esm.sh/svg2png-wasm@0.6.1";
 
 /**
- * Dynamic OG Image Generator
- * Generates branded 1200×630 OG images as PNG (default) or SVG.
- * PNG is rendered server-side via svg2png-wasm for full social platform compatibility.
- * Usage: /og-image?title=...&type=store|product&category=...&format=png|svg
+ * Dynamic OG Image Generator — v3 (Arabic RTL + embedded font)
+ * Renders branded 1200×630 PNG OG images with proper Arabic shaping.
+ * Embeds IBM Plex Sans Arabic for correct glyph rendering in resvg/svg2png-wasm.
  */
 
 const corsHeaders = {
@@ -27,9 +26,53 @@ function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
 
+/* ── Font + WASM initialization (cold start) ── */
+
+let wasmReady = false;
+let fontRegularB64 = "";
+let fontBoldB64 = "";
+let fontRegularBuf: Uint8Array | null = null;
+let fontBoldBuf: Uint8Array | null = null;
+
+// IBM Plex Sans Arabic from Google Fonts — static TTF URLs
+const FONT_REGULAR_URL =
+  "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3CZRtWPQCuHme67tEYUIx3Kh0PHR9N6YNe3PC5PadA.ttf";
+const FONT_BOLD_URL =
+  "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3VZRtWPQCuHme67tEYUIx3Kh0PHR9N6Ys43PWrfidA.ttf";
+
+function bufToBase64(buf: Uint8Array): string {
+  let binary = "";
+  for (let i = 0; i < buf.length; i++) {
+    binary += String.fromCharCode(buf[i]);
+  }
+  return btoa(binary);
+}
+
+async function ensureReady() {
+  if (wasmReady) return;
+
+  // Fetch WASM + fonts in parallel
+  const [wasmRes, regRes, boldRes] = await Promise.all([
+    fetch("https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"),
+    fetch(FONT_REGULAR_URL),
+    fetch(FONT_BOLD_URL),
+  ]);
+
+  await initialize(wasmRes);
+
+  fontRegularBuf = new Uint8Array(await regRes.arrayBuffer());
+  fontBoldBuf = new Uint8Array(await boldRes.arrayBuffer());
+  fontRegularB64 = bufToBase64(fontRegularBuf);
+  fontBoldB64 = bufToBase64(fontBoldBuf);
+
+  wasmReady = true;
+}
+
+/* ── SVG generation with embedded Arabic font + RTL layout ── */
+
 function generateSvg(title: string, type: string, category?: string): string {
   const isProduct = type === "product";
-  const escapedTitle = escapeXml(truncate(title, 50));
+  const escapedTitle = escapeXml(truncate(title, 45));
   const escapedCategory = category ? escapeXml(truncate(category, 30)) : "";
   const typeLabel = isProduct ? "منتج في مول البستان" : "محل في مول البستان";
 
@@ -39,8 +82,24 @@ function generateSvg(title: string, type: string, category?: string): string {
   const textWhite = "#F8FAFC";
   const textMuted = "#94A3B8";
 
+  // RTL layout: text anchored to the right
+  const textRight = 1120;
+  const accentBarX = 1125;
+
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
+    <style>
+      @font-face {
+        font-family: 'PlexAr';
+        font-weight: 400;
+        src: url('data:font/truetype;base64,${fontRegularB64}') format('truetype');
+      }
+      @font-face {
+        font-family: 'PlexAr';
+        font-weight: 700;
+        src: url('data:font/truetype;base64,${fontBoldB64}') format('truetype');
+      }
+    </style>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="${bgColor}"/>
       <stop offset="100%" stop-color="#0F1D32"/>
@@ -65,23 +124,27 @@ function generateSvg(title: string, type: string, category?: string): string {
     ${Array.from({ length: 9 }, (_, i) => `<line x1="0" y1="${(i + 1) * 64}" x2="1200" y2="${(i + 1) * 64}" stroke="${textWhite}" stroke-width="1"/>`).join("")}
   </g>
 
-  <!-- Accent bar -->
-  <rect x="80" y="200" width="5" height="120" rx="2.5" fill="url(#accent)"/>
+  <!-- Accent bar (right side for RTL) -->
+  <rect x="${accentBarX}" y="200" width="5" height="120" rx="2.5" fill="url(#accent)"/>
 
-  <!-- Type label -->
-  <text x="105" y="230" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="${textMuted}" direction="rtl" text-anchor="start">${escapeXml(typeLabel)}</text>
+  <!-- Type label (RTL, right-aligned) -->
+  <text x="${textRight}" y="235" font-family="PlexAr, system-ui, sans-serif" font-size="22" font-weight="400" fill="${textMuted}" text-anchor="end" xml:lang="ar">${escapeXml(typeLabel)}</text>
 
-  <!-- Title -->
-  <text x="105" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="700" fill="${textWhite}" direction="rtl" text-anchor="start">${escapedTitle}</text>
+  <!-- Title (RTL, right-aligned, bold) -->
+  <text x="${textRight}" y="300" font-family="PlexAr, system-ui, sans-serif" font-size="48" font-weight="700" fill="${textWhite}" text-anchor="end" xml:lang="ar">${escapedTitle}</text>
 
-  <!-- Category -->
-  ${escapedCategory ? `
-  <rect x="105" y="320" width="${escapedCategory.length * 14 + 32}" height="36" rx="18" fill="${primaryBlue}" opacity="0.2"/>
-  <text x="121" y="345" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="${accentCyan}" direction="rtl" text-anchor="start">${escapedCategory}</text>
-  ` : ""}
+  <!-- Category badge -->
+  ${escapedCategory ? (() => {
+    // Estimate width: Arabic chars ~18px at font-size 18
+    const estWidth = escapedCategory.length * 16 + 40;
+    const badgeX = textRight - estWidth;
+    return `
+  <rect x="${badgeX}" y="325" width="${estWidth}" height="38" rx="19" fill="${primaryBlue}" opacity="0.2"/>
+  <text x="${textRight - 22}" y="351" font-family="PlexAr, system-ui, sans-serif" font-size="18" font-weight="400" fill="${accentCyan}" text-anchor="end" xml:lang="ar">${escapedCategory}</text>`;
+  })() : ""}
 
-  <!-- Icon -->
-  <g transform="translate(${isProduct ? 900 : 920}, ${isProduct ? 160 : 180})" opacity="0.08">
+  <!-- Decorative icon (left side, mirrored for RTL layout) -->
+  <g transform="translate(${isProduct ? 80 : 100}, ${isProduct ? 180 : 200})" opacity="0.08">
     ${isProduct
       ? `<rect x="0" y="0" width="200" height="200" rx="24" fill="none" stroke="${textWhite}" stroke-width="4"/>
          <rect x="60" y="30" width="80" height="140" rx="12" fill="none" stroke="${textWhite}" stroke-width="3"/>
@@ -96,26 +159,16 @@ function generateSvg(title: string, type: string, category?: string): string {
   <rect x="0" y="560" width="1200" height="70" fill="${bgColor}" opacity="0.6"/>
   <rect x="0" y="558" width="1200" height="2" fill="url(#accent)" opacity="0.4"/>
 
-  <!-- Brand name bottom -->
-  <text x="80" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" fill="${textWhite}" direction="rtl" text-anchor="start">مول البستان</text>
-  <text x="230" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="${textMuted}">mallelbostan.com</text>
+  <!-- Brand name bottom-right (RTL) -->
+  <text x="${textRight}" y="600" font-family="PlexAr, system-ui, sans-serif" font-size="20" font-weight="700" fill="${textWhite}" text-anchor="end" xml:lang="ar">مول البستان</text>
 
-  <!-- Type badge bottom-right -->
-  <rect x="980" y="578" width="${isProduct ? 130 : 110}" height="30" rx="15" fill="${primaryBlue}" opacity="0.3"/>
-  <text x="${isProduct ? 1045 : 1035}" y="599" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="${accentCyan}" text-anchor="middle">${isProduct ? "Product" : "Store"}</text>
+  <!-- Domain bottom-left (LTR) -->
+  <text x="80" y="600" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="${textMuted}">mallelbostan.com</text>
+
+  <!-- Type badge bottom-left -->
+  <rect x="80" y="573" width="${isProduct ? 130 : 110}" height="30" rx="15" fill="${primaryBlue}" opacity="0.3"/>
+  <text x="${isProduct ? 145 : 135}" y="594" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="${accentCyan}" text-anchor="middle">${isProduct ? "Product" : "Store"}</text>
 </svg>`;
-}
-
-/* ── Initialize WASM once at cold start ── */
-let wasmReady = false;
-
-async function ensureWasm() {
-  if (wasmReady) return;
-  const wasmRes = await fetch(
-    "https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"
-  );
-  await initialize(wasmRes);
-  wasmReady = true;
 }
 
 serve(async (req) => {
@@ -130,6 +183,8 @@ serve(async (req) => {
     const category = url.searchParams.get("category") || undefined;
     const format = url.searchParams.get("format") || "png";
 
+    await ensureReady();
+
     const svgString = generateSvg(title, type, category);
 
     // Return SVG if explicitly requested
@@ -137,18 +192,22 @@ serve(async (req) => {
       return new Response(svgString, {
         headers: {
           ...corsHeaders,
-          "Content-Type": "image/svg+xml",
+          "Content-Type": "image/svg+xml; charset=utf-8",
           "Cache-Control": "public, max-age=604800, immutable",
         },
       });
     }
 
-    // Default: convert to PNG
+    // Default: convert to PNG with embedded fonts
     try {
-      await ensureWasm();
+      const fonts: Uint8Array[] = [];
+      if (fontRegularBuf) fonts.push(fontRegularBuf);
+      if (fontBoldBuf) fonts.push(fontBoldBuf);
+
       const pngBytes: Uint8Array = await svg2png(svgString, {
         width: 1200,
         height: 630,
+        fonts,
       });
 
       return new Response(pngBytes, {
@@ -159,11 +218,11 @@ serve(async (req) => {
         },
       });
     } catch (_pngErr) {
-      // Fallback: return SVG if PNG conversion fails
+      // Fallback: return SVG
       return new Response(svgString, {
         headers: {
           ...corsHeaders,
-          "Content-Type": "image/svg+xml",
+          "Content-Type": "image/svg+xml; charset=utf-8",
           "Cache-Control": "public, max-age=604800, immutable",
           "X-OG-Fallback": "svg",
         },
