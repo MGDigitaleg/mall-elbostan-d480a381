@@ -2,8 +2,11 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 /**
  * Dynamic OG Image Generator
- * Generates branded 1200×630 OG images as SVG for stores/products without images.
- * Usage: /og-image?title=...&type=store|product&category=...
+ * Generates branded 1200×630 OG images as PNG (default) or SVG for stores/products without images.
+ * Usage: /og-image?title=...&type=store|product&category=...&format=png|svg
+ *
+ * PNG conversion uses resvg-wasm for server-side SVG→PNG rendering,
+ * ensuring compatibility with all social platforms (Facebook, Twitter, WhatsApp, LinkedIn).
  */
 
 const corsHeaders = {
@@ -21,7 +24,6 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-/** Truncate text to fit within the SVG viewport */
 function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
@@ -32,7 +34,6 @@ function generateSvg(title: string, type: string, category?: string): string {
   const escapedCategory = category ? escapeXml(truncate(category, 30)) : "";
   const typeLabel = isProduct ? "منتج في مول البستان" : "محل في مول البستان";
 
-  // Brand colors
   const bgColor = "#071326";
   const primaryBlue = "#1F61FF";
   const accentCyan = "#06B6D4";
@@ -106,6 +107,46 @@ function generateSvg(title: string, type: string, category?: string): string {
 </svg>`;
 }
 
+/* ── PNG conversion via resvg-wasm ── */
+
+let resvgInitialized = false;
+let Resvg: any = null;
+
+async function initResvg() {
+  if (resvgInitialized) return;
+  try {
+    const mod = await import("https://esm.sh/@aspect-dev/resvg-wasm@1.1.1");
+    const wasmUrl = "https://esm.sh/@aspect-dev/resvg-wasm@1.1.1/resvg.wasm";
+    const wasmResp = await fetch(wasmUrl);
+    const wasmBytes = await wasmResp.arrayBuffer();
+    await mod.initResvg(new Uint8Array(wasmBytes));
+    Resvg = mod.Resvg;
+    resvgInitialized = true;
+  } catch {
+    // Fallback: try alternate package
+    try {
+      const mod = await import("https://esm.sh/@aspect-dev/resvg-wasm@1.1.1");
+      Resvg = mod.Resvg;
+      resvgInitialized = true;
+    } catch {
+      resvgInitialized = false;
+    }
+  }
+}
+
+async function svgToPng(svg: string): Promise<Uint8Array | null> {
+  await initResvg();
+  if (!Resvg) return null;
+  try {
+    const renderer = new Resvg(svg, { fitTo: { mode: "width", value: 1200 } });
+    const pngData = renderer.render();
+    const pngBuffer = pngData.asPng();
+    return pngBuffer;
+  } catch {
+    return null;
+  }
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders });
@@ -116,9 +157,35 @@ serve(async (req) => {
     const title = url.searchParams.get("title") || "مول البستان";
     const type = url.searchParams.get("type") || "store";
     const category = url.searchParams.get("category") || undefined;
+    const format = url.searchParams.get("format") || "png";
 
     const svg = generateSvg(title, type, category);
 
+    // Return SVG if explicitly requested
+    if (format === "svg") {
+      return new Response(svg, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/svg+xml",
+          "Cache-Control": "public, max-age=604800, immutable",
+        },
+      });
+    }
+
+    // Default: convert to PNG for maximum platform compatibility
+    const pngBytes = await svgToPng(svg);
+
+    if (pngBytes) {
+      return new Response(pngBytes, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=604800, immutable",
+        },
+      });
+    }
+
+    // Fallback: return SVG if PNG conversion fails
     return new Response(svg, {
       headers: {
         ...corsHeaders,
