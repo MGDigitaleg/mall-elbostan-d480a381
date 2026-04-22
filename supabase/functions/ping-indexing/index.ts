@@ -6,7 +6,47 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SITE_URL = "https://mallelbostan.com";
+/* ── Environment-aware configuration ── */
+
+interface EnvConfig {
+  siteUrl: string;
+  host: string;
+  indexNowKeyEnv: string;
+}
+
+const ENV_CONFIGS: Record<string, EnvConfig> = {
+  prod: {
+    siteUrl: "https://mallelbostan.com",
+    host: "mallelbostan.com",
+    indexNowKeyEnv: "INDEXNOW_KEY",
+  },
+  staging: {
+    siteUrl: "https://mall-elbostan.lovable.app",
+    host: "mall-elbostan.lovable.app",
+    indexNowKeyEnv: "INDEXNOW_KEY_STAGING",
+  },
+  dev: {
+    siteUrl: "https://id-preview--e15fd6f4-5b0a-4c66-a6f5-7545a6eb5f24.lovable.app",
+    host: "id-preview--e15fd6f4-5b0a-4c66-a6f5-7545a6eb5f24.lovable.app",
+    indexNowKeyEnv: "INDEXNOW_KEY_DEV",
+  },
+};
+
+function resolveEnv(requested?: string): EnvConfig {
+  // 1. Explicit env from request body
+  if (requested && ENV_CONFIGS[requested]) return ENV_CONFIGS[requested];
+
+  // 2. Secret-based detection: DEPLOY_ENV
+  const deployEnv = Deno.env.get("DEPLOY_ENV");
+  if (deployEnv && ENV_CONFIGS[deployEnv]) return ENV_CONFIGS[deployEnv];
+
+  // 3. Fallback: if INDEXNOW_KEY exists → prod, else staging
+  if (Deno.env.get("INDEXNOW_KEY")) return ENV_CONFIGS.prod;
+  if (Deno.env.get("INDEXNOW_KEY_STAGING")) return ENV_CONFIGS.staging;
+  return ENV_CONFIGS.prod;
+}
+
+/* ── Key pages ── */
 
 const KEY_PAGES = [
   "/", "/stores", "/products", "/map", "/leasing",
@@ -28,30 +68,35 @@ serve(async (req) => {
   try {
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     const source: string = body.source ?? "manual";
+    const requestedEnv: string | undefined = body.env;
     const customUrls: string[] = body.urls ?? [];
-    const urlList = customUrls.length > 0
-      ? customUrls.map((u: string) => u.startsWith("http") ? u : `${SITE_URL}${u}`)
-      : KEY_PAGES.map((p) => `${SITE_URL}${p}`);
 
-    const indexNowKey = Deno.env.get("INDEXNOW_KEY");
+    const envConfig = resolveEnv(requestedEnv);
+    const { siteUrl, host, indexNowKeyEnv } = envConfig;
+
+    const urlList = customUrls.length > 0
+      ? customUrls.map((u: string) => u.startsWith("http") ? u : `${siteUrl}${u}`)
+      : KEY_PAGES.map((p) => `${siteUrl}${p}`);
+
+    const indexNowKey = Deno.env.get(indexNowKeyEnv);
     const results: { endpoint: string; status: number | string }[] = [];
 
     if (!indexNowKey) {
-      // Log the failed attempt
       await sb.from("indexing_logs").insert({
         source,
         urls_submitted: 0,
         url_list: [],
         results: [],
         success: false,
-        error_message: "INDEXNOW_KEY not configured",
+        error_message: `${indexNowKeyEnv} not configured (env: ${requestedEnv ?? "auto"})`,
       });
 
       return new Response(
         JSON.stringify({
           success: false,
-          error: "INDEXNOW_KEY not configured. Add an IndexNow key to enable search engine pinging.",
-          setup: "Generate a key at https://www.indexnow.org/genkey, add it as INDEXNOW_KEY secret, and place {key}.txt in /public/",
+          resolvedEnv: requestedEnv ?? "auto",
+          error: `${indexNowKeyEnv} not configured. Add an IndexNow key to enable search engine pinging.`,
+          setup: `Generate a key at https://www.indexnow.org/genkey, add it as ${indexNowKeyEnv} secret, and place {key}.txt at ${siteUrl}/{key}.txt`,
         }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -62,21 +107,21 @@ serve(async (req) => {
       "https://www.bing.com/indexnow",
     ];
 
-    for (const host of indexNowHosts) {
+    for (const endpoint of indexNowHosts) {
       try {
-        const res = await fetch(host, {
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json; charset=utf-8" },
           body: JSON.stringify({
-            host: "mallelbostan.com",
+            host,
             key: indexNowKey,
-            keyLocation: `${SITE_URL}/${indexNowKey}.txt`,
+            keyLocation: `${siteUrl}/${indexNowKey}.txt`,
             urlList,
           }),
         });
-        results.push({ endpoint: host, status: res.status });
+        results.push({ endpoint, status: res.status });
       } catch (e) {
-        results.push({ endpoint: host, status: `error: ${(e as Error).message}` });
+        results.push({ endpoint, status: `error: ${(e as Error).message}` });
       }
     }
 
@@ -84,7 +129,6 @@ serve(async (req) => {
       (r) => typeof r.status === "number" && r.status >= 200 && r.status < 300
     );
 
-    // Log to database
     await sb.from("indexing_logs").insert({
       source,
       urls_submitted: urlList.length,
@@ -97,6 +141,8 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: true,
+        resolvedEnv: requestedEnv ?? "auto",
+        resolvedHost: host,
         timestamp: new Date().toISOString(),
         pings: results,
         urlsSubmitted: urlList.length,
@@ -106,7 +152,6 @@ serve(async (req) => {
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";
 
-    // Log error
     await sb.from("indexing_logs").insert({
       source: "unknown",
       urls_submitted: 0,
