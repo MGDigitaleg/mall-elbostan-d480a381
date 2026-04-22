@@ -132,7 +132,14 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   }, [zoom]);
 
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl border border-border", className)} style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}>
+    <div
+      className={cn("relative overflow-hidden rounded-2xl border border-border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary", className)}
+      style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}
+      tabIndex={0}
+      role="application"
+      aria-label="خريطة تفاعلية — استخدم + و - للتكبير والتصغير، والأسهم للتحريك"
+      onKeyDown={handleContainerKeyDown}
+    >
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
