@@ -57,14 +57,42 @@ const categorySeoContent: Record<string, string> = {
   "الصيانة والدعم الفني": "خدمات صيانة وإصلاح الكمبيوتر والموبايل في مول البستان — دعم فني متخصص، استبدال شاشات، إصلاح لابتوبات، واستعادة بيانات.",
 };
 
-function StoreSeoIntro({ category, totalStores, activeCount }: { category: string; totalStores: number; activeCount: number }) {
+function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { category: string; totalStores: number; activeCount: number; topStores?: { name_ar: string; slug: string }[] }) {
   const content = category ? categorySeoContent[category] : null;
+  const otherCategories = primaryCategories.filter((c) => c !== category).slice(0, 3);
+
   return (
     <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(16px, 2vw, 24px)", paddingBottom: "clamp(12px, 1.5vw, 20px)" }}>
       <div className="container max-w-[1200px]">
         <p className="text-[0.78rem] leading-[2] text-muted-foreground max-w-3xl">
           {content ?? `يضم مول البستان ${totalStores > 0 ? totalStores : "أكثر من 150"} محل تجاري متخصص في الكمبيوتر، الموبايلات، الجيمنج، الإكسسوارات، والصيانة.${activeCount > 0 ? ` ${activeCount} محل نشط حالياً` : ""} على 3 أدوار في التجمع الخامس بالقاهرة الجديدة.`}
         </p>
+
+        {/* Internal links to top stores in this category */}
+        {topStores && topStores.length > 0 && (
+          <div className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.72rem]">
+            <span className="text-muted-foreground/70 font-medium">محلات مميزة:</span>
+            {topStores.slice(0, 5).map((s, i) => (
+              <span key={s.slug}>
+                <Link to={`/stores/${s.slug}`} className="text-primary font-semibold hover:underline">{s.name_ar}</Link>
+                {i < Math.min(topStores.length, 5) - 1 && <span className="text-muted-foreground/40">، </span>}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Cross-links to other categories and map */}
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.72rem]">
+          <span className="text-muted-foreground/70 font-medium">تصفّح أيضاً:</span>
+          {otherCategories.map((c, i) => (
+            <span key={c}>
+              <Link to={`/stores?category=${encodeURIComponent(c)}`} className="text-primary font-semibold hover:underline">{c}</Link>
+              {i < otherCategories.length - 1 && <span className="text-muted-foreground/40">، </span>}
+            </span>
+          ))}
+          <span className="text-muted-foreground/40 mx-0.5">|</span>
+          <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>
+        </div>
       </div>
     </section>
   );
@@ -172,7 +200,12 @@ const Stores = () => {
       </PageHero>
 
       {/* ═══════════ SEO INTRO (category-aware) ═══════════ */}
-      <StoreSeoIntro category={selectedCategory} totalStores={totalStores} activeCount={activeCount} />
+      <StoreSeoIntro
+        category={selectedCategory}
+        totalStores={totalStores}
+        activeCount={activeCount}
+        topStores={filtered?.filter((s) => s.featured && s.status === "leased").slice(0, 5).map((s) => ({ name_ar: s.name_ar, slug: s.slug }))}
+      />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12 bg-secondary dark:bg-background">

@@ -903,14 +903,21 @@ const InteractiveMap = () => {
           <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-2">
             <p>
               خريطة مول البستان التفاعلية تتيح لك تصفّح المحلات على 3 أدوار في المول.
-              اعثر على <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر</Link>، {" "}
-              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات</Link>، {" "}
-              و<Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج</Link> بسهولة.
+              اعثر على <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>، {" "}
+              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات والإكسسوارات</Link>، {" "}
+              <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج</Link>، {" "}
+              <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">مراكز الصيانة</Link>، {" "}
+              و<Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">حلول الشبكات والأمن</Link> بسهولة.
             </p>
             <p>
               الوحدات المتاحة للتأجير معروضة باللون البرتقالي.{" "}
               <Link to="/leasing" className="text-primary font-semibold hover:underline">استفسر عن التأجير</Link> أو{" "}
-              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات</Link>.
+              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات الكامل</Link>.
+            </p>
+            <p>
+              يمكنك أيضاً زيارة{" "}
+              <Link to="/about" className="text-primary font-semibold hover:underline">صفحة عن المول</Link> أو{" "}
+              <Link to="/contact" className="text-primary font-semibold hover:underline">التواصل معنا</Link> للاستفسارات.
             </p>
           </div>
         </div>
