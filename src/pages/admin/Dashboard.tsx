@@ -26,6 +26,7 @@ const adminSections = [
   { title: "أصول المستأجرين", icon: FolderTree, path: "/admin/tenant-assets", desc: "إدارة قائمة الشعارات والمطابقة والتصدير النهائي" },
   { title: "منتجات Kasr Zero", icon: Cpu, path: "/admin/kz-products", desc: "إدارة منتجات ومتغيرات وصور متجر Kasr Zero" },
   { title: "تدقيق اللوجوهات", icon: ScanSearch, path: "/admin/logo-audit", desc: "مراجعة حالة التحقق من شعارات المتاجر" },
+  { title: "تدقيق شعارات المحلات", icon: ScanSearch, path: "/admin/tenant-branding", desc: "مراجعة شاملة لحالة التحقق والتغطية الرسمية" },
   { title: "تدقيق SEO", icon: Globe, path: "/admin/seo-audit", desc: "حالة فهرسة الصفحات وتحسين محركات البحث" },
   { title: "فحص SEO المباشر", icon: Globe, path: "/admin/seo-verify", desc: "فحص مباشر لكل صفحة عامة: Canonical، Breadcrumbs، H1" },
   { title: "سجل IndexNow", icon: RefreshCw, path: "/admin/indexing-logs", desc: "سجل عمليات إرسال الصفحات لمحركات البحث" },
