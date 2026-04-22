@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, organizationLd, buildFaqLd } from "@/components/SEOHead";
+import { SEOHead, organizationLd, shoppingCenterLd, websiteLd, buildFaqLd } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { HomeContent } from "@/components/home/HomeContent";
@@ -24,7 +24,10 @@ const Index = () => {
         titleEn="Home"
         description="مول البستان — وجهة تجارية راسخة في القاهرة الجديدة لعالم الإلكترونيات والتقنية. أكثر من 150 وحدة تجارية متخصصة يعرفها السوق."
         descriptionEn="Mall Elbostan — an established commercial landmark for technology retail in New Cairo. 150+ specialized units trusted by the market."
-        jsonLd={[organizationLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
+        keywords="مول البستان, مول تكنولوجيا القاهرة الجديدة, محلات الكترونيات, موبايلات, لابتوب, اكسسوارات تقنية, التجمع الخامس, Mall Elbostan"
+        ogImageWidth={1200}
+        ogImageHeight={630}
+        jsonLd={[organizationLd, shoppingCenterLd, websiteLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
       />
 
       <HomeContent faqs={faqs ?? []} />

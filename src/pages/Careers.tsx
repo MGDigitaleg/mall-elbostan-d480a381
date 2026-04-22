@@ -50,7 +50,7 @@ const Careers = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="الوظائف" titleEn="Careers" description="انضم لفريق عمل مول البستان - فرص وظيفية في قطاع التكنولوجيا والتجزئة." descriptionEn="Join Mall Elbostan's team - career opportunities in tech and retail." breadcrumbs={[{ name: "الوظائف", url: "/careers" }]} jsonLd={jobs && jobs.length > 0 ? buildJobPostingLd(jobs) : undefined} />
+      <SEOHead title="الوظائف" titleEn="Careers" description="انضم لفريق عمل مول البستان — فرص وظيفية في قطاع التكنولوجيا والتجزئة بالقاهرة الجديدة." descriptionEn="Join Mall Elbostan's team - career opportunities in tech and retail." keywords="وظائف مول البستان, فرص عمل, توظيف تكنولوجيا, القاهرة الجديدة, careers" breadcrumbs={[{ name: "الوظائف", url: "/careers" }]} jsonLd={jobs && jobs.length > 0 ? buildJobPostingLd(jobs) : undefined} />
       <div className="container py-20">
         <div className="text-center mb-12">
           <Briefcase className="w-16 h-16 text-primary mx-auto mb-4" />

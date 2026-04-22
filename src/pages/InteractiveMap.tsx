@@ -221,8 +221,9 @@ const InteractiveMap = () => {
       <SEOHead
         title="الدليل التفاعلي"
         titleEn="Interactive Directory"
-        description="دليل تفاعلي معماري لمول البستان مع بحث وفلاتر ووحدات متاحة للتأجير في القاهرة الجديدة."
-        descriptionEn="Architectural interactive directory for Mall Elbostan with search, filters, and leasing units."
+        description="خريطة مول البستان التفاعلية — تصفح الطوابق واستكشف المحلات والوحدات المتاحة للتأجير في القاهرة الجديدة."
+        descriptionEn="Interactive floor map of Mall Elbostan with search, filters, and leasing units."
+        keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات القاهرة الجديدة, interactive map"
         breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
       />
 

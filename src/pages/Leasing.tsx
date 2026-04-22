@@ -74,8 +74,9 @@ const Leasing = () => {
       <SEOHead
         title="التأجير"
         titleEn="Leasing"
-        description="استفسر عن الوحدات التجارية في مول البستان — وجهة تقنية راسخة في القاهرة الجديدة."
-        descriptionEn="Enquire about commercial units at Mall Elbostan, a trusted technology destination in New Cairo."
+        description="وحدات تجارية للإيجار في مول البستان القاهرة الجديدة — موقع استراتيجي في التجمع الخامس لمحلات التكنولوجيا والإلكترونيات."
+        descriptionEn="Commercial units for lease at Mall Elbostan, a premium technology destination in New Cairo."
+        keywords="وحدات تجارية للايجار, ايجار محل مول, القاهرة الجديدة, التجمع الخامس, مول تكنولوجيا, commercial leasing"
         breadcrumbs={[{ name: "التأجير", url: "/leasing" }]}
       />
 

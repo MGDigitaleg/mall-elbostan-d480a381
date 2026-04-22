@@ -30,8 +30,9 @@ const DowntownBranch = () => (
     <SEOHead
       title="فرع وسط البلد"
       titleEn="Downtown Branch"
-      description="مول البستان وسط البلد — الفرع الأصلي منذ 1990. وجهة مصر التقنية التاريخية في قلب القاهرة."
+      description="مول البستان وسط البلد — الفرع الأصلي منذ 1990. أعرق وجهة تقنية في قلب القاهرة لمحلات الكمبيوتر والإلكترونيات."
       descriptionEn="Mall Elbostan Downtown — the original branch since 1990."
+      keywords="مول البستان وسط البلد, محلات كمبيوتر وسط البلد, شارع البستان, الكترونيات وسط البلد, downtown cairo electronics"
       breadcrumbs={[{ name: "فرع وسط البلد", url: "/downtown-branch" }]}
     />
 

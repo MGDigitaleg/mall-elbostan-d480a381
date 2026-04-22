@@ -9,7 +9,13 @@ interface SEOHeadProps {
   titleEn?: string;
   descriptionEn?: string;
   ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   type?: "website" | "article";
+  keywords?: string;
+  articlePublishedTime?: string;
+  articleModifiedTime?: string;
+  twitterCard?: "summary" | "summary_large_image";
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   breadcrumbs?: { name: string; url: string }[];
   noIndex?: boolean;
@@ -21,7 +27,13 @@ export function SEOHead({
   titleEn,
   descriptionEn,
   ogImage,
+  ogImageWidth,
+  ogImageHeight,
   type = "website",
+  keywords,
+  articlePublishedTime,
+  articleModifiedTime,
+  twitterCard = "summary_large_image",
   jsonLd,
   breadcrumbs,
   noIndex,
@@ -58,9 +70,12 @@ export function SEOHead({
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="author" content="مول البستان" />
 
       {/* Alternate language hints */}
-      <link rel="alternate" hrefLang="ar" href={canonical} />
+      <link rel="alternate" hrefLang="ar-EG" href={canonical} />
+      <link rel="alternate" hrefLang="x-default" href={canonical} />
       {titleEn && <meta name="title" lang="en" content={`${titleEn} | Mall Elbostan`} />}
 
       {/* Open Graph */}
@@ -69,11 +84,22 @@ export function SEOHead({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImg} />
+      {ogImageWidth && <meta property="og:image:width" content={String(ogImageWidth)} />}
+      {ogImageHeight && <meta property="og:image:height" content={String(ogImageHeight)} />}
       <meta property="og:locale" content="ar_EG" />
+      <meta property="og:locale:alternate" content="en_US" />
       <meta property="og:site_name" content="مول البستان" />
 
+      {/* Article meta for blog posts */}
+      {type === "article" && articlePublishedTime && (
+        <meta property="article:published_time" content={articlePublishedTime} />
+      )}
+      {type === "article" && articleModifiedTime && (
+        <meta property="article:modified_time" content={articleModifiedTime} />
+      )}
+
       {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={descriptionEn ?? description} />
       <meta name="twitter:image" content={ogImg} />
@@ -88,16 +114,21 @@ export function SEOHead({
   );
 }
 
-// Reusable JSON-LD schemas
+// ─── Reusable JSON-LD schemas ───
+
 export const organizationLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
+  "@id": `${BASE_URL}/#organization`,
   name: "مول البستان",
   alternateName: "Mall Elbostan",
   description: "وجهة التكنولوجيا الأولى في القاهرة الجديدة - أكبر مول متخصص في التكنولوجيا والإلكترونيات",
   url: BASE_URL,
+  image: `${BASE_URL}/og-default.jpg`,
+  priceRange: "$$",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "التجمع الخامس",
     addressLocality: "القاهرة الجديدة",
     addressRegion: "القاهرة",
     addressCountry: "EG",
@@ -107,8 +138,56 @@ export const organizationLd = {
     latitude: 30.03,
     longitude: 31.46,
   },
+  areaServed: [
+    { "@type": "City", name: "القاهرة الجديدة" },
+    { "@type": "City", name: "مدينتي" },
+    { "@type": "City", name: "الرحاب" },
+  ],
+  hasMap: "https://maps.google.com/?q=30.03,31.46",
   openingDatePlanned: "2026-05-01",
   sameAs: [],
+};
+
+export const shoppingCenterLd = {
+  "@context": "https://schema.org",
+  "@type": "ShoppingCenter",
+  "@id": `${BASE_URL}/#mall`,
+  name: "مول البستان",
+  alternateName: "Mall Elbostan",
+  description: "أكبر مول متخصص في التكنولوجيا والإلكترونيات في القاهرة الجديدة — أكثر من 150 وحدة تجارية.",
+  url: BASE_URL,
+  image: `${BASE_URL}/og-default.jpg`,
+  numberOfRooms: 150,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "التجمع الخامس",
+    addressLocality: "القاهرة الجديدة",
+    addressRegion: "القاهرة",
+    addressCountry: "EG",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 30.03,
+    longitude: 31.46,
+  },
+};
+
+export const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${BASE_URL}/#website`,
+  name: "مول البستان",
+  alternateName: "Mall Elbostan",
+  url: BASE_URL,
+  inLanguage: ["ar", "en"],
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${BASE_URL}/products?q={search_term}`,
+    },
+    "query-input": "required name=search_term",
+  },
 };
 
 export function buildFaqLd(faqs: { question_ar: string; answer_ar: string }[]) {
@@ -183,6 +262,42 @@ export function buildStoreListLd(stores: { name_ar: string; slug: string }[]) {
       name: s.name_ar,
       url: `${BASE_URL}/stores/${s.slug}`,
     })),
+  };
+}
+
+/** Product detail — schema.org/Product (enhanced) */
+export function buildProductLd(product: {
+  name_ar: string;
+  slug: string;
+  price?: number | null;
+  image_url?: string | null;
+  brand?: string | null;
+  sku?: string | null;
+  short_description_ar?: string | null;
+  store_name?: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name_ar,
+    description: product.short_description_ar ?? product.name_ar,
+    url: `${BASE_URL}/products/${product.slug}`,
+    image: product.image_url ?? undefined,
+    ...(product.brand ? { brand: { "@type": "Brand", name: product.brand } } : {}),
+    ...(product.sku ? { sku: product.sku } : {}),
+    ...(product.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: product.price,
+            priceCurrency: "EGP",
+            availability: "https://schema.org/InStock",
+            ...(product.store_name
+              ? { seller: { "@type": "Organization", name: product.store_name } }
+              : {}),
+          },
+        }
+      : {}),
   };
 }
 

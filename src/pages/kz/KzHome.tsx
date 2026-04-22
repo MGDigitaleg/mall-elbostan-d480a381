@@ -46,8 +46,10 @@ const KzHome = () => {
       <SEOHead
         title="Kasr Zero - متجر الإلكترونيات والتكنولوجيا"
         titleEn="Kasr Zero - Electronics & Technology Store"
-        description="تسوّق أحدث الأجهزة الإلكترونية — لابتوبات، هواتف، شاشات، إكسسوارات وأكثر. أسعار تنافسية وجودة مضمونة."
+        description="تسوّق أحدث الأجهزة الإلكترونية من Kasr Zero في مول البستان — لابتوبات، هواتف، شاشات، إكسسوارات. أسعار تنافسية وجودة مضمونة."
         descriptionEn="Shop the latest electronics — laptops, phones, monitors, accessories and more."
+        keywords="Kasr Zero, كاسر زيرو, لابتوب, موبايل, شاشات, اكسسوارات, مول البستان, اسعار الالكترونيات"
+        breadcrumbs={[{ name: "Kasr Zero", url: "/kz" }]}
       />
 
       {/* Hero */}

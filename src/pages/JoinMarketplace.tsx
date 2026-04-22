@@ -48,8 +48,9 @@ const JoinMarketplace = () => {
       <SEOHead
         title="انضم لسوق مول البستان"
         titleEn="Join Mall Elbostan Marketplace"
-        description="اربط متجرك بسوق مول البستان الرقمي — اعرض منتجاتك لآلاف الزوار وزِد مبيعاتك."
+        description="اربط متجرك بسوق مول البستان الرقمي — اعرض منتجاتك لآلاف الزوار وزِد مبيعاتك في القاهرة الجديدة."
         descriptionEn="Connect your store to Mall Elbostan's digital marketplace — showcase products to thousands of visitors."
+        keywords="انضم لمول البستان, بيع اونلاين, سوق الكتروني, محلات القاهرة الجديدة, marketplace"
         breadcrumbs={[{ name: "انضم للسوق", url: "/join-marketplace" }]}
       />
 

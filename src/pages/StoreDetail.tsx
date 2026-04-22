@@ -145,7 +145,9 @@ const StoreDetail = () => {
     <MainLayout>
       <SEOHead
         title={store.name_ar}
-        description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
+        description={store.short_description_ar ?? `${store.name_ar} — محل متخصص في مول البستان القاهرة الجديدة`}
+        ogImage={store.logo_url ?? store.cover_image_url ?? undefined}
+        keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, القاهرة الجديدة`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
         jsonLd={buildStoreLd(store)}
       />

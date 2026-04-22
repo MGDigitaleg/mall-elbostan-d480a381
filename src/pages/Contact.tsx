@@ -72,8 +72,9 @@ const Contact = () => {
       <SEOHead
         title="تواصل معنا"
         titleEn="Contact Us"
-        description="تواصل مع فريق مول البستان — استفسارات، تأجير، شراكات، أو إعلام."
+        description="تواصل مع فريق مول البستان — استفسارات، تأجير وحدات، شراكات، أو إعلام. نرد خلال يوم عمل."
         descriptionEn="Get in touch with Mall Elbostan team for inquiries, leasing, partnerships, or media."
+        keywords="تواصل مول البستان, رقم مول البستان, عنوان مول البستان, القاهرة الجديدة, contact mall elbostan"
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
       />
 
