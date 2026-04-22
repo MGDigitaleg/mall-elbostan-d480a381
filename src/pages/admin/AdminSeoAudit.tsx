@@ -101,6 +101,24 @@ export default function AdminSeoAudit() {
   const { loading } = useRequireAdmin();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
+  const [pinging, setPinging] = useState(false);
+
+  const handlePingIndexing = useCallback(async () => {
+    setPinging(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("ping-indexing", { method: "POST" });
+      if (error) throw error;
+      if (data?.success) {
+        toast.success(`تم إرسال ${data.urlsSubmitted} صفحة لمحركات البحث`);
+      } else {
+        toast.info(data?.error ?? "يرجى إعداد مفتاح IndexNow أولاً");
+      }
+    } catch {
+      toast.error("فشل إرسال الطلب");
+    } finally {
+      setPinging(false);
+    }
+  }, []);
 
   const scored = useMemo(() => PAGES.map((p) => ({ ...p, score: getScore(p) })), []);
 
