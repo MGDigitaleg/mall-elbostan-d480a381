@@ -145,6 +145,9 @@ const Stores = () => {
         </div>
       </PageHero>
 
+      {/* ═══════════ SEO INTRO (category-aware) ═══════════ */}
+      <StoreSeoIntro category={selectedCategory} totalStores={totalStores} activeCount={activeCount} />
+
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12 bg-secondary dark:bg-background">
         <div className="container max-w-[1200px]">
