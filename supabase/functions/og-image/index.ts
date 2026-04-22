@@ -1,9 +1,11 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { initialize, svg2png } from "https://esm.sh/svg2png-wasm@0.6.1";
 
 /**
  * Dynamic OG Image Generator
- * Generates branded 1200×630 OG images as SVG for stores/products without images.
- * Usage: /og-image?title=...&type=store|product&category=...
+ * Generates branded 1200×630 OG images as PNG (default) or SVG.
+ * PNG is rendered server-side via svg2png-wasm for full social platform compatibility.
+ * Usage: /og-image?title=...&type=store|product&category=...&format=png|svg
  */
 
 const corsHeaders = {
@@ -21,7 +23,6 @@ function escapeXml(s: string): string {
     .replace(/'/g, "&apos;");
 }
 
-/** Truncate text to fit within the SVG viewport */
 function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
@@ -32,7 +33,6 @@ function generateSvg(title: string, type: string, category?: string): string {
   const escapedCategory = category ? escapeXml(truncate(category, 30)) : "";
   const typeLabel = isProduct ? "منتج في مول البستان" : "محل في مول البستان";
 
-  // Brand colors
   const bgColor = "#071326";
   const primaryBlue = "#1F61FF";
   const accentCyan = "#06B6D4";
@@ -106,6 +106,18 @@ function generateSvg(title: string, type: string, category?: string): string {
 </svg>`;
 }
 
+/* ── Initialize WASM once at cold start ── */
+let wasmReady = false;
+
+async function ensureWasm() {
+  if (wasmReady) return;
+  const wasmRes = await fetch(
+    "https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"
+  );
+  await initialize(wasmRes);
+  wasmReady = true;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders });
@@ -116,16 +128,47 @@ serve(async (req) => {
     const title = url.searchParams.get("title") || "مول البستان";
     const type = url.searchParams.get("type") || "store";
     const category = url.searchParams.get("category") || undefined;
+    const format = url.searchParams.get("format") || "png";
 
-    const svg = generateSvg(title, type, category);
+    const svgString = generateSvg(title, type, category);
 
-    return new Response(svg, {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "image/svg+xml",
-        "Cache-Control": "public, max-age=604800, immutable",
-      },
-    });
+    // Return SVG if explicitly requested
+    if (format === "svg") {
+      return new Response(svgString, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/svg+xml",
+          "Cache-Control": "public, max-age=604800, immutable",
+        },
+      });
+    }
+
+    // Default: convert to PNG
+    try {
+      await ensureWasm();
+      const pngBytes: Uint8Array = await svg2png(svgString, {
+        width: 1200,
+        height: 630,
+      });
+
+      return new Response(pngBytes, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/png",
+          "Cache-Control": "public, max-age=604800, immutable",
+        },
+      });
+    } catch (_pngErr) {
+      // Fallback: return SVG if PNG conversion fails
+      return new Response(svgString, {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "image/svg+xml",
+          "Cache-Control": "public, max-age=604800, immutable",
+          "X-OG-Fallback": "svg",
+        },
+      });
+    }
   } catch (err) {
     return new Response(JSON.stringify({ error: (err as Error).message }), {
       status: 500,
