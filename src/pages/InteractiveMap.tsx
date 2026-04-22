@@ -369,7 +369,7 @@ const InteractiveMap = () => {
               {/* Fullscreen toggle */}
               <button
                 onClick={() => setIsFullscreen((p) => !p)}
-                className="absolute top-3 left-3 z-10 flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card/90 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors shadow-sm"
+                className="absolute top-3 end-3 z-10 flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card/90 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors shadow-sm"
                 aria-label={isFullscreen ? "إغلاق الشاشة الكاملة" : "شاشة كاملة"}
               >
                 {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}

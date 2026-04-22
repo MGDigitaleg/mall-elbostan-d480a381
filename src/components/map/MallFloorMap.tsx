@@ -142,7 +142,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     >
       {/* Zoom controls */}
       {!hideControls && (
-        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
+        <div className="absolute top-3 start-3 z-10 flex flex-col gap-1">
           {[
             { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
             { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
@@ -163,7 +163,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
       {/* Zoom badge */}
       {zoom > 1 && (
-        <div className="absolute top-3 right-3 z-10 rounded-lg px-2.5 py-1 text-[0.68rem] font-bold bg-card/95 border border-border text-foreground">
+        <div className="absolute top-3 end-3 z-10 rounded-lg px-2.5 py-1 text-[0.68rem] font-bold bg-card/95 border border-border text-foreground">
           {Math.round(zoom * 100)}%
         </div>
       )}
