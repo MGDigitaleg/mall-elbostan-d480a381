@@ -27,6 +27,7 @@ import { MallFloorMap } from "@/components/map/MallFloorMap";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
+import { MapErrorBoundary } from "@/components/map/MapErrorBoundary";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
