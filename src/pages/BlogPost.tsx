@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildBlogPostLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 
 const BlogPost = () => {
@@ -22,7 +22,7 @@ const BlogPost = () => {
 
   return (
     <MainLayout>
-      <SEOHead title={post.seo_title_ar ?? post.title_ar} description={post.seo_description_ar ?? post.excerpt_ar ?? ""} type="article" breadcrumbs={[{ name: "المدونة", url: "/blog" }, { name: post.title_ar, url: `/blog/${post.slug}` }]} />
+      <SEOHead title={post.seo_title_ar ?? post.title_ar} description={post.seo_description_ar ?? post.excerpt_ar ?? ""} type="article" breadcrumbs={[{ name: "المدونة", url: "/blog" }, { name: post.title_ar, url: `/blog/${post.slug}` }]} jsonLd={buildBlogPostLd(post)} />
       <article className="container py-20 max-w-3xl">
         <Link to="/blog" className="text-primary text-sm flex items-center gap-1 mb-6 hover:underline"><ArrowRight className="w-4 h-4" /> العودة للمدونة</Link>
         {post.cover_image_url && <img src={post.cover_image_url} alt={post.title_ar} className="w-full h-64 object-cover rounded-xl mb-8" />}

@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildProductListLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
@@ -556,6 +556,7 @@ const Products = () => {
         description="تصفّح جميع منتجات مول البستان — هواتف، أجهزة، لابتوبات، إكسسوارات، وقطع غيار من جميع المحلات."
         descriptionEn="Browse all products from Mall Elbostan stores — phones, devices, laptops, accessories, and components."
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
+        jsonLd={filtered.length > 0 ? buildProductListLd(filtered) : undefined}
       />
 
       <PageHero

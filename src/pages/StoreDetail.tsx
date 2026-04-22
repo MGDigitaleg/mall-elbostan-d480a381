@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildStoreLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
@@ -147,6 +147,7 @@ const StoreDetail = () => {
         title={store.name_ar}
         description={store.short_description_ar ?? `${store.name_ar} في مول البستان`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+        jsonLd={buildStoreLd(store)}
       />
 
       {/* ═══════════ HERO ═══════════ */}
