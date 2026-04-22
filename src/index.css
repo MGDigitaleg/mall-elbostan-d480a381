@@ -254,20 +254,27 @@
     box-shadow: var(--shadow-premium);
   }
 
-  /* ── Card variants ── */
+  /* ── Card variants — luxury refinement ── */
   .card-premium {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.8);
+    border: 1px solid hsl(var(--border) / 0.6);
     border-radius: var(--radius);
     box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-premium:hover {
+    box-shadow: var(--shadow-elevated);
+    border-color: hsl(var(--border));
   }
 
   .card-architectural {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.5);
-    border-radius: calc(var(--radius) * 0.6);
+    border: 1px solid hsl(var(--border) / 0.4);
+    border-radius: calc(var(--radius) * 0.8);
     box-shadow: var(--shadow-soft);
     position: relative;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .card-architectural::before {
@@ -277,24 +284,30 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background: hsl(var(--primary) / 0.25);
+    background: hsl(var(--primary) / 0.2);
     border-radius: 2px 0 0 2px;
+    transition: background 0.3s ease;
+  }
+
+  .card-architectural:hover::before {
+    background: hsl(var(--primary) / 0.45);
   }
 
   .card-layered {
     background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(38 12% 96%) 100%);
-    border: 1px solid hsl(var(--border) / 0.5);
+    border: 1px solid hsl(var(--border) / 0.4);
     border-radius: var(--radius);
-    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.1);
+    box-shadow: var(--shadow-card), 0 0 0 1px hsl(var(--border) / 0.08);
   }
 
   .card-editorial {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.4);
-    border-radius: calc(var(--radius) * 0.5);
+    border: 1px solid hsl(var(--border) / 0.35);
+    border-radius: calc(var(--radius) * 0.7);
     box-shadow: var(--shadow-premium);
     position: relative;
     overflow: hidden;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .card-editorial::after {
@@ -304,14 +317,20 @@
     inset-inline-start: 0;
     inset-inline-end: 0;
     height: 2px;
-    background: linear-gradient(90deg, hsl(var(--primary) / 0.35), hsl(var(--primary) / 0.06));
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.04));
   }
 
   .soft-card {
     background: hsl(var(--card));
-    border: 1px solid hsl(var(--border) / 0.6);
-    border-radius: calc(var(--radius) * 0.8);
+    border: 1px solid hsl(var(--border) / 0.5);
+    border-radius: calc(var(--radius) * 0.9);
     box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .soft-card:hover {
+    box-shadow: var(--shadow-card);
+    border-color: hsl(var(--border) / 0.8);
   }
 
   /* ── Heritage surface — dark section cards ── */
