@@ -195,6 +195,7 @@ function AppLayout() {
             <Route path="/admin/logo-audit" element={<AdminLogoAudit />} />
             <Route path="/admin/seo-audit" element={<AdminSeoAudit />} />
             <Route path="/admin/indexing-logs" element={<AdminIndexingLogs />} />
+            <Route path="/admin/seo-verify" element={<AdminSeoVerify />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
