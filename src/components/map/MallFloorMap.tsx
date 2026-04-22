@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
 import { AtriumInteractiveLayer } from "./AtriumInteractiveLayer";
@@ -54,6 +54,22 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const isPanning = useRef(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
+
+  // ResizeObserver: auto-reset zoom/pan when card resizes or device rotates
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setContainerSize({ w: Math.round(width), h: Math.round(height) });
+      setZoom(1);
+      setPan({ x: 0, y: 0 });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
 
   const MIN_ZOOM = 1;
   const MAX_ZOOM = 3;
