@@ -131,6 +131,22 @@ export function HomeContent({ faqs }: HomeContentProps) {
         {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
 
+      {/* ═══════════ SEO INTRO ═══════════ */}
+      <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
+        <div className="container max-w-4xl text-center">
+          <h1
+            className="text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.4] text-foreground"
+            style={{ fontFamily: "var(--font-arabic-display)" }}
+          >
+            مول البستان — أكبر مول كمبيوتر وموبايلات وإلكترونيات في القاهرة الجديدة
+          </h1>
+          <p className="mt-2.5 text-[0.82rem] leading-[1.9] text-muted-foreground max-w-2xl mx-auto">
+            أكثر من 150 محل متخصص في اللابتوبات، الهواتف، الجيمنج، الإكسسوارات، والصيانة على 3 أدوار في التجمع الخامس.
+            تصفّح <Link to="/stores" className="text-primary font-semibold hover:underline">دليل المحلات</Link>، اكتشف <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>، أو استعرض <Link to="/products" className="text-primary font-semibold hover:underline">المنتجات</Link>.
+          </p>
+        </div>
+      </section>
+
       {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
       <QuickActions />
 
