@@ -350,7 +350,7 @@ const InteractiveMap = () => {
           <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
             <div
               ref={mapRef}
-              className={`overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 ${
+              className={`relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 ${
                 isFullscreen
                   ? "fixed inset-0 z-50 rounded-none max-h-none border-0"
                   : "max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-260px)]"
