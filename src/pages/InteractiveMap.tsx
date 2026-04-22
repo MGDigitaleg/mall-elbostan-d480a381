@@ -126,6 +126,13 @@ const InteractiveMap = () => {
     return () => window.removeEventListener("keydown", handler);
   }, [isFullscreen]);
 
+  // Mark map as loaded after SVG has time to paint
+  useEffect(() => {
+    setMapLoaded(false);
+    const timer = setTimeout(() => setMapLoaded(true), 400);
+    return () => clearTimeout(timer);
+  }, [selectedFloor]);
+
   const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
   const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);
 
