@@ -380,14 +380,34 @@ const InteractiveMap = () => {
                 {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
               </button>
 
+              {/* Loading skeleton */}
+              {!mapLoaded && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-card rounded-2xl">
+                  <div className="relative w-3/4 aspect-square max-w-[320px]">
+                    <Skeleton className="absolute inset-0 rounded-xl" />
+                    <Skeleton className="absolute top-[15%] start-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute top-[15%] end-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute bottom-[15%] start-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute bottom-[15%] end-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[25%] w-[25%] rounded-full" />
+                  </div>
+                  <p className="text-[0.78rem] font-semibold text-muted-foreground animate-pulse">جاري تحميل الخريطة...</p>
+                </div>
+              )}
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedFloor}
                   initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  animate={{ opacity: mapLoaded ? 1 : 0, scale: mapLoaded ? 1 : 0.97 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="h-full"
+                  onAnimationComplete={() => {
+                    if (!mapLoaded) {
+                      requestAnimationFrame(() => setMapLoaded(true));
+                    }
+                  }}
                 >
                   <MallFloorMap
                     floor={floor}
