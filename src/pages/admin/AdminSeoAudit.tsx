@@ -102,14 +102,40 @@ export default function AdminSeoAudit() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
   const [pinging, setPinging] = useState(false);
+  const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
+
+  const togglePath = useCallback((path: string) => {
+    setSelectedPaths((prev) => {
+      const next = new Set(prev);
+      if (next.has(path)) next.delete(path);
+      else next.add(path);
+      return next;
+    });
+  }, []);
+
+  const toggleAll = useCallback((paths: string[]) => {
+    setSelectedPaths((prev) => {
+      const allSelected = paths.every((p) => prev.has(p));
+      if (allSelected) return new Set();
+      return new Set(paths);
+    });
+  }, []);
 
   const handlePingIndexing = useCallback(async () => {
     setPinging(true);
     try {
-      const { data, error } = await supabase.functions.invoke("ping-indexing", { method: "POST" });
+      const body: Record<string, unknown> = { source: "manual" };
+      if (selectedPaths.size > 0) {
+        body.urls = Array.from(selectedPaths);
+      }
+      const { data, error } = await supabase.functions.invoke("ping-indexing", {
+        method: "POST",
+        body,
+      });
       if (error) throw error;
       if (data?.success) {
         toast.success(`تم إرسال ${data.urlsSubmitted} صفحة لمحركات البحث`);
+        setSelectedPaths(new Set());
       } else {
         toast.info(data?.error ?? "يرجى إعداد مفتاح IndexNow أولاً");
       }
@@ -118,7 +144,7 @@ export default function AdminSeoAudit() {
     } finally {
       setPinging(false);
     }
-  }, []);
+  }, [selectedPaths]);
 
   const scored = useMemo(() => PAGES.map((p) => ({ ...p, score: getScore(p) })), []);
 
@@ -185,7 +211,11 @@ export default function AdminSeoAudit() {
               onClick={handlePingIndexing}
             >
               <RefreshCw className={`h-3.5 w-3.5 ${pinging ? "animate-spin" : ""}`} />
-              {pinging ? "جاري الإرسال..." : "IndexNow Ping"}
+              {pinging
+                ? "جاري الإرسال..."
+                : selectedPaths.size > 0
+                ? `Ping ${selectedPaths.size} صفحة`
+                : "Ping الكل"}
             </Button>
             <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
               <Button variant="default" size="sm" className="gap-1.5">
@@ -283,6 +313,14 @@ export default function AdminSeoAudit() {
             <table className="w-full text-sm" dir="rtl">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
+                  <th className="px-3 py-3 text-center w-10">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded accent-primary cursor-pointer"
+                      checked={filtered.length > 0 && filtered.every((p) => selectedPaths.has(p.path))}
+                      onChange={() => toggleAll(filtered.map((p) => p.path))}
+                    />
+                  </th>
                   <th className="px-4 py-3 text-right font-semibold text-muted-foreground">الصفحة</th>
                   <th className="px-4 py-3 text-center font-semibold text-muted-foreground">النتيجة</th>
                   <th className="px-4 py-3 text-center font-semibold text-muted-foreground">العنوان</th>
@@ -297,7 +335,19 @@ export default function AdminSeoAudit() {
               </thead>
               <tbody>
                 {filtered.map((p) => (
-                  <tr key={p.path} className="border-b border-border/50 transition-colors hover:bg-muted/20">
+                  <tr
+                    key={p.path}
+                    className={`border-b border-border/50 transition-colors hover:bg-muted/20 cursor-pointer ${selectedPaths.has(p.path) ? "bg-primary/5" : ""}`}
+                    onClick={() => togglePath(p.path)}
+                  >
+                    <td className="px-3 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 rounded accent-primary cursor-pointer"
+                        checked={selectedPaths.has(p.path)}
+                        onChange={() => togglePath(p.path)}
+                      />
+                    </td>
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-bold text-foreground text-[0.82rem]">{p.labelAr}</p>
