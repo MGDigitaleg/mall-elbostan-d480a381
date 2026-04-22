@@ -1,7 +1,9 @@
 # Mall Elbostan - robots.txt
-# TEMPORARY: Block all crawlers during review period
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /admin
+Disallow: /admin/
 
-# Sitemap (disabled during review)
-# Sitemap: https://mallelbostan.com/sitemap.xml
+# Sitemaps
+Sitemap: https://mallelbostan.com/sitemap.xml
+Sitemap: https://www.mallelbostan.com/sitemap.xml
