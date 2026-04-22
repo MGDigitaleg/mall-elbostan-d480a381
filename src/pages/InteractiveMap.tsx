@@ -111,6 +111,16 @@ const InteractiveMap = () => {
     setSearchParams({}, { replace: true });
   }, []);
 
+  // Escape key exits fullscreen
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [isFullscreen]);
+
   const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
   const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);
 
