@@ -474,13 +474,7 @@ const ProductDetail = () => {
               {store && (
                 <Link to={`/stores/${store.slug}`} className="group mt-2 block rounded-xl border border-border bg-white dark:bg-card transition-all hover:shadow-sm">
                   <div className="flex items-center gap-3 p-3.5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-secondary">
-                      {store.logo_url ? (
-                        <img src={store.logo_url} alt={store.name_ar} className="h-9 w-9 object-contain" />
-                      ) : (
-                        <Store className="h-4 w-4 text-primary" />
-                      )}
-                    </div>
+                    <TenantLogo src={store.logo_url} alt={store.name_ar} fallbackName={store.name_ar} size="sm" rounded="lg" />
                     <div className="flex-1 min-w-0">
                       <p className="text-[0.82rem] font-bold text-foreground">{store.name_ar}</p>
                       <div className="flex items-center gap-2 text-[0.68rem] text-muted-foreground">

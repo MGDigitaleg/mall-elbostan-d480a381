@@ -204,11 +204,7 @@ const NewCairoBranch = () => {
                         style={{ background: "#ffffff08", border: "1px solid #ffffff12" }}
                         title={s.name_ar}
                       >
-                        {s.logo_url ? (
-                          <img src={s.logo_url} alt={s.name_ar} className="h-7 w-7 object-contain" loading="lazy" />
-                        ) : (
-                          <Store className="h-4 w-4" style={{ color: "#7C8BA1" }} />
-                        )}
+                        <TenantLogo src={s.logo_url} alt={s.name_ar} fallbackName={s.name_ar} size="xs" rounded="lg" />
                       </Link>
                     ))}
                   </div>

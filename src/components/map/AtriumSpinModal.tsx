@@ -353,13 +353,7 @@ function WinResult({
       {/* Store info */}
       {data.store?.name_ar && (
         <div className="flex items-center gap-3 rounded-xl border border-border p-3.5" style={{ background: "hsl(var(--secondary) / 0.3)" }}>
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-card">
-            {data.store.logo_url ? (
-              <img src={data.store.logo_url} alt="" className="h-6 w-6 rounded object-contain" />
-            ) : (
-              <Store className="h-4 w-4 text-primary" />
-            )}
-          </div>
+          <TenantLogo src={data.store.logo_url} alt={data.store.name_ar ?? ""} fallbackName={data.store.name_ar ?? undefined} size="xs" rounded="lg" />
           <div>
             <p className="text-[0.84rem] font-bold light-heading">{data.store.name_ar}</p>
             {data.store.unit_code && (
