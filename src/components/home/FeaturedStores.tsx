@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/home/Reveal";
 import { TenantLogo } from "@/components/TenantLogo";
+import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 
 export function FeaturedStores() {
   const { data: stores, isLoading } = useQuery({
@@ -84,7 +85,7 @@ export function FeaturedStores() {
                   {/* Logo — unified component */}
                   <div className="mb-1.5 transition-transform duration-300 group-hover:scale-105">
                     <TenantLogo
-                      src={store.logo_url}
+                      src={getVerifiedLogoUrl(store.slug, store.logo_url)}
                       alt={store.name_ar}
                       fallbackName={store.name_ar}
                       size="sm"
