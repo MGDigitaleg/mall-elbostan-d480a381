@@ -220,12 +220,12 @@ const InteractiveMap = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="الدليل التفاعلي"
-        titleEn="Interactive Directory"
-        description="خريطة مول البستان التفاعلية — تصفح الطوابق واستكشف المحلات والوحدات المتاحة للتأجير في القاهرة الجديدة."
-        descriptionEn="Interactive floor map of Mall Elbostan with search, filters, and leasing units."
-        keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات القاهرة الجديدة, interactive map"
-        breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
+        title="خريطة مول البستان التفاعلية — تصفح المحلات والطوابق"
+        titleEn="Mall Elbostan Interactive Map — Browse Stores & Floors"
+        description="استخدم خريطة مول البستان التفاعلية لتصفح المحلات على 3 أدوار. اعثر على محلات الكمبيوتر، الموبايلات، الجيمنج، والوحدات المتاحة للتأجير في التجمع الخامس، القاهرة."
+        descriptionEn="Use Mall Elbostan's interactive map to browse stores across 3 floors. Find computer, mobile, gaming shops and available units in New Cairo."
+        keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات كمبيوتر, محلات موبايلات, القاهرة الجديدة, interactive mall map"
+        breadcrumbs={[{ name: "الخريطة التفاعلية", url: "/map" }]}
       />
 
       {/* ═══════════ HERO ═══════════ */}

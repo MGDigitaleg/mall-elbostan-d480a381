@@ -92,13 +92,20 @@ const Stores = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="دليل محلات الكمبيوتر والموبايلات والإلكترونيات"
-        titleEn="Computer, Mobile & Electronics Stores Directory"
-        description={`تصفح جميع محلات مول البستان — ${activeCount > 0 ? `${activeCount} محل نشط` : "محلات"} متخصصة في الكمبيوتر، اللابتوبات، الموبايلات، الجيمنج، والإكسسوارات بالتجمع الخامس، القاهرة الجديدة.`}
+        title={selectedCategory ? `محلات ${selectedCategory} في مول البستان` : "دليل محلات الكمبيوتر والموبايلات والإلكترونيات"}
+        titleEn={selectedCategory ? `${selectedCategory} Stores at Mall Elbostan` : "Computer, Mobile & Electronics Stores Directory"}
+        description={selectedCategory
+          ? `تصفح محلات ${selectedCategory} في مول البستان — ${filtered?.length ?? 0} محل متخصص بالتجمع الخامس، القاهرة الجديدة. اعثر على أفضل الأسعار والعروض.`
+          : `تصفح جميع محلات مول البستان — ${activeCount > 0 ? `${activeCount} محل نشط` : "محلات"} في الكمبيوتر، اللابتوبات، الموبايلات، الجيمنج، والإكسسوارات بالتجمع الخامس، القاهرة.`
+        }
         descriptionEn="Browse all stores at Mall Elbostan — computers, laptops, phones, gaming & accessories in New Cairo's Fifth Settlement."
-        keywords="محلات كمبيوتر, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة"
-        breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
+        keywords={`محلات ${selectedCategory ?? "كمبيوتر"}, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة`}
+        breadcrumbs={selectedCategory
+          ? [{ name: "المحلات", url: "/stores" }, { name: selectedCategory, url: `/stores?category=${encodeURIComponent(selectedCategory)}` }]
+          : [{ name: "المحلات", url: "/stores" }]
+        }
         jsonLd={filtered && filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
+        noIndex={!!search || !!selectedStatus}
       />
 
       {/* ═══════════ HERO ═══════════ */}

@@ -20,11 +20,11 @@ const Index = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="مول تكنولوجيا وإلكترونيات في القاهرة الجديدة"
-        titleEn="Technology & Electronics Mall in New Cairo"
-        description="مول البستان — أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات بالتجمع الخامس. أكثر من 150 محل لابتوبات، هواتف، جيمنج، إكسسوارات، وصيانة. زُر الخريطة التفاعلية واكتشف المحلات."
-        descriptionEn="Mall Elbostan — the largest technology & electronics mall in New Cairo's Fifth Settlement. 150+ stores for laptops, phones, gaming, accessories & repairs. Explore the interactive map."
-        keywords="مول البستان, مول تكنولوجيا, محلات كمبيوتر القاهرة الجديدة, محلات موبايلات التجمع الخامس, لابتوب, جيمنج, اكسسوارات, صيانة, الكترونيات, Mall Elbostan, technology mall Cairo"
+        title="أكبر وجهة للتقنية والكمبيوتر في وسط القاهرة"
+        titleEn="Largest Technology & Computer Destination in Central Cairo"
+        description="اكتشف محلات مول البستان، تصفح الفئات التقنية، اعثر على متاجر الكمبيوتر والإلكترونيات، واستخدم خريطة المول للوصول إلى المحل المناسب بسهولة في وسط القاهرة."
+        descriptionEn="Discover Mall Elbostan stores, browse tech categories, find computer & electronics shops, and use the interactive mall map to navigate easily in central Cairo."
+        keywords="مول البستان, مول تكنولوجيا, محلات كمبيوتر, محلات موبايلات, لابتوب, جيمنج, اكسسوارات, صيانة, الكترونيات, القاهرة, التجمع الخامس, Mall Elbostan, technology mall Cairo"
         ogImageWidth={1200}
         ogImageHeight={630}
         jsonLd={[organizationLd, shoppingCenterLd, websiteLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}

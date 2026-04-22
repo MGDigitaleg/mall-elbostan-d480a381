@@ -139,11 +139,11 @@ export function HomeContent({ faqs }: HomeContentProps) {
             className="text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.4] text-foreground"
             style={{ fontFamily: "var(--font-arabic-display)" }}
           >
-            مول البستان — أكبر مول كمبيوتر وموبايلات وإلكترونيات في القاهرة الجديدة
+            مول البستان: وجهتك الأولى للكمبيوتر والإلكترونيات في وسط القاهرة
           </h1>
           <p className="mt-2.5 text-[0.82rem] leading-[1.9] text-muted-foreground max-w-2xl mx-auto">
-            أكثر من 150 محل متخصص في اللابتوبات، الهواتف، الجيمنج، الإكسسوارات، والصيانة على 3 أدوار في التجمع الخامس.
-            تصفّح <Link to="/stores" className="text-primary font-semibold hover:underline">دليل المحلات</Link>، اكتشف <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>، أو استعرض <Link to="/products" className="text-primary font-semibold hover:underline">المنتجات</Link>.
+            أكثر من 150 محل متخصص في <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">اللابتوبات والكمبيوتر</Link>، <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف والإكسسوارات</Link>، <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link>، و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link> على 3 أدوار.
+            استخدم <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link> للعثور على المحل المناسب، أو تصفّح <Link to="/stores" className="text-primary font-semibold hover:underline">دليل المحلات</Link> و<Link to="/products" className="text-primary font-semibold hover:underline">المنتجات</Link>.
           </p>
         </div>
       </section>
