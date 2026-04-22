@@ -123,10 +123,10 @@ export const TENANT_LOGO_REGISTRY: TenantLogoEntry[] = [
     displayNameAr: "كريم ستور",
     displayNameEn: "Kareem Store",
     logoPath: "/logos/tenants/kareem-store.webp",
-    verified: "sourced",
+    verified: "verified",
     officialSite: "https://kareemstores.com",
     backgroundMode: "auto",
-    notes: "Logo sourced from official website",
+    notes: null,
   },
   {
     slug: "spark",
