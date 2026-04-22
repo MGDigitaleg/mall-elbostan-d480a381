@@ -42,6 +42,7 @@ Disallow: /kz/products?*
 # Crawl delay
 Crawl-delay: 1
 
-# Sitemaps
+# Sitemaps — dynamic edge function generates fresh XML from the database
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap
+# Static fallback
 Sitemap: https://mallelbostan.com/sitemap.xml
-Sitemap: https://www.mallelbostan.com/sitemap.xml
