@@ -47,6 +47,29 @@ const statusConfig: Record<string, { text: string; color: string; bg: string; bo
   "coming-soon": { text: "قريباً", color: "#06B6D4", bg: "#06B6D415", border: "#06B6D430" },
 };
 
+/* ── Category-specific SEO intro content ── */
+const categorySeoContent: Record<string, string> = {
+  "الكمبيوتر والأجهزة": "تصفّح أفضل محلات الكمبيوتر واللابتوبات في مول البستان. أجهزة ديسكتوب، لابتوبات للعمل والدراسة والجيمنج، ملحقات، وشاشات من أبرز الماركات العالمية — كل ذلك في مكان واحد بالتجمع الخامس.",
+  "الهواتف والإكسسوارات": "اعثر على أحدث الهواتف الذكية والإكسسوارات في مول البستان. سماعات، شواحن، كفرات، وأجهزة ذكية من جميع الماركات بأسعار تنافسية في القاهرة الجديدة.",
+  "الألعاب والترفيه": "اكتشف عالم الجيمنج في مول البستان — أجهزة بلايستيشن، إكس بوكس، كروت شاشة، كراسي جيمنج، وملحقات الألعاب المتقدمة بالتجمع الخامس.",
+  "الطباعة والتصوير": "محلات الطباعة والتصوير في مول البستان — طابعات، سكانرات، أحبار، وخدمات طباعة احترافية لكل احتياجات العمل والمشاريع.",
+  "الشبكات والأنظمة الأمنية": "حلول الشبكات والأمن في مول البستان — راوترات، كاميرات مراقبة، أنظمة إنذار، وتجهيزات البنية التحتية التقنية.",
+  "الصيانة والدعم الفني": "خدمات صيانة وإصلاح الكمبيوتر والموبايل في مول البستان — دعم فني متخصص، استبدال شاشات، إصلاح لابتوبات، واستعادة بيانات.",
+};
+
+function StoreSeoIntro({ category, totalStores, activeCount }: { category: string; totalStores: number; activeCount: number }) {
+  const content = category ? categorySeoContent[category] : null;
+  return (
+    <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(16px, 2vw, 24px)", paddingBottom: "clamp(12px, 1.5vw, 20px)" }}>
+      <div className="container max-w-[1200px]">
+        <p className="text-[0.78rem] leading-[2] text-muted-foreground max-w-3xl">
+          {content ?? `يضم مول البستان ${totalStores > 0 ? totalStores : "أكثر من 150"} محل تجاري متخصص في الكمبيوتر، الموبايلات، الجيمنج، الإكسسوارات، والصيانة.${activeCount > 0 ? ` ${activeCount} محل نشط حالياً` : ""} على 3 أدوار في التجمع الخامس بالقاهرة الجديدة.`}
+        </p>
+      </div>
+    </section>
+  );
+}
+
 const Stores = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") ?? "";
@@ -92,13 +115,20 @@ const Stores = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="دليل محلات الكمبيوتر والموبايلات والإلكترونيات"
-        titleEn="Computer, Mobile & Electronics Stores Directory"
-        description={`تصفح جميع محلات مول البستان — ${activeCount > 0 ? `${activeCount} محل نشط` : "محلات"} متخصصة في الكمبيوتر، اللابتوبات، الموبايلات، الجيمنج، والإكسسوارات بالتجمع الخامس، القاهرة الجديدة.`}
+        title={selectedCategory ? `محلات ${selectedCategory} في مول البستان` : "دليل محلات الكمبيوتر والموبايلات والإلكترونيات"}
+        titleEn={selectedCategory ? `${selectedCategory} Stores at Mall Elbostan` : "Computer, Mobile & Electronics Stores Directory"}
+        description={selectedCategory
+          ? `تصفح محلات ${selectedCategory} في مول البستان — ${filtered?.length ?? 0} محل متخصص بالتجمع الخامس، القاهرة الجديدة. اعثر على أفضل الأسعار والعروض.`
+          : `تصفح جميع محلات مول البستان — ${activeCount > 0 ? `${activeCount} محل نشط` : "محلات"} في الكمبيوتر، اللابتوبات، الموبايلات، الجيمنج، والإكسسوارات بالتجمع الخامس، القاهرة.`
+        }
         descriptionEn="Browse all stores at Mall Elbostan — computers, laptops, phones, gaming & accessories in New Cairo's Fifth Settlement."
-        keywords="محلات كمبيوتر, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة"
-        breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
+        keywords={`محلات ${selectedCategory ?? "كمبيوتر"}, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة`}
+        breadcrumbs={selectedCategory
+          ? [{ name: "المحلات", url: "/stores" }, { name: selectedCategory, url: `/stores?category=${encodeURIComponent(selectedCategory)}` }]
+          : [{ name: "المحلات", url: "/stores" }]
+        }
         jsonLd={filtered && filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
+        noIndex={!!search || !!selectedStatus}
       />
 
       {/* ═══════════ HERO ═══════════ */}
@@ -137,6 +167,9 @@ const Stores = () => {
           ))}
         </div>
       </PageHero>
+
+      {/* ═══════════ SEO INTRO (category-aware) ═══════════ */}
+      <StoreSeoIntro category={selectedCategory} totalStores={totalStores} activeCount={activeCount} />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12 bg-secondary dark:bg-background">

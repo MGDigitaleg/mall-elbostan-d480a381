@@ -220,12 +220,12 @@ const InteractiveMap = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="الدليل التفاعلي"
-        titleEn="Interactive Directory"
-        description="خريطة مول البستان التفاعلية — تصفح الطوابق واستكشف المحلات والوحدات المتاحة للتأجير في القاهرة الجديدة."
-        descriptionEn="Interactive floor map of Mall Elbostan with search, filters, and leasing units."
-        keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات القاهرة الجديدة, interactive map"
-        breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
+        title="خريطة مول البستان التفاعلية — تصفح المحلات والطوابق"
+        titleEn="Mall Elbostan Interactive Map — Browse Stores & Floors"
+        description="استخدم خريطة مول البستان التفاعلية لتصفح المحلات على 3 أدوار. اعثر على محلات الكمبيوتر، الموبايلات، الجيمنج، والوحدات المتاحة للتأجير في التجمع الخامس، القاهرة."
+        descriptionEn="Use Mall Elbostan's interactive map to browse stores across 3 floors. Find computer, mobile, gaming shops and available units in New Cairo."
+        keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات كمبيوتر, محلات موبايلات, القاهرة الجديدة, interactive mall map"
+        breadcrumbs={[{ name: "الخريطة التفاعلية", url: "/map" }]}
       />
 
       {/* ═══════════ HERO ═══════════ */}
@@ -881,6 +881,28 @@ const InteractiveMap = () => {
           }
         }}
       />
+
+      {/* ═══════════ MAP SEO CONTENT ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(24px, 3vw, 40px)" }}>
+        <div className="container max-w-4xl">
+          <h2 className="text-[0.92rem] font-bold text-foreground mb-3" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            تصفّح خريطة مول البستان
+          </h2>
+          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-2">
+            <p>
+              خريطة مول البستان التفاعلية تتيح لك تصفّح المحلات على 3 أدوار في المول.
+              اعثر على <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر</Link>، {" "}
+              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات</Link>، {" "}
+              و<Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج</Link> بسهولة.
+            </p>
+            <p>
+              الوحدات المتاحة للتأجير معروضة باللون البرتقالي.{" "}
+              <Link to="/leasing" className="text-primary font-semibold hover:underline">استفسر عن التأجير</Link> أو{" "}
+              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
     </MainLayout>
   );
 };
