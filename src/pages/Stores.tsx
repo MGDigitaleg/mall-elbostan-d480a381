@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import { TenantLogo } from "@/components/TenantLogo";
+import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildStoreListLd } from "@/components/SEOHead";
@@ -489,7 +490,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           {/* Logo — unified component */}
           <div className="transition-all duration-300 group-hover:scale-105" style={{ boxShadow: "0 3px 16px hsl(0 0% 0% / 0.15)" }}>
             <TenantLogo
-              src={store.logo_url}
+              src={getVerifiedLogoUrl(store.slug, store.logo_url)}
               alt={store.name_ar}
               fallbackName={store.name_ar}
               size="md"
