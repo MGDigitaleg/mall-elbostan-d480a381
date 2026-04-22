@@ -20,6 +20,7 @@ import {
   Minimize2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
@@ -90,6 +91,7 @@ const InteractiveMap = () => {
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
   // Auto-highlight unit from URL params
@@ -123,6 +125,13 @@ const InteractiveMap = () => {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [isFullscreen]);
+
+  // Mark map as loaded after SVG has time to paint
+  useEffect(() => {
+    setMapLoaded(false);
+    const timer = setTimeout(() => setMapLoaded(true), 400);
+    return () => clearTimeout(timer);
+  }, [selectedFloor]);
 
   const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
   const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);
@@ -205,7 +214,7 @@ const InteractiveMap = () => {
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
 
-  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); localStorage.setItem("map-selected-floor", id); };
+  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); setMapLoaded(false); localStorage.setItem("map-selected-floor", id); };
 
   return (
     <MainLayout>
@@ -378,11 +387,26 @@ const InteractiveMap = () => {
                 {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
               </button>
 
+              {/* Loading skeleton */}
+              {!mapLoaded && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-card rounded-2xl">
+                  <div className="relative w-3/4 aspect-square max-w-[320px]">
+                    <Skeleton className="absolute inset-0 rounded-xl" />
+                    <Skeleton className="absolute top-[15%] start-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute top-[15%] end-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute bottom-[15%] start-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute bottom-[15%] end-[10%] h-[30%] w-[35%] rounded-lg" />
+                    <Skeleton className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[25%] w-[25%] rounded-full" />
+                  </div>
+                  <p className="text-[0.78rem] font-semibold text-muted-foreground animate-pulse">جاري تحميل الخريطة...</p>
+                </div>
+              )}
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedFloor}
                   initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  animate={{ opacity: mapLoaded ? 1 : 0, scale: mapLoaded ? 1 : 0.97 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="h-full"
