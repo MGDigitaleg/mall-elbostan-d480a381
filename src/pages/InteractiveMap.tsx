@@ -86,6 +86,7 @@ const InteractiveMap = () => {
   const [activeRewardCtx, setActiveRewardCtx] = useState<ActiveRewardContext | undefined>();
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
   // Auto-highlight unit from URL params
