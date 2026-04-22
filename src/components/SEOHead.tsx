@@ -126,19 +126,22 @@ export function SEOHead({
 
 export const organizationLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "ElectronicsStore"],
   "@id": `${BASE_URL}/#organization`,
   name: "مول البستان",
-  alternateName: "Mall Elbostan",
-  description: "وجهة التكنولوجيا الأولى في القاهرة الجديدة - أكبر مول متخصص في التكنولوجيا والإلكترونيات",
+  alternateName: ["Mall Elbostan", "El Bostan Mall"],
+  description: "أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في القاهرة الجديدة — أكثر من 150 محل للابتوبات، هواتف، جيمنج، إكسسوارات، وصيانة بالتجمع الخامس.",
   url: BASE_URL,
   image: `${BASE_URL}/og-default.jpg`,
   priceRange: "$$",
+  currenciesAccepted: "EGP",
+  paymentAccepted: "Cash, Credit Card",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "التجمع الخامس",
+    streetAddress: "شارع التسعين، التجمع الخامس",
     addressLocality: "القاهرة الجديدة",
     addressRegion: "القاهرة",
+    postalCode: "11835",
     addressCountry: "EG",
   },
   geo: {
@@ -150,9 +153,13 @@ export const organizationLd = {
     { "@type": "City", name: "القاهرة الجديدة" },
     { "@type": "City", name: "مدينتي" },
     { "@type": "City", name: "الرحاب" },
+    { "@type": "City", name: "القاهرة" },
   ],
   hasMap: "https://maps.google.com/?q=30.03,31.46",
   openingDatePlanned: "2026-05-01",
+  foundingDate: "1990",
+  numberOfEmployees: { "@type": "QuantitativeValue", value: 150, unitText: "stores" },
+  keywords: "مول كمبيوتر, محلات موبايلات, لابتوب, جيمنج, إلكترونيات, القاهرة الجديدة, التجمع الخامس",
   sameAs: [],
 };
 
@@ -161,22 +168,38 @@ export const shoppingCenterLd = {
   "@type": "ShoppingCenter",
   "@id": `${BASE_URL}/#mall`,
   name: "مول البستان",
-  alternateName: "Mall Elbostan",
-  description: "أكبر مول متخصص في التكنولوجيا والإلكترونيات في القاهرة الجديدة — أكثر من 150 وحدة تجارية.",
+  alternateName: ["Mall Elbostan", "El Bostan Mall"],
+  description: "مول البستان — أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في التجمع الخامس، القاهرة الجديدة. أكثر من 150 محل تجاري متخصص على 3 أدوار.",
   url: BASE_URL,
   image: `${BASE_URL}/og-default.jpg`,
   numberOfRooms: 150,
+  numberOfFloors: 3,
+  foundingDate: "1990",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "التجمع الخامس",
+    streetAddress: "شارع التسعين، التجمع الخامس",
     addressLocality: "القاهرة الجديدة",
     addressRegion: "القاهرة",
+    postalCode: "11835",
     addressCountry: "EG",
   },
   geo: {
     "@type": "GeoCoordinates",
     latitude: 30.03,
     longitude: 31.46,
+  },
+  hasMap: `${BASE_URL}/map`,
+  containsPlace: {
+    "@type": "ItemList",
+    name: "أقسام المول",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "محلات الهواتف والإكسسوارات" },
+      { "@type": "ListItem", position: 2, name: "محلات الكمبيوتر واللابتوبات" },
+      { "@type": "ListItem", position: 3, name: "محلات الألعاب والجيمنج" },
+      { "@type": "ListItem", position: 4, name: "الشبكات والأنظمة الأمنية" },
+      { "@type": "ListItem", position: 5, name: "الطباعة والتصوير" },
+      { "@type": "ListItem", position: 6, name: "الصيانة والدعم الفني" },
+    ],
   },
 };
 
@@ -230,6 +253,14 @@ export function buildEventLd(events: { title_ar: string; event_date?: string | n
 }
 
 /** Store detail — schema.org/Store */
+/** Map store categories to schema.org types */
+function storeSchemaType(category?: string | null): string {
+  if (!category) return "Store";
+  if (category.includes("كمبيوتر") || category.includes("لابتوب")) return "ComputerStore";
+  if (category.includes("هواتف") || category.includes("موبايل") || category.includes("إلكترونيات") || category.includes("ألعاب") || category.includes("شبكات")) return "ElectronicsStore";
+  return "Store";
+}
+
 export function buildStoreLd(store: {
   name_ar: string;
   name_en?: string | null;
@@ -241,18 +272,26 @@ export function buildStoreLd(store: {
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Store",
+    "@type": storeSchemaType(store.category),
     name: store.name_ar,
     alternateName: store.name_en ?? undefined,
-    description: store.short_description_ar ?? `${store.name_ar} في مول البستان`,
+    description: store.short_description_ar ?? `${store.name_ar} — محل ${store.category ?? "تكنولوجيا"} في مول البستان، التجمع الخامس، القاهرة الجديدة`,
     url: `${BASE_URL}/stores/${store.slug}`,
     image: store.logo_url ?? undefined,
     telephone: store.phone ?? undefined,
     department: store.category ?? undefined,
     containedInPlace: {
       "@type": "ShoppingCenter",
+      "@id": `${BASE_URL}/#mall`,
       name: "مول البستان",
       url: BASE_URL,
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "شارع التسعين، التجمع الخامس",
+      addressLocality: "القاهرة الجديدة",
+      addressRegion: "القاهرة",
+      addressCountry: "EG",
     },
   };
 }

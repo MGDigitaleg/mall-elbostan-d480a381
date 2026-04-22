@@ -551,12 +551,14 @@ const Products = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="المنتجات"
-        titleEn="Products"
-        description="تصفّح جميع منتجات مول البستان — هواتف، أجهزة، لابتوبات، إكسسوارات، وقطع غيار من جميع المحلات."
-        descriptionEn="Browse all products from Mall Elbostan stores — phones, devices, laptops, accessories, and components."
+        title="منتجات الكمبيوتر والموبايلات والإلكترونيات"
+        titleEn="Computer, Mobile & Electronics Products"
+        description="تصفّح منتجات مول البستان — لابتوبات، هواتف، إكسسوارات، جيمنج، وقطع غيار من جميع المحلات في التجمع الخامس بالقاهرة الجديدة. قارن الأسعار واطلب مباشرة."
+        descriptionEn="Browse products from Mall Elbostan — laptops, phones, accessories, gaming gear from all stores in New Cairo."
+        keywords="لابتوب, موبايل, اكسسوارات, جيمنج, قطع غيار, أسعار, مول البستان, التجمع الخامس"
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
         jsonLd={filteredProducts.length > 0 ? buildProductListLd(filteredProducts.map(p => ({ name_ar: p.product_name, slug: p.slug, price: p.price, image_url: p.product_image }))) : undefined}
+        noIndex={hasActiveFilters}
       />
 
       <PageHero

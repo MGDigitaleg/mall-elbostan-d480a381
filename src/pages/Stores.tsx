@@ -92,12 +92,13 @@ const Stores = () => {
   return (
     <MainLayout>
       <SEOHead
-        title="دليل المحلات"
-        titleEn="Stores Directory"
-        description="تصفح جميع المحلات في مول البستان — أجهزة، هواتف، جيمنج، صيانة، وأكثر. دليل تقني في القاهرة الجديدة."
-        descriptionEn="Browse all stores at Mall Elbostan — phones, computers, gaming, and more."
+        title="دليل محلات الكمبيوتر والموبايلات والإلكترونيات"
+        titleEn="Computer, Mobile & Electronics Stores Directory"
+        description={`تصفح جميع محلات مول البستان — ${activeCount > 0 ? `${activeCount} محل نشط` : "محلات"} متخصصة في الكمبيوتر، اللابتوبات، الموبايلات، الجيمنج، والإكسسوارات بالتجمع الخامس، القاهرة الجديدة.`}
+        descriptionEn="Browse all stores at Mall Elbostan — computers, laptops, phones, gaming & accessories in New Cairo's Fifth Settlement."
+        keywords="محلات كمبيوتر, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة"
         breadcrumbs={[{ name: "المحلات", url: "/stores" }]}
-        jsonLd={filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
+        jsonLd={filtered && filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
       />
 
       {/* ═══════════ HERO ═══════════ */}

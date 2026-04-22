@@ -146,13 +146,13 @@ const StoreDetail = () => {
   return (
     <MainLayout>
       <SEOHead
-        title={store.name_ar}
-        description={store.short_description_ar ?? `${store.name_ar} — محل متخصص في مول البستان القاهرة الجديدة`}
+        title={`${store.name_ar} — محل ${store.category ?? "تكنولوجيا"} في مول البستان`}
+        description={store.short_description_ar ?? `${store.name_ar} — محل ${store.category ?? "تكنولوجيا وإلكترونيات"} في مول البستان، التجمع الخامس، القاهرة الجديدة. تصفّح المنتجات وتواصل مباشرة.`}
         ogImage={getStoreOgImage(store)}
         ogImageWidth={OG_IMAGE_WIDTH}
         ogImageHeight={OG_IMAGE_HEIGHT}
         ogImageAlt={getStoreOgAlt(store.name_ar, store.category)}
-        keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, القاهرة الجديدة`}
+        keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, التجمع الخامس, القاهرة الجديدة, محل ${store.category ?? 'إلكترونيات'}`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
         jsonLd={buildStoreLd(store)}
       />
