@@ -7,6 +7,10 @@
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 
+/** Standard OG image dimensions (matches edge function output) */
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+
 export function getOgImageUrl(
   title: string,
   type: "store" | "product",
@@ -41,4 +45,13 @@ export function getProductOgImage(product: {
   category_name?: string | null;
 }): string {
   return product.image_url || getOgImageUrl(product.name_ar, "product", product.category_name);
+}
+
+/** Build a descriptive alt text for OG image */
+export function getStoreOgAlt(name: string, category?: string | null): string {
+  return category ? `${name} — ${category} في مول البستان` : `${name} — مول البستان`;
+}
+
+export function getProductOgAlt(name: string, brand?: string | null): string {
+  return brand ? `${name} من ${brand} — مول البستان` : `${name} — مول البستان`;
 }

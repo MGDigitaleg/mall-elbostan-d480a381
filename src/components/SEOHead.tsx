@@ -11,6 +11,7 @@ interface SEOHeadProps {
   ogImage?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
+  ogImageAlt?: string;
   type?: "website" | "article";
   keywords?: string;
   articlePublishedTime?: string;
@@ -29,6 +30,7 @@ export function SEOHead({
   ogImage,
   ogImageWidth,
   ogImageHeight,
+  ogImageAlt,
   type = "website",
   keywords,
   articlePublishedTime,
@@ -42,6 +44,9 @@ export function SEOHead({
   const fullTitle = `${title} | مول البستان`;
   const canonical = `${BASE_URL}${location.pathname}`;
   const ogImg = ogImage ?? `${BASE_URL}/og-default.jpg`;
+  const ogW = ogImageWidth ?? 1200;
+  const ogH = ogImageHeight ?? 630;
+  const ogAlt = ogImageAlt ?? fullTitle;
 
   const breadcrumbLd = breadcrumbs
     ? {
@@ -84,8 +89,10 @@ export function SEOHead({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImg} />
-      {ogImageWidth && <meta property="og:image:width" content={String(ogImageWidth)} />}
-      {ogImageHeight && <meta property="og:image:height" content={String(ogImageHeight)} />}
+      <meta property="og:image:width" content={String(ogW)} />
+      <meta property="og:image:height" content={String(ogH)} />
+      <meta property="og:image:alt" content={ogAlt} />
+      <meta property="og:image:type" content={ogImg.endsWith(".svg") ? "image/svg+xml" : "image/png"} />
       <meta property="og:locale" content="ar_EG" />
       <meta property="og:locale:alternate" content="en_US" />
       <meta property="og:site_name" content="مول البستان" />
@@ -103,6 +110,7 @@ export function SEOHead({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={descriptionEn ?? description} />
       <meta name="twitter:image" content={ogImg} />
+      <meta name="twitter:image:alt" content={ogAlt} />
 
       {/* JSON-LD */}
       {allJsonLd.map((ld, i) => (
