@@ -94,7 +94,8 @@ export function Header() {
   const navLinkStyle = (active: boolean) => ({
     color: active ? activeColor : textColor,
     fontWeight: active ? 700 : 600,
-    fontSize: "0.82rem" as const,
+    fontSize: "0.84rem" as const,
+    letterSpacing: "-0.01em" as const,
     background: active ? activeBg : "transparent",
   });
 
@@ -105,22 +106,22 @@ export function Header() {
         background: isTransparent
           ? "transparent"
           : scrolled
-            ? (isDark ? "rgba(11,18,32,0.97)" : "rgba(250,250,248,0.97)")
-            : (isDark ? "rgba(11,18,32,0.92)" : "rgba(250,250,248,0.92)"),
-        backdropFilter: isTransparent ? "none" : "blur(12px) saturate(1.2)",
-        WebkitBackdropFilter: isTransparent ? "none" : "blur(12px) saturate(1.2)",
+            ? (isDark ? "rgba(11,18,32,0.98)" : "rgba(250,250,248,0.98)")
+            : (isDark ? "rgba(11,18,32,0.94)" : "rgba(250,250,248,0.94)"),
+        backdropFilter: isTransparent ? "none" : "blur(16px) saturate(1.3)",
+        WebkitBackdropFilter: isTransparent ? "none" : "blur(16px) saturate(1.3)",
         borderBottom: isTransparent ? "1px solid transparent" : `1px solid ${borderColor}`,
         boxShadow: !isTransparent && scrolled
-          ? (isDark ? "0 1px 3px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.15)" : "0 1px 3px rgba(7,19,38,0.04), 0 4px 16px rgba(7,19,38,0.03)")
+          ? (isDark ? "0 1px 2px rgba(0,0,0,0.2), 0 6px 24px rgba(0,0,0,0.18)" : "0 1px 2px rgba(7,19,38,0.03), 0 6px 24px rgba(7,19,38,0.04)")
           : "none",
-        transition: "background 0.4s, box-shadow 0.4s, border-color 0.4s, backdrop-filter 0.4s",
+        transition: "background 0.45s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s, border-color 0.45s, backdrop-filter 0.45s",
       }}
     >
       <div className="container">
         {/* ── Desktop XL ── */}
         <div
-          className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-6"
-          style={{ minHeight: scrolled ? "60px" : "66px", transition: "min-height 0.4s" }}
+          className="hidden xl:grid xl:grid-cols-[1fr_auto_1fr] xl:items-center xl:gap-8"
+          style={{ minHeight: scrolled ? "62px" : "72px", transition: "min-height 0.45s cubic-bezier(0.4,0,0.2,1)" }}
         >
           {/* Primary nav */}
           <nav className="flex items-center justify-start gap-0.5">
@@ -249,11 +250,12 @@ export function Header() {
             <Link to="/spin-win" className="relative z-10 inline-flex">
               <Button
                 size="sm"
-                className="h-[34px] gap-1.5 rounded-lg px-4 text-[0.76rem] font-bold transition-all duration-300 hover:scale-[1.03]"
+                className="h-[36px] gap-1.5 rounded-xl px-5 text-[0.78rem] font-bold transition-all duration-300 hover:scale-[1.03]"
                 style={{
                   background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
                   color: "#fff",
-                  boxShadow: "0 2px 10px rgba(37,99,235,0.22)",
+                  boxShadow: "0 2px 12px rgba(37,99,235,0.25), 0 0 0 1px rgba(37,99,235,0.1)",
+                  letterSpacing: "-0.01em",
                 }}
               >
                 <Sparkles className="h-3.5 w-3.5" />
