@@ -411,7 +411,6 @@ const InteractiveMap = () => {
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="h-full"
                 >
-                >
                   <MallFloorMap
                     floor={floor}
                     selectedUnitId={activeUnit?.id ?? null}
