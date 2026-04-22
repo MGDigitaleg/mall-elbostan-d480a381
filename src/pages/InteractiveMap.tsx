@@ -16,6 +16,8 @@ import {
   Sparkles,
   LayoutGrid,
   SlidersHorizontal,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -84,6 +86,7 @@ const InteractiveMap = () => {
   const [activeRewardCtx, setActiveRewardCtx] = useState<ActiveRewardContext | undefined>();
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
   // Auto-highlight unit from URL params
@@ -107,6 +110,16 @@ const InteractiveMap = () => {
     }
     setSearchParams({}, { replace: true });
   }, []);
+
+  // Escape key exits fullscreen
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [isFullscreen]);
 
   const handleAtriumClick = useCallback(() => { setHubModalOpen(true); }, []);
   const handleOpenSpinWheel = useCallback(() => { setSpinModalOpen(true); }, []);
@@ -345,7 +358,23 @@ const InteractiveMap = () => {
       <section className="py-4 md:py-5 bg-secondary dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
-            <div ref={mapRef} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-260px)]">
+            <div
+              ref={mapRef}
+              className={`relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 ${
+                isFullscreen
+                  ? "fixed inset-0 z-50 rounded-none max-h-none border-0"
+                  : "max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-260px)]"
+              }`}
+            >
+              {/* Fullscreen toggle */}
+              <button
+                onClick={() => setIsFullscreen((p) => !p)}
+                className="absolute top-3 left-3 z-10 flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card/90 backdrop-blur-sm text-muted-foreground hover:text-foreground hover:bg-card transition-colors shadow-sm"
+                aria-label={isFullscreen ? "إغلاق الشاشة الكاملة" : "شاشة كاملة"}
+              >
+                {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+              </button>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedFloor}
@@ -353,6 +382,7 @@ const InteractiveMap = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="h-full"
                 >
                   <MallFloorMap
                     floor={floor}
@@ -362,6 +392,7 @@ const InteractiveMap = () => {
                     onAtriumClick={handleAtriumClick}
                     atriumConfig={atriumConfig}
                     highlightedUnitIds={highlightedUnitIds}
+                    className={isFullscreen ? "min-h-screen" : undefined}
                   />
                 </motion.div>
               </AnimatePresence>
