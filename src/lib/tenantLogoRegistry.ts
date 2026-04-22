@@ -333,10 +333,14 @@ export function getTenantLogoPath(slug: string): string | null {
  */
 export function getVerifiedLogoUrl(slug: string | undefined, dbLogoUrl: string | null | undefined): string | null {
   if (!slug) return dbLogoUrl ?? null;
+
+  // DB value (set via admin override) always wins when present
+  if (dbLogoUrl) return dbLogoUrl;
+
   const entry = _bySlug.get(slug);
-  if (!entry) return dbLogoUrl ?? null; // Not in registry — trust DB value
+  if (!entry) return null;
   if (entry.verified === "verified" || entry.verified === "sourced") {
-    return entry.logoPath ?? dbLogoUrl ?? null;
+    return entry.logoPath ?? null;
   }
   return null; // Generated/missing → show initials
 }

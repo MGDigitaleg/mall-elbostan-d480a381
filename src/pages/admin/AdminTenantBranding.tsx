@@ -82,6 +82,10 @@ function LogoEditForm({ entry, onClose }: LogoEditFormProps) {
     onSuccess: () => {
       toast.success("تم تحديث الشعار بنجاح");
       queryClient.invalidateQueries({ queryKey: ["admin-stores-branding"] });
+      queryClient.invalidateQueries({ queryKey: ["stores-directory"] });
+      queryClient.invalidateQueries({ queryKey: ["featured-stores-home"] });
+      queryClient.invalidateQueries({ queryKey: ["all-stores-logos"] });
+      queryClient.invalidateQueries({ predicate: (q) => (q.queryKey[0] as string)?.startsWith?.("related-stores") });
       onClose();
     },
     onError: (err: Error) => {
