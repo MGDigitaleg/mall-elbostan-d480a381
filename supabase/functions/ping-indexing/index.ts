@@ -79,6 +79,23 @@ serve(async (req) => {
       : KEY_PAGES.map((p) => `${siteUrl}${p}`);
 
     const indexNowKey = Deno.env.get(indexNowKeyEnv);
+    const keyFileUrl = `${siteUrl}/${indexNowKey ?? "MISSING"}.txt`;
+
+    // ── Pre-flight: verify key file is reachable ──
+    let keyFileOk = false;
+    let keyFileError: string | null = null;
+    if (indexNowKey) {
+      try {
+        const probe = await fetch(keyFileUrl, { method: "HEAD" });
+        if (probe.status === 200) {
+          keyFileOk = true;
+        } else {
+          keyFileError = `Key file returned HTTP ${probe.status} at ${keyFileUrl}`;
+        }
+      } catch (e) {
+        keyFileError = `Key file unreachable: ${(e as Error).message}`;
+      }
+    }
     const results: { endpoint: string; status: number | string }[] = [];
 
     if (!indexNowKey) {
