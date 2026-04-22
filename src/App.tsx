@@ -58,6 +58,7 @@ const AdminSeoAudit = lazy(() => import("./pages/admin/AdminSeoAudit"));
 const AdminIndexingLogs = lazy(() => import("./pages/admin/AdminIndexingLogs"));
 const AdminSeoVerify = lazy(() => import("./pages/admin/AdminSeoVerify"));
 const AdminOgPreview = lazy(() => import("./pages/admin/AdminOgPreview"));
+const AdminTenantBranding = lazy(() => import("./pages/admin/AdminTenantBranding"));
 
 
 
@@ -198,6 +199,7 @@ function AppLayout() {
             <Route path="/admin/indexing-logs" element={<AdminIndexingLogs />} />
             <Route path="/admin/seo-verify" element={<AdminSeoVerify />} />
             <Route path="/admin/og-preview" element={<AdminOgPreview />} />
+            <Route path="/admin/tenant-branding" element={<AdminTenantBranding />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
