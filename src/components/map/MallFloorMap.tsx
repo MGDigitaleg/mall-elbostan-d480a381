@@ -55,9 +55,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const MIN_ZOOM = 1; // zoom bounds
+  const MIN_ZOOM = 1;
   const MAX_ZOOM = 3;
   const ZOOM_STEP = 0.4;
+  const PAN_STEP = 40;
 
   const handleZoomIn = () => setZoom((z) => Math.min(z + ZOOM_STEP, MAX_ZOOM));
   const handleZoomOut = () => {
@@ -68,7 +69,6 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     });
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
-
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (zoom <= 1) return;
@@ -86,7 +86,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
   const handlePointerUp = useCallback(() => { isPanning.current = false; }, []);
 
-  const handleKeyDown = useCallback(
+  const handleUnitKeyDown = useCallback(
     (e: React.KeyboardEvent, unit: MallUnit) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -96,8 +96,50 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     [onSelectUnit],
   );
 
+  const handleContainerKeyDown = useCallback((e: React.KeyboardEvent) => {
+    switch (e.key) {
+      case "+":
+      case "=":
+        e.preventDefault();
+        handleZoomIn();
+        break;
+      case "-":
+      case "_":
+        e.preventDefault();
+        handleZoomOut();
+        break;
+      case "0":
+        e.preventDefault();
+        handleReset();
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        if (zoom > 1) setPan((p) => ({ ...p, y: p.y + PAN_STEP }));
+        break;
+      case "ArrowDown":
+        e.preventDefault();
+        if (zoom > 1) setPan((p) => ({ ...p, y: p.y - PAN_STEP }));
+        break;
+      case "ArrowLeft":
+        e.preventDefault();
+        if (zoom > 1) setPan((p) => ({ ...p, x: p.x + PAN_STEP }));
+        break;
+      case "ArrowRight":
+        e.preventDefault();
+        if (zoom > 1) setPan((p) => ({ ...p, x: p.x - PAN_STEP }));
+        break;
+    }
+  }, [zoom]);
+
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl border border-border", className)} style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}>
+    <div
+      className={cn("relative overflow-hidden rounded-2xl border border-border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary", className)}
+      style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}
+      tabIndex={0}
+      role="application"
+      aria-label="خريطة تفاعلية — استخدم + و - للتكبير والتصغير، والأسهم للتحريك"
+      onKeyDown={handleContainerKeyDown}
+    >
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 left-3 z-10 flex flex-col gap-1">
@@ -297,7 +339,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 onClick={() => onSelectUnit(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                onKeyDown={(e) => handleKeyDown(e, unit)}
+                onKeyDown={(e) => handleUnitKeyDown(e, unit)}
                 tabIndex={0}
                 role="button"
                 aria-label={`وحدة ${unit.code} - ${unit.area} متر مربع`}
