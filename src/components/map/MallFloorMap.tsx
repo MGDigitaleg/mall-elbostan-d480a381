@@ -52,19 +52,34 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const isPanning = useRef(false);
+  const isAnimatingReset = useRef(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
+  const prevSize = useRef({ w: 0, h: 0 });
 
-  // ResizeObserver: auto-reset zoom/pan when card resizes or device rotates
+  // ResizeObserver: animated reset of zoom/pan when card resizes or device rotates
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
       const { width, height } = entries[0].contentRect;
-      setContainerSize({ w: Math.round(width), h: Math.round(height) });
-      setZoom(1);
-      setPan({ x: 0, y: 0 });
+      const w = Math.round(width);
+      const h = Math.round(height);
+      // Skip the initial measurement and trivial changes (< 8px)
+      const prev = prevSize.current;
+      const significant = prev.w > 0 && (Math.abs(w - prev.w) > 8 || Math.abs(h - prev.h) > 8);
+      prevSize.current = { w, h };
+      setContainerSize({ w, h });
+      if (significant) {
+        // Animate back via the existing CSS transition
+        isAnimatingReset.current = true;
+        requestAnimationFrame(() => {
+          setZoom(1);
+          setPan({ x: 0, y: 0 });
+          setTimeout(() => { isAnimatingReset.current = false; }, 350);
+        });
+      }
     });
     ro.observe(el);
     return () => ro.disconnect();
