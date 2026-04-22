@@ -102,14 +102,40 @@ export default function AdminSeoAudit() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
   const [pinging, setPinging] = useState(false);
+  const [selectedPaths, setSelectedPaths] = useState<Set<string>>(new Set());
+
+  const togglePath = useCallback((path: string) => {
+    setSelectedPaths((prev) => {
+      const next = new Set(prev);
+      if (next.has(path)) next.delete(path);
+      else next.add(path);
+      return next;
+    });
+  }, []);
+
+  const toggleAll = useCallback((paths: string[]) => {
+    setSelectedPaths((prev) => {
+      const allSelected = paths.every((p) => prev.has(p));
+      if (allSelected) return new Set();
+      return new Set(paths);
+    });
+  }, []);
 
   const handlePingIndexing = useCallback(async () => {
     setPinging(true);
     try {
-      const { data, error } = await supabase.functions.invoke("ping-indexing", { method: "POST" });
+      const body: Record<string, unknown> = { source: "manual" };
+      if (selectedPaths.size > 0) {
+        body.urls = Array.from(selectedPaths);
+      }
+      const { data, error } = await supabase.functions.invoke("ping-indexing", {
+        method: "POST",
+        body,
+      });
       if (error) throw error;
       if (data?.success) {
         toast.success(`تم إرسال ${data.urlsSubmitted} صفحة لمحركات البحث`);
+        setSelectedPaths(new Set());
       } else {
         toast.info(data?.error ?? "يرجى إعداد مفتاح IndexNow أولاً");
       }
@@ -118,7 +144,7 @@ export default function AdminSeoAudit() {
     } finally {
       setPinging(false);
     }
-  }, []);
+  }, [selectedPaths]);
 
   const scored = useMemo(() => PAGES.map((p) => ({ ...p, score: getScore(p) })), []);
 
