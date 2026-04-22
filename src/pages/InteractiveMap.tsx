@@ -90,6 +90,7 @@ const InteractiveMap = () => {
   const [lastWinResult, setLastWinResult] = useState<SpinWinResult | null>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
 
   // Auto-highlight unit from URL params
