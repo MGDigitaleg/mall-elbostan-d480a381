@@ -332,7 +332,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 onClick={() => onSelectUnit(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
-                onKeyDown={(e) => onKeyDown={(e) => handleUnitKeyDown(e, unit)}(e, unit)}
+                onKeyDown={(e) => handleUnitKeyDown(e, unit)}
                 tabIndex={0}
                 role="button"
                 aria-label={`وحدة ${unit.code} - ${unit.area} متر مربع`}
