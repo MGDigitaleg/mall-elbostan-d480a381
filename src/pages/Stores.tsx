@@ -127,7 +127,10 @@ const Stores = () => {
           ? [{ name: "المحلات", url: "/stores" }, { name: selectedCategory, url: `/stores?category=${encodeURIComponent(selectedCategory)}` }]
           : [{ name: "المحلات", url: "/stores" }]
         }
-        jsonLd={filtered && filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
+        jsonLd={[
+          ...(filtered && filtered.length > 0 ? [buildStoreListLd(filtered)] : []),
+          ...(!selectedCategory ? [buildCategoryListLd(primaryCategories.map(c => ({ name: c, url: `/stores?category=${encodeURIComponent(c)}` })))] : []),
+        ]}
         noIndex={!!search || !!selectedStatus}
       />
 
