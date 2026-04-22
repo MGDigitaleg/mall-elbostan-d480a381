@@ -74,7 +74,10 @@ const InteractiveMap = () => {
   const isMobile = useIsMobile();
   const [searchParams, setSearchParams] = useSearchParams();
   const mapRef = useRef<HTMLDivElement>(null);
-  const [selectedFloor, setSelectedFloor] = useState<MallFloorId>("ground");
+  const [selectedFloor, setSelectedFloor] = useState<MallFloorId>(() => {
+    const saved = localStorage.getItem("map-selected-floor");
+    return saved && mallFloors.some((f) => f.id === saved) ? (saved as MallFloorId) : "ground";
+  });
   const [statusFilter, setStatusFilter] = useState<"all" | MallUnitStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -202,7 +205,7 @@ const InteractiveMap = () => {
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
 
-  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); };
+  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); localStorage.setItem("map-selected-floor", id); };
 
   return (
     <MainLayout>
