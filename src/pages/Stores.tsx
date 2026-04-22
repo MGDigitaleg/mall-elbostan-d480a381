@@ -22,7 +22,7 @@ import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildStoreListLd } from "@/components/SEOHead";
+import { SEOHead, buildStoreListLd, buildCategoryListLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { BackToTop } from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
@@ -127,7 +127,10 @@ const Stores = () => {
           ? [{ name: "المحلات", url: "/stores" }, { name: selectedCategory, url: `/stores?category=${encodeURIComponent(selectedCategory)}` }]
           : [{ name: "المحلات", url: "/stores" }]
         }
-        jsonLd={filtered && filtered.length > 0 ? buildStoreListLd(filtered) : undefined}
+        jsonLd={[
+          ...(filtered && filtered.length > 0 ? [buildStoreListLd(filtered)] : []),
+          ...(!selectedCategory ? [buildCategoryListLd(primaryCategories.map(c => ({ name: c, url: `/stores?category=${encodeURIComponent(c)}` })))] : []),
+        ]}
         noIndex={!!search || !!selectedStatus}
       />
 
