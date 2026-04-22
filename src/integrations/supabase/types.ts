@@ -465,6 +465,39 @@ export type Database = {
         }
         Relationships: []
       }
+      indexing_logs: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          results: Json
+          source: string
+          success: boolean
+          url_list: string[]
+          urls_submitted: number
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          results?: Json
+          source?: string
+          success?: boolean
+          url_list?: string[]
+          urls_submitted?: number
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          results?: Json
+          source?: string
+          success?: boolean
+          url_list?: string[]
+          urls_submitted?: number
+        }
+        Relationships: []
+      }
       jobs: {
         Row: {
           application_deadline: string | null
