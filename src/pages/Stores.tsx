@@ -200,7 +200,12 @@ const Stores = () => {
       </PageHero>
 
       {/* ═══════════ SEO INTRO (category-aware) ═══════════ */}
-      <StoreSeoIntro category={selectedCategory} totalStores={totalStores} activeCount={activeCount} />
+      <StoreSeoIntro
+        category={selectedCategory}
+        totalStores={totalStores}
+        activeCount={activeCount}
+        topStores={filtered?.filter((s) => s.featured && s.status === "leased").slice(0, 5).map((s) => ({ name_ar: s.name_ar, slug: s.slug }))}
+      />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
       <section className="py-9 md:py-12 bg-secondary dark:bg-background">
