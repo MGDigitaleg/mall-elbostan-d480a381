@@ -29,6 +29,8 @@ const DYNAMIC_PAGES = new Set([
   "src/pages/DowntownMerchantDetail.tsx",
   "src/pages/kz/KzProductDetail.tsx",
   "src/pages/kz/KzCategory.tsx",
+  "src/pages/Stores.tsx",
+  "src/pages/Products.tsx",
 ]);
 
 /** Pages allowed to use noIndex */
