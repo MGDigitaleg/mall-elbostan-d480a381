@@ -86,6 +86,7 @@ export function FeaturedStores() {
                     <TenantLogo
                       src={store.logo_url}
                       alt={store.name_ar}
+                      fallbackName={store.name_ar}
                       size="sm"
                       rounded="lg"
                     />

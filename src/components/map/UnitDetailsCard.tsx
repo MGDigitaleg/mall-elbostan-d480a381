@@ -46,6 +46,7 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
           <TenantLogo
             src={UNIT_TENANT_LOGOS[unit.id]}
             alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
+            fallbackName={UNIT_TENANT_NAMES[unit.id] ?? undefined}
             size="md"
             rounded="lg"
           />

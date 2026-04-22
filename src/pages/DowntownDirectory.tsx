@@ -260,6 +260,7 @@ const DowntownDirectory = () => {
                       <TenantLogo
                         src={m.logo_url}
                         alt={m.name_ar}
+                        fallbackName={m.name_ar}
                         size="sm"
                         rounded="xl"
                       />

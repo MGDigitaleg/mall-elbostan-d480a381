@@ -192,6 +192,7 @@ const StoreDetail = () => {
                 <TenantLogo
                   src={store.logo_url}
                   alt={store.name_ar}
+                  fallbackName={store.name_ar}
                   size="lg"
                   rounded="xl"
                   darkContext
@@ -516,6 +517,7 @@ const StoreDetail = () => {
                             <TenantLogo
                               src={r.logo_url}
                               alt={r.name_ar}
+                              fallbackName={r.name_ar}
                               size="md"
                               rounded="xl"
                             />
