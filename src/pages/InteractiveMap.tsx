@@ -20,6 +20,7 @@ import {
   Minimize2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
