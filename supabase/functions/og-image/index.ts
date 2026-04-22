@@ -182,6 +182,9 @@ serve(async (req) => {
     const type = url.searchParams.get("type") || "store";
     const category = url.searchParams.get("category") || undefined;
     const format = url.searchParams.get("format") || "png";
+    const v = url.searchParams.get("v"); // cache-bust param (ignored in logic, forces new CDN entry)
+    const maxAge = Math.min(Math.max(parseInt(url.searchParams.get("max_age") || "604800", 10) || 604800, 60), 2592000);
+    const cacheControl = `public, max-age=${maxAge}, s-maxage=${maxAge}${maxAge >= 604800 ? ", immutable" : ""}`;
 
     await ensureReady();
 
@@ -193,7 +196,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/svg+xml; charset=utf-8",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
         },
       });
     }
@@ -214,7 +217,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/png",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
         },
       });
     } catch (_pngErr) {
@@ -223,7 +226,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/svg+xml; charset=utf-8",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
           "X-OG-Fallback": "svg",
         },
       });

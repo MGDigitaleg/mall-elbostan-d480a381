@@ -11,13 +11,22 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 
+/** Simple string hash for cache busting when titles change */
+function hashStr(s: string): string {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h).toString(36);
+}
+
 export function getOgImageUrl(
   title: string,
   type: "store" | "product",
   category?: string | null,
   format: "png" | "svg" = "png",
 ): string {
-  const params = new URLSearchParams({ title, type, format });
+  const params = new URLSearchParams({ title, type, format, v: hashStr(title) });
   if (category) params.set("category", category);
   return `${SUPABASE_URL}/functions/v1/og-image?${params.toString()}`;
 }
