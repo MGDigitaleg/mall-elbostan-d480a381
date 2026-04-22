@@ -12,7 +12,7 @@
   <url>
     <loc>https://mallelbostan.com/stores</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
@@ -25,7 +25,7 @@
     <loc>https://mallelbostan.com/map</loc>
     <lastmod>2026-04-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mallelbostan.com/leasing</loc>
@@ -44,8 +44,8 @@
   <url>
     <loc>https://mallelbostan.com/spin-win</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://mallelbostan.com/daily-deals</loc>
@@ -56,8 +56,8 @@
   <url>
     <loc>https://mallelbostan.com/countdown</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 
   <!-- Branch pages -->
@@ -65,13 +65,13 @@
     <loc>https://mallelbostan.com/new-cairo-branch</loc>
     <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mallelbostan.com/downtown-branch</loc>
     <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://mallelbostan.com/downtown-directory</loc>
@@ -96,7 +96,7 @@
   <url>
     <loc>https://mallelbostan.com/blog</loc>
     <lastmod>2026-04-22</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
