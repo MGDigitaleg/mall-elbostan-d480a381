@@ -523,7 +523,7 @@ const StoreDetail = () => {
                               className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/20">
                           <div className="transition-transform duration-200 group-hover:scale-105">
                             <TenantLogo
-                              src={r.logo_url}
+                              src={getVerifiedLogoUrl(r.slug, r.logo_url)}
                               alt={r.name_ar}
                               fallbackName={r.name_ar}
                               size="md"
