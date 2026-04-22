@@ -1,4 +1,5 @@
 import { MainLayout } from "@/components/layout/MainLayout";
+import { TenantLogo } from "@/components/TenantLogo";
 import { SEOHead } from "@/components/SEOHead";
 import {
   Compass, ShoppingBag, Layers, Store, Gift, ArrowLeft, MapPin, Phone,

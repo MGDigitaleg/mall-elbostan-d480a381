@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
+import { TenantLogo } from "@/components/TenantLogo";
 
 /* ─── Types ─── */
 export type SpinPrizeResult = {

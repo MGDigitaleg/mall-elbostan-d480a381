@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { TenantLogo } from "@/components/TenantLogo";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
