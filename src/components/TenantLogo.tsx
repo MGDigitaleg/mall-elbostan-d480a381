@@ -35,7 +35,7 @@ interface TenantLogoProps {
 
 const sizeConfig: Record<TenantLogoSize, { container: string; icon: string; padding: number; fontSize: string }> = {
   xs: { container: "h-8 w-8", icon: "h-3.5 w-3.5", padding: 2, fontSize: "0.55rem" },
-  sm: { container: "h-10 w-10", icon: "h-4 w-4", padding: 2, fontSize: "0.65rem" },
+  sm: { container: "h-11 w-11", icon: "h-4 w-4", padding: 2, fontSize: "0.65rem" },
   md: { container: "h-14 w-14", icon: "h-6 w-6", padding: 3, fontSize: "0.75rem" },
   lg: { container: "h-20 w-20", icon: "h-8 w-8", padding: 4, fontSize: "0.95rem" },
   xl: { container: "h-24 w-24", icon: "h-10 w-10", padding: 5, fontSize: "1.1rem" },
