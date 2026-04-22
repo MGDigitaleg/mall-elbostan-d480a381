@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  AlertTriangle, CheckCircle2, CircleHelp, ImageOff,
+  AlertTriangle, CheckCircle2, CircleHelp, ImageOff, Download,
   ExternalLink, ArrowLeft, Shield, Clock, Pencil, X, Save, Loader2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -294,6 +294,34 @@ export default function AdminTenantBranding() {
   const totalInRegistry = registryStats.total;
   const totalInDb = dbStores?.length ?? 0;
 
+  const exportCsv = () => {
+    const allEntries = [
+      ...Object.values(groups).flat(),
+    ];
+    const header = "slug,name_ar,name_en,status,logo_path,db_logo_url,official_site,unit_code,notes";
+    const rows = allEntries.map((e) =>
+      [
+        e.slug,
+        `"${(e.displayNameAr ?? "").replace(/"/g, '""')}"`,
+        `"${(e.displayNameEn ?? "").replace(/"/g, '""')}"`,
+        e.verified,
+        e.logoPath ?? "",
+        e.dbLogoUrl ?? "",
+        e.officialSite ?? "",
+        e.unitCode ?? "",
+        `"${(e.notes ?? "").replace(/"/g, '""')}"`,
+      ].join(",")
+    );
+    const csv = "\uFEFF" + [header, ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tenant-branding-audit-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <MainLayout>
       <div style={{ background: "linear-gradient(170deg, #071326, #0D1F3C)" }} className="min-h-screen">
@@ -303,9 +331,19 @@ export default function AdminTenantBranding() {
             <Link to="/admin" className="mb-4 inline-flex items-center gap-1.5 text-[0.74rem] font-medium transition-colors hover:text-white" style={{ color: "#64748B" }}>
               <ArrowLeft className="h-3 w-3" /> لوحة التحكم
             </Link>
-            <h1 className="text-[1.6rem] font-extrabold" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
-              تدقيق شعارات المحلات
-            </h1>
+            <div className="flex items-center justify-between gap-4">
+              <h1 className="text-[1.6rem] font-extrabold" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
+                تدقيق شعارات المحلات
+              </h1>
+              <button
+                onClick={exportCsv}
+                className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-bold transition-colors hover:bg-white/10"
+                style={{ border: "1px solid #ffffff14", color: "#94A3B8" }}
+              >
+                <Download className="h-3 w-3" />
+                تصدير CSV
+              </button>
+            </div>
             <p className="mt-1 text-[0.84rem]" style={{ color: "#94A3B8" }}>
               مراجعة وتحقق من جميع شعارات المحلات في المنصة
             </p>
