@@ -15,31 +15,38 @@ export function QuickActions() {
     <section
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
-        paddingTop: "clamp(24px, 3vw, 40px)",
-        paddingBottom: "clamp(24px, 3vw, 40px)",
+        background: "linear-gradient(180deg, #050E1C 0%, #0A1628 50%, #0D1A30 100%)",
+        paddingTop: "clamp(32px, 4vw, 56px)",
+        paddingBottom: "clamp(32px, 4vw, 56px)",
       }}
     >
+      {/* Subtle top accent line */}
+      <div className="absolute top-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent 10%, rgba(37,99,235,0.2) 50%, transparent 90%)" }} />
+
       <div className="container">
-        <div className="grid grid-cols-3 gap-2 sm:grid-cols-3 md:grid-cols-6">
+        <div className="grid grid-cols-3 gap-3 sm:grid-cols-3 md:grid-cols-6 md:gap-4">
           {ACTIONS.map((action) => (
             <Link
               key={action.to}
               to={action.to}
-              className="group flex flex-col items-center gap-2 rounded-xl p-3 md:p-4 transition-all duration-200 hover:bg-white/[0.06]"
-              style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+              className="group flex flex-col items-center gap-2.5 rounded-2xl p-4 md:p-5 transition-all duration-300 hover:bg-white/[0.05]"
+              style={{ border: "1px solid rgba(255,255,255,0.04)" }}
             >
               <div
-                className="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110"
-                style={{ background: `${action.color}10`, border: `1px solid ${action.color}18` }}
+                className="flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                style={{
+                  background: `${action.color}0D`,
+                  border: `1px solid ${action.color}1A`,
+                  boxShadow: `0 4px 16px ${action.color}08`,
+                }}
               >
-                <action.icon className="h-4.5 w-4.5" style={{ color: action.color }} />
+                <action.icon className="h-5 w-5" style={{ color: action.color }} />
               </div>
               <div className="text-center">
-                <span className="block text-[0.68rem] md:text-[0.72rem] font-bold leading-tight" style={{ color: "#E2E8F0" }}>
+                <span className="block text-[0.72rem] md:text-[0.76rem] font-bold leading-tight" style={{ color: "#E2E8F0", letterSpacing: "-0.01em" }}>
                   {action.label}
                 </span>
-                <span className="hidden md:block text-[0.56rem] font-medium leading-tight mt-0.5" style={{ color: "#64748B" }}>
+                <span className="hidden md:block text-[0.6rem] font-medium leading-tight mt-1" style={{ color: "#64748B" }}>
                   {action.desc}
                 </span>
               </div>
@@ -47,6 +54,9 @@ export function QuickActions() {
           ))}
         </div>
       </div>
+
+      {/* Bottom accent */}
+      <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: "linear-gradient(90deg, transparent 10%, rgba(205,187,154,0.12) 50%, transparent 90%)" }} />
     </section>
   );
 }

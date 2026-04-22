@@ -27,50 +27,60 @@ export function CategoryStrip() {
     <section
       className="relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
-        paddingTop: "clamp(28px, 3.5vw, 48px)",
-        paddingBottom: "clamp(28px, 3.5vw, 48px)",
+        background: "linear-gradient(180deg, #071326 0%, #0B1930 50%, #0D1A30 100%)",
+        paddingTop: "clamp(36px, 4.5vw, 64px)",
+        paddingBottom: "clamp(36px, 4.5vw, 64px)",
         minHeight: 296,
       }}
     >
-      <div className="container">
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[0.82rem] font-bold" style={{ color: "#E2E8F0" }}>
+      {/* Ambient glow */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[500px] rounded-full opacity-[0.025]" style={{ background: "radial-gradient(ellipse, #2563EB, transparent 70%)" }} />
+      </div>
+
+      <div className="container relative">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <p className="text-[0.6rem] font-bold tracking-[0.24em] uppercase mb-1.5" style={{ color: "#60A5FA" }}>الأقسام</p>
+            <h2 className="text-[0.92rem] md:text-[1rem] font-bold" style={{ color: "#F1F5F9", letterSpacing: "-0.015em" }}>
               تصفّح حسب الفئة
             </h2>
-            <Link
-              to="/products"
-              className="text-[0.7rem] font-semibold transition-colors hover:opacity-80"
-              style={{ color: "#60A5FA" }}
-            >
-              جميع الفئات
-            </Link>
           </div>
+          <Link
+            to="/products"
+            className="text-[0.72rem] font-semibold transition-colors hover:opacity-80"
+            style={{ color: "#60A5FA" }}
+          >
+            جميع الفئات
+          </Link>
+        </div>
 
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-4 md:grid-cols-8">
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                to={`/stores?category=${encodeURIComponent(cat.slug)}`}
-                className="group flex flex-col items-center gap-2 rounded-xl p-3 transition-all duration-200 hover:bg-white/[0.06]"
-                style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+        <div className="grid grid-cols-4 gap-2.5 sm:grid-cols-4 md:grid-cols-8 md:gap-3">
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              to={`/stores?category=${encodeURIComponent(cat.slug)}`}
+              className="group flex flex-col items-center gap-2.5 rounded-2xl p-3.5 md:p-4 transition-all duration-300 hover:bg-white/[0.06]"
+              style={{ border: "1px solid rgba(255,255,255,0.04)" }}
+            >
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110"
+                style={{
+                  background: "rgba(37,99,235,0.07)",
+                  border: "1px solid rgba(37,99,235,0.12)",
+                  boxShadow: "0 4px 12px rgba(37,99,235,0.05)",
+                }}
               >
-                <div
-                  className="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110"
-                  style={{ background: "rgba(37,99,235,0.08)", border: "1px solid rgba(37,99,235,0.15)" }}
-                >
-                  <cat.icon className="h-4.5 w-4.5" style={{ color: "#60A5FA" }} />
-                </div>
-                <span
-                  className="text-center text-[0.6rem] md:text-[0.64rem] font-semibold leading-tight line-clamp-2"
-                  style={{ color: "#CBD5E1" }}
-                >
-                  {cat.label}
-                </span>
-              </Link>
-            ))}
-          </div>
+                <cat.icon className="h-5 w-5" style={{ color: "#60A5FA" }} />
+              </div>
+              <span
+                className="text-center text-[0.62rem] md:text-[0.66rem] font-semibold leading-tight line-clamp-2"
+                style={{ color: "#CBD5E1" }}
+              >
+                {cat.label}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
