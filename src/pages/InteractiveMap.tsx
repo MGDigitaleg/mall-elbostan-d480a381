@@ -377,7 +377,7 @@ const InteractiveMap = () => {
               className={`relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 ${
                 isFullscreen
                   ? "fixed inset-0 z-50 rounded-none border-0"
-                  : "aspect-square max-w-[calc(100vh-220px)] lg:max-w-[calc(100vh-280px)] mx-auto"
+                  : "aspect-square min-h-[280px] max-w-full max-h-[calc(100vh-220px)] lg:max-h-[calc(100vh-280px)] mx-auto w-full"
               }`}
             >
               {/* Fullscreen toggle */}
