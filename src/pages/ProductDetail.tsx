@@ -169,6 +169,16 @@ const ProductDetail = () => {
             { name: "المنتجات", url: "/products" },
             { name: kzProduct.title, url: `/products/${kzProduct.slug}` },
           ]}
+          jsonLd={buildProductLd({
+            name_ar: kzProduct.title,
+            slug: kzProduct.slug,
+            price: selectedVariant ? Number(selectedVariant.price) : null,
+            image_url: kzImages[0]?.image_url ?? null,
+            brand: kzProduct.brand,
+            sku: selectedVariant?.sku ?? null,
+            short_description_ar: kzProduct.short_description,
+            store_name: "كسر زيرو",
+          })}
         />
 
         <section className="py-6 md:py-8" style={{ background: "hsl(var(--background))" }}>

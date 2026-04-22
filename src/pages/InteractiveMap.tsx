@@ -226,6 +226,18 @@ const InteractiveMap = () => {
         descriptionEn="Use Mall Elbostan's interactive map to browse stores across 3 floors. Find computer, mobile, gaming shops and available units in New Cairo."
         keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات كمبيوتر, محلات موبايلات, القاهرة الجديدة, interactive mall map"
         breadcrumbs={[{ name: "الخريطة التفاعلية", url: "/map" }]}
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Map",
+          name: "خريطة مول البستان التفاعلية",
+          description: "خريطة تفاعلية لتصفح محلات ووحدات مول البستان على 3 أدوار في التجمع الخامس، القاهرة الجديدة",
+          url: "https://mallelbostan.com/map",
+          about: {
+            "@type": "ShoppingCenter",
+            "@id": "https://mallelbostan.com/#mall",
+            name: "مول البستان",
+          },
+        }}
       />
 
       {/* ═══════════ HERO ═══════════ */}

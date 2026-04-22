@@ -136,6 +136,14 @@ export const organizationLd = {
   priceRange: "$$",
   currenciesAccepted: "EGP",
   paymentAccepted: "Cash, Credit Card",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "10:00",
+      closes: "22:00",
+    },
+  ],
   address: {
     "@type": "PostalAddress",
     streetAddress: "شارع التسعين، التجمع الخامس",
@@ -269,6 +277,8 @@ export function buildStoreLd(store: {
   phone?: string | null;
   slug: string;
   logo_url?: string | null;
+  opening_hours?: string | null;
+  unit_code?: string | null;
 }) {
   return {
     "@context": "https://schema.org",
@@ -280,6 +290,14 @@ export function buildStoreLd(store: {
     image: store.logo_url ?? undefined,
     telephone: store.phone ?? undefined,
     department: store.category ?? undefined,
+    ...(store.opening_hours ? { openingHours: store.opening_hours } : {
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "10:00",
+        closes: "22:00",
+      },
+    }),
     containedInPlace: {
       "@type": "ShoppingCenter",
       "@id": `${BASE_URL}/#mall`,
