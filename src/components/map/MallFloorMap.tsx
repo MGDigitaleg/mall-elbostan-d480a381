@@ -54,8 +54,23 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const isPanning = useRef(false);
   const panStart = useRef({ x: 0, y: 0, panX: 0, panY: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
 
-  const MIN_ZOOM = 1;
+  // ResizeObserver: auto-reset zoom/pan when card resizes or device rotates
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setContainerSize({ w: Math.round(width), h: Math.round(height) });
+      setZoom(1);
+      setPan({ x: 0, y: 0 });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+
   const MAX_ZOOM = 3;
   const ZOOM_STEP = 0.4;
   const PAN_STEP = 40;
