@@ -119,6 +119,30 @@ serve(async (req) => {
       );
     }
 
+    // ── Key file missing → warn but still attempt (some engines tolerate it) ──
+    if (!keyFileOk) {
+      const warning = keyFileError ?? "Key file check skipped";
+      await sb.from("indexing_logs").insert({
+        source,
+        urls_submitted: 0,
+        url_list: [],
+        results: [{ check: "key_file", status: warning }],
+        success: false,
+        error_message: `Key file verification failed: ${warning}. Place ${indexNowKey}.txt at ${siteUrl}/${indexNowKey}.txt`,
+      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          resolvedEnv: requestedEnv ?? "auto",
+          keyFileUrl,
+          error: warning,
+          fix: `Upload a text file containing only "${indexNowKey}" to ${siteUrl}/${indexNowKey}.txt`,
+        }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const indexNowHosts = [
       "https://api.indexnow.org/indexnow",
       "https://www.bing.com/indexnow",
