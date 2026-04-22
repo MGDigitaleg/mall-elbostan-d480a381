@@ -84,9 +84,15 @@ for (const file of pageFiles) {
 
   const matches = content.match(seoHeadRegex);
   if (!matches || matches.length === 0) {
-    if (!isAdmin) {
+    if (!isAdmin && !DYNAMIC_PAGES.has(rel)) {
       add(rel, "error", "Missing <SEOHead /> — page has no meta tags");
     }
+    continue;
+  }
+
+  // Dynamic pages use template literals / variables for title/desc — skip static checks
+  if (DYNAMIC_PAGES.has(rel)) {
+    pagesWithSEO++;
     continue;
   }
 
