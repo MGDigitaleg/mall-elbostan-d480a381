@@ -196,7 +196,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/svg+xml; charset=utf-8",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
         },
       });
     }
@@ -217,7 +217,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/png",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
         },
       });
     } catch (_pngErr) {
@@ -226,7 +226,7 @@ serve(async (req) => {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/svg+xml; charset=utf-8",
-          "Cache-Control": "public, max-age=604800, immutable",
+          "Cache-Control": cacheControl,
           "X-OG-Fallback": "svg",
         },
       });
