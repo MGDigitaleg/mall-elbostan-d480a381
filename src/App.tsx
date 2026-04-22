@@ -55,6 +55,7 @@ const AdminSpinHub = lazy(() => import("./pages/admin/AdminSpinHub"));
 const AdminVisitorTokens = lazy(() => import("./pages/admin/AdminVisitorTokens"));
 const AdminLogoAudit = lazy(() => import("./pages/admin/AdminLogoAudit"));
 const AdminSeoAudit = lazy(() => import("./pages/admin/AdminSeoAudit"));
+const AdminIndexingLogs = lazy(() => import("./pages/admin/AdminIndexingLogs"));
 
 
 
@@ -192,6 +193,7 @@ function AppLayout() {
             <Route path="/admin/visitor-tokens" element={<AdminVisitorTokens />} />
             <Route path="/admin/logo-audit" element={<AdminLogoAudit />} />
             <Route path="/admin/seo-audit" element={<AdminSeoAudit />} />
+            <Route path="/admin/indexing-logs" element={<AdminIndexingLogs />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

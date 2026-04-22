@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -20,8 +21,13 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+  const sb = createClient(supabaseUrl, serviceKey);
+
   try {
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
+    const source: string = body.source ?? "manual";
     const customUrls: string[] = body.urls ?? [];
     const urlList = customUrls.length > 0
       ? customUrls.map((u: string) => u.startsWith("http") ? u : `${SITE_URL}${u}`)
@@ -31,6 +37,16 @@ serve(async (req) => {
     const results: { endpoint: string; status: number | string }[] = [];
 
     if (!indexNowKey) {
+      // Log the failed attempt
+      await sb.from("indexing_logs").insert({
+        source,
+        urls_submitted: 0,
+        url_list: [],
+        results: [],
+        success: false,
+        error_message: "INDEXNOW_KEY not configured",
+      });
+
       return new Response(
         JSON.stringify({
           success: false,
@@ -41,7 +57,6 @@ serve(async (req) => {
       );
     }
 
-    // IndexNow batch submission (Bing, Yandex, Naver, Seznam, etc.)
     const indexNowHosts = [
       "https://api.indexnow.org/indexnow",
       "https://www.bing.com/indexnow",
@@ -65,6 +80,20 @@ serve(async (req) => {
       }
     }
 
+    const allSuccess = results.every(
+      (r) => typeof r.status === "number" && r.status >= 200 && r.status < 300
+    );
+
+    // Log to database
+    await sb.from("indexing_logs").insert({
+      source,
+      urls_submitted: urlList.length,
+      url_list: urlList,
+      results,
+      success: allSuccess,
+      error_message: allSuccess ? null : JSON.stringify(results.filter(r => typeof r.status !== "number" || r.status >= 400)),
+    });
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -76,6 +105,17 @@ serve(async (req) => {
     );
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";
+
+    // Log error
+    await sb.from("indexing_logs").insert({
+      source: "unknown",
+      urls_submitted: 0,
+      url_list: [],
+      results: [],
+      success: false,
+      error_message: msg,
+    }).catch(() => {});
+
     return new Response(
       JSON.stringify({ success: false, error: msg }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
