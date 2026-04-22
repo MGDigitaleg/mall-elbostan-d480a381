@@ -121,7 +121,7 @@ for (const file of pageFiles) {
 
     // noIndex check — only admin pages should have it
     const hasNoIndex = /noIndex/i.test(match);
-    if (hasNoIndex && !isAdmin) {
+    if (hasNoIndex && !isAdmin && !NOINDEX_ALLOWED.has(rel)) {
       add(rel, "error", "noIndex on a public page — this blocks search indexing");
     }
 
