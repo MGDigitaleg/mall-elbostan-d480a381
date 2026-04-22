@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildProductLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -159,6 +159,8 @@ const ProductDetail = () => {
           title={kzProduct.seo_title || kzProduct.title}
           titleEn={kzProduct.title}
           description={kzProduct.seo_description || kzProduct.short_description || kzProduct.title}
+          ogImage={kzProduct.kz_product_images?.[0]?.image_url ?? undefined}
+          keywords={`${kzProduct.title}, ${kzProduct.brand ?? ''}, مول البستان, اسعار, Kasr Zero`}
           breadcrumbs={[
             { name: "المنتجات", url: "/products" },
             { name: kzProduct.title, url: `/products/${kzProduct.slug}` },
@@ -365,10 +367,22 @@ const ProductDetail = () => {
         title={mallProduct!.name_ar}
         titleEn={mallProduct!.name_en ?? undefined}
         description={mallProduct!.short_description_ar ?? `${mallProduct!.name_ar} — متوفر في مول البستان`}
+        ogImage={mallProduct!.image_url ?? undefined}
+        keywords={`${mallProduct!.name_ar}, ${mallProduct!.brand ?? ''}, ${mallProduct!.name_en ?? ''}, مول البستان, اسعار`}
         breadcrumbs={[
           { name: "المنتجات", url: "/products" },
           { name: mallProduct!.name_ar, url: `/products/${slug}` },
         ]}
+        jsonLd={buildProductLd({
+          name_ar: mallProduct!.name_ar,
+          slug: mallProduct!.slug,
+          price: mallProduct!.price,
+          image_url: mallProduct!.image_url,
+          brand: mallProduct!.brand,
+          sku: mallProduct!.sku,
+          short_description_ar: mallProduct!.short_description_ar,
+          store_name: (mallProduct as Record<string, unknown>)?.stores ? ((mallProduct as Record<string, unknown>).stores as Record<string, string>)?.name_ar : undefined,
+        })}
       />
 
       {/* Breadcrumb */}

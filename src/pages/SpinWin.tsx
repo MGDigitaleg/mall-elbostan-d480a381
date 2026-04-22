@@ -165,8 +165,9 @@ const SpinWin = () => {
       <SEOHead
         title="أدر واربح"
         titleEn="Spin & Win"
-        description="لف العجلة واربح جوائز فورية + الجائزة الكبرى من مول البستان — التجمع"
+        description="لف العجلة واربح جوائز فورية من مول البستان — خصومات وهدايا حقيقية بمناسبة الافتتاح الكبير في القاهرة الجديدة."
         descriptionEn="Spin the wheel at Mall Elbostan – New Cairo and win instant prizes."
+        keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
         breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]}
       />
 

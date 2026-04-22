@@ -11,7 +11,9 @@ const Countdown = () => {
         titleEn="Coming Soon — Grand Opening"
         description="مول البستان — أكبر وجهة تقنية متخصصة في القاهرة الجديدة. الافتتاح الكبير ١ مايو ٢٠٢٦."
         descriptionEn="Mall Elbostan — the biggest tech destination in New Cairo. Grand opening May 1, 2026."
+        keywords="افتتاح مول البستان, افتتاح 2026, مول تكنولوجيا جديد, القاهرة الجديدة, grand opening"
         ogImage={ogCountdown}
+        breadcrumbs={[{ name: "العد التنازلي", url: "/countdown" }]}
       />
 
       <div
