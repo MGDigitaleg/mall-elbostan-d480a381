@@ -6,14 +6,7 @@ const corsHeaders = {
 };
 
 const SITE_URL = "https://mallelbostan.com";
-const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
 
-const PING_ENDPOINTS = [
-  `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-  `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-];
-
-// Key pages to request indexing for via IndexNow (Bing/Yandex)
 const KEY_PAGES = [
   "/", "/stores", "/products", "/map", "/leasing",
   "/opening-day", "/spin-win", "/daily-deals",
@@ -28,44 +21,47 @@ serve(async (req) => {
   }
 
   try {
+    const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
+    const customUrls: string[] = body.urls ?? [];
+    const urlList = customUrls.length > 0
+      ? customUrls.map((u: string) => u.startsWith("http") ? u : `${SITE_URL}${u}`)
+      : KEY_PAGES.map((p) => `${SITE_URL}${p}`);
+
+    const indexNowKey = Deno.env.get("INDEXNOW_KEY");
     const results: { endpoint: string; status: number | string }[] = [];
 
-    // 1. Sitemap ping (Google + Bing)
-    for (const url of PING_ENDPOINTS) {
-      try {
-        const res = await fetch(url, { method: "GET" });
-        results.push({ endpoint: url.split("?")[0], status: res.status });
-      } catch (e) {
-        results.push({ endpoint: url.split("?")[0], status: `error: ${(e as Error).message}` });
-      }
+    if (!indexNowKey) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "INDEXNOW_KEY not configured. Add an IndexNow key to enable search engine pinging.",
+          setup: "Generate a key at https://www.indexnow.org/genkey, add it as INDEXNOW_KEY secret, and place {key}.txt in /public/",
+        }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    // 2. IndexNow (Bing + Yandex) — if INDEXNOW_KEY is configured
-    const indexNowKey = Deno.env.get("INDEXNOW_KEY");
-    if (indexNowKey) {
-      const indexNowHosts = [
-        "https://api.indexnow.org/indexnow",
-        "https://www.bing.com/indexnow",
-      ];
+    // IndexNow batch submission (Bing, Yandex, Naver, Seznam, etc.)
+    const indexNowHosts = [
+      "https://api.indexnow.org/indexnow",
+      "https://www.bing.com/indexnow",
+    ];
 
-      const urlList = KEY_PAGES.map((p) => `${SITE_URL}${p}`);
-
-      for (const host of indexNowHosts) {
-        try {
-          const res = await fetch(host, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              host: "mallelbostan.com",
-              key: indexNowKey,
-              keyLocation: `${SITE_URL}/${indexNowKey}.txt`,
-              urlList,
-            }),
-          });
-          results.push({ endpoint: host, status: res.status });
-        } catch (e) {
-          results.push({ endpoint: host, status: `error: ${(e as Error).message}` });
-        }
+    for (const host of indexNowHosts) {
+      try {
+        const res = await fetch(host, {
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+          body: JSON.stringify({
+            host: "mallelbostan.com",
+            key: indexNowKey,
+            keyLocation: `${SITE_URL}/${indexNowKey}.txt`,
+            urlList,
+          }),
+        });
+        results.push({ endpoint: host, status: res.status });
+      } catch (e) {
+        results.push({ endpoint: host, status: `error: ${(e as Error).message}` });
       }
     }
 
@@ -74,8 +70,7 @@ serve(async (req) => {
         success: true,
         timestamp: new Date().toISOString(),
         pings: results,
-        indexNowConfigured: !!indexNowKey,
-        pagesSubmitted: KEY_PAGES.length,
+        urlsSubmitted: urlList.length,
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
