@@ -149,10 +149,10 @@ if (existsSync(seoHeadFile)) {
     }
   }
 
-  // Verify required schema types exist
+  // Verify required schema types exist (allow multi-type arrays like ["LocalBusiness", "ElectronicsStore"])
   const requiredTypes = ["LocalBusiness", "WebSite", "ShoppingCenter"];
   for (const t of requiredTypes) {
-    if (!content.includes(`"@type": "${t}"`)) {
+    if (!content.includes(`"${t}"`)) {
       add("src/components/SEOHead.tsx", "error", `Missing required JSON-LD schema: ${t}`);
     }
   }
