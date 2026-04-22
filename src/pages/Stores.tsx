@@ -71,6 +71,7 @@ function StoreSeoIntro({ category, totalStores, activeCount }: { category: strin
 }
 
 const Stores = () => {
+  const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") ?? "";
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
