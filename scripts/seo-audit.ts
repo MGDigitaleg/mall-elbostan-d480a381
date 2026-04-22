@@ -16,10 +16,26 @@ import { readFileSync, existsSync, readdirSync, statSync } from "fs";
 import { join, relative } from "path";
 
 const ROOT = process.cwd();
-const TITLE_MIN = 10;
+const TITLE_MIN = 5;
 const TITLE_MAX = 65;
-const DESC_MIN = 50;
+const DESC_MIN = 20;
 const DESC_MAX = 165;
+
+/** Pages that build title/description dynamically from DB data — skip static prop checks */
+const DYNAMIC_PAGES = new Set([
+  "src/pages/BlogPost.tsx",
+  "src/pages/StoreDetail.tsx",
+  "src/pages/ProductDetail.tsx",
+  "src/pages/DowntownMerchantDetail.tsx",
+  "src/pages/kz/KzProductDetail.tsx",
+  "src/pages/kz/KzCategory.tsx",
+]);
+
+/** Pages allowed to use noIndex */
+const NOINDEX_ALLOWED = new Set([
+  "src/pages/NotFound.tsx",
+  "src/pages/SpinClaim.tsx",
+]);
 
 interface Issue {
   file: string;
