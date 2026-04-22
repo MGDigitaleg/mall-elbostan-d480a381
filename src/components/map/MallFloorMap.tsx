@@ -69,19 +69,6 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
 
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    // Only intercept scroll when zoomed in — at default zoom, let the page scroll normally
-    if (zoom <= MIN_ZOOM && e.deltaY > 0) return; // scrolling down at min zoom → page scroll
-    if (zoom <= MIN_ZOOM && e.deltaY < 0) {
-      // scrolling up at min zoom → allow zoom in but don't block page scroll if already at min
-    }
-    const delta = e.deltaY > 0 ? -ZOOM_STEP * 0.5 : ZOOM_STEP * 0.5;
-    const next = Math.min(Math.max(zoom + delta, MIN_ZOOM), MAX_ZOOM);
-    if (next === zoom) return; // no change, let page scroll
-    e.preventDefault();
-    setZoom(next);
-    if (next === MIN_ZOOM) setPan({ x: 0, y: 0 });
-  }, [zoom]);
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (zoom <= 1) return;
@@ -141,7 +128,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
       <div
         ref={containerRef}
-        onWheel={handleWheel}
+        
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
