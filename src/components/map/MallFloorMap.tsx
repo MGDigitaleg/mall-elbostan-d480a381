@@ -207,7 +207,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
         className={cn("touch-none", zoom > 1 && "cursor-grab active:cursor-grabbing")}
-        style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`, transformOrigin: "center center", transition: isPanning.current ? "none" : "transform 0.25s ease-out" }}
+        style={{ transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`, transformOrigin: "center center", transition: isPanning.current ? "none" : isAnimatingReset.current ? "transform 0.35s cubic-bezier(0.4,0,0.2,1)" : "transform 0.25s ease-out" }}
       >
       <svg
         viewBox="-20 -20 1040 1040"
