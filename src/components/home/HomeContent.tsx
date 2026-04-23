@@ -351,6 +351,33 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 </Link>
               ))}
             </div>
+
+            {/* Closing Trust Ribbon — fills the navy gap before SEO footer */}
+            <div className="mt-10 md:mt-14">
+              <div className="mx-auto h-px max-w-[28rem] bg-gradient-to-r from-transparent via-white/[0.08] to-transparent mb-6 md:mb-8" />
+              <div className="flex flex-wrap items-baseline justify-center gap-x-8 md:gap-x-12 gap-y-4">
+                {[
+                  { value: "منذ 1990", label: "ثقة السوق" },
+                  { value: "3 فروع نشطة", label: "حضور موسّع" },
+                  { value: "رد خلال يوم عمل", label: "التزام تجاري" },
+                  { value: "01 · 05 · 2026", label: "الافتتاح الرسمي" },
+                ].map((item, i, arr) => (
+                  <div key={item.value} className="flex items-baseline gap-x-8 md:gap-x-12">
+                    <div className="text-center">
+                      <p className="text-[0.85rem] md:text-[0.95rem] font-bold leading-tight" style={{ color: "#F1F5F9", fontFamily: "var(--font-arabic-display)" }}>
+                        {item.value}
+                      </p>
+                      <p className="mt-1 text-[0.6rem] tracking-[0.14em]" style={{ color: "#7C8BA1" }}>
+                        {item.label}
+                      </p>
+                    </div>
+                    {i < arr.length - 1 && (
+                      <span className="hidden md:inline text-[0.6rem]" style={{ color: "#CDBB9A60" }}>·</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
