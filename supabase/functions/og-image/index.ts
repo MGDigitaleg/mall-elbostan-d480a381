@@ -154,17 +154,8 @@ function generateSvg(title: string, type: string, category?: string): string {
   <text x="${textRight - 22}" y="351" font-family="PlexAr, system-ui, sans-serif" font-size="18" font-weight="400" fill="${accentCyan}" text-anchor="end" xml:lang="ar">${escapedCategory}</text>`;
   })() : ""}
 
-  <!-- Decorative icon (left side, mirrored for RTL layout) -->
-  <g transform="translate(${isProduct ? 80 : 100}, ${isProduct ? 180 : 200})" opacity="0.08">
-    ${isProduct
-      ? `<rect x="0" y="0" width="200" height="200" rx="24" fill="none" stroke="${textWhite}" stroke-width="4"/>
-         <rect x="60" y="30" width="80" height="140" rx="12" fill="none" stroke="${textWhite}" stroke-width="3"/>
-         <circle cx="100" cy="145" r="8" fill="none" stroke="${textWhite}" stroke-width="3"/>`
-      : `<rect x="0" y="20" width="180" height="160" rx="16" fill="none" stroke="${textWhite}" stroke-width="4"/>
-         <rect x="40" y="0" width="100" height="40" rx="8" fill="none" stroke="${textWhite}" stroke-width="3"/>
-         <line x1="0" y1="80" x2="180" y2="80" stroke="${textWhite}" stroke-width="3"/>`
-    }
-  </g>
+  <!-- Official brand logo (left side for RTL layout) -->
+  ${logoPngB64 ? `<image x="60" y="220" width="220" height="130" href="data:image/png;base64,${logoPngB64}" opacity="0.12"/>` : ""}
 
   <!-- Bottom bar -->
   <rect x="0" y="560" width="1200" height="70" fill="${bgColor}" opacity="0.6"/>
