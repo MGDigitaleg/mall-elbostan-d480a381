@@ -8,6 +8,14 @@ const corsHeaders = {
 const BASE_URL = "https://mallelbostan.com";
 const SPLIT_THRESHOLD = 500;
 
+// Keep this in sync with public/sitemap.xml.
+// Excluded on purpose:
+//   - /countdown      → noIndex + Disallow in robots.txt (campaign-only page)
+//   - /kz/products    → redirects to /products (canonical)
+//   - /blog, /careers, /daily-deals → conditionally noIndex when empty;
+//                       allowed in robots.txt but we keep them out of the
+//                       sitemap until they have published content (added back
+//                       per-row via DB queries below).
 const STATIC_ROUTES = [
   { loc: "/", priority: "1.0", changefreq: "daily" },
   { loc: "/stores", priority: "0.9", changefreq: "daily" },
@@ -16,20 +24,15 @@ const STATIC_ROUTES = [
   { loc: "/leasing", priority: "0.8", changefreq: "weekly" },
   { loc: "/about", priority: "0.7", changefreq: "monthly" },
   { loc: "/contact", priority: "0.7", changefreq: "monthly" },
-  { loc: "/blog", priority: "0.7", changefreq: "daily" },
   { loc: "/faq", priority: "0.6", changefreq: "monthly" },
-  { loc: "/careers", priority: "0.6", changefreq: "weekly" },
   { loc: "/join-marketplace", priority: "0.6", changefreq: "monthly" },
   { loc: "/opening-day", priority: "0.8", changefreq: "weekly" },
   { loc: "/spin-win", priority: "0.7", changefreq: "weekly" },
-  { loc: "/daily-deals", priority: "0.7", changefreq: "daily" },
-  { loc: "/countdown", priority: "0.5", changefreq: "weekly" },
   { loc: "/new-cairo-branch", priority: "0.8", changefreq: "monthly" },
   { loc: "/downtown-branch", priority: "0.8", changefreq: "monthly" },
   { loc: "/downtown-directory", priority: "0.7", changefreq: "weekly" },
   { loc: "/market-echo", priority: "0.5", changefreq: "monthly" },
   { loc: "/kz", priority: "0.7", changefreq: "daily" },
-  { loc: "/kz/products", priority: "0.7", changefreq: "daily" },
   { loc: "/privacy", priority: "0.3", changefreq: "yearly" },
   { loc: "/terms", priority: "0.3", changefreq: "yearly" },
   { loc: "/reward-terms", priority: "0.3", changefreq: "yearly" },
