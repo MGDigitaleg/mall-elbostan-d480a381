@@ -26,19 +26,24 @@ function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
 
-/* ── Font + WASM initialization (cold start) ── */
+/* ── Font + WASM + Logo initialization (cold start) ── */
 
 let wasmReady = false;
 let fontRegularB64 = "";
 let fontBoldB64 = "";
 let fontRegularBuf: Uint8Array | null = null;
 let fontBoldBuf: Uint8Array | null = null;
+let logoPngB64 = "";
 
 // IBM Plex Sans Arabic from Google Fonts — static TTF URLs
 const FONT_REGULAR_URL =
   "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3CZRtWPQCuHme67tEYUIx3Kh0PHR9N6YNe3PC5PadA.ttf";
 const FONT_BOLD_URL =
   "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3VZRtWPQCuHme67tEYUIx3Kh0PHR9N6Ys43PWrfidA.ttf";
+
+// Official brand logo from storage
+const LOGO_URL =
+  "https://wrheltmgquyqqhscrpds.supabase.co/storage/v1/object/public/logos/brand/og-logo-white.png";
 
 function bufToBase64(buf: Uint8Array): string {
   let binary = "";
@@ -51,11 +56,12 @@ function bufToBase64(buf: Uint8Array): string {
 async function ensureReady() {
   if (wasmReady) return;
 
-  // Fetch WASM + fonts in parallel
-  const [wasmRes, regRes, boldRes] = await Promise.all([
+  // Fetch WASM + fonts + logo in parallel
+  const [wasmRes, regRes, boldRes, logoRes] = await Promise.all([
     fetch("https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"),
     fetch(FONT_REGULAR_URL),
     fetch(FONT_BOLD_URL),
+    fetch(LOGO_URL),
   ]);
 
   await initialize(wasmRes);
@@ -64,6 +70,11 @@ async function ensureReady() {
   fontBoldBuf = new Uint8Array(await boldRes.arrayBuffer());
   fontRegularB64 = bufToBase64(fontRegularBuf);
   fontBoldB64 = bufToBase64(fontBoldBuf);
+
+  if (logoRes.ok) {
+    const logoBuf = new Uint8Array(await logoRes.arrayBuffer());
+    logoPngB64 = bufToBase64(logoBuf);
+  }
 
   wasmReady = true;
 }
