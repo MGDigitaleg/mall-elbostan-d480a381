@@ -204,6 +204,7 @@ export const TechPlanetSection = () => {
   const settingsContainerRef = useRef<HTMLDivElement>(null);
   const settingsItemsRef = useRef<Array<HTMLButtonElement | null>>([]);
   const [settingsFocusIndex, setSettingsFocusIndex] = useState(0);
+  const [intensityAnnouncement, setIntensityAnnouncement] = useState("");
 
   // Close menu on outside click/touch
   useEffect(() => {
