@@ -437,7 +437,7 @@ export const TechPlanetSection = () => {
               }}
             >
               <Sparkles className="h-3.5 w-3.5" />
-              <span>شدة الطاقة: {INTENSITY_CONFIG[intensity].label}</span>
+              <span>شدة الطاقة: {reduce ? INTENSITY_CONFIG.off.label : INTENSITY_CONFIG[intensity].label}</span>
             </button>
             {settingsOpen && (
               <div
