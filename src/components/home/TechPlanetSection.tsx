@@ -298,6 +298,8 @@ export const TechPlanetSection = () => {
           containIntrinsicSize: "auto 720px",
         }}
       >
+        <style>{`@keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+
         <div className="pointer-events-none absolute inset-0">
           {Array.from({ length: 30 }).map((_, i) => {
             const top = (i * 37) % 100;
