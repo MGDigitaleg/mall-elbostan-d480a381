@@ -23,6 +23,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { HeroSlider } from "@/components/home/HeroSlider";
 import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
 import { QuickActions } from "@/components/home/QuickActions";
+import { MallPulseStrip } from "@/components/home/MallPulseStrip";
 import { WhyElBostan } from "@/components/home/WhyElBostan";
 
 const FeaturedStores = lazy(() =>
@@ -150,6 +151,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
       <QuickActions />
+
+      {/* ═══════════ 2.5 · MALL PULSE STRIP ═══════════ */}
+      <MallPulseStrip />
 
       {/* ═══════════ 3 · FEATURED STORES ═══════════ */}
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 400px" } as React.CSSProperties}>
