@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   Laptop, Smartphone, Monitor, Cpu, Headphones, Keyboard,
   HardDrive, Mouse, Camera, Gamepad2, Printer, Router,
-  Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi,
+  Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi, Wrench,
   ArrowLeft, type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,33 +18,45 @@ type Device = {
   category: string;
 };
 
+// Category slugs MUST match existing values in the `stores.category` column.
+// Verified DB categories (Arabic): الهواتف والإكسسوارات · الكمبيوتر والأجهزة ·
+// الألعاب والترفيه · الشبكات والأنظمة الأمنية · الطباعة والتصوير · الصيانة والدعم الفني
+const CAT = {
+  phones: "الهواتف والإكسسوارات",
+  computers: "الكمبيوتر والأجهزة",
+  gaming: "الألعاب والترفيه",
+  networking: "الشبكات والأنظمة الأمنية",
+  printing: "الطباعة والتصوير",
+  maintenance: "الصيانة والدعم الفني",
+} as const;
+
 const innerOrbit: Device[] = [
-  { Icon: Laptop, label: "لابتوبات", category: "laptops" },
-  { Icon: Smartphone, label: "هواتف ذكية", category: "phones" },
-  { Icon: Monitor, label: "شاشات", category: "monitors" },
-  { Icon: Cpu, label: "معالجات", category: "components" },
-  { Icon: Headphones, label: "سماعات", category: "audio" },
-  { Icon: Keyboard, label: "لوحات مفاتيح", category: "accessories" },
+  { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
+  { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
+  { Icon: Monitor, label: "شاشات", category: CAT.computers },
+  { Icon: Cpu, label: "معالجات", category: CAT.computers },
+  { Icon: Headphones, label: "سماعات", category: CAT.phones },
+  { Icon: Keyboard, label: "لوحات مفاتيح", category: CAT.computers },
 ];
 
 const middleOrbit: Device[] = [
-  { Icon: HardDrive, label: "تخزين", category: "storage" },
-  { Icon: Mouse, label: "ماوس", category: "accessories" },
-  { Icon: Camera, label: "كاميرات", category: "cameras" },
-  { Icon: Gamepad2, label: "جيمنج", category: "gaming" },
-  { Icon: Printer, label: "طابعات", category: "printers" },
-  { Icon: Router, label: "راوترات", category: "networking" },
+  { Icon: HardDrive, label: "تخزين", category: CAT.computers },
+  { Icon: Mouse, label: "ماوس", category: CAT.computers },
+  { Icon: Camera, label: "كاميرات", category: CAT.printing },
+  { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
+  { Icon: Printer, label: "طابعات", category: CAT.printing },
+  { Icon: Router, label: "راوترات", category: CAT.networking },
 ];
 
 const outerOrbit: Device[] = [
-  { Icon: Tablet, label: "تابلت", category: "tablets" },
-  { Icon: Watch, label: "ساعات ذكية", category: "wearables" },
-  { Icon: Speaker, label: "سبيكر", category: "audio" },
-  { Icon: MemoryStick, label: "رامات", category: "components" },
-  { Icon: Webcam, label: "ويب كام", category: "cameras" },
-  { Icon: Cable, label: "كابلات", category: "accessories" },
-  { Icon: Zap, label: "شواحن", category: "accessories" },
-  { Icon: Wifi, label: "شبكات", category: "networking" },
+  { Icon: Tablet, label: "تابلت", category: CAT.phones },
+  { Icon: Watch, label: "ساعات ذكية", category: CAT.phones },
+  { Icon: Speaker, label: "سبيكر", category: CAT.phones },
+  { Icon: MemoryStick, label: "رامات", category: CAT.computers },
+  { Icon: Webcam, label: "ويب كام", category: CAT.printing },
+  { Icon: Cable, label: "كابلات", category: CAT.phones },
+  { Icon: Zap, label: "شواحن", category: CAT.phones },
+  { Icon: Wifi, label: "شبكات", category: CAT.networking },
 ];
 
 type OrbitProps = {
@@ -117,7 +129,7 @@ const DeviceBadge = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          to={`/stores?category=${category}`}
+          to={`/stores?category=${encodeURIComponent(category)}`}
           aria-label={label}
           onMouseEnter={() => onHoverChange(true)}
           onMouseLeave={() => onHoverChange(false)}
@@ -195,14 +207,14 @@ export const TechPlanetSection = () => {
 
   // Curated 8-device set for mobile single orbit (one per category, balanced)
   const mobileDevices = useMemo<Device[]>(() => [
-    { Icon: Laptop, label: "لابتوبات", category: "laptops" },
-    { Icon: Smartphone, label: "هواتف ذكية", category: "phones" },
-    { Icon: Monitor, label: "شاشات", category: "monitors" },
-    { Icon: Gamepad2, label: "جيمنج", category: "gaming" },
-    { Icon: Headphones, label: "سماعات", category: "audio" },
-    { Icon: Cpu, label: "معالجات", category: "components" },
-    { Icon: Camera, label: "كاميرات", category: "cameras" },
-    { Icon: Router, label: "شبكات", category: "networking" },
+    { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
+    { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
+    { Icon: Monitor, label: "شاشات", category: CAT.computers },
+    { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
+    { Icon: Headphones, label: "سماعات", category: CAT.phones },
+    { Icon: Printer, label: "طباعة", category: CAT.printing },
+    { Icon: Wrench, label: "صيانة", category: CAT.maintenance },
+    { Icon: Router, label: "شبكات", category: CAT.networking },
   ], []);
 
   const sizes = useMemo(() => {
