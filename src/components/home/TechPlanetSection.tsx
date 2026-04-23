@@ -53,22 +53,26 @@ type OrbitProps = {
   duration: number;
   iconSize: number;
   reverse?: boolean;
-  paused: boolean;
   active: boolean;
   reduce: boolean;
+  paused: boolean;
+  onHoverChange: (hovered: boolean) => void;
 };
 
-const Orbit = ({ devices, radius, duration, iconSize, reverse, paused, active, reduce }: OrbitProps) => {
+const Orbit = ({
+  devices, radius, duration, iconSize, reverse, active, reduce, paused, onHoverChange,
+}: OrbitProps) => {
+  const playState = !active || reduce || paused ? "paused" : "running";
+  const direction = reverse ? "reverse" : "normal";
+
   return (
-    <motion.div
+    <div
       className="absolute inset-0 flex items-center justify-center"
-      style={{ willChange: "transform" }}
-      animate={active && !reduce ? { rotate: reverse ? -360 : 360 } : { rotate: 0 }}
-      transition={{
-        repeat: Infinity,
-        duration,
-        ease: "linear",
-        repeatType: "loop",
+      style={{
+        willChange: "transform",
+        animation: `tp-spin ${duration}s linear infinite`,
+        animationPlayState: playState,
+        animationDirection: direction,
       }}
     >
       {devices.map((d, i) => {
@@ -84,28 +88,41 @@ const Orbit = ({ devices, radius, duration, iconSize, reverse, paused, active, r
             size={iconSize}
             counterRotateDuration={duration}
             reverse={reverse}
-            active={active}
-            reduce={reduce}
+            playState={playState}
+            onHoverChange={onHoverChange}
           />
         );
       })}
-    </motion.div>
+    </div>
   );
 };
 
 const DeviceBadge = ({
-  device, x, y, size, counterRotateDuration, reverse, active, reduce,
+  device, x, y, size, counterRotateDuration, reverse, playState, onHoverChange,
 }: {
-  device: Device; x: number; y: number; size: number;
-  counterRotateDuration: number; reverse?: boolean; active: boolean; reduce: boolean;
+  device: Device;
+  x: number;
+  y: number;
+  size: number;
+  counterRotateDuration: number;
+  reverse?: boolean;
+  playState: "running" | "paused";
+  onHoverChange: (hovered: boolean) => void;
 }) => {
   const { Icon, label, category } = device;
+  // Counter-rotate in opposite direction of the orbit so icons stay upright
+  const counterDirection = reverse ? "normal" : "reverse";
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
           to={`/stores?category=${category}`}
           aria-label={label}
+          onMouseEnter={() => onHoverChange(true)}
+          onMouseLeave={() => onHoverChange(false)}
+          onFocus={() => onHoverChange(true)}
+          onBlur={() => onHoverChange(false)}
           className="absolute group focus:outline-none"
           style={{
             transform: `translate(${x}px, ${y}px)`,
@@ -117,20 +134,16 @@ const DeviceBadge = ({
             top: "50%",
           }}
         >
-          <motion.div
-            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-all duration-300 group-hover:scale-[1.3]"
+          <div
+            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-transform duration-300 group-hover:scale-[1.3]"
             style={{
               borderColor: "rgba(205, 187, 154, 0.25)",
               background: "rgba(255, 255, 255, 0.04)",
               boxShadow: "0 4px 16px rgba(7, 19, 38, 0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               willChange: "transform",
-            }}
-            animate={active && !reduce ? { rotate: reverse ? 360 : -360 } : { rotate: 0 }}
-            transition={{
-              repeat: Infinity,
-              duration: counterRotateDuration,
-              ease: "linear",
-              repeatType: "loop",
+              animation: `tp-spin ${counterRotateDuration}s linear infinite`,
+              animationDirection: counterDirection,
+              animationPlayState: playState,
             }}
           >
             <Icon
@@ -138,7 +151,7 @@ const DeviceBadge = ({
               strokeWidth={1.6}
               className="text-[#60A5FA] transition-colors duration-300 group-hover:text-[#CDBB9A]"
             />
-          </motion.div>
+          </div>
         </Link>
       </TooltipTrigger>
       <TooltipContent side="top" className="font-arabic text-[0.78rem]">
