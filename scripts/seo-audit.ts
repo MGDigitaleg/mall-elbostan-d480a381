@@ -37,6 +37,9 @@ const DYNAMIC_PAGES = new Set([
 const NOINDEX_ALLOWED = new Set([
   "src/pages/NotFound.tsx",
   "src/pages/SpinClaim.tsx",
+  "src/pages/Countdown.tsx",
+  "src/pages/DailyDeals.tsx",
+  "src/pages/Blog.tsx",
 ]);
 
 interface Issue {
