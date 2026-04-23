@@ -25,9 +25,8 @@ import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
 import { QuickActions } from "@/components/home/QuickActions";
 import { WhyElBostan } from "@/components/home/WhyElBostan";
 
-const FeaturedStores = lazy(() =>
-  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
-);
+// FeaturedStores moved to /new-cairo-branch
+
 const MerchantLogoWall = lazy(() =>
   import("@/components/home/MerchantLogoWall").then((m) => ({ default: m.MerchantLogoWall }))
 );
@@ -155,12 +154,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
       <QuickActions />
 
-      {/* ═══════════ 3 · FEATURED STORES ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 400px" } as React.CSSProperties}>
-        <LazySection minHeight={400}>
-          <Suspense fallback={<div style={{ minHeight: 400 }} />}><FeaturedStores /></Suspense>
-        </LazySection>
-      </section>
+      {/* ═══════════ 3 · (Featured Stores moved to فرع التجمع) ═══════════ */}
+
 
       {/* ═══════════ 4 · CATEGORIES ═══════════ */}
       <section style={{ contain: "layout", minHeight: 296, contentVisibility: "auto", containIntrinsicSize: "auto 296px" } as React.CSSProperties}>
