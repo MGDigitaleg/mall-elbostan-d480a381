@@ -5,7 +5,7 @@ import {
   Laptop, Smartphone, Monitor, Cpu, Headphones, Keyboard,
   HardDrive, Mouse, Camera, Gamepad2, Printer, Router,
   Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi, Wrench,
-  ArrowLeft, type LucideIcon,
+  ArrowLeft, Sparkles, Check, type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -353,6 +353,59 @@ export const TechPlanetSection = () => {
         }}
       >
         <style>{`@keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+
+        {/* Energy intensity settings */}
+        <div className="absolute end-4 top-4 z-20">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setSettingsOpen((v) => !v)}
+              aria-label="إعدادات شدة الطاقة"
+              aria-expanded={settingsOpen}
+              className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.72rem] font-arabic backdrop-blur-md transition-colors"
+              style={{
+                borderColor: "rgba(205,187,154,0.3)",
+                background: "rgba(7,19,38,0.6)",
+                color: "#CDBB9A",
+              }}
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>شدة الطاقة: {INTENSITY_CONFIG[intensity].label}</span>
+            </button>
+            {settingsOpen && (
+              <div
+                role="menu"
+                className="absolute end-0 mt-2 min-w-[180px] overflow-hidden rounded-lg border shadow-xl"
+                style={{
+                  borderColor: "rgba(205,187,154,0.25)",
+                  background: "rgba(7,19,38,0.96)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt) => {
+                  const isActive = intensity === opt;
+                  return (
+                    <button
+                      key={opt}
+                      type="button"
+                      role="menuitemradio"
+                      aria-checked={isActive}
+                      onClick={() => {
+                        setIntensity(opt);
+                        setSettingsOpen(false);
+                      }}
+                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06]"
+                      style={{ color: isActive ? "#CDBB9A" : "rgba(255,255,255,0.78)" }}
+                    >
+                      <span>{INTENSITY_CONFIG[opt].label}</span>
+                      {isActive && <Check className="h-3.5 w-3.5" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
 
         <div className="pointer-events-none absolute inset-0">
           {Array.from({ length: 30 }).map((_, i) => {
