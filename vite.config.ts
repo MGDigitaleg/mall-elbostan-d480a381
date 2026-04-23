@@ -82,7 +82,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), heroImagePreload(), asyncCssPlugin(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), heroImagePreload(), asyncCssPlugin(), gscVerificationCheck(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
