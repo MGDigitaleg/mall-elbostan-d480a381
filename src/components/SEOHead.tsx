@@ -125,58 +125,69 @@ export function SEOHead({
 
 // ─── Reusable JSON-LD schemas ───
 
-export const organizationLd = {
-  "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "ElectronicsStore"],
-  "@id": `${BASE_URL}/#organization`,
-  name: "مول البستان",
-  alternateName: ["Mall Elbostan", "El Bostan Mall"],
-  description: "أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في القاهرة الجديدة — أكثر من 150 محل للابتوبات، هواتف، جيمنج، إكسسوارات، وصيانة بالتجمع الخامس.",
-  url: BASE_URL,
-  logo: `${BASE_URL}/og-default.jpg`,
-  image: `${BASE_URL}/og-default.jpg`,
-  ...(OFFICIAL_PHONE.trim() ? { telephone: OFFICIAL_PHONE.trim() } : {}),
-  priceRange: "$$",
-  currenciesAccepted: "EGP",
-  paymentAccepted: "Cash, Credit Card",
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "10:00",
-      closes: "22:00",
+/**
+ * Build the Organization JSON-LD with a runtime phone override.
+ * Pass the value from `useSitePhone()` to inject the admin-controlled phone live.
+ * Falls back to the build-time OFFICIAL_PHONE constant if no override is given.
+ */
+export function buildOrganizationLd(phoneOverride?: string) {
+  const phone = (phoneOverride ?? OFFICIAL_PHONE).trim();
+  return {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ElectronicsStore"],
+    "@id": `${BASE_URL}/#organization`,
+    name: "مول البستان",
+    alternateName: ["Mall Elbostan", "El Bostan Mall"],
+    description: "أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في القاهرة الجديدة — أكثر من 150 محل للابتوبات، هواتف، جيمنج، إكسسوارات، وصيانة بالتجمع الخامس.",
+    url: BASE_URL,
+    logo: `${BASE_URL}/og-default.jpg`,
+    image: `${BASE_URL}/og-default.jpg`,
+    ...(phone ? { telephone: phone } : {}),
+    priceRange: "$$",
+    currenciesAccepted: "EGP",
+    paymentAccepted: "Cash, Credit Card",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "10:00",
+        closes: "22:00",
+      },
+    ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "شارع التسعين، التجمع الخامس",
+      addressLocality: "القاهرة الجديدة",
+      addressRegion: "القاهرة",
+      postalCode: "11835",
+      addressCountry: "EG",
     },
-  ],
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "شارع التسعين، التجمع الخامس",
-    addressLocality: "القاهرة الجديدة",
-    addressRegion: "القاهرة",
-    postalCode: "11835",
-    addressCountry: "EG",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 30.03,
-    longitude: 31.46,
-  },
-  areaServed: [
-    { "@type": "City", name: "القاهرة الجديدة" },
-    { "@type": "City", name: "مدينتي" },
-    { "@type": "City", name: "الرحاب" },
-    { "@type": "City", name: "القاهرة" },
-  ],
-  hasMap: `${BASE_URL}/map`,
-  foundingDate: "1990",
-  keywords: "مول كمبيوتر, محلات موبايلات, لابتوب, جيمنج, إلكترونيات, القاهرة الجديدة, التجمع الخامس",
-  sameAs: [
-    "https://www.facebook.com/mallelbostan",
-    "https://www.instagram.com/mallelbostan",
-    "https://www.youtube.com/@mallelbostan",
-    "https://www.tiktok.com/@mallelbostan",
-    "https://mallelbostan.com",
-  ],
-};
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 30.03,
+      longitude: 31.46,
+    },
+    areaServed: [
+      { "@type": "City", name: "القاهرة الجديدة" },
+      { "@type": "City", name: "مدينتي" },
+      { "@type": "City", name: "الرحاب" },
+      { "@type": "City", name: "القاهرة" },
+    ],
+    hasMap: `${BASE_URL}/map`,
+    foundingDate: "1990",
+    keywords: "مول كمبيوتر, محلات موبايلات, لابتوب, جيمنج, إلكترونيات, القاهرة الجديدة, التجمع الخامس",
+    sameAs: [
+      "https://www.facebook.com/mallelbostan",
+      "https://www.instagram.com/mallelbostan",
+      "https://www.youtube.com/@mallelbostan",
+      "https://www.tiktok.com/@mallelbostan",
+      "https://mallelbostan.com",
+    ],
+  };
+}
+
+/** Static export kept for backward compatibility with existing imports. */
+export const organizationLd = buildOrganizationLd();
 
 export const shoppingCenterLd = {
   "@context": "https://schema.org",

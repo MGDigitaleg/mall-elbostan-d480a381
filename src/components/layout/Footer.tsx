@@ -3,7 +3,8 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { OFFICIAL_PHONE, OFFICIAL_WHATSAPP, getPhoneDisplay } from "@/lib/contactInfo";
+import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
+import { useSitePhone } from "@/hooks/useSitePhone";
 
 const footerColumns = [
   {
@@ -127,6 +128,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
 export function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const { phone: officialPhone } = useSitePhone();
 
   return (
     <footer className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #060E1C 0%, #071326 40%, #0A0F1A 100%)", overflowAnchor: "none", contain: "layout style paint", minHeight: 460 } as React.CSSProperties}>
@@ -214,12 +216,12 @@ export function Footer() {
             <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
           </a>
 
-          {OFFICIAL_PHONE.trim() ? (
-            <a href={`tel:${OFFICIAL_PHONE.trim()}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+          {officialPhone ? (
+            <a href={`tel:${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
               <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
                 <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
               </span>
-              <span className="font-poppins text-[0.78rem]" dir="ltr">{getPhoneDisplay()}</span>
+              <span className="font-poppins text-[0.78rem]" dir="ltr">{officialPhone}</span>
             </a>
           ) : (
             <a href={`https://wa.me/${OFFICIAL_WHATSAPP}`} target="_blank" rel="noopener" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>

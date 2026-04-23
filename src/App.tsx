@@ -61,6 +61,7 @@ const AdminSeoVerify = lazy(() => lazyRetry(() => import("./pages/admin/AdminSeo
 const AdminOgPreview = lazy(() => lazyRetry(() => import("./pages/admin/AdminOgPreview")));
 const AdminTenantBranding = lazy(() => lazyRetry(() => import("./pages/admin/AdminTenantBranding")));
 const AdminLaunchReadiness = lazy(() => lazyRetry(() => import("./pages/admin/AdminLaunchReadiness")));
+const AdminContactSettings = lazy(() => lazyRetry(() => import("./pages/admin/AdminContactSettings")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
@@ -203,6 +204,7 @@ function AppLayout() {
             <Route path="/admin/og-preview" element={<AdminOgPreview />} />
             <Route path="/admin/tenant-branding" element={<AdminTenantBranding />} />
             <Route path="/admin/launch-readiness" element={<AdminLaunchReadiness />} />
+            <Route path="/admin/contact-settings" element={<AdminContactSettings />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -217,22 +219,25 @@ function AppLayout() {
 
 import { KzCartProvider } from "@/hooks/useKzCart";
 import { ThemeProvider } from "@/hooks/useTheme";
+import { SitePhoneProvider } from "@/hooks/useSitePhone";
 
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <KzCartProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <GA4Init />
-            <ScrollToTop />
-            <div className="min-h-screen flex flex-col bg-background">
-              <AppLayout />
-            </div>
-          </BrowserRouter>
-        </KzCartProvider>
+        <SitePhoneProvider>
+          <KzCartProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <GA4Init />
+              <ScrollToTop />
+              <div className="min-h-screen flex flex-col bg-background">
+                <AppLayout />
+              </div>
+            </BrowserRouter>
+          </KzCartProvider>
+        </SitePhoneProvider>
       </ThemeProvider>
     </QueryClientProvider>
   </HelmetProvider>
