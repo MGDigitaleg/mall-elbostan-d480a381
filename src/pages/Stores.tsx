@@ -70,28 +70,28 @@ function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { cate
 
         {/* Internal links to top stores in this category */}
         {topStores && topStores.length > 0 && (
-          <div className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.72rem]">
-            <span className="text-muted-foreground/70 font-medium">محلات مميزة:</span>
+          <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.72rem] leading-relaxed">
+            <span className="text-muted-foreground/70 font-medium whitespace-nowrap">محلات مميزة:</span>
             {topStores.slice(0, 5).map((s, i) => (
-              <span key={s.slug}>
+              <span key={s.slug} className="inline-flex items-center">
                 <Link to={`/stores/${s.slug}`} className="text-primary font-semibold hover:underline">{s.name_ar}</Link>
-                {i < Math.min(topStores.length, 5) - 1 && <span className="text-muted-foreground/40">، </span>}
+                {i < Math.min(topStores.length, 5) - 1 && <span className="text-muted-foreground/40 mx-1">•</span>}
               </span>
             ))}
           </div>
         )}
 
         {/* Cross-links to other categories and map */}
-        <div className="mt-2.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.72rem]">
-          <span className="text-muted-foreground/70 font-medium">تصفّح أيضاً:</span>
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.72rem] leading-relaxed">
+          <span className="text-muted-foreground/70 font-medium whitespace-nowrap">تصفّح أيضاً:</span>
           {otherCategories.map((c, i) => (
-            <span key={c}>
+            <span key={c} className="inline-flex items-center">
               <Link to={`/stores?category=${encodeURIComponent(c)}`} className="text-primary font-semibold hover:underline">{c}</Link>
-              {i < otherCategories.length - 1 && <span className="text-muted-foreground/40">، </span>}
+              {i < otherCategories.length - 1 && <span className="text-muted-foreground/40 mx-1">•</span>}
             </span>
           ))}
-          <span className="text-muted-foreground/40 mx-0.5">|</span>
-          <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>
+          <span className="text-muted-foreground/30 mx-1">|</span>
+          <Link to="/map" className="text-primary font-semibold hover:underline whitespace-nowrap">الخريطة التفاعلية</Link>
         </div>
       </div>
     </section>
