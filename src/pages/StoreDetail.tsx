@@ -577,6 +577,33 @@ const StoreDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* ═══════════ SEO FOOTER TEXT ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(16px, 2vw, 28px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
+        <div className="container max-w-4xl">
+          <div className="text-[0.72rem] leading-[2.1] text-muted-foreground space-y-2">
+            <p>
+              <strong className="text-foreground">{store.name_ar}</strong> — محل {store.category ?? "تكنولوجيا"} ضمن{" "}
+              <Link to="/stores" className="text-primary font-semibold hover:underline">محلات مول البستان</Link> في التجمع الخامس، القاهرة الجديدة.
+              {store.unit_code && <> يقع في الوحدة {store.unit_code} — <Link to={`/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`} className="text-primary font-semibold hover:underline">عرض على الخريطة</Link>.</>}
+            </p>
+            <p>
+              تصفّح أيضاً:{" "}
+              {store.category && (
+                <Link to={`/stores?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline">
+                  محلات {store.category}
+                </Link>
+              )}
+              <span className="text-muted-foreground/40 mx-1">•</span>
+              <Link to="/products" className="text-primary font-semibold hover:underline">جميع المنتجات</Link>
+              <span className="text-muted-foreground/40 mx-1">•</span>
+              <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>
+              <span className="text-muted-foreground/40 mx-1">•</span>
+              <Link to="/leasing" className="text-primary font-semibold hover:underline">فرص التأجير</Link>
+            </p>
+          </div>
+        </div>
+      </section>
     </MainLayout>
   );
 };
