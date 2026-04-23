@@ -494,6 +494,7 @@ export const TechPlanetSection = () => {
                       onClick={() => {
                         if (disabled) return;
                         setIntensity(opt);
+                        setIntensityAnnouncement(`تم ضبط شدة الطاقة على ${INTENSITY_CONFIG[opt].label}`);
                         setSettingsOpen(false);
                         settingsTriggerRef.current?.focus();
                       }}
@@ -507,6 +508,10 @@ export const TechPlanetSection = () => {
                 })}
               </div>
             )}
+            {/* ARIA live region for screen-reader announcements */}
+            <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+              {intensityAnnouncement}
+            </div>
           </div>
         </div>
 
