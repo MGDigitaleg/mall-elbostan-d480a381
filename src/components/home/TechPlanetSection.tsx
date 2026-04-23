@@ -204,13 +204,67 @@ export const TechPlanetSection = () => {
 
   const rings = [0, 1, 2];
 
-  const energyEndpoints = useMemo(() => {
-    const r = sizes.innerR;
-    return [0, 1, 2, 3].map((i) => {
-      const a = (i / 4) * Math.PI * 2 + Math.PI / 8;
-      return { x: Math.cos(a) * r, y: Math.sin(a) * r };
+  // Orbit definitions used to compute live device positions for energy bursts
+  const orbitDefs = useMemo(() => {
+    const defs: { devices: Device[]; radius: number; duration: number; reverse: boolean }[] = [
+      { devices: innerOrbit, radius: sizes.innerR, duration: 18, reverse: false },
+    ];
+    if (sizes.showMiddle) defs.push({ devices: middleOrbit, radius: sizes.middleR, duration: 26, reverse: true });
+    if (sizes.showOuter) defs.push({ devices: outerOrbit, radius: sizes.outerR, duration: 36, reverse: false });
+    return defs;
+  }, [sizes]);
+
+  // Dynamic energy bursts — 4 channels that retarget every 3s to random devices
+  type Burst = { id: number; orbitIdx: number; deviceIdx: number; startedAt: number };
+  const [bursts, setBursts] = useState<Burst[]>([]);
+  const burstIdRef = useRef(0);
+
+  useEffect(() => {
+    if (!active || reduce) {
+      setBursts([]);
+      return;
+    }
+    const pickBurst = (): Burst => {
+      const orbitIdx = Math.floor(Math.random() * orbitDefs.length);
+      const orbit = orbitDefs[orbitIdx];
+      const deviceIdx = Math.floor(Math.random() * orbit.devices.length);
+      burstIdRef.current += 1;
+      return { id: burstIdRef.current, orbitIdx, deviceIdx, startedAt: performance.now() };
+    };
+    // Seed 4 channels
+    setBursts([pickBurst(), pickBurst(), pickBurst(), pickBurst()]);
+    const interval = setInterval(() => {
+      setBursts((prev) => prev.map(() => pickBurst()));
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [active, reduce, orbitDefs]);
+
+  // Animate burst endpoints in sync with orbit rotation
+  const [tick, setTick] = useState(0);
+  useEffect(() => {
+    if (!active || reduce) return;
+    let raf = 0;
+    const loop = () => {
+      setTick((t) => (t + 1) % 100000);
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [active, reduce]);
+
+  const burstEndpoints = useMemo(() => {
+    const now = performance.now() / 1000;
+    return bursts.map((b) => {
+      const orbit = orbitDefs[b.orbitIdx];
+      if (!orbit) return { id: b.id, x: 0, y: 0 };
+      const baseAngle = (b.deviceIdx / orbit.devices.length) * Math.PI * 2;
+      const rotation = ((now / orbit.duration) * Math.PI * 2) * (orbit.reverse ? -1 : 1);
+      const angle = baseAngle + rotation;
+      return { id: b.id, x: Math.cos(angle) * orbit.radius, y: Math.sin(angle) * orbit.radius };
     });
-  }, [sizes.innerR]);
+    // tick forces recompute every frame
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bursts, orbitDefs, tick]);
 
   return (
     <TooltipProvider delayDuration={120}>
@@ -331,28 +385,37 @@ export const TechPlanetSection = () => {
             >
               <defs>
                 <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2563EB" stopOpacity="0.9" />
-                  <stop offset="100%" stopColor="#2563EB" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#60A5FA" stopOpacity="0" />
+                  <stop offset="40%" stopColor="#2563EB" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0.9" />
                 </linearGradient>
+                <radialGradient id="burstHead">
+                  <stop offset="0%" stopColor="#CDBB9A" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0" />
+                </radialGradient>
               </defs>
-              {energyEndpoints.map((p, i) => (
-                <motion.line
-                  key={`line-${i}`}
-                  x1={0}
-                  y1={0}
-                  x2={p.x}
-                  y2={p.y}
-                  stroke="url(#energyGrad)"
-                  strokeWidth={1.4}
-                  strokeLinecap="round"
-                  animate={active && !reduce ? { opacity: [0, 0.9, 0] } : { opacity: 0 }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 3,
-                    delay: i * 0.6,
-                    ease: "easeInOut",
-                  }}
-                />
+              {burstEndpoints.map((p) => (
+                <g key={p.id}>
+                  <motion.line
+                    x1={0}
+                    y1={0}
+                    x2={p.x}
+                    y2={p.y}
+                    stroke="url(#energyGrad)"
+                    strokeWidth={1.6}
+                    strokeLinecap="round"
+                    initial={{ opacity: 0, pathLength: 0 }}
+                    animate={{ opacity: [0, 1, 1, 0], pathLength: [0, 1, 1, 1] }}
+                    transition={{ duration: 2.8, ease: "easeOut", times: [0, 0.25, 0.75, 1] }}
+                  />
+                  <motion.circle
+                    r={5}
+                    fill="url(#burstHead)"
+                    initial={{ cx: 0, cy: 0, opacity: 0 }}
+                    animate={{ cx: p.x, cy: p.y, opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.2, ease: "easeOut", times: [0, 0.6, 1] }}
+                  />
+                </g>
               ))}
             </svg>
 
