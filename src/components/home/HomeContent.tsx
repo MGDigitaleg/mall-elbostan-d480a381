@@ -45,6 +45,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { CategoryStrip } from "@/components/home/CategoryStrip";
 
+const TechPlanetSection = lazy(() =>
+  import("@/components/home/TechPlanetSection").then((m) => ({ default: m.TechPlanetSection }))
+);
+
 const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "في قلب القاهرة الجديدة، ضمن موقع يخدم مدينتي والرحاب والمناطق المحيطة." },
   { id: "faq-2", question_ar: "متى موعد الافتتاح؟", answer_ar: "الافتتاح الكبير مقرر في 1 مايو 2026." },
@@ -161,6 +165,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ 4 · CATEGORIES ═══════════ */}
       <section style={{ contain: "layout", minHeight: 296, contentVisibility: "auto", containIntrinsicSize: "auto 296px" } as React.CSSProperties}>
         <CategoryStrip />
+      </section>
+
+      {/* ═══════════ 4.5 · TECH PLANET ═══════════ */}
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 720px" } as React.CSSProperties}>
+        <LazySection minHeight={620}>
+          <Suspense fallback={<div style={{ minHeight: 620 }} />}><TechPlanetSection /></Suspense>
+        </LazySection>
       </section>
 
       {/* ═══════════ 5 · INTERACTIVE MAP TEASER ═══════════ */}
