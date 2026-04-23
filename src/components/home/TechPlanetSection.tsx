@@ -217,6 +217,9 @@ export const TechPlanetSection = () => {
 
   const rings = [0, 1, 2];
 
+  // Hovered orbit index (0=inner, 1=middle, 2=outer); pauses only that ring
+  const [hoveredOrbit, setHoveredOrbit] = useState<number | null>(null);
+
   // Orbit definitions used to compute live device positions for energy bursts
   const orbitDefs = useMemo(() => {
     const defs: { devices: Device[]; radius: number; duration: number; reverse: boolean }[] = [
@@ -437,9 +440,10 @@ export const TechPlanetSection = () => {
               radius={sizes.innerR}
               duration={18}
               iconSize={sizes.innerSize}
-              paused={false}
               active={active}
               reduce={reduce}
+              paused={hoveredOrbit === 0}
+              onHoverChange={(h) => setHoveredOrbit(h ? 0 : null)}
             />
             {sizes.showMiddle && (
               <Orbit
@@ -448,9 +452,10 @@ export const TechPlanetSection = () => {
                 duration={26}
                 iconSize={sizes.middleSize}
                 reverse
-                paused={false}
                 active={active}
                 reduce={reduce}
+                paused={hoveredOrbit === 1}
+                onHoverChange={(h) => setHoveredOrbit(h ? 1 : null)}
               />
             )}
             {sizes.showOuter && (
@@ -459,9 +464,10 @@ export const TechPlanetSection = () => {
                 radius={sizes.outerR}
                 duration={36}
                 iconSize={sizes.outerSize}
-                paused={false}
                 active={active}
                 reduce={reduce}
+                paused={hoveredOrbit === 2}
+                onHoverChange={(h) => setHoveredOrbit(h ? 2 : null)}
               />
             )}
 
