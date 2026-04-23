@@ -60,6 +60,7 @@ const AdminIndexingLogs = lazy(() => lazyRetry(() => import("./pages/admin/Admin
 const AdminSeoVerify = lazy(() => lazyRetry(() => import("./pages/admin/AdminSeoVerify")));
 const AdminOgPreview = lazy(() => lazyRetry(() => import("./pages/admin/AdminOgPreview")));
 const AdminTenantBranding = lazy(() => lazyRetry(() => import("./pages/admin/AdminTenantBranding")));
+const AdminLaunchReadiness = lazy(() => lazyRetry(() => import("./pages/admin/AdminLaunchReadiness")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
@@ -201,6 +202,7 @@ function AppLayout() {
             <Route path="/admin/seo-verify" element={<AdminSeoVerify />} />
             <Route path="/admin/og-preview" element={<AdminOgPreview />} />
             <Route path="/admin/tenant-branding" element={<AdminTenantBranding />} />
+            <Route path="/admin/launch-readiness" element={<AdminLaunchReadiness />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

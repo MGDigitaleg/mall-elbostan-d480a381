@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch, Globe, RefreshCw } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch, Globe, RefreshCw, Rocket } from "lucide-react";
 
 const adminSections = [
+  { title: "جاهزية الإطلاق", icon: Rocket, path: "/admin/launch-readiness", desc: "GO/NO-GO · GSC · هاتف · sitemap · schema · noindex" },
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
   { title: "الوحدات", icon: Building, path: "/admin/units", desc: "إدارة الوحدات التجارية" },
   { title: "فئات المنتجات", icon: LayoutGrid, path: "/admin/product-categories", desc: "إدارة فئات المنتجات والتصنيفات" },
