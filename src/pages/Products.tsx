@@ -913,6 +913,30 @@ const Products = () => {
         </div>
       </section>
 
+      {/* ═══════════ SEO FOOTER TEXT ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(16px, 2vw, 28px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
+        <div className="container max-w-4xl">
+          <h2 className="text-[0.88rem] font-bold text-foreground mb-2" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            تسوّق إلكترونيات مول البستان
+          </h2>
+          <div className="text-[0.72rem] leading-[2.1] text-muted-foreground space-y-2">
+            <p>
+              تصفّح أكبر تشكيلة منتجات تقنية من محلات مول البستان — لابتوبات، هواتف ذكية، إكسسوارات، أجهزة جيمنج، وقطع غيار كمبيوتر. جميع المنتجات من محلات حقيقية في التجمع الخامس بالقاهرة الجديدة.
+            </p>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+              <span className="text-muted-foreground/70 font-medium">تصفّح أيضاً:</span>
+              <Link to="/stores" className="text-primary font-semibold hover:underline">دليل المحلات</Link>
+              <span className="text-muted-foreground/40">•</span>
+              <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>
+              <span className="text-muted-foreground/40">•</span>
+              <Link to="/leasing" className="text-primary font-semibold hover:underline">فرص التأجير</Link>
+              <span className="text-muted-foreground/40">•</span>
+              <Link to="/about" className="text-primary font-semibold hover:underline">عن المول</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <BackToTop />
     </MainLayout>
   );

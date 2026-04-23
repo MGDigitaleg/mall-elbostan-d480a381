@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
+// SEOHead imported below with organizationLd
 import {
   ArrowLeft,
   Award,
@@ -14,7 +15,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, organizationLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { BranchStatCard } from "@/components/branch/BranchStatCard";
@@ -37,6 +38,7 @@ const About = () => (
       descriptionEn="Learn about Mall Elbostan — Egypt's first specialized technology mall since 1990. Two branches, 150+ stores, and an interactive floor map."
       keywords="عن مول البستان, تاريخ مول البستان, مول تكنولوجيا مصر, أقدم مول إلكترونيات, القاهرة الجديدة, وسط البلد"
       breadcrumbs={[{ name: "عن المول", url: "/about" }]}
+      jsonLd={organizationLd}
     />
 
     {/* ═══════════ 1 · HERO ═══════════ */}
