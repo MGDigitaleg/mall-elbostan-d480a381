@@ -205,6 +205,7 @@ function AppLayout() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </LazyErrorBoundary>
       </main>
       {showChrome && <Footer />}
       {showChrome && <MobileBottomNav />}
