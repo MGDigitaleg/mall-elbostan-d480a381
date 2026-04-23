@@ -26,19 +26,24 @@ function truncate(text: string, max: number): string {
   return text.length > max ? text.slice(0, max - 1) + "…" : text;
 }
 
-/* ── Font + WASM initialization (cold start) ── */
+/* ── Font + WASM + Logo initialization (cold start) ── */
 
 let wasmReady = false;
 let fontRegularB64 = "";
 let fontBoldB64 = "";
 let fontRegularBuf: Uint8Array | null = null;
 let fontBoldBuf: Uint8Array | null = null;
+let logoPngB64 = "";
 
 // IBM Plex Sans Arabic from Google Fonts — static TTF URLs
 const FONT_REGULAR_URL =
   "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3CZRtWPQCuHme67tEYUIx3Kh0PHR9N6YNe3PC5PadA.ttf";
 const FONT_BOLD_URL =
   "https://fonts.gstatic.com/s/ibmplexsansarabic/v12/Qw3VZRtWPQCuHme67tEYUIx3Kh0PHR9N6Ys43PWrfidA.ttf";
+
+// Official brand logo from storage
+const LOGO_URL =
+  "https://wrheltmgquyqqhscrpds.supabase.co/storage/v1/object/public/logos/brand/og-logo-white.png";
 
 function bufToBase64(buf: Uint8Array): string {
   let binary = "";
@@ -51,11 +56,12 @@ function bufToBase64(buf: Uint8Array): string {
 async function ensureReady() {
   if (wasmReady) return;
 
-  // Fetch WASM + fonts in parallel
-  const [wasmRes, regRes, boldRes] = await Promise.all([
+  // Fetch WASM + fonts + logo in parallel
+  const [wasmRes, regRes, boldRes, logoRes] = await Promise.all([
     fetch("https://esm.sh/svg2png-wasm@0.6.1/svg2png_wasm_bg.wasm"),
     fetch(FONT_REGULAR_URL),
     fetch(FONT_BOLD_URL),
+    fetch(LOGO_URL),
   ]);
 
   await initialize(wasmRes);
@@ -64,6 +70,11 @@ async function ensureReady() {
   fontBoldBuf = new Uint8Array(await boldRes.arrayBuffer());
   fontRegularB64 = bufToBase64(fontRegularBuf);
   fontBoldB64 = bufToBase64(fontBoldBuf);
+
+  if (logoRes.ok) {
+    const logoBuf = new Uint8Array(await logoRes.arrayBuffer());
+    logoPngB64 = bufToBase64(logoBuf);
+  }
 
   wasmReady = true;
 }
@@ -143,17 +154,8 @@ function generateSvg(title: string, type: string, category?: string): string {
   <text x="${textRight - 22}" y="351" font-family="PlexAr, system-ui, sans-serif" font-size="18" font-weight="400" fill="${accentCyan}" text-anchor="end" xml:lang="ar">${escapedCategory}</text>`;
   })() : ""}
 
-  <!-- Decorative icon (left side, mirrored for RTL layout) -->
-  <g transform="translate(${isProduct ? 80 : 100}, ${isProduct ? 180 : 200})" opacity="0.08">
-    ${isProduct
-      ? `<rect x="0" y="0" width="200" height="200" rx="24" fill="none" stroke="${textWhite}" stroke-width="4"/>
-         <rect x="60" y="30" width="80" height="140" rx="12" fill="none" stroke="${textWhite}" stroke-width="3"/>
-         <circle cx="100" cy="145" r="8" fill="none" stroke="${textWhite}" stroke-width="3"/>`
-      : `<rect x="0" y="20" width="180" height="160" rx="16" fill="none" stroke="${textWhite}" stroke-width="4"/>
-         <rect x="40" y="0" width="100" height="40" rx="8" fill="none" stroke="${textWhite}" stroke-width="3"/>
-         <line x1="0" y1="80" x2="180" y2="80" stroke="${textWhite}" stroke-width="3"/>`
-    }
-  </g>
+  <!-- Official brand logo (left side for RTL layout) -->
+  ${logoPngB64 ? `<image x="60" y="220" width="220" height="130" href="data:image/png;base64,${logoPngB64}" opacity="0.12"/>` : ""}
 
   <!-- Bottom bar -->
   <rect x="0" y="560" width="1200" height="70" fill="${bgColor}" opacity="0.6"/>
