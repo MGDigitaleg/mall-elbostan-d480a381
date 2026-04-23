@@ -204,6 +204,7 @@ export const TechPlanetSection = () => {
   const settingsContainerRef = useRef<HTMLDivElement>(null);
   const settingsItemsRef = useRef<Array<HTMLButtonElement | null>>([]);
   const [settingsFocusIndex, setSettingsFocusIndex] = useState(0);
+  const [intensityAnnouncement, setIntensityAnnouncement] = useState("");
 
   // Close menu on outside click/touch
   useEffect(() => {
@@ -493,6 +494,7 @@ export const TechPlanetSection = () => {
                       onClick={() => {
                         if (disabled) return;
                         setIntensity(opt);
+                        setIntensityAnnouncement(`تم ضبط شدة الطاقة على ${INTENSITY_CONFIG[opt].label}`);
                         setSettingsOpen(false);
                         settingsTriggerRef.current?.focus();
                       }}
@@ -506,6 +508,10 @@ export const TechPlanetSection = () => {
                 })}
               </div>
             )}
+            {/* ARIA live region for screen-reader announcements */}
+            <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+              {intensityAnnouncement}
+            </div>
           </div>
         </div>
 
