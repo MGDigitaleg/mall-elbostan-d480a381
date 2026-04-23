@@ -220,6 +220,20 @@ export const TechPlanetSection = () => {
     return () => document.removeEventListener("pointerdown", handlePointer);
   }, [settingsOpen]);
 
+  // Global Escape: close the menu and return focus to the trigger
+  useEffect(() => {
+    if (!settingsOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setSettingsOpen(false);
+        requestAnimationFrame(() => settingsTriggerRef.current?.focus());
+      }
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [settingsOpen]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(INTENSITY_KEY, intensity);
