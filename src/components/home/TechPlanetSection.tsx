@@ -212,6 +212,8 @@ export const TechPlanetSection = () => {
       const target = e.target as Node | null;
       if (target && settingsContainerRef.current && !settingsContainerRef.current.contains(target)) {
         setSettingsOpen(false);
+        // Return focus to the trigger so keyboard users keep their place
+        requestAnimationFrame(() => settingsTriggerRef.current?.focus());
       }
     };
     document.addEventListener("pointerdown", handlePointer);
