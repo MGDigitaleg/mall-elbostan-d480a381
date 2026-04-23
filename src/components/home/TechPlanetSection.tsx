@@ -200,12 +200,62 @@ export const TechPlanetSection = () => {
     return (v === "off" || v === "low" || v === "medium" || v === "high") ? v : "medium";
   });
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsTriggerRef = useRef<HTMLButtonElement>(null);
+  const settingsItemsRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const [settingsFocusIndex, setSettingsFocusIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(INTENSITY_KEY, intensity);
     }
   }, [intensity]);
+
+  // Focus first/active item when menu opens; restore focus to trigger on close
+  useEffect(() => {
+    if (settingsOpen) {
+      const opts = Object.keys(INTENSITY_CONFIG) as Intensity[];
+      const idx = Math.max(0, opts.indexOf(intensity));
+      setSettingsFocusIndex(idx);
+      requestAnimationFrame(() => settingsItemsRef.current[idx]?.focus());
+    }
+  }, [settingsOpen, intensity]);
+
+  const handleSettingsTriggerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setSettingsOpen(true);
+    }
+  };
+
+  const handleSettingsMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const opts = Object.keys(INTENSITY_CONFIG) as Intensity[];
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setSettingsOpen(false);
+      settingsTriggerRef.current?.focus();
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = (settingsFocusIndex + 1) % opts.length;
+      setSettingsFocusIndex(next);
+      settingsItemsRef.current[next]?.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const next = (settingsFocusIndex - 1 + opts.length) % opts.length;
+      setSettingsFocusIndex(next);
+      settingsItemsRef.current[next]?.focus();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setSettingsFocusIndex(0);
+      settingsItemsRef.current[0]?.focus();
+    } else if (e.key === "End") {
+      e.preventDefault();
+      const last = opts.length - 1;
+      setSettingsFocusIndex(last);
+      settingsItemsRef.current[last]?.focus();
+    } else if (e.key === "Tab") {
+      setSettingsOpen(false);
+    }
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -358,9 +408,12 @@ export const TechPlanetSection = () => {
         <div className="absolute end-4 top-4 z-20">
           <div className="relative">
             <button
+              ref={settingsTriggerRef}
               type="button"
               onClick={() => setSettingsOpen((v) => !v)}
+              onKeyDown={handleSettingsTriggerKeyDown}
               aria-label="إعدادات شدة الطاقة"
+              aria-haspopup="menu"
               aria-expanded={settingsOpen}
               className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.72rem] font-arabic backdrop-blur-md transition-colors"
               style={{
@@ -375,6 +428,8 @@ export const TechPlanetSection = () => {
             {settingsOpen && (
               <div
                 role="menu"
+                aria-label="شدة الطاقة"
+                onKeyDown={handleSettingsMenuKeyDown}
                 className="absolute end-0 mt-2 min-w-[180px] overflow-hidden rounded-lg border shadow-xl"
                 style={{
                   borderColor: "rgba(205,187,154,0.25)",
@@ -382,19 +437,22 @@ export const TechPlanetSection = () => {
                   backdropFilter: "blur(8px)",
                 }}
               >
-                {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt) => {
+                {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt, i) => {
                   const isActive = intensity === opt;
                   return (
                     <button
                       key={opt}
+                      ref={(el) => { settingsItemsRef.current[i] = el; }}
                       type="button"
                       role="menuitemradio"
                       aria-checked={isActive}
+                      tabIndex={settingsFocusIndex === i ? 0 : -1}
                       onClick={() => {
                         setIntensity(opt);
                         setSettingsOpen(false);
+                        settingsTriggerRef.current?.focus();
                       }}
-                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06]"
+                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06] focus:bg-white/[0.08] focus:outline-none"
                       style={{ color: isActive ? "#CDBB9A" : "rgba(255,255,255,0.78)" }}
                     >
                       <span>{INTENSITY_CONFIG[opt].label}</span>
