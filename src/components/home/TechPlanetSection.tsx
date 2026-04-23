@@ -200,12 +200,62 @@ export const TechPlanetSection = () => {
     return (v === "off" || v === "low" || v === "medium" || v === "high") ? v : "medium";
   });
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsTriggerRef = useRef<HTMLButtonElement>(null);
+  const settingsItemsRef = useRef<Array<HTMLButtonElement | null>>([]);
+  const [settingsFocusIndex, setSettingsFocusIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem(INTENSITY_KEY, intensity);
     }
   }, [intensity]);
+
+  // Focus first/active item when menu opens; restore focus to trigger on close
+  useEffect(() => {
+    if (settingsOpen) {
+      const opts = Object.keys(INTENSITY_CONFIG) as Intensity[];
+      const idx = Math.max(0, opts.indexOf(intensity));
+      setSettingsFocusIndex(idx);
+      requestAnimationFrame(() => settingsItemsRef.current[idx]?.focus());
+    }
+  }, [settingsOpen, intensity]);
+
+  const handleSettingsTriggerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      setSettingsOpen(true);
+    }
+  };
+
+  const handleSettingsMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const opts = Object.keys(INTENSITY_CONFIG) as Intensity[];
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setSettingsOpen(false);
+      settingsTriggerRef.current?.focus();
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = (settingsFocusIndex + 1) % opts.length;
+      setSettingsFocusIndex(next);
+      settingsItemsRef.current[next]?.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const next = (settingsFocusIndex - 1 + opts.length) % opts.length;
+      setSettingsFocusIndex(next);
+      settingsItemsRef.current[next]?.focus();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      setSettingsFocusIndex(0);
+      settingsItemsRef.current[0]?.focus();
+    } else if (e.key === "End") {
+      e.preventDefault();
+      const last = opts.length - 1;
+      setSettingsFocusIndex(last);
+      settingsItemsRef.current[last]?.focus();
+    } else if (e.key === "Tab") {
+      setSettingsOpen(false);
+    }
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
