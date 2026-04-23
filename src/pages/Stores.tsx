@@ -57,7 +57,7 @@ const categorySeoContent: Record<string, string> = {
   "الصيانة والدعم الفني": "خدمات صيانة وإصلاح الكمبيوتر والموبايل في مول البستان — دعم فني متخصص، استبدال شاشات، إصلاح لابتوبات، واستعادة بيانات.",
 };
 
-function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { category: string; totalStores: number; activeCount: number; topStores?: { name_ar: string; slug: string }[] }) {
+function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { category: string; totalStores: number; activeCount: number; topStores?: { name_ar: string; slug: string; unit_code: string | null }[] }) {
   const content = category ? categorySeoContent[category] : null;
   const otherCategories = primaryCategories.filter((c) => c !== category).slice(0, 3);
 
@@ -73,8 +73,17 @@ function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { cate
           <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.72rem] leading-relaxed">
             <span className="text-muted-foreground/70 font-medium whitespace-nowrap">محلات مميزة:</span>
             {topStores.slice(0, 5).map((s, i) => (
-              <span key={s.slug} className="inline-flex items-center">
+              <span key={s.slug} className="inline-flex items-center gap-1">
                 <Link to={`/stores/${s.slug}`} className="text-primary font-semibold hover:underline">{s.name_ar}</Link>
+                {s.unit_code && (
+                  <Link
+                    to={`/map?highlight=${encodeURIComponent(s.unit_code)}&store=${encodeURIComponent(s.name_ar)}`}
+                    className="inline-flex items-center gap-0.5 text-muted-foreground/50 hover:text-primary transition-colors"
+                    title={`عرض ${s.name_ar} على الخريطة`}
+                  >
+                    <MapPin className="h-3 w-3" />
+                  </Link>
+                )}
                 {i < Math.min(topStores.length, 5) - 1 && <span className="text-muted-foreground/40 mx-1">•</span>}
               </span>
             ))}
@@ -204,7 +213,7 @@ const Stores = () => {
         category={selectedCategory}
         totalStores={totalStores}
         activeCount={activeCount}
-        topStores={filtered?.filter((s) => s.featured && s.status === "leased").slice(0, 5).map((s) => ({ name_ar: s.name_ar, slug: s.slug }))}
+        topStores={filtered?.filter((s) => s.featured && s.status === "leased").slice(0, 5).map((s) => ({ name_ar: s.name_ar, slug: s.slug, unit_code: s.unit_code }))}
       />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
