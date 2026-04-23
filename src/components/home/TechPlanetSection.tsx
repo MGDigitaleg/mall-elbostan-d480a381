@@ -420,7 +420,7 @@ export const TechPlanetSection = () => {
 
         {/* Energy intensity settings */}
         <div className="absolute end-4 top-4 z-20">
-          <div className="relative">
+          <div className="relative" ref={settingsContainerRef}>
             <button
               ref={settingsTriggerRef}
               type="button"
