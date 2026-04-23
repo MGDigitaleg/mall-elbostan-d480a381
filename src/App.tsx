@@ -131,6 +131,7 @@ function AppLayout() {
     <>
       {showChrome && <Header />}
       <main className={showChrome ? (hasDarkHero ? "flex-1 min-h-[calc(100vh-660px)]" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px] min-h-[calc(100vh-660px)]") : "flex-1"}>
+        <LazyErrorBoundary>
         <Suspense fallback={<PageFallback />}>
           <Routes>
             {/* Public */}
