@@ -154,7 +154,14 @@ const DeviceBadge = ({
           </div>
         </Link>
       </TooltipTrigger>
-      <TooltipContent side="top" className="font-arabic text-[0.78rem]">
+      <TooltipContent
+        side="top"
+        align="center"
+        sideOffset={8}
+        collisionPadding={12}
+        avoidCollisions
+        className="font-arabic text-[0.78rem] max-w-[60vw]"
+      >
         {label}
       </TooltipContent>
     </Tooltip>
@@ -234,14 +241,15 @@ export const TechPlanetSection = () => {
   const [hoveredOrbit, setHoveredOrbit] = useState<number | null>(null);
 
   // Orbit definitions used to compute live device positions for energy bursts
+  const innerDevices = isMobile ? mobileDevices : innerOrbit;
   const orbitDefs = useMemo(() => {
     const defs: { devices: Device[]; radius: number; duration: number; reverse: boolean }[] = [
-      { devices: innerOrbit, radius: sizes.innerR, duration: 18, reverse: false },
+      { devices: innerDevices, radius: sizes.innerR, duration: 18, reverse: false },
     ];
     if (sizes.showMiddle) defs.push({ devices: middleOrbit, radius: sizes.middleR, duration: 26, reverse: true });
     if (sizes.showOuter) defs.push({ devices: outerOrbit, radius: sizes.outerR, duration: 36, reverse: false });
     return defs;
-  }, [sizes]);
+  }, [sizes, innerDevices]);
 
   // Dynamic energy bursts — 4 channels that retarget every 3s to random devices
   type Burst = { id: number; orbitIdx: number; deviceIdx: number; startedAt: number };
@@ -451,7 +459,7 @@ export const TechPlanetSection = () => {
             </svg>
 
             <Orbit
-              devices={innerOrbit}
+              devices={innerDevices}
               radius={sizes.innerR}
               duration={18}
               iconSize={sizes.innerSize}
