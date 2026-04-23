@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
+import { OFFICIAL_PHONE } from "@/lib/contactInfo";
 
 const BASE_URL = "https://mallelbostan.com";
 
@@ -134,7 +135,7 @@ export const organizationLd = {
   url: BASE_URL,
   logo: `${BASE_URL}/og-default.jpg`,
   image: `${BASE_URL}/og-default.jpg`,
-  // telephone: pending official number from owner — re-add before publishing structured data with phone
+  ...(OFFICIAL_PHONE.trim() ? { telephone: OFFICIAL_PHONE.trim() } : {}),
   priceRange: "$$",
   currenciesAccepted: "EGP",
   paymentAccepted: "Cash, Credit Card",
