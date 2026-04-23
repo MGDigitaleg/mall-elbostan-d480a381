@@ -62,6 +62,65 @@
     <!-- Google Fonts loaded async to avoid render-blocking -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=optional" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=optional" /></noscript>
+
+    <!-- Static JSON-LD for crawlers that don't execute JS -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "ElectronicsStore"],
+      "@id": "https://mallelbostan.com/#organization",
+      "name": "مول البستان",
+      "alternateName": ["Mall Elbostan", "El Bostan Mall"],
+      "description": "أكبر مول متخصص في الكمبيوتر والموبايلات والإلكترونيات في القاهرة الجديدة — أكثر من 150 محل للابتوبات، هواتف، جيمنج، إكسسوارات، وصيانة بالتجمع الخامس.",
+      "url": "https://mallelbostan.com",
+      "logo": "https://mallelbostan.com/favicon.png",
+      "image": "https://mallelbostan.com/og-default.jpg",
+      "priceRange": "$$",
+      "currenciesAccepted": "EGP",
+      "paymentAccepted": "Cash, Credit Card",
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "10:00",
+        "closes": "22:00"
+      }],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "شارع التسعين، التجمع الخامس",
+        "addressLocality": "القاهرة الجديدة",
+        "addressRegion": "القاهرة",
+        "postalCode": "11835",
+        "addressCountry": "EG"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 30.03,
+        "longitude": 31.46
+      },
+      "hasMap": "https://mallelbostan.com/map",
+      "foundingDate": "1990"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://mallelbostan.com/#website",
+      "name": "مول البستان",
+      "alternateName": "Mall Elbostan",
+      "url": "https://mallelbostan.com",
+      "inLanguage": ["ar", "en"],
+      "publisher": {"@id": "https://mallelbostan.com/#organization"},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://mallelbostan.com/products?q={search_term}"
+        },
+        "query-input": "required name=search_term"
+      }
+    }
+    </script>
   </head>
 
   <body>
