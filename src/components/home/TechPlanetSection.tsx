@@ -201,8 +201,22 @@ export const TechPlanetSection = () => {
   });
   const [settingsOpen, setSettingsOpen] = useState(false);
   const settingsTriggerRef = useRef<HTMLButtonElement>(null);
+  const settingsContainerRef = useRef<HTMLDivElement>(null);
   const settingsItemsRef = useRef<Array<HTMLButtonElement | null>>([]);
   const [settingsFocusIndex, setSettingsFocusIndex] = useState(0);
+
+  // Close menu on outside click/touch
+  useEffect(() => {
+    if (!settingsOpen) return;
+    const handlePointer = (e: PointerEvent) => {
+      const target = e.target as Node | null;
+      if (target && settingsContainerRef.current && !settingsContainerRef.current.contains(target)) {
+        setSettingsOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handlePointer);
+    return () => document.removeEventListener("pointerdown", handlePointer);
+  }, [settingsOpen]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -406,7 +420,7 @@ export const TechPlanetSection = () => {
 
         {/* Energy intensity settings */}
         <div className="absolute end-4 top-4 z-20">
-          <div className="relative">
+          <div className="relative" ref={settingsContainerRef}>
             <button
               ref={settingsTriggerRef}
               type="button"
