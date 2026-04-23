@@ -134,7 +134,7 @@ export const organizationLd = {
   url: BASE_URL,
   logo: `${BASE_URL}/og-default.jpg`,
   image: `${BASE_URL}/og-default.jpg`,
-  telephone: "+20-2-25750000",
+  // telephone: pending official number from owner — re-add before publishing structured data with phone
   priceRange: "$$",
   currenciesAccepted: "EGP",
   paymentAccepted: "Cash, Credit Card",
