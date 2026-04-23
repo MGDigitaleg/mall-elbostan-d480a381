@@ -16,13 +16,11 @@ Allow: /join-marketplace
 Allow: /opening-day
 Allow: /spin-win
 Allow: /daily-deals
-Allow: /countdown
 Allow: /new-cairo-branch
 Allow: /downtown-branch
 Allow: /downtown-directory
 Allow: /market-echo
 Allow: /kz
-Allow: /kz/products
 Allow: /privacy
 Allow: /terms
 Allow: /reward-terms
