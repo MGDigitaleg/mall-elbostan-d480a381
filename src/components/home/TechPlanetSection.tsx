@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   Laptop, Smartphone, Monitor, Cpu, Headphones, Keyboard,
   HardDrive, Mouse, Camera, Gamepad2, Printer, Router,
-  Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi,
+  Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi, Wrench,
   ArrowLeft, type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -207,14 +207,14 @@ export const TechPlanetSection = () => {
 
   // Curated 8-device set for mobile single orbit (one per category, balanced)
   const mobileDevices = useMemo<Device[]>(() => [
-    { Icon: Laptop, label: "لابتوبات", category: "laptops" },
-    { Icon: Smartphone, label: "هواتف ذكية", category: "phones" },
-    { Icon: Monitor, label: "شاشات", category: "monitors" },
-    { Icon: Gamepad2, label: "جيمنج", category: "gaming" },
-    { Icon: Headphones, label: "سماعات", category: "audio" },
-    { Icon: Cpu, label: "معالجات", category: "components" },
-    { Icon: Camera, label: "كاميرات", category: "cameras" },
-    { Icon: Router, label: "شبكات", category: "networking" },
+    { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
+    { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
+    { Icon: Monitor, label: "شاشات", category: CAT.computers },
+    { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
+    { Icon: Headphones, label: "سماعات", category: CAT.phones },
+    { Icon: Printer, label: "طباعة", category: CAT.printing },
+    { Icon: Wrench, label: "صيانة", category: CAT.maintenance },
+    { Icon: Router, label: "شبكات", category: CAT.networking },
   ], []);
 
   const sizes = useMemo(() => {
