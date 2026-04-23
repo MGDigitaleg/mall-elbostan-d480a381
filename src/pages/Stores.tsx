@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
+import { trackSeoLinkClick } from "@/lib/analytics";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
@@ -74,12 +75,17 @@ function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { cate
             <span className="text-muted-foreground/70 font-medium whitespace-nowrap">محلات مميزة:</span>
             {topStores.slice(0, 5).map((s, i) => (
               <span key={s.slug} className="inline-flex items-center gap-1">
-                <Link to={`/stores/${s.slug}`} className="text-primary font-semibold hover:underline">{s.name_ar}</Link>
+                <Link
+                  to={`/stores/${s.slug}`}
+                  className="text-primary font-semibold hover:underline"
+                  onClick={() => trackSeoLinkClick("stores_intro", "store", s.name_ar, `/stores/${s.slug}`)}
+                >{s.name_ar}</Link>
                 {s.unit_code && (
                   <Link
                     to={`/map?highlight=${encodeURIComponent(s.unit_code)}&store=${encodeURIComponent(s.name_ar)}`}
                     className="inline-flex items-center gap-0.5 text-muted-foreground/50 hover:text-primary transition-colors"
                     title={`عرض ${s.name_ar} على الخريطة`}
+                    onClick={() => trackSeoLinkClick("stores_intro", "map_pin", s.name_ar, `/map?highlight=${s.unit_code}`)}
                   >
                     <MapPin className="h-3 w-3" />
                   </Link>
@@ -95,12 +101,20 @@ function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { cate
           <span className="text-muted-foreground/70 font-medium whitespace-nowrap">تصفّح أيضاً:</span>
           {otherCategories.map((c, i) => (
             <span key={c} className="inline-flex items-center">
-              <Link to={`/stores?category=${encodeURIComponent(c)}`} className="text-primary font-semibold hover:underline">{c}</Link>
+              <Link
+                to={`/stores?category=${encodeURIComponent(c)}`}
+                className="text-primary font-semibold hover:underline"
+                onClick={() => trackSeoLinkClick("stores_intro", "category", c, `/stores?category=${encodeURIComponent(c)}`)}
+              >{c}</Link>
               {i < otherCategories.length - 1 && <span className="text-muted-foreground/40 mx-1">•</span>}
             </span>
           ))}
           <span className="text-muted-foreground/30 mx-1">|</span>
-          <Link to="/map" className="text-primary font-semibold hover:underline whitespace-nowrap">الخريطة التفاعلية</Link>
+          <Link
+            to="/map"
+            className="text-primary font-semibold hover:underline whitespace-nowrap"
+            onClick={() => trackSeoLinkClick("stores_intro", "page", "الخريطة التفاعلية", "/map")}
+          >الخريطة التفاعلية</Link>
         </div>
       </div>
     </section>
