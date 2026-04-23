@@ -129,7 +129,7 @@ const DeviceBadge = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          to={`/stores?category=${category}`}
+          to={`/stores?category=${encodeURIComponent(category)}`}
           aria-label={label}
           onMouseEnter={() => onHoverChange(true)}
           onMouseLeave={() => onHoverChange(false)}
