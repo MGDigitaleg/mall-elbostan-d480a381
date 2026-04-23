@@ -57,3 +57,18 @@ export function trackSpinSubmit(params: AnalyticsParams = {}): void {
 export function trackSpinResult(won: boolean, params: AnalyticsParams = {}): void {
   trackEvent("spin_win_result", { won, ...params });
 }
+
+/** Track an internal SEO link click (category intros, map SEO text, homepage footer). */
+export function trackSeoLinkClick(
+  section: "stores_intro" | "map_seo" | "homepage_seo",
+  linkType: "store" | "category" | "page" | "map_pin",
+  label: string,
+  destination: string,
+): void {
+  trackEvent("seo_link_click", {
+    section,
+    link_type: linkType,
+    link_label: label,
+    link_destination: destination,
+  });
+}
