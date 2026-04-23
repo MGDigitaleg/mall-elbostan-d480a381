@@ -61,6 +61,7 @@ const AdminSeoVerify = lazy(() => lazyRetry(() => import("./pages/admin/AdminSeo
 const AdminOgPreview = lazy(() => lazyRetry(() => import("./pages/admin/AdminOgPreview")));
 const AdminTenantBranding = lazy(() => lazyRetry(() => import("./pages/admin/AdminTenantBranding")));
 const AdminLaunchReadiness = lazy(() => lazyRetry(() => import("./pages/admin/AdminLaunchReadiness")));
+const AdminContactSettings = lazy(() => lazyRetry(() => import("./pages/admin/AdminContactSettings")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
