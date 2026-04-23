@@ -2,6 +2,7 @@
 import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useSearchParams } from "react-router-dom";
+import { trackSeoLinkClick } from "@/lib/analytics";
 import {
   Building2,
   Compass,
@@ -905,53 +906,52 @@ const InteractiveMap = () => {
               خريطة مول البستان التفاعلية تتيح لك تصفّح المحلات على 3 أدوار في المول — اعثر على الوحدة المناسبة بسهولة.
             </p>
 
-            {/* Category + featured stores */}
             <div className="space-y-1.5">
               <p>
-                <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>
+                <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الكمبيوتر واللابتوبات", "/stores?category=الكمبيوتر والأجهزة")}>محلات الكمبيوتر واللابتوبات</Link>
                 <span className="text-muted-foreground/50 mx-1">—</span>
-                <Link to="/stores/2b" className="hover:underline">2B</Link>
+                <Link to="/stores/2b" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "2B", "/stores/2b")}>2B</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/egypt-laptop" className="hover:underline">Egypt Laptop</Link>
+                <Link to="/stores/egypt-laptop" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Egypt Laptop", "/stores/egypt-laptop")}>Egypt Laptop</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/digital-plus" className="hover:underline">Digital Plus</Link>
+                <Link to="/stores/digital-plus" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Digital Plus", "/stores/digital-plus")}>Digital Plus</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/kasr-zero" className="hover:underline">كسر زيرو</Link>
+                <Link to="/stores/kasr-zero" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "كسر زيرو", "/stores/kasr-zero")}>كسر زيرو</Link>
               </p>
               <p>
-                <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات والإكسسوارات</Link>
+                <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الموبايلات والإكسسوارات", "/stores?category=الهواتف والإكسسوارات")}>محلات الموبايلات والإكسسوارات</Link>
                 <span className="text-muted-foreground/50 mx-1">—</span>
-                <Link to="/stores/hk" className="hover:underline">HK</Link>
+                <Link to="/stores/hk" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "HK", "/stores/hk")}>HK</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/infinity" className="hover:underline">Infinity</Link>
+                <Link to="/stores/infinity" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Infinity", "/stores/infinity")}>Infinity</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/static" className="hover:underline">ستاتيك</Link>
+                <Link to="/stores/static" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "ستاتيك", "/stores/static")}>ستاتيك</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/sharaf" className="hover:underline">شرف</Link>
+                <Link to="/stores/sharaf" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "شرف", "/stores/sharaf")}>شرف</Link>
               </p>
               <p>
-                <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج والألعاب</Link>
+                <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الجيمنج والألعاب", "/stores?category=الألعاب والترفيه")}>محلات الجيمنج والألعاب</Link>
                 <span className="text-muted-foreground/50 mx-1">—</span>
-                <Link to="/stores/games-to-egypt" className="hover:underline">Games to Egypt</Link>
+                <Link to="/stores/games-to-egypt" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Games to Egypt", "/stores/games-to-egypt")}>Games to Egypt</Link>
               </p>
               <p>
-                <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">مراكز الصيانة والدعم الفني</Link>
+                <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الصيانة والدعم الفني", "/stores?category=الصيانة والدعم الفني")}>مراكز الصيانة والدعم الفني</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">حلول الشبكات والأمن</Link>
+                <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الشبكات والأمن", "/stores?category=الشبكات والأنظمة الأمنية")}>حلول الشبكات والأمن</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline">الطباعة والتصوير</Link>
+                <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "category", "الطباعة والتصوير", "/stores?category=الطباعة والتصوير")}>الطباعة والتصوير</Link>
               </p>
             </div>
 
             <p>
               الوحدات المتاحة للتأجير معروضة باللون البرتقالي.{" "}
-              <Link to="/leasing" className="text-primary font-semibold hover:underline">استفسر عن التأجير</Link>
+              <Link to="/leasing" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "page", "التأجير", "/leasing")}>استفسر عن التأجير</Link>
               <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات الكامل</Link>
+              <Link to="/stores" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "page", "دليل المحلات", "/stores")}>تصفّح دليل المحلات الكامل</Link>
               <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/about" className="text-primary font-semibold hover:underline">عن المول</Link>
+              <Link to="/about" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "page", "عن المول", "/about")}>عن المول</Link>
               <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/contact" className="text-primary font-semibold hover:underline">التواصل معنا</Link>.
+              <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("map_seo", "page", "التواصل", "/contact")}>التواصل معنا</Link>.
             </p>
           </div>
         </div>
