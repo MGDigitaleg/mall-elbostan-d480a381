@@ -1,11 +1,15 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, organizationLd, shoppingCenterLd, websiteLd, buildFaqLd } from "@/components/SEOHead";
+import { SEOHead, buildOrganizationLd, shoppingCenterLd, websiteLd, buildFaqLd } from "@/components/SEOHead";
+import { useSitePhone } from "@/hooks/useSitePhone";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { HomeContent } from "@/components/home/HomeContent";
 import { BackToTop } from "@/components/BackToTop";
 
 const Index = () => {
+  const { phone } = useSitePhone();
+  const organizationLd = buildOrganizationLd(phone);
+
   /* FAQs are used for JSON-LD and the FAQ section far below the fold —
      defer with a staleTime so the query doesn't block initial paint. */
   const { data: faqs } = useQuery({
