@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, organizationLd } from "@/components/SEOHead";
+import { SEOHead, buildOrganizationLd } from "@/components/SEOHead";
+import { useSitePhone } from "@/hooks/useSitePhone";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { BranchStatCard } from "@/components/branch/BranchStatCard";
@@ -29,7 +30,10 @@ const sectionReveal = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const About = () => (
+const About = () => {
+  const { phone } = useSitePhone();
+  const organizationLd = buildOrganizationLd(phone);
+  return (
   <MainLayout>
     <SEOHead
       title="عن مول البستان — أقدم وأكبر مول تكنولوجيا في مصر منذ 1990"
