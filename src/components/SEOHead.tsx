@@ -92,7 +92,7 @@ export function SEOHead({
       <meta property="og:image:width" content={String(ogW)} />
       <meta property="og:image:height" content={String(ogH)} />
       <meta property="og:image:alt" content={ogAlt} />
-      <meta property="og:image:type" content={ogImg.endsWith(".svg") ? "image/svg+xml" : "image/png"} />
+      <meta property="og:image:type" content={ogImg.endsWith(".svg") ? "image/svg+xml" : ogImg.endsWith(".jpg") || ogImg.endsWith(".jpeg") ? "image/jpeg" : "image/png"} />
       <meta property="og:locale" content="ar_EG" />
       <meta property="og:locale:alternate" content="en_US" />
       <meta property="og:site_name" content="مول البستان" />
