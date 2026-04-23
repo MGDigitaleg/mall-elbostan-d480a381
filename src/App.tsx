@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
+import { LazyErrorBoundary } from "@/components/LazyErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
@@ -130,6 +131,7 @@ function AppLayout() {
     <>
       {showChrome && <Header />}
       <main className={showChrome ? (hasDarkHero ? "flex-1 min-h-[calc(100vh-660px)]" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px] min-h-[calc(100vh-660px)]") : "flex-1"}>
+        <LazyErrorBoundary>
         <Suspense fallback={<PageFallback />}>
           <Routes>
             {/* Public */}
@@ -203,6 +205,7 @@ function AppLayout() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        </LazyErrorBoundary>
       </main>
       {showChrome && <Footer />}
       {showChrome && <MobileBottomNav />}
