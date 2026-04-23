@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { LazyErrorBoundary } from "@/components/LazyErrorBoundary";
 
-function ThrowChunkError() {
+function ThrowChunkError(): React.ReactNode {
   throw new Error("Failed to fetch dynamically imported module: /chunk.js");
 }
 
-function ThrowGenericError() {
+function ThrowGenericError(): React.ReactNode {
   throw new Error("Something went wrong");
 }
 
