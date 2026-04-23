@@ -408,9 +408,12 @@ export const TechPlanetSection = () => {
         <div className="absolute end-4 top-4 z-20">
           <div className="relative">
             <button
+              ref={settingsTriggerRef}
               type="button"
               onClick={() => setSettingsOpen((v) => !v)}
+              onKeyDown={handleSettingsTriggerKeyDown}
               aria-label="إعدادات شدة الطاقة"
+              aria-haspopup="menu"
               aria-expanded={settingsOpen}
               className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-[0.72rem] font-arabic backdrop-blur-md transition-colors"
               style={{
@@ -425,6 +428,8 @@ export const TechPlanetSection = () => {
             {settingsOpen && (
               <div
                 role="menu"
+                aria-label="شدة الطاقة"
+                onKeyDown={handleSettingsMenuKeyDown}
                 className="absolute end-0 mt-2 min-w-[180px] overflow-hidden rounded-lg border shadow-xl"
                 style={{
                   borderColor: "rgba(205,187,154,0.25)",
@@ -432,19 +437,22 @@ export const TechPlanetSection = () => {
                   backdropFilter: "blur(8px)",
                 }}
               >
-                {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt) => {
+                {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt, i) => {
                   const isActive = intensity === opt;
                   return (
                     <button
                       key={opt}
+                      ref={(el) => { settingsItemsRef.current[i] = el; }}
                       type="button"
                       role="menuitemradio"
                       aria-checked={isActive}
+                      tabIndex={settingsFocusIndex === i ? 0 : -1}
                       onClick={() => {
                         setIntensity(opt);
                         setSettingsOpen(false);
+                        settingsTriggerRef.current?.focus();
                       }}
-                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06]"
+                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06] focus:bg-white/[0.08] focus:outline-none"
                       style={{ color: isActive ? "#CDBB9A" : "rgba(255,255,255,0.78)" }}
                     >
                       <span>{INTENSITY_CONFIG[opt].label}</span>
