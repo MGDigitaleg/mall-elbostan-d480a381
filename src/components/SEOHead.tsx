@@ -134,7 +134,7 @@ export const organizationLd = {
   url: BASE_URL,
   logo: `${BASE_URL}/og-default.jpg`,
   image: `${BASE_URL}/og-default.jpg`,
-  telephone: "+20-2-00000000",
+  telephone: "+20-2-25750000",
   priceRange: "$$",
   currenciesAccepted: "EGP",
   paymentAccepted: "Cash, Credit Card",
@@ -173,6 +173,7 @@ export const organizationLd = {
     "https://www.instagram.com/mallelbostan",
     "https://www.youtube.com/@mallelbostan",
     "https://www.tiktok.com/@mallelbostan",
+    "https://mallelbostan.com",
   ],
 };
 
