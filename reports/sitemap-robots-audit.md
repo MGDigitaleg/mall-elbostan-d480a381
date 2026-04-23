@@ -33,23 +33,18 @@
 
 ---
 
-## 2. Dynamic edge function STATIC_ROUTES — 24 URLs
+## 2. Dynamic edge function STATIC_ROUTES — 19 URLs
 
 _(The edge function adds DB-driven URLs on top: stores, products, blog, downtown merchants, kz_products.)_
 
 - /
 - /about
-- /blog
-- /careers
 - /contact
-- /countdown
-- /daily-deals
 - /downtown-branch
 - /downtown-directory
 - /faq
 - /join-marketplace
 - /kz
-- /kz/products
 - /leasing
 - /map
 - /market-echo
@@ -66,7 +61,7 @@ _(The edge function adds DB-driven URLs on top: stores, products, blog, downtown
 
 ## 3. robots.txt rules
 
-### Allow (24)
+### Allow (22)
 - /
 - /stores
 - /products
@@ -81,13 +76,11 @@ _(The edge function adds DB-driven URLs on top: stores, products, blog, downtown
 - /opening-day
 - /spin-win
 - /daily-deals
-- /countdown
 - /new-cairo-branch
 - /downtown-branch
 - /downtown-directory
 - /market-echo
 - /kz
-- /kz/products
 - /privacy
 - /terms
 - /reward-terms
@@ -128,26 +121,22 @@ _(The edge function adds DB-driven URLs on top: stores, products, blog, downtown
 ### URLs in static sitemap but NOT in dynamic edge sitemap (0)
 _None — both sources agree._
 
-### URLs in dynamic edge sitemap but NOT in static sitemap (5)
-- ⚠️  `/blog`
-- ⚠️  `/careers`
-- ⚠️  `/countdown`
-- ⚠️  `/daily-deals`
-- ⚠️  `/kz/products`
+### URLs in dynamic edge sitemap but NOT in static sitemap (0)
+_None._
 
-### Disallowed paths that also appear in a sitemap (1)
-- ❌ `/countdown` — remove from sitemap or unblock
+### Disallowed paths that also appear in a sitemap (0)
+_None — robots.txt and sitemaps are consistent._
 
 ---
 
 ## 6. Summary
 
 - ✅ 19 URLs in static sitemap
-- ✅ 24 static URLs in dynamic edge sitemap (DB rows added on top)
+- ✅ 19 static URLs in dynamic edge sitemap (DB rows added on top)
 - ✅ 9 disallow rules in robots.txt
 - ✅ 7 pages with `noIndex` (always or conditional)
-- ❌ 1 disallow / sitemap conflict(s)
-- ⚠️ 5 static ↔ edge drift item(s)
+- ✅ 0 disallow / sitemap conflict(s)
+- ✅ 0 static ↔ edge drift item(s)
 
 ### Verdict
-**🔴 FIX REQUIRED** — robots.txt blocks paths that are listed in a sitemap. Remove them from the sitemap or unblock in robots.txt.
+**🟢 PASS** — sitemap.xml, the dynamic edge sitemap, and robots.txt are perfectly aligned.
