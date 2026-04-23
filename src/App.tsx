@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
+import { LazyErrorBoundary } from "@/components/LazyErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes, useLocation, useParams, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
