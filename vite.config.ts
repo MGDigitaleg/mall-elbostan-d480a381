@@ -48,27 +48,48 @@ function asyncCssPlugin(): Plugin {
 }
 
 /**
- * Build-time check: warns if the Google Search Console verification
- * meta tag is still missing or contains the placeholder value.
+ * Injects the Google Search Console verification meta tag into index.html
+ * at build time, reading the code from the VITE_GSC_VERIFICATION env var.
+ *
+ * Usage:
+ *   - Set VITE_GSC_VERIFICATION=your_real_code in your env (e.g. .env.local
+ *     or Lovable project env vars), then rebuild. The tag is added/updated
+ *     automatically — no need to hand-edit index.html.
+ *   - If the env var is not set, the build prints a warning and leaves the
+ *     existing (commented) placeholder in index.html untouched.
  */
-function gscVerificationCheck(): Plugin {
+function gscVerificationInject(): Plugin {
   return {
-    name: "gsc-verification-check",
+    name: "gsc-verification-inject",
     enforce: "post",
     transformIndexHtml(html) {
-      const match = html.match(/<meta\s+name=["']google-site-verification["']\s+content=["']([^"']+)["']/i);
-      if (!match) {
+      const code = (process.env.VITE_GSC_VERIFICATION ?? "").trim();
+      const tagRegex = /<meta\s+name=["']google-site-verification["']\s+content=["']([^"']*)["']\s*\/?>/i;
+      const existing = html.match(tagRegex);
+
+      if (!code) {
+        if (existing && existing[1] && existing[1] !== "REPLACE_WITH_REAL_CODE" && existing[1].length >= 10) {
+          // A real tag is already hard-coded in index.html — leave it.
+          return html;
+        }
         console.warn(
-          "\n⚠️  GSC WARNING: No <meta name=\"google-site-verification\"> tag found in index.html.\n" +
-          "   Google Search Console verification will NOT work until you add it.\n"
+          "\n⚠️  GSC: VITE_GSC_VERIFICATION is not set.\n" +
+          "   Set it in your project env vars (or .env.local) to inject the\n" +
+          "   <meta name=\"google-site-verification\"> tag automatically.\n"
         );
-      } else if (match[1] === "YOUR_CODE" || match[1].length < 10) {
-        console.warn(
-          "\n⚠️  GSC WARNING: google-site-verification contains a placeholder value (\"" + match[1] + "\").\n" +
-          "   Replace it with your real verification code before launching.\n"
-        );
+        return html;
       }
-      return html;
+
+      const tag = `<meta name="google-site-verification" content="${code}" />`;
+
+      if (existing) {
+        // Replace any existing (live) tag with the env value.
+        return html.replace(tagRegex, tag);
+      }
+
+      // No live tag found — inject right after <head>.
+      // (The commented-out placeholder in index.html stays as documentation.)
+      return html.replace(/<head>/i, `<head>\n    ${tag}`);
     },
   };
 }
