@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import { SEOHead, organizationLd } from "@/components/SEOHead";
 import {
   ArrowLeft,
   Award,
