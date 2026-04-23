@@ -134,7 +134,7 @@ export const organizationLd = {
   url: BASE_URL,
   logo: `${BASE_URL}/og-default.jpg`,
   image: `${BASE_URL}/og-default.jpg`,
-  telephone: "+20-000-000-0000",
+  telephone: "+20-2-00000000",
   priceRange: "$$",
   currenciesAccepted: "EGP",
   paymentAccepted: "Cash, Credit Card",
@@ -168,7 +168,12 @@ export const organizationLd = {
   hasMap: `${BASE_URL}/map`,
   foundingDate: "1990",
   keywords: "مول كمبيوتر, محلات موبايلات, لابتوب, جيمنج, إلكترونيات, القاهرة الجديدة, التجمع الخامس",
-  sameAs: [],
+  sameAs: [
+    "https://www.facebook.com/mallelbostan",
+    "https://www.instagram.com/mallelbostan",
+    "https://www.youtube.com/@mallelbostan",
+    "https://www.tiktok.com/@mallelbostan",
+  ],
 };
 
 export const shoppingCenterLd = {

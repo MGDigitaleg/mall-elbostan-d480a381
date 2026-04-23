@@ -14,6 +14,7 @@ const Countdown = () => {
         keywords="افتتاح مول البستان, افتتاح 2026, مول تكنولوجيا جديد, القاهرة الجديدة, grand opening"
         ogImage={ogCountdown}
         breadcrumbs={[{ name: "العد التنازلي", url: "/countdown" }]}
+        noIndex
       />
 
       <div
