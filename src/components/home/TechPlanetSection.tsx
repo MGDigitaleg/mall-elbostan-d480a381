@@ -451,8 +451,19 @@ export const TechPlanetSection = () => {
                   backdropFilter: "blur(8px)",
                 }}
               >
+                {reduce && (
+                  <div
+                    role="note"
+                    className="px-3 py-2 text-right font-arabic text-[0.7rem]"
+                    style={{ color: "rgba(205,187,154,0.85)", borderBottom: "1px solid rgba(205,187,154,0.18)" }}
+                  >
+                    تم إيقاف التأثيرات تلقائياً وفق إعدادات تقليل الحركة في النظام.
+                  </div>
+                )}
                 {(Object.keys(INTENSITY_CONFIG) as Intensity[]).map((opt, i) => {
-                  const isActive = intensity === opt;
+                  const effective = reduce ? "off" : intensity;
+                  const isActive = effective === opt;
+                  const disabled = reduce && opt !== "off";
                   return (
                     <button
                       key={opt}
@@ -460,13 +471,16 @@ export const TechPlanetSection = () => {
                       type="button"
                       role="menuitemradio"
                       aria-checked={isActive}
+                      aria-disabled={disabled}
+                      disabled={disabled}
                       tabIndex={settingsFocusIndex === i ? 0 : -1}
                       onClick={() => {
+                        if (disabled) return;
                         setIntensity(opt);
                         setSettingsOpen(false);
                         settingsTriggerRef.current?.focus();
                       }}
-                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06] focus:bg-white/[0.08] focus:outline-none"
+                      className="flex w-full items-center justify-between gap-2 px-3 py-2 text-right font-arabic text-[0.78rem] transition-colors hover:bg-white/[0.06] focus:bg-white/[0.08] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                       style={{ color: isActive ? "#CDBB9A" : "rgba(255,255,255,0.78)" }}
                     >
                       <span>{INTENSITY_CONFIG[opt].label}</span>
