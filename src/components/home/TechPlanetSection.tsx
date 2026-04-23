@@ -186,15 +186,28 @@ export const TechPlanetSection = () => {
     return () => io.disconnect();
   }, []);
 
+  // Curated 8-device set for mobile single orbit (one per category, balanced)
+  const mobileDevices = useMemo<Device[]>(() => [
+    { Icon: Laptop, label: "لابتوبات", category: "laptops" },
+    { Icon: Smartphone, label: "هواتف ذكية", category: "phones" },
+    { Icon: Monitor, label: "شاشات", category: "monitors" },
+    { Icon: Gamepad2, label: "جيمنج", category: "gaming" },
+    { Icon: Headphones, label: "سماعات", category: "audio" },
+    { Icon: Cpu, label: "معالجات", category: "components" },
+    { Icon: Camera, label: "كاميرات", category: "cameras" },
+    { Icon: Router, label: "شبكات", category: "networking" },
+  ], []);
+
   const sizes = useMemo(() => {
     if (isMobile) {
+      // Single orbit, larger spacing, bigger icons for tap-friendliness
       return {
-        stage: 380,
+        stage: 340,
         core: 96,
-        innerR: 110,
+        innerR: 130,
         middleR: 0,
         outerR: 0,
-        innerSize: 36,
+        innerSize: 48,
         middleSize: 0,
         outerSize: 0,
         showMiddle: false,
