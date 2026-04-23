@@ -266,6 +266,11 @@ const NewCairoBranch = () => {
       {/* ═══════════ 6 · LOCATION MAP ═══════════ */}
       <LocationMapSection {...NEW_CAIRO_LOCATION} />
 
+      {/* ═══════════ 6.5 · FEATURED STORES (محلات الفرع) ═══════════ */}
+      <Suspense fallback={<div style={{ minHeight: 400 }} />}>
+        <FeaturedStores />
+      </Suspense>
+
       {/* ═══════════ 7 · FEATURED PRODUCTS ═══════════ */}
       {featuredProducts && featuredProducts.length > 0 && (
         <section className="py-10 md:py-14 bg-secondary dark:bg-background">
