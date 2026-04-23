@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { TenantLogo } from "@/components/TenantLogo";
 import { SEOHead } from "@/components/SEOHead";
@@ -14,6 +15,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { LocationMapSection, NEW_CAIRO_LOCATION } from "@/components/location/LocationMapSection";
 import { BranchHeroSlider } from "@/components/branch/BranchHeroSlider";
 import { CountdownTimer } from "@/components/CountdownTimer";
+
+const FeaturedStores = lazy(() =>
+  import("@/components/home/FeaturedStores").then((m) => ({ default: m.FeaturedStores }))
+);
+
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import ncHero2 from "@/assets/nc-hero-2-enhanced.webp";
