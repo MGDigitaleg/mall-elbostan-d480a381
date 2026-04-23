@@ -180,11 +180,32 @@ const DeviceBadge = ({
   );
 };
 
+type Intensity = "off" | "low" | "medium" | "high";
+const INTENSITY_KEY = "tp-burst-intensity";
+const INTENSITY_CONFIG: Record<Intensity, { channels: number; intervalMs: number; label: string }> = {
+  off: { channels: 0, intervalMs: 0, label: "إيقاف" },
+  low: { channels: 2, intervalMs: 4500, label: "منخفض" },
+  medium: { channels: 4, intervalMs: 3000, label: "متوسط" },
+  high: { channels: 7, intervalMs: 1600, label: "عالي" },
+};
+
 export const TechPlanetSection = () => {
   const reduce = useReducedMotion() ?? false;
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [intensity, setIntensity] = useState<Intensity>(() => {
+    if (typeof window === "undefined") return "medium";
+    const v = window.localStorage.getItem(INTENSITY_KEY);
+    return (v === "off" || v === "low" || v === "medium" || v === "high") ? v : "medium";
+  });
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(INTENSITY_KEY, intensity);
+    }
+  }, [intensity]);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -269,7 +290,8 @@ export const TechPlanetSection = () => {
   const burstIdRef = useRef(0);
 
   useEffect(() => {
-    if (!active || reduce) {
+    const cfg = INTENSITY_CONFIG[intensity];
+    if (!active || reduce || cfg.channels === 0) {
       setBursts([]);
       return;
     }
@@ -280,13 +302,12 @@ export const TechPlanetSection = () => {
       burstIdRef.current += 1;
       return { id: burstIdRef.current, orbitIdx, deviceIdx, startedAt: performance.now() };
     };
-    // Seed 4 channels
-    setBursts([pickBurst(), pickBurst(), pickBurst(), pickBurst()]);
+    setBursts(Array.from({ length: cfg.channels }, pickBurst));
     const interval = setInterval(() => {
       setBursts((prev) => prev.map(() => pickBurst()));
-    }, 3000);
+    }, cfg.intervalMs);
     return () => clearInterval(interval);
-  }, [active, reduce, orbitDefs]);
+  }, [active, reduce, orbitDefs, intensity]);
 
   // Animate burst endpoints in sync with orbit rotation
   const [tick, setTick] = useState(0);
