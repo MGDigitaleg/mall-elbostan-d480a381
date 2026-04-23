@@ -275,7 +275,8 @@ const About = () => {
       </div>
     </section>
   </MainLayout>
-);
+  );
+};
 
 export default About;
 
