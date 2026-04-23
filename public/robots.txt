@@ -31,6 +31,7 @@ Allow: /reward-terms
 Disallow: /admin
 Disallow: /admin/
 Disallow: /spin-win/claim
+Disallow: /countdown
 Disallow: /kz/cart
 Disallow: /kz/search
 
