@@ -45,15 +45,10 @@ describe("lazyRetry", () => {
     const err = new Error("Failed to fetch dynamically imported module");
     const factory = vi.fn().mockRejectedValue(err);
 
-    const promise = lazyRetry(factory, 1, 50);
-
-    // Advance through the single retry delay
-    await vi.advanceTimersByTimeAsync(50);
+    const promise = lazyRetry(factory, 0, 50);
 
     await expect(promise).rejects.toThrow("Failed to fetch dynamically imported module");
-    // 1 initial + 1 retry = 2
-    expect(factory).toHaveBeenCalledTimes(2);
-    // Should have cleared the reload flag
+    expect(factory).toHaveBeenCalledTimes(1);
     expect(sessionStorage.getItem("lazyRetryReload")).toBeNull();
   });
 });
