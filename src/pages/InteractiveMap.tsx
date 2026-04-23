@@ -900,31 +900,58 @@ const InteractiveMap = () => {
           <h2 className="text-[0.92rem] font-bold text-foreground mb-3" style={{ fontFamily: "var(--font-arabic-display)" }}>
             تصفّح خريطة مول البستان
           </h2>
-          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-2">
+          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-3">
             <p>
-              خريطة مول البستان التفاعلية تتيح لك تصفّح المحلات على 3 أدوار في المول.
-              اعثر على <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات والإكسسوارات</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">مراكز الصيانة</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              و<Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">حلول الشبكات والأمن</Link> بسهولة.
+              خريطة مول البستان التفاعلية تتيح لك تصفّح المحلات على 3 أدوار في المول — اعثر على الوحدة المناسبة بسهولة.
             </p>
+
+            {/* Category + featured stores */}
+            <div className="space-y-1.5">
+              <p>
+                <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>
+                <span className="text-muted-foreground/50 mx-1">—</span>
+                <Link to="/stores/2b" className="hover:underline">2B</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/egypt-laptop" className="hover:underline">Egypt Laptop</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/digital-plus" className="hover:underline">Digital Plus</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/kasr-zero" className="hover:underline">كسر زيرو</Link>
+              </p>
+              <p>
+                <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">محلات الموبايلات والإكسسوارات</Link>
+                <span className="text-muted-foreground/50 mx-1">—</span>
+                <Link to="/stores/hk" className="hover:underline">HK</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/infinity" className="hover:underline">Infinity</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/static" className="hover:underline">ستاتيك</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores/sharaf" className="hover:underline">شرف</Link>
+              </p>
+              <p>
+                <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">محلات الجيمنج والألعاب</Link>
+                <span className="text-muted-foreground/50 mx-1">—</span>
+                <Link to="/stores/games-to-egypt" className="hover:underline">Games to Egypt</Link>
+              </p>
+              <p>
+                <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">مراكز الصيانة والدعم الفني</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">حلول الشبكات والأمن</Link>
+                <span className="text-muted-foreground/40 mx-1">•</span>
+                <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline">الطباعة والتصوير</Link>
+              </p>
+            </div>
+
             <p>
-              الوحدات المتاحة للتأجير معروضة باللون البرتقالي.
+              الوحدات المتاحة للتأجير معروضة باللون البرتقالي.{" "}
               <Link to="/leasing" className="text-primary font-semibold hover:underline">استفسر عن التأجير</Link>
               <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات الكامل</Link>.
-            </p>
-            <p>
-              يمكنك أيضاً زيارة
-              <Link to="/about" className="text-primary font-semibold hover:underline">صفحة عن المول</Link>
+              <Link to="/stores" className="text-primary font-semibold hover:underline">تصفّح دليل المحلات الكامل</Link>
               <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/contact" className="text-primary font-semibold hover:underline">التواصل معنا</Link>
-              للاستفسارات.
+              <Link to="/about" className="text-primary font-semibold hover:underline">عن المول</Link>
+              <span className="text-muted-foreground/40 mx-1">•</span>
+              <Link to="/contact" className="text-primary font-semibold hover:underline">التواصل معنا</Link>.
             </p>
           </div>
         </div>
