@@ -5,78 +5,77 @@ import { HelmetProvider } from "react-helmet-async";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { useGA4 } from "@/hooks/useGA4";
+import { lazyRetry } from "@/lib/lazyRetry";
 
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { MobileBottomNav } from "./components/layout/MobileBottomNav";
 
-
-/* ── Lazy-loaded pages for code-splitting ── */
-const Index = lazy(() => import("./pages/Index"));
-const About = lazy(() => import("./pages/About"));
-const NewCairoBranch = lazy(() => import("./pages/NewCairoBranch"));
-const DowntownBranch = lazy(() => import("./pages/DowntownBranch"));
-const Stores = lazy(() => import("./pages/Stores"));
-const StoreDetail = lazy(() => import("./pages/StoreDetail"));
-const Products = lazy(() => import("./pages/Products"));
-const ProductDetail = lazy(() => import("./pages/ProductDetail"));
-const JoinMarketplace = lazy(() => import("./pages/JoinMarketplace"));
-const InteractiveMap = lazy(() => import("./pages/InteractiveMap"));
-const Leasing = lazy(() => import("./pages/Leasing"));
-const SpinWin = lazy(() => import("./pages/SpinWin"));
-const SpinClaim = lazy(() => import("./pages/SpinClaim"));
-const OpeningDay = lazy(() => import("./pages/OpeningDay"));
-const DailyDeals = lazy(() => import("./pages/DailyDeals"));
-const Careers = lazy(() => import("./pages/Careers"));
-const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
-const Contact = lazy(() => import("./pages/Contact"));
-const FAQ = lazy(() => import("./pages/FAQ"));
-const Privacy = lazy(() => import("./pages/Privacy"));
-const Terms = lazy(() => import("./pages/Terms"));
-const RewardTerms = lazy(() => import("./pages/RewardTerms"));
-const MarketEcho = lazy(() => import("./pages/MarketEcho"));
-const Countdown = lazy(() => import("./pages/Countdown"));
-const DowntownDirectory = lazy(() => import("./pages/DowntownDirectory"));
-const DowntownMerchantDetail = lazy(() => import("./pages/DowntownMerchantDetail"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+/* ── Lazy-loaded pages with retry for resilience ── */
+const Index = lazy(() => lazyRetry(() => import("./pages/Index")));
+const About = lazy(() => lazyRetry(() => import("./pages/About")));
+const NewCairoBranch = lazy(() => lazyRetry(() => import("./pages/NewCairoBranch")));
+const DowntownBranch = lazy(() => lazyRetry(() => import("./pages/DowntownBranch")));
+const Stores = lazy(() => lazyRetry(() => import("./pages/Stores")));
+const StoreDetail = lazy(() => lazyRetry(() => import("./pages/StoreDetail")));
+const Products = lazy(() => lazyRetry(() => import("./pages/Products")));
+const ProductDetail = lazy(() => lazyRetry(() => import("./pages/ProductDetail")));
+const JoinMarketplace = lazy(() => lazyRetry(() => import("./pages/JoinMarketplace")));
+const InteractiveMap = lazy(() => lazyRetry(() => import("./pages/InteractiveMap")));
+const Leasing = lazy(() => lazyRetry(() => import("./pages/Leasing")));
+const SpinWin = lazy(() => lazyRetry(() => import("./pages/SpinWin")));
+const SpinClaim = lazy(() => lazyRetry(() => import("./pages/SpinClaim")));
+const OpeningDay = lazy(() => lazyRetry(() => import("./pages/OpeningDay")));
+const DailyDeals = lazy(() => lazyRetry(() => import("./pages/DailyDeals")));
+const Careers = lazy(() => lazyRetry(() => import("./pages/Careers")));
+const Blog = lazy(() => lazyRetry(() => import("./pages/Blog")));
+const BlogPost = lazy(() => lazyRetry(() => import("./pages/BlogPost")));
+const Contact = lazy(() => lazyRetry(() => import("./pages/Contact")));
+const FAQ = lazy(() => lazyRetry(() => import("./pages/FAQ")));
+const Privacy = lazy(() => lazyRetry(() => import("./pages/Privacy")));
+const Terms = lazy(() => lazyRetry(() => import("./pages/Terms")));
+const RewardTerms = lazy(() => lazyRetry(() => import("./pages/RewardTerms")));
+const MarketEcho = lazy(() => lazyRetry(() => import("./pages/MarketEcho")));
+const Countdown = lazy(() => lazyRetry(() => import("./pages/Countdown")));
+const DowntownDirectory = lazy(() => lazyRetry(() => import("./pages/DowntownDirectory")));
+const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/DowntownMerchantDetail")));
+const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
 
 /* ── Kasr Zero pages ── */
-const KzHome = lazy(() => import("./pages/kz/KzHome"));
-const KzCart = lazy(() => import("./pages/kz/KzCart"));
+const KzHome = lazy(() => lazyRetry(() => import("./pages/kz/KzHome")));
+const KzCart = lazy(() => lazyRetry(() => import("./pages/kz/KzCart")));
 
-const AdminLogin = lazy(() => import("./pages/admin/Login"));
-const AdminDowntownMerchants = lazy(() => import("./pages/admin/AdminDowntownMerchants"));
-const AdminDashboard = lazy(() => import("./pages/admin/Dashboard"));
-const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
-const AdminTenantAssets = lazy(() => import("./pages/admin/AdminTenantAssets"));
-const AdminKzProducts = lazy(() => import("./pages/admin/AdminKzProducts"));
-const AdminSpinHub = lazy(() => import("./pages/admin/AdminSpinHub"));
-const AdminVisitorTokens = lazy(() => import("./pages/admin/AdminVisitorTokens"));
-const AdminLogoAudit = lazy(() => import("./pages/admin/AdminLogoAudit"));
-const AdminSeoAudit = lazy(() => import("./pages/admin/AdminSeoAudit"));
-const AdminIndexingLogs = lazy(() => import("./pages/admin/AdminIndexingLogs"));
-const AdminSeoVerify = lazy(() => import("./pages/admin/AdminSeoVerify"));
-const AdminOgPreview = lazy(() => import("./pages/admin/AdminOgPreview"));
-const AdminTenantBranding = lazy(() => import("./pages/admin/AdminTenantBranding"));
-
-
+const AdminLogin = lazy(() => lazyRetry(() => import("./pages/admin/Login")));
+const AdminDowntownMerchants = lazy(() => lazyRetry(() => import("./pages/admin/AdminDowntownMerchants")));
+const AdminDashboard = lazy(() => lazyRetry(() => import("./pages/admin/Dashboard")));
+const AdminLeads = lazy(() => lazyRetry(() => import("./pages/admin/AdminLeads")));
+const AdminTenantAssets = lazy(() => lazyRetry(() => import("./pages/admin/AdminTenantAssets")));
+const AdminKzProducts = lazy(() => lazyRetry(() => import("./pages/admin/AdminKzProducts")));
+const AdminSpinHub = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinHub")));
+const AdminVisitorTokens = lazy(() => lazyRetry(() => import("./pages/admin/AdminVisitorTokens")));
+const AdminLogoAudit = lazy(() => lazyRetry(() => import("./pages/admin/AdminLogoAudit")));
+const AdminSeoAudit = lazy(() => lazyRetry(() => import("./pages/admin/AdminSeoAudit")));
+const AdminIndexingLogs = lazy(() => lazyRetry(() => import("./pages/admin/AdminIndexingLogs")));
+const AdminSeoVerify = lazy(() => lazyRetry(() => import("./pages/admin/AdminSeoVerify")));
+const AdminOgPreview = lazy(() => lazyRetry(() => import("./pages/admin/AdminOgPreview")));
+const AdminTenantBranding = lazy(() => lazyRetry(() => import("./pages/admin/AdminTenantBranding")));
 
 // Wrapper components for lazy-loaded admin named exports
-const AdminStores = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores })));
-const AdminUnits = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits })));
-const AdminEvents = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents })));
-const AdminRewards = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards })));
-const AdminDeals = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminDeals })));
-const AdminJobs = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminJobs })));
-const AdminBlog = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminBlog })));
-const AdminFaqs = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminFaqs })));
-const AdminProducts = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProducts })));
-const AdminProductCategories = lazy(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProductCategories })));
-const AdminCompetitionStores = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminCompetitionStores })));
-const AdminStorePrizes = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminStorePrizes })));
-const AdminSpinWinners = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners })));
-const AdminSpinReports = lazy(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports })));
+const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
+const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits }))));
+const AdminEvents = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents }))));
+const AdminRewards = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards }))));
+const AdminDeals = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminDeals }))));
+const AdminJobs = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminJobs }))));
+const AdminBlog = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminBlog }))));
+const AdminFaqs = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminFaqs }))));
+const AdminProducts = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProducts }))));
+const AdminProductCategories = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminProductCategories }))));
+const AdminCompetitionStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminCompetitionStores }))));
+const AdminStorePrizes = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminStorePrizes }))));
+const AdminSpinWinners = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners }))));
+const AdminSpinReports = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports }))));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
