@@ -551,18 +551,49 @@ const StoreDetail = () => {
                         ))}
                       </div>
                     ) : storeOffers.length > 0 ? (
-                      <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
-                        {storeOffers.map((offer: any) => (
-                          <OpeningOfferCard
-                            key={offer.id}
-                            offer={offer}
-                            compact
-                            showStoreLink={false}
-                            showAllStoreOffersCta={false}
-                            directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
-                            directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
-                          />
-                        ))}
+                      <div className="p-4 md:p-5">
+                        <div className="mb-4 flex flex-wrap items-center gap-2">
+                          {storeOfferCategories.map((category) => {
+                            const isActive = offerFilter === category;
+                            return (
+                              <button
+                                key={category}
+                                type="button"
+                                onClick={() => setOfferFilter(category)}
+                                className={`rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold transition-colors ${
+                                  isActive
+                                    ? "bg-primary text-primary-foreground"
+                                    : "border border-border/70 bg-secondary/60 text-foreground hover:bg-secondary"
+                                }`}
+                              >
+                                {category}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {filteredStoreOffers.length > 0 ? (
+                          <div className="grid gap-4 md:grid-cols-2">
+                            {filteredStoreOffers.map((offer: any) => (
+                              <OpeningOfferCard
+                                key={offer.id}
+                                offer={offer}
+                                compact
+                                showStoreLink={false}
+                                showAllStoreOffersCta={false}
+                                directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
+                                directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="rounded-2xl border border-border/70 bg-secondary/20 p-5 text-center">
+                            <p className="text-[0.84rem] font-bold text-foreground">لا توجد عروض ضمن هذا القسم الآن</p>
+                            <p className="mt-2 text-[0.72rem] leading-7 text-muted-foreground">
+                              اختر قسمًا آخر أو اعرض كل الأقسام لرؤية جميع عروض {store.name_ar}.
+                            </p>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="p-5 text-center md:p-6">
