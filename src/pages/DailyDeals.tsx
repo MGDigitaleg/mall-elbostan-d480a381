@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Sparkles, Store, ArrowLeft, Clock3, LayoutGrid, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -14,6 +14,7 @@ import { OfferMetaLine, OpeningOfferCard, type OpeningOfferRecord } from "@/comp
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
 
 const DailyDeals = () => {
+  const { id: offerId } = useParams<{ id?: string }>();
   const { isExpired } = useCountdown(LAUNCH_DATE);
   const [searchParams] = useSearchParams();
   const location = useLocation();
@@ -62,11 +63,12 @@ const DailyDeals = () => {
   const sectionDescription = isExpired
     ? "جميع العروض المنشورة من المحلات المشاركة داخل مول البستان، مع ربط مباشر بصفحات المتاجر."
     : "مراجعة مبكرة ومنظمة للعروض المنتظرة من المحلات المشاركة قبل يوم الافتتاح.";
+  const targetOfferId = offerId ?? location.hash.replace("#offer-", "").replace("#", "");
 
   useEffect(() => {
-    if (!location.hash || isLoading || !deals?.length) return;
+    if (!targetOfferId || isLoading || !deals?.length) return;
 
-    const targetId = location.hash.replace("#", "");
+    const targetId = `offer-${targetOfferId}`;
     const scrollToOffer = () => {
       const target = document.getElementById(targetId);
       if (!target) return false;
@@ -79,7 +81,7 @@ const DailyDeals = () => {
 
     const timeoutId = window.setTimeout(scrollToOffer, 180);
     return () => window.clearTimeout(timeoutId);
-  }, [location.hash, deals, isLoading]);
+  }, [targetOfferId, deals, isLoading]);
 
   return (
     <MainLayout>

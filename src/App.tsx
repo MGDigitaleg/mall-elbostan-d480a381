@@ -161,6 +161,7 @@ function AppLayout() {
             <Route path="/spin-win/claim/:code" element={<SpinClaim />} />
             <Route path="/opening-day" element={<OpeningDay />} />
             <Route path="/daily-deals" element={<DailyDeals />} />
+            <Route path="/daily-deals/offer/:id" element={<DailyDeals />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />

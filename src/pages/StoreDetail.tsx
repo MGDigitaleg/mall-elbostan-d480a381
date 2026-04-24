@@ -581,7 +581,7 @@ const StoreDetail = () => {
                                 compact
                                 showStoreLink={false}
                                 showAllStoreOffersCta={false}
-                                directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
+                                directOfferHref={`/daily-deals/offer/${offer.id}`}
                                 directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
                               />
                             ))}
