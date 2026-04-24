@@ -26,6 +26,7 @@ type Props = {
   onAtriumClick?: () => void;
   atriumConfig?: AtriumConfig;
   highlightedUnitIds?: Set<string>;
+  activeMarkerUnitId?: string | null;
   hideControls?: boolean;
   className?: string;
 };
@@ -43,7 +44,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#0A9AB8",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, hideControls, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
@@ -161,6 +162,10 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         break;
     }
   }, [zoom]);
+
+  const activeMarkerUnit = activeMarkerUnitId
+    ? floor.units.find((unit) => unit.id === activeMarkerUnitId) ?? null
+    : null;
 
   return (
     <div
