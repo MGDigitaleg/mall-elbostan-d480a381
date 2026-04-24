@@ -4,6 +4,7 @@ import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, SearchX, Compass,
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { resolveDeviceHref } from "@/lib/deviceHref";
+import { scoreDevice, tokenizeQuery } from "@/lib/deviceSearchIndex";
 
 export type CatalogDevice = {
   Icon: LucideIcon;
