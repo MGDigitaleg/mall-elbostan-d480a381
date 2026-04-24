@@ -178,8 +178,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 5 · INTERACTIVE MAP TEASER (compact) ═══════════ */}
       <section
+        id="home-map"
         className="bg-card dark:bg-background"
         style={{
+          scrollMarginTop: 80,
           contentVisibility: "auto",
           containIntrinsicSize: "auto 200px",
           paddingTop: "clamp(28px, 4vw, 56px)",
