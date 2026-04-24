@@ -67,7 +67,11 @@ function getMeta(resolved: ResolvedDevice) {
 }
 
 export default function DevicePage() {
-  const { pillar: pillarSlug, cluster: clusterSlug, longtail: longtailSlug } = useParams();
+  const params = useParams();
+  // Supports both /devices/:slug (pillar-only via DeviceCategory) and /devices/:pillar/:cluster?/:longtail?
+  const pillarSlug = params.pillar ?? params.slug;
+  const clusterSlug = params.cluster;
+  const longtailSlug = params.longtail;
   const resolved = resolveDevicePath(pillarSlug, clusterSlug, longtailSlug);
 
   if (!resolved) return <Navigate to="/stores" replace />;
