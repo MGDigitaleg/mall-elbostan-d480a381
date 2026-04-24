@@ -191,6 +191,16 @@ export function MapTeaserPreview() {
             </DialogDescription>
           </DialogHeader>
           {modalUnit && <UnitDetailsCard unit={modalUnit} />}
+          {modalUnit && (
+            <div className="mt-4 flex justify-end border-t border-border pt-4">
+              <Link to={`/stores/${modalUnit.code}`}>
+                <Button variant="cta" className="h-10 rounded-lg px-5 text-[0.8rem] font-bold">
+                  <Store className="ml-1.5 h-4 w-4" />
+                  صفحة المتجر
+                </Button>
+              </Link>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
