@@ -1,63 +1,69 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  Laptop, Smartphone, Monitor, Cpu, Headphones, Keyboard,
-  HardDrive, Mouse, Camera, Gamepad2, Printer, Router,
-  Tablet, Watch, Speaker, MemoryStick, Webcam, Cable, Zap, Wifi, Wrench,
-  ArrowLeft, Sparkles, Check, type LucideIcon,
-} from "lucide-react";
+import { ArrowLeft, Sparkles, Check, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { deviceCatalog } from "@/lib/deviceCatalog";
 
 type Device = {
   Icon: LucideIcon;
   label: string;
-  category: string;
+  slug: string;
 };
 
-// Category slugs MUST match existing values in the `stores.category` column.
-// Verified DB categories (Arabic): الهواتف والإكسسوارات · الكمبيوتر والأجهزة ·
-// الألعاب والترفيه · الشبكات والأنظمة الأمنية · الطباعة والتصوير · الصيانة والدعم الفني
-const CAT = {
-  phones: "الهواتف والإكسسوارات",
-  computers: "الكمبيوتر والأجهزة",
-  gaming: "الألعاب والترفيه",
-  networking: "الشبكات والأنظمة الأمنية",
-  printing: "الطباعة والتصوير",
-  maintenance: "الصيانة والدعم الفني",
-} as const;
+// Build orbit lists from the centralized device catalog so each icon
+// always points at its dedicated SEO landing page (/devices/:slug).
+// Curated, ordered selections per orbit ring for visual balance.
+const pick = (slugs: string[]): Device[] =>
+  slugs
+    .map((s) => deviceCatalog[s])
+    .filter(Boolean)
+    .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
 
-const innerOrbit: Device[] = [
-  { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
-  { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
-  { Icon: Monitor, label: "شاشات", category: CAT.computers },
-  { Icon: Cpu, label: "معالجات", category: CAT.computers },
-  { Icon: Headphones, label: "سماعات", category: CAT.phones },
-  { Icon: Keyboard, label: "لوحات مفاتيح", category: CAT.computers },
-];
+// Inner orbit — 8 most essential device categories
+const innerOrbit: Device[] = pick([
+  "laptops",
+  "smartphones",
+  "monitors",
+  "cpus",
+  "headphones",
+  "keyboards",
+  "tablets",
+  "smartwatches",
+]);
 
-const middleOrbit: Device[] = [
-  { Icon: HardDrive, label: "تخزين", category: CAT.computers },
-  { Icon: Mouse, label: "ماوس", category: CAT.computers },
-  { Icon: Camera, label: "كاميرات", category: CAT.printing },
-  { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
-  { Icon: Printer, label: "طابعات", category: CAT.printing },
-  { Icon: Router, label: "راوترات", category: CAT.networking },
-];
+// Middle orbit — 10 key peripherals & secondary categories
+const middleOrbit: Device[] = pick([
+  "storage",
+  "mice",
+  "cameras",
+  "gaming-consoles",
+  "printers",
+  "routers",
+  "graphics-cards",
+  "ram",
+  "speakers",
+  "controllers",
+]);
 
-const outerOrbit: Device[] = [
-  { Icon: Tablet, label: "تابلت", category: CAT.phones },
-  { Icon: Watch, label: "ساعات ذكية", category: CAT.phones },
-  { Icon: Speaker, label: "سبيكر", category: CAT.phones },
-  { Icon: MemoryStick, label: "رامات", category: CAT.computers },
-  { Icon: Webcam, label: "ويب كام", category: CAT.printing },
-  { Icon: Cable, label: "كابلات", category: CAT.phones },
-  { Icon: Zap, label: "شواحن", category: CAT.phones },
-  { Icon: Wifi, label: "شبكات", category: CAT.networking },
-];
+// Outer orbit — 12 specialty / extended categories
+const outerOrbit: Device[] = pick([
+  "televisions",
+  "projectors",
+  "servers",
+  "external-storage",
+  "microphones",
+  "ups",
+  "scanners",
+  "nas",
+  "smart-lighting",
+  "security-cameras",
+  "vr-gaming",
+  "streaming-gear",
+]);
 
 type OrbitProps = {
   devices: Device[];
@@ -121,7 +127,7 @@ const DeviceBadge = ({
   playState: "running" | "paused";
   onHoverChange: (hovered: boolean) => void;
 }) => {
-  const { Icon, label, category } = device;
+  const { Icon, label, slug } = device;
   // Counter-rotate in opposite direction of the orbit so icons stay upright
   const counterDirection = reverse ? "normal" : "reverse";
 
@@ -129,7 +135,7 @@ const DeviceBadge = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          to={`/stores?category=${encodeURIComponent(category)}`}
+          to={`/devices/${slug}`}
           aria-label={label}
           onMouseEnter={() => onHoverChange(true)}
           onMouseLeave={() => onHoverChange(false)}
@@ -307,17 +313,23 @@ export const TechPlanetSection = () => {
     return () => io.disconnect();
   }, []);
 
-  // Curated 8-device set for mobile single orbit (one per category, balanced)
-  const mobileDevices = useMemo<Device[]>(() => [
-    { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
-    { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
-    { Icon: Monitor, label: "شاشات", category: CAT.computers },
-    { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
-    { Icon: Headphones, label: "سماعات", category: CAT.phones },
-    { Icon: Printer, label: "طباعة", category: CAT.printing },
-    { Icon: Wrench, label: "صيانة", category: CAT.maintenance },
-    { Icon: Router, label: "شبكات", category: CAT.networking },
-  ], []);
+  // Curated 10-device set for mobile single orbit (balanced across categories)
+  const mobileDevices = useMemo<Device[]>(
+    () =>
+      pick([
+        "laptops",
+        "smartphones",
+        "monitors",
+        "gaming-consoles",
+        "headphones",
+        "printers",
+        "tablets",
+        "smartwatches",
+        "routers",
+        "cameras",
+      ]),
+    [],
+  );
 
   const sizes = useMemo(() => {
     if (isMobile) {
