@@ -92,7 +92,38 @@ interface DeviceSearchEntry {
   href: string;
 }
 
-const NORMALIZED_BRANDS = brands.map((b) => ({ ...b, n: normalize(b.labelAr) }));
+// Brand aliases (Arabic transliterations) — bridge English brand names with
+// the Arabic spellings users actually type and that catalog keywords use.
+const BRAND_ALIASES: Record<string, string[]> = {
+  apple: ["ابل", "أبل", "ايفون", "ماك"],
+  samsung: ["سامسونج", "سامسونغ", "جالاكسي"],
+  asus: ["اسوس", "أسوس"],
+  dell: ["ديل"],
+  hp: ["اتش بي", "إتش بي"],
+  lenovo: ["لينوفو"],
+  msi: ["ام اس اي"],
+  acer: ["ايسر", "أيسر"],
+  xiaomi: ["شاومي", "ريدمي"],
+  huawei: ["هواوي"],
+  oppo: ["اوبو", "أوبو"],
+  realme: ["ريلمي"],
+  lg: ["ال جي"],
+  sony: ["سوني"],
+  microsoft: ["مايكروسوفت"],
+  razer: ["ريزر"],
+  logitech: ["لوجيتك"],
+  jbl: ["جي بي ال"],
+  anker: ["انكر", "أنكر"],
+  canon: ["كانون"],
+  epson: ["ابسون", "إبسون"],
+  brother: ["برذر"],
+};
+
+const NORMALIZED_BRANDS = brands.map((b) => ({
+  ...b,
+  // All searchable forms for this brand: English label + Arabic aliases.
+  forms: [normalize(b.labelAr), ...(BRAND_ALIASES[b.slug] ?? []).map(normalize)],
+}));
 const NORMALIZED_USECASES = useCases.map((u) => ({ ...u, n: normalize(u.labelAr) }));
 
 function buildEntry(slug: string): DeviceSearchEntry {
