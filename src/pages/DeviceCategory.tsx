@@ -33,21 +33,56 @@ export default function DeviceCategory() {
     },
   });
 
-  // Related products (text-match on name/brand for keywords)
+  // Related products — score-based matching across name_ar and brand
   const { data: products = [] } = useQuery({
     queryKey: ["device-products", slug, productKeywords],
     queryFn: async () => {
+      if (!productKeywords.length) return [];
+
+      // 1) Build a wide OR filter (name_ar OR brand ILIKE %kw%)
       const orFilter = productKeywords
-        .map((kw) => `name_ar.ilike.%${kw}%,brand.ilike.%${kw}%`)
+        .flatMap((kw) => {
+          const safe = kw.replace(/[%,()]/g, "").trim();
+          if (!safe) return [];
+          return [`name_ar.ilike.%${safe}%`, `brand.ilike.%${safe}%`];
+        })
         .join(",");
+
       const { data } = await supabase
         .from("products")
         .select("id, slug, name_ar, image_url, price, brand")
         .eq("status", "published")
         .not("image_url", "is", null)
         .or(orFilter)
-        .limit(8);
-      return data ?? [];
+        .limit(40);
+
+      const candidates = data ?? [];
+
+      // 2) Score each candidate: more matched keywords = higher rank.
+      //    Short Latin tokens (≤3 chars) require word-boundary to avoid false hits.
+      const scored = candidates.map((p) => {
+        const hay = `${p.name_ar ?? ""} ${p.brand ?? ""}`.toLowerCase();
+        let score = 0;
+        for (const raw of productKeywords) {
+          const kw = raw.toLowerCase().trim();
+          if (!kw) continue;
+          const isShortLatin = /^[a-z0-9]{1,3}$/.test(kw);
+          if (isShortLatin) {
+            const re = new RegExp(`(^|[^a-z0-9])${kw}([^a-z0-9]|$)`, "i");
+            if (re.test(hay)) score += 2;
+          } else if (hay.includes(kw)) {
+            score += kw.length >= 5 ? 3 : 2;
+          }
+        }
+        return { p, score };
+      });
+
+      // 3) Drop zero-score (false hits from over-broad ILIKE) and sort.
+      return scored
+        .filter((s) => s.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 8)
+        .map((s) => s.p);
     },
   });
 
