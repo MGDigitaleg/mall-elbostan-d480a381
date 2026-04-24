@@ -662,10 +662,10 @@ export const TechPlanetSection = () => {
                 key={`ring-${i}`}
                 className="absolute inset-0 rounded-full border"
                 style={{
-                  borderColor: "rgba(96, 165, 250, 0.18)",
+                  borderColor: "rgba(125, 211, 252, 0.22)",
                   willChange: "transform, opacity",
                 }}
-                animate={active ? { scale: [0.6, 1.6], opacity: [0.45, 0] } : { scale: 0.6, opacity: 0 }}
+                animate={active ? { scale: [0.6, 1.6], opacity: [0.5, 0] } : { scale: 0.6, opacity: 0 }}
                 transition={{
                   repeat: Infinity,
                   duration: 4,
@@ -675,17 +675,21 @@ export const TechPlanetSection = () => {
               />
             ))}
 
-            {[sizes.innerR, sizes.middleR, sizes.outerR].filter(Boolean).map((r, i) => (
+            {[
+              { r: sizes.innerR, color: "rgba(125, 211, 252, 0.18)" },
+              { r: sizes.middleR, color: "rgba(96, 165, 250, 0.14)" },
+              { r: sizes.outerR, color: "rgba(167, 139, 250, 0.16)" },
+            ].filter((g) => g.r > 0).map((g, i) => (
               <div
                 key={`guide-${i}`}
                 className="pointer-events-none absolute rounded-full border"
                 style={{
-                  width: r * 2,
-                  height: r * 2,
+                  width: g.r * 2,
+                  height: g.r * 2,
                   top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  borderColor: "rgba(205, 187, 154, 0.08)",
+                  borderColor: g.color,
                   borderStyle: "dashed",
                 }}
               />
