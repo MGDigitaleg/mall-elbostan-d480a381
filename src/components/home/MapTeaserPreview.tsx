@@ -2,7 +2,9 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Compass, Layers, MapPin, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
+import { UnitDetailsCard } from "@/components/map/UnitDetailsCard";
 import {
   mallFloors,
   floorLabelsAr,
@@ -20,6 +22,12 @@ export function MapTeaserPreview() {
     [floor.units],
   );
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(defaultUnit);
+  const [modalUnit, setModalUnit] = useState<MallUnit | null>(null);
+
+  const handleSelectUnit = (unit: MallUnit) => {
+    setSelectedUnit(unit);
+    setModalUnit(unit);
+  };
   const activeUnit = selectedUnit ?? defaultUnit;
 
   const mutedUnitIds = useMemo(
@@ -71,7 +79,7 @@ export function MapTeaserPreview() {
             floor={floor}
             selectedUnitId={activeUnit.id}
             mutedUnitIds={mutedUnitIds}
-            onSelectUnit={setSelectedUnit}
+            onSelectUnit={handleSelectUnit}
             className="w-full max-w-full"
             hideControls
           />
@@ -161,6 +169,19 @@ export function MapTeaserPreview() {
           </div>
         </div>
       </div>
+
+      {/* ── Store details modal (RTL Arabic) ── */}
+      <Dialog open={!!modalUnit} onOpenChange={(open) => !open && setModalUnit(null)}>
+        <DialogContent dir="rtl" className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="text-right">
+            <DialogTitle className="text-base font-bold">تفاصيل الوحدة</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              معلومات المتجر، حالة التأجير، والموقع داخل المول.
+            </DialogDescription>
+          </DialogHeader>
+          {modalUnit && <UnitDetailsCard unit={modalUnit} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
