@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
+import { TechPlanetAuditBanner } from "@/components/home/TechPlanetAuditBanner";
 
 type Device = {
   Icon: LucideIcon;
@@ -90,16 +91,19 @@ const outerOrbit: Device[] = pick([
 // Dev-only audit: compare orbit coverage to the centralized deviceCatalog so
 // new device entries are never silently absent from the planet (and removed
 // entries don't linger as dead slugs in an orbit array).
-if (import.meta.env.DEV) {
+const META_KEYS = new Set(["seo"]);
+const computeOrbitAudit = () => {
   const orbitSlugs = [...innerOrbit, ...middleOrbit, ...outerOrbit].map((d) => d.slug);
   const seen = new Set<string>();
   const duplicates = orbitSlugs.filter((s) => (seen.has(s) ? true : (seen.add(s), false)));
-  // Exclude meta/non-device keys from the catalog (e.g. shared "seo" defaults).
-  const META_KEYS = new Set(["seo"]);
   const catalogSlugs = Object.keys(deviceCatalog).filter((k) => !META_KEYS.has(k));
   const missing = catalogSlugs.filter((s) => !seen.has(s));
   const extras = orbitSlugs.filter((s) => !(s in deviceCatalog));
+  return { missing, extras, duplicates, catalogSlugs, orbitSlugs };
+};
 
+if (import.meta.env.DEV) {
+  const { missing, extras, duplicates, catalogSlugs } = computeOrbitAudit();
   if (missing.length || extras.length || duplicates.length) {
     // eslint-disable-next-line no-console
     console.groupCollapsed(
@@ -119,6 +123,7 @@ if (import.meta.env.DEV) {
     );
   }
 }
+
 
 type OrbitProps = {
   devices: Device[];
@@ -1002,6 +1007,11 @@ export const TechPlanetSection = () => {
               </div>
             </div>
           </div>
+
+          {import.meta.env.DEV && (() => {
+            const { missing, extras, duplicates } = computeOrbitAudit();
+            return <TechPlanetAuditBanner missing={missing} extras={extras} duplicates={duplicates} />;
+          })()}
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
