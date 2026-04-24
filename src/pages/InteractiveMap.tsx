@@ -924,7 +924,7 @@ const InteractiveMap = () => {
                 <span className="text-muted-foreground/50 mx-1">—</span>
                 <Link to="/stores/hk" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "HK", "/stores/hk")}>HK</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
-                <Link to="/stores/infinity" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Infinity", "/stores/infinity")}>Infinity</Link>
+                <Link to="/stores/ics" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "Infinity Computer Services / ICS", "/stores/ics")}>Infinity Computer Services / ICS</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
                 <Link to="/stores/static" className="hover:underline" onClick={() => trackSeoLinkClick("map_seo", "store", "ستاتيك", "/stores/static")}>ستاتيك</Link>
                 <span className="text-muted-foreground/40 mx-1">•</span>
