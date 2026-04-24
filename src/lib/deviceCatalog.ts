@@ -580,8 +580,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["nas", "ups", "networking", "storage", "cpus"],
   },
 
-  "storage": {
-    slug: "storage",
+  "external-storage": {
+    slug: "external-storage",
     labelAr: "تخزين خارجي",
     labelEn: "External Storage",
     Icon: Disc,
@@ -764,8 +764,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["cameras", "accessories", "networking", "routers"],
   },
 
-  "accessories": {
-    slug: "accessories",
+  "smart-lighting": {
+    slug: "smart-lighting",
     labelAr: "إضاءة ذكية",
     labelEn: "Smart Lighting",
     Icon: Lightbulb,
@@ -787,8 +787,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["cameras", "intercoms", "speakers", "televisions"],
   },
 
-  "cameras": {
-    slug: "cameras",
+  "security-cameras": {
+    slug: "security-cameras",
     labelAr: "كاميرات مراقبة",
     labelEn: "Security Cameras",
     Icon: ShieldCheck,
@@ -810,8 +810,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["intercoms", "networking", "accessories", "ups"],
   },
 
-  "cpus": {
-    slug: "cpus",
+  "pc-components": {
+    slug: "pc-components",
     labelAr: "مكونات الكمبيوتر",
     labelEn: "PC Components",
     Icon: CircuitBoard,
@@ -881,8 +881,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
 
   // ─── Curated extras (commonly searched) ───
 
-  "laptops": {
-    slug: "laptops",
+  "gaming-laptops": {
+    slug: "gaming-laptops",
     labelAr: "لابتوبات جيمنج",
     labelEn: "Gaming Laptops",
     Icon: Laptop,
@@ -927,8 +927,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["laptops", "monitors", "tablets", "smartphones"],
   },
 
-  "cpus": {
-    slug: "cpus",
+  "graphics-cards": {
+    slug: "graphics-cards",
     labelAr: "كروت الشاشة",
     labelEn: "Graphics Cards",
     Icon: CircuitBoard,
@@ -996,8 +996,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["chargers", "cables", "smartphones", "tablets"],
   },
 
-  "controllers": {
-    slug: "controllers",
+  "vr-gaming": {
+    slug: "vr-gaming",
     labelAr: "نظارات الواقع الافتراضي",
     labelEn: "VR Gaming",
     Icon: Joystick,
@@ -1019,8 +1019,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["controllers", "laptops", "headphones"],
   },
 
-  "printers": {
-    slug: "printers",
+  "office-supplies": {
+    slug: "office-supplies",
     labelAr: "مستلزمات مكاتب",
     labelEn: "Office Supplies",
     Icon: ScanLine,
@@ -1042,8 +1042,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["printers", "scanners", "accessories"],
   },
 
-  "microphones": {
-    slug: "microphones",
+  "streaming-gear": {
+    slug: "streaming-gear",
     labelAr: "معدات البث المباشر",
     labelEn: "Streaming Gear",
     Icon: Webcam,
