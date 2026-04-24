@@ -656,12 +656,12 @@ const Products = () => {
               </div>
 
               {/* Row 2: Category dropdowns (Section + Sort) */}
-              <div className="flex items-center gap-2 flex-wrap" dir="rtl">
+              <div className="flex flex-row items-center gap-2 flex-wrap" dir="rtl">
                 {/* Section filter */}
                 <select
                   value={selectedSection}
                   onChange={(e) => setSelectedSection(e.target.value)}
-                  className="h-9 flex-1 sm:flex-none min-w-[140px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                  className="h-9 w-auto max-w-[200px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
                   <option value="all">جميع الأقسام</option>
