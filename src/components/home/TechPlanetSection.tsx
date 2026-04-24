@@ -1011,6 +1011,8 @@ export const TechPlanetSection = () => {
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
+          <TechPlanetDirectory />
+
         </div>
       </section>
     </TooltipProvider>
