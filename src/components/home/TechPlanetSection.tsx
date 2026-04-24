@@ -503,6 +503,24 @@ export const TechPlanetSection = () => {
             0%,100% { box-shadow: 0 0 0 0 rgba(252,211,77,0.55), 0 0 18px rgba(252,211,77,0.35); }
             50% { box-shadow: 0 0 0 8px rgba(252,211,77,0), 0 0 28px rgba(252,211,77,0.6); }
           }
+          @keyframes tp-sun-glow {
+            0%,100% {
+              box-shadow:
+                0 0 24px 6px rgba(252,211,77,0.55),
+                0 0 60px 18px rgba(245,158,11,0.35),
+                0 0 120px 40px rgba(245,158,11,0.18);
+            }
+            50% {
+              box-shadow:
+                0 0 36px 10px rgba(252,211,77,0.75),
+                0 0 100px 32px rgba(245,158,11,0.5),
+                0 0 180px 70px rgba(245,158,11,0.28);
+            }
+          }
+          @keyframes tp-sun-rays {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to   { transform: translate(-50%, -50%) rotate(360deg); }
+          }
         `}</style>
 
         {/* Cosmic background layers */}
