@@ -754,9 +754,9 @@ const Products = () => {
                 )}
               </div>
 
-            {/* Active filter summary */}
+            {/* Active filter summary - Desktop */}
             {hasActiveFilters && (
-              <div className="mt-2.5 flex items-center gap-2 text-[0.72rem]" style={{ color: "#64748B" }}>
+              <div className="mt-2.5 hidden lg:flex items-center gap-2 text-[0.72rem]" style={{ color: "#64748B" }}>
                 <span>نتائج البحث: {filteredProducts.length} منتج</span>
                 <button
                   onClick={clearFilters}
@@ -765,6 +765,30 @@ const Products = () => {
                 >
                   <X className="h-3 w-3" /> مسح الفلاتر
                 </button>
+              </div>
+            )}
+
+            {/* Mobile Results Banner - Shows when filters change */}
+            {hasActiveFilters && (
+              <div className="lg:hidden mt-3 rounded-lg px-4 py-3" style={{ background: "#2563EB20", border: "1px solid #2563EB40" }}>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[0.9rem] font-bold" style={{ color: "#60A5FA" }}>
+                      {filteredProducts.length}
+                    </span>
+                    <span className="text-[0.8rem] font-medium" style={{ color: "#94A3B8" }}>
+                      منتج متاح
+                    </span>
+                  </div>
+                  <button
+                    onClick={clearFilters}
+                    className="flex items-center gap-1 rounded-md px-2 py-1 text-[0.7rem] font-semibold transition-colors"
+                    style={{ border: "1px solid #ffffff20", background: "#ffffff10", color: "#CBD5E1" }}
+                  >
+                    <X className="h-3 w-3" />
+                    مسح
+                  </button>
+                </div>
               </div>
             )}
 
