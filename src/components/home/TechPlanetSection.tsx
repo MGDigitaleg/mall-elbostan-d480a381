@@ -7,6 +7,7 @@ import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
+import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
 
 type Device = {
   Icon: LucideIcon;
@@ -940,6 +941,8 @@ export const TechPlanetSection = () => {
               </div>
             ))}
           </div>
+
+          <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
           <div className="mt-10 flex justify-center">
             <Button
