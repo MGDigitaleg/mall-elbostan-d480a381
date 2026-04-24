@@ -146,8 +146,8 @@ export function Footer() {
         {/* ── TOP: Brand + Navigation ── */}
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
-          <div className="space-y-3 lg:space-y-5">
-            <Link to="/" className="inline-flex items-center" style={{ height: 64 }}>
+          <div className="space-y-3 lg:space-y-5 flex flex-col items-center text-center lg:items-start lg:text-right">
+            <Link to="/" className="brand-logo-glow inline-flex items-center" style={{ height: 64 }}>
               <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
@@ -156,7 +156,7 @@ export function Footer() {
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex items-center gap-2 pt-1 justify-center lg:justify-start">
               {socialLinks.map((s) => (
                 <SocialIcon key={s.label} href={s.href} label={s.label}>
                   <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} />
@@ -170,7 +170,7 @@ export function Footer() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-2 pt-1 lg:pt-2">
+            <div className="flex flex-wrap gap-2 pt-1 lg:pt-2 justify-center lg:justify-start">
               <Link to="/map">
                 <Button variant="cta" className="h-9 lg:h-10 rounded-xl px-4 lg:px-5 text-[0.78rem] font-bold shadow-lg shadow-primary/20">
                   <Compass className="ml-1.5 h-3.5 w-3.5" /> استكشف الخريطة
