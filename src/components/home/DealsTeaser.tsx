@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Tag, Clock, Store, Zap, Gift, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Store, Zap, Gift, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/home/Reveal";
+import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
 
 const PROMO_CARDS = [
   {
@@ -36,11 +37,13 @@ export function DealsTeaser() {
     queryFn: async () => {
       const { data } = await supabase
         .from("deals")
-        .select("id, title_ar, description_ar, promo_code, valid_to, featured, stores(name_ar, slug, logo_url)")
+        .select("id, title_ar, description_ar, valid_to, featured, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
+        .eq("campaign_key", "opening-offers-2026")
         .eq("is_live", true)
         .order("featured", { ascending: false })
+        .order("sort_order", { ascending: true })
         .limit(4);
-      return data ?? [];
+      return (data ?? []) as OpeningOfferRecord[];
     },
   });
 
@@ -67,14 +70,17 @@ export function DealsTeaser() {
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#F97316" }}>
-                عروض وحملات
+                عروض الافتتاح
               </p>
               <h2
                 className="text-[1rem] md:text-[1.15rem] font-bold leading-[1.2]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
               >
-                عروض الافتتاح والمزايا.
+                عروض الافتتاح من المحلات الجديدة.
               </h2>
+              <p className="mt-2 max-w-xl text-[0.76rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+                معاينة مختارة لعروض المحلات المشاركة في افتتاح مول البستان، مع ربط مباشر بكل متجر داخل المنظومة الرسمية للمول.
+              </p>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
               <Button
@@ -116,7 +122,7 @@ export function DealsTeaser() {
               ))}
             </div>
 
-            {/* Right: live deal cards */}
+             {/* Right: opening offers */}
             <div>
               {isLoading ? (
                 <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
@@ -130,77 +136,21 @@ export function DealsTeaser() {
                 </div>
               ) : hasDeals ? (
                 <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                  {deals.map((deal) => {
-                    const store = (deal as any).stores;
-                    const expiryDate = deal.valid_to ? new Date(deal.valid_to) : null;
-                    const isExpiringSoon = expiryDate
-                      ? expiryDate.getTime() - Date.now() < 3 * 24 * 60 * 60 * 1000
-                      : false;
-
-                    return (
-                      <div
-                        key={deal.id}
-                        className="flex flex-col rounded-xl overflow-hidden transition-all hover:bg-white/[0.04]"
-                        style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-                      >
-                        <div className="h-0.5" style={{ background: "linear-gradient(to left, #F9731660, #F9731620)" }} />
-                        <div className="flex flex-1 flex-col p-4">
-                          <h3 className="text-[0.84rem] font-bold leading-snug line-clamp-2" style={{ color: "#F1F5F9" }}>
-                            {deal.title_ar}
-                          </h3>
-
-                          {deal.description_ar && (
-                            <p className="mt-1.5 text-[0.72rem] leading-[1.6] line-clamp-2" style={{ color: "#94A3B8" }}>
-                              {deal.description_ar}
-                            </p>
-                          )}
-
-                          {deal.promo_code && (
-                            <div
-                              className="mt-2.5 flex items-center gap-2 rounded-md px-2.5 py-1.5"
-                              style={{ background: "#F9731608", border: "1px dashed #F9731625" }}
-                            >
-                              <Tag className="h-3 w-3 shrink-0" style={{ color: "#F97316" }} />
-                              <span className="font-poppins text-[0.74rem] font-bold tracking-wide" style={{ color: "#F97316" }} dir="ltr">
-                                {deal.promo_code}
-                              </span>
-                            </div>
-                          )}
-
-                          <div className="mt-auto pt-3 space-y-1.5">
-                            {expiryDate && (
-                              <div className="flex items-center gap-1.5">
-                                <Clock className={`h-2.5 w-2.5 shrink-0 ${isExpiringSoon ? "text-orange-400" : ""}`} style={isExpiringSoon ? {} : { color: "#64748B" }} />
-                                <span className={`text-[0.62rem] ${isExpiringSoon ? "text-orange-400 font-semibold" : ""}`} style={isExpiringSoon ? {} : { color: "#64748B" }}>
-                                  ينتهي {expiryDate.toLocaleDateString("ar-EG", { day: "numeric", month: "long" })}
-                                </span>
-                              </div>
-                            )}
-                            {store && (
-                              <Link to={`/stores/${store.slug}`} className="flex items-center gap-1.5 hover:opacity-80 transition-opacity">
-                                {store.logo_url ? (
-                                  <img src={store.logo_url} alt={store.name_ar} className="h-3.5 w-3.5 rounded object-contain border border-white/10 bg-white shrink-0" loading="lazy" />
-                                ) : (
-                                  <Store className="h-2.5 w-2.5 shrink-0" style={{ color: "#64748B" }} />
-                                )}
-                                <span className="text-[0.62rem] line-clamp-1" style={{ color: "#64748B" }}>{store.name_ar}</span>
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {deals.map((deal) => (
+                    <div key={deal.id} className="h-full rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
+                    </div>
+                  ))}
                 </div>
               ) : (
                 /* Pre-launch state */
                 <div className="flex flex-col items-center justify-center rounded-xl p-8 text-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", minHeight: "280px" }}>
-                  <Tag className="mb-3 h-8 w-8" style={{ color: "#F97316", opacity: 0.4 }} />
+                  <Store className="mb-3 h-8 w-8" style={{ color: "#F97316", opacity: 0.4 }} />
                   <h3 className="text-[0.92rem] font-bold" style={{ color: "#F1F5F9" }}>
-                    العروض تبدأ مع الافتتاح
+                    عروض الافتتاح قيد التجهيز
                   </h3>
                   <p className="mt-1.5 max-w-[18rem] text-[0.76rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
-                    عروض حصرية من محلات المول احتفالاً بالافتتاح الكبير — ترقبوا التفاصيل قريباً.
+                    سيتم عرض العروض المنظمة للمحلات المشاركة هنا فور اكتمال ربطها بصفحات المتاجر.
                   </p>
                   <Link to="/daily-deals" className="mt-4">
                     <Button

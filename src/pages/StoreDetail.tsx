@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
+import { OpeningOfferCard } from "@/components/offers/OpeningOfferCard";
 import fallbackCover from "@/assets/mall-interior.webp";
 
 /* ── Animations ── */
@@ -94,6 +95,23 @@ const StoreDetail = () => {
       return data ?? [];
     },
     enabled: isKzStore,
+  });
+
+  const { data: storeOffers } = useQuery({
+    queryKey: ["store-offers", store?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("deals")
+        .select("id, title_ar, description_ar, valid_to, featured, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
+        .eq("store_id", store!.id)
+        .eq("campaign_key", "opening-offers-2026")
+        .eq("is_live", true)
+        .order("featured", { ascending: false })
+        .order("sort_order", { ascending: true })
+        .limit(6);
+      return data ?? [];
+    },
+    enabled: !!store?.id,
   });
 
   const gallery = useMemo(() => {
@@ -453,6 +471,33 @@ const StoreDetail = () => {
                           </Link>
                         );
                       })}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {storeOffers && storeOffers.length > 0 && (
+                <motion.div variants={fadeChild}>
+                  <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/8">
+                          <Tag className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <h2 className="text-[0.92rem] font-bold text-foreground">عروض الافتتاح من هذا المحل</h2>
+                          <p className="text-[0.66rem] text-muted-foreground">{storeOffers.length} عرض مرتبط بصفحة المتجر</p>
+                        </div>
+                      </div>
+                      <Link to={`/daily-deals?merchant=${store.slug}`}
+                            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
+                        شاهد كل العروض <ChevronLeft className="h-3 w-3" />
+                      </Link>
+                    </div>
+                    <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
+                      {storeOffers.map((offer: any) => (
+                        <OpeningOfferCard key={offer.id} offer={offer} compact showStoreLink={false} showAllStoreOffersCta={false} />
+                      ))}
                     </div>
                   </div>
                 </motion.div>

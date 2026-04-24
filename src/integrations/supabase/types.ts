@@ -144,49 +144,91 @@ export type Database = {
       }
       deals: {
         Row: {
+          brand: string | null
+          campaign_key: string
           created_at: string
+          currency: string
           description_ar: string | null
           description_en: string | null
           featured: boolean
           id: string
+          image_primary: string | null
           is_live: boolean
+          model: string | null
+          offer_badge_ar: string | null
+          opening_status: string
+          price_current: number | null
+          price_old: number | null
           promo_code: string | null
+          sort_order: number
+          source_link: string | null
+          source_type: string | null
+          specs_short_ar: string | null
           store_id: string | null
           title_ar: string
           title_en: string | null
           updated_at: string
           valid_from: string | null
           valid_to: string | null
+          verified: boolean
         }
         Insert: {
+          brand?: string | null
+          campaign_key?: string
           created_at?: string
+          currency?: string
           description_ar?: string | null
           description_en?: string | null
           featured?: boolean
           id?: string
+          image_primary?: string | null
           is_live?: boolean
+          model?: string | null
+          offer_badge_ar?: string | null
+          opening_status?: string
+          price_current?: number | null
+          price_old?: number | null
           promo_code?: string | null
+          sort_order?: number
+          source_link?: string | null
+          source_type?: string | null
+          specs_short_ar?: string | null
           store_id?: string | null
           title_ar: string
           title_en?: string | null
           updated_at?: string
           valid_from?: string | null
           valid_to?: string | null
+          verified?: boolean
         }
         Update: {
+          brand?: string | null
+          campaign_key?: string
           created_at?: string
+          currency?: string
           description_ar?: string | null
           description_en?: string | null
           featured?: boolean
           id?: string
+          image_primary?: string | null
           is_live?: boolean
+          model?: string | null
+          offer_badge_ar?: string | null
+          opening_status?: string
+          price_current?: number | null
+          price_old?: number | null
           promo_code?: string | null
+          sort_order?: number
+          source_link?: string | null
+          source_type?: string | null
+          specs_short_ar?: string | null
           store_id?: string | null
           title_ar?: string
           title_en?: string | null
           updated_at?: string
           valid_from?: string | null
           valid_to?: string | null
+          verified?: boolean
         }
         Relationships: [
           {
@@ -1229,6 +1271,7 @@ export type Database = {
       }
       stores: {
         Row: {
+          branch_context: string | null
           category: string | null
           cover_image_url: string | null
           created_at: string
@@ -1237,6 +1280,7 @@ export type Database = {
           floor_id: string | null
           gallery: Json | null
           id: string
+          is_opening_participant: boolean
           logo_url: string | null
           long_description_ar: string | null
           long_description_en: string | null
@@ -1246,6 +1290,8 @@ export type Database = {
           name_ar: string
           name_en: string | null
           opening_hours: string | null
+          opening_status: string | null
+          pending_verification: boolean
           phone: string | null
           short_description_ar: string | null
           short_description_en: string | null
@@ -1257,6 +1303,7 @@ export type Database = {
           whatsapp: string | null
         }
         Insert: {
+          branch_context?: string | null
           category?: string | null
           cover_image_url?: string | null
           created_at?: string
@@ -1265,6 +1312,7 @@ export type Database = {
           floor_id?: string | null
           gallery?: Json | null
           id?: string
+          is_opening_participant?: boolean
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
@@ -1274,6 +1322,8 @@ export type Database = {
           name_ar: string
           name_en?: string | null
           opening_hours?: string | null
+          opening_status?: string | null
+          pending_verification?: boolean
           phone?: string | null
           short_description_ar?: string | null
           short_description_en?: string | null
@@ -1285,6 +1335,7 @@ export type Database = {
           whatsapp?: string | null
         }
         Update: {
+          branch_context?: string | null
           category?: string | null
           cover_image_url?: string | null
           created_at?: string
@@ -1293,6 +1344,7 @@ export type Database = {
           floor_id?: string | null
           gallery?: Json | null
           id?: string
+          is_opening_participant?: boolean
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
@@ -1302,6 +1354,8 @@ export type Database = {
           name_ar?: string
           name_en?: string | null
           opening_hours?: string | null
+          opening_status?: string | null
+          pending_verification?: boolean
           phone?: string | null
           short_description_ar?: string | null
           short_description_en?: string | null

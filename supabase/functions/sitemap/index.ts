@@ -128,7 +128,7 @@ function latestDate(items: { updated_at: string }[]): string | undefined {
   return items.reduce((a, b) => (a.updated_at > b.updated_at ? a : b)).updated_at.slice(0, 10);
 }
 
-async function fetchAllData(supabase: ReturnType<typeof createClient>): Promise<DynamicData> {
+async function fetchAllData(supabase: any): Promise<DynamicData> {
   const [storesRes, productsRes, blogRes, downtownRes, kzProductsRes] = await Promise.all([
     supabase.from("stores").select("slug, updated_at").neq("status", "hidden"),
     supabase.from("products").select("slug, updated_at").eq("status", "published"),

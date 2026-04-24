@@ -215,7 +215,7 @@ serve(async (req) => {
         fonts,
       });
 
-      return new Response(pngBytes, {
+      return new Response(pngBytes.buffer as ArrayBuffer, {
         headers: {
           ...corsHeaders,
           "Content-Type": "image/png",
