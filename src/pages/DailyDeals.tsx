@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
-import { Tag, Sparkles, Store, ArrowLeft } from "lucide-react";
+import { Sparkles, Store, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -54,6 +54,12 @@ const DailyDeals = () => {
   const liveOffersCount = deals?.length ?? 0;
   const merchantCount = merchantGroups.length;
   const upcomingCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
+  const previewOffers = useMemo(() => (deals ?? []).slice(0, 6), [deals]);
+  const featuredPreviewOffers = useMemo(() => previewOffers.filter((deal) => !deal.featured), [previewOffers]);
+  const sectionTitle = isExpired ? "جميع عروض الافتتاح" : "معاينات عروض الافتتاح";
+  const sectionDescription = isExpired
+    ? "جميع العروض المنشورة من المحلات المشاركة داخل مول البستان، مع ربط مباشر بصفحات المتاجر."
+    : "مراجعة مبكرة ومنظمة للعروض المنتظرة من المحلات المشاركة قبل يوم الافتتاح.";
 
   return (
     <MainLayout>
@@ -71,7 +77,7 @@ const DailyDeals = () => {
                 عروض الافتتاح داخل منظومة مول البستان.
               </h1>
               <p className="mt-4 max-w-2xl text-[0.88rem] leading-[2] text-white/60">
-                قبل الافتتاح نعرض لك Preview حقيقي لعروض المحلات المشاركة، وبعد يوم الافتتاح تتحول الصفحة تلقائياً إلى وجهة التصفح الكاملة لجميع عروض الافتتاح.
+                قبل الافتتاح نعرض لك معاينات منظمة لعروض المحلات المشاركة، وبعد يوم الافتتاح تتحول الصفحة تلقائيًا إلى عرض كامل لكل العروض المنشورة.
               </p>
 
               {!isExpired && (
@@ -92,12 +98,12 @@ const DailyDeals = () => {
       </section>
 
       <div className="container py-10 md:py-14">
-        {featuredOffer && (
+        {!isExpired && featuredOffer && (
           <section className="mb-8 rounded-3xl border border-border/70 bg-card p-5 shadow-[var(--shadow-premium)] md:p-7">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-[0.68rem] font-semibold text-primary">عرض بارز</p>
-                <h2 className="mt-1 text-[1.15rem] font-bold text-foreground">ترشيح اليوم من عروض الافتتاح</h2>
+                <p className="text-[0.68rem] font-semibold text-primary">عرض بارز قبل الافتتاح</p>
+                <h2 className="mt-1 text-[1.15rem] font-bold text-foreground">معاينة رئيسية من عروض الافتتاح</h2>
               </div>
               {featuredOffer.stores && (
                 <Link to={`/stores/${featuredOffer.stores.slug}`}>
@@ -134,23 +140,57 @@ const DailyDeals = () => {
         {isLoading ? (
           <LoadingGrid />
         ) : deals && deals.length > 0 ? (
-          <section>
+          <section id="opening-offers-grid">
             <div className="mb-5 flex items-center justify-between gap-3">
               <div>
-                <h2 className="text-[1rem] font-bold text-foreground">{isExpired ? "جميع عروض الافتتاح" : "Preview عروض الافتتاح"}</h2>
-                <p className="mt-1 text-[0.74rem] text-muted-foreground">عروض منظمة ومرتبطة مباشرة بصفحات محلات المول المشاركة.</p>
+                <h2 className="text-[1rem] font-bold text-foreground">{sectionTitle}</h2>
+                <p className="mt-1 text-[0.74rem] text-muted-foreground">{sectionDescription}</p>
               </div>
               {!isExpired && (
                 <div className="rounded-full border border-orange-500/15 bg-orange-500/5 px-3 py-1 text-[0.68rem] font-semibold text-orange-600">
-                  يفتتح قريبًا
+                  عرض تمهيدي قبل الافتتاح
                 </div>
               )}
             </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-              {deals.map((deal) => (
-                <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
-              ))}
-            </div>
+
+            {!isExpired ? (
+              <div className="space-y-8">
+                {featuredPreviewOffers.length > 0 && (
+                  <div>
+                    <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
+                      <Sparkles className="h-4 w-4 text-primary" /> مختارات أولية
+                    </div>
+                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                      {featuredPreviewOffers.map((deal) => (
+                        <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="rounded-2xl border border-border/70 bg-muted/20 p-4 md:p-5">
+                  <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <h3 className="text-[0.95rem] font-bold text-foreground">ما الذي يحدث بعد الافتتاح؟</h3>
+                      <p className="mt-1 text-[0.74rem] leading-7 text-muted-foreground">
+                        عند انتهاء العدّاد ستتحول هذه الصفحة تلقائيًا إلى عرض كامل يضم جميع عروض الافتتاح المنشورة من المحلات المشاركة.
+                      </p>
+                    </div>
+                    <Link to="/stores">
+                      <Button variant="outline-blue" className="h-10 rounded-xl px-5 text-[0.76rem] font-bold">
+                        استعرض المحلات المشاركة
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {deals.map((deal) => (
+                  <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
+                ))}
+              </div>
+            )}
           </section>
         ) : (
           <EmptyState title="لا توجد عروض افتتاح منشورة حالياً" description="سيتم عرض عروض المحلات الجديدة هنا فور تجهيزها وربطها بصفحات المتاجر." />
