@@ -313,17 +313,23 @@ export const TechPlanetSection = () => {
     return () => io.disconnect();
   }, []);
 
-  // Curated 8-device set for mobile single orbit (one per category, balanced)
-  const mobileDevices = useMemo<Device[]>(() => [
-    { Icon: Laptop, label: "لابتوبات", category: CAT.computers },
-    { Icon: Smartphone, label: "هواتف ذكية", category: CAT.phones },
-    { Icon: Monitor, label: "شاشات", category: CAT.computers },
-    { Icon: Gamepad2, label: "جيمنج", category: CAT.gaming },
-    { Icon: Headphones, label: "سماعات", category: CAT.phones },
-    { Icon: Printer, label: "طباعة", category: CAT.printing },
-    { Icon: Wrench, label: "صيانة", category: CAT.maintenance },
-    { Icon: Router, label: "شبكات", category: CAT.networking },
-  ], []);
+  // Curated 10-device set for mobile single orbit (balanced across categories)
+  const mobileDevices = useMemo<Device[]>(
+    () =>
+      pick([
+        "laptops",
+        "smartphones",
+        "monitors",
+        "gaming-consoles",
+        "headphones",
+        "printers",
+        "tablets",
+        "smartwatches",
+        "routers",
+        "cameras",
+      ]),
+    [],
+  );
 
   const sizes = useMemo(() => {
     if (isMobile) {
