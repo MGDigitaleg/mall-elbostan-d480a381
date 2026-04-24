@@ -649,19 +649,20 @@ const Products = () => {
                   placeholder="ابحث عن منتج أو علامة تجارية..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] outline-none transition-all focus:ring-1"
+                  dir="rtl"
+                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] text-right outline-none transition-all focus:ring-1"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
                 />
               </div>
 
               {/* Row 2: Category dropdowns (Section + Sort) */}
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex flex-row items-center gap-2 flex-wrap" dir="rtl">
                 {/* Section filter */}
                 <select
                   value={selectedSection}
                   onChange={(e) => setSelectedSection(e.target.value)}
-                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                  className="h-9 w-auto max-w-[200px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
                   <option value="all">جميع الأقسام</option>
                   {mergedSections.map((c) => (
@@ -673,8 +674,8 @@ const Products = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                  className="h-9 w-auto max-w-[180px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
                   <option value="featured">الأكثر تميزاً</option>
                   <option value="price_asc">السعر: الأقل</option>
@@ -687,8 +688,8 @@ const Products = () => {
                   <select
                     value={selectedMall}
                     onChange={(e) => setSelectedMall(e.target.value)}
-                    className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                    className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                   >
                     <option value="all">جميع الفروع</option>
                     {mallList.map((m) => (
@@ -701,8 +702,8 @@ const Products = () => {
                 <select
                   value={selectedShop}
                   onChange={(e) => setSelectedShop(e.target.value)}
-                  className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                  className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
                   <option value="all">جميع المحلات</option>
                   {storeList?.map((s) => (
