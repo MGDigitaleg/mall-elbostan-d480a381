@@ -112,12 +112,15 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
   }, [inner, middle, outer]);
 
   const results = useMemo(() => {
-    const q = normalize(query);
-    return all.filter((d) => {
-      if (orbit !== "all" && d.ring !== orbit) return false;
-      if (!q) return true;
-      return normalize(d.label).includes(q) || normalize(d.slug).includes(q);
-    });
+    const tokens = tokenizeQuery(query);
+    const scored = all
+      .filter((d) => orbit === "all" || d.ring === orbit)
+      .map((d) => ({ d, score: tokens.length === 0 ? 1 : scoreDevice(d.slug, tokens) }))
+      .filter((r) => r.score > 0);
+
+    // When no query, preserve catalog order; with a query, sort by score desc.
+    if (tokens.length > 0) scored.sort((a, b) => b.score - a.score);
+    return scored.map((r) => r.d);
   }, [all, orbit, query]);
 
   const counts: Record<OrbitKey, number> = {
