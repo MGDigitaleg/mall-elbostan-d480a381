@@ -3,15 +3,21 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { SEOHead, organizationLd } from "@/components/SEOHead";
 import { getDeviceBySlug, deviceCatalog } from "@/lib/deviceCatalog";
+import { getPillar } from "@/lib/deviceTaxonomy";
 import { TenantLogo } from "@/components/TenantLogo";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, Store as StoreIcon } from "lucide-react";
 import { optimizeImageUrl } from "@/lib/imageUtils";
+import DevicePage from "./DevicePage";
 
 const BASE_URL = "https://mallelbostan.com";
 
 export default function DeviceCategory() {
   const { slug = "" } = useParams();
+
+  // If slug is a pillar in the new taxonomy, render the unified DevicePage instead
+  if (getPillar(slug)) return <DevicePage />;
+
   const device = getDeviceBySlug(slug);
 
   if (!device) return <Navigate to="/stores" replace />;

@@ -40,6 +40,7 @@ const MarketEcho = lazy(() => lazyRetry(() => import("./pages/MarketEcho")));
 const Countdown = lazy(() => lazyRetry(() => import("./pages/Countdown")));
 const DowntownDirectory = lazy(() => lazyRetry(() => import("./pages/DowntownDirectory")));
 const DeviceCategory = lazy(() => lazyRetry(() => import("./pages/DeviceCategory")));
+const DevicePage = lazy(() => lazyRetry(() => import("./pages/DevicePage")));
 const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/DowntownMerchantDetail")));
 const TechPlanet = lazy(() => lazyRetry(() => import("./pages/TechPlanet")));
 const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
@@ -146,6 +147,8 @@ function AppLayout() {
             <Route path="/downtown-directory" element={<DowntownDirectory />} />
             <Route path="/downtown-directory/:slug" element={<DowntownMerchantDetail />} />
             <Route path="/devices/:slug" element={<DeviceCategory />} />
+            <Route path="/devices/:pillar/:cluster" element={<DevicePage />} />
+            <Route path="/devices/:pillar/:cluster/:longtail" element={<DevicePage />} />
             <Route path="/stores" element={<Stores />} />
             <Route path="/stores/:slug" element={<StoreDetail />} />
             <Route path="/products" element={<Products />} />
