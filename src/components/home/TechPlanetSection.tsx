@@ -791,11 +791,11 @@ export const TechPlanetSection = () => {
                 className="absolute inset-0 rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(37,99,235,0.55) 0%, rgba(37,99,235,0.15) 45%, transparent 70%)",
-                  filter: "blur(8px)",
+                    "radial-gradient(circle, rgba(125,211,252,0.55) 0%, rgba(167,139,250,0.30) 40%, rgba(252,211,77,0.10) 65%, transparent 78%)",
+                  filter: "blur(10px)",
                   willChange: "opacity, transform",
                 }}
-                animate={active && !reduce ? { scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] } : { scale: 1, opacity: 0.7 }}
+                animate={active && !reduce ? { scale: [1, 1.14, 1], opacity: [0.75, 1, 0.75] } : { scale: 1, opacity: 0.75 }}
                 transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
               />
 
