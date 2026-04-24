@@ -6,6 +6,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/home/Reveal";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
+import { CountdownTimer } from "@/components/CountdownTimer";
+import { useCountdown } from "@/hooks/useCountdown";
+
+const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
 
 const PROMO_CARDS = [
   {
@@ -32,6 +36,7 @@ const PROMO_CARDS = [
 ];
 
 export function DealsTeaser() {
+  const { isExpired } = useCountdown(LAUNCH_DATE);
   const { data: deals, isLoading } = useQuery({
     queryKey: ["home-deals"],
     queryFn: async () => {
@@ -48,6 +53,7 @@ export function DealsTeaser() {
   });
 
   const hasDeals = !isLoading && deals && deals.length > 0;
+  const teaserDeals = deals?.slice(0, isExpired ? 4 : 3) ?? [];
 
   return (
     <section
@@ -76,10 +82,12 @@ export function DealsTeaser() {
                 className="text-[1rem] md:text-[1.15rem] font-bold leading-[1.2]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
               >
-                عروض الافتتاح من المحلات الجديدة.
+                {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
               </h2>
               <p className="mt-2 max-w-xl text-[0.76rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
-                معاينة مختارة لعروض المحلات المشاركة في افتتاح مول البستان، مع ربط مباشر بكل متجر داخل المنظومة الرسمية للمول.
+                {isExpired
+                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة داخل منظومة مول البستان."
+                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة، ثم الانتقال إلى الصفحة الكاملة فور بدء عروض الافتتاح."}
               </p>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
@@ -135,22 +143,32 @@ export function DealsTeaser() {
                   ))}
                 </div>
               ) : hasDeals ? (
-                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                  {deals.map((deal) => (
+                <div className="space-y-3">
+                  {!isExpired && (
+                    <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <p className="mb-2 text-[0.7rem] font-bold" style={{ color: "#F8FAFC" }}>
+                        العدّ التنازلي لعروض الافتتاح
+                      </p>
+                      <CountdownTimer compact />
+                    </div>
+                  )}
+                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+                  {teaserDeals.map((deal) => (
                     <div key={deal.id} className="h-full rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
                       <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
                     </div>
                   ))}
+                  </div>
                 </div>
               ) : (
                 /* Pre-launch state */
                 <div className="flex flex-col items-center justify-center rounded-xl p-8 text-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", minHeight: "280px" }}>
                   <Store className="mb-3 h-8 w-8" style={{ color: "#F97316", opacity: 0.4 }} />
                   <h3 className="text-[0.92rem] font-bold" style={{ color: "#F1F5F9" }}>
-                    عروض الافتتاح قيد التجهيز
+                    عروض الافتتاح قيد الإعداد
                   </h3>
                   <p className="mt-1.5 max-w-[18rem] text-[0.76rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
-                    سيتم عرض العروض المنظمة للمحلات المشاركة هنا فور اكتمال ربطها بصفحات المتاجر.
+                    لن تبقى الصفحة مجرد ملصقات أو عدّاد فقط — ستظهر هنا عروض منظمة مرتبطة مباشرة بصفحات المحلات المشاركة.
                   </p>
                   <Link to="/daily-deals" className="mt-4">
                     <Button
