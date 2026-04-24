@@ -397,18 +397,33 @@ const Stores = () => {
               boxShadow: "0 8px 40px hsl(0 0% 0% / 0.3), inset 0 1px 0 #ffffff08",
             }}
           >
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
-              {/* Search input */}
+            <div dir="rtl" className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+              {/* Search input — RTL with leading icon + clear button */}
               <div className="relative flex-1">
-                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
+                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none" style={{ color: "#64748B" }} />
                 <input
-                  type="text"
+                  type="search"
+                  inputMode="search"
+                  enterKeyHint="search"
+                  dir="rtl"
                   placeholder="ابحث باسم المحل أو الفئة..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-11 w-full rounded-xl pr-10 pl-4 text-[0.84rem] outline-none transition-all placeholder:text-[#475569] focus:ring-2 focus:ring-primary/30"
-                  style={{ border: "1px solid #ffffff14", background: "#ffffff0A", color: "#F8FAFC" }}
+                  aria-label="ابحث في دليل المحلات"
+                  className="h-11 w-full rounded-xl pr-10 pl-10 text-[0.84rem] outline-none transition-all placeholder:text-[#64748B] focus:ring-2 focus:ring-primary/30 [&::-webkit-search-cancel-button]:hidden"
+                  style={{ border: `1px solid ${search ? "#2D6BFF45" : "#ffffff14"}`, background: search ? "linear-gradient(135deg, #2D6BFF12, #2D6BFF06)" : "#ffffff0A", color: "#F8FAFC" }}
                 />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch("")}
+                    aria-label="مسح البحث"
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full transition-colors hover:bg-white/10"
+                    style={{ color: "#94A3B8" }}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
               </div>
 
               {/* Sort dropdown — RTL */}
