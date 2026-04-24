@@ -759,7 +759,7 @@ const DevicePreviewCard = ({ slug, ring, accent }: PreviewProps) => {
 
         {/* Footer CTA */}
         <Link
-          to={`/devices/${slug}`}
+          to={resolveDeviceHref(slug)}
           className="flex items-center justify-between gap-2 border-t px-4 py-2.5 font-arabic text-[0.78rem] font-bold transition-colors hover:bg-white/[0.06]"
           style={{ borderColor: `${accent}22`, color: "#FCD34D" }}
         >
