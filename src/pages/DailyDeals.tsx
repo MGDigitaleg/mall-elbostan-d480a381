@@ -223,6 +223,17 @@ const DailyDeals = () => {
                         <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                       ))}
                     </div>
+                    {hiddenCount > 0 && (
+                      <div className="mt-4 flex justify-center">
+                        <Button
+                          variant="outline-blue"
+                          className="h-10 rounded-xl px-5 text-[0.76rem] font-bold"
+                          onClick={() => setShowAllPreview((v) => !v)}
+                        >
+                          {showAllPreview ? "عرض أقل" : `عرض المزيد (${hiddenCount.toLocaleString("ar-EG")})`}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 )}
 
