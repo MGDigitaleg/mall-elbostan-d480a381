@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
+import { TechPlanetDirectory } from "@/components/home/TechPlanetDirectory";
 
 
 type Device = {
@@ -1009,6 +1010,8 @@ export const TechPlanetSection = () => {
           </div>
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
+
+          <TechPlanetDirectory />
 
         </div>
       </section>
