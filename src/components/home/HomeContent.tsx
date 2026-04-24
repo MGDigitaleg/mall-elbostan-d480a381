@@ -43,8 +43,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { CategoryStrip } from "@/components/home/CategoryStrip";
 
-const TechPlanetSection = lazy(() =>
-  import("@/components/home/TechPlanetSection").then((m) => ({ default: m.TechPlanetSection }))
+const TechPlanetCTA = lazy(() =>
+  import("@/components/home/TechPlanetCTA").then((m) => ({ default: m.TechPlanetCTA }))
 );
 
 const fallbackFaqs = [
@@ -161,10 +161,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         <CategoryStrip />
       </section>
 
-      {/* ═══════════ 4.5 · TECH PLANET ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 720px" } as React.CSSProperties}>
-        <LazySection minHeight={620}>
-          <Suspense fallback={<div style={{ minHeight: 620 }} />}><TechPlanetSection /></Suspense>
+      {/* ═══════════ 4.5 · TECH PLANET CTA ═══════════ */}
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 320px" } as React.CSSProperties}>
+        <LazySection minHeight={300}>
+          <Suspense fallback={<div style={{ minHeight: 300 }} />}><TechPlanetCTA /></Suspense>
         </LazySection>
       </section>
 

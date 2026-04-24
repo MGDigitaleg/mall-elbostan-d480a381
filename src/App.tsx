@@ -41,6 +41,7 @@ const Countdown = lazy(() => lazyRetry(() => import("./pages/Countdown")));
 const DowntownDirectory = lazy(() => lazyRetry(() => import("./pages/DowntownDirectory")));
 const DeviceCategory = lazy(() => lazyRetry(() => import("./pages/DeviceCategory")));
 const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/DowntownMerchantDetail")));
+const TechPlanet = lazy(() => lazyRetry(() => import("./pages/TechPlanet")));
 const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
 
 /* ── Kasr Zero pages ── */
@@ -104,7 +105,7 @@ const adminPaths = ["/admin"];
 const immersivePaths = ["/market-echo", "/countdown"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
-const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo"];
+const darkHeroPages = ["/", "/downtown-branch", "/new-cairo-branch", "/opening-day", "/market-echo", "/tech-planet"];
 
 function PageFallback() {
   return (
@@ -167,6 +168,7 @@ function AppLayout() {
             <Route path="/reward-terms" element={<RewardTerms />} />
             <Route path="/market-echo" element={<MarketEcho />} />
             <Route path="/countdown" element={<Countdown />} />
+            <Route path="/tech-planet" element={<TechPlanet />} />
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
