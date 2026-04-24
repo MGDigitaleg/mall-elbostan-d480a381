@@ -703,13 +703,14 @@ export const TechPlanetSection = () => {
             >
               <defs>
                 <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#60A5FA" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#2563EB" stopOpacity="0.95" />
-                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#7DD3FC" stopOpacity="0" />
+                  <stop offset="35%" stopColor="#60A5FA" stopOpacity="0.95" />
+                  <stop offset="70%" stopColor="#A78BFA" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#FCD34D" stopOpacity="0.95" />
                 </linearGradient>
                 <radialGradient id="burstHead">
-                  <stop offset="0%" stopColor="#CDBB9A" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#FCD34D" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#FCD34D" stopOpacity="0" />
                 </radialGradient>
               </defs>
               {burstEndpoints.map((p) => (
