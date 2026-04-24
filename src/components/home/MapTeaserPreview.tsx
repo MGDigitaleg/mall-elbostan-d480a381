@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Compass, Layers, MapPin, Store } from "lucide-react";
+import { ArrowLeft, Compass, Layers, MapPin, Store, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
@@ -174,7 +174,18 @@ export function MapTeaserPreview() {
       <Dialog open={!!modalUnit} onOpenChange={(open) => !open && setModalUnit(null)}>
         <DialogContent dir="rtl" className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader className="text-right">
-            <DialogTitle className="text-base font-bold">تفاصيل الوحدة</DialogTitle>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-base font-bold">تفاصيل الوحدة</DialogTitle>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setModalUnit(null)}
+                className="h-8 px-2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4 ml-1" />
+                إغلاق
+              </Button>
+            </div>
             <DialogDescription className="text-xs text-muted-foreground">
               معلومات المتجر، حالة التأجير، والموقع داخل المول.
             </DialogDescription>
