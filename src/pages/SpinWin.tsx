@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PrizeWheel, type WheelSegment } from "@/components/spin/PrizeWheel";
 import { StoreRing } from "@/components/spin/StoreRing";
 import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
+import { SpinHistoryPanel } from "@/components/spin/SpinHistoryPanel";
+import { addSpinHistory } from "@/lib/spinHistory";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
