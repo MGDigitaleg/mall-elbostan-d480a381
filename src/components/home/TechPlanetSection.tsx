@@ -1085,8 +1085,9 @@ export const TechPlanetSection = () => {
                 <rect x="46" y="80" width="8" height="8" fill="#CDBB9A" opacity="0.9" />
               </svg>
 
+              {/* Planet name — clean, centered below the building */}
               <div
-                className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+                className="absolute left-1/2 -translate-x-1/2"
                 style={{ bottom: -42 }}
               >
                 <div
@@ -1100,16 +1101,55 @@ export const TechPlanetSection = () => {
                 >
                   كوكب البستان
                 </div>
+              </div>
+
+              {/* ── "قريباً" Sun — floating in cosmos, glows the surrounding space ── */}
+              <div
+                aria-label="قريباً"
+                className="absolute pointer-events-none"
+                style={{
+                  top: "-14%",
+                  left: "-18%",
+                  width: 62,
+                  height: 62,
+                  borderRadius: "9999px",
+                  background:
+                    "radial-gradient(circle at 35% 30%, #FEF3C7 0%, #FCD34D 32%, #F59E0B 68%, #B45309 100%)",
+                  animation:
+                    !reduce && active
+                      ? "tp-sun-glow 3.4s ease-in-out infinite"
+                      : undefined,
+                  zIndex: 5,
+                }}
+              >
+                {/* Rotating sun rays behind the disk */}
                 <div
-                  className="whitespace-nowrap rounded-full px-2.5 py-0.5 font-arabic text-[0.62rem] font-bold tracking-[0.2em]"
+                  aria-hidden
+                  className="absolute top-1/2 left-1/2"
                   style={{
-                    background: "linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)",
-                    color: "#071326",
-                    animation: !reduce && active ? "tp-soon-pulse 2.6s ease-in-out infinite" : undefined,
+                    width: 124,
+                    height: 124,
+                    borderRadius: "9999px",
+                    transform: "translate(-50%, -50%)",
+                    background:
+                      "conic-gradient(from 0deg, rgba(252,211,77,0.22), transparent 30deg, rgba(252,211,77,0.22) 60deg, transparent 90deg, rgba(252,211,77,0.22) 120deg, transparent 150deg, rgba(252,211,77,0.22) 180deg, transparent 210deg, rgba(252,211,77,0.22) 240deg, transparent 270deg, rgba(252,211,77,0.22) 300deg, transparent 330deg)",
+                    filter: "blur(2.5px)",
+                    animation:
+                      !reduce && active
+                        ? "tp-sun-rays 22s linear infinite"
+                        : undefined,
+                    zIndex: -1,
+                  }}
+                />
+                <span
+                  className="absolute inset-0 flex items-center justify-center font-arabic font-extrabold text-[0.66rem] tracking-[0.12em]"
+                  style={{
+                    color: "#3B1F00",
+                    textShadow: "0 1px 0 rgba(255,255,255,0.4)",
                   }}
                 >
                   قريباً
-                </div>
+                </span>
               </div>
             </div>
           </div>
