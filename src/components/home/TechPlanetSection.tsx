@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
-import { TechPlanetAuditBanner } from "@/components/home/TechPlanetAuditBanner";
+
 
 type Device = {
   Icon: LucideIcon;
