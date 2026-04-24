@@ -190,8 +190,9 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
         <div className={`mt-4 ${compact ? "space-y-2" : "space-y-2.5"}`}>
           {directOfferHref && (
             <Link to={directOfferHref} className="block">
-              <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.76rem] font-bold gap-1.5">
-                {directOfferLabel} <Tag className="h-3.5 w-3.5" />
+              <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.76rem] font-bold gap-1.5 justify-between overflow-hidden">
+                <span className="truncate">{directOfferLabel}</span>
+                <Tag className="h-3.5 w-3.5 shrink-0" />
               </Button>
             </Link>
           )}
