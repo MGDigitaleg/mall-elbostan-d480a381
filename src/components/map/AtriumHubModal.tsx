@@ -84,8 +84,11 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
     queryFn: async () => {
       const { data } = await supabase
         .from("deals")
-        .select("id, title_ar, description_ar, promo_code, stores:store_id(name_ar)")
+        .select("id, title_ar, description_ar, offer_badge_ar, price_current, price_old, stores:store_id(name_ar, slug)")
         .eq("is_live", true)
+        .eq("campaign_key", "opening-offers-2026")
+        .order("featured", { ascending: false })
+        .order("sort_order", { ascending: true })
         .limit(4);
       return data ?? [];
     },
@@ -309,13 +312,24 @@ export function AtriumHubModal({ open, onClose, config, onOpenSpinWheel, onFilte
                             {deal.description_ar && (
                               <p className="mt-1 text-[0.76rem] leading-6 light-body">{deal.description_ar}</p>
                             )}
+                            {deal.stores?.slug && (
+                              <Link to={`/stores/${deal.stores.slug}`} className="mt-2 inline-flex text-[0.72rem] font-semibold text-primary hover:underline">
+                                {deal.stores.name_ar}
+                              </Link>
+                            )}
                           </div>
-                          {deal.promo_code && (
+                          {deal.offer_badge_ar && (
                             <span className="shrink-0 rounded-md border border-border bg-secondary px-2.5 py-1 font-poppins text-[0.7rem] font-bold light-heading">
-                              {deal.promo_code}
+                              {deal.offer_badge_ar}
                             </span>
                           )}
                         </div>
+                        {(deal.price_current || deal.price_old) && (
+                          <div className="mt-3 flex items-center gap-2 text-[0.74rem]">
+                            {deal.price_current ? <span className="font-bold text-primary">{Number(deal.price_current).toLocaleString("ar-EG")} ج.م</span> : null}
+                            {deal.price_old ? <span className="text-muted-foreground line-through">{Number(deal.price_old).toLocaleString("ar-EG")} ج.م</span> : null}
+                          </div>
+                        )}
                       </div>
                     ))
                   ) : (
