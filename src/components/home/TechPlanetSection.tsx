@@ -30,7 +30,7 @@ const pick = (slugs: string[]): Device[] =>
     .filter(Boolean)
     .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
 
-// Inner orbit — 8 most essential device categories
+// Inner orbit — 8 most essential device categories (closest to the core)
 const innerOrbit: Device[] = pick([
   "laptops",
   "smartphones",
@@ -42,34 +42,37 @@ const innerOrbit: Device[] = pick([
   "smartwatches",
 ]);
 
-// Middle orbit — 10 key peripherals & secondary categories
+// Middle orbit — 12 key peripherals, accessories & secondary categories
 const middleOrbit: Device[] = pick([
   "storage",
   "mice",
   "cameras",
-  "gaming-consoles",
   "printers",
   "routers",
-  "graphics-cards",
   "ram",
   "speakers",
   "controllers",
+  "webcams",
+  "earbuds",
+  "powerbanks",
+  "chargers",
 ]);
 
-// Outer orbit — 12 specialty / extended categories
+// Outer orbit — 13 specialty / extended categories (deepest ring)
 const outerOrbit: Device[] = pick([
   "televisions",
   "projectors",
   "servers",
-  "external-storage",
   "microphones",
   "ups",
   "scanners",
   "nas",
-  "smart-lighting",
-  "security-cameras",
-  "vr-gaming",
-  "streaming-gear",
+  "macbook",
+  "cables",
+  "intercoms",
+  "networking",
+  "cooling",
+  "accessories",
 ]);
 
 type OrbitProps = {
