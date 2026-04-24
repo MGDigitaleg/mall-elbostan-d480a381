@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
-import { Sparkles, Store, ArrowLeft } from "lucide-react";
+import { Sparkles, Store, ArrowLeft, Clock3, LayoutGrid, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -55,7 +55,8 @@ const DailyDeals = () => {
   const merchantCount = merchantGroups.length;
   const upcomingCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
   const previewOffers = useMemo(() => (deals ?? []).slice(0, 6), [deals]);
-  const featuredPreviewOffers = useMemo(() => previewOffers.filter((deal) => !deal.featured), [previewOffers]);
+  const previewPrimaryOffer = useMemo(() => previewOffers.find((deal) => deal.featured) ?? previewOffers[0] ?? null, [previewOffers]);
+  const previewGridOffers = useMemo(() => previewOffers.filter((deal) => deal.id !== previewPrimaryOffer?.id), [previewOffers, previewPrimaryOffer]);
   const sectionTitle = isExpired ? "جميع عروض الافتتاح" : "معاينات عروض الافتتاح";
   const sectionDescription = isExpired
     ? "جميع العروض المنشورة من المحلات المشاركة داخل مول البستان، مع ربط مباشر بصفحات المتاجر."
@@ -71,18 +72,28 @@ const DailyDeals = () => {
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             <div>
               <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold text-white/70">
-                <Sparkles className="h-3.5 w-3.5" /> عروض المحلات الجديدة
+                {isExpired ? <LayoutGrid className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />} {isExpired ? "العروض متاحة الآن" : "العدّاد يعمل حتى الإطلاق"}
               </p>
               <h1 className="max-w-2xl text-[1.9rem] font-bold leading-[1.15] text-white md:text-[2.8rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
-                عروض الافتتاح داخل منظومة مول البستان.
+                {isExpired ? "جميع عروض الافتتاح داخل مول البستان." : "عروض الافتتاح تبدأ بعد العدّاد، والمعاينات جاهزة الآن."}
               </h1>
               <p className="mt-4 max-w-2xl text-[0.88rem] leading-[2] text-white/60">
-                قبل الافتتاح نعرض لك معاينات منظمة لعروض المحلات المشاركة، وبعد يوم الافتتاح تتحول الصفحة تلقائيًا إلى عرض كامل لكل العروض المنشورة.
+                {isExpired
+                  ? "انتهى العدّاد وتحوّلت الصفحة تلقائيًا إلى شبكة كاملة تعرض كل عروض الافتتاح المنشورة من المحلات المشاركة داخل المنظومة الرسمية للمول."
+                  : "قبل موعد الإطلاق نعرض لك عدّادًا واضحًا في الهيرو، ثم معاينات منظمة للعروض أسفل الهيرو مباشرة، وبعد التاريخ المحدد تنتقل الصفحة تلقائيًا إلى عرض كامل لجميع العروض."}
               </p>
 
               {!isExpired && (
                 <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                  <p className="mb-3 text-[0.82rem] font-bold text-white">العدّ التنازلي لانطلاق عروض الافتتاح</p>
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-[0.82rem] font-bold text-white">العدّ التنازلي لانطلاق عروض الافتتاح</p>
+                      <p className="mt-1 text-[0.72rem] text-white/60">بمجرد انتهاء العدّاد ستنتقل الصفحة تلقائيًا من المعاينة إلى الشبكة الكاملة.</p>
+                    </div>
+                    <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.68rem] font-semibold text-white/75">
+                      إطلاق تلقائي
+                    </div>
+                  </div>
                   <CountdownTimer />
                 </div>
               )}
@@ -98,22 +109,39 @@ const DailyDeals = () => {
       </section>
 
       <div className="container py-10 md:py-14">
-        {!isExpired && featuredOffer && (
+        {!isExpired && (
           <section className="mb-8 rounded-3xl border border-border/70 bg-card p-5 shadow-[var(--shadow-premium)] md:p-7">
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-[0.68rem] font-semibold text-primary">عرض بارز قبل الافتتاح</p>
-                <h2 className="mt-1 text-[1.15rem] font-bold text-foreground">معاينة رئيسية من عروض الافتتاح</h2>
+                <p className="text-[0.68rem] font-semibold text-primary">تحت الهيرو مباشرة</p>
+                <h2 className="mt-1 text-[1.15rem] font-bold text-foreground">معاينات عروض منظمة قبل الإطلاق</h2>
+                <p className="mt-1 text-[0.74rem] text-muted-foreground">اختيار مبكر من العروض المتاحة الآن داخل المنظومة، مرتب ليبقى المحتوى واضحًا وغير فارغ قبل موعد الإطلاق.</p>
               </div>
-              {featuredOffer.stores && (
-                <Link to={`/stores/${featuredOffer.stores.slug}`}>
+              {previewPrimaryOffer?.stores && (
+                <Link to={`/stores/${previewPrimaryOffer.stores.slug}`}>
                   <Button variant="outline-blue" className="h-10 rounded-xl px-5 text-[0.78rem] font-bold gap-1.5">
                     صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
                   </Button>
                 </Link>
               )}
             </div>
-            <OpeningOfferCard offer={featuredOffer} showAllStoreOffersCta />
+            {previewPrimaryOffer ? (
+              <div className="grid gap-5 xl:grid-cols-[1.18fr_0.82fr]">
+                <OpeningOfferCard offer={previewPrimaryOffer} showAllStoreOffersCta />
+                <div className="rounded-2xl border border-border/70 bg-secondary/25 p-4 md:p-5">
+                  <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
+                    <Zap className="h-4 w-4 text-primary" /> كيف تعمل الصفحة الآن؟
+                  </div>
+                  <div className="space-y-3 text-[0.76rem] leading-7 text-muted-foreground">
+                    <p>الجزء العلوي يعرض العدّاد حتى تاريخ الإطلاق الرسمي.</p>
+                    <p>أسفل العدّاد تظهر معاينات منتقاة ومنظمة من المحلات المشاركة.</p>
+                    <p>بعد انتهاء العدّاد، تختفي حالة المعاينة وتظهر جميع العروض داخل شبكة كاملة تلقائيًا.</p>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <EmptyState title="لا توجد معاينات جاهزة بعد" description="ستظهر هنا أولى معاينات عروض الافتتاح فور تجهيزها وربطها بالمحلات المشاركة." />
+            )}
           </section>
         )}
 
@@ -147,21 +175,21 @@ const DailyDeals = () => {
                 <p className="mt-1 text-[0.74rem] text-muted-foreground">{sectionDescription}</p>
               </div>
               {!isExpired && (
-                <div className="rounded-full border border-orange-500/15 bg-orange-500/5 px-3 py-1 text-[0.68rem] font-semibold text-orange-600">
-                  عرض تمهيدي قبل الافتتاح
+                <div className="rounded-full border border-orange/20 bg-orange/10 px-3 py-1 text-[0.68rem] font-semibold text-orange">
+                  وضع المعاينة قبل الإطلاق
                 </div>
               )}
             </div>
 
             {!isExpired ? (
               <div className="space-y-8">
-                {featuredPreviewOffers.length > 0 && (
+                {previewGridOffers.length > 0 && (
                   <div>
                     <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
-                      <Sparkles className="h-4 w-4 text-primary" /> مختارات أولية
+                      <Sparkles className="h-4 w-4 text-primary" /> معاينات منظمة قبل الإطلاق
                     </div>
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-                      {featuredPreviewOffers.map((deal) => (
+                      {previewGridOffers.map((deal) => (
                         <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
                       ))}
                     </div>
