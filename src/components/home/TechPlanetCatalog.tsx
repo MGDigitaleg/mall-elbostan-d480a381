@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, SearchX, Compass, Lightbulb, type LucideIcon } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { deviceCatalog } from "@/lib/deviceCatalog";
+import { resolveDeviceHref } from "@/lib/deviceHref";
 
 export type CatalogDevice = {
   Icon: LucideIcon;
@@ -223,7 +224,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
       case " ": {
         e.preventDefault();
         const slug = results[idx]?.slug;
-        if (slug) navigate(`/devices/${slug}`);
+        if (slug) navigate(resolveDeviceHref(slug));
         return;
       }
       case "Escape":
@@ -252,7 +253,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
       setQuery("");
     } else if (e.key === "Enter" && results.length > 0) {
       e.preventDefault();
-      navigate(`/devices/${results[0].slug}`);
+      navigate(resolveDeviceHref(results[0].slug));
     }
   };
 
@@ -355,7 +356,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
                     <HoverCardTrigger asChild>
                       <Link
                         ref={(el) => (itemsRef.current[idx] = el)}
-                        to={`/devices/${d.slug}`}
+                        to={resolveDeviceHref(d.slug)}
                         tabIndex={isActive ? 0 : -1}
                         onFocus={() => setActiveIndex(idx)}
                         onKeyDown={(e) => handleItemKeyDown(e, idx)}
