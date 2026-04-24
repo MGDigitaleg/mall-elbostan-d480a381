@@ -24,11 +24,59 @@ const reveal = {
 const stagger = { visible: { transition: { staggerChildren: 0.07 } } };
 const fadeChild = { hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } };
 
+const SPACE_TYPES = [
+  { value: "kiosk", label: "كشك (حتى 15م²)" },
+  { value: "small", label: "محل صغير (15–40م²)" },
+  { value: "medium", label: "محل متوسط (40–80م²)" },
+  { value: "large", label: "محل كبير (80–150م²)" },
+  { value: "anchor", label: "وحدة رئيسية (+150م²)" },
+] as const;
+
+const BUDGET_RANGES = [
+  { value: "under_15k", label: "أقل من 15,000 ج.م/شهرياً" },
+  { value: "15_30k", label: "15,000 – 30,000 ج.م" },
+  { value: "30_60k", label: "30,000 – 60,000 ج.م" },
+  { value: "60_100k", label: "60,000 – 100,000 ج.م" },
+  { value: "above_100k", label: "أكثر من 100,000 ج.م" },
+  { value: "discuss", label: "نتفق حسب الوحدة" },
+] as const;
+
+const ALLOWED_DOC_TYPES = [
+  "application/pdf",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const MAX_DOC_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_DOC_COUNT = 3;
+
+const leasingSchema = z.object({
+  full_name: z.string().trim().min(2, "الاسم قصير جداً").max(100, "الاسم طويل جداً"),
+  company: z.string().trim().max(120, "اسم الشركة طويل").optional().or(z.literal("")),
+  phone: z.string().trim().min(7, "رقم هاتف غير صالح").max(20, "رقم هاتف غير صالح"),
+  email: z.string().trim().email("بريد إلكتروني غير صالح").max(255).optional().or(z.literal("")),
+  space_type: z.string().min(1, "اختر نوع المساحة"),
+  budget_range: z.string().min(1, "اختر الميزانية"),
+  message: z.string().trim().max(1000, "الرسالة طويلة جداً").optional().or(z.literal("")),
+});
+
 const Leasing = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ full_name: "", company: "", phone: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    full_name: "",
+    company: "",
+    phone: "",
+    email: "",
+    space_type: "",
+    budget_range: "",
+    message: "",
+  });
+  const [files, setFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
@@ -38,13 +86,59 @@ const Leasing = () => {
     },
   });
 
+  const handleFiles = (incoming: FileList | null) => {
+    if (!incoming) return;
+    const next = [...files];
+    for (const f of Array.from(incoming)) {
+      if (next.length >= MAX_DOC_COUNT) {
+        toast({ title: "حد المرفقات", description: `الحد الأقصى ${MAX_DOC_COUNT} ملفات`, variant: "destructive" });
+        break;
+      }
+      if (!ALLOWED_DOC_TYPES.includes(f.type)) {
+        toast({ title: "نوع غير مدعوم", description: `${f.name}: مسموح PDF/Word/صور`, variant: "destructive" });
+        continue;
+      }
+      if (f.size > MAX_DOC_SIZE) {
+        toast({ title: "حجم كبير", description: `${f.name}: الحد الأقصى 5MB`, variant: "destructive" });
+        continue;
+      }
+      next.push(f);
+    }
+    setFiles(next);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const removeFile = (idx: number) => setFiles(files.filter((_, i) => i !== idx));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.full_name.trim() || !form.phone.trim()) {
-      toast({ title: "خطأ", description: "يرجى ملء الاسم ورقم الهاتف", variant: "destructive" });
+    const parsed = leasingSchema.safeParse(form);
+    if (!parsed.success) {
+      toast({ title: "بيانات ناقصة", description: parsed.error.issues[0]?.message ?? "تحقق من الحقول", variant: "destructive" });
       return;
     }
     setLoading(true);
+
+    // Upload attachments first (best-effort; failures logged into metadata)
+    const uploaded: { name: string; path: string; size: number; type: string }[] = [];
+    const uploadErrors: string[] = [];
+    if (files.length > 0) {
+      const inquiryId = crypto.randomUUID();
+      for (const f of files) {
+        const safeName = f.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+        const path = `inquiries/${inquiryId}/${Date.now()}-${safeName}`;
+        const { error: upErr } = await supabase.storage.from("leasing-docs").upload(path, f, {
+          contentType: f.type,
+          upsert: false,
+        });
+        if (upErr) {
+          uploadErrors.push(`${f.name}: ${upErr.message}`);
+        } else {
+          uploaded.push({ name: f.name, path, size: f.size, type: f.type });
+        }
+      }
+    }
+
     const { error } = await supabase.from("leads").insert({
       lead_type: "leasing",
       full_name: form.full_name.trim(),
@@ -52,6 +146,13 @@ const Leasing = () => {
       phone: form.phone.trim(),
       email: form.email.trim() || null,
       message: form.message.trim() || null,
+      metadata: {
+        source: "leasing_page",
+        space_type: form.space_type,
+        budget_range: form.budget_range,
+        attachments: uploaded,
+        attachment_errors: uploadErrors,
+      },
     });
     setLoading(false);
     if (error) {
@@ -65,6 +166,9 @@ const Leasing = () => {
       has_company: Boolean(form.company.trim()),
       has_email: Boolean(form.email.trim()),
       has_message: Boolean(form.message.trim()),
+      space_type: form.space_type,
+      budget_range: form.budget_range,
+      attachments_count: uploaded.length,
     });
     setSubmitted(true);
     toast({ title: "تم الإرسال", description: "هنرجع لك في أقرب وقت." });
