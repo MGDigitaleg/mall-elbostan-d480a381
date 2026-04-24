@@ -58,6 +58,7 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
   const validTo = offer.valid_to ? new Date(offer.valid_to) : null;
   const categoryLabel = offer.category ?? store?.category ?? "عروض الافتتاح";
   const primaryTitle = offer.model ?? offer.title_ar;
+  const showOpenNowBadge = !!store && (offer.opening_status === "opening_soon" || store.opening_status === "opening_soon");
 
   return (
     <article id={cardId} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)] scroll-mt-24">
@@ -98,9 +99,9 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-2 p-3">
           <div className="flex flex-wrap items-center gap-2">
-            {(offer.opening_status === "opening_soon" || store?.opening_status === "opening_soon") && (
-              <span className="rounded-full border border-orange/20 bg-background/90 px-3 py-1 text-[0.64rem] font-bold text-orange backdrop-blur-sm">
-                يفتتح قريبًا
+            {showOpenNowBadge && (
+              <span className="rounded-full border border-primary/20 bg-background/90 px-3 py-1 text-[0.64rem] font-bold text-primary backdrop-blur-sm">
+                مفتوح الآن
               </span>
             )}
             <span className="rounded-full border border-border/70 bg-background/90 px-3 py-1 text-[0.64rem] font-semibold text-foreground backdrop-blur-sm">
