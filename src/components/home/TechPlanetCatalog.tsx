@@ -112,6 +112,46 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
     return [...tag(inner, "inner"), ...tag(middle, "middle"), ...tag(outer, "outer")];
   }, [inner, middle, outer]);
 
+  // Map every catalog slug to its taxonomy pillar (if any) so each orbit can
+  // deep-link into the new /devices/{pillar}[/{cluster}[/{longtail}]] hub
+  // pages instead of the legacy /devices/{slug} routes.
+  const slugToPillar = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const c of taxonomyClusters) m.set(c.slug, c.pillarSlug);
+    return m;
+  }, []);
+
+  // For each orbit (inner/middle/outer), pick the dominant pillar based on
+  // how many of that orbit's devices live under it. Used for the
+  // "تصفّح هذا المدار في صفحة موسّعة" CTA next to the active chip.
+  const orbitDeepLinks = useMemo(() => {
+    const out: Record<Exclude<OrbitKey, "all">, { href: string; labelAr: string } | null> = {
+      inner: null,
+      middle: null,
+      outer: null,
+    };
+    const groups: Record<Exclude<OrbitKey, "all">, CatalogDevice[]> = { inner, middle, outer };
+    for (const ring of ["inner", "middle", "outer"] as const) {
+      const counts = new Map<string, number>();
+      for (const d of groups[ring]) {
+        const pillar = slugToPillar.get(d.slug) ?? null;
+        if (!pillar) continue;
+        counts.set(pillar, (counts.get(pillar) ?? 0) + 1);
+      }
+      let bestSlug: string | null = null;
+      let bestCount = 0;
+      counts.forEach((n, slug) => {
+        if (n > bestCount) { bestCount = n; bestSlug = slug; }
+      });
+      if (!bestSlug) continue;
+      const pillarMeta = taxonomyPillars.find((p) => p.slug === bestSlug);
+      if (!pillarMeta) continue;
+      out[ring] = { href: `/devices/${pillarMeta.slug}`, labelAr: pillarMeta.labelAr };
+    }
+    return out;
+  }, [inner, middle, outer, slugToPillar]);
+
+
   const results = useMemo(() => {
     const tokens = tokenizeQuery(query);
     const scored = all
