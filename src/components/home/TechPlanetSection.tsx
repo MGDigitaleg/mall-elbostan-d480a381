@@ -1008,6 +1008,11 @@ export const TechPlanetSection = () => {
             </div>
           </div>
 
+          {import.meta.env.DEV && (() => {
+            const { missing, extras, duplicates } = computeOrbitAudit();
+            return <TechPlanetAuditBanner missing={missing} extras={extras} duplicates={duplicates} />;
+          })()}
+
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
         </div>
