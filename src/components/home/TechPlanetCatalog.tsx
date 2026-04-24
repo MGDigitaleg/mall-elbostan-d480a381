@@ -376,6 +376,26 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
         </div>
       </div>
 
+      {/* Deep-link to the new taxonomy hub for the active orbit */}
+      {orbit !== "all" && orbitDeepLinks[orbit] && (
+        <div className="mt-3 flex justify-end">
+          <Link
+            to={orbitDeepLinks[orbit]!.href}
+            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-arabic text-[0.72rem] transition-all hover:bg-white/10"
+            style={{
+              borderColor: `${ORBIT_COLORS[orbit]}55`,
+              color: ORBIT_COLORS[orbit],
+              background: `${ORBIT_COLORS[orbit]}10`,
+            }}
+            aria-label={`تصفّح ${ORBIT_LABELS[orbit]} في صفحة ${orbitDeepLinks[orbit]!.labelAr} الموسّعة`}
+          >
+            <ExternalLink className="h-3 w-3" />
+            تصفّح {orbitDeepLinks[orbit]!.labelAr} في صفحة موسّعة
+            <ArrowLeft className="h-3 w-3" />
+          </Link>
+        </div>
+      )}
+
       {/* Results */}
       <div className="mt-5">
         <p className="mb-3 font-arabic text-[0.72rem]" style={{ color: "rgba(255,255,255,0.55)" }}>
