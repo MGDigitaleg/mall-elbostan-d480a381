@@ -169,6 +169,19 @@ export function MapTeaserPreview() {
           </div>
         </div>
       </div>
+
+      {/* ── Store details modal (RTL Arabic) ── */}
+      <Dialog open={!!modalUnit} onOpenChange={(open) => !open && setModalUnit(null)}>
+        <DialogContent dir="rtl" className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="text-right">
+            <DialogTitle className="text-base font-bold">تفاصيل الوحدة</DialogTitle>
+            <DialogDescription className="text-xs text-muted-foreground">
+              معلومات المتجر، حالة التأجير، والموقع داخل المول.
+            </DialogDescription>
+          </DialogHeader>
+          {modalUnit && <UnitDetailsCard unit={modalUnit} />}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
