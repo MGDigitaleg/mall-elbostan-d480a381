@@ -121,12 +121,23 @@ function StoreSeoIntro({ category, totalStores, activeCount, topStores }: { cate
   );
 }
 
+type SortKey = "default" | "area_desc" | "area_asc" | "floor_asc" | "floor_desc";
+
+const sortOptions: { value: SortKey; label: string }[] = [
+  { value: "default",    label: "الترتيب الافتراضي" },
+  { value: "area_desc",  label: "المساحة: الأكبر أولاً" },
+  { value: "area_asc",   label: "المساحة: الأصغر أولاً" },
+  { value: "floor_asc",  label: "الدور: من الأرضي للأعلى" },
+  { value: "floor_desc", label: "الدور: من الأعلى للأرضي" },
+];
+
 const Stores = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") ?? "";
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedStatus, setSelectedStatus] = useState("");
+  const [sortBy, setSortBy] = useState<SortKey>("default");
 
   const { data: stores, isLoading } = useQuery({
     queryKey: ["stores-directory"],
@@ -141,27 +152,81 @@ const Stores = () => {
     },
   });
 
+  /* Floors lookup (id → sort_order, name) */
+  const { data: floors } = useQuery({
+    queryKey: ["stores-floors-lookup"],
+    queryFn: async () => {
+      const { data } = await supabase.from("floors").select("id, name_ar, sort_order");
+      return data ?? [];
+    },
+    staleTime: 10 * 60 * 1000,
+  });
+
+  /* Units lookup (unit_code → area_sqm) for sort by area */
+  const { data: units } = useQuery({
+    queryKey: ["stores-units-area"],
+    queryFn: async () => {
+      const { data } = await supabase.from("units").select("unit_code, area_sqm");
+      return data ?? [];
+    },
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const floorMap = useMemo(() => {
+    const m = new Map<string, { name: string; order: number }>();
+    floors?.forEach((f) => m.set(f.id, { name: f.name_ar, order: f.sort_order ?? 0 }));
+    return m;
+  }, [floors]);
+
+  const areaMap = useMemo(() => {
+    const m = new Map<string, number>();
+    units?.forEach((u) => { if (u.unit_code) m.set(u.unit_code, u.area_sqm ?? 0); });
+    return m;
+  }, [units]);
+
   const categories = useMemo(() => [...new Set(stores?.map((s) => s.category).filter(Boolean) ?? [])], [stores]);
 
   const filtered = useMemo(() => {
-    return stores?.filter((s) => {
+    const list = stores?.filter((s) => {
       const q = search.trim();
       const matchSearch = !q || s.name_ar.includes(q) || s.name_en?.toLowerCase().includes(q.toLowerCase()) || s.category?.includes(q);
       const matchCategory = !selectedCategory || s.category === selectedCategory;
       const matchStatus = !selectedStatus || s.status === selectedStatus;
       return matchSearch && matchCategory && matchStatus;
-    });
-  }, [stores, search, selectedCategory, selectedStatus]);
+    }) ?? [];
+
+    if (sortBy === "default") return list;
+
+    const sorted = [...list];
+    if (sortBy === "area_desc" || sortBy === "area_asc") {
+      const dir = sortBy === "area_desc" ? -1 : 1;
+      sorted.sort((a, b) => {
+        const aa = (a.unit_code && areaMap.get(a.unit_code)) || 0;
+        const bb = (b.unit_code && areaMap.get(b.unit_code)) || 0;
+        return (aa - bb) * dir;
+      });
+    } else {
+      const dir = sortBy === "floor_asc" ? 1 : -1;
+      sorted.sort((a, b) => {
+        const ao = (a.floor_id && floorMap.get(a.floor_id)?.order) ?? 999;
+        const bo = (b.floor_id && floorMap.get(b.floor_id)?.order) ?? 999;
+        return (ao - bo) * dir;
+      });
+    }
+    return sorted;
+  }, [stores, search, selectedCategory, selectedStatus, sortBy, areaMap, floorMap]);
 
   const totalStores = stores?.length ?? 0;
   const activeCount = stores?.filter((s) => s.status === "leased").length ?? 0;
-  const hasActiveFilters = !!search || !!selectedCategory || !!selectedStatus;
+  const hasActiveFilters = !!search || !!selectedCategory || !!selectedStatus || sortBy !== "default";
 
   const clearFilters = useCallback(() => {
     setSearch("");
     setSelectedCategory("");
     setSelectedStatus("");
+    setSortBy("default");
   }, []);
+
 
   return (
     <MainLayout>
@@ -346,6 +411,33 @@ const Stores = () => {
                 />
               </div>
 
+              {/* Sort dropdown — RTL */}
+              <div className="relative">
+                <label htmlFor="stores-sort" className="sr-only">ترتيب المحلات</label>
+                <select
+                  id="stores-sort"
+                  dir="rtl"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as SortKey)}
+                  className="h-11 w-full lg:w-auto cursor-pointer appearance-none rounded-xl pr-10 pl-4 text-[0.8rem] font-bold outline-none transition-all focus:ring-2 focus:ring-primary/30"
+                  style={{
+                    border: `1px solid ${sortBy !== "default" ? "#2D6BFF45" : "#ffffff14"}`,
+                    background: sortBy !== "default" ? "linear-gradient(135deg, #2D6BFF20, #2D6BFF10)" : "#ffffff0A",
+                    color: sortBy !== "default" ? "#5B9AFF" : "#CBD5E1",
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 8 4-4 4 4'/%3E%3Cpath d='M7 4v16'/%3E%3Cpath d='M17 20V4'/%3E%3Cpath d='m21 16-4 4-4-4'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "left 12px center",
+                    paddingLeft: "32px",
+                  }}
+                  aria-label="ترتيب المحلات"
+                >
+                  {sortOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value} style={{ background: "#0B1220", color: "#F8FAFC" }}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {/* Filter chips */}
               <div className="flex flex-wrap items-center gap-1.5">
                 <FilterChip active={!selectedCategory && !selectedStatus} onClick={clearFilters}>الكل</FilterChip>
