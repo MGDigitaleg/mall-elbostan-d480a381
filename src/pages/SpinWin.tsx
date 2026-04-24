@@ -155,6 +155,7 @@ const SpinWin = () => {
       } catch {
         // non-fatal
       }
+    } catch {
       trackEvent("spin_win_error", { reason: "network_or_unknown" });
       toast({ title: "خطأ", description: "حدث خطأ — حاول مرة أخرى", variant: "destructive" });
     } finally {
