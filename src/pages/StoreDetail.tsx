@@ -40,8 +40,32 @@ const categoryStory: Record<string, { title: string; desc: string; icon: typeof 
   "الصيانة والدعم الفني": { title: "خدمات دعم واستمرارية", desc: "صيانة ودعم فني متخصص على يد خبراء.", icon: Compass, color: "340 75% 55%" },
 };
 
+function inferOfferFilterCategory(offer: {
+  title_ar?: string | null;
+  description_ar?: string | null;
+  specs_short_ar?: string | null;
+  brand?: string | null;
+  model?: string | null;
+}) {
+  const content = [offer.title_ar, offer.description_ar, offer.specs_short_ar, offer.brand, offer.model]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (/(رام|ssd|hdd|nvme|ddr|motherboard|لوحة أم|مزود طاقة|power supply|psu|processor|cpu|ryzen|intel|rtx|gtx|rx |gpu|كرت شاشة|قطع|cooler|fan)/.test(content)) {
+    return "قطع الكمبيوتر";
+  }
+
+  if (/(adapter|cable|charger|hub|dock|stand|trigger|tripod|remote|headset|keyboard|mouse|كيبورد|ماوس|إكسسوار|اكسسوار|ملحق|حامل|شاحن)/.test(content)) {
+    return "الإكسسوارات";
+  }
+
+  return "الأجهزة";
+}
+
 const StoreDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [offerFilter, setOfferFilter] = useState("كل الأقسام");
 
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
@@ -118,6 +142,18 @@ const StoreDetail = () => {
     if (!store?.gallery || !Array.isArray(store.gallery)) return [];
     return store.gallery.filter((item): item is string => typeof item === "string");
   }, [store?.gallery]);
+
+  const storeOfferCategories = useMemo(() => {
+    const categories = new Set<string>();
+    (storeOffers ?? []).forEach((offer) => categories.add(inferOfferFilterCategory(offer)));
+    return ["كل الأقسام", ...Array.from(categories)];
+  }, [storeOffers]);
+
+  const filteredStoreOffers = useMemo(() => {
+    if (!storeOffers) return [];
+    if (offerFilter === "كل الأقسام") return storeOffers;
+    return storeOffers.filter((offer) => inferOfferFilterCategory(offer) === offerFilter);
+  }, [storeOffers, offerFilter]);
 
   const activeStory = store?.category ? categoryStory[store.category] : null;
   const heroImage = store?.cover_image_url ?? gallery[0] ?? fallbackCover;
@@ -515,18 +551,49 @@ const StoreDetail = () => {
                         ))}
                       </div>
                     ) : storeOffers.length > 0 ? (
-                      <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
-                        {storeOffers.map((offer: any) => (
-                          <OpeningOfferCard
-                            key={offer.id}
-                            offer={offer}
-                            compact
-                            showStoreLink={false}
-                            showAllStoreOffersCta={false}
-                            directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
-                            directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
-                          />
-                        ))}
+                      <div className="p-4 md:p-5">
+                        <div className="mb-4 flex flex-wrap items-center gap-2">
+                          {storeOfferCategories.map((category) => {
+                            const isActive = offerFilter === category;
+                            return (
+                              <button
+                                key={category}
+                                type="button"
+                                onClick={() => setOfferFilter(category)}
+                                className={`rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold transition-colors ${
+                                  isActive
+                                    ? "bg-primary text-primary-foreground"
+                                    : "border border-border/70 bg-secondary/60 text-foreground hover:bg-secondary"
+                                }`}
+                              >
+                                {category}
+                              </button>
+                            );
+                          })}
+                        </div>
+
+                        {filteredStoreOffers.length > 0 ? (
+                          <div className="grid gap-4 md:grid-cols-2">
+                            {filteredStoreOffers.map((offer: any) => (
+                              <OpeningOfferCard
+                                key={offer.id}
+                                offer={offer}
+                                compact
+                                showStoreLink={false}
+                                showAllStoreOffersCta={false}
+                                directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
+                                directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
+                              />
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="rounded-2xl border border-border/70 bg-secondary/20 p-5 text-center">
+                            <p className="text-[0.84rem] font-bold text-foreground">لا توجد عروض ضمن هذا القسم الآن</p>
+                            <p className="mt-2 text-[0.72rem] leading-7 text-muted-foreground">
+                              اختر قسمًا آخر أو اعرض كل الأقسام لرؤية جميع عروض {store.name_ar}.
+                            </p>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="p-5 text-center md:p-6">
