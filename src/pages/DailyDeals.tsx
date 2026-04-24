@@ -127,7 +127,7 @@ const DailyDeals = () => {
             </div>
             {previewPrimaryOffer ? (
               <div className="grid gap-5 xl:grid-cols-[1.18fr_0.82fr]">
-                <OpeningOfferCard offer={previewPrimaryOffer} showAllStoreOffersCta />
+                <OpeningOfferCard cardId={`offer-${previewPrimaryOffer.id}`} offer={previewPrimaryOffer} showAllStoreOffersCta />
                 <div className="rounded-2xl border border-border/70 bg-secondary/25 p-4 md:p-5">
                   <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
                     <Zap className="h-4 w-4 text-primary" /> كيف تعمل الصفحة الآن؟
@@ -190,7 +190,7 @@ const DailyDeals = () => {
                     </div>
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                       {previewGridOffers.map((deal) => (
-                        <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
+                        <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta />
                       ))}
                     </div>
                   </div>
@@ -215,7 +215,7 @@ const DailyDeals = () => {
             ) : (
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {deals.map((deal) => (
-                  <OpeningOfferCard key={deal.id} offer={deal} showAllStoreOffersCta />
+                  <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta />
                 ))}
               </div>
             )}
