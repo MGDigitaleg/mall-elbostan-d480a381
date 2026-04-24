@@ -31,9 +31,12 @@ export type OpeningOfferRecord = {
 
 type Props = {
   offer: OpeningOfferRecord;
+  cardId?: string;
   compact?: boolean;
   showStoreLink?: boolean;
   showAllStoreOffersCta?: boolean;
+  directOfferHref?: string;
+  directOfferLabel?: string;
 };
 
 function formatCurrency(value?: number | null, currency = "EGP") {
@@ -47,7 +50,7 @@ function calculateDiscount(current?: number | null, old?: number | null) {
   return Math.round(((old - current) / old) * 100);
 }
 
-export function OpeningOfferCard({ offer, compact = false, showStoreLink = true, showAllStoreOffersCta = false }: Props) {
+export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض" }: Props) {
   const store = offer.stores;
   const discount = calculateDiscount(offer.price_current, offer.price_old);
   const priceNow = formatCurrency(offer.price_current, offer.currency ?? "EGP");
@@ -57,7 +60,7 @@ export function OpeningOfferCard({ offer, compact = false, showStoreLink = true,
   const primaryTitle = offer.model ?? offer.title_ar;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)]">
+    <article id={cardId} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)] scroll-mt-24">
       <div className="relative aspect-[4/3] overflow-hidden border-b border-border/60 bg-muted/30">
         {offer.image_primary ? (
           <>
@@ -185,6 +188,13 @@ export function OpeningOfferCard({ offer, compact = false, showStoreLink = true,
         </div>
 
         <div className={`mt-4 ${compact ? "space-y-2" : "space-y-2.5"}`}>
+          {directOfferHref && (
+            <Link to={directOfferHref} className="block">
+              <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.76rem] font-bold gap-1.5">
+                {directOfferLabel} <Tag className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
+          )}
           {showStoreLink && store && (
             <Link to={`/stores/${store.slug}`} className="block">
               <Button variant="cta" className="h-10 w-full rounded-xl text-[0.78rem] font-bold gap-1.5">
