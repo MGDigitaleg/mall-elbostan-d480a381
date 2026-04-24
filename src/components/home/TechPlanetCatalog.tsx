@@ -513,3 +513,135 @@ const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSugge
   );
 };
 
+// ── Quick preview card on hover/focus ─────────────────────────────────────
+const RING_LABEL_AR: Record<Exclude<OrbitKey, "all">, string> = {
+  inner: "المدار الداخلي",
+  middle: "المدار الأوسط",
+  outer: "المدار الخارجي",
+};
+
+type PreviewProps = {
+  slug: string;
+  ring: Exclude<OrbitKey, "all">;
+  accent: string;
+};
+
+const DevicePreviewCard = ({ slug, ring, accent }: PreviewProps) => {
+  const entry = deviceCatalog[slug];
+  if (!entry) return null;
+
+  const { Icon, labelAr, labelEn, parentCategory, seo, faq, relatedSlugs } = entry;
+  // Trim description to a tight 2–3 line preview (avoid huge cards).
+  const description = seo.description.length > 180 ? `${seo.description.slice(0, 175).trimEnd()}…` : seo.description;
+
+  return (
+    <HoverCardContent
+      side="top"
+      align="center"
+      sideOffset={10}
+      collisionPadding={12}
+      className="z-50 w-72 rounded-xl border p-0 shadow-2xl"
+      style={{
+        background: "linear-gradient(150deg, rgba(7,19,38,0.98) 0%, rgba(13,31,60,0.98) 100%)",
+        borderColor: `${accent}55`,
+        boxShadow: `0 20px 50px -10px rgba(7,19,38,0.7), 0 0 0 1px ${accent}22`,
+      }}
+    >
+      <div dir="rtl" className="overflow-hidden rounded-xl">
+        {/* Header */}
+        <div
+          className="flex items-start gap-3 px-4 pt-4 pb-3"
+          style={{ borderBottom: `1px solid ${accent}22` }}
+        >
+          <div
+            aria-hidden
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg"
+            style={{
+              background: `${accent}1F`,
+              border: `1px solid ${accent}55`,
+              color: accent,
+              boxShadow: `0 0 18px ${accent}33`,
+            }}
+          >
+            <Icon size={22} strokeWidth={1.7} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h4 className="font-arabic-display text-[0.95rem] font-bold leading-tight text-white">
+              {labelAr}
+            </h4>
+            <p className="mt-0.5 truncate font-mono text-[0.68rem]" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {labelEn}
+            </p>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="px-4 py-3">
+          <p className="font-arabic text-[0.78rem] leading-[1.55]" style={{ color: "rgba(255,255,255,0.78)" }}>
+            {description}
+          </p>
+        </div>
+
+        {/* Meta chips */}
+        <div className="flex flex-wrap items-center gap-1.5 px-4 pb-3">
+          <span
+            className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-arabic text-[0.65rem]"
+            style={{ borderColor: `${accent}55`, background: `${accent}14`, color: accent }}
+          >
+            <Layers className="h-2.5 w-2.5" />
+            {RING_LABEL_AR[ring]}
+          </span>
+          <span
+            className="inline-flex items-center rounded-full border px-2 py-0.5 font-arabic text-[0.65rem]"
+            style={{
+              borderColor: "rgba(205,187,154,0.3)",
+              background: "rgba(255,255,255,0.04)",
+              color: "rgba(255,255,255,0.75)",
+            }}
+          >
+            {parentCategory}
+          </span>
+          {faq.length > 0 && (
+            <span
+              className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-arabic text-[0.65rem]"
+              style={{
+                borderColor: "rgba(252,211,77,0.35)",
+                background: "rgba(252,211,77,0.08)",
+                color: "#FCD34D",
+              }}
+            >
+              <Sparkles className="h-2.5 w-2.5" />
+              {faq.length} سؤال شائع
+            </span>
+          )}
+          {relatedSlugs.length > 0 && (
+            <span
+              className="inline-flex items-center rounded-full border px-2 py-0.5 font-arabic text-[0.65rem]"
+              style={{
+                borderColor: "rgba(205,187,154,0.3)",
+                background: "rgba(255,255,255,0.04)",
+                color: "rgba(255,255,255,0.65)",
+              }}
+            >
+              {relatedSlugs.length} فئة مرتبطة
+            </span>
+          )}
+        </div>
+
+        {/* Footer CTA */}
+        <Link
+          to={`/devices/${slug}`}
+          className="flex items-center justify-between gap-2 border-t px-4 py-2.5 font-arabic text-[0.78rem] font-bold transition-colors hover:bg-white/[0.06]"
+          style={{ borderColor: `${accent}22`, color: "#FCD34D" }}
+        >
+          <span className="inline-flex items-center gap-1.5">
+            <ExternalLink className="h-3.5 w-3.5" />
+            عرض صفحة {labelAr}
+          </span>
+          <ArrowLeft className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </HoverCardContent>
+  );
+};
+
