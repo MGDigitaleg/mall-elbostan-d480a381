@@ -26,7 +26,7 @@ const branchItems = [
 const secondaryNavItems = [
   { label: "الوحدات المتاحة", path: "/leasing" },
   { label: "يوم الافتتاح", path: "/opening-day" },
-  { label: "العروض", path: "/daily-deals" },
+  { label: "عروض الافتتاح", path: "/daily-deals" },
   { label: "تواصل معنا", path: "/contact" },
 ];
 
