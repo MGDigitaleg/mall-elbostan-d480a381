@@ -46,7 +46,7 @@ export function MapTeaserPreview() {
     ? `https://wa.me/${OFFICIAL_WHATSAPP.trim()}?text=${encodeURIComponent(inquiryMessage)}`
     : null;
   const contactInquiryHref = modalUnit
-    ? `/contact?inquiry=leasing&message=${encodeURIComponent(inquiryMessage)}&company=${encodeURIComponent(modalUnit.labelAr ?? modalUnit.code)}`
+    ? `/contact?inquiry=leasing&message=${encodeURIComponent(inquiryMessage)}&company=${encodeURIComponent(modalUnit.name ?? modalUnit.code)}`
     : "/contact";
 
   const mutedUnitIds = useMemo(
