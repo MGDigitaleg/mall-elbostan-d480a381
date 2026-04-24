@@ -238,7 +238,7 @@ function PostReviewCard({ post, merchants, stores }: { post: IntakePost; merchan
 
   const logActivity = async (action_type: string, action_label_ar: string, payload: Record<string, unknown> = {}) => {
     await supabase.from("social_offer_activity_log").insert([
-      { intake_id: post.id, action_type, action_label_ar, payload },
+      { intake_id: post.id, action_type, action_label_ar, payload: payload as never },
     ]);
   };
 
