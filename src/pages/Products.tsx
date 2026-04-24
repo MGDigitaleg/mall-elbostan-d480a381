@@ -637,10 +637,11 @@ const Products = () => {
       <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
         <div className="container max-w-[1200px]">
 
-          {/* Sticky filter bar */}
+          {/* Filter bar */}
           <div className="lg:sticky lg:top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
-              {/* Search */}
+            {/* Mobile: stacked vertically / Desktop: row */}
+            <div className="flex flex-col gap-3">
+              {/* Row 1: Search */}
               <div className="relative flex-1">
                 <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
                 <input
