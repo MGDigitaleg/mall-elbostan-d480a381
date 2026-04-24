@@ -256,8 +256,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["printers", "scanners", "webcams", "cameras", "microphones"],
   },
 
-  "controllers": {
-    slug: "controllers",
+  "gaming-consoles": {
+    slug: "gaming-consoles",
     labelAr: "أجهزة الجيمنج",
     labelEn: "Gaming Consoles",
     Icon: Gamepad2,
