@@ -39,6 +39,7 @@ const RewardTerms = lazy(() => lazyRetry(() => import("./pages/RewardTerms")));
 const MarketEcho = lazy(() => lazyRetry(() => import("./pages/MarketEcho")));
 const Countdown = lazy(() => lazyRetry(() => import("./pages/Countdown")));
 const DowntownDirectory = lazy(() => lazyRetry(() => import("./pages/DowntownDirectory")));
+const DeviceCategory = lazy(() => lazyRetry(() => import("./pages/DeviceCategory")));
 const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/DowntownMerchantDetail")));
 const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
 
@@ -143,6 +144,7 @@ function AppLayout() {
             <Route path="/downtown-branch" element={<DowntownBranch />} />
             <Route path="/downtown-directory" element={<DowntownDirectory />} />
             <Route path="/downtown-directory/:slug" element={<DowntownMerchantDetail />} />
+            <Route path="/devices/:slug" element={<DeviceCategory />} />
             <Route path="/stores" element={<Stores />} />
             <Route path="/stores/:slug" element={<StoreDetail />} />
             <Route path="/products" element={<Products />} />
