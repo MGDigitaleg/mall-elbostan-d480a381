@@ -1003,54 +1003,8 @@ export const TechPlanetSection = () => {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-6 text-center sm:grid-cols-3">
-            {[
-              { v: "+150", l: "محل" },
-              { v: "3", l: "أدوار" },
-              { v: "10", l: "فئات تقنية" },
-            ].map((s) => (
-              <div
-                key={s.l}
-                className="rounded-xl border px-4 py-5"
-                style={{
-                  borderColor: "rgba(205,187,154,0.18)",
-                  background: "rgba(255,255,255,0.03)",
-                }}
-              >
-                <div
-                  className="font-arabic-display text-[1.6rem] font-bold"
-                  style={{ color: "#CDBB9A" }}
-                >
-                  {s.v}
-                </div>
-                <div
-                  className="mt-1 font-arabic text-[0.85rem]"
-                  style={{ color: "rgba(255,255,255,0.7)" }}
-                >
-                  {s.l}
-                </div>
-              </div>
-            ))}
-          </div>
-
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
-          <div className="mt-10 flex justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="font-arabic"
-              style={{
-                background: "#1F61FF",
-                color: "white",
-              }}
-            >
-              <Link to="/stores">
-                استكشف الفئات
-                <ArrowLeft className="mr-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
     </TooltipProvider>
