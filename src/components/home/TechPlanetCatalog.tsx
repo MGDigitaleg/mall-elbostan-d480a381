@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Search, X, ArrowLeft, type LucideIcon } from "lucide-react";
 
 export type CatalogDevice = {
@@ -42,16 +42,64 @@ const normalize = (s: string) =>
 
 const ORBIT_KEYS: OrbitKey[] = ["all", "inner", "middle", "outer"];
 
+const isOrbitKey = (v: string | null): v is OrbitKey =>
+  v === "all" || v === "inner" || v === "middle" || v === "outer";
+
 export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
   const navigate = useNavigate();
-  const [orbit, setOrbit] = useState<OrbitKey>("all");
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Initialize from URL (?tp=inner&q=laptop) so refresh + shared links restore state.
+  const initialOrbit = useMemo<OrbitKey>(() => {
+    const v = searchParams.get("tp");
+    return isOrbitKey(v) ? v : "all";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const initialQuery = useMemo(() => searchParams.get("q") ?? "", []);
+
+  const [orbit, setOrbit] = useState<OrbitKey>(initialOrbit);
+  const [query, setQuery] = useState(initialQuery);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const searchRef = useRef<HTMLInputElement>(null);
   const tabsRef = useRef<Array<HTMLButtonElement | null>>([]);
   const itemsRef = useRef<Array<HTMLAnchorElement | null>>([]);
   const gridRef = useRef<HTMLUListElement>(null);
+  const isFirstSyncRef = useRef(true);
+
+  // Sync state → URL (debounced for query). Uses replace to avoid history spam.
+  useEffect(() => {
+    // Skip the very first run so we don't overwrite a fresh URL on mount.
+    if (isFirstSyncRef.current) {
+      isFirstSyncRef.current = false;
+      return;
+    }
+    const handle = window.setTimeout(() => {
+      const next = new URLSearchParams(searchParams);
+      if (orbit === "all") next.delete("tp");
+      else next.set("tp", orbit);
+      const trimmed = query.trim();
+      if (!trimmed) next.delete("q");
+      else next.set("q", trimmed);
+      // Only update if something actually changed (avoid replace loops).
+      if (next.toString() !== searchParams.toString()) {
+        setSearchParams(next, { replace: true });
+      }
+    }, 250);
+    return () => window.clearTimeout(handle);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orbit, query]);
+
+  // Sync URL → state (e.g. browser back/forward).
+  useEffect(() => {
+    const urlOrbit = searchParams.get("tp");
+    const nextOrbit: OrbitKey = isOrbitKey(urlOrbit) ? urlOrbit : "all";
+    const nextQuery = searchParams.get("q") ?? "";
+    if (nextOrbit !== orbit) setOrbit(nextOrbit);
+    if (nextQuery !== query) setQuery(nextQuery);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
 
   const all = useMemo(() => {
     const tag = (devices: CatalogDevice[], ring: Exclude<OrbitKey, "all">) =>
