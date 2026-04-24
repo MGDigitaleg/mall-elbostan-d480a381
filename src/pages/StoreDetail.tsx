@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
+import { OpeningOfferCard } from "@/components/offers/OpeningOfferCard";
 import fallbackCover from "@/assets/mall-interior.webp";
 
 /* ── Animations ── */
@@ -94,6 +95,23 @@ const StoreDetail = () => {
       return data ?? [];
     },
     enabled: isKzStore,
+  });
+
+  const { data: storeOffers } = useQuery({
+    queryKey: ["store-offers", store?.id],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("deals")
+        .select("id, title_ar, description_ar, valid_to, featured, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
+        .eq("store_id", store!.id)
+        .eq("campaign_key", "opening-offers-2026")
+        .eq("is_live", true)
+        .order("featured", { ascending: false })
+        .order("sort_order", { ascending: true })
+        .limit(6);
+      return data ?? [];
+    },
+    enabled: !!store?.id,
   });
 
   const gallery = useMemo(() => {
