@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Compass, Layers, MapPin, MessageCircle, Store, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,8 +24,11 @@ export function MapTeaserPreview() {
   );
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(defaultUnit);
   const [modalUnit, setModalUnit] = useState<MallUnit | null>(null);
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const handleSelectUnit = (unit: MallUnit) => {
+    lastFocusedElementRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setSelectedUnit(unit);
     setModalUnit(unit);
   };
@@ -191,16 +194,29 @@ export function MapTeaserPreview() {
       </div>
 
       {/* ── Store details modal (RTL Arabic) ── */}
-      <Dialog open={!!modalUnit} onOpenChange={(open) => !open && setModalUnit(null)}>
-        <DialogContent dir="rtl" className="max-w-lg max-h-[90vh] overflow-y-auto">
+      <Dialog modal open={!!modalUnit} onOpenChange={(open) => !open && setModalUnit(null)}>
+        <DialogContent
+          dir="rtl"
+          className="max-w-lg max-h-[90vh] overflow-y-auto"
+          onOpenAutoFocus={(event) => {
+            event.preventDefault();
+            closeButtonRef.current?.focus();
+          }}
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            lastFocusedElementRef.current?.focus();
+          }}
+        >
           <DialogHeader className="text-right">
             <div className="flex items-center justify-between">
               <DialogTitle className="text-base font-bold">تفاصيل الوحدة</DialogTitle>
               <Button
+                ref={closeButtonRef}
                 variant="ghost"
                 size="sm"
                 onClick={() => setModalUnit(null)}
-                className="h-8 px-2 text-muted-foreground hover:text-foreground"
+                className="h-8 px-2 text-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                aria-label="إغلاق نافذة تفاصيل الوحدة"
               >
                 <X className="h-4 w-4 ml-1" />
                 إغلاق
