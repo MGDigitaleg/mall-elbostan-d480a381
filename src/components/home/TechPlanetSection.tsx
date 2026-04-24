@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, Sparkles, Check, type LucideIcon } from "lucide-react";
+import {
+  ArrowLeft, Sparkles, Check,
+  Map as MapIcon, Store, ShoppingBag, Tag, Trophy, PartyPopper, Building2, Boxes,
+  type LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
@@ -19,108 +23,70 @@ type Device = {
 
 // Build orbit lists from the centralized device catalog so each icon
 // always points at its dedicated SEO landing page (/devices/:slug).
-// Curated, ordered selections per orbit ring for visual balance.
-const pick = (slugs: string[]): Device[] =>
-  slugs
-    .map((s) => {
-      const d = deviceCatalog[s];
-      if (!d && import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`[TechPlanetSection] Unknown device slug: "${s}" — add it to deviceCatalog or fix the typo.`);
-      }
-      return d;
-    })
-    .filter(Boolean)
-    .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
-
-// Inner orbit — 8 most essential device categories (closest to the core)
-const innerOrbit: Device[] = pick([
-  "laptops",
-  "smartphones",
-  "monitors",
-  "gaming-consoles",
-  "headphones",
-  "tablets",
-  "smartwatches",
-  "macbook",
-]);
-
-// Middle orbit — 14 key peripherals, accessories & secondary categories
-const middleOrbit: Device[] = pick([
-  "gaming-laptops",
-  "cpus",
-  "graphics-cards",
-  "ram",
-  "storage",
-  "keyboards",
-  "mice",
-  "speakers",
-  "earbuds",
-  "webcams",
-  "cameras",
-  "printers",
-  "routers",
-  "controllers",
-]);
-
-// Outer orbit — 22 specialty / extended categories (deepest ring)
-const outerOrbit: Device[] = pick([
-  "televisions",
-  "projectors",
-  "microphones",
-  "streaming-gear",
-  "vr-gaming",
-  "smart-lighting",
-  "security-cameras",
-  "intercoms",
-  "networking",
-  "nas",
-  "external-storage",
-  "servers",
-  "ups",
-  "scanners",
-  "pc-components",
-  "cooling",
-  "power-adapters",
-  "chargers",
-  "powerbanks",
-  "cables",
-  "office-supplies",
-  "accessories",
-]);
-
-// Dev-only audit: compare orbit coverage to the centralized deviceCatalog so
-// new device entries are never silently absent from the planet (and removed
-// entries don't linger as dead slugs in an orbit array).
+// Auto-distributed by the `orbit` field on each entry — guarantees 100% coverage.
 const META_KEYS = new Set(["seo"]);
+const allDevices = Object.values(deviceCatalog).filter(
+  (e: any) => e && typeof e === "object" && "slug" in e && !META_KEYS.has((e as any).slug),
+);
+
+const toDevice = (d: any): Device => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug });
+
+const innerOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "inner").map(toDevice);
+const middleOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "middle").map(toDevice);
+const outerOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "outer").map(toDevice);
+
+// Satellites — clickable links to mall experiences & sections
+type Satellite = {
+  Icon: LucideIcon;
+  label: string;
+  to: string;
+  color: string;
+};
+const satellites: Satellite[] = [
+  { Icon: MapIcon, label: "الخريطة التفاعلية", to: "/map", color: "#7DD3FC" },
+  { Icon: Store, label: "دليل المحلات", to: "/stores", color: "#A78BFA" },
+  { Icon: ShoppingBag, label: "كل المنتجات", to: "/products", color: "#60A5FA" },
+  { Icon: Tag, label: "عروض اليوم", to: "/daily-deals", color: "#F97316" },
+  { Icon: Trophy, label: "اربح بدورة", to: "/spin-win", color: "#FCD34D" },
+  { Icon: PartyPopper, label: "يوم الافتتاح", to: "/opening-day", color: "#EC4899" },
+  { Icon: Building2, label: "فرع وسط البلد", to: "/downtown-directory", color: "#CDBB9A" },
+  { Icon: Boxes, label: "كسر زيرو", to: "/kz", color: "#06B6D4" },
+];
+
+// Clickable constellation stars — 8 prominent stars link to utility pages
+const CONSTELLATION_LINKS: { to: string; title: string }[] = [
+  { to: "/about", title: "عن مول البستان" },
+  { to: "/leasing", title: "التأجير" },
+  { to: "/contact", title: "تواصل معنا" },
+  { to: "/faq", title: "الأسئلة الشائعة" },
+  { to: "/blog", title: "المدوّنة" },
+  { to: "/careers", title: "الوظائف" },
+  { to: "/market-echo", title: "صدى السوق" },
+  { to: "/join-marketplace", title: "انضم للسوق الرقمي" },
+];
+
+// Dev-only audit: ensure every catalog device lands on an orbit ring.
 const computeOrbitAudit = () => {
   const orbitSlugs = [...innerOrbit, ...middleOrbit, ...outerOrbit].map((d) => d.slug);
   const seen = new Set<string>();
   const duplicates = orbitSlugs.filter((s) => (seen.has(s) ? true : (seen.add(s), false)));
   const catalogSlugs = Object.keys(deviceCatalog).filter((k) => !META_KEYS.has(k));
   const missing = catalogSlugs.filter((s) => !seen.has(s));
-  const extras = orbitSlugs.filter((s) => !(s in deviceCatalog));
-  return { missing, extras, duplicates, catalogSlugs, orbitSlugs };
+  return { missing, duplicates, catalogSlugs };
 };
 
 if (import.meta.env.DEV) {
-  const { missing, extras, duplicates, catalogSlugs } = computeOrbitAudit();
-  if (missing.length || extras.length || duplicates.length) {
+  const { missing, duplicates, catalogSlugs } = computeOrbitAudit();
+  if (missing.length || duplicates.length) {
     // eslint-disable-next-line no-console
-    console.groupCollapsed(
-      `%c[TechPlanetSection] Orbit/Catalog audit — ${missing.length} missing · ${extras.length} extra · ${duplicates.length} duplicate`,
-      "color:#FCD34D;font-weight:600",
+    console.warn(
+      `[TechPlanetSection] Audit — ${missing.length} missing · ${duplicates.length} duplicate`,
+      { missing, duplicates },
     );
-    if (missing.length) console.warn("Missing from orbits (in catalog, not on planet):", missing);
-    if (extras.length) console.warn("Extra in orbits (not in catalog):", extras);
-    if (duplicates.length) console.warn("Duplicate slugs across orbits:", duplicates);
-    // eslint-disable-next-line no-console
-    console.groupEnd();
   } else {
     // eslint-disable-next-line no-console
     console.info(
-      `%c[TechPlanetSection] ✓ All ${catalogSlugs.length} catalog devices mapped across orbits (${innerOrbit.length}/${middleOrbit.length}/${outerOrbit.length}).`,
-      "color:#7DD3FC",
+      `[TechPlanetSection] ✓ All ${catalogSlugs.length} catalog devices mapped (${innerOrbit.length}/${middleOrbit.length}/${outerOrbit.length}).`,
     );
   }
 }
@@ -384,19 +350,13 @@ export const TechPlanetSection = () => {
 
   // Curated 10-device set for mobile single orbit (balanced across categories)
   const mobileDevices = useMemo<Device[]>(
-    () =>
-      pick([
-        "laptops",
-        "smartphones",
-        "monitors",
-        "gaming-consoles",
-        "headphones",
-        "printers",
-        "tablets",
-        "smartwatches",
-        "routers",
-        "cameras",
-      ]),
+    () => {
+      const wanted = ["laptops", "smartphones", "monitors", "headphones", "printers", "tablets", "smartwatches", "routers", "cameras", "macbook"];
+      return wanted
+        .map((s) => deviceCatalog[s])
+        .filter(Boolean)
+        .map((d: any) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
+    },
     [],
   );
 
@@ -409,24 +369,30 @@ export const TechPlanetSection = () => {
         innerR: 130,
         middleR: 0,
         outerR: 0,
+        satelliteR: 0,
         innerSize: 48,
         middleSize: 0,
         outerSize: 0,
+        satelliteSize: 0,
         showMiddle: false,
         showOuter: false,
+        showSatellites: false,
       };
     }
     return {
-      stage: 720,
+      stage: 880,
       core: 170,
       innerR: 145,
       middleR: 235,
       outerR: 335,
+      satelliteR: 410,
       innerSize: 46,
       middleSize: 40,
       outerSize: 34,
+      satelliteSize: 38,
       showMiddle: true,
       showOuter: true,
+      showSatellites: true,
     };
   }, [isMobile]);
 
@@ -597,33 +563,71 @@ export const TechPlanetSection = () => {
             }}
           />
 
-          {/* Stars layer — 90 stars, some twinkle */}
-          <svg className="absolute inset-0 h-full w-full" aria-hidden>
-            {Array.from({ length: 90 }).map((_, i) => {
-              const cx = (i * 53.7) % 100;
-              const cy = (i * 31.3) % 100;
-              const r = (i % 6 === 0 ? 1.6 : i % 3 === 0 ? 1.1 : 0.7);
-              const op = i % 4 === 0 ? 0.9 : i % 2 === 0 ? 0.6 : 0.32;
-              const fill =
-                i % 9 === 0 ? "#FCD34D" :
-                i % 5 === 0 ? "#A78BFA" :
-                i % 3 === 0 ? "#7DD3FC" : "#E0F2FE";
-              const twinkle = !reduce && active && i % 4 === 0;
-              return (
-                <circle
-                  key={i}
-                  cx={`${cx}%`}
-                  cy={`${cy}%`}
-                  r={r}
-                  fill={fill}
-                  opacity={op}
-                  style={twinkle ? {
-                    ["--tp-op" as string]: String(op),
-                    animation: `tp-twinkle ${3 + (i % 5)}s ease-in-out ${(i % 7) * 0.4}s infinite`,
-                  } : undefined}
-                />
-              );
-            })}
+          {/* Stars layer — 90 stars; 8 of the largest are clickable constellation links */}
+          <svg className="absolute inset-0 h-full w-full pointer-events-none" aria-hidden={false} role="presentation">
+            {(() => {
+              const stars = Array.from({ length: 90 });
+              let prominentIdx = 0;
+              return stars.map((_, i) => {
+                const cx = (i * 53.7) % 100;
+                const cy = (i * 31.3) % 100;
+                const isProminent = i % 6 === 0;
+                const r = isProminent ? 1.6 : i % 3 === 0 ? 1.1 : 0.7;
+                const op = i % 4 === 0 ? 0.9 : i % 2 === 0 ? 0.6 : 0.32;
+                const fill =
+                  i % 9 === 0 ? "#FCD34D" :
+                  i % 5 === 0 ? "#A78BFA" :
+                  i % 3 === 0 ? "#7DD3FC" : "#E0F2FE";
+                const twinkle = !reduce && active && i % 4 === 0;
+                const twinkleStyle = twinkle ? {
+                  ["--tp-op" as string]: String(op),
+                  animation: `tp-twinkle ${3 + (i % 5)}s ease-in-out ${(i % 7) * 0.4}s infinite`,
+                } : undefined;
+
+                // First 8 prominent stars become navigation portals
+                if (isProminent && prominentIdx < CONSTELLATION_LINKS.length) {
+                  const link = CONSTELLATION_LINKS[prominentIdx];
+                  prominentIdx += 1;
+                  return (
+                    <Link key={i} to={link.to} aria-label={link.title} style={{ pointerEvents: "auto" }}>
+                      <g className="group cursor-pointer">
+                        <title>{link.title}</title>
+                        {/* Outer halo on hover */}
+                        <circle
+                          cx={`${cx}%`}
+                          cy={`${cy}%`}
+                          r={r * 5}
+                          fill="#FCD34D"
+                          opacity={0}
+                          className="transition-opacity duration-300 group-hover:opacity-20 group-focus-visible:opacity-25"
+                        />
+                        <circle
+                          cx={`${cx}%`}
+                          cy={`${cy}%`}
+                          r={r * 1.2}
+                          fill={fill}
+                          opacity={Math.min(1, op + 0.1)}
+                          className="transition-all duration-300 group-hover:fill-[#FCD34D]"
+                          style={twinkleStyle}
+                        />
+                      </g>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <circle
+                    key={i}
+                    cx={`${cx}%`}
+                    cy={`${cy}%`}
+                    r={r}
+                    fill={fill}
+                    opacity={op}
+                    style={twinkleStyle}
+                  />
+                );
+              });
+            })()}
           </svg>
 
           {/* Shooting stars — 3 streaks at varied delays */}
@@ -919,6 +923,88 @@ export const TechPlanetSection = () => {
               />
             )}
 
+            {/* ─── Satellite orbit (4th ring, links to mall experiences) ─── */}
+            {sizes.showSatellites && (
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{
+                  willChange: "transform",
+                  animation: `tp-spin 60s linear infinite`,
+                  animationPlayState: !active || reduce || hoveredOrbit === 3 ? "paused" : "running",
+                  animationDirection: "reverse",
+                }}
+              >
+                {satellites.map((sat, i) => {
+                  const angle = (i / satellites.length) * Math.PI * 2;
+                  const x = Math.cos(angle) * sizes.satelliteR;
+                  const y = Math.sin(angle) * sizes.satelliteR;
+                  const size = sizes.satelliteSize;
+                  return (
+                    <Tooltip key={sat.label}>
+                      <TooltipTrigger asChild>
+                        <Link
+                          to={sat.to}
+                          aria-label={sat.label}
+                          onMouseEnter={() => setHoveredOrbit(3)}
+                          onMouseLeave={() => setHoveredOrbit(null)}
+                          onFocus={() => setHoveredOrbit(3)}
+                          onBlur={() => setHoveredOrbit(null)}
+                          className="absolute group focus:outline-none"
+                          style={{
+                            transform: `translate(${x}px, ${y}px)`,
+                            width: size,
+                            height: size,
+                            marginInlineStart: -size / 2,
+                            marginTop: -size / 2,
+                            insetInlineStart: "50%",
+                            top: "50%",
+                          }}
+                        >
+                          <div
+                            className="flex h-full w-full items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 group-hover:scale-[1.3]"
+                            style={{
+                              borderColor: `${sat.color}55`,
+                              background: `${sat.color}14`,
+                              boxShadow: `0 4px 18px ${sat.color}33, inset 0 1px 0 rgba(255,255,255,0.08)`,
+                              willChange: "transform",
+                              animation: `tp-spin 60s linear infinite`,
+                              animationDirection: "normal",
+                              animationPlayState: !active || reduce || hoveredOrbit === 3 ? "paused" : "running",
+                            }}
+                          >
+                            <sat.Icon
+                              size={size * 0.5}
+                              strokeWidth={1.7}
+                              style={{ color: sat.color }}
+                            />
+                          </div>
+                          {/* Tiny dotted trail to suggest a satellite */}
+                          <span
+                            aria-hidden
+                            className="absolute -top-1 start-1/2 h-1 w-1 rounded-full"
+                            style={{ background: sat.color, boxShadow: `0 0 6px ${sat.color}` }}
+                          />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="top"
+                        align="center"
+                        sideOffset={8}
+                        collisionPadding={12}
+                        avoidCollisions
+                        className="font-arabic text-[0.78rem]"
+                      >
+                        <span className="flex items-center gap-1.5">
+                          {sat.label}
+                          <ArrowLeft className="h-3 w-3 opacity-70" />
+                        </span>
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+            )}
+
             <div
               className="absolute"
               style={{
@@ -1008,6 +1094,46 @@ export const TechPlanetSection = () => {
               </div>
             </div>
           </div>
+
+          {/* Mobile satellites strip — replaces the 4th orbit on small screens */}
+          {isMobile && (
+            <div className="mt-12">
+              <p className="mb-3 text-center font-arabic text-[0.72rem] uppercase tracking-[0.3em]" style={{ color: "#CDBB9A" }}>
+                أقمار البستان
+              </p>
+              <div
+                className="flex gap-2.5 overflow-x-auto px-4 pb-2 scrollbar-hide"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {satellites.map((sat) => (
+                  <Link
+                    key={sat.label}
+                    to={sat.to}
+                    aria-label={sat.label}
+                    className="group flex shrink-0 flex-col items-center gap-2 rounded-2xl border px-3 py-3 backdrop-blur-md transition-all active:scale-95"
+                    style={{
+                      borderColor: `${sat.color}55`,
+                      background: `${sat.color}14`,
+                      minWidth: 88,
+                    }}
+                  >
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-full"
+                      style={{
+                        background: `${sat.color}22`,
+                        boxShadow: `0 4px 14px ${sat.color}33`,
+                      }}
+                    >
+                      <sat.Icon size={20} strokeWidth={1.7} style={{ color: sat.color }} />
+                    </div>
+                    <span className="font-arabic text-[0.7rem] font-semibold text-center leading-tight" style={{ color: "#E0F2FE" }}>
+                      {sat.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
