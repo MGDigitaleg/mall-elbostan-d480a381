@@ -186,6 +186,84 @@ const About = () => {
       </div>
     </section>
 
+    {/* ═══════════ 3.5 · WHY MALL ELBOSTAN — RICH SEO BLOCK ═══════════ */}
+    <section className="py-8 md:py-10 bg-secondary dark:bg-background">
+      <div className="container max-w-[980px]">
+        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
+          <div className="text-center mb-6">
+            <p className="section-kicker">حول الوجهة</p>
+            <h2 className="section-title mx-auto max-w-[26rem]">لماذا مول البستان؟</h2>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-[var(--shadow-card)]">
+            <div className="grid divide-y divide-border md:divide-y-0 md:divide-x md:divide-x-reverse md:grid-cols-2">
+              {[
+                {
+                  icon: Building2,
+                  title: "إرث منذ عام 1990",
+                  body: (
+                    <>
+                      <strong className="text-foreground">مول البستان</strong> هو أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ عام 1990. يضم أكثر من 150 محلاً متخصصاً على 3 أدوار، ويقع في قلب التجمع الخامس بالقاهرة الجديدة.
+                    </>
+                  ),
+                },
+                {
+                  icon: Layers,
+                  title: "فئات تقنية متكاملة",
+                  body: (
+                    <>
+                      تجد لدينا{" "}
+                      <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>،{" "}
+                      <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الموبايلات والإكسسوارات</Link>،{" "}
+                      <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج والألعاب</Link>،{" "}
+                      <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline">الطباعة والتصوير</Link>،{" "}
+                      <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">الشبكات والأنظمة الأمنية</Link>،{" "}
+                      و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">خدمات الصيانة والدعم الفني</Link>.
+                    </>
+                  ),
+                },
+                {
+                  icon: Compass,
+                  title: "أدوات تصفّح ذكية",
+                  body: (
+                    <>
+                      استخدم <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link> لتصفّح المحلات على كل دور، أو استعرض{" "}
+                      <Link to="/products" className="text-primary font-semibold hover:underline">كتالوج المنتجات</Link> لمقارنة الأسعار. للمستثمرين،{" "}
+                      <Link to="/leasing" className="text-primary font-semibold hover:underline">وحدات تجارية متاحة للإيجار</Link> بمساحات متنوعة.
+                    </>
+                  ),
+                },
+                {
+                  icon: MapPin,
+                  title: "في قلب القاهرة الجديدة",
+                  body: (
+                    <>
+                      يخدم مول البستان سكان <strong className="text-foreground">القاهرة الجديدة</strong>،{" "}
+                      <strong className="text-foreground">مدينتي</strong>،{" "}
+                      <strong className="text-foreground">الرحاب</strong>، والمناطق المحيطة. تواصل مع{" "}
+                      <Link to="/contact" className="text-primary font-semibold hover:underline">فريق المول</Link> لأي استفسار.
+                    </>
+                  ),
+                },
+              ].map((card) => (
+                <div key={card.title} className="flex gap-4 p-5 md:p-6">
+                  <div className="shrink-0">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
+                      <card.icon className="h-4.5 w-4.5" />
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-[0.95rem] font-bold light-heading mb-1.5">{card.title}</h3>
+                    <p className="text-[0.82rem] leading-[1.85] light-body">{card.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+
     {/* ═══════════ 4 · WHY EL BOSTAN ═══════════ */}
     <section className="py-7 md:py-9 bg-secondary dark:bg-background">
       <div className="container max-w-[900px]">

@@ -1,7 +1,6 @@
 import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
-import { SeoIntroFooter } from "@/components/home/SeoIntroFooter";
 
 import {
   ArrowLeft,
@@ -36,8 +35,8 @@ const DealsTeaser = lazy(() =>
 const DowntownTeaser = lazy(() =>
   import("@/components/home/DowntownTeaser").then((m) => ({ default: m.DowntownTeaser }))
 );
-const MapTeaserPreview = lazy(() =>
-  import("@/components/home/MapTeaserPreview").then((m) => ({ default: m.MapTeaserPreview }))
+const MapTeaserCompact = lazy(() =>
+  import("@/components/home/MapTeaserCompact").then((m) => ({ default: m.MapTeaserCompact }))
 );
 
 import { useQuery } from "@tanstack/react-query";
@@ -169,27 +168,20 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </LazySection>
       </section>
 
-      {/* ═══════════ 5 · INTERACTIVE MAP TEASER ═══════════ */}
+      {/* ═══════════ 5 · INTERACTIVE MAP TEASER (compact) ═══════════ */}
       <section
         className="bg-card dark:bg-background"
         style={{
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 400px",
-          paddingTop: "clamp(40px, 5.5vw, 88px)",
-          paddingBottom: "clamp(40px, 5.5vw, 88px)",
+          containIntrinsicSize: "auto 200px",
+          paddingTop: "clamp(28px, 4vw, 56px)",
+          paddingBottom: "clamp(28px, 4vw, 56px)",
         } as React.CSSProperties}
       >
         <div className="container">
-          <Reveal className="mx-auto max-w-[58rem]">
-            <Suspense fallback={
-              <div className="flex items-center justify-center rounded-2xl border border-border bg-card py-20">
-                <div className="flex flex-col items-center gap-3">
-                  <Compass className="h-8 w-8 text-primary/30 animate-pulse" />
-                  <p className="text-[0.8rem] text-muted-foreground">جارٍ تحميل الخريطة...</p>
-                </div>
-              </div>
-            }>
-              <MapTeaserPreview />
+          <Reveal className="mx-auto max-w-[64rem]">
+            <Suspense fallback={<div style={{ minHeight: 140 }} />}>
+              <MapTeaserCompact />
             </Suspense>
           </Reveal>
         </div>
@@ -357,8 +349,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 13 · SEO INTERNAL LINKS ═══════════ */}
-      <SeoIntroFooter />
     </div>
   );
 }
