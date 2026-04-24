@@ -149,12 +149,28 @@ async function fetchAllData(supabase: ReturnType<typeof createClient>): Promise<
 function totalUrls(data: DynamicData): number {
   return (
     STATIC_ROUTES.length +
+    DEVICE_SLUGS.length +
     data.stores.length +
     data.products.length +
     data.blog.length +
     data.downtown.length +
     data.kzProducts.length
   );
+}
+
+/** Deduplicate `<url>` entries by `<loc>` (defensive — slugs should already be unique). */
+function dedupeEntries(entries: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const e of entries) {
+    const m = e.match(/<loc>([^<]+)<\/loc>/);
+    const loc = m?.[1];
+    if (!loc) { out.push(e); continue; }
+    if (seen.has(loc)) continue;
+    seen.add(loc);
+    out.push(e);
+  }
+  return out;
 }
 
 /** Build a single flat sitemap with all URLs */
