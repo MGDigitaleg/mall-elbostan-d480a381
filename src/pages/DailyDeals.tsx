@@ -96,29 +96,29 @@ const DailyDeals = () => {
     <MainLayout>
       <SEOHead title="عروض الافتتاح | مول البستان" titleEn="Opening Offers | Mall Elbostan" description="عروض الافتتاح من المحلات الجديدة في مول البستان، مع ربط مباشر بكل متجر داخل المنظومة الرسمية للمول." descriptionEn="Opening offers from participating new tenants at Mall Elbostan, linked directly to each store inside the mall system." keywords="عروض الافتتاح, عروض مول البستان, Infinity Computer Services, Kareem Stores, خصومات لابتوب, إكسسوارات تصوير, mall offers" breadcrumbs={[{ name: "عروض الافتتاح", url: "/daily-deals" }]} noIndex={!deals || deals.length === 0} />
 
-      <section className="relative overflow-hidden border-b border-border/40" style={{ background: "var(--gradient-hero)" }}>
+      <section dir="rtl" className="relative overflow-hidden border-b border-border/40" style={{ background: "var(--gradient-hero)" }}>
         <div className="absolute inset-0 opacity-[0.08]" style={{ background: "radial-gradient(circle at top right, hsl(var(--primary) / 0.45), transparent 35%)" }} />
-        <div className="container relative py-8 md:py-10">
-          <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <div>
+        <div className="container relative py-7 md:py-9">
+          <div className="grid items-start gap-6 lg:grid-cols-[1.35fr_0.65fr] lg:items-center">
+            <div className="text-right">
               <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-[0.68rem] font-semibold text-white/70">
                 {isExpired ? <LayoutGrid className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />} {isExpired ? "العروض متاحة الآن" : "العروض متاحة مع عدّاد رمزي"}
               </p>
-              <h1 className="max-w-2xl text-[1.45rem] font-bold leading-[1.18] text-white md:text-[2.05rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
+              <h1 className="max-w-2xl text-[1.45rem] font-bold leading-[1.18] text-white md:text-[2rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
                 {isExpired ? "عروض المحلات المشاركة داخل مول البستان" : "عروض المحلات المشاركة متاحة الآن داخل الافتتاح التجريبي"}
               </h1>
-              <p className="mt-2.5 max-w-2xl text-[0.8rem] leading-7 text-white/60 md:text-[0.84rem]">
+              <p className="mt-2 max-w-2xl text-[0.78rem] leading-7 text-white/60 md:text-[0.82rem]">
                 {isExpired
                   ? "انتهى العدّاد وتحوّلت الصفحة تلقائيًا إلى شبكة كاملة تعرض كل عروض الافتتاح المنشورة من المحلات المشاركة داخل المنظومة الرسمية للمول."
                   : "المول يعمل حاليًا في الافتتاح التجريبي، لذلك نعرض العروض مباشرة مع شريط علوي مضغوط وعدّاد تعريفي فقط."}
               </p>
 
               {!isExpired && (
-                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
-                  <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                    <div>
+                <div className="mt-3.5 rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+                  <div className="mb-2.5 flex flex-wrap items-center justify-between gap-3">
+                    <div className="text-right">
                       <p className="text-[0.78rem] font-bold text-white">العدّاد الرسمي للافتتاح الكبير</p>
-                      <p className="mt-1 text-[0.68rem] text-white/60">العروض الحالية متاحة بالفعل، مع استمرار العدّاد كمرجع لافتتاح المرحلة الكاملة.</p>
+                      <p className="mt-0.5 text-[0.66rem] leading-6 text-white/60">العروض الحالية متاحة بالفعل، مع استمرار العدّاد كمرجع لافتتاح المرحلة الكاملة.</p>
                     </div>
                     <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary-foreground/90">
                       افتتاح تجريبي
@@ -129,7 +129,7 @@ const DailyDeals = () => {
               )}
             </div>
 
-            <div className="grid gap-2.5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <div className="grid h-full content-start gap-2.5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               <OfferMetaLine count={merchantCount} label="محلات مشاركة" />
               <OfferMetaLine count={liveOffersCount} label="عروض متاحة الآن" />
               <OfferMetaLine count={openNowCount} label="محلات مفتوحة الآن" />
@@ -138,18 +138,18 @@ const DailyDeals = () => {
         </div>
       </section>
 
-      <div className="container py-7 md:py-9">
+      <div dir="rtl" className="container space-y-6 py-6 md:py-8">
         {!isExpired && (
-          <section className="mb-6 rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-premium)] md:p-5">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-[0.68rem] font-semibold text-primary">تحت الهيرو مباشرة</p>
-                <h2 className="mt-1 text-[1rem] font-bold text-foreground">مختارات سريعة من العروض الحالية</h2>
-                <p className="mt-1 text-[0.72rem] text-muted-foreground">عرض مضغوط ومنظم لأبرز العروض النشطة من المحلات المفتوحة الآن.</p>
+          <section className="rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-premium)] md:p-5">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
+              <div className="text-right">
+                <p className="text-[0.66rem] font-semibold text-primary">تحت الهيرو مباشرة</p>
+                <h2 className="mt-1 text-[0.98rem] font-bold text-foreground">مختارات سريعة من العروض الحالية</h2>
+                <p className="mt-1 text-[0.7rem] leading-6 text-muted-foreground">عرض مضغوط ومنظم لأبرز العروض النشطة من المحلات المفتوحة الآن.</p>
               </div>
               {previewPrimaryOffer?.stores && (
-                <Link to={`/stores/${previewPrimaryOffer.stores.slug}`}>
-                  <Button variant="outline-blue" className="h-10 rounded-xl px-5 text-[0.78rem] font-bold gap-1.5">
+                <Link to={`/stores/${previewPrimaryOffer.stores.slug}`} className="shrink-0">
+                  <Button variant="outline-blue" className="h-9 rounded-xl px-4 text-[0.74rem] font-bold gap-1.5">
                     صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
                   </Button>
                 </Link>
@@ -159,14 +159,14 @@ const DailyDeals = () => {
               <div className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr]">
                 <OpeningOfferCard cardId={`offer-${previewPrimaryOffer.id}`} offer={previewPrimaryOffer} showAllStoreOffersCta compact />
                 <div className="rounded-2xl border border-border/70 bg-secondary/25 p-4">
-                  <div className="mb-3 flex items-center gap-2 text-[0.78rem] font-bold text-foreground">
+                  <div className="mb-2.5 flex items-center gap-2 text-[0.78rem] font-bold text-foreground">
                     <Zap className="h-4 w-4 text-primary" /> حالة الصفحة الآن
                   </div>
-                  <div className="space-y-2.5 text-[0.72rem] leading-6 text-muted-foreground">
-                    <p>المحلات ذات العروض الحالية تُعرض باعتبارها مفتوحة الآن.</p>
-                    <p>العدّاد ما زال ظاهرًا بصيغة مختصرة للمرحلة الرسمية القادمة.</p>
-                    <p>باقي العروض تظهر أسفل هذا السكشن ضمن شبكة أكثر كثافة.</p>
-                  </div>
+                  <ul className="space-y-2 text-[0.72rem] leading-6 text-muted-foreground">
+                    <li>المحلات ذات العروض الحالية تُعرض باعتبارها مفتوحة الآن.</li>
+                    <li>العدّاد ما زال ظاهرًا بصيغة مختصرة للمرحلة الرسمية القادمة.</li>
+                    <li>باقي العروض تظهر أسفل هذا السكشن ضمن شبكة أكثر كثافة.</li>
+                  </ul>
                 </div>
               </div>
             ) : (
@@ -176,17 +176,17 @@ const DailyDeals = () => {
         )}
 
         {merchantGroups.length > 0 && (
-          <section className="mb-6">
-            <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
+          <section>
+            <div className="mb-3 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
               <Store className="h-4 w-4 text-primary" /> تصفح حسب المتجر
             </div>
             <div className="flex flex-wrap gap-2">
               <Link to="/daily-deals">
-                <Button variant={activeMerchant ? "outline-blue" : "cta"} className="h-10 rounded-xl px-5 text-[0.76rem] font-bold">جميع عروض الافتتاح</Button>
+                <Button variant={activeMerchant ? "outline-blue" : "cta"} className="h-9 rounded-xl px-4 text-[0.74rem] font-bold">جميع عروض الافتتاح</Button>
               </Link>
               {merchantGroups.map((merchant) => (
                 <Link key={merchant.slug} to={`/daily-deals?merchant=${merchant.slug}`}>
-                  <Button variant={activeMerchant === merchant.slug ? "cta" : "outline-blue"} className="h-10 rounded-xl px-5 text-[0.76rem] font-bold">
+                  <Button variant={activeMerchant === merchant.slug ? "cta" : "outline-blue"} className="h-9 rounded-xl px-4 text-[0.74rem] font-bold">
                     {merchant.name} ({merchant.count.toLocaleString("ar-EG")})
                   </Button>
                 </Link>
