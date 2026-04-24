@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, type LucideIcon } from "lucide-react";
+import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, SearchX, Compass, Lightbulb, type LucideIcon } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 
@@ -422,96 +422,224 @@ type EmptyProps = {
 // Curated, evergreen Arabic suggestions covering common shopper intents.
 const FALLBACK_SUGGESTIONS = ["لابتوب", "موبايل", "شاشة", "سماعة", "بلايستيشن", "كاميرا", "طابعة", "راوتر"];
 
+// Lightweight similarity for "did you mean" suggestions (Levenshtein-ish, normalized).
+const similarity = (a: string, b: string): number => {
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  if (a.includes(b) || b.includes(a)) return 0.85;
+  // Shared character set ratio — cheap and good enough for short Arabic labels.
+  const setA = new Set(a);
+  const setB = new Set(b);
+  let shared = 0;
+  setA.forEach((c) => { if (setB.has(c)) shared += 1; });
+  return shared / Math.max(setA.size, setB.size);
+};
+
 const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
   // How many would match the query if we ignored the orbit filter?
   const matchesIgnoringOrbit = useMemo(() => {
     const q = normalize(query);
-    if (!q) return 0;
-    return all.filter((d) => normalize(d.label).includes(q) || normalize(d.slug).includes(q)).length;
+    if (!q) return [] as typeof all;
+    return all.filter((d) => normalize(d.label).includes(q) || normalize(d.slug).includes(q));
   }, [all, query]);
 
-  // Build suggestions: prefer labels in the active orbit, fall back to curated list.
-  const suggestions = useMemo(() => {
+  // "Did you mean" — closest matching device labels by character similarity.
+  const didYouMean = useMemo(() => {
+    const q = normalize(query);
+    if (!q || q.length < 2) return [] as string[];
+    const scored = all
+      .map((d) => ({ label: d.label, score: similarity(normalize(d.label), q) }))
+      .filter((s) => s.score >= 0.45)
+      .sort((a, b) => b.score - a.score);
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const s of scored) {
+      if (seen.has(s.label)) continue;
+      seen.add(s.label);
+      out.push(s.label);
+      if (out.length === 3) break;
+    }
+    return out;
+  }, [all, query]);
+
+  // Popular suggestions fall back to catalog labels in the active orbit.
+  const popular = useMemo(() => {
     const pool = orbit === "all" ? all : all.filter((d) => d.ring === orbit);
     const fromCatalog = pool.slice(0, 6).map((d) => d.label);
-    const merged = Array.from(new Set([...fromCatalog, ...FALLBACK_SUGGESTIONS])).slice(0, 6);
-    return merged;
+    return Array.from(new Set([...fromCatalog, ...FALLBACK_SUGGESTIONS])).slice(0, 8);
   }, [all, orbit]);
 
   const hasQuery = query.trim().length > 0;
   const orbitFilterActive = orbit !== "all";
+  const otherOrbitCount = matchesIgnoringOrbit.length;
+  const showCrossOrbitHint = orbitFilterActive && hasQuery && otherOrbitCount > 0;
 
   return (
     <div
       role="status"
       aria-live="polite"
-      className="flex flex-col items-center gap-4 rounded-xl border border-dashed px-4 py-8 text-center"
-      style={{ borderColor: "rgba(205,187,154,0.25)", background: "rgba(255,255,255,0.02)" }}
+      className="relative overflow-hidden rounded-2xl border px-5 py-8 sm:px-8"
+      style={{
+        borderColor: "rgba(205,187,154,0.22)",
+        background: "linear-gradient(160deg, rgba(7,19,38,0.55) 0%, rgba(13,31,60,0.35) 100%)",
+      }}
     >
+      {/* Decorative glow */}
       <div
         aria-hidden
-        className="flex h-12 w-12 items-center justify-center rounded-full"
-        style={{ background: "rgba(252,211,77,0.12)", border: "1px solid rgba(252,211,77,0.35)" }}
-      >
-        <Search className="h-5 w-5" style={{ color: "#FCD34D" }} />
-      </div>
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          background:
+            "radial-gradient(420px 220px at 50% 0%, rgba(252,211,77,0.10), transparent 60%), radial-gradient(360px 200px at 50% 100%, rgba(125,211,252,0.08), transparent 60%)",
+        }}
+      />
 
-      <div className="space-y-1">
-        <p className="font-arabic-display text-[0.95rem] font-bold text-white">
-          {hasQuery ? <>لم نجد نتائج لـ "{query}"</> : "لا توجد أجهزة في هذا المدار"}
-        </p>
-        <p className="font-arabic text-[0.78rem]" style={{ color: "rgba(255,255,255,0.6)" }}>
-          {orbitFilterActive && hasQuery && matchesIgnoringOrbit > 0
-            ? `يوجد ${matchesIgnoringOrbit} نتيجة في مدارات أخرى — جرّب إزالة فلتر المدار.`
-            : "جرّب كلمة أبسط، أو اختر اقتراحاً من الأسفل."}
-        </p>
-      </div>
-
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        {orbitFilterActive && (
-          <button
-            type="button"
-            onClick={onResetOrbit}
-            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
-            style={{ borderColor: "rgba(125,211,252,0.5)", color: "#7DD3FC" }}
+      <div className="relative flex flex-col items-center gap-5 text-center">
+        {/* Icon mark */}
+        <div className="relative">
+          <div
+            aria-hidden
+            className="absolute -inset-3 rounded-full blur-xl"
+            style={{ background: "radial-gradient(circle, rgba(252,211,77,0.25), transparent 70%)" }}
+          />
+          <div
+            aria-hidden
+            className="relative flex h-14 w-14 items-center justify-center rounded-full"
+            style={{
+              background: "linear-gradient(135deg, rgba(252,211,77,0.18), rgba(252,211,77,0.04))",
+              border: "1px solid rgba(252,211,77,0.4)",
+              boxShadow: "0 0 24px rgba(252,211,77,0.15)",
+            }}
           >
-            عرض كل المدارات
-          </button>
-        )}
-        {hasQuery && (
-          <button
-            type="button"
-            onClick={onClearQuery}
-            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
-            style={{ borderColor: "rgba(252,211,77,0.45)", color: "#FCD34D" }}
-          >
-            <X className="h-3 w-3" />
-            مسح البحث
-          </button>
-        )}
-      </div>
-
-      <div className="w-full">
-        <p className="mb-2 font-arabic text-[0.7rem]" style={{ color: "rgba(255,255,255,0.45)" }}>
-          اقتراحات شائعة
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-1.5">
-          {suggestions.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => onPickSuggestion(s)}
-              className="rounded-full border px-2.5 py-1 font-arabic text-[0.72rem] text-white/75 transition-all hover:border-[#FCD34D]/60 hover:bg-white/10 hover:text-white"
-              style={{ borderColor: "rgba(205,187,154,0.22)", background: "rgba(255,255,255,0.03)" }}
-            >
-              {s}
-            </button>
-          ))}
+            {hasQuery ? (
+              <SearchX className="h-6 w-6" style={{ color: "#FCD34D" }} />
+            ) : (
+              <Compass className="h-6 w-6" style={{ color: "#FCD34D" }} />
+            )}
+          </div>
         </div>
+
+        {/* Headline + sub */}
+        <div className="max-w-md space-y-1.5">
+          <p className="font-arabic-display text-[1.05rem] font-bold leading-snug text-white">
+            {hasQuery ? (
+              <>
+                لم نعثر على نتائج لـ{" "}
+                <span className="rounded-md px-1.5 py-0.5 font-mono text-[0.92rem]" style={{ background: "rgba(252,211,77,0.14)", color: "#FCD34D" }}>
+                  {query}
+                </span>
+              </>
+            ) : (
+              "هذا المدار فارغ مؤقتاً"
+            )}
+          </p>
+          <p className="font-arabic text-[0.82rem] leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+            {showCrossOrbitHint
+              ? `وجدنا ${otherOrbitCount} ${otherOrbitCount === 1 ? "نتيجة" : "نتائج"} خارج المدار المحدد. أزل الفلتر للعرض الكامل.`
+              : hasQuery
+                ? "تأكد من الإملاء، أو جرّب مصطلحاً أبسط مثل ”لابتوب“ أو ”شاشة“."
+                : "اختر مداراً آخر أو ابحث مباشرة عن الجهاز الذي تريده."}
+          </p>
+        </div>
+
+        {/* Did you mean */}
+        {didYouMean.length > 0 && (
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1 font-arabic text-[0.72rem]" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <Lightbulb className="h-3 w-3" style={{ color: "#FCD34D" }} />
+              هل تقصد:
+            </span>
+            {didYouMean.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => onPickSuggestion(s)}
+                className="rounded-full border px-2.5 py-1 font-arabic text-[0.74rem] font-semibold transition-all hover:bg-white/10"
+                style={{ borderColor: "rgba(252,211,77,0.45)", color: "#FCD34D", background: "rgba(252,211,77,0.06)" }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Primary actions */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {showCrossOrbitHint && (
+            <button
+              type="button"
+              onClick={onResetOrbit}
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 font-arabic text-[0.78rem] font-bold text-white transition-all hover:opacity-90"
+              style={{
+                background: "linear-gradient(135deg, #1F61FF 0%, #3B82F6 100%)",
+                boxShadow: "0 4px 14px rgba(31,97,255,0.35)",
+              }}
+            >
+              <Compass className="h-3.5 w-3.5" />
+              عرض كل المدارات ({otherOrbitCount})
+            </button>
+          )}
+          {!showCrossOrbitHint && orbitFilterActive && (
+            <button
+              type="button"
+              onClick={onResetOrbit}
+              className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
+              style={{ borderColor: "rgba(125,211,252,0.5)", color: "#7DD3FC" }}
+            >
+              عرض كل المدارات
+            </button>
+          )}
+          {hasQuery && (
+            <button
+              type="button"
+              onClick={onClearQuery}
+              className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
+              style={{ borderColor: "rgba(205,187,154,0.35)", color: "rgba(255,255,255,0.85)" }}
+            >
+              <X className="h-3 w-3" />
+              مسح البحث
+            </button>
+          )}
+        </div>
+
+        {/* Popular suggestions */}
+        <div className="w-full max-w-xl">
+          <div className="mb-2.5 flex items-center justify-center gap-2">
+            <span aria-hidden className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, rgba(205,187,154,0.25), transparent)" }} />
+            <span className="font-arabic text-[0.7rem] tracking-wider" style={{ color: "rgba(255,255,255,0.45)" }}>
+              الأكثر بحثاً
+            </span>
+            <span aria-hidden className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, rgba(205,187,154,0.25), transparent)" }} />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            {popular.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => onPickSuggestion(s)}
+                className="rounded-full border px-2.5 py-1 font-arabic text-[0.72rem] text-white/75 transition-all hover:border-[#FCD34D]/60 hover:bg-white/10 hover:text-white"
+                style={{ borderColor: "rgba(205,187,154,0.22)", background: "rgba(255,255,255,0.03)" }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Browse all stores fallback */}
+        <Link
+          to="/stores"
+          className="inline-flex items-center gap-1.5 font-arabic text-[0.75rem] font-semibold transition-colors hover:text-white"
+          style={{ color: "rgba(255,255,255,0.6)" }}
+        >
+          أو تصفّح دليل محلات المول
+          <ArrowLeft className="h-3 w-3" />
+        </Link>
       </div>
     </div>
   );
 };
+
 
 // ── Quick preview card on hover/focus ─────────────────────────────────────
 const RING_LABEL_AR: Record<Exclude<OrbitKey, "all">, string> = {
