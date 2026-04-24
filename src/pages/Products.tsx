@@ -638,7 +638,7 @@ const Products = () => {
         <div className="container max-w-[1200px]">
 
           {/* Sticky filter bar */}
-          <div className="sticky top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
+          <div className="lg:sticky lg:top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
               {/* Search */}
               <div className="relative flex-1">
