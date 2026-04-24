@@ -84,16 +84,21 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
 
   return (
     <article id={cardId} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)] scroll-mt-24">
-      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-muted/30`}>
+      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-gradient-to-br from-secondary/45 via-background to-muted/30`}>
         {offer.image_primary ? (
           <>
             <img
-              src={offer.image_primary}
+              src={optimizeImageUrl(offer.image_primary, 480)}
               alt={offer.title_ar}
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="absolute inset-0 h-full w-full object-contain p-3 transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               loading="lazy"
             />
-            <div className={`pointer-events-none absolute inset-x-0 bottom-0 ${c ? "h-16" : "h-24"} bg-gradient-to-t from-background via-background/70 to-transparent`} />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-transparent opacity-90" />
+            {discount && (
+              <span className={`absolute top-2 left-2 z-10 rounded-lg bg-orange ${c ? "px-2 py-1 text-[0.66rem]" : "px-2.5 py-1 text-[0.74rem]"} font-bold text-orange-foreground shadow-[0_4px_12px_-2px_hsl(var(--orange)/0.5)]`}>
+                خصم {discount}%
+              </span>
+            )}
           </>
         ) : (
           <div className={`flex h-full w-full flex-col justify-between bg-[var(--gradient-hero)] ${c ? "p-3" : "p-4"} text-primary-foreground`}>
