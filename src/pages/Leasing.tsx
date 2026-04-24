@@ -381,18 +381,96 @@ const Leasing = () => {
                       <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>البريد الإلكتروني</label>
                       <FormInput value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" dir="ltr" />
                     </div>
+                    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+                      <div>
+                        <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>نوع المساحة *</label>
+                        <FormSelect
+                          value={form.space_type}
+                          onChange={(v) => setForm({ ...form, space_type: v })}
+                          placeholder="اختر نوع المساحة"
+                          options={SPACE_TYPES.map((o) => ({ value: o.value, label: o.label }))}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>الميزانية الشهرية *</label>
+                        <FormSelect
+                          value={form.budget_range}
+                          onChange={(v) => setForm({ ...form, budget_range: v })}
+                          placeholder="اختر الميزانية"
+                          options={BUDGET_RANGES.map((o) => ({ value: o.value, label: o.label }))}
+                          required
+                        />
+                      </div>
+                    </div>
+
                     <div>
                       <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>رسالتك أو تفاصيل إضافية</label>
                       <textarea
                         value={form.message}
                         onChange={(e) => setForm({ ...form, message: e.target.value })}
                         rows={3}
+                        maxLength={1000}
                         className="w-full rounded-xl px-4 py-3 text-[0.84rem] outline-none transition-all"
                         style={{ border: "1px solid hsl(0 0% 100% / 0.1)", background: "hsl(0 0% 100% / 0.05)", color: "hsl(0 0% 97%)" }}
                         onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(25 85% 50% / 0.4)"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(25 85% 50% / 0.08)"; }}
                         onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; e.currentTarget.style.boxShadow = "none"; }}
                       />
                     </div>
+
+                    {/* Documents upload */}
+                    <div>
+                      <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>
+                        مستندات داعمة (اختياري — PDF/Word/صور، حتى 5MB لكل ملف)
+                      </label>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        multiple
+                        accept=".pdf,.doc,.docx,image/jpeg,image/png,image/webp"
+                        onChange={(e) => handleFiles(e.target.files)}
+                        className="sr-only"
+                        id="leasing-docs-input"
+                      />
+                      <label
+                        htmlFor="leasing-docs-input"
+                        className="flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-3 text-[0.78rem] font-bold transition-all hover:brightness-110"
+                        style={{ border: "1px dashed hsl(0 0% 100% / 0.18)", background: "hsl(0 0% 100% / 0.03)", color: "hsl(220 20% 80%)" }}
+                      >
+                        <Upload className="h-3.5 w-3.5" />
+                        رفع مستندات ({files.length}/{MAX_DOC_COUNT})
+                      </label>
+
+                      {files.length > 0 && (
+                        <ul className="mt-2 space-y-1.5">
+                          {files.map((f, i) => (
+                            <li
+                              key={`${f.name}-${i}`}
+                              className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[0.74rem]"
+                              style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)", color: "hsl(220 20% 85%)" }}
+                            >
+                              <span className="flex min-w-0 items-center gap-2">
+                                <FileText className="h-3.5 w-3.5 shrink-0" style={{ color: "hsl(25 85% 60%)" }} />
+                                <span className="truncate">{f.name}</span>
+                                <span className="shrink-0 text-[0.66rem]" style={{ color: "hsl(220 15% 55%)" }}>
+                                  {(f.size / 1024).toFixed(0)} KB
+                                </span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => removeFile(i)}
+                                aria-label={`حذف ${f.name}`}
+                                className="flex h-6 w-6 items-center justify-center rounded-md transition-colors hover:bg-white/10"
+                                style={{ color: "hsl(220 15% 65%)" }}
+                              >
+                                <X className="h-3.5 w-3.5" />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+
                     <Button type="submit" variant="orange" className="h-11 w-full rounded-xl text-[0.86rem] font-bold shadow-lg shadow-orange-500/20" disabled={loading}>
                       {loading ? "جاري الإرسال..." : "إرسال الطلب"}
                     </Button>
