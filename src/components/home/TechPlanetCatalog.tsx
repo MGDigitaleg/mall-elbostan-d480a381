@@ -481,6 +481,7 @@ type EmptyProps = {
   query: string;
   orbit: OrbitKey;
   all: Array<CatalogDevice & { ring: Exclude<OrbitKey, "all"> }>;
+  orbitDeepLink: { href: string; labelAr: string } | null;
   onClearQuery: () => void;
   onResetOrbit: () => void;
   onPickSuggestion: (s: string) => void;
