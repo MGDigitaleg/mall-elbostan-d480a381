@@ -475,6 +475,33 @@ const StoreDetail = () => {
                   </div>
                 </motion.div>
               )}
+
+              {storeOffers && storeOffers.length > 0 && (
+                <motion.div variants={fadeChild}>
+                  <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
+                    <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/8">
+                          <Tag className="h-4 w-4 text-primary" />
+                        </div>
+                        <div>
+                          <h2 className="text-[0.92rem] font-bold text-foreground">عروض الافتتاح من هذا المحل</h2>
+                          <p className="text-[0.66rem] text-muted-foreground">{storeOffers.length} عرض مرتبط بصفحة المتجر</p>
+                        </div>
+                      </div>
+                      <Link to={`/daily-deals?merchant=${store.slug}`}
+                            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
+                        شاهد كل العروض <ChevronLeft className="h-3 w-3" />
+                      </Link>
+                    </div>
+                    <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
+                      {storeOffers.map((offer: any) => (
+                        <OpeningOfferCard key={offer.id} offer={offer} compact showStoreLink={false} showAllStoreOffersCta={false} />
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </motion.div>
 
             {/* ── Sidebar ── */}
