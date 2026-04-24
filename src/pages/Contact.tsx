@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Mail, Phone, MapPin, CheckCircle2, MessageSquare,
   Building2, Handshake, Megaphone, Briefcase, ArrowLeft,
@@ -37,10 +37,29 @@ const reveal = {
 
 const Contact = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [inquiryType, setInquiryType] = useState<InquiryType>("general");
   const [form, setForm] = useState({ full_name: "", company: "", phone: "", email: "", message: "" });
+
+  useEffect(() => {
+    const inquiry = searchParams.get("inquiry");
+    const message = searchParams.get("message");
+    const company = searchParams.get("company");
+
+    if (inquiry && inquiry in LEAD_TYPE_MAP) {
+      setInquiryType(inquiry as InquiryType);
+    }
+
+    if (message || company) {
+      setForm((current) => ({
+        ...current,
+        company: current.company || company || "",
+        message: current.message || message || "",
+      }));
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

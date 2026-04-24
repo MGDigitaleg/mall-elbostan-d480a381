@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Compass, Layers, MapPin, Store, X } from "lucide-react";
+import { ArrowLeft, Compass, Layers, MapPin, MessageCircle, Store, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
+import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { UnitDetailsCard } from "@/components/map/UnitDetailsCard";
 import {
   mallFloors,
@@ -29,6 +30,24 @@ export function MapTeaserPreview() {
     setModalUnit(unit);
   };
   const activeUnit = selectedUnit ?? defaultUnit;
+  const inquiryMessage = modalUnit
+    ? [
+        "مرحباً، أود الاستفسار عن هذا المتجر/الوحدة في مول البستان:",
+        `الكود: ${modalUnit.code}`,
+        `الدور: ${floorLabelsAr[modalUnit.floor]}`,
+        `المساحة: ${modalUnit.area} م²`,
+        `الحالة: ${statusLabelsAr[modalUnit.status]}`,
+        modalUnit.category ? `التصنيف: ${modalUnit.category}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    : "";
+  const whatsappInquiryHref = modalUnit && OFFICIAL_WHATSAPP.trim()
+    ? `https://wa.me/${OFFICIAL_WHATSAPP.trim()}?text=${encodeURIComponent(inquiryMessage)}`
+    : null;
+  const contactInquiryHref = modalUnit
+    ? `/contact?inquiry=leasing&message=${encodeURIComponent(inquiryMessage)}&company=${encodeURIComponent(modalUnit.labelAr ?? modalUnit.code)}`
+    : "/contact";
 
   const mutedUnitIds = useMemo(
     () => new Set(floor.units.filter((u) => u.id !== activeUnit.id).map((u) => u.id)),
@@ -192,7 +211,22 @@ export function MapTeaserPreview() {
           </DialogHeader>
           {modalUnit && <UnitDetailsCard unit={modalUnit} />}
           {modalUnit && (
-            <div className="mt-4 flex justify-end border-t border-border pt-4">
+            <div className="mt-4 flex flex-col-reverse gap-2 border-t border-border pt-4 sm:flex-row sm:justify-between">
+              {whatsappInquiryHref ? (
+                <Button variant="outline-blue" asChild className="h-10 rounded-lg px-5 text-[0.8rem] font-bold">
+                  <a href={whatsappInquiryHref} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="ml-1.5 h-4 w-4" />
+                    استفسار عن المتجر
+                  </a>
+                </Button>
+              ) : (
+                <Button variant="outline-blue" asChild className="h-10 rounded-lg px-5 text-[0.8rem] font-bold">
+                  <Link to={contactInquiryHref}>
+                    <MessageCircle className="ml-1.5 h-4 w-4" />
+                    استفسار عن المتجر
+                  </Link>
+                </Button>
+              )}
               <Link to={`/stores/${modalUnit.code}`}>
                 <Button variant="cta" className="h-10 rounded-lg px-5 text-[0.8rem] font-bold">
                   <Store className="ml-1.5 h-4 w-4" />
