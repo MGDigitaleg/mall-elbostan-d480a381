@@ -139,6 +139,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
 
+      {/* ═══════════ HOMEPAGE ANCHOR NAV ═══════════ */}
+      <HomeAnchorNav />
+
       {/* ═══════════ SEO INTRO ═══════════ */}
       <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
         <div className="container max-w-4xl text-center">
