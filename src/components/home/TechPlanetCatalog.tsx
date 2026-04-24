@@ -442,10 +442,11 @@ const similarity = (a: string, b: string): number => {
 
 const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
   // How many would match the query if we ignored the orbit filter?
+  // Uses the same weighted scoring as the main results for consistency.
   const matchesIgnoringOrbit = useMemo(() => {
-    const q = normalize(query);
-    if (!q) return [] as typeof all;
-    return all.filter((d) => normalize(d.label).includes(q) || normalize(d.slug).includes(q));
+    const tokens = tokenizeQuery(query);
+    if (tokens.length === 0) return [] as typeof all;
+    return all.filter((d) => scoreDevice(d.slug, tokens) > 0);
   }, [all, query]);
 
   // "Did you mean" — closest matching device labels by character similarity.
