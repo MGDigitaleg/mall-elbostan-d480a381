@@ -156,8 +156,9 @@ function buildEntry(slug: string): DeviceSearchEntry {
     for (const sp of cluster.specs ?? []) push(sp.labelAr, W.spec);
     for (const sz of cluster.sizes ?? []) push(sz.labelAr, W.size);
 
-    // Brand attachment: if a brand name appears in any cluster/catalog keyword,
-    // associate it explicitly so brand searches like "asus" rank this device.
+    // Brand attachment: if any brand form (English or Arabic alias) appears
+    // in cluster/catalog keywords or labels, register all forms of that brand
+    // so users can search by either spelling ("asus" or "اسوس").
     const haystack = [
       ...cluster.productKeywords,
       ...dev.productKeywords,
@@ -167,7 +168,11 @@ function buildEntry(slug: string): DeviceSearchEntry {
       .map(normalize)
       .join(" ");
     for (const b of NORMALIZED_BRANDS) {
-      if (haystack.includes(b.n)) push(b.labelAr, W.brand);
+      const matched = b.forms.some((f) => f && haystack.includes(f));
+      if (!matched) continue;
+      // Register both the canonical English label and every Arabic alias.
+      push(b.labelAr, W.brand);
+      for (const alias of BRAND_ALIASES[b.slug] ?? []) push(alias, W.brand);
     }
   }
 
