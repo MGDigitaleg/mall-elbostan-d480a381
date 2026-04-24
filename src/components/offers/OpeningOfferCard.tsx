@@ -3,6 +3,7 @@ import { ArrowLeft, Clock3, Store, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
+import { optimizeImageUrl } from "@/lib/imageUtils";
 
 export type OpeningOfferRecord = {
   id: string;
