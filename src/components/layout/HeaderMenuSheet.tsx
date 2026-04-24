@@ -45,7 +45,7 @@ const navSections: Array<{
       { label: "دليل المحلات", path: "/stores", icon: Store },
       { label: "منتجات المحلات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },
-      { label: "العروض اليومية", path: "/daily-deals", icon: Tag, badge: "soon" },
+      { label: "عروض الافتتاح", path: "/daily-deals", icon: Tag, badge: "soon" },
     ],
   },
   {
