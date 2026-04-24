@@ -24,7 +24,7 @@ const footerColumns = [
     links: [
       { label: "منتجات المحلات", path: "/products" },
       { label: "انضم كتاجر", path: "/join-marketplace" },
-      { label: "العروض اليومية", path: "/daily-deals" },
+      { label: "عروض الافتتاح", path: "/daily-deals" },
       { label: "الوحدات المتاحة", path: "/leasing" },
       { label: "يوم الافتتاح", path: "/opening-day" },
     ],
