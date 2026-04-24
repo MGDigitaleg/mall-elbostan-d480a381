@@ -674,7 +674,7 @@ const Products = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="h-9 flex-1 sm:flex-none min-w-[130px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
+                  className="h-9 w-auto max-w-[180px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
                   <option value="featured">الأكثر تميزاً</option>
