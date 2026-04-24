@@ -19,7 +19,14 @@ type Device = {
 // Curated, ordered selections per orbit ring for visual balance.
 const pick = (slugs: string[]): Device[] =>
   slugs
-    .map((s) => deviceCatalog[s])
+    .map((s) => {
+      const d = deviceCatalog[s];
+      if (!d && import.meta.env.DEV) {
+        // eslint-disable-next-line no-console
+        console.warn(`[TechPlanetSection] Unknown device slug: "${s}" — add it to deviceCatalog or fix the typo.`);
+      }
+      return d;
+    })
     .filter(Boolean)
     .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
 
