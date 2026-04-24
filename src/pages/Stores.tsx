@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useSearchParams } from "react-router-dom";
 import { trackSeoLinkClick } from "@/lib/analytics";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Building2,
@@ -397,18 +397,33 @@ const Stores = () => {
               boxShadow: "0 8px 40px hsl(0 0% 0% / 0.3), inset 0 1px 0 #ffffff08",
             }}
           >
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
-              {/* Search input */}
+            <div dir="rtl" className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+              {/* Search input — RTL with leading icon + clear button */}
               <div className="relative flex-1">
-                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
+                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none" style={{ color: "#64748B" }} />
                 <input
-                  type="text"
+                  type="search"
+                  inputMode="search"
+                  enterKeyHint="search"
+                  dir="rtl"
                   placeholder="ابحث باسم المحل أو الفئة..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-11 w-full rounded-xl pr-10 pl-4 text-[0.84rem] outline-none transition-all placeholder:text-[#475569] focus:ring-2 focus:ring-primary/30"
-                  style={{ border: "1px solid #ffffff14", background: "#ffffff0A", color: "#F8FAFC" }}
+                  aria-label="ابحث في دليل المحلات"
+                  className="h-11 w-full rounded-xl pr-10 pl-10 text-[0.84rem] outline-none transition-all placeholder:text-[#64748B] focus:ring-2 focus:ring-primary/30 [&::-webkit-search-cancel-button]:hidden"
+                  style={{ border: `1px solid ${search ? "#2D6BFF45" : "#ffffff14"}`, background: search ? "linear-gradient(135deg, #2D6BFF12, #2D6BFF06)" : "#ffffff0A", color: "#F8FAFC" }}
                 />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch("")}
+                    aria-label="مسح البحث"
+                    className="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full transition-colors hover:bg-white/10"
+                    style={{ color: "#94A3B8" }}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
               </div>
 
               {/* Sort dropdown — RTL */}
@@ -457,29 +472,58 @@ const Stores = () => {
               </div>
             </div>
 
-            <AnimatePresence>
-              {hasActiveFilters && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
+            <div dir="rtl" className="mt-3 flex flex-wrap items-center gap-2.5 border-t pt-3 text-[0.72rem]" style={{ borderColor: "#ffffff0C", color: "#64748B" }}>
+              <span
+                className="rounded-md px-2.5 py-1 font-bold transition-colors"
+                style={{
+                  background: hasActiveFilters ? "#2D6BFF15" : "#ffffff08",
+                  color: hasActiveFilters ? "#5B9AFF" : "#94A3B8",
+                  border: `1px solid ${hasActiveFilters ? "#2D6BFF25" : "#ffffff10"}`,
+                }}
+                aria-live="polite"
+              >
+                {filtered?.length ?? 0} نتيجة{hasActiveFilters ? " مطابقة" : ""}
+              </span>
+
+              {/* Active filter pills */}
+              {selectedCategory && (
+                <button
+                  onClick={() => setSelectedCategory("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: "1px solid #2D6BFF25", background: "#2D6BFF12", color: "#5B9AFF" }}
                 >
-                  <div className="mt-3 flex items-center gap-2.5 border-t pt-3 text-[0.72rem]" style={{ borderColor: "#ffffff0C", color: "#64748B" }}>
-                    <span className="rounded-md px-2.5 py-1 font-bold" style={{ background: "#2D6BFF15", color: "#5B9AFF" }}>
-                      {filtered?.length ?? 0} نتيجة
-                    </span>
-                    <button
-                      onClick={clearFilters}
-                      className="flex items-center gap-1.5 rounded-lg px-3 py-1 font-semibold transition-colors hover:text-white"
-                      style={{ border: "1px solid #ffffff12", background: "#ffffff08" }}
-                    >
-                      <X className="h-3 w-3" /> مسح الفلاتر
-                    </button>
-                  </div>
-                </motion.div>
+                  القسم: {selectedCategory} <X className="h-3 w-3" />
+                </button>
               )}
-            </AnimatePresence>
+              {selectedStatus && statusConfig[selectedStatus] && (
+                <button
+                  onClick={() => setSelectedStatus("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: `1px solid ${statusConfig[selectedStatus].border}`, background: statusConfig[selectedStatus].bg, color: statusConfig[selectedStatus].color }}
+                >
+                  الحالة: {statusConfig[selectedStatus].text} <X className="h-3 w-3" />
+                </button>
+              )}
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: "1px solid #ffffff14", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  بحث: «{search}» <X className="h-3 w-3" />
+                </button>
+              )}
+
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="ms-auto flex items-center gap-1.5 rounded-lg px-3 py-1 font-semibold transition-colors hover:text-white"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08" }}
+                >
+                  <X className="h-3 w-3" /> مسح الفلاتر
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Section header */}
