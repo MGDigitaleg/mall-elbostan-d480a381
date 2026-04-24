@@ -455,15 +455,66 @@ export const TechPlanetSection = () => {
         className="relative overflow-hidden"
         style={{
           background:
-            "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+            "radial-gradient(ellipse at 50% 38%, #11264D 0%, #081530 38%, #030814 78%, #02050C 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
-          minHeight: isMobile ? 580 : 720,
+          minHeight: isMobile ? 580 : 760,
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 720px",
+          containIntrinsicSize: "auto 760px",
         }}
       >
-        <style>{`@keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+        <style>{`
+          @keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @keyframes tp-beam-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @keyframes tp-soon-pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(252,211,77,0.55), 0 0 18px rgba(252,211,77,0.35); }
+            50% { box-shadow: 0 0 0 8px rgba(252,211,77,0), 0 0 28px rgba(252,211,77,0.6); }
+          }
+        `}</style>
+
+        {/* Cosmic background layers */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Slow rotating conic light beam */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.18]"
+            style={{
+              width: "140%",
+              height: "140%",
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, rgba(125,211,252,0.35) 25deg, transparent 70deg, transparent 180deg, rgba(167,139,250,0.30) 210deg, transparent 260deg, transparent 360deg)",
+              animation: !reduce && active ? "tp-beam-rot 60s linear infinite" : undefined,
+              filter: "blur(40px)",
+            }}
+          />
+          {/* Vignette */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(2,5,12,0.55) 78%, rgba(2,5,12,0.95) 100%)",
+            }}
+          />
+          {/* Stars layer */}
+          <svg className="absolute inset-0 h-full w-full opacity-70" aria-hidden>
+            {Array.from({ length: 70 }).map((_, i) => {
+              const cx = (i * 53.7) % 100;
+              const cy = (i * 31.3) % 100;
+              const r = (i % 5 === 0 ? 1.4 : i % 3 === 0 ? 1 : 0.7);
+              const op = i % 4 === 0 ? 0.85 : i % 2 === 0 ? 0.55 : 0.3;
+              return (
+                <circle
+                  key={i}
+                  cx={`${cx}%`}
+                  cy={`${cy}%`}
+                  r={r}
+                  fill={i % 7 === 0 ? "#FCD34D" : i % 3 === 0 ? "#A78BFA" : "#E0F2FE"}
+                  opacity={op}
+                />
+              );
+            })}
+          </svg>
+        </div>
+
 
         {/* Energy intensity settings */}
         <div className="absolute end-4 top-4 z-20">
