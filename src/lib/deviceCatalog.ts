@@ -54,7 +54,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Laptop,
     parentCategory: CAT.computers,
     orbit: "inner",
-    productKeywords: ["لابتوب", "laptop", "macbook", "notebook"],
+    productKeywords: ["لابتوب", "laptop", "macbook", "notebook", "ديل", "اسوس", "xps", "vivobook", "ideapad", "victus", "اتش بي"],
     seo: {
       title: "لابتوبات في مول البستان — أحدث موديلات اللابتوب",
       description: "اكتشف أكبر تجمّع لمحلات اللابتوبات في القاهرة الجديدة: لابتوبات أعمال، جيمنج، طلاب، وشركات بأفضل الأسعار وضمان معتمد في مول البستان بالتجمع الخامس.",
@@ -78,7 +78,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Smartphone,
     parentCategory: CAT.phones,
     orbit: "inner",
-    productKeywords: ["موبايل", "هاتف", "phone", "iphone", "samsung", "xiaomi"],
+    productKeywords: ["موبايل", "هاتف", "phone", "iphone", "آيفون", "samsung", "سامسونج", "جالاكسي", "galaxy s", "galaxy z", "xiaomi", "شاومي", "redmi", "pixel", "oppo"],
     seo: {
       title: "هواتف ذكية في مول البستان — موبايلات أصلية بضمان",
       description: "تشكيلة واسعة من الهواتف الذكية الأصلية في مول البستان: iPhone و Samsung و Xiaomi و Oppo و Huawei بضمان معتمد وأسعار تنافسية في التجمع الخامس.",
@@ -148,7 +148,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Headphones,
     parentCategory: CAT.phones,
     orbit: "inner",
-    productKeywords: ["سماعة", "headphone", "earbuds", "airpods"],
+    productKeywords: ["سماعة", "سماعات", "headphone", "headphones", "earbuds", "airpods", "ايربودز", "wh-1000", "بادز", "buds"],
     seo: {
       title: "سماعات أصلية في مول البستان — سماعات بلوتوث وسلكية",
       description: "تشكيلة واسعة من السماعات اللاسلكية والسلكية في مول البستان: AirPods و Galaxy Buds و JBL و Sony مع ضمان وكيل معتمد.",
@@ -217,7 +217,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Mouse,
     parentCategory: CAT.computers,
     orbit: "middle",
-    productKeywords: ["ماوس", "mouse", "logitech", "razer"],
+    productKeywords: ["ماوس", "mouse", "logitech", "لوجيتك", "razer", "mx master"],
     seo: {
       title: "ماوس جيمنج ولاسلكي في مول البستان",
       description: "ماوس جيمنج بدقة عالية وماوس لاسلكي للمكاتب من Logitech و Razer و SteelSeries في مول البستان، التجمع الخامس.",
@@ -263,7 +263,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Gamepad2,
     parentCategory: CAT.gaming,
     orbit: "middle",
-    productKeywords: ["playstation", "xbox", "nintendo", "ps5", "ps4", "جيمنج"],
+    productKeywords: ["playstation", "بلايستيشن", "xbox", "اكس بوكس", "nintendo", "ps5", "ps4", "جيمنج", "سيريس اكس"],
     seo: {
       title: "أجهزة جيمنج PlayStation و Xbox في مول البستان",
       description: "أجهزة PlayStation 5 و Xbox Series X|S و Nintendo Switch مع ألعاب وإكسسوارات أصلية بضمان معتمد في مول البستان، التجمع الخامس.",
@@ -286,7 +286,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Printer,
     parentCategory: CAT.printing,
     orbit: "middle",
-    productKeywords: ["طابعة", "printer", "hp", "canon", "epson"],
+    productKeywords: ["طابعة", "printer", "hp", "canon", "epson", "pixma", "laserjet"],
     seo: {
       title: "طابعات ليزر و Inkjet في مول البستان",
       description: "طابعات ليزر و Inkjet للمنزل والمكتب من HP و Canon و Epson و Brother مع ضمان وكيل وأحبار أصلية في مول البستان، التجمع الخامس.",
@@ -309,7 +309,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Router,
     parentCategory: CAT.networking,
     orbit: "middle",
-    productKeywords: ["راوتر", "router", "wifi", "tp-link", "asus"],
+    productKeywords: ["راوتر", "router", "wifi", "tp-link", "tplink", "archer", "asus"],
     seo: {
       title: "راوترات Wi-Fi 6 وأنظمة Mesh في مول البستان",
       description: "راوترات Wi-Fi 6 و Wi-Fi 6E وأنظمة Mesh من TP-Link و ASUS و Mercusys في مول البستان، التجمع الخامس، مع خدمة الإعداد المنزلي.",
@@ -355,7 +355,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Watch,
     parentCategory: CAT.phones,
     orbit: "outer",
-    productKeywords: ["ساعة ذكية", "smartwatch", "apple watch", "galaxy watch"],
+    productKeywords: ["ساعة ذكية", "ساعة", "smartwatch", "apple watch", "galaxy watch", "watch ultra"],
     seo: {
       title: "ساعات ذكية Apple Watch و Galaxy Watch في مول البستان",
       description: "Apple Watch و Samsung Galaxy Watch و Huawei Watch وأجهزة تتبع اللياقة في مول البستان، التجمع الخامس، بضمان وكيل أصلي.",
@@ -610,7 +610,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Joystick,
     parentCategory: CAT.gaming,
     orbit: "outer",
-    productKeywords: ["ذراع", "controller", "joystick", "gamepad"],
+    productKeywords: ["ذراع", "يد تحكم", "controller", "joystick", "gamepad", "dualsense", "دوال سينس"],
     seo: {
       title: "أذرع تحكم Xbox و PlayStation و Nintendo في مول البستان",
       description: "أذرع تحكم أصلية لأجهزة Xbox و PlayStation و Nintendo Switch وعجلات سباق احترافية في مول البستان، التجمع الخامس.",
@@ -888,7 +888,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Laptop,
     parentCategory: CAT.computers,
     orbit: "inner",
-    productKeywords: ["gaming", "rog", "predator", "legion", "tuf"],
+    productKeywords: ["gaming", "rog", "ستريكس", "strix", "predator", "legion", "tuf", "victus", "اتش بي فيكتوس", "للألعاب"],
     seo: {
       title: "لابتوبات جيمنج في مول البستان — أداء عالٍ بضمان",
       description: "لابتوبات جيمنج RTX 40 Series من ASUS ROG و MSI و Lenovo Legion و Acer Predator في مول البستان، التجمع الخامس.",
@@ -911,7 +911,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Laptop,
     parentCategory: CAT.computers,
     orbit: "inner",
-    productKeywords: ["macbook", "apple", "mac"],
+    productKeywords: ["macbook", "apple", " mac ", "ماك بوك", "macbook air", "macbook pro"],
     seo: {
       title: "MacBook Pro و Air أصلية بضمان في مول البستان",
       description: "أجهزة MacBook Air و MacBook Pro بمعالج M2 و M3 أصلية بضمان Apple معتمد في مول البستان، التجمع الخامس.",
@@ -957,7 +957,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Headphones,
     parentCategory: CAT.phones,
     orbit: "outer",
-    productKeywords: ["airpods", "earbuds", "buds"],
+    productKeywords: ["airpods", "ايربودز", "earbuds", "buds", "بادز", "galaxy buds"],
     seo: {
       title: "سماعات أذن لاسلكية AirPods و Galaxy Buds في مول البستان",
       description: "AirPods Pro و Galaxy Buds و Anker و JBL و Sony WF-1000XM لاسلكية بعزل ضوضاء في مول البستان، التجمع الخامس.",
