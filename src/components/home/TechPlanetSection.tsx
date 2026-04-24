@@ -30,7 +30,7 @@ const pick = (slugs: string[]): Device[] =>
     .filter(Boolean)
     .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
 
-// Inner orbit — 8 most essential device categories
+// Inner orbit — 8 most essential device categories (closest to the core)
 const innerOrbit: Device[] = pick([
   "laptops",
   "smartphones",
@@ -42,34 +42,37 @@ const innerOrbit: Device[] = pick([
   "smartwatches",
 ]);
 
-// Middle orbit — 10 key peripherals & secondary categories
+// Middle orbit — 12 key peripherals, accessories & secondary categories
 const middleOrbit: Device[] = pick([
   "storage",
   "mice",
   "cameras",
-  "gaming-consoles",
   "printers",
   "routers",
-  "graphics-cards",
   "ram",
   "speakers",
   "controllers",
+  "webcams",
+  "earbuds",
+  "powerbanks",
+  "chargers",
 ]);
 
-// Outer orbit — 12 specialty / extended categories
+// Outer orbit — 13 specialty / extended categories (deepest ring)
 const outerOrbit: Device[] = pick([
   "televisions",
   "projectors",
   "servers",
-  "external-storage",
   "microphones",
   "ups",
   "scanners",
   "nas",
-  "smart-lighting",
-  "security-cameras",
-  "vr-gaming",
-  "streaming-gear",
+  "macbook",
+  "cables",
+  "intercoms",
+  "networking",
+  "cooling",
+  "accessories",
 ]);
 
 type OrbitProps = {
@@ -82,10 +85,11 @@ type OrbitProps = {
   reduce: boolean;
   paused: boolean;
   onHoverChange: (hovered: boolean) => void;
+  iconColor: string;
 };
 
 const Orbit = ({
-  devices, radius, duration, iconSize, reverse, active, reduce, paused, onHoverChange,
+  devices, radius, duration, iconSize, reverse, active, reduce, paused, onHoverChange, iconColor,
 }: OrbitProps) => {
   const playState = !active || reduce || paused ? "paused" : "running";
   const direction = reverse ? "reverse" : "normal";
@@ -115,6 +119,7 @@ const Orbit = ({
             reverse={reverse}
             playState={playState}
             onHoverChange={onHoverChange}
+            iconColor={iconColor}
           />
         );
       })}
@@ -123,7 +128,7 @@ const Orbit = ({
 };
 
 const DeviceBadge = ({
-  device, x, y, size, counterRotateDuration, reverse, playState, onHoverChange,
+  device, x, y, size, counterRotateDuration, reverse, playState, onHoverChange, iconColor,
 }: {
   device: Device;
   x: number;
@@ -133,6 +138,7 @@ const DeviceBadge = ({
   reverse?: boolean;
   playState: "running" | "paused";
   onHoverChange: (hovered: boolean) => void;
+  iconColor: string;
 }) => {
   const { Icon, label, slug } = device;
   // Counter-rotate in opposite direction of the orbit so icons stay upright
@@ -157,12 +163,13 @@ const DeviceBadge = ({
             marginTop: -size / 2,
             insetInlineStart: "50%",
             top: "50%",
+            ["--tp-icon" as string]: iconColor,
           }}
         >
           <div
-            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-transform duration-300 group-hover:scale-[1.3]"
+            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-all duration-300 group-hover:scale-[1.3] group-hover:border-[#FCD34D]/60"
             style={{
-              borderColor: "rgba(205, 187, 154, 0.25)",
+              borderColor: "rgba(205, 187, 154, 0.22)",
               background: "rgba(255, 255, 255, 0.04)",
               boxShadow: "0 4px 16px rgba(7, 19, 38, 0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               willChange: "transform",
@@ -174,7 +181,8 @@ const DeviceBadge = ({
             <Icon
               size={size * 0.5}
               strokeWidth={1.6}
-              className="text-[#60A5FA] transition-colors duration-300 group-hover:text-[#CDBB9A]"
+              className="transition-colors duration-300 group-hover:text-[#FCD34D]"
+              style={{ color: iconColor }}
             />
           </div>
         </Link>
@@ -187,7 +195,10 @@ const DeviceBadge = ({
         avoidCollisions
         className="font-arabic text-[0.78rem] max-w-[60vw]"
       >
-        {label}
+        <span className="flex items-center gap-1.5">
+          {label}
+          <ArrowLeft className="h-3 w-3 opacity-70" />
+        </span>
       </TooltipContent>
     </Tooltip>
   );
@@ -355,14 +366,14 @@ export const TechPlanetSection = () => {
       };
     }
     return {
-      stage: 620,
-      core: 150,
-      innerR: 140,
-      middleR: 220,
-      outerR: 295,
-      innerSize: 44,
-      middleSize: 44,
-      outerSize: 44,
+      stage: 680,
+      core: 170,
+      innerR: 145,
+      middleR: 230,
+      outerR: 320,
+      innerSize: 46,
+      middleSize: 42,
+      outerSize: 38,
       showMiddle: true,
       showOuter: true,
     };
@@ -444,15 +455,66 @@ export const TechPlanetSection = () => {
         className="relative overflow-hidden"
         style={{
           background:
-            "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+            "radial-gradient(ellipse at 50% 38%, #11264D 0%, #081530 38%, #030814 78%, #02050C 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
-          minHeight: isMobile ? 580 : 720,
+          minHeight: isMobile ? 580 : 760,
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 720px",
+          containIntrinsicSize: "auto 760px",
         }}
       >
-        <style>{`@keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
+        <style>{`
+          @keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @keyframes tp-beam-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @keyframes tp-soon-pulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(252,211,77,0.55), 0 0 18px rgba(252,211,77,0.35); }
+            50% { box-shadow: 0 0 0 8px rgba(252,211,77,0), 0 0 28px rgba(252,211,77,0.6); }
+          }
+        `}</style>
+
+        {/* Cosmic background layers */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+          {/* Slow rotating conic light beam */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.18]"
+            style={{
+              width: "140%",
+              height: "140%",
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, rgba(125,211,252,0.35) 25deg, transparent 70deg, transparent 180deg, rgba(167,139,250,0.30) 210deg, transparent 260deg, transparent 360deg)",
+              animation: !reduce && active ? "tp-beam-rot 60s linear infinite" : undefined,
+              filter: "blur(40px)",
+            }}
+          />
+          {/* Vignette */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(2,5,12,0.55) 78%, rgba(2,5,12,0.95) 100%)",
+            }}
+          />
+          {/* Stars layer */}
+          <svg className="absolute inset-0 h-full w-full opacity-70" aria-hidden>
+            {Array.from({ length: 70 }).map((_, i) => {
+              const cx = (i * 53.7) % 100;
+              const cy = (i * 31.3) % 100;
+              const r = (i % 5 === 0 ? 1.4 : i % 3 === 0 ? 1 : 0.7);
+              const op = i % 4 === 0 ? 0.85 : i % 2 === 0 ? 0.55 : 0.3;
+              return (
+                <circle
+                  key={i}
+                  cx={`${cx}%`}
+                  cy={`${cy}%`}
+                  r={r}
+                  fill={i % 7 === 0 ? "#FCD34D" : i % 3 === 0 ? "#A78BFA" : "#E0F2FE"}
+                  opacity={op}
+                />
+              );
+            })}
+          </svg>
+        </div>
+
 
         {/* Energy intensity settings */}
         <div className="absolute end-4 top-4 z-20">
@@ -600,10 +662,10 @@ export const TechPlanetSection = () => {
                 key={`ring-${i}`}
                 className="absolute inset-0 rounded-full border"
                 style={{
-                  borderColor: "rgba(96, 165, 250, 0.18)",
+                  borderColor: "rgba(125, 211, 252, 0.22)",
                   willChange: "transform, opacity",
                 }}
-                animate={active ? { scale: [0.6, 1.6], opacity: [0.45, 0] } : { scale: 0.6, opacity: 0 }}
+                animate={active ? { scale: [0.6, 1.6], opacity: [0.5, 0] } : { scale: 0.6, opacity: 0 }}
                 transition={{
                   repeat: Infinity,
                   duration: 4,
@@ -613,17 +675,21 @@ export const TechPlanetSection = () => {
               />
             ))}
 
-            {[sizes.innerR, sizes.middleR, sizes.outerR].filter(Boolean).map((r, i) => (
+            {[
+              { r: sizes.innerR, color: "rgba(125, 211, 252, 0.18)" },
+              { r: sizes.middleR, color: "rgba(96, 165, 250, 0.14)" },
+              { r: sizes.outerR, color: "rgba(167, 139, 250, 0.16)" },
+            ].filter((g) => g.r > 0).map((g, i) => (
               <div
                 key={`guide-${i}`}
                 className="pointer-events-none absolute rounded-full border"
                 style={{
-                  width: r * 2,
-                  height: r * 2,
+                  width: g.r * 2,
+                  height: g.r * 2,
                   top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  borderColor: "rgba(205, 187, 154, 0.08)",
+                  borderColor: g.color,
                   borderStyle: "dashed",
                 }}
               />
@@ -637,13 +703,14 @@ export const TechPlanetSection = () => {
             >
               <defs>
                 <linearGradient id="energyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#60A5FA" stopOpacity="0" />
-                  <stop offset="40%" stopColor="#2563EB" stopOpacity="0.95" />
-                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0.9" />
+                  <stop offset="0%" stopColor="#7DD3FC" stopOpacity="0" />
+                  <stop offset="35%" stopColor="#60A5FA" stopOpacity="0.95" />
+                  <stop offset="70%" stopColor="#A78BFA" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#FCD34D" stopOpacity="0.95" />
                 </linearGradient>
                 <radialGradient id="burstHead">
-                  <stop offset="0%" stopColor="#CDBB9A" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#CDBB9A" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#FCD34D" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#FCD34D" stopOpacity="0" />
                 </radialGradient>
               </defs>
               {burstEndpoints.map((p) => (
@@ -680,6 +747,7 @@ export const TechPlanetSection = () => {
               reduce={reduce}
               paused={hoveredOrbit === 0}
               onHoverChange={(h) => setHoveredOrbit(h ? 0 : null)}
+              iconColor="#7DD3FC"
             />
             {sizes.showMiddle && (
               <Orbit
@@ -692,6 +760,7 @@ export const TechPlanetSection = () => {
                 reduce={reduce}
                 paused={hoveredOrbit === 1}
                 onHoverChange={(h) => setHoveredOrbit(h ? 1 : null)}
+                iconColor="#60A5FA"
               />
             )}
             {sizes.showOuter && (
@@ -704,6 +773,7 @@ export const TechPlanetSection = () => {
                 reduce={reduce}
                 paused={hoveredOrbit === 2}
                 onHoverChange={(h) => setHoveredOrbit(h ? 2 : null)}
+                iconColor="#A78BFA"
               />
             )}
 
@@ -721,11 +791,11 @@ export const TechPlanetSection = () => {
                 className="absolute inset-0 rounded-full"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(37,99,235,0.55) 0%, rgba(37,99,235,0.15) 45%, transparent 70%)",
-                  filter: "blur(8px)",
+                    "radial-gradient(circle, rgba(125,211,252,0.55) 0%, rgba(167,139,250,0.30) 40%, rgba(252,211,77,0.10) 65%, transparent 78%)",
+                  filter: "blur(10px)",
                   willChange: "opacity, transform",
                 }}
-                animate={active && !reduce ? { scale: [1, 1.12, 1], opacity: [0.7, 1, 0.7] } : { scale: 1, opacity: 0.7 }}
+                animate={active && !reduce ? { scale: [1, 1.14, 1], opacity: [0.75, 1, 0.75] } : { scale: 1, opacity: 0.75 }}
                 transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
               />
 
@@ -769,16 +839,30 @@ export const TechPlanetSection = () => {
               </svg>
 
               <div
-                className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 font-arabic-display text-[0.7rem] font-semibold"
-                style={{
-                  bottom: -28,
-                  background: "rgba(7, 19, 38, 0.85)",
-                  color: "#CDBB9A",
-                  border: "1px solid rgba(205,187,154,0.3)",
-                  letterSpacing: "0.05em",
-                }}
+                className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+                style={{ bottom: -42 }}
               >
-                مول البستان
+                <div
+                  className="whitespace-nowrap rounded-full px-3.5 py-1 font-arabic-display text-[0.78rem] font-bold"
+                  style={{
+                    background: "rgba(7, 19, 38, 0.9)",
+                    color: "#FCD34D",
+                    border: "1px solid rgba(252,211,77,0.4)",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  كوكب البستان
+                </div>
+                <div
+                  className="whitespace-nowrap rounded-full px-2.5 py-0.5 font-arabic text-[0.62rem] font-bold tracking-[0.2em]"
+                  style={{
+                    background: "linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)",
+                    color: "#071326",
+                    animation: !reduce && active ? "tp-soon-pulse 2.6s ease-in-out infinite" : undefined,
+                  }}
+                >
+                  قريباً
+                </div>
               </div>
             </div>
           </div>
