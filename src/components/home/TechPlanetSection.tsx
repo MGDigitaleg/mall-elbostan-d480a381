@@ -943,6 +943,8 @@ export const TechPlanetSection = () => {
           </div>
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
+
+          <div className="mt-10 flex justify-center">
             <Button
               asChild
               size="lg"
