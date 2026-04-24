@@ -1095,6 +1095,46 @@ export const TechPlanetSection = () => {
             </div>
           </div>
 
+          {/* Mobile satellites strip — replaces the 4th orbit on small screens */}
+          {isMobile && (
+            <div className="mt-12">
+              <p className="mb-3 text-center font-arabic text-[0.72rem] uppercase tracking-[0.3em]" style={{ color: "#CDBB9A" }}>
+                أقمار البستان
+              </p>
+              <div
+                className="flex gap-2.5 overflow-x-auto px-4 pb-2 scrollbar-hide"
+                style={{ scrollbarWidth: "none" }}
+              >
+                {satellites.map((sat) => (
+                  <Link
+                    key={sat.label}
+                    to={sat.to}
+                    aria-label={sat.label}
+                    className="group flex shrink-0 flex-col items-center gap-2 rounded-2xl border px-3 py-3 backdrop-blur-md transition-all active:scale-95"
+                    style={{
+                      borderColor: `${sat.color}55`,
+                      background: `${sat.color}14`,
+                      minWidth: 88,
+                    }}
+                  >
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-full"
+                      style={{
+                        background: `${sat.color}22`,
+                        boxShadow: `0 4px 14px ${sat.color}33`,
+                      }}
+                    >
+                      <sat.Icon size={20} strokeWidth={1.7} style={{ color: sat.color }} />
+                    </div>
+                    <span className="font-arabic text-[0.7rem] font-semibold text-center leading-tight" style={{ color: "#E0F2FE" }}>
+                      {sat.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
           <TechPlanetDirectory />
