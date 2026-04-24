@@ -193,14 +193,18 @@ serve(async (req) => {
   } catch (error) {
     const msg = error instanceof Error ? error.message : "Unknown error";
 
-    await sb.from("indexing_logs").insert({
+    const { error: logInsertError } = await sb.from("indexing_logs").insert({
       source: "unknown",
       urls_submitted: 0,
       url_list: [],
       results: [],
       success: false,
       error_message: msg,
-    }).catch(() => {});
+    });
+
+    if (logInsertError) {
+      console.error("Failed to write indexing error log:", logInsertError);
+    }
 
     return new Response(
       JSON.stringify({ success: false, error: msg }),
