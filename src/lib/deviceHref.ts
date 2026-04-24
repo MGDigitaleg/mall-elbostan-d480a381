@@ -23,7 +23,12 @@ const ALIASES: Record<string, string> = {
   accessories: "phone-cases",
   "smart-lighting": "intercoms",
   "office-supplies": "scanners",
-  "earbuds": "earbuds",
+  earbuds: "earbuds",
+  // Catalog → closest taxonomy cluster (so every card hits DevicePage)
+  printers: "all-in-one-printers",
+  networking: "routers",
+  televisions: "monitors",
+  ups: "pc-components",
 };
 
 export function resolveDeviceHref(slug: string): string {
