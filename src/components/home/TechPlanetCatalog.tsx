@@ -332,7 +332,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
       <div className="mt-5">
         <p className="mb-3 font-arabic text-[0.72rem]" style={{ color: "rgba(255,255,255,0.55)" }}>
           {results.length === 0
-            ? "لا توجد نتائج مطابقة — جرّب كلمة أخرى."
+            ? "لا توجد نتائج مطابقة"
             : `${results.length} جهاز${results.length === all.length ? "" : ` من ${all.length}`} · تنقّل بالأسهم، Enter للفتح`}
         </p>
 
@@ -380,7 +380,129 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
             })}
           </ul>
         )}
+
+        {results.length === 0 && (
+          <EmptyState
+            query={query}
+            orbit={orbit}
+            all={all}
+            onClearQuery={() => {
+              setQuery("");
+              requestAnimationFrame(() => searchRef.current?.focus());
+            }}
+            onResetOrbit={() => setOrbit("all")}
+            onPickSuggestion={(s) => {
+              setQuery(s);
+              requestAnimationFrame(() => searchRef.current?.focus());
+            }}
+          />
+        )}
       </div>
     </div>
   );
 };
+
+// ── Empty state ────────────────────────────────────────────────────────────
+type EmptyProps = {
+  query: string;
+  orbit: OrbitKey;
+  all: Array<CatalogDevice & { ring: Exclude<OrbitKey, "all"> }>;
+  onClearQuery: () => void;
+  onResetOrbit: () => void;
+  onPickSuggestion: (s: string) => void;
+};
+
+// Curated, evergreen Arabic suggestions covering common shopper intents.
+const FALLBACK_SUGGESTIONS = ["لابتوب", "موبايل", "شاشة", "سماعة", "بلايستيشن", "كاميرا", "طابعة", "راوتر"];
+
+const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
+  // How many would match the query if we ignored the orbit filter?
+  const matchesIgnoringOrbit = useMemo(() => {
+    const q = normalize(query);
+    if (!q) return 0;
+    return all.filter((d) => normalize(d.label).includes(q) || normalize(d.slug).includes(q)).length;
+  }, [all, query]);
+
+  // Build suggestions: prefer labels in the active orbit, fall back to curated list.
+  const suggestions = useMemo(() => {
+    const pool = orbit === "all" ? all : all.filter((d) => d.ring === orbit);
+    const fromCatalog = pool.slice(0, 6).map((d) => d.label);
+    const merged = Array.from(new Set([...fromCatalog, ...FALLBACK_SUGGESTIONS])).slice(0, 6);
+    return merged;
+  }, [all, orbit]);
+
+  const hasQuery = query.trim().length > 0;
+  const orbitFilterActive = orbit !== "all";
+
+  return (
+    <div
+      role="status"
+      aria-live="polite"
+      className="flex flex-col items-center gap-4 rounded-xl border border-dashed px-4 py-8 text-center"
+      style={{ borderColor: "rgba(205,187,154,0.25)", background: "rgba(255,255,255,0.02)" }}
+    >
+      <div
+        aria-hidden
+        className="flex h-12 w-12 items-center justify-center rounded-full"
+        style={{ background: "rgba(252,211,77,0.12)", border: "1px solid rgba(252,211,77,0.35)" }}
+      >
+        <Search className="h-5 w-5" style={{ color: "#FCD34D" }} />
+      </div>
+
+      <div className="space-y-1">
+        <p className="font-arabic-display text-[0.95rem] font-bold text-white">
+          {hasQuery ? <>لم نجد نتائج لـ "{query}"</> : "لا توجد أجهزة في هذا المدار"}
+        </p>
+        <p className="font-arabic text-[0.78rem]" style={{ color: "rgba(255,255,255,0.6)" }}>
+          {orbitFilterActive && hasQuery && matchesIgnoringOrbit > 0
+            ? `يوجد ${matchesIgnoringOrbit} نتيجة في مدارات أخرى — جرّب إزالة فلتر المدار.`
+            : "جرّب كلمة أبسط، أو اختر اقتراحاً من الأسفل."}
+        </p>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        {orbitFilterActive && (
+          <button
+            type="button"
+            onClick={onResetOrbit}
+            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
+            style={{ borderColor: "rgba(125,211,252,0.5)", color: "#7DD3FC" }}
+          >
+            عرض كل المدارات
+          </button>
+        )}
+        {hasQuery && (
+          <button
+            type="button"
+            onClick={onClearQuery}
+            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 font-arabic text-[0.75rem] transition-all hover:bg-white/10"
+            style={{ borderColor: "rgba(252,211,77,0.45)", color: "#FCD34D" }}
+          >
+            <X className="h-3 w-3" />
+            مسح البحث
+          </button>
+        )}
+      </div>
+
+      <div className="w-full">
+        <p className="mb-2 font-arabic text-[0.7rem]" style={{ color: "rgba(255,255,255,0.45)" }}>
+          اقتراحات شائعة
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-1.5">
+          {suggestions.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => onPickSuggestion(s)}
+              className="rounded-full border px-2.5 py-1 font-arabic text-[0.72rem] text-white/75 transition-all hover:border-[#FCD34D]/60 hover:bg-white/10 hover:text-white"
+              style={{ borderColor: "rgba(205,187,154,0.22)", background: "rgba(255,255,255,0.03)" }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
