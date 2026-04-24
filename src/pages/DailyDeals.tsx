@@ -25,7 +25,7 @@ const DailyDeals = () => {
     queryFn: async () => {
       let query = supabase
         .from("deals")
-        .select("id, title_ar, description_ar, valid_to, featured, campaign_key, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, sort_order, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
+        .select("id, title_ar, description_ar, valid_to, featured, campaign_key, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, sort_order, created_at, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
         .eq("is_live", true)
         .eq("campaign_key", "opening-offers-2026")
         .order("featured", { ascending: false })
