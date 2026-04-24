@@ -79,7 +79,7 @@ export function MapTeaserPreview() {
             floor={floor}
             selectedUnitId={activeUnit.id}
             mutedUnitIds={mutedUnitIds}
-            onSelectUnit={setSelectedUnit}
+            onSelectUnit={handleSelectUnit}
             className="w-full max-w-full"
             hideControls
           />
