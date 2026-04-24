@@ -268,7 +268,7 @@ export default function DevicePage() {
         keywords={keywords}
         breadcrumbs={crumbs}
         jsonLd={[collectionLd, faqLd, organizationLd]}
-        noindex={noindex}
+        noIndex={noindex}
       />
 
       {/* Hero */}
