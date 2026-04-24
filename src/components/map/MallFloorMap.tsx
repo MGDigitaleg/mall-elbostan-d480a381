@@ -316,6 +316,15 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               0%, 100% { opacity: 1; }
               50% { opacity: 0.6; }
             }
+            @keyframes selectedMarkerPulse {
+              0% { transform: scale(0.82); opacity: 0.82; }
+              70% { transform: scale(1.65); opacity: 0; }
+              100% { transform: scale(1.65); opacity: 0; }
+            }
+            @keyframes selectedMarkerFloat {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-5px); }
+            }
           `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
@@ -562,6 +571,51 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             );
           })}
         </g>
+
+        {activeMarkerUnit && (
+          <g
+            id="active-marker"
+            pointerEvents="none"
+            style={{
+              transformOrigin: `${activeMarkerUnit.labelX}px ${activeMarkerUnit.labelY - 44}px`,
+              animation: "selectedMarkerFloat 1.9s ease-in-out infinite",
+            }}
+          >
+            <line
+              x1={activeMarkerUnit.labelX}
+              y1={activeMarkerUnit.labelY - 34}
+              x2={activeMarkerUnit.labelX}
+              y2={activeMarkerUnit.labelY - 10}
+              stroke="#2563EB"
+              strokeWidth="2"
+              strokeLinecap="round"
+              opacity="0.65"
+            />
+            <circle
+              cx={activeMarkerUnit.labelX}
+              cy={activeMarkerUnit.labelY - 44}
+              r="13"
+              fill="#2563EB"
+              opacity="0.18"
+              style={{ transformOrigin: `${activeMarkerUnit.labelX}px ${activeMarkerUnit.labelY - 44}px`, animation: "selectedMarkerPulse 1.7s ease-out infinite" }}
+            />
+            <circle
+              cx={activeMarkerUnit.labelX}
+              cy={activeMarkerUnit.labelY - 44}
+              r="8"
+              fill="#2563EB"
+              stroke="#FFFFFF"
+              strokeWidth="2.5"
+              filter="url(#highlightGlow)"
+            />
+            <circle
+              cx={activeMarkerUnit.labelX}
+              cy={activeMarkerUnit.labelY - 44}
+              r="2.5"
+              fill="#FFFFFF"
+            />
+          </g>
+        )}
 
         {/* ── Entrance ── */}
         <g id="entrance">
