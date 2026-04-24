@@ -97,7 +97,7 @@ const StoreDetail = () => {
     enabled: isKzStore,
   });
 
-  const { data: storeOffers } = useQuery({
+  const { data: storeOffers, isLoading: isStoreOffersLoading } = useQuery({
     queryKey: ["store-offers", store?.id],
     queryFn: async () => {
       const { data } = await supabase
@@ -476,7 +476,7 @@ const StoreDetail = () => {
                 </motion.div>
               )}
 
-              {storeOffers && storeOffers.length > 0 && (
+              {(isStoreOffersLoading || storeOffers) && (
                 <motion.div variants={fadeChild}>
                   <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
                     <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
@@ -486,27 +486,56 @@ const StoreDetail = () => {
                         </div>
                         <div>
                           <h2 className="text-[0.92rem] font-bold text-foreground">عروض الافتتاح من هذا المحل</h2>
-                          <p className="text-[0.66rem] text-muted-foreground">{storeOffers.length} عرض خاص بـ {store.name_ar}</p>
+                          <p className="text-[0.66rem] text-muted-foreground">
+                            {isStoreOffersLoading ? "جارٍ تحميل عروض هذا المحل" : `${storeOffers?.length ?? 0} عرض خاص بـ ${store.name_ar}`}
+                          </p>
                         </div>
                       </div>
-                      <Link to={`/daily-deals?merchant=${store.slug}`}
-                            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
-                        شاهد كل عروض هذا المحل <ChevronLeft className="h-3 w-3" />
-                      </Link>
+                      {!!storeOffers?.length && (
+                        <Link to={`/daily-deals?merchant=${store.slug}`}
+                              className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
+                          شاهد كل عروض هذا المحل <ChevronLeft className="h-3 w-3" />
+                        </Link>
+                      )}
                     </div>
-                    <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
-                      {storeOffers.map((offer: any) => (
-                        <OpeningOfferCard
-                          key={offer.id}
-                          offer={offer}
-                          compact
-                          showStoreLink={false}
-                          showAllStoreOffersCta={false}
-                          directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
-                          directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
-                        />
-                      ))}
-                    </div>
+                    {isStoreOffersLoading ? (
+                      <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
+                        {Array.from({ length: 2 }).map((_, index) => (
+                          <div key={index} className="overflow-hidden rounded-2xl border border-border/70 bg-card">
+                            <div className="aspect-[4/3] animate-pulse bg-muted/40" />
+                            <div className="space-y-3 p-4 md:p-5">
+                              <div className="h-4 w-24 animate-pulse rounded bg-muted/50" />
+                              <div className="h-5 w-3/4 animate-pulse rounded bg-muted/50" />
+                              <div className="h-4 w-full animate-pulse rounded bg-muted/40" />
+                              <div className="h-4 w-2/3 animate-pulse rounded bg-muted/40" />
+                              <div className="h-16 animate-pulse rounded-2xl bg-muted/35" />
+                              <div className="h-10 animate-pulse rounded-xl bg-muted/45" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : storeOffers.length > 0 ? (
+                      <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
+                        {storeOffers.map((offer: any) => (
+                          <OpeningOfferCard
+                            key={offer.id}
+                            offer={offer}
+                            compact
+                            showStoreLink={false}
+                            showAllStoreOffersCta={false}
+                            directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
+                            directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-5 text-center md:p-6">
+                        <p className="text-[0.9rem] font-bold text-foreground">لا توجد عروض لهذا المحل بعد</p>
+                        <p className="mt-2 text-[0.74rem] leading-7 text-muted-foreground">
+                          سنعرض هنا عروض الافتتاح الخاصة بـ {store.name_ar} فور إضافتها وربطها بصفحة المتجر.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}
