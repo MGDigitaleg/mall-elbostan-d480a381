@@ -1,83 +1,68 @@
 
 
-## خطة: صفحات هبوط مخصصة لكل رمز في "كوكب التقنية" + توسيع عدد الرموز
+## خطة: تحسين سكشن "لماذا مول البستان؟" + تصغير سكشن الخريطة على الهوم
 
-سأحوّل كل رمز جهاز (Laptop, Smartphone, …) من مجرد رابط فلتر `/stores?category=…` إلى **صفحة هبوط مستقلة** غنية بالمحتوى ومحسّنة جداً للـ SEO، مع ربط المحلات والمنتجات والمحتوى التعريفي بكل صفحة، وزيادة عدد الرموز في الكوكب.
+### ملاحظة: السكشن الموجود في الصورة الأولى
+السكشن المعروض في الصورة الأولى هو `SeoIntroFooter.tsx` (موجود ضمن صفحة الهوم في الفوتر) ويحمل عنوان "لماذا مول البستان؟". سأقوم بـ:
+1. **حذفه من صفحة الهوم** (لأنه نص كثيف لا يخدم استراتيجية المول-أولاً)
+2. **نقله بصيغة مُحسّنة بصرياً** إلى صفحة `/about`
+3. **تصغير سكشن الخريطة التفاعلية على الهوم** لأن الخريطة لها صفحة مستقلة `/map`
 
-### 1) المسار والبنية
+---
 
-- مسار جديد موحّد: `/devices/:slug` (مثال: `/devices/laptops`, `/devices/smartphones`, `/devices/gaming-consoles` …).
-- صفحة واحدة ديناميكية `src/pages/DeviceCategory.tsx` تقرأ `slug` وتعرض المحتوى المناسب من سجل مركزي.
-- سجل مركزي جديد `src/lib/deviceCatalog.ts` يحتوي على كل الرموز:  
-  `slug, labelAr, labelEn, Icon, parentCategory (من CAT الحالية), seo {title, description, keywords}, intro (فقرة Fusha), faq[], relatedSlugs[], orbit ('inner'|'middle'|'outer')`.
-- Route تُضاف في `src/App.tsx`: `<Route path="/devices/:slug" element={<DeviceCategory />} />`.
+### 1) صفحة About: إضافة سكشن "لماذا مول البستان؟" مُحسّن
 
-### 2) محتوى صفحة الجهاز (الترتيب)
+سأضيف سكشن جديد قبل قسم "Why El Bostan" (أو بعد سكشن الفرعين) في `src/pages/About.tsx` يحتوي على نفس المحتوى لكن بشكل بصري أفضل:
 
-```text
-Hero: أيقونة + H1 (مثال: "لابتوبات في مول البستان")
-       جملة وصفية قصيرة بالفصحى + Breadcrumbs (الرئيسية ▸ الأجهزة ▸ لابتوبات)
-─────────────────────────────────────────────────
-بلوك "نبذة" (200–280 كلمة Fusha) — قيمة المول لهذه الفئة
-─────────────────────────────────────────────────
-"المحلات المتخصصة" — شبكة محلات من جدول stores حيث category = parentCategory
-                     باستخدام TenantLogo + رابط /stores/:slug
-─────────────────────────────────────────────────
-"منتجات مختارة" — من جدول products (status=published, image_url ليس null)
-                  مفلترة بـ category_id الموافق (أو نص في name_ar/brand)
-─────────────────────────────────────────────────
-"على الخريطة التفاعلية" — زر CTA إلى /map?category=<parentCategory>
-─────────────────────────────────────────────────
-"فئات قريبة" — روابط داخلية لـ relatedSlugs (لتقوية الـ internal linking)
-─────────────────────────────────────────────────
-"عن مول البستان" — فقرة موجزة + رابط /about و /new-cairo-branch
-─────────────────────────────────────────────────
-FAQ (3–5 أسئلة لكل جهاز) — مع JSON-LD FAQPage
-```
+- **بطاقة محتوى مركزية** بخلفية `bg-card` وحدود ناعمة (بدل النص العاري)
+- **عنوان**: "لماذا مول البستان؟" بنفس نظام `section-title`
+- **4 فقرات** مُعاد تنسيقها كـ **بطاقات أو فقرات مع أيقونات Lucide** على الجانب:
+  - فقرة التاريخ (1990, +150 محل) → أيقونة `Building2`
+  - فقرة الفئات (مع روابط الكاتيجوريز) → أيقونة `Layers`
+  - فقرة الأدوات (الخريطة، الكتالوج، التأجير) → أيقونة `Compass`
+  - فقرة المناطق المخدومة → أيقونة `MapPin`
+- **الحفاظ على كل الروابط الداخلية** (للـ SEO) مع تتبع `trackSeoLinkClick` كما هو
+- يستخدم نظام `Reveal/motion` المعتمد في الصفحة
+- يحترم theme-rhythm: خلفية `bg-secondary dark:bg-background`
 
-### 3) تحسين SEO (قوي ومُتعمَّد)
+### 2) صفحة الهوم: حذف `SeoIntroFooter`
 
-- `SEOHead` لكل صفحة: عنوان فريد + وصف فريد + `canonical` لـ `https://www.mallelbostan.com/devices/<slug>` + `keywords` عربية/إنجليزية.
-- **Structured data** عبر `<script type="application/ld+json">`:
-  - `BreadcrumbList`
-  - `CollectionPage` + `about: Product/Category`
-  - `ItemList` للمنتجات المختارة
-  - `FAQPage` لأسئلة الصفحة
-  - `LocalBusiness` (مرجع لمول البستان)
-- H1 واحد فقط، H2 لكل قسم، alt نصي عربي للصور، روابط داخلية لمحلات/منتجات/خريطة.
-- إضافة كل المسارات الجديدة إلى `public/sitemap.xml` و edge function `supabase/functions/sitemap/index.ts`.
-- لا تقييم وهمي ولا حقول schema كاذبة.
+في `src/components/home/HomeContent.tsx`:
+- إزالة استيراد `SeoIntroFooter` 
+- إزالة استخدامه من نهاية الصفحة
+- الإبقاء على **SEO Intro المختصر** الموجود تحت الهيرو (السطر 138-152) لأنه قصير ومفيد للـ H1
 
-### 4) توسيع رموز كوكب التقنية
+### 3) صفحة الهوم: تصغير سكشن الخريطة التفاعلية
 
-أضيف رموز جديدة (Lucide) لزيادة الكثافة البصرية وتغطية فئات أوسع:
+استبدال `MapTeaserPreview` الكبير الحالي ببطاقة مدمجة (compact) في `HomeContent.tsx`:
 
-- جديد للداخلي/الأوسط/الخارجي:  
-  `Tv` (تلفزيونات), `Projector` (بروجكتر), `Server` (سيرفرات), `Disc` (تخزين خارجي), `Joystick` (أذرع تحكم), `Mic` (ميكروفونات), `BatteryCharging` (UPS/طاقة), `ScanLine` (سكانر), `MonitorSmartphone` (أكسسوارات), `HardDriveDownload` (NAS), `Radio` (أنتركم), `Lightbulb` (إضاءة ذكية), `ShieldCheck` (كاميرات مراقبة), `CircuitBoard` (مكونات), `Fan` (تبريد), `PlugZap` (محولات).
+- **ارتفاع أقل بكثير** (~180-220px بدل ~400px)
+- **تصميم بسيط: شريط أفقي** يحتوي على:
+  - أيقونة `Compass` + عنوان قصير "الدليل التفاعلي"
+  - 3 إحصائيات صغيرة بجانب بعض: عدد الوحدات، المتاحة، الأدوار
+  - زر CTA واضح: "افتح الخريطة الكاملة" → `/map`
+- **بدون رسم خريطة فعلي** (لأن الخريطة لها صفحة مستقلة)
+- **بدون floor tabs أو unit details** — هذه خاصة بالصفحة المخصصة
+- padding مخفّض: `clamp(28px, 4vw, 56px)` بدل `clamp(40px, 5.5vw, 88px)`
 
-النتيجة: ~16 رمز إضافي → الإجمالي يقفز من 20 إلى **~36 رمزاً**، موزعة:
-- Inner orbit: 8 (بدلاً من 6)
-- Middle orbit: 10 (بدلاً من 6)
-- Outer orbit: 12 (بدلاً من 8)
-- Mobile curated: 10 (بدلاً من 8)
+سأنشئ مكوّن جديد بسيط: `src/components/home/MapTeaserCompact.tsx` يحل محل `MapTeaserPreview` على الهوم فقط.
 
-كل رمز يُربط بصفحته الجديدة `/devices/:slug` بدلاً من `/stores?category=…`.
+---
 
-### 5) الملفات المتأثرة
+### الملفات المتأثرة
 
 | الملف | التغيير |
 |---|---|
-| `src/lib/deviceCatalog.ts` | جديد — السجل المركزي لكل الأجهزة + SEO + FAQ |
-| `src/pages/DeviceCategory.tsx` | جديد — صفحة الهبوط الديناميكية |
-| `src/components/home/TechPlanetSection.tsx` | تحديث القوائم + روابط `to={/devices/${slug}}` + رموز إضافية |
-| `src/App.tsx` | إضافة Route `/devices/:slug` |
-| `public/sitemap.xml` + `supabase/functions/sitemap/index.ts` | إضافة كل المسارات الجديدة |
-| `mem://features/store-categories` (تحديث) | توثيق نظام صفحات الأجهزة الجديدة |
+| `src/pages/About.tsx` | إضافة سكشن جديد "لماذا مول البستان؟" بمحتوى محسن بصرياً |
+| `src/components/home/HomeContent.tsx` | حذف `SeoIntroFooter` + استبدال `MapTeaserPreview` بـ `MapTeaserCompact` |
+| `src/components/home/MapTeaserCompact.tsx` | **جديد** — بطاقة خريطة مختصرة للهوم |
+| `src/components/home/SeoIntroFooter.tsx` | يبقى الملف بدون استخدام (يمكن حذفه لاحقاً) |
+| `src/components/home/MapTeaserPreview.tsx` | يبقى للاستخدام في صفحات أخرى إن لزم |
 
-### 6) ملاحظات تقنية
+### ملاحظات الاستراتيجية
 
-- البيانات تُجلب من `stores` و `products` عبر `supabase` client مباشرة داخل الصفحة باستخدام `useQuery`.
-- ربط المنتجات بكل جهاز: مرحلة أولى عبر مطابقة نصية على `name_ar/brand` بكلمات مفتاحية محددة في `deviceCatalog`، ولاحقاً يمكن الانتقال إلى ربط رسمي عبر `category_id` في جدول `product_categories`.
-- يُحترم prefer-reduced-motion والثيم الداكن المعتمد للسكشن.
-- لا يتم تغيير منطق الـ intensity/menu الحالي.
+- محتوى الـ SEO الغني ينتقل لصفحة `/about` التي هي المكان الطبيعي له (تعزيز mall-first identity)
+- الهوم يصبح أخف وأكثر تركيزاً على الهرمية: المحلات → الفئات → كوكب التقنية → خريطة مختصرة
+- صفحة `/map` تبقى الوجهة الأساسية للخريطة الكاملة
+- لا تأثير على بقية الـ SEO (sitemap، structured data، الروابط الأخرى)
 
