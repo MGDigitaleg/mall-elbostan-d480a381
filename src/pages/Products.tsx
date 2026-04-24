@@ -654,7 +654,7 @@ const Products = () => {
                 />
               </div>
 
-              {/* Dropdowns */}
+              {/* Row 2: Category dropdowns (Section + Sort) */}
               <div className="flex items-center gap-2 flex-wrap">
                 {/* Mall filter */}
                 {mallList.length > 1 && (
