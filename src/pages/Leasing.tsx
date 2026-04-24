@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Building2, CheckCircle2, Compass, Layers, MapPin, Phone, Shield, Store,
-  Target, TrendingUp, Users, Ruler, ArrowUpLeft,
+  Target, TrendingUp, Users, Ruler, ArrowUpLeft, Upload, FileText, X,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
