@@ -649,7 +649,8 @@ const Products = () => {
                   placeholder="ابحث عن منتج أو علامة تجارية..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] outline-none transition-all focus:ring-1"
+                  dir="rtl"
+                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] text-right outline-none transition-all focus:ring-1"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
                 />
               </div>
