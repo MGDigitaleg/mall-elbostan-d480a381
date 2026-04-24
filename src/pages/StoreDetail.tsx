@@ -40,8 +40,32 @@ const categoryStory: Record<string, { title: string; desc: string; icon: typeof 
   "الصيانة والدعم الفني": { title: "خدمات دعم واستمرارية", desc: "صيانة ودعم فني متخصص على يد خبراء.", icon: Compass, color: "340 75% 55%" },
 };
 
+function inferOfferFilterCategory(offer: {
+  title_ar?: string | null;
+  description_ar?: string | null;
+  specs_short_ar?: string | null;
+  brand?: string | null;
+  model?: string | null;
+}) {
+  const content = [offer.title_ar, offer.description_ar, offer.specs_short_ar, offer.brand, offer.model]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (/(رام|ssd|hdd|nvme|ddr|motherboard|لوحة أم|مزود طاقة|power supply|psu|processor|cpu|ryzen|intel|rtx|gtx|rx |gpu|كرت شاشة|قطع|cooler|fan)/.test(content)) {
+    return "قطع الكمبيوتر";
+  }
+
+  if (/(adapter|cable|charger|hub|dock|stand|trigger|tripod|remote|headset|keyboard|mouse|كيبورد|ماوس|إكسسوار|اكسسوار|ملحق|حامل|شاحن)/.test(content)) {
+    return "الإكسسوارات";
+  }
+
+  return "الأجهزة";
+}
+
 const StoreDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [offerFilter, setOfferFilter] = useState("كل الأقسام");
 
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
@@ -118,6 +142,18 @@ const StoreDetail = () => {
     if (!store?.gallery || !Array.isArray(store.gallery)) return [];
     return store.gallery.filter((item): item is string => typeof item === "string");
   }, [store?.gallery]);
+
+  const storeOfferCategories = useMemo(() => {
+    const categories = new Set<string>();
+    (storeOffers ?? []).forEach((offer) => categories.add(inferOfferFilterCategory(offer)));
+    return ["كل الأقسام", ...Array.from(categories)];
+  }, [storeOffers]);
+
+  const filteredStoreOffers = useMemo(() => {
+    if (!storeOffers) return [];
+    if (offerFilter === "كل الأقسام") return storeOffers;
+    return storeOffers.filter((offer) => inferOfferFilterCategory(offer) === offerFilter);
+  }, [storeOffers, offerFilter]);
 
   const activeStory = store?.category ? categoryStory[store.category] : null;
   const heroImage = store?.cover_image_url ?? gallery[0] ?? fallbackCover;
