@@ -377,14 +377,14 @@ export const TechPlanetSection = () => {
       };
     }
     return {
-      stage: 680,
+      stage: 720,
       core: 170,
       innerR: 145,
-      middleR: 230,
-      outerR: 320,
+      middleR: 235,
+      outerR: 335,
       innerSize: 46,
-      middleSize: 42,
-      outerSize: 38,
+      middleSize: 40,
+      outerSize: 34,
       showMiddle: true,
       showOuter: true,
     };
