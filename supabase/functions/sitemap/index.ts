@@ -38,6 +38,39 @@ const STATIC_ROUTES = [
   { loc: "/reward-terms", priority: "0.3", changefreq: "yearly" },
 ];
 
+// Device category landing pages — keep in sync with src/lib/deviceCatalog.ts
+const DEVICE_SLUGS = [
+  "laptops","smartphones","monitors","cpus","headphones","keyboards","storage",
+  "mice","cameras","gaming-consoles","printers","routers","tablets","smartwatches",
+  "speakers","ram","webcams","cables","chargers","networking","televisions",
+  "projectors","servers","external-storage","controllers","microphones","ups",
+  "scanners","accessories","nas","intercoms","smart-lighting","security-cameras",
+  "pc-components","cooling","power-adapters","gaming-laptops","macbook",
+  "graphics-cards","earbuds","powerbanks","vr-gaming","office-supplies","streaming-gear",
+];
+const HIGH_PRIORITY_DEVICES = new Set([
+  "laptops","smartphones","monitors","gaming-consoles","macbook","gaming-laptops",
+  "tablets","televisions","graphics-cards",
+]);
+const MID_PRIORITY_DEVICES = new Set([
+  "cpus","headphones","keyboards","storage","cameras","printers","routers",
+  "smartwatches","speakers","ram","projectors","servers","controllers","microphones",
+  "earbuds","security-cameras","pc-components","networking","external-storage",
+]);
+function devicePriority(slug: string): string {
+  if (HIGH_PRIORITY_DEVICES.has(slug)) return "0.7";
+  if (MID_PRIORITY_DEVICES.has(slug)) return "0.6";
+  return "0.5";
+}
+// Validate uniqueness at module load (catches drift early in logs).
+{
+  const seen = new Set<string>();
+  for (const s of DEVICE_SLUGS) {
+    if (seen.has(s)) console.error(`[sitemap] duplicate device slug: ${s}`);
+    seen.add(s);
+  }
+}
+
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
