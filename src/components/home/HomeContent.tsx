@@ -82,6 +82,7 @@ type ProductRow = {
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
   const isMobile = useIsMobile();
+  const { phone: officialPhone } = useSitePhone();
 
   /* Defer product fetch */
   const [ready, setReady] = useState(false);
