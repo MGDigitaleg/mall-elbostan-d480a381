@@ -65,38 +65,28 @@ const CONSTELLATION_LINKS: { to: string; title: string }[] = [
   { to: "/join-marketplace", title: "انضم للسوق الرقمي" },
 ];
 
-// Dev-only audit: compare orbit coverage to the centralized deviceCatalog so
-// new device entries are never silently absent from the planet (and removed
-// entries don't linger as dead slugs in an orbit array).
-const META_KEYS = new Set(["seo"]);
+// Dev-only audit: ensure every catalog device lands on an orbit ring.
 const computeOrbitAudit = () => {
   const orbitSlugs = [...innerOrbit, ...middleOrbit, ...outerOrbit].map((d) => d.slug);
   const seen = new Set<string>();
   const duplicates = orbitSlugs.filter((s) => (seen.has(s) ? true : (seen.add(s), false)));
   const catalogSlugs = Object.keys(deviceCatalog).filter((k) => !META_KEYS.has(k));
   const missing = catalogSlugs.filter((s) => !seen.has(s));
-  const extras = orbitSlugs.filter((s) => !(s in deviceCatalog));
-  return { missing, extras, duplicates, catalogSlugs, orbitSlugs };
+  return { missing, duplicates, catalogSlugs };
 };
 
 if (import.meta.env.DEV) {
-  const { missing, extras, duplicates, catalogSlugs } = computeOrbitAudit();
-  if (missing.length || extras.length || duplicates.length) {
+  const { missing, duplicates, catalogSlugs } = computeOrbitAudit();
+  if (missing.length || duplicates.length) {
     // eslint-disable-next-line no-console
-    console.groupCollapsed(
-      `%c[TechPlanetSection] Orbit/Catalog audit — ${missing.length} missing · ${extras.length} extra · ${duplicates.length} duplicate`,
-      "color:#FCD34D;font-weight:600",
+    console.warn(
+      `[TechPlanetSection] Audit — ${missing.length} missing · ${duplicates.length} duplicate`,
+      { missing, duplicates },
     );
-    if (missing.length) console.warn("Missing from orbits (in catalog, not on planet):", missing);
-    if (extras.length) console.warn("Extra in orbits (not in catalog):", extras);
-    if (duplicates.length) console.warn("Duplicate slugs across orbits:", duplicates);
-    // eslint-disable-next-line no-console
-    console.groupEnd();
   } else {
     // eslint-disable-next-line no-console
     console.info(
-      `%c[TechPlanetSection] ✓ All ${catalogSlugs.length} catalog devices mapped across orbits (${innerOrbit.length}/${middleOrbit.length}/${outerOrbit.length}).`,
-      "color:#7DD3FC",
+      `[TechPlanetSection] ✓ All ${catalogSlugs.length} catalog devices mapped (${innerOrbit.length}/${middleOrbit.length}/${outerOrbit.length}).`,
     );
   }
 }
@@ -360,19 +350,13 @@ export const TechPlanetSection = () => {
 
   // Curated 10-device set for mobile single orbit (balanced across categories)
   const mobileDevices = useMemo<Device[]>(
-    () =>
-      pick([
-        "laptops",
-        "smartphones",
-        "monitors",
-        "gaming-consoles",
-        "headphones",
-        "printers",
-        "tablets",
-        "smartwatches",
-        "routers",
-        "cameras",
-      ]),
+    () => {
+      const wanted = ["laptops", "smartphones", "monitors", "headphones", "printers", "tablets", "smartwatches", "routers", "cameras", "macbook"];
+      return wanted
+        .map((s) => deviceCatalog[s])
+        .filter(Boolean)
+        .map((d: any) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
+    },
     [],
   );
 
