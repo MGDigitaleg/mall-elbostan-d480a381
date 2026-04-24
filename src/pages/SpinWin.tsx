@@ -14,6 +14,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PrizeWheel, type WheelSegment } from "@/components/spin/PrizeWheel";
 import { StoreRing } from "@/components/spin/StoreRing";
 import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
+import { SpinHistoryPanel } from "@/components/spin/SpinHistoryPanel";
+import { addSpinHistory } from "@/lib/spinHistory";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
@@ -71,6 +73,7 @@ const SpinWin = () => {
   const [result, setResult] = useState<SpinResponse | null>(null);
   const [targetIndex, setTargetIndex] = useState<number | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [historyKey, setHistoryKey] = useState(0);
 
   // Responsive wheel/ring sizing
   const [viewportW, setViewportW] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
@@ -137,6 +140,21 @@ const SpinWin = () => {
       setTargetIndex(idx);
       setSettled(false);
       setStep("spinning");
+
+      // Persist attempt locally for the user's history panel
+      try {
+        addSpinHistory({
+          won: Boolean(data?.won),
+          prize_name_ar: data?.result?.prize?.name_ar ?? null,
+          claim_code: data?.result?.claim_code ?? null,
+          is_grand: Boolean(data?.result?.is_grand),
+          is_visitor: Boolean(data?.result?.visitor_only),
+          expires_at: data?.result?.expires_at ?? null,
+        });
+        setHistoryKey((k) => k + 1);
+      } catch {
+        // non-fatal
+      }
     } catch {
       trackEvent("spin_win_error", { reason: "network_or_unknown" });
       toast({ title: "خطأ", description: "حدث خطأ — حاول مرة أخرى", variant: "destructive" });
@@ -707,6 +725,9 @@ const SpinWin = () => {
             </ul>
           </div>
         )}
+
+        {/* User attempt history (local) */}
+        {step === "register" && <SpinHistoryPanel refreshKey={historyKey} />}
         </div>
       </section>
       </>
