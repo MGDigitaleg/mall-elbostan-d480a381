@@ -1061,6 +1061,437 @@ export type Database = {
         }
         Relationships: []
       }
+      social_merchant_sources: {
+        Row: {
+          account_label: string | null
+          check_interval_minutes: number
+          created_at: string
+          handle: string | null
+          id: string
+          import_mode: string
+          last_checked_at: string | null
+          last_detected_at: string | null
+          last_error: string | null
+          last_success_at: string | null
+          merchant_id: string
+          monitoring_enabled: boolean
+          page_url: string
+          platform: string
+          source_config: Json
+          source_external_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_label?: string | null
+          check_interval_minutes?: number
+          created_at?: string
+          handle?: string | null
+          id?: string
+          import_mode?: string
+          last_checked_at?: string | null
+          last_detected_at?: string | null
+          last_error?: string | null
+          last_success_at?: string | null
+          merchant_id: string
+          monitoring_enabled?: boolean
+          page_url: string
+          platform: string
+          source_config?: Json
+          source_external_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_label?: string | null
+          check_interval_minutes?: number
+          created_at?: string
+          handle?: string | null
+          id?: string
+          import_mode?: string
+          last_checked_at?: string | null
+          last_detected_at?: string | null
+          last_error?: string | null
+          last_success_at?: string | null
+          merchant_id?: string
+          monitoring_enabled?: boolean
+          page_url?: string
+          platform?: string
+          source_config?: Json
+          source_external_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_merchant_sources_merchant_id_fkey"
+            columns: ["merchant_id"]
+            isOneToOne: false
+            referencedRelation: "social_monitored_merchants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_monitored_merchants: {
+        Row: {
+          admin_notes: string | null
+          branch_context: string
+          created_at: string
+          display_name: string | null
+          id: string
+          keywords_ar: string[]
+          keywords_en: string[]
+          logo_url: string | null
+          merchant_name: string
+          monitoring_enabled: boolean
+          monitoring_status: string
+          opening_keywords: string[]
+          opening_status: string | null
+          store_id: string
+          store_slug: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          branch_context?: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          keywords_ar?: string[]
+          keywords_en?: string[]
+          logo_url?: string | null
+          merchant_name: string
+          monitoring_enabled?: boolean
+          monitoring_status?: string
+          opening_keywords?: string[]
+          opening_status?: string | null
+          store_id: string
+          store_slug: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          branch_context?: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          keywords_ar?: string[]
+          keywords_en?: string[]
+          logo_url?: string | null
+          merchant_name?: string
+          monitoring_enabled?: boolean
+          monitoring_status?: string
+          opening_keywords?: string[]
+          opening_status?: string | null
+          store_id?: string
+          store_slug?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_monitored_merchants_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: true
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_offer_activity_log: {
+        Row: {
+          action_label_ar: string | null
+          action_type: string
+          actor_user_id: string | null
+          created_at: string
+          id: string
+          intake_id: string
+          note: string | null
+          payload: Json
+        }
+        Insert: {
+          action_label_ar?: string | null
+          action_type: string
+          actor_user_id?: string | null
+          created_at?: string
+          id?: string
+          intake_id: string
+          note?: string | null
+          payload?: Json
+        }
+        Update: {
+          action_label_ar?: string | null
+          action_type?: string
+          actor_user_id?: string | null
+          created_at?: string
+          id?: string
+          intake_id?: string
+          note?: string | null
+          payload?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_offer_activity_log_intake_id_fkey"
+            columns: ["intake_id"]
+            isOneToOne: false
+            referencedRelation: "social_offer_intake"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_offer_intake: {
+        Row: {
+          branch_context: string
+          captured_at: string
+          category: string | null
+          content_type: string
+          created_at: string
+          curated_media_assets: Json
+          currency: string
+          current_price: number | null
+          detected_at: string
+          detected_keywords: string[]
+          duplicate_of: string | null
+          expires_at: string | null
+          featured: boolean
+          id: string
+          media_assets: Json
+          merchant_id: string
+          notes: string | null
+          offer_subtitle: string | null
+          offer_title: string | null
+          old_price: number | null
+          opening_related: boolean
+          publish_status: string
+          published_at: string | null
+          published_deal_id: string | null
+          raw_payload: Json
+          relevance_score: number
+          relevance_status: string
+          review_status: string
+          short_specs: string | null
+          source_caption: string | null
+          source_capture_method: string
+          source_id: string | null
+          source_platform: string
+          source_post_id: string | null
+          source_post_url: string | null
+          source_published_at: string | null
+          source_thumbnail_url: string | null
+          store_id: string
+          updated_at: string
+        }
+        Insert: {
+          branch_context?: string
+          captured_at?: string
+          category?: string | null
+          content_type?: string
+          created_at?: string
+          curated_media_assets?: Json
+          currency?: string
+          current_price?: number | null
+          detected_at?: string
+          detected_keywords?: string[]
+          duplicate_of?: string | null
+          expires_at?: string | null
+          featured?: boolean
+          id?: string
+          media_assets?: Json
+          merchant_id: string
+          notes?: string | null
+          offer_subtitle?: string | null
+          offer_title?: string | null
+          old_price?: number | null
+          opening_related?: boolean
+          publish_status?: string
+          published_at?: string | null
+          published_deal_id?: string | null
+          raw_payload?: Json
+          relevance_score?: number
+          relevance_status?: string
+          review_status?: string
+          short_specs?: string | null
+          source_caption?: string | null
+          source_capture_method?: string
+          source_id?: string | null
+          source_platform: string
+          source_post_id?: string | null
+          source_post_url?: string | null
+          source_published_at?: string | null
+          source_thumbnail_url?: string | null
+          store_id: string
+          updated_at?: string
+        }
+        Update: {
+          branch_context?: string
+          captured_at?: string
+          category?: string | null
+          content_type?: string
+          created_at?: string
+          curated_media_assets?: Json
+          currency?: string
+          current_price?: number | null
+          detected_at?: string
+          detected_keywords?: string[]
+          duplicate_of?: string | null
+          expires_at?: string | null
+          featured?: boolean
+          id?: string
+          media_assets?: Json
+          merchant_id?: string
+          notes?: string | null
+          offer_subtitle?: string | null
+          offer_title?: string | null
+          old_price?: number | null
+          opening_related?: boolean
+          publish_status?: string
+          published_at?: string | null
+          published_deal_id?: string | null
+          raw_payload?: Json
+          relevance_score?: number
+          relevance_status?: string
+          review_status?: string
+          short_specs?: string | null
+          source_caption?: string | null
+          source_capture_method?: string
+          source_id?: string | null
+          source_platform?: string
+          source_post_id?: string | null
+          source_post_url?: string | null
+          source_published_at?: string | null
+          source_thumbnail_url?: string | null
+          store_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_offer_intake_duplicate_of_fkey"
+            columns: ["duplicate_of"]
+            isOneToOne: false
+            referencedRelation: "social_offer_intake"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "social_offer_intake_merchant_id_fkey"
+            columns: ["merchant_id"]
+            isOneToOne: false
+            referencedRelation: "social_monitored_merchants"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "social_offer_intake_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "social_merchant_sources"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "social_offer_intake_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_offer_notifications: {
+        Row: {
+          action_url: string | null
+          body_ar: string | null
+          created_at: string
+          dismissed_at: string | null
+          id: string
+          intake_id: string
+          merchant_id: string
+          notification_type: string
+          read_at: string | null
+          thumbnail_url: string | null
+          title_ar: string
+          unread: boolean
+        }
+        Insert: {
+          action_url?: string | null
+          body_ar?: string | null
+          created_at?: string
+          dismissed_at?: string | null
+          id?: string
+          intake_id: string
+          merchant_id: string
+          notification_type?: string
+          read_at?: string | null
+          thumbnail_url?: string | null
+          title_ar: string
+          unread?: boolean
+        }
+        Update: {
+          action_url?: string | null
+          body_ar?: string | null
+          created_at?: string
+          dismissed_at?: string | null
+          id?: string
+          intake_id?: string
+          merchant_id?: string
+          notification_type?: string
+          read_at?: string | null
+          thumbnail_url?: string | null
+          title_ar?: string
+          unread?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "social_offer_notifications_intake_id_fkey"
+            columns: ["intake_id"]
+            isOneToOne: false
+            referencedRelation: "social_offer_intake"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "social_offer_notifications_merchant_id_fkey"
+            columns: ["merchant_id"]
+            isOneToOne: false
+            referencedRelation: "social_monitored_merchants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      social_offer_settings: {
+        Row: {
+          admin_notes: string | null
+          branch_context: string
+          created_at: string
+          detection_threshold: number
+          global_keywords_ar: string[]
+          global_keywords_en: string[]
+          homepage_feature_limit: number
+          id: string
+          monitoring_enabled: boolean
+          schedule_cron: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          branch_context?: string
+          created_at?: string
+          detection_threshold?: number
+          global_keywords_ar?: string[]
+          global_keywords_en?: string[]
+          homepage_feature_limit?: number
+          id?: string
+          monitoring_enabled?: boolean
+          schedule_cron?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          branch_context?: string
+          created_at?: string
+          detection_threshold?: number
+          global_keywords_ar?: string[]
+          global_keywords_en?: string[]
+          homepage_feature_limit?: number
+          id?: string
+          monitoring_enabled?: boolean
+          schedule_cron?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       spin_entries: {
         Row: {
           claim_status: string
