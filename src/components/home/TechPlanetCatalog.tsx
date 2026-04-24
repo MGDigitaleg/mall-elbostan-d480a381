@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, type LucideIcon } from "lucide-react";
+import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, SearchX, Compass, Lightbulb, type LucideIcon } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 
