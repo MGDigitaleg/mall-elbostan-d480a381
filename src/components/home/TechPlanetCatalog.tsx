@@ -503,7 +503,7 @@ const similarity = (a: string, b: string): number => {
   return shared / Math.max(setA.size, setB.size);
 };
 
-const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
+const EmptyState = ({ query, orbit, all, orbitDeepLink, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
   // How many would match the query if we ignored the orbit filter?
   // Uses the same weighted scoring as the main results for consistency.
   const matchesIgnoringOrbit = useMemo(() => {
