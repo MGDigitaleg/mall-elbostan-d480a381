@@ -99,6 +99,7 @@ export function MapTeaserPreview() {
             selectedUnitId={activeUnit.id}
             mutedUnitIds={mutedUnitIds}
             onSelectUnit={handleSelectUnit}
+            activeMarkerUnitId={modalUnit?.id ?? null}
             className="w-full max-w-full"
             hideControls
           />

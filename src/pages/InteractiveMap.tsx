@@ -216,7 +216,7 @@ const InteractiveMap = () => {
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
 
-  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setSelectedUnit(null); setMapLoaded(false); localStorage.setItem("map-selected-floor", id); };
+  const handleFloorChange = (id: MallFloorId) => { setSelectedFloor(id); setMapLoaded(false); localStorage.setItem("map-selected-floor", id); };
 
   return (
     <MainLayout>
@@ -435,6 +435,7 @@ const InteractiveMap = () => {
                       onAtriumClick={handleAtriumClick}
                       atriumConfig={atriumConfig}
                       highlightedUnitIds={highlightedUnitIds}
+                      activeMarkerUnitId={activeUnit?.id ?? null}
                       className={isFullscreen ? "min-h-screen" : undefined}
                     />
                   </motion.div>
