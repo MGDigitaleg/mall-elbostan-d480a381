@@ -43,5 +43,7 @@ Crawl-delay: 1
 
 # Sitemaps — dynamic edge function generates fresh XML from the database
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap
-# Static fallback
+# Static sitemap index (references sitemap-main.xml + sitemap-devices.xml)
 Sitemap: https://mallelbostan.com/sitemap.xml
+Sitemap: https://mallelbostan.com/sitemap-main.xml
+Sitemap: https://mallelbostan.com/sitemap-devices.xml
