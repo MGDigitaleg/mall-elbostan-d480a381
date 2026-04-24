@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SEOHead, organizationLd } from "@/components/SEOHead";
 import { getDeviceBySlug, deviceCatalog } from "@/lib/deviceCatalog";
 import { getPillar } from "@/lib/deviceTaxonomy";
+import { resolveDeviceHref } from "@/lib/deviceHref";
 import { TenantLogo } from "@/components/TenantLogo";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, Store as StoreIcon } from "lucide-react";
@@ -274,7 +275,7 @@ export default function DeviceCategory() {
                 .map((r) => (
                   <Link
                     key={r.slug}
-                    to={`/devices/${r.slug}`}
+                    to={resolveDeviceHref(r.slug)}
                     className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 font-arabic text-sm transition-colors hover:bg-muted"
                   >
                     <r.Icon size={16} />

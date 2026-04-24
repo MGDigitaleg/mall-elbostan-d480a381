@@ -11,6 +11,7 @@ import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
+import { resolveDeviceHref } from "@/lib/deviceHref";
 import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
 import { TechPlanetDirectory } from "@/components/home/TechPlanetDirectory";
 
@@ -165,7 +166,7 @@ const DeviceBadge = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          to={`/devices/${slug}`}
+          to={resolveDeviceHref(slug)}
           aria-label={label}
           onMouseEnter={() => onHoverChange(true)}
           onMouseLeave={() => onHoverChange(false)}
