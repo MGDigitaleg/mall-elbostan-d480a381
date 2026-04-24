@@ -22,6 +22,12 @@ export function MapTeaserPreview() {
     [floor.units],
   );
   const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(defaultUnit);
+  const [modalUnit, setModalUnit] = useState<MallUnit | null>(null);
+
+  const handleSelectUnit = (unit: MallUnit) => {
+    setSelectedUnit(unit);
+    setModalUnit(unit);
+  };
   const activeUnit = selectedUnit ?? defaultUnit;
 
   const mutedUnitIds = useMemo(
