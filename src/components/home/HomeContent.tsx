@@ -349,8 +349,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 13 · SEO INTERNAL LINKS ═══════════ */}
-      <SeoIntroFooter />
     </div>
   );
 }
