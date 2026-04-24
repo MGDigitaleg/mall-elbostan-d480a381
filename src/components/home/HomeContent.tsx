@@ -23,6 +23,10 @@ import { HeroSlider } from "@/components/home/HeroSlider";
 import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
 import { QuickActions } from "@/components/home/QuickActions";
 import { WhyElBostan } from "@/components/home/WhyElBostan";
+import { HomeAnchorNav } from "@/components/home/HomeAnchorNav";
+import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
+import { useSitePhone } from "@/hooks/useSitePhone";
+import { Mail } from "lucide-react";
 
 // FeaturedStores moved to /new-cairo-branch
 
