@@ -725,6 +725,9 @@ const SpinWin = () => {
             </ul>
           </div>
         )}
+
+        {/* User attempt history (local) */}
+        {step === "register" && <SpinHistoryPanel refreshKey={historyKey} />}
         </div>
       </section>
       </>
