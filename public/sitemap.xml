@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap index — Mall El Bostan
+  - sitemap-main.xml    : core pages (homepage, stores, products, info, branches…)
+  - sitemap-devices.xml : full device taxonomy (pillars + clusters + long-tail)
+-->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://mallelbostan.com/sitemap-main.xml</loc>
+    <lastmod>2026-04-24</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://mallelbostan.com/sitemap-devices.xml</loc>
+    <lastmod>2026-04-24</lastmod>
+  </sitemap>
+</sitemapindex>
