@@ -500,7 +500,7 @@ export const TechPlanetSection = () => {
         className="relative overflow-hidden"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 38%, #11264D 0%, #081530 38%, #030814 78%, #02050C 100%)",
+            "radial-gradient(ellipse 70% 60% at 50% 38%, #1B3470 0%, #0B1E48 22%, #050E2A 52%, #02060F 82%, #00030A 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
           minHeight: isMobile ? 580 : 760,
@@ -511,6 +511,21 @@ export const TechPlanetSection = () => {
         <style>{`
           @keyframes tp-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
           @keyframes tp-beam-rot { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+          @keyframes tp-beam-rot-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+          @keyframes tp-nebula-pulse {
+            0%,100% { opacity: 0.55; transform: translate(-50%,-50%) scale(1); }
+            50% { opacity: 0.85; transform: translate(-50%,-50%) scale(1.08); }
+          }
+          @keyframes tp-twinkle {
+            0%,100% { opacity: var(--tp-op,0.4); }
+            50% { opacity: 0.05; }
+          }
+          @keyframes tp-shoot {
+            0% { transform: translate(0,0) rotate(var(--tp-ang,-20deg)); opacity: 0; }
+            10% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translate(var(--tp-dx,-260px), var(--tp-dy,140px)) rotate(var(--tp-ang,-20deg)); opacity: 0; }
+          }
           @keyframes tp-soon-pulse {
             0%,100% { box-shadow: 0 0 0 0 rgba(252,211,77,0.55), 0 0 18px rgba(252,211,77,0.35); }
             50% { box-shadow: 0 0 0 8px rgba(252,211,77,0), 0 0 28px rgba(252,211,77,0.6); }
@@ -519,45 +534,121 @@ export const TechPlanetSection = () => {
 
         {/* Cosmic background layers */}
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          {/* Slow rotating conic light beam */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.18]"
-            style={{
-              width: "140%",
-              height: "140%",
-              background:
-                "conic-gradient(from 0deg, transparent 0deg, rgba(125,211,252,0.35) 25deg, transparent 70deg, transparent 180deg, rgba(167,139,250,0.30) 210deg, transparent 260deg, transparent 360deg)",
-              animation: !reduce && active ? "tp-beam-rot 60s linear infinite" : undefined,
-              filter: "blur(40px)",
-            }}
-          />
-          {/* Vignette */}
+          {/* Deep nebula color wash (cyan + violet + gold ember) */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(2,5,12,0.55) 78%, rgba(2,5,12,0.95) 100%)",
+                "radial-gradient(circle at 18% 28%, rgba(125,211,252,0.18) 0%, transparent 42%), radial-gradient(circle at 82% 72%, rgba(167,139,250,0.20) 0%, transparent 45%), radial-gradient(circle at 50% 100%, rgba(252,211,77,0.10) 0%, transparent 55%)",
             }}
           />
-          {/* Stars layer */}
-          <svg className="absolute inset-0 h-full w-full opacity-70" aria-hidden>
-            {Array.from({ length: 70 }).map((_, i) => {
+
+          {/* Pulsing central nebula behind the orbits */}
+          <div
+            className="absolute left-1/2 top-1/2"
+            style={{
+              width: isMobile ? 460 : 720,
+              height: isMobile ? 460 : 720,
+              transform: "translate(-50%,-50%)",
+              background:
+                "radial-gradient(circle, rgba(96,165,250,0.35) 0%, rgba(167,139,250,0.22) 35%, rgba(7,19,38,0) 70%)",
+              filter: "blur(30px)",
+              animation: !reduce && active ? "tp-nebula-pulse 7s ease-in-out infinite" : undefined,
+              willChange: "transform, opacity",
+            }}
+          />
+
+          {/* Twin rotating conic light beams (counter-rotating) */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.22]"
+            style={{
+              width: "150%",
+              height: "150%",
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, rgba(125,211,252,0.45) 28deg, transparent 75deg, transparent 180deg, rgba(167,139,250,0.4) 215deg, transparent 270deg, transparent 360deg)",
+              animation: !reduce && active ? "tp-beam-rot 60s linear infinite" : undefined,
+              filter: "blur(50px)",
+            }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.14]"
+            style={{
+              width: "130%",
+              height: "130%",
+              background:
+                "conic-gradient(from 90deg, transparent 0deg, rgba(252,211,77,0.30) 18deg, transparent 60deg, transparent 220deg, rgba(56,189,248,0.32) 250deg, transparent 300deg, transparent 360deg)",
+              animation: !reduce && active ? "tp-beam-rot-rev 95s linear infinite" : undefined,
+              filter: "blur(60px)",
+            }}
+          />
+
+          {/* Vignette — tightens focus to the planet */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0,3,10,0.65) 75%, rgba(0,3,10,0.98) 100%)",
+            }}
+          />
+
+          {/* Stars layer — 90 stars, some twinkle */}
+          <svg className="absolute inset-0 h-full w-full" aria-hidden>
+            {Array.from({ length: 90 }).map((_, i) => {
               const cx = (i * 53.7) % 100;
               const cy = (i * 31.3) % 100;
-              const r = (i % 5 === 0 ? 1.4 : i % 3 === 0 ? 1 : 0.7);
-              const op = i % 4 === 0 ? 0.85 : i % 2 === 0 ? 0.55 : 0.3;
+              const r = (i % 6 === 0 ? 1.6 : i % 3 === 0 ? 1.1 : 0.7);
+              const op = i % 4 === 0 ? 0.9 : i % 2 === 0 ? 0.6 : 0.32;
+              const fill =
+                i % 9 === 0 ? "#FCD34D" :
+                i % 5 === 0 ? "#A78BFA" :
+                i % 3 === 0 ? "#7DD3FC" : "#E0F2FE";
+              const twinkle = !reduce && active && i % 4 === 0;
               return (
                 <circle
                   key={i}
                   cx={`${cx}%`}
                   cy={`${cy}%`}
                   r={r}
-                  fill={i % 7 === 0 ? "#FCD34D" : i % 3 === 0 ? "#A78BFA" : "#E0F2FE"}
+                  fill={fill}
                   opacity={op}
+                  style={twinkle ? {
+                    ["--tp-op" as string]: String(op),
+                    animation: `tp-twinkle ${3 + (i % 5)}s ease-in-out ${(i % 7) * 0.4}s infinite`,
+                  } : undefined}
                 />
               );
             })}
           </svg>
+
+          {/* Shooting stars — 3 streaks at varied delays */}
+          {!reduce && active && [0, 1, 2].map((i) => {
+            const cfgs = [
+              { top: "18%", left: "82%", dx: "-340px", dy: "180px", ang: "-28deg", dur: 7, delay: 1.2 },
+              { top: "62%", left: "70%", dx: "-280px", dy: "120px", ang: "-22deg", dur: 9, delay: 4.5 },
+              { top: "38%", left: "90%", dx: "-420px", dy: "230px", ang: "-30deg", dur: 11, delay: 7.8 },
+            ];
+            const c = cfgs[i];
+            return (
+              <span
+                key={`shoot-${i}`}
+                className="absolute"
+                style={{
+                  top: c.top,
+                  left: c.left,
+                  width: 120,
+                  height: 1.5,
+                  background: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(125,211,252,0.7) 40%, transparent)",
+                  borderRadius: 999,
+                  filter: "drop-shadow(0 0 6px rgba(125,211,252,0.8))",
+                  ["--tp-dx" as string]: c.dx,
+                  ["--tp-dy" as string]: c.dy,
+                  ["--tp-ang" as string]: c.ang,
+                  animation: `tp-shoot ${c.dur}s ease-in ${c.delay}s infinite`,
+                  willChange: "transform, opacity",
+                }}
+              />
+            );
+          })}
         </div>
 
 
