@@ -369,11 +369,14 @@ export const TechPlanetSection = () => {
         innerR: 130,
         middleR: 0,
         outerR: 0,
+        satelliteR: 0,
         innerSize: 48,
         middleSize: 0,
         outerSize: 0,
+        satelliteSize: 0,
         showMiddle: false,
         showOuter: false,
+        showSatellites: false,
       };
     }
     return {
