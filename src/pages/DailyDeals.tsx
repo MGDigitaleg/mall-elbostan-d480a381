@@ -233,11 +233,41 @@ const DailyDeals = () => {
                 <h2 className="text-[0.98rem] font-bold text-foreground">{sectionTitle}</h2>
                 <p className="mt-1 text-[0.72rem] leading-6 text-muted-foreground">{sectionDescription}</p>
               </div>
-              {!isExpired && (
-                <div className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary">
-                  المحلات مفتوحة الآن
+              <div className="flex flex-wrap items-center gap-2">
+                <div
+                  role="group"
+                  aria-label="ترتيب العروض"
+                  className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-card p-1 shadow-sm"
+                >
+                  <span className="hidden items-center gap-1 px-2 text-[0.66rem] font-semibold text-muted-foreground sm:inline-flex">
+                    <ArrowDownUp className="h-3.5 w-3.5" /> ترتيب
+                  </span>
+                  {([
+                    { key: "newest", label: "الأحدث" },
+                    { key: "strongest", label: "الأقوى" },
+                    { key: "expiring", label: "الأقرب لانتهاء العرض" },
+                  ] as { key: SortKey; label: string }[]).map((opt) => (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => setSortKey(opt.key)}
+                      aria-pressed={sortKey === opt.key}
+                      className={`h-7 rounded-full px-3 text-[0.68rem] font-bold transition-colors ${
+                        sortKey === opt.key
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
-              )}
+                {!isExpired && (
+                  <div className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary">
+                    المحلات مفتوحة الآن
+                  </div>
+                )}
+              </div>
             </div>
 
             {!isExpired ? (
