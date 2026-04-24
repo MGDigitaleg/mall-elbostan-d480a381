@@ -85,10 +85,11 @@ type OrbitProps = {
   reduce: boolean;
   paused: boolean;
   onHoverChange: (hovered: boolean) => void;
+  iconColor: string;
 };
 
 const Orbit = ({
-  devices, radius, duration, iconSize, reverse, active, reduce, paused, onHoverChange,
+  devices, radius, duration, iconSize, reverse, active, reduce, paused, onHoverChange, iconColor,
 }: OrbitProps) => {
   const playState = !active || reduce || paused ? "paused" : "running";
   const direction = reverse ? "reverse" : "normal";
@@ -118,6 +119,7 @@ const Orbit = ({
             reverse={reverse}
             playState={playState}
             onHoverChange={onHoverChange}
+            iconColor={iconColor}
           />
         );
       })}
@@ -126,7 +128,7 @@ const Orbit = ({
 };
 
 const DeviceBadge = ({
-  device, x, y, size, counterRotateDuration, reverse, playState, onHoverChange,
+  device, x, y, size, counterRotateDuration, reverse, playState, onHoverChange, iconColor,
 }: {
   device: Device;
   x: number;
@@ -136,6 +138,7 @@ const DeviceBadge = ({
   reverse?: boolean;
   playState: "running" | "paused";
   onHoverChange: (hovered: boolean) => void;
+  iconColor: string;
 }) => {
   const { Icon, label, slug } = device;
   // Counter-rotate in opposite direction of the orbit so icons stay upright
@@ -160,12 +163,13 @@ const DeviceBadge = ({
             marginTop: -size / 2,
             insetInlineStart: "50%",
             top: "50%",
+            ["--tp-icon" as string]: iconColor,
           }}
         >
           <div
-            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-transform duration-300 group-hover:scale-[1.3]"
+            className="flex h-full w-full items-center justify-center rounded-xl border backdrop-blur-sm transition-all duration-300 group-hover:scale-[1.3] group-hover:border-[#FCD34D]/60"
             style={{
-              borderColor: "rgba(205, 187, 154, 0.25)",
+              borderColor: "rgba(205, 187, 154, 0.22)",
               background: "rgba(255, 255, 255, 0.04)",
               boxShadow: "0 4px 16px rgba(7, 19, 38, 0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
               willChange: "transform",
@@ -177,7 +181,8 @@ const DeviceBadge = ({
             <Icon
               size={size * 0.5}
               strokeWidth={1.6}
-              className="text-[#60A5FA] transition-colors duration-300 group-hover:text-[#CDBB9A]"
+              className="transition-colors duration-300 group-hover:text-[#FCD34D]"
+              style={{ color: iconColor }}
             />
           </div>
         </Link>
@@ -190,7 +195,10 @@ const DeviceBadge = ({
         avoidCollisions
         className="font-arabic text-[0.78rem] max-w-[60vw]"
       >
-        {label}
+        <span className="flex items-center gap-1.5">
+          {label}
+          <ArrowLeft className="h-3 w-3 opacity-70" />
+        </span>
       </TooltipContent>
     </Tooltip>
   );
