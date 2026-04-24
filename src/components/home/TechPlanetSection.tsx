@@ -563,33 +563,71 @@ export const TechPlanetSection = () => {
             }}
           />
 
-          {/* Stars layer — 90 stars, some twinkle */}
-          <svg className="absolute inset-0 h-full w-full" aria-hidden>
-            {Array.from({ length: 90 }).map((_, i) => {
-              const cx = (i * 53.7) % 100;
-              const cy = (i * 31.3) % 100;
-              const r = (i % 6 === 0 ? 1.6 : i % 3 === 0 ? 1.1 : 0.7);
-              const op = i % 4 === 0 ? 0.9 : i % 2 === 0 ? 0.6 : 0.32;
-              const fill =
-                i % 9 === 0 ? "#FCD34D" :
-                i % 5 === 0 ? "#A78BFA" :
-                i % 3 === 0 ? "#7DD3FC" : "#E0F2FE";
-              const twinkle = !reduce && active && i % 4 === 0;
-              return (
-                <circle
-                  key={i}
-                  cx={`${cx}%`}
-                  cy={`${cy}%`}
-                  r={r}
-                  fill={fill}
-                  opacity={op}
-                  style={twinkle ? {
-                    ["--tp-op" as string]: String(op),
-                    animation: `tp-twinkle ${3 + (i % 5)}s ease-in-out ${(i % 7) * 0.4}s infinite`,
-                  } : undefined}
-                />
-              );
-            })}
+          {/* Stars layer — 90 stars; 8 of the largest are clickable constellation links */}
+          <svg className="absolute inset-0 h-full w-full pointer-events-none" aria-hidden={false} role="presentation">
+            {(() => {
+              const stars = Array.from({ length: 90 });
+              let prominentIdx = 0;
+              return stars.map((_, i) => {
+                const cx = (i * 53.7) % 100;
+                const cy = (i * 31.3) % 100;
+                const isProminent = i % 6 === 0;
+                const r = isProminent ? 1.6 : i % 3 === 0 ? 1.1 : 0.7;
+                const op = i % 4 === 0 ? 0.9 : i % 2 === 0 ? 0.6 : 0.32;
+                const fill =
+                  i % 9 === 0 ? "#FCD34D" :
+                  i % 5 === 0 ? "#A78BFA" :
+                  i % 3 === 0 ? "#7DD3FC" : "#E0F2FE";
+                const twinkle = !reduce && active && i % 4 === 0;
+                const twinkleStyle = twinkle ? {
+                  ["--tp-op" as string]: String(op),
+                  animation: `tp-twinkle ${3 + (i % 5)}s ease-in-out ${(i % 7) * 0.4}s infinite`,
+                } : undefined;
+
+                // First 8 prominent stars become navigation portals
+                if (isProminent && prominentIdx < CONSTELLATION_LINKS.length) {
+                  const link = CONSTELLATION_LINKS[prominentIdx];
+                  prominentIdx += 1;
+                  return (
+                    <Link key={i} to={link.to} aria-label={link.title} style={{ pointerEvents: "auto" }}>
+                      <g className="group cursor-pointer">
+                        <title>{link.title}</title>
+                        {/* Outer halo on hover */}
+                        <circle
+                          cx={`${cx}%`}
+                          cy={`${cy}%`}
+                          r={r * 5}
+                          fill="#FCD34D"
+                          opacity={0}
+                          className="transition-opacity duration-300 group-hover:opacity-20 group-focus-visible:opacity-25"
+                        />
+                        <circle
+                          cx={`${cx}%`}
+                          cy={`${cy}%`}
+                          r={r * 1.2}
+                          fill={fill}
+                          opacity={Math.min(1, op + 0.1)}
+                          className="transition-all duration-300 group-hover:fill-[#FCD34D]"
+                          style={twinkleStyle}
+                        />
+                      </g>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <circle
+                    key={i}
+                    cx={`${cx}%`}
+                    cy={`${cy}%`}
+                    r={r}
+                    fill={fill}
+                    opacity={op}
+                    style={twinkleStyle}
+                  />
+                );
+              });
+            })()}
           </svg>
 
           {/* Shooting stars — 3 streaks at varied delays */}
