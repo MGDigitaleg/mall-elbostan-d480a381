@@ -747,6 +747,7 @@ export const TechPlanetSection = () => {
               reduce={reduce}
               paused={hoveredOrbit === 0}
               onHoverChange={(h) => setHoveredOrbit(h ? 0 : null)}
+              iconColor="#7DD3FC"
             />
             {sizes.showMiddle && (
               <Orbit
@@ -759,6 +760,7 @@ export const TechPlanetSection = () => {
                 reduce={reduce}
                 paused={hoveredOrbit === 1}
                 onHoverChange={(h) => setHoveredOrbit(h ? 1 : null)}
+                iconColor="#60A5FA"
               />
             )}
             {sizes.showOuter && (
@@ -771,6 +773,7 @@ export const TechPlanetSection = () => {
                 reduce={reduce}
                 paused={hoveredOrbit === 2}
                 onHoverChange={(h) => setHoveredOrbit(h ? 2 : null)}
+                iconColor="#A78BFA"
               />
             )}
 
