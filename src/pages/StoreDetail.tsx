@@ -486,17 +486,25 @@ const StoreDetail = () => {
                         </div>
                         <div>
                           <h2 className="text-[0.92rem] font-bold text-foreground">عروض الافتتاح من هذا المحل</h2>
-                          <p className="text-[0.66rem] text-muted-foreground">{storeOffers.length} عرض مرتبط بصفحة المتجر</p>
+                          <p className="text-[0.66rem] text-muted-foreground">{storeOffers.length} عرض خاص بـ {store.name_ar}</p>
                         </div>
                       </div>
                       <Link to={`/daily-deals?merchant=${store.slug}`}
                             className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-[0.72rem] font-semibold text-primary transition-colors hover:bg-primary/5">
-                        شاهد كل العروض <ChevronLeft className="h-3 w-3" />
+                        شاهد كل عروض هذا المحل <ChevronLeft className="h-3 w-3" />
                       </Link>
                     </div>
                     <div className="grid gap-4 p-4 md:grid-cols-2 md:p-5">
                       {storeOffers.map((offer: any) => (
-                        <OpeningOfferCard key={offer.id} offer={offer} compact showStoreLink={false} showAllStoreOffersCta={false} />
+                        <OpeningOfferCard
+                          key={offer.id}
+                          offer={offer}
+                          compact
+                          showStoreLink={false}
+                          showAllStoreOffersCta={false}
+                          directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
+                          directOfferLabel="انتقل إلى بطاقة العرض"
+                        />
                       ))}
                     </div>
                   </div>
