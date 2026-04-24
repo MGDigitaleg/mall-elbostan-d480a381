@@ -4,6 +4,7 @@ import { Search, X, ArrowLeft, ExternalLink, Sparkles, Layers, SearchX, Compass,
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { resolveDeviceHref } from "@/lib/deviceHref";
+import { scoreDevice, tokenizeQuery } from "@/lib/deviceSearchIndex";
 
 export type CatalogDevice = {
   Icon: LucideIcon;
@@ -111,12 +112,15 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
   }, [inner, middle, outer]);
 
   const results = useMemo(() => {
-    const q = normalize(query);
-    return all.filter((d) => {
-      if (orbit !== "all" && d.ring !== orbit) return false;
-      if (!q) return true;
-      return normalize(d.label).includes(q) || normalize(d.slug).includes(q);
-    });
+    const tokens = tokenizeQuery(query);
+    const scored = all
+      .filter((d) => orbit === "all" || d.ring === orbit)
+      .map((d) => ({ d, score: tokens.length === 0 ? 1 : scoreDevice(d.slug, tokens) }))
+      .filter((r) => r.score > 0);
+
+    // When no query, preserve catalog order; with a query, sort by score desc.
+    if (tokens.length > 0) scored.sort((a, b) => b.score - a.score);
+    return scored.map((r) => r.d);
   }, [all, orbit, query]);
 
   const counts: Record<OrbitKey, number> = {
@@ -438,10 +442,11 @@ const similarity = (a: string, b: string): number => {
 
 const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
   // How many would match the query if we ignored the orbit filter?
+  // Uses the same weighted scoring as the main results for consistency.
   const matchesIgnoringOrbit = useMemo(() => {
-    const q = normalize(query);
-    if (!q) return [] as typeof all;
-    return all.filter((d) => normalize(d.label).includes(q) || normalize(d.slug).includes(q));
+    const tokens = tokenizeQuery(query);
+    if (tokens.length === 0) return [] as typeof all;
+    return all.filter((d) => scoreDevice(d.slug, tokens) > 0);
   }, [all, query]);
 
   // "Did you mean" — closest matching device labels by character similarity.
