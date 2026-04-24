@@ -923,6 +923,88 @@ export const TechPlanetSection = () => {
               />
             )}
 
+            {/* ─── Satellite orbit (4th ring, links to mall experiences) ─── */}
+            {sizes.showSatellites && (
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{
+                  willChange: "transform",
+                  animation: `tp-spin 60s linear infinite`,
+                  animationPlayState: !active || reduce || hoveredOrbit === 3 ? "paused" : "running",
+                  animationDirection: "reverse",
+                }}
+              >
+                {satellites.map((sat, i) => {
+                  const angle = (i / satellites.length) * Math.PI * 2;
+                  const x = Math.cos(angle) * sizes.satelliteR;
+                  const y = Math.sin(angle) * sizes.satelliteR;
+                  const size = sizes.satelliteSize;
+                  return (
+                    <Tooltip key={sat.label}>
+                      <TooltipTrigger asChild>
+                        <Link
+                          to={sat.to}
+                          aria-label={sat.label}
+                          onMouseEnter={() => setHoveredOrbit(3)}
+                          onMouseLeave={() => setHoveredOrbit(null)}
+                          onFocus={() => setHoveredOrbit(3)}
+                          onBlur={() => setHoveredOrbit(null)}
+                          className="absolute group focus:outline-none"
+                          style={{
+                            transform: `translate(${x}px, ${y}px)`,
+                            width: size,
+                            height: size,
+                            marginInlineStart: -size / 2,
+                            marginTop: -size / 2,
+                            insetInlineStart: "50%",
+                            top: "50%",
+                          }}
+                        >
+                          <div
+                            className="flex h-full w-full items-center justify-center rounded-full border backdrop-blur-md transition-all duration-300 group-hover:scale-[1.3]"
+                            style={{
+                              borderColor: `${sat.color}55`,
+                              background: `${sat.color}14`,
+                              boxShadow: `0 4px 18px ${sat.color}33, inset 0 1px 0 rgba(255,255,255,0.08)`,
+                              willChange: "transform",
+                              animation: `tp-spin 60s linear infinite`,
+                              animationDirection: "normal",
+                              animationPlayState: !active || reduce || hoveredOrbit === 3 ? "paused" : "running",
+                            }}
+                          >
+                            <sat.Icon
+                              size={size * 0.5}
+                              strokeWidth={1.7}
+                              style={{ color: sat.color }}
+                            />
+                          </div>
+                          {/* Tiny dotted trail to suggest a satellite */}
+                          <span
+                            aria-hidden
+                            className="absolute -top-1 start-1/2 h-1 w-1 rounded-full"
+                            style={{ background: sat.color, boxShadow: `0 0 6px ${sat.color}` }}
+                          />
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent
+                        side="top"
+                        align="center"
+                        sideOffset={8}
+                        collisionPadding={12}
+                        avoidCollisions
+                        className="font-arabic text-[0.78rem]"
+                      >
+                        <span className="flex items-center gap-1.5">
+                          {sat.label}
+                          <ArrowLeft className="h-3 w-3 opacity-70" />
+                        </span>
+                      </TooltipContent>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+            )}
+
             <div
               className="absolute"
               style={{
