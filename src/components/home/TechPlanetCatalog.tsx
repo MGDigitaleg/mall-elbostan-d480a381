@@ -5,6 +5,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { resolveDeviceHref } from "@/lib/deviceHref";
 import { scoreDevice, tokenizeQuery } from "@/lib/deviceSearchIndex";
+import { clusters as taxonomyClusters, pillars as taxonomyPillars } from "@/lib/deviceTaxonomy";
 
 export type CatalogDevice = {
   Icon: LucideIcon;
@@ -110,6 +111,46 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
       devices.map((d) => ({ ...d, ring }));
     return [...tag(inner, "inner"), ...tag(middle, "middle"), ...tag(outer, "outer")];
   }, [inner, middle, outer]);
+
+  // Map every catalog slug to its taxonomy pillar (if any) so each orbit can
+  // deep-link into the new /devices/{pillar}[/{cluster}[/{longtail}]] hub
+  // pages instead of the legacy /devices/{slug} routes.
+  const slugToPillar = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const c of taxonomyClusters) m.set(c.slug, c.pillarSlug);
+    return m;
+  }, []);
+
+  // For each orbit (inner/middle/outer), pick the dominant pillar based on
+  // how many of that orbit's devices live under it. Used for the
+  // "تصفّح هذا المدار في صفحة موسّعة" CTA next to the active chip.
+  const orbitDeepLinks = useMemo(() => {
+    const out: Record<Exclude<OrbitKey, "all">, { href: string; labelAr: string } | null> = {
+      inner: null,
+      middle: null,
+      outer: null,
+    };
+    const groups: Record<Exclude<OrbitKey, "all">, CatalogDevice[]> = { inner, middle, outer };
+    for (const ring of ["inner", "middle", "outer"] as const) {
+      const counts = new Map<string, number>();
+      for (const d of groups[ring]) {
+        const pillar = slugToPillar.get(d.slug) ?? null;
+        if (!pillar) continue;
+        counts.set(pillar, (counts.get(pillar) ?? 0) + 1);
+      }
+      let bestSlug: string | null = null;
+      let bestCount = 0;
+      counts.forEach((n, slug) => {
+        if (n > bestCount) { bestCount = n; bestSlug = slug; }
+      });
+      if (!bestSlug) continue;
+      const pillarMeta = taxonomyPillars.find((p) => p.slug === bestSlug);
+      if (!pillarMeta) continue;
+      out[ring] = { href: `/devices/${pillarMeta.slug}`, labelAr: pillarMeta.labelAr };
+    }
+    return out;
+  }, [inner, middle, outer, slugToPillar]);
+
 
   const results = useMemo(() => {
     const tokens = tokenizeQuery(query);
@@ -335,6 +376,26 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
         </div>
       </div>
 
+      {/* Deep-link to the new taxonomy hub for the active orbit */}
+      {orbit !== "all" && orbitDeepLinks[orbit] && (
+        <div className="mt-3 flex justify-end">
+          <Link
+            to={orbitDeepLinks[orbit]!.href}
+            className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-arabic text-[0.72rem] transition-all hover:bg-white/10"
+            style={{
+              borderColor: `${ORBIT_COLORS[orbit]}55`,
+              color: ORBIT_COLORS[orbit],
+              background: `${ORBIT_COLORS[orbit]}10`,
+            }}
+            aria-label={`تصفّح ${ORBIT_LABELS[orbit]} في صفحة ${orbitDeepLinks[orbit]!.labelAr} الموسّعة`}
+          >
+            <ExternalLink className="h-3 w-3" />
+            تصفّح {orbitDeepLinks[orbit]!.labelAr} في صفحة موسّعة
+            <ArrowLeft className="h-3 w-3" />
+          </Link>
+        </div>
+      )}
+
       {/* Results */}
       <div className="mt-5">
         <p className="mb-3 font-arabic text-[0.72rem]" style={{ color: "rgba(255,255,255,0.55)" }}>
@@ -398,6 +459,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
             query={query}
             orbit={orbit}
             all={all}
+            orbitDeepLink={orbit === "all" ? null : orbitDeepLinks[orbit]}
             onClearQuery={() => {
               setQuery("");
               requestAnimationFrame(() => searchRef.current?.focus());
@@ -419,6 +481,7 @@ type EmptyProps = {
   query: string;
   orbit: OrbitKey;
   all: Array<CatalogDevice & { ring: Exclude<OrbitKey, "all"> }>;
+  orbitDeepLink: { href: string; labelAr: string } | null;
   onClearQuery: () => void;
   onResetOrbit: () => void;
   onPickSuggestion: (s: string) => void;
@@ -440,7 +503,7 @@ const similarity = (a: string, b: string): number => {
   return shared / Math.max(setA.size, setB.size);
 };
 
-const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
+const EmptyState = ({ query, orbit, all, orbitDeepLink, onClearQuery, onResetOrbit, onPickSuggestion }: EmptyProps) => {
   // How many would match the query if we ignored the orbit filter?
   // Uses the same weighted scoring as the main results for consistency.
   const matchesIgnoringOrbit = useMemo(() => {
@@ -605,6 +668,20 @@ const EmptyState = ({ query, orbit, all, onClearQuery, onResetOrbit, onPickSugge
               <X className="h-3 w-3" />
               مسح البحث
             </button>
+          )}
+          {orbitFilterActive && orbitDeepLink && (
+            <Link
+              to={orbitDeepLink.href}
+              className="inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 font-arabic text-[0.75rem] font-semibold transition-all hover:bg-white/10"
+              style={{
+                borderColor: "rgba(252,211,77,0.45)",
+                color: "#FCD34D",
+                background: "rgba(252,211,77,0.06)",
+              }}
+            >
+              <ExternalLink className="h-3 w-3" />
+              تصفّح {orbitDeepLink.labelAr} في صفحة موسّعة
+            </Link>
           )}
         </div>
 
