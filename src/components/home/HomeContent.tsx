@@ -23,6 +23,10 @@ import { HeroSlider } from "@/components/home/HeroSlider";
 import { HeroSliderMobile } from "@/components/home/HeroSliderMobile";
 import { QuickActions } from "@/components/home/QuickActions";
 import { WhyElBostan } from "@/components/home/WhyElBostan";
+import { HomeAnchorNav } from "@/components/home/HomeAnchorNav";
+import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
+import { useSitePhone } from "@/hooks/useSitePhone";
+import { Mail } from "lucide-react";
 
 // FeaturedStores moved to /new-cairo-branch
 
@@ -78,6 +82,7 @@ type ProductRow = {
 export function HomeContent({ faqs }: HomeContentProps) {
   const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
   const isMobile = useIsMobile();
+  const { phone: officialPhone } = useSitePhone();
 
   /* Defer product fetch */
   const [ready, setReady] = useState(false);
@@ -134,6 +139,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
 
+      {/* ═══════════ HOMEPAGE ANCHOR NAV ═══════════ */}
+      <HomeAnchorNav />
+
       {/* ═══════════ SEO INTRO ═══════════ */}
       <section className="bg-card dark:bg-background" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
         <div className="container max-w-4xl text-center">
@@ -170,8 +178,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 5 · INTERACTIVE MAP TEASER (compact) ═══════════ */}
       <section
+        id="home-map"
         className="bg-card dark:bg-background"
         style={{
+          scrollMarginTop: 80,
           contentVisibility: "auto",
           containIntrinsicSize: "auto 200px",
           paddingTop: "clamp(28px, 4vw, 56px)",
@@ -224,7 +234,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <WhyElBostan />
 
       {/* ═══════════ 9 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
+      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
         <LazySection minHeight={280}>
           <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
         </LazySection>
@@ -297,10 +307,99 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
+      {/* ═══════════ 11.5 · CONTACT STRIP ═══════════ */}
+      <section
+        id="home-contact"
+        className="relative"
+        style={{
+          scrollMarginTop: 80,
+          background: "linear-gradient(180deg, #071326 0%, #0A1830 100%)",
+          paddingTop: "clamp(40px, 5vw, 72px)",
+          paddingBottom: "clamp(40px, 5vw, 72px)",
+        }}
+      >
+        <div className="container max-w-4xl">
+          <Reveal>
+            <div className="text-center mb-6">
+              <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-2" style={{ color: "#60A5FA" }}>تواصل معنا</p>
+              <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]"
+                  style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+                نحن هنا للإجابة على استفساراتك
+              </h2>
+              <p className="mt-2 text-[0.82rem] leading-[1.7]" style={{ color: "#94A3B8" }}>
+                للاستفسارات التجارية، التأجير، أو الزيارة — رد خلال يوم عمل واحد.
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              {officialPhone && (
+                <a
+                  href={`tel:${officialPhone}`}
+                  className="group flex items-center gap-3 rounded-xl p-4 transition-all duration-300 hover:bg-white/[0.04]"
+                  style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                        style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+                    <Phone className="h-4 w-4" style={{ color: "#34D399" }} />
+                  </span>
+                  <div>
+                    <p className="text-[0.7rem]" style={{ color: "#7C8BA1" }}>الهاتف</p>
+                    <p className="font-poppins text-[0.84rem] font-bold" style={{ color: "#F1F5F9" }} dir="ltr">{officialPhone}</p>
+                  </div>
+                </a>
+              )}
+
+              <a
+                href={`https://wa.me/${OFFICIAL_WHATSAPP}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-xl p-4 transition-all duration-300 hover:bg-white/[0.04]"
+                style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                      style={{ background: "#25D36615", border: "1px solid #25D36628" }}>
+                  <Phone className="h-4 w-4" style={{ color: "#25D366" }} />
+                </span>
+                <div>
+                  <p className="text-[0.7rem]" style={{ color: "#7C8BA1" }}>واتساب</p>
+                  <p className="text-[0.84rem] font-bold" style={{ color: "#F1F5F9" }}>راسلنا الآن</p>
+                </div>
+              </a>
+
+              <a
+                href="mailto:info@mallelbostan.com"
+                className="group flex items-center gap-3 rounded-xl p-4 transition-all duration-300 hover:bg-white/[0.04]"
+                style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                      style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
+                  <Mail className="h-4 w-4" style={{ color: "#60A5FA" }} />
+                </span>
+                <div>
+                  <p className="text-[0.7rem]" style={{ color: "#7C8BA1" }}>البريد</p>
+                  <p className="font-poppins text-[0.82rem] font-bold" style={{ color: "#F1F5F9" }}>info@mallelbostan.com</p>
+                </div>
+              </a>
+            </div>
+
+            <div className="mt-5 text-center">
+              <Link to="/contact" className="inline-flex">
+                <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
+                        style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
+                  صفحة التواصل الكاملة <ArrowLeft className="h-3 w-3" />
+                </Button>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ═══════════ 12 · FINAL CTA ═══════════ */}
       <section
+        id="home-leasing"
         className="relative overflow-hidden"
         style={{
+          scrollMarginTop: 80,
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
           paddingTop: "clamp(56px, 7vw, 112px)",
           paddingBottom: "clamp(56px, 7vw, 112px)",
