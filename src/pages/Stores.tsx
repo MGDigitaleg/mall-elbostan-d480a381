@@ -411,6 +411,33 @@ const Stores = () => {
                 />
               </div>
 
+              {/* Sort dropdown — RTL */}
+              <div className="relative">
+                <label htmlFor="stores-sort" className="sr-only">ترتيب المحلات</label>
+                <select
+                  id="stores-sort"
+                  dir="rtl"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as SortKey)}
+                  className="h-11 w-full lg:w-auto cursor-pointer appearance-none rounded-xl pr-10 pl-4 text-[0.8rem] font-bold outline-none transition-all focus:ring-2 focus:ring-primary/30"
+                  style={{
+                    border: `1px solid ${sortBy !== "default" ? "#2D6BFF45" : "#ffffff14"}`,
+                    background: sortBy !== "default" ? "linear-gradient(135deg, #2D6BFF20, #2D6BFF10)" : "#ffffff0A",
+                    color: sortBy !== "default" ? "#5B9AFF" : "#CBD5E1",
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 8 4-4 4 4'/%3E%3Cpath d='M7 4v16'/%3E%3Cpath d='M17 20V4'/%3E%3Cpath d='m21 16-4 4-4-4'/%3E%3C/svg%3E")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "left 12px center",
+                    paddingLeft: "32px",
+                  }}
+                  aria-label="ترتيب المحلات"
+                >
+                  {sortOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value} style={{ background: "#0B1220", color: "#F8FAFC" }}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               {/* Filter chips */}
               <div className="flex flex-wrap items-center gap-1.5">
                 <FilterChip active={!selectedCategory && !selectedStatus} onClick={clearFilters}>الكل</FilterChip>
