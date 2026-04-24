@@ -1460,8 +1460,12 @@ export type Database = {
           global_keywords_en: string[]
           homepage_feature_limit: number
           id: string
+          last_run_at: string | null
+          last_run_error: string | null
+          last_run_status: string | null
           monitoring_enabled: boolean
           schedule_cron: string
+          schedule_secret: string
           updated_at: string
         }
         Insert: {
@@ -1473,8 +1477,12 @@ export type Database = {
           global_keywords_en?: string[]
           homepage_feature_limit?: number
           id?: string
+          last_run_at?: string | null
+          last_run_error?: string | null
+          last_run_status?: string | null
           monitoring_enabled?: boolean
           schedule_cron?: string
+          schedule_secret?: string
           updated_at?: string
         }
         Update: {
@@ -1486,8 +1494,12 @@ export type Database = {
           global_keywords_en?: string[]
           homepage_feature_limit?: number
           id?: string
+          last_run_at?: string | null
+          last_run_error?: string | null
+          last_run_status?: string | null
           monitoring_enabled?: boolean
           schedule_cron?: string
+          schedule_secret?: string
           updated_at?: string
         }
         Relationships: []
