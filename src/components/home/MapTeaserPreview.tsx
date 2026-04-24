@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Compass, Layers, MapPin, Store } from "lucide-react";
+import { ArrowLeft, Compass, Layers, MapPin, Store, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
