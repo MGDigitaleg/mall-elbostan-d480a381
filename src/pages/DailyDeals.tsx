@@ -58,11 +58,40 @@ const DailyDeals = () => {
   const openNowCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
   const PREVIEW_LIMIT = 4;
   const [showAllPreview, setShowAllPreview] = useState(false);
+  type SortKey = "newest" | "strongest" | "expiring";
+  const [sortKey, setSortKey] = useState<SortKey>("newest");
+
   const previewPrimaryOffer = useMemo(() => (deals ?? []).find((deal) => deal.featured) ?? (deals ?? [])[0] ?? null, [deals]);
+
+  const discountPct = (d: OpeningOfferRecord) => {
+    const cur = Number(d.price_current ?? 0);
+    const old = Number(d.price_old ?? 0);
+    if (!cur || !old || old <= cur) return 0;
+    return ((old - cur) / old) * 100;
+  };
+
+  const sortOffers = (list: OpeningOfferRecord[]) => {
+    const arr = [...list];
+    if (sortKey === "newest") {
+      arr.sort((a, b) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
+    } else if (sortKey === "strongest") {
+      arr.sort((a, b) => discountPct(b) - discountPct(a));
+    } else if (sortKey === "expiring") {
+      const far = Number.POSITIVE_INFINITY;
+      arr.sort((a, b) => {
+        const av = a.valid_to ? new Date(a.valid_to).getTime() : far;
+        const bv = b.valid_to ? new Date(b.valid_to).getTime() : far;
+        return av - bv;
+      });
+    }
+    return arr;
+  };
+
   const remainingOffers = useMemo(
-    () => (deals ?? []).filter((deal) => deal.id !== previewPrimaryOffer?.id),
-    [deals, previewPrimaryOffer],
+    () => sortOffers((deals ?? []).filter((deal) => deal.id !== previewPrimaryOffer?.id)),
+    [deals, previewPrimaryOffer, sortKey],
   );
+  const sortedAllDeals = useMemo(() => sortOffers(deals ?? []), [deals, sortKey]);
   const previewGridOffers = useMemo(
     () => (showAllPreview ? remainingOffers : remainingOffers.slice(0, PREVIEW_LIMIT)),
     [remainingOffers, showAllPreview],
