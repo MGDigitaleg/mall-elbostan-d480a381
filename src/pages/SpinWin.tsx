@@ -73,6 +73,7 @@ const SpinWin = () => {
   const [result, setResult] = useState<SpinResponse | null>(null);
   const [targetIndex, setTargetIndex] = useState<number | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [historyKey, setHistoryKey] = useState(0);
 
   // Responsive wheel/ring sizing
   const [viewportW, setViewportW] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
