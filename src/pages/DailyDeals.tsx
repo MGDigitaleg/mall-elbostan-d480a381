@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { Sparkles, Store, ArrowLeft, Clock3, LayoutGrid, Zap } from "lucide-react";
@@ -56,9 +56,18 @@ const DailyDeals = () => {
   const liveOffersCount = deals?.length ?? 0;
   const merchantCount = merchantGroups.length;
   const openNowCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
-  const previewOffers = useMemo(() => (deals ?? []).slice(0, 6), [deals]);
-  const previewPrimaryOffer = useMemo(() => previewOffers.find((deal) => deal.featured) ?? previewOffers[0] ?? null, [previewOffers]);
-  const previewGridOffers = useMemo(() => previewOffers.filter((deal) => deal.id !== previewPrimaryOffer?.id), [previewOffers, previewPrimaryOffer]);
+  const PREVIEW_LIMIT = 4;
+  const [showAllPreview, setShowAllPreview] = useState(false);
+  const previewPrimaryOffer = useMemo(() => (deals ?? []).find((deal) => deal.featured) ?? (deals ?? [])[0] ?? null, [deals]);
+  const remainingOffers = useMemo(
+    () => (deals ?? []).filter((deal) => deal.id !== previewPrimaryOffer?.id),
+    [deals, previewPrimaryOffer],
+  );
+  const previewGridOffers = useMemo(
+    () => (showAllPreview ? remainingOffers : remainingOffers.slice(0, PREVIEW_LIMIT)),
+    [remainingOffers, showAllPreview],
+  );
+  const hiddenCount = Math.max(0, remainingOffers.length - PREVIEW_LIMIT);
   const sectionTitle = isExpired ? "جميع عروض الافتتاح" : "معاينات عروض الافتتاح";
   const sectionDescription = isExpired
     ? "جميع العروض المنشورة من المحلات المشاركة داخل مول البستان، مع ربط مباشر بصفحات المتاجر."
@@ -214,6 +223,17 @@ const DailyDeals = () => {
                         <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                       ))}
                     </div>
+                    {hiddenCount > 0 && (
+                      <div className="mt-4 flex justify-center">
+                        <Button
+                          variant="outline-blue"
+                          className="h-10 rounded-xl px-5 text-[0.76rem] font-bold"
+                          onClick={() => setShowAllPreview((v) => !v)}
+                        >
+                          {showAllPreview ? "عرض أقل" : `عرض المزيد (${hiddenCount.toLocaleString("ar-EG")})`}
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 )}
 
