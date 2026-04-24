@@ -503,7 +503,7 @@ const StoreDetail = () => {
                           showStoreLink={false}
                           showAllStoreOffersCta={false}
                           directOfferHref={`/daily-deals?merchant=${store.slug}#offer-${offer.id}`}
-                          directOfferLabel="انتقل إلى بطاقة العرض"
+                          directOfferLabel={`انتقل إلى بطاقة العرض — ${offer.model ?? offer.title_ar}`}
                         />
                       ))}
                     </div>
