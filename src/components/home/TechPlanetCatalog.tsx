@@ -668,6 +668,7 @@ const EmptyState = ({ query, orbit, all, orbitDeepLink, onClearQuery, onResetOrb
               <X className="h-3 w-3" />
               مسح البحث
             </button>
+          )}
           {orbitFilterActive && orbitDeepLink && (
             <Link
               to={orbitDeepLink.href}
@@ -683,6 +684,8 @@ const EmptyState = ({ query, orbit, all, orbitDeepLink, onClearQuery, onResetOrb
             </Link>
           )}
         </div>
+
+        {/* Popular suggestions */}
         <div className="w-full max-w-xl">
           <div className="mb-2.5 flex items-center justify-center gap-2">
             <span aria-hidden className="h-px flex-1" style={{ background: "linear-gradient(to right, transparent, rgba(205,187,154,0.25), transparent)" }} />
