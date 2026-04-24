@@ -472,30 +472,58 @@ const Stores = () => {
               </div>
             </div>
 
-            <AnimatePresence>
-              {hasActiveFilters && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
+            <div dir="rtl" className="mt-3 flex flex-wrap items-center gap-2.5 border-t pt-3 text-[0.72rem]" style={{ borderColor: "#ffffff0C", color: "#64748B" }}>
+              <span
+                className="rounded-md px-2.5 py-1 font-bold transition-colors"
+                style={{
+                  background: hasActiveFilters ? "#2D6BFF15" : "#ffffff08",
+                  color: hasActiveFilters ? "#5B9AFF" : "#94A3B8",
+                  border: `1px solid ${hasActiveFilters ? "#2D6BFF25" : "#ffffff10"}`,
+                }}
+                aria-live="polite"
+              >
+                {filtered?.length ?? 0} نتيجة{hasActiveFilters ? " مطابقة" : ""}
+              </span>
+
+              {/* Active filter pills */}
+              {selectedCategory && (
+                <button
+                  onClick={() => setSelectedCategory("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: "1px solid #2D6BFF25", background: "#2D6BFF12", color: "#5B9AFF" }}
                 >
-                  <div className="mt-3 flex items-center gap-2.5 border-t pt-3 text-[0.72rem]" style={{ borderColor: "#ffffff0C", color: "#64748B" }}>
-                    <span className="rounded-md px-2.5 py-1 font-bold" style={{ background: "#2D6BFF15", color: "#5B9AFF" }}>
-                      {filtered?.length ?? 0} نتيجة
-                    </span>
-                    <button
-                      onClick={clearFilters}
-                      className="flex items-center gap-1.5 rounded-lg px-3 py-1 font-semibold transition-colors hover:text-white"
-                      style={{ border: "1px solid #ffffff12", background: "#ffffff08" }}
-                    >
-                      <X className="h-3 w-3" /> مسح الفلاتر
-                    </button>
-                  </div>
-                </motion.div>
+                  القسم: {selectedCategory} <X className="h-3 w-3" />
+                </button>
               )}
-            </AnimatePresence>
-          </div>
+              {selectedStatus && statusConfig[selectedStatus] && (
+                <button
+                  onClick={() => setSelectedStatus("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: `1px solid ${statusConfig[selectedStatus].border}`, background: statusConfig[selectedStatus].bg, color: statusConfig[selectedStatus].color }}
+                >
+                  الحالة: {statusConfig[selectedStatus].text} <X className="h-3 w-3" />
+                </button>
+              )}
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  className="flex items-center gap-1.5 rounded-md px-2.5 py-1 font-semibold transition-colors hover:brightness-110"
+                  style={{ border: "1px solid #ffffff14", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  بحث: «{search}» <X className="h-3 w-3" />
+                </button>
+              )}
+
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="ms-auto flex items-center gap-1.5 rounded-lg px-3 py-1 font-semibold transition-colors hover:text-white"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08" }}
+                >
+                  <X className="h-3 w-3" /> مسح الفلاتر
+                </button>
+              )}
+            </div>
 
           {/* Section header */}
           <motion.div
