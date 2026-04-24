@@ -216,6 +216,12 @@ function buildSubSitemap(section: string, data: DynamicData): string {
       }
       break;
 
+    case "devices":
+      for (const slug of DEVICE_SLUGS) {
+        entries.push(urlEntry(`${BASE_URL}/devices/${slug}`, undefined, "weekly", devicePriority(slug)));
+      }
+      break;
+
     case "stores":
       for (const s of data.stores) {
         entries.push(urlEntry(`${BASE_URL}/stores/${s.slug}`, s.updated_at, "weekly", "0.7"));
@@ -241,7 +247,7 @@ function buildSubSitemap(section: string, data: DynamicData): string {
       break;
   }
 
-  return wrapUrlset(entries);
+  return wrapUrlset(dedupeEntries(entries));
 }
 
 Deno.serve(async (req) => {
