@@ -180,6 +180,9 @@ function buildFlatSitemap(data: DynamicData): string {
   for (const route of STATIC_ROUTES) {
     entries.push(urlEntry(`${BASE_URL}${route.loc}`, undefined, route.changefreq, route.priority));
   }
+  for (const slug of DEVICE_SLUGS) {
+    entries.push(urlEntry(`${BASE_URL}/devices/${slug}`, undefined, "weekly", devicePriority(slug)));
+  }
   for (const s of data.stores) {
     entries.push(urlEntry(`${BASE_URL}/stores/${s.slug}`, s.updated_at, "weekly", "0.7"));
   }
@@ -196,7 +199,7 @@ function buildFlatSitemap(data: DynamicData): string {
     entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
   }
 
-  return wrapUrlset(entries);
+  return wrapUrlset(dedupeEntries(entries));
 }
 
 /** Build sub-sitemap for a specific section */
