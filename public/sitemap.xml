@@ -129,4 +129,39 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- Device category landing pages (SEO) -->
+  <url><loc>https://mallelbostan.com/devices/laptops</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mallelbostan.com/devices/smartphones</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mallelbostan.com/devices/monitors</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mallelbostan.com/devices/cpus</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mallelbostan.com/devices/headphones</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/keyboards</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/storage</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/mice</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/cameras</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/printers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/routers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/tablets</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/smartwatches</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/speakers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/ram</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/webcams</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/cables</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/chargers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/networking</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/televisions</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/projectors</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/servers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/controllers</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/microphones</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/ups</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/scanners</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/accessories</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/nas</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/intercoms</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/cooling</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://mallelbostan.com/devices/macbook</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/earbuds</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mallelbostan.com/devices/powerbanks</loc><lastmod>2026-04-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>
