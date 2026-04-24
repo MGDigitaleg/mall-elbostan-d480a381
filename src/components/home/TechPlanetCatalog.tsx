@@ -5,6 +5,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { resolveDeviceHref } from "@/lib/deviceHref";
 import { scoreDevice, tokenizeQuery } from "@/lib/deviceSearchIndex";
+import { clusters as taxonomyClusters, pillars as taxonomyPillars } from "@/lib/deviceTaxonomy";
 
 export type CatalogDevice = {
   Icon: LucideIcon;
