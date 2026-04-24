@@ -282,6 +282,7 @@ Deno.serve(async (req) => {
 
     const sitemaps = [
       { loc: `${fnUrl}?section=pages`, lastmod: today },
+      { loc: `${fnUrl}?section=devices`, lastmod: today },
       {
         loc: `${fnUrl}?section=stores`,
         lastmod: latestDate(data.stores) ?? today,
