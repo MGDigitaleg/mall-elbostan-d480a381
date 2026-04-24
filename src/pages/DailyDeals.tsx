@@ -55,7 +55,7 @@ const DailyDeals = () => {
   const featuredOffer = deals?.find((deal) => deal.featured) ?? deals?.[0] ?? null;
   const liveOffersCount = deals?.length ?? 0;
   const merchantCount = merchantGroups.length;
-  const upcomingCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
+  const openNowCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
   const previewOffers = useMemo(() => (deals ?? []).slice(0, 6), [deals]);
   const previewPrimaryOffer = useMemo(() => previewOffers.find((deal) => deal.featured) ?? previewOffers[0] ?? null, [previewOffers]);
   const previewGridOffers = useMemo(() => previewOffers.filter((deal) => deal.id !== previewPrimaryOffer?.id), [previewOffers, previewPrimaryOffer]);
@@ -87,56 +87,56 @@ const DailyDeals = () => {
     <MainLayout>
       <SEOHead title="عروض الافتتاح | مول البستان" titleEn="Opening Offers | Mall Elbostan" description="عروض الافتتاح من المحلات الجديدة في مول البستان، مع ربط مباشر بكل متجر داخل المنظومة الرسمية للمول." descriptionEn="Opening offers from participating new tenants at Mall Elbostan, linked directly to each store inside the mall system." keywords="عروض الافتتاح, عروض مول البستان, Infinity Computer Services, Kareem Stores, خصومات لابتوب, إكسسوارات تصوير, mall offers" breadcrumbs={[{ name: "عروض الافتتاح", url: "/daily-deals" }]} noIndex={!deals || deals.length === 0} />
 
-      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+      <section className="relative overflow-hidden border-b border-border/40" style={{ background: "var(--gradient-hero)" }}>
         <div className="absolute inset-0 opacity-[0.08]" style={{ background: "radial-gradient(circle at top right, hsl(var(--primary) / 0.45), transparent 35%)" }} />
-        <div className="container relative py-14 md:py-20">
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+        <div className="container relative py-8 md:py-10">
+          <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
-              <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[0.72rem] font-semibold text-white/70">
-                {isExpired ? <LayoutGrid className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />} {isExpired ? "العروض متاحة الآن" : "العدّاد يعمل حتى الإطلاق"}
+              <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-[0.68rem] font-semibold text-white/70">
+                {isExpired ? <LayoutGrid className="h-3.5 w-3.5" /> : <Clock3 className="h-3.5 w-3.5" />} {isExpired ? "العروض متاحة الآن" : "العروض متاحة مع عدّاد رمزي"}
               </p>
-              <h1 className="max-w-2xl text-[1.9rem] font-bold leading-[1.15] text-white md:text-[2.8rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
-                {isExpired ? "جميع عروض الافتتاح داخل مول البستان." : "عروض الافتتاح تبدأ بعد العدّاد، والمعاينات جاهزة الآن."}
+              <h1 className="max-w-2xl text-[1.45rem] font-bold leading-[1.18] text-white md:text-[2.05rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                {isExpired ? "عروض المحلات المشاركة داخل مول البستان" : "عروض المحلات المشاركة متاحة الآن داخل الافتتاح التجريبي"}
               </h1>
-              <p className="mt-4 max-w-2xl text-[0.88rem] leading-[2] text-white/60">
+              <p className="mt-2.5 max-w-2xl text-[0.8rem] leading-7 text-white/60 md:text-[0.84rem]">
                 {isExpired
                   ? "انتهى العدّاد وتحوّلت الصفحة تلقائيًا إلى شبكة كاملة تعرض كل عروض الافتتاح المنشورة من المحلات المشاركة داخل المنظومة الرسمية للمول."
-                  : "قبل موعد الإطلاق نعرض لك عدّادًا واضحًا في الهيرو، ثم معاينات منظمة للعروض أسفل الهيرو مباشرة، وبعد التاريخ المحدد تنتقل الصفحة تلقائيًا إلى عرض كامل لجميع العروض."}
+                  : "المول يعمل حاليًا في الافتتاح التجريبي، لذلك نعرض العروض مباشرة مع شريط علوي مضغوط وعدّاد تعريفي فقط."}
               </p>
 
               {!isExpired && (
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm">
-                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-[0.82rem] font-bold text-white">العدّ التنازلي لانطلاق عروض الافتتاح</p>
-                      <p className="mt-1 text-[0.72rem] text-white/60">بمجرد انتهاء العدّاد ستنتقل الصفحة تلقائيًا من المعاينة إلى الشبكة الكاملة.</p>
+                      <p className="text-[0.78rem] font-bold text-white">العدّاد الرسمي للافتتاح الكبير</p>
+                      <p className="mt-1 text-[0.68rem] text-white/60">العروض الحالية متاحة بالفعل، مع استمرار العدّاد كمرجع لافتتاح المرحلة الكاملة.</p>
                     </div>
-                    <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.68rem] font-semibold text-white/75">
-                      إطلاق تلقائي
+                    <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary-foreground/90">
+                      افتتاح تجريبي
                     </div>
                   </div>
-                  <CountdownTimer />
+                  <CountdownTimer compact />
                 </div>
               )}
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            <div className="grid gap-2.5 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
               <OfferMetaLine count={merchantCount} label="محلات مشاركة" />
               <OfferMetaLine count={liveOffersCount} label="عروض متاحة الآن" />
-              <OfferMetaLine count={upcomingCount} label="عروض بافتتاح قريب" />
+              <OfferMetaLine count={openNowCount} label="محلات مفتوحة الآن" />
             </div>
           </div>
         </div>
       </section>
 
-      <div className="container py-10 md:py-14">
+      <div className="container py-7 md:py-9">
         {!isExpired && (
-          <section className="mb-8 rounded-3xl border border-border/70 bg-card p-5 shadow-[var(--shadow-premium)] md:p-7">
-            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <section className="mb-6 rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-premium)] md:p-5">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[0.68rem] font-semibold text-primary">تحت الهيرو مباشرة</p>
-                <h2 className="mt-1 text-[1.15rem] font-bold text-foreground">معاينات عروض منظمة قبل الإطلاق</h2>
-                <p className="mt-1 text-[0.74rem] text-muted-foreground">اختيار مبكر من العروض المتاحة الآن داخل المنظومة، مرتب ليبقى المحتوى واضحًا وغير فارغ قبل موعد الإطلاق.</p>
+                <h2 className="mt-1 text-[1rem] font-bold text-foreground">مختارات سريعة من العروض الحالية</h2>
+                <p className="mt-1 text-[0.72rem] text-muted-foreground">عرض مضغوط ومنظم لأبرز العروض النشطة من المحلات المفتوحة الآن.</p>
               </div>
               {previewPrimaryOffer?.stores && (
                 <Link to={`/stores/${previewPrimaryOffer.stores.slug}`}>
@@ -147,16 +147,16 @@ const DailyDeals = () => {
               )}
             </div>
             {previewPrimaryOffer ? (
-              <div className="grid gap-5 xl:grid-cols-[1.18fr_0.82fr]">
-                <OpeningOfferCard cardId={`offer-${previewPrimaryOffer.id}`} offer={previewPrimaryOffer} showAllStoreOffersCta />
-                <div className="rounded-2xl border border-border/70 bg-secondary/25 p-4 md:p-5">
-                  <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
-                    <Zap className="h-4 w-4 text-primary" /> كيف تعمل الصفحة الآن؟
+              <div className="grid gap-4 xl:grid-cols-[1.35fr_0.65fr]">
+                <OpeningOfferCard cardId={`offer-${previewPrimaryOffer.id}`} offer={previewPrimaryOffer} showAllStoreOffersCta compact />
+                <div className="rounded-2xl border border-border/70 bg-secondary/25 p-4">
+                  <div className="mb-3 flex items-center gap-2 text-[0.78rem] font-bold text-foreground">
+                    <Zap className="h-4 w-4 text-primary" /> حالة الصفحة الآن
                   </div>
-                  <div className="space-y-3 text-[0.76rem] leading-7 text-muted-foreground">
-                    <p>الجزء العلوي يعرض العدّاد حتى تاريخ الإطلاق الرسمي.</p>
-                    <p>أسفل العدّاد تظهر معاينات منتقاة ومنظمة من المحلات المشاركة.</p>
-                    <p>بعد انتهاء العدّاد، تختفي حالة المعاينة وتظهر جميع العروض داخل شبكة كاملة تلقائيًا.</p>
+                  <div className="space-y-2.5 text-[0.72rem] leading-6 text-muted-foreground">
+                    <p>المحلات ذات العروض الحالية تُعرض باعتبارها مفتوحة الآن.</p>
+                    <p>العدّاد ما زال ظاهرًا بصيغة مختصرة للمرحلة الرسمية القادمة.</p>
+                    <p>باقي العروض تظهر أسفل هذا السكشن ضمن شبكة أكثر كثافة.</p>
                   </div>
                 </div>
               </div>
@@ -167,7 +167,7 @@ const DailyDeals = () => {
         )}
 
         {merchantGroups.length > 0 && (
-          <section className="mb-8">
+          <section className="mb-6">
             <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
               <Store className="h-4 w-4 text-primary" /> تصفح حسب المتجر
             </div>
@@ -190,39 +190,39 @@ const DailyDeals = () => {
           <LoadingGrid />
         ) : deals && deals.length > 0 ? (
           <section id="opening-offers-grid">
-            <div className="mb-5 flex items-center justify-between gap-3">
+            <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-[1rem] font-bold text-foreground">{sectionTitle}</h2>
                 <p className="mt-1 text-[0.74rem] text-muted-foreground">{sectionDescription}</p>
               </div>
               {!isExpired && (
-                <div className="rounded-full border border-orange/20 bg-orange/10 px-3 py-1 text-[0.68rem] font-semibold text-orange">
-                  وضع المعاينة قبل الإطلاق
+                <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.68rem] font-semibold text-primary">
+                  المحلات مفتوحة الآن
                 </div>
               )}
             </div>
 
             {!isExpired ? (
-              <div className="space-y-8">
+              <div className="space-y-5">
                 {previewGridOffers.length > 0 && (
                   <div>
-                    <div className="mb-4 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
-                      <Sparkles className="h-4 w-4 text-primary" /> معاينات منظمة قبل الإطلاق
+                    <div className="mb-3 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
+                      <Sparkles className="h-4 w-4 text-primary" /> بقية العروض الحالية
                     </div>
-                    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                       {previewGridOffers.map((deal) => (
-                        <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta />
+                        <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                       ))}
                     </div>
                   </div>
                 )}
 
-                <div className="rounded-2xl border border-border/70 bg-muted/20 p-4 md:p-5">
+                <div className="rounded-2xl border border-border/70 bg-muted/20 p-4">
                   <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
                     <div>
-                      <h3 className="text-[0.95rem] font-bold text-foreground">ما الذي يحدث بعد الافتتاح؟</h3>
+                      <h3 className="text-[0.9rem] font-bold text-foreground">استكشف كل المحلات المشاركة</h3>
                       <p className="mt-1 text-[0.74rem] leading-7 text-muted-foreground">
-                        عند انتهاء العدّاد ستتحول هذه الصفحة تلقائيًا إلى عرض كامل يضم جميع عروض الافتتاح المنشورة من المحلات المشاركة.
+                        صفحة العروض أصبحت أكثر كثافة الآن، ويمكنك الانتقال مباشرة إلى صفحات المحلات المشاركة لمتابعة التفاصيل الكاملة.
                       </p>
                     </div>
                     <Link to="/stores">
@@ -234,9 +234,9 @@ const DailyDeals = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {deals.map((deal) => (
-                  <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta />
+                  <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                 ))}
               </div>
             )}
