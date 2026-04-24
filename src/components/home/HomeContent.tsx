@@ -234,7 +234,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <WhyElBostan />
 
       {/* ═══════════ 9 · MERCHANT LOGO WALL ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
+      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
         <LazySection minHeight={280}>
           <Suspense fallback={<div style={{ minHeight: 280 }} />}><MerchantLogoWall /></Suspense>
         </LazySection>
