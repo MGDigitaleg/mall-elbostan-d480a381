@@ -524,6 +524,7 @@ const Stores = () => {
                 </button>
               )}
             </div>
+          </div>
 
           {/* Section header */}
           <motion.div
