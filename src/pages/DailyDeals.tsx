@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Sparkles, Store, ArrowLeft, Clock3, LayoutGrid, Zap } from "lucide-react";
+import { Sparkles, Store, ArrowLeft, Clock3, LayoutGrid, Zap, ArrowDownUp } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -25,7 +25,7 @@ const DailyDeals = () => {
     queryFn: async () => {
       let query = supabase
         .from("deals")
-        .select("id, title_ar, description_ar, valid_to, featured, campaign_key, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, sort_order, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
+        .select("id, title_ar, description_ar, valid_to, featured, campaign_key, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, sort_order, created_at, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
         .eq("is_live", true)
         .eq("campaign_key", "opening-offers-2026")
         .order("featured", { ascending: false })
@@ -58,11 +58,40 @@ const DailyDeals = () => {
   const openNowCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
   const PREVIEW_LIMIT = 4;
   const [showAllPreview, setShowAllPreview] = useState(false);
+  type SortKey = "newest" | "strongest" | "expiring";
+  const [sortKey, setSortKey] = useState<SortKey>("newest");
+
   const previewPrimaryOffer = useMemo(() => (deals ?? []).find((deal) => deal.featured) ?? (deals ?? [])[0] ?? null, [deals]);
+
+  const discountPct = (d: OpeningOfferRecord) => {
+    const cur = Number(d.price_current ?? 0);
+    const old = Number(d.price_old ?? 0);
+    if (!cur || !old || old <= cur) return 0;
+    return ((old - cur) / old) * 100;
+  };
+
+  const sortOffers = (list: OpeningOfferRecord[]) => {
+    const arr = [...list];
+    if (sortKey === "newest") {
+      arr.sort((a, b) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
+    } else if (sortKey === "strongest") {
+      arr.sort((a, b) => discountPct(b) - discountPct(a));
+    } else if (sortKey === "expiring") {
+      const far = Number.POSITIVE_INFINITY;
+      arr.sort((a, b) => {
+        const av = a.valid_to ? new Date(a.valid_to).getTime() : far;
+        const bv = b.valid_to ? new Date(b.valid_to).getTime() : far;
+        return av - bv;
+      });
+    }
+    return arr;
+  };
+
   const remainingOffers = useMemo(
-    () => (deals ?? []).filter((deal) => deal.id !== previewPrimaryOffer?.id),
-    [deals, previewPrimaryOffer],
+    () => sortOffers((deals ?? []).filter((deal) => deal.id !== previewPrimaryOffer?.id)),
+    [deals, previewPrimaryOffer, sortKey],
   );
+  const sortedAllDeals = useMemo(() => sortOffers(deals ?? []), [deals, sortKey]);
   const previewGridOffers = useMemo(
     () => (showAllPreview ? remainingOffers : remainingOffers.slice(0, PREVIEW_LIMIT)),
     [remainingOffers, showAllPreview],
@@ -204,11 +233,41 @@ const DailyDeals = () => {
                 <h2 className="text-[0.98rem] font-bold text-foreground">{sectionTitle}</h2>
                 <p className="mt-1 text-[0.72rem] leading-6 text-muted-foreground">{sectionDescription}</p>
               </div>
-              {!isExpired && (
-                <div className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary">
-                  المحلات مفتوحة الآن
+              <div className="flex flex-wrap items-center gap-2">
+                <div
+                  role="group"
+                  aria-label="ترتيب العروض"
+                  className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-card p-1 shadow-sm"
+                >
+                  <span className="hidden items-center gap-1 px-2 text-[0.66rem] font-semibold text-muted-foreground sm:inline-flex">
+                    <ArrowDownUp className="h-3.5 w-3.5" /> ترتيب
+                  </span>
+                  {([
+                    { key: "newest", label: "الأحدث" },
+                    { key: "strongest", label: "الأقوى" },
+                    { key: "expiring", label: "الأقرب لانتهاء العرض" },
+                  ] as { key: SortKey; label: string }[]).map((opt) => (
+                    <button
+                      key={opt.key}
+                      type="button"
+                      onClick={() => setSortKey(opt.key)}
+                      aria-pressed={sortKey === opt.key}
+                      className={`h-7 rounded-full px-3 text-[0.68rem] font-bold transition-colors ${
+                        sortKey === opt.key
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
-              )}
+                {!isExpired && (
+                  <div className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary">
+                    المحلات مفتوحة الآن
+                  </div>
+                )}
+              </div>
             </div>
 
             {!isExpired ? (
@@ -255,7 +314,7 @@ const DailyDeals = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {deals.map((deal) => (
+                {sortedAllDeals.map((deal) => (
                   <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                 ))}
               </div>
