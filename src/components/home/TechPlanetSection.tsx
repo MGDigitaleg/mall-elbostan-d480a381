@@ -35,43 +35,54 @@ const innerOrbit: Device[] = pick([
   "laptops",
   "smartphones",
   "monitors",
-  "cpus",
+  "gaming-consoles",
   "headphones",
-  "keyboards",
   "tablets",
   "smartwatches",
+  "macbook",
 ]);
 
-// Middle orbit — 12 key peripherals, accessories & secondary categories
+// Middle orbit — 14 key peripherals, accessories & secondary categories
 const middleOrbit: Device[] = pick([
+  "gaming-laptops",
+  "cpus",
+  "graphics-cards",
+  "ram",
   "storage",
+  "keyboards",
   "mice",
+  "speakers",
+  "earbuds",
+  "webcams",
   "cameras",
   "printers",
   "routers",
-  "ram",
-  "speakers",
   "controllers",
-  "webcams",
-  "earbuds",
-  "powerbanks",
-  "chargers",
 ]);
 
-// Outer orbit — 13 specialty / extended categories (deepest ring)
+// Outer orbit — 22 specialty / extended categories (deepest ring)
 const outerOrbit: Device[] = pick([
   "televisions",
   "projectors",
-  "servers",
   "microphones",
-  "ups",
-  "scanners",
-  "nas",
-  "macbook",
-  "cables",
+  "streaming-gear",
+  "vr-gaming",
+  "smart-lighting",
+  "security-cameras",
   "intercoms",
   "networking",
+  "nas",
+  "external-storage",
+  "servers",
+  "ups",
+  "scanners",
+  "pc-components",
   "cooling",
+  "power-adapters",
+  "chargers",
+  "powerbanks",
+  "cables",
+  "office-supplies",
   "accessories",
 ]);
 
@@ -366,14 +377,14 @@ export const TechPlanetSection = () => {
       };
     }
     return {
-      stage: 680,
+      stage: 720,
       core: 170,
       innerR: 145,
-      middleR: 230,
-      outerR: 320,
+      middleR: 235,
+      outerR: 335,
       innerSize: 46,
-      middleSize: 42,
-      outerSize: 38,
+      middleSize: 40,
+      outerSize: 34,
       showMiddle: true,
       showOuter: true,
     };
