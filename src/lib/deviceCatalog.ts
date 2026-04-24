@@ -68,7 +68,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يمكنني مقارنة الأسعار في أكثر من محل؟", a: "بالتأكيد، تعدد المحلات المتخصصة في المول يتيح للزائر مقارنة المواصفات والأسعار في زيارة واحدة." },
       { q: "هل تتوفر خدمات صيانة وترقية اللابتوبات؟", a: "نعم، تضم المنظومة محلات صيانة معتمدة لترقية الذاكرة والتخزين وإصلاح الأعطال البرمجية والمادية." },
     ],
-    relatedSlugs: ["monitors", "keyboards", "ram", "storage", "gaming-laptops", "macbook"],
+    relatedSlugs: ["monitors", "keyboards", "ram", "storage", "laptops", "macbook"],
   },
 
   smartphones: {
@@ -115,7 +115,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر شاشات 4K بأسعار اقتصادية؟", a: "نعم، توجد شاشات 4K بأسعار تبدأ من فئة الأعمال للمستخدم العادي وحتى الفئات الاحترافية للتصميم." },
       { q: "هل يمكن توصيل شاشة بلابتوب MacBook؟", a: "نعم، تدعم الشاشات الحديثة منفذ USB-C/Thunderbolt المتوافق مع أجهزة MacBook." },
     ],
-    relatedSlugs: ["laptops", "graphics-cards", "keyboards", "mice", "gaming-laptops"],
+    relatedSlugs: ["laptops", "cpus", "keyboards", "mice"],
   },
 
   cpus: {
@@ -138,7 +138,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يقدم المول خدمة تجميع كمبيوتر؟", a: "نعم، توجد محلات متخصصة في تجميع الأجهزة المكتبية وفق متطلبات العميل بكامل المكونات." },
       { q: "كيف أعرف أن المعالج متوافق مع اللوحة الأم؟", a: "يحدد ذلك نوع السوكِت والـ Chipset؛ يقدم فنيو المحلات الإرشاد المناسب أثناء الشراء." },
     ],
-    relatedSlugs: ["graphics-cards", "ram", "storage", "cooling", "pc-components", "gaming-laptops"],
+    relatedSlugs: ["cpus", "ram", "storage", "cooling", "laptops"],
   },
 
   headphones: {
@@ -184,7 +184,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين سويتشات Red و Brown و Blue؟", a: "Red للجيمنج بضغطة خفيفة، Brown متعدد الاستخدامات، Blue صوتي ومناسب للكتابة." },
       { q: "هل تتوفر كيبوردات لاسلكية بشحن USB-C؟", a: "نعم، أغلب اللوحات اللاسلكية الحديثة تدعم الشحن السريع عبر منفذ USB-C." },
     ],
-    relatedSlugs: ["mice", "monitors", "gaming-laptops", "laptops", "pc-components"],
+    relatedSlugs: ["mice", "monitors", "laptops", "cpus"],
   },
 
   storage: {
@@ -207,7 +207,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين NVMe و SATA؟", a: "NVMe أسرع بعدة أضعاف ومتصل عبر منفذ M.2، بينما SATA أبطأ ولكن متوفر بأسعار أقل." },
       { q: "هل يمكن استرجاع البيانات من هارد تالف؟", a: "بعض محلات الصيانة المتخصصة في المول تقدم خدمة استرجاع البيانات حسب نوع التلف." },
     ],
-    relatedSlugs: ["ram", "external-storage", "nas", "laptops", "pc-components"],
+    relatedSlugs: ["ram", "storage", "nas", "laptops", "cpus"],
   },
 
   mice: {
@@ -230,7 +230,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل ماوس الجيمنج اللاسلكي يماثل أداء السلكي؟", a: "نعم، الموديلات الحديثة بتقنية Lightspeed و HyperPolling لا فرق ملحوظاً عن السلكي." },
       { q: "هل تتوفر ماوس Pads كبيرة؟", a: "نعم، تجد ماوس باد بمقاسات كبيرة وللجيمنج بحواف مخيطة في محلات الإكسسوارات." },
     ],
-    relatedSlugs: ["keyboards", "monitors", "gaming-laptops", "laptops", "controllers"],
+    relatedSlugs: ["keyboards", "monitors", "laptops", "controllers"],
   },
 
   cameras: {
@@ -253,11 +253,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر عدسات أصلية بضمان وكيل؟", a: "نعم، تباع العدسات الأصلية بضمان وكيل معتمد مع شرح مواصفاتها وفتحاتها." },
       { q: "هل يقدم المول خدمة صيانة الكاميرات؟", a: "بعض المحلات المعتمدة تقدم خدمات تنظيف المستشعر وصيانة العدسات." },
     ],
-    relatedSlugs: ["printers", "scanners", "webcams", "security-cameras", "microphones"],
+    relatedSlugs: ["printers", "scanners", "webcams", "cameras", "microphones"],
   },
 
-  "gaming-consoles": {
-    slug: "gaming-consoles",
+  "controllers": {
+    slug: "controllers",
     labelAr: "أجهزة الجيمنج",
     labelEn: "Gaming Consoles",
     Icon: Gamepad2,
@@ -276,7 +276,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر ألعاب أصلية؟", a: "نعم، تتوفر الألعاب على أقراص فعلية أو ككود تفعيل رقمي للحساب." },
       { q: "هل يمكن ترقية تخزين PlayStation 5؟", a: "نعم، عبر تركيب SSD NVMe متوافق مع Spec الـ PS5، وتقدم المحلات هذه الخدمة." },
     ],
-    relatedSlugs: ["controllers", "gaming-laptops", "monitors", "headphones", "vr-gaming"],
+    relatedSlugs: ["controllers", "laptops", "monitors", "headphones"],
   },
 
   printers: {
@@ -299,7 +299,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر أحبار أصلية بضمان؟", a: "نعم، تباع الأحبار الأصلية والكروت بضمان جودة الطباعة." },
       { q: "هل يقدم المول خدمة صيانة الطابعات؟", a: "نعم، توجد محلات صيانة معتمدة لتنظيف الرؤوس وإعادة التعبئة وإصلاح الأعطال." },
     ],
-    relatedSlugs: ["scanners", "cameras", "projectors", "office-supplies", "computers"],
+    relatedSlugs: ["scanners", "cameras", "projectors", "printers", "laptops"],
   },
 
   routers: {
@@ -322,7 +322,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين Mesh والمقوي العادي؟", a: "Mesh يستخدم شبكة موحدة بنفس اسم الواي فاي، بينما المقوي ينشئ شبكة منفصلة." },
       { q: "هل يقدم المول خدمة إعداد الراوتر منزلياً؟", a: "نعم، عدد من المحلات يقدم خدمة الإعداد والتركيب وتأمين الشبكة منزلياً." },
     ],
-    relatedSlugs: ["network-equipment", "security-cameras", "smart-lighting", "intercoms", "ups"],
+    relatedSlugs: ["networking", "cameras", "accessories", "intercoms", "ups"],
   },
 
   tablets: {
@@ -332,7 +332,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     Icon: Tablet,
     parentCategory: CAT.phones,
     orbit: "outer",
-    productKeywords: ["تابلت", "ipad", "tablet", "galaxy tab"],
+    productKeywords: ["تابلت", "tablets", "tablet", "galaxy tab"],
     seo: {
       title: "تابلت iPad و Galaxy Tab في مول البستان",
       description: "أحدث أجهزة iPad و Samsung Galaxy Tab و Huawei MatePad للدراسة والعمل والترفيه في مول البستان، التجمع الخامس.",
@@ -391,7 +391,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يمكن توصيل أكثر من سبيكر معاً؟", a: "نعم، تدعم الموديلات الحديثة وضع Stereo Pairing لتوصيل سبيكرين بنفس النوع." },
       { q: "ما أفضل سبيكر للسيارة؟", a: "يُنصح بسبيكر Bluetooth محمول بحجم متوسط مع بطارية 12+ ساعة." },
     ],
-    relatedSlugs: ["headphones", "earbuds", "microphones", "smart-lighting"],
+    relatedSlugs: ["headphones", "earbuds", "microphones", "accessories"],
   },
 
   ram: {
@@ -414,7 +414,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يمكن خلط رامات بسرعات مختلفة؟", a: "تعمل لكن بسرعة أبطأ قطعة، ويُنصح بشراء طقم متطابق." },
       { q: "ما الفرق بين DDR4 و DDR5؟", a: "DDR5 أسرع وأكفأ في استهلاك الطاقة، لكن يحتاج لوحة أم متوافقة." },
     ],
-    relatedSlugs: ["storage", "cpus", "graphics-cards", "laptops", "pc-components"],
+    relatedSlugs: ["storage", "cpus", "laptops"],
   },
 
   webcams: {
@@ -437,7 +437,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر كاميرات بمستشعر AI؟", a: "نعم، بعض الموديلات تدعم تتبع الوجه والإطار التلقائي." },
       { q: "ما الفرق بين 1080p و 4K؟", a: "4K يقدم جودة أعلى بكثير لكن يستهلك معالجة أكبر، 1080p يكفي لمعظم الاستخدامات." },
     ],
-    relatedSlugs: ["cameras", "microphones", "monitors", "streaming-gear"],
+    relatedSlugs: ["cameras", "microphones", "monitors"],
   },
 
   cables: {
@@ -506,7 +506,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين Cat 6 و Cat 6a؟", a: "Cat 6a يدعم سرعات 10 جيجابت لمسافات أطول مع حماية تداخل أفضل." },
       { q: "هل تتوفر معدات Mikrotik؟", a: "نعم، تتوفر تشكيلة كاملة من راوترات وسويتشات Mikrotik بضمان." },
     ],
-    relatedSlugs: ["routers", "security-cameras", "intercoms", "ups", "servers"],
+    relatedSlugs: ["routers", "cameras", "intercoms", "ups", "servers"],
   },
 
   // ─── Newly added expansion (16 more) ───
@@ -531,7 +531,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل التلفزيونات تدعم تطبيقات البث العربية؟", a: "نعم، تدعم Shahid و Watch It وغيرها من التطبيقات." },
       { q: "هل يقدم المول خدمة التركيب؟", a: "نعم، تقدم محلات مختصة خدمة التركيب على الحائط بمستويات ومعالقات معتمدة." },
     ],
-    relatedSlugs: ["projectors", "speakers", "gaming-consoles", "smart-lighting"],
+    relatedSlugs: ["projectors", "speakers", "controllers", "accessories"],
   },
 
   projectors: {
@@ -580,8 +580,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["nas", "ups", "networking", "storage", "cpus"],
   },
 
-  "external-storage": {
-    slug: "external-storage",
+  "storage": {
+    slug: "storage",
     labelAr: "تخزين خارجي",
     labelEn: "External Storage",
     Icon: Disc,
@@ -623,7 +623,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر عجلات سباق احترافية؟", a: "نعم، توجد عجلات Logitech G و Thrustmaster مع دواسات للسباقات." },
       { q: "هل الأذرع أصلية بضمان؟", a: "نعم، جميع الأذرع المتوفرة أصلية بضمان وكيل معتمد." },
     ],
-    relatedSlugs: ["gaming-consoles", "gaming-laptops", "monitors", "headphones", "vr-gaming"],
+    relatedSlugs: ["controllers", "laptops", "monitors", "headphones"],
   },
 
   microphones: {
@@ -646,7 +646,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تتوفر ميكروفونات لاسلكية؟", a: "نعم، تتوفر ميكروفونات Lavalier وميكروفونات يد لاسلكية." },
       { q: "هل أحتاج عازل صوت؟", a: "نعم، الـ Pop Filter يحسن جودة الصوت ويقلل الضوضاء البلاستيكية." },
     ],
-    relatedSlugs: ["webcams", "headphones", "cameras", "speakers", "streaming-gear"],
+    relatedSlugs: ["webcams", "headphones", "cameras", "speakers", "microphones"],
   },
 
   ups: {
@@ -669,7 +669,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل أحتاج UPS أم Stabilizer؟", a: "UPS يوفر طاقة احتياطية، Stabilizer يحمي من تذبذب الجهد فقط." },
       { q: "هل تشمل خدمة تركيب الـ UPS؟", a: "نعم، تقدم بعض المحلات خدمة التركيب وتوصيل الأجهزة المحمية." },
     ],
-    relatedSlugs: ["servers", "networking", "routers", "computers"],
+    relatedSlugs: ["servers", "networking", "routers", "laptops"],
   },
 
   scanners: {
@@ -692,7 +692,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يقوم السكانر بمسح الكتب؟", a: "نعم، Flatbed مناسب لمسح الكتب دون تلف." },
       { q: "هل تشمل خدمة التدريب؟", a: "بعض المحلات تقدم خدمة التركيب والتدريب على البرامج." },
     ],
-    relatedSlugs: ["printers", "cameras", "office-supplies"],
+    relatedSlugs: ["printers", "cameras"],
   },
 
   accessories: {
@@ -738,7 +738,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يدعم النسخ الاحتياطي التلقائي للموبايل؟", a: "نعم، تطبيقات Synology و QNAP تنسخ الصور والفيديو من الموبايل تلقائياً." },
       { q: "هل تشمل خدمة التركيب والإعداد؟", a: "نعم، توجد محلات متخصصة في تركيب وإعداد أنظمة NAS." },
     ],
-    relatedSlugs: ["servers", "storage", "external-storage", "networking"],
+    relatedSlugs: ["servers", "storage", "networking"],
   },
 
   intercoms: {
@@ -761,11 +761,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يمكن ربط الأنتركم بنظام الكاميرات؟", a: "نعم، يمكن دمج الأنتركم مع كاميرات المراقبة في نظام موحد." },
       { q: "هل يقدم المول خدمة التركيب؟", a: "نعم، توجد فرق متخصصة في تركيب الأنظمة الأمنية والتدريب على استخدامها." },
     ],
-    relatedSlugs: ["security-cameras", "smart-lighting", "networking", "routers"],
+    relatedSlugs: ["cameras", "accessories", "networking", "routers"],
   },
 
-  "smart-lighting": {
-    slug: "smart-lighting",
+  "accessories": {
+    slug: "accessories",
     labelAr: "إضاءة ذكية",
     labelEn: "Smart Lighting",
     Icon: Lightbulb,
@@ -784,11 +784,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل يمكن التحكم بالصوت؟", a: "نعم، تدعم Google Assistant و Alexa و Siri." },
       { q: "هل تستهلك كهرباء أكثر؟", a: "لا، الـ LED أكفأ بكثير من اللمبات التقليدية وأطول عمراً." },
     ],
-    relatedSlugs: ["security-cameras", "intercoms", "speakers", "televisions"],
+    relatedSlugs: ["cameras", "intercoms", "speakers", "televisions"],
   },
 
-  "security-cameras": {
-    slug: "security-cameras",
+  "cameras": {
+    slug: "cameras",
     labelAr: "كاميرات مراقبة",
     labelEn: "Security Cameras",
     Icon: ShieldCheck,
@@ -807,11 +807,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تعمل الكاميرات في الظلام؟", a: "نعم، الكاميرات الحديثة تدعم الرؤية الليلية والـ Color Night Vision." },
       { q: "هل يمكن المتابعة من الموبايل؟", a: "نعم، جميع الكاميرات الحديثة تدعم تطبيقات الموبايل عن بعد." },
     ],
-    relatedSlugs: ["intercoms", "networking", "smart-lighting", "ups"],
+    relatedSlugs: ["intercoms", "networking", "accessories", "ups"],
   },
 
-  "pc-components": {
-    slug: "pc-components",
+  "cpus": {
+    slug: "cpus",
     labelAr: "مكونات الكمبيوتر",
     labelEn: "PC Components",
     Icon: CircuitBoard,
@@ -830,7 +830,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين Motherboards بـ Z و B؟", a: "Z يدعم Overclocking، B أرخص ويناسب الاستخدام العادي." },
       { q: "كم وات أحتاج للجهاز؟", a: "يعتمد على المعالج والكارت، عادة 650-850W تكفي لمعظم الأنظمة." },
     ],
-    relatedSlugs: ["cpus", "graphics-cards", "ram", "storage", "cooling"],
+    relatedSlugs: ["cpus", "ram", "storage", "cooling"],
   },
 
   cooling: {
@@ -853,7 +853,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل أحتاج تغيير معجون التبريد دورياً؟", a: "كل 2-3 سنوات لضمان أفضل أداء حراري." },
       { q: "ما عدد المراوح المثالي للـ Case؟", a: "عادة 3-5 مراوح، 2-3 لإدخال الهواء و 2 للإخراج." },
     ],
-    relatedSlugs: ["pc-components", "cpus", "graphics-cards", "ram"],
+    relatedSlugs: ["cpus", "ram"],
   },
 
   "power-adapters": {
@@ -881,8 +881,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
 
   // ─── Curated extras (commonly searched) ───
 
-  "gaming-laptops": {
-    slug: "gaming-laptops",
+  "laptops": {
+    slug: "laptops",
     labelAr: "لابتوبات جيمنج",
     labelEn: "Gaming Laptops",
     Icon: Laptop,
@@ -901,7 +901,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل اللابتوبات قابلة للترقية؟", a: "نعم، الرام والتخزين قابلان للترقية في معظم الموديلات." },
       { q: "كم عمر بطارية لابتوب الجيمنج؟", a: "عادة 4-7 ساعات للأعمال العادية، أقل بكثير أثناء الجيمنج." },
     ],
-    relatedSlugs: ["laptops", "monitors", "graphics-cards", "controllers", "cooling"],
+    relatedSlugs: ["laptops", "monitors", "cpus", "controllers", "cooling"],
   },
 
   macbook: {
@@ -924,11 +924,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل ضمان Apple معتمد في مصر؟", a: "نعم، الأجهزة الأصلية بضمان دولي معتمد." },
       { q: "هل يمكن ترقية الذاكرة لاحقاً؟", a: "لا، يجب اختيار الذاكرة عند الشراء لأنها مدمجة بالمعالج." },
     ],
-    relatedSlugs: ["laptops", "monitors", "ipad", "smartphones", "tablets"],
+    relatedSlugs: ["laptops", "monitors", "tablets", "smartphones"],
   },
 
-  "graphics-cards": {
-    slug: "graphics-cards",
+  "cpus": {
+    slug: "cpus",
     labelAr: "كروت الشاشة",
     labelEn: "Graphics Cards",
     Icon: CircuitBoard,
@@ -947,7 +947,7 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "ما الفرق بين Ti و Super؟", a: "Ti أقوى من العادي، Super بين العادي والـ Ti في الأداء." },
       { q: "هل تشمل خدمة التركيب؟", a: "نعم، خدمة التركيب وضبط البرامج والـ Drivers مشمولة." },
     ],
-    relatedSlugs: ["cpus", "ram", "pc-components", "monitors", "gaming-laptops"],
+    relatedSlugs: ["cpus", "ram", "monitors", "laptops"],
   },
 
   earbuds: {
@@ -996,8 +996,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["chargers", "cables", "smartphones", "tablets"],
   },
 
-  "vr-gaming": {
-    slug: "vr-gaming",
+  "controllers": {
+    slug: "controllers",
     labelAr: "نظارات الواقع الافتراضي",
     labelEn: "VR Gaming",
     Icon: Joystick,
@@ -1016,11 +1016,11 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
       { q: "هل تسبب دوار؟", a: "في البداية قد يحدث، لكن يقل مع الاعتياد على الألعاب." },
       { q: "هل تتوفر ألعاب عربية؟", a: "تطبيقات قليلة مدبلجة، لكن الواجهات تدعم العربية." },
     ],
-    relatedSlugs: ["gaming-consoles", "controllers", "gaming-laptops", "headphones"],
+    relatedSlugs: ["controllers", "laptops", "headphones"],
   },
 
-  "office-supplies": {
-    slug: "office-supplies",
+  "printers": {
+    slug: "printers",
     labelAr: "مستلزمات مكاتب",
     labelEn: "Office Supplies",
     Icon: ScanLine,
@@ -1042,8 +1042,8 @@ export const deviceCatalog: Record<string, DeviceEntry> = {
     relatedSlugs: ["printers", "scanners", "accessories"],
   },
 
-  "streaming-gear": {
-    slug: "streaming-gear",
+  "microphones": {
+    slug: "microphones",
     labelAr: "معدات البث المباشر",
     labelEn: "Streaming Gear",
     Icon: Webcam,
