@@ -637,10 +637,11 @@ const Products = () => {
       <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
         <div className="container max-w-[1200px]">
 
-          {/* Sticky filter bar */}
+          {/* Filter bar */}
           <div className="lg:sticky lg:top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
-              {/* Search */}
+            {/* Mobile: stacked vertically / Desktop: row */}
+            <div className="flex flex-col gap-3">
+              {/* Row 1: Search */}
               <div className="relative flex-1">
                 <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
                 <input
@@ -653,36 +654,8 @@ const Products = () => {
                 />
               </div>
 
-              {/* Dropdowns */}
+              {/* Row 2: Category dropdowns (Section + Sort) */}
               <div className="flex items-center gap-2 flex-wrap">
-                {/* Mall filter */}
-                {mallList.length > 1 && (
-                  <select
-                    value={selectedMall}
-                    onChange={(e) => setSelectedMall(e.target.value)}
-                    className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
-                  >
-                    <option value="all">جميع الفروع</option>
-                    {mallList.map((m) => (
-                      <option key={m} value={m}>{m}</option>
-                    ))}
-                  </select>
-                )}
-
-                {/* Shop filter */}
-                <select
-                  value={selectedShop}
-                  onChange={(e) => setSelectedShop(e.target.value)}
-                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
-                >
-                  <option value="all">جميع المحلات</option>
-                  {storeList?.map((s) => (
-                    <option key={s.id} value={s.slug}>{s.name_ar}</option>
-                  ))}
-                </select>
-
                 {/* Section filter */}
                 <select
                   value={selectedSection}
@@ -709,11 +682,42 @@ const Products = () => {
                   <option value="newest">الأحدث</option>
                 </select>
 
+                {/* Mall filter - desktop only */}
+                {mallList.length > 1 && (
+                  <select
+                    value={selectedMall}
+                    onChange={(e) => setSelectedMall(e.target.value)}
+                    className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                  >
+                    <option value="all">جميع الفروع</option>
+                    {mallList.map((m) => (
+                      <option key={m} value={m}>{m}</option>
+                    ))}
+                  </select>
+                )}
+
+                {/* Shop filter - desktop only */}
+                <select
+                  value={selectedShop}
+                  onChange={(e) => setSelectedShop(e.target.value)}
+                  className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  <option value="all">جميع المحلات</option>
+                  {storeList?.map((s) => (
+                    <option key={s.id} value={s.slug}>{s.name_ar}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Row 3: Action buttons (Mobile filters + Clear) */}
+              <div className="flex items-center gap-2 flex-wrap">
                 {/* Mobile filters trigger */}
                 <Sheet>
                   <SheetTrigger asChild>
                     <button
-                      className="lg:hidden flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
+                      className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
                       style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
                     >
                       <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -736,8 +740,19 @@ const Products = () => {
                     </div>
                   </SheetContent>
                 </Sheet>
+
+                {/* Clear filters button */}
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearFilters}
+                    className="flex h-9 items-center gap-1 rounded-lg px-3 text-[0.76rem] font-semibold transition-colors"
+                    style={{ border: "1px solid #ffffff12", background: "#ffffff06", color: "#94A3B8" }}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                    مسح الفلاتر
+                  </button>
+                )}
               </div>
-            </div>
 
             {/* Active filter summary */}
             {hasActiveFilters && (
