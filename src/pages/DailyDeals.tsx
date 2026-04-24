@@ -199,13 +199,13 @@ const DailyDeals = () => {
           <LoadingGrid />
         ) : deals && deals.length > 0 ? (
           <section id="opening-offers-grid">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <div>
-                <h2 className="text-[1rem] font-bold text-foreground">{sectionTitle}</h2>
-                <p className="mt-1 text-[0.74rem] text-muted-foreground">{sectionDescription}</p>
+            <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+              <div className="text-right">
+                <h2 className="text-[0.98rem] font-bold text-foreground">{sectionTitle}</h2>
+                <p className="mt-1 text-[0.72rem] leading-6 text-muted-foreground">{sectionDescription}</p>
               </div>
               {!isExpired && (
-                <div className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.68rem] font-semibold text-primary">
+                <div className="shrink-0 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[0.66rem] font-semibold text-primary">
                   المحلات مفتوحة الآن
                 </div>
               )}
@@ -215,10 +215,10 @@ const DailyDeals = () => {
               <div className="space-y-5">
                 {previewGridOffers.length > 0 && (
                   <div>
-                    <div className="mb-3 flex items-center gap-2 text-[0.8rem] font-bold text-foreground">
+                    <div className="mb-3 flex items-center gap-2 text-[0.78rem] font-bold text-foreground">
                       <Sparkles className="h-4 w-4 text-primary" /> بقية العروض الحالية
                     </div>
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                       {previewGridOffers.map((deal) => (
                         <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                       ))}
@@ -227,7 +227,7 @@ const DailyDeals = () => {
                       <div className="mt-4 flex justify-center">
                         <Button
                           variant="outline-blue"
-                          className="h-10 rounded-xl px-5 text-[0.76rem] font-bold"
+                          className="h-9 rounded-xl px-5 text-[0.74rem] font-bold"
                           onClick={() => setShowAllPreview((v) => !v)}
                         >
                           {showAllPreview ? "عرض أقل" : `عرض المزيد (${hiddenCount.toLocaleString("ar-EG")})`}
@@ -238,15 +238,15 @@ const DailyDeals = () => {
                 )}
 
                 <div className="rounded-2xl border border-border/70 bg-muted/20 p-4">
-                  <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                    <div>
-                      <h3 className="text-[0.9rem] font-bold text-foreground">استكشف كل المحلات المشاركة</h3>
-                      <p className="mt-1 text-[0.74rem] leading-7 text-muted-foreground">
+                  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <div className="text-right">
+                      <h3 className="text-[0.88rem] font-bold text-foreground">استكشف كل المحلات المشاركة</h3>
+                      <p className="mt-1 text-[0.72rem] leading-6 text-muted-foreground">
                         صفحة العروض أصبحت أكثر كثافة الآن، ويمكنك الانتقال مباشرة إلى صفحات المحلات المشاركة لمتابعة التفاصيل الكاملة.
                       </p>
                     </div>
-                    <Link to="/stores">
-                      <Button variant="outline-blue" className="h-10 rounded-xl px-5 text-[0.76rem] font-bold">
+                    <Link to="/stores" className="md:shrink-0">
+                      <Button variant="outline-blue" className="h-9 rounded-xl px-4 text-[0.74rem] font-bold">
                         استعرض المحلات المشاركة
                       </Button>
                     </Link>
@@ -254,7 +254,7 @@ const DailyDeals = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {deals.map((deal) => (
                   <OpeningOfferCard key={deal.id} cardId={`offer-${deal.id}`} offer={deal} showAllStoreOffersCta compact />
                 ))}
