@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowLeft, Sparkles, Check, type LucideIcon } from "lucide-react";
+import {
+  ArrowLeft, Sparkles, Check,
+  Map as MapIcon, Store, ShoppingBag, Tag, Trophy, PartyPopper, Building2, Boxes,
+  type LucideIcon,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
@@ -19,75 +23,47 @@ type Device = {
 
 // Build orbit lists from the centralized device catalog so each icon
 // always points at its dedicated SEO landing page (/devices/:slug).
-// Curated, ordered selections per orbit ring for visual balance.
-const pick = (slugs: string[]): Device[] =>
-  slugs
-    .map((s) => {
-      const d = deviceCatalog[s];
-      if (!d && import.meta.env.DEV) {
-        // eslint-disable-next-line no-console
-        console.warn(`[TechPlanetSection] Unknown device slug: "${s}" — add it to deviceCatalog or fix the typo.`);
-      }
-      return d;
-    })
-    .filter(Boolean)
-    .map((d) => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug }));
+// Auto-distributed by the `orbit` field on each entry — guarantees 100% coverage.
+const META_KEYS = new Set(["seo"]);
+const allDevices = Object.values(deviceCatalog).filter(
+  (e: any) => e && typeof e === "object" && "slug" in e && !META_KEYS.has((e as any).slug),
+);
 
-// Inner orbit — 8 most essential device categories (closest to the core)
-const innerOrbit: Device[] = pick([
-  "laptops",
-  "smartphones",
-  "monitors",
-  "gaming-consoles",
-  "headphones",
-  "tablets",
-  "smartwatches",
-  "macbook",
-]);
+const toDevice = (d: any): Device => ({ Icon: d.Icon, label: d.labelAr, slug: d.slug });
 
-// Middle orbit — 14 key peripherals, accessories & secondary categories
-const middleOrbit: Device[] = pick([
-  "gaming-laptops",
-  "cpus",
-  "graphics-cards",
-  "ram",
-  "storage",
-  "keyboards",
-  "mice",
-  "speakers",
-  "earbuds",
-  "webcams",
-  "cameras",
-  "printers",
-  "routers",
-  "controllers",
-]);
+const innerOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "inner").map(toDevice);
+const middleOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "middle").map(toDevice);
+const outerOrbit: Device[] = allDevices.filter((d: any) => d.orbit === "outer").map(toDevice);
 
-// Outer orbit — 22 specialty / extended categories (deepest ring)
-const outerOrbit: Device[] = pick([
-  "televisions",
-  "projectors",
-  "microphones",
-  "streaming-gear",
-  "vr-gaming",
-  "smart-lighting",
-  "security-cameras",
-  "intercoms",
-  "networking",
-  "nas",
-  "external-storage",
-  "servers",
-  "ups",
-  "scanners",
-  "pc-components",
-  "cooling",
-  "power-adapters",
-  "chargers",
-  "powerbanks",
-  "cables",
-  "office-supplies",
-  "accessories",
-]);
+// Satellites — clickable links to mall experiences & sections
+type Satellite = {
+  Icon: LucideIcon;
+  label: string;
+  to: string;
+  color: string;
+};
+const satellites: Satellite[] = [
+  { Icon: MapIcon, label: "الخريطة التفاعلية", to: "/map", color: "#7DD3FC" },
+  { Icon: Store, label: "دليل المحلات", to: "/stores", color: "#A78BFA" },
+  { Icon: ShoppingBag, label: "كل المنتجات", to: "/products", color: "#60A5FA" },
+  { Icon: Tag, label: "عروض اليوم", to: "/daily-deals", color: "#F97316" },
+  { Icon: Trophy, label: "اربح بدورة", to: "/spin-win", color: "#FCD34D" },
+  { Icon: PartyPopper, label: "يوم الافتتاح", to: "/opening-day", color: "#EC4899" },
+  { Icon: Building2, label: "فرع وسط البلد", to: "/downtown-directory", color: "#CDBB9A" },
+  { Icon: Boxes, label: "كسر زيرو", to: "/kz", color: "#06B6D4" },
+];
+
+// Clickable constellation stars — 8 prominent stars link to utility pages
+const CONSTELLATION_LINKS: { to: string; title: string }[] = [
+  { to: "/about", title: "عن مول البستان" },
+  { to: "/leasing", title: "التأجير" },
+  { to: "/contact", title: "تواصل معنا" },
+  { to: "/faq", title: "الأسئلة الشائعة" },
+  { to: "/blog", title: "المدوّنة" },
+  { to: "/careers", title: "الوظائف" },
+  { to: "/market-echo", title: "صدى السوق" },
+  { to: "/join-marketplace", title: "انضم للسوق الرقمي" },
+];
 
 // Dev-only audit: compare orbit coverage to the centralized deviceCatalog so
 // new device entries are never silently absent from the planet (and removed
