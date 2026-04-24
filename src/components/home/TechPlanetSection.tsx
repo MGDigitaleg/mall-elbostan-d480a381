@@ -839,16 +839,30 @@ export const TechPlanetSection = () => {
               </svg>
 
               <div
-                className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-3 py-1 font-arabic-display text-[0.7rem] font-semibold"
-                style={{
-                  bottom: -28,
-                  background: "rgba(7, 19, 38, 0.85)",
-                  color: "#CDBB9A",
-                  border: "1px solid rgba(205,187,154,0.3)",
-                  letterSpacing: "0.05em",
-                }}
+                className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+                style={{ bottom: -42 }}
               >
-                مول البستان
+                <div
+                  className="whitespace-nowrap rounded-full px-3.5 py-1 font-arabic-display text-[0.78rem] font-bold"
+                  style={{
+                    background: "rgba(7, 19, 38, 0.9)",
+                    color: "#FCD34D",
+                    border: "1px solid rgba(252,211,77,0.4)",
+                    letterSpacing: "0.06em",
+                  }}
+                >
+                  كوكب البستان
+                </div>
+                <div
+                  className="whitespace-nowrap rounded-full px-2.5 py-0.5 font-arabic text-[0.62rem] font-bold tracking-[0.2em]"
+                  style={{
+                    background: "linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)",
+                    color: "#071326",
+                    animation: !reduce && active ? "tp-soon-pulse 2.6s ease-in-out infinite" : undefined,
+                  }}
+                >
+                  قريباً
+                </div>
               </div>
             </div>
           </div>
