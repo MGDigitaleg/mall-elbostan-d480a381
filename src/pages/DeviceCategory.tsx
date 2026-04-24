@@ -183,7 +183,7 @@ export default function DeviceCategory() {
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden" style={{ background: "#F1F5F9" }}>
                     <img
-                      src={optimizeImageUrl(p.image_url ?? "", { width: 400 })}
+                      src={optimizeImageUrl(p.image_url ?? "", 400)}
                       alt={p.name_ar}
                       loading="lazy"
                       className="h-full w-full object-contain p-3 transition-transform duration-300 group-hover:scale-105"

@@ -38,6 +38,39 @@ const STATIC_ROUTES = [
   { loc: "/reward-terms", priority: "0.3", changefreq: "yearly" },
 ];
 
+// Device category landing pages — keep in sync with src/lib/deviceCatalog.ts
+const DEVICE_SLUGS = [
+  "laptops","smartphones","monitors","cpus","headphones","keyboards","storage",
+  "mice","cameras","gaming-consoles","printers","routers","tablets","smartwatches",
+  "speakers","ram","webcams","cables","chargers","networking","televisions",
+  "projectors","servers","external-storage","controllers","microphones","ups",
+  "scanners","accessories","nas","intercoms","smart-lighting","security-cameras",
+  "pc-components","cooling","power-adapters","gaming-laptops","macbook",
+  "graphics-cards","earbuds","powerbanks","vr-gaming","office-supplies","streaming-gear",
+];
+const HIGH_PRIORITY_DEVICES = new Set([
+  "laptops","smartphones","monitors","gaming-consoles","macbook","gaming-laptops",
+  "tablets","televisions","graphics-cards",
+]);
+const MID_PRIORITY_DEVICES = new Set([
+  "cpus","headphones","keyboards","storage","cameras","printers","routers",
+  "smartwatches","speakers","ram","projectors","servers","controllers","microphones",
+  "earbuds","security-cameras","pc-components","networking","external-storage",
+]);
+function devicePriority(slug: string): string {
+  if (HIGH_PRIORITY_DEVICES.has(slug)) return "0.7";
+  if (MID_PRIORITY_DEVICES.has(slug)) return "0.6";
+  return "0.5";
+}
+// Validate uniqueness at module load (catches drift early in logs).
+{
+  const seen = new Set<string>();
+  for (const s of DEVICE_SLUGS) {
+    if (seen.has(s)) console.error(`[sitemap] duplicate device slug: ${s}`);
+    seen.add(s);
+  }
+}
+
 function escapeXml(s: string): string {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
@@ -116,6 +149,7 @@ async function fetchAllData(supabase: ReturnType<typeof createClient>): Promise<
 function totalUrls(data: DynamicData): number {
   return (
     STATIC_ROUTES.length +
+    DEVICE_SLUGS.length +
     data.stores.length +
     data.products.length +
     data.blog.length +
@@ -124,12 +158,30 @@ function totalUrls(data: DynamicData): number {
   );
 }
 
+/** Deduplicate `<url>` entries by `<loc>` (defensive — slugs should already be unique). */
+function dedupeEntries(entries: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const e of entries) {
+    const m = e.match(/<loc>([^<]+)<\/loc>/);
+    const loc = m?.[1];
+    if (!loc) { out.push(e); continue; }
+    if (seen.has(loc)) continue;
+    seen.add(loc);
+    out.push(e);
+  }
+  return out;
+}
+
 /** Build a single flat sitemap with all URLs */
 function buildFlatSitemap(data: DynamicData): string {
   const entries: string[] = [];
 
   for (const route of STATIC_ROUTES) {
     entries.push(urlEntry(`${BASE_URL}${route.loc}`, undefined, route.changefreq, route.priority));
+  }
+  for (const slug of DEVICE_SLUGS) {
+    entries.push(urlEntry(`${BASE_URL}/devices/${slug}`, undefined, "weekly", devicePriority(slug)));
   }
   for (const s of data.stores) {
     entries.push(urlEntry(`${BASE_URL}/stores/${s.slug}`, s.updated_at, "weekly", "0.7"));
@@ -147,7 +199,7 @@ function buildFlatSitemap(data: DynamicData): string {
     entries.push(urlEntry(`${BASE_URL}/products/${p.slug}`, p.updated_at, "weekly", "0.6"));
   }
 
-  return wrapUrlset(entries);
+  return wrapUrlset(dedupeEntries(entries));
 }
 
 /** Build sub-sitemap for a specific section */
@@ -161,6 +213,12 @@ function buildSubSitemap(section: string, data: DynamicData): string {
       }
       for (const m of data.downtown) {
         entries.push(urlEntry(`${BASE_URL}/downtown-directory/${m.slug}`, m.updated_at, "monthly", "0.5"));
+      }
+      break;
+
+    case "devices":
+      for (const slug of DEVICE_SLUGS) {
+        entries.push(urlEntry(`${BASE_URL}/devices/${slug}`, undefined, "weekly", devicePriority(slug)));
       }
       break;
 
@@ -189,7 +247,7 @@ function buildSubSitemap(section: string, data: DynamicData): string {
       break;
   }
 
-  return wrapUrlset(entries);
+  return wrapUrlset(dedupeEntries(entries));
 }
 
 Deno.serve(async (req) => {
@@ -224,6 +282,7 @@ Deno.serve(async (req) => {
 
     const sitemaps = [
       { loc: `${fnUrl}?section=pages`, lastmod: today },
+      { loc: `${fnUrl}?section=devices`, lastmod: today },
       {
         loc: `${fnUrl}?section=stores`,
         lastmod: latestDate(data.stores) ?? today,
