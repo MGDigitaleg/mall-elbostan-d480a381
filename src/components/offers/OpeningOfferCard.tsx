@@ -17,6 +17,7 @@ export type OpeningOfferRecord = {
   offer_badge_ar?: string | null;
   image_primary?: string | null;
   valid_to?: string | null;
+  created_at?: string | null;
   opening_status?: string | null;
   featured?: boolean | null;
   category?: string | null;
