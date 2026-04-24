@@ -127,7 +127,7 @@ const DeviceBadge = ({
   playState: "running" | "paused";
   onHoverChange: (hovered: boolean) => void;
 }) => {
-  const { Icon, label, category } = device;
+  const { Icon, label, slug } = device;
   // Counter-rotate in opposite direction of the orbit so icons stay upright
   const counterDirection = reverse ? "normal" : "reverse";
 
@@ -135,7 +135,7 @@ const DeviceBadge = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          to={`/stores?category=${encodeURIComponent(category)}`}
+          to={`/devices/${slug}`}
           aria-label={label}
           onMouseEnter={() => onHoverChange(true)}
           onMouseLeave={() => onHoverChange(false)}
