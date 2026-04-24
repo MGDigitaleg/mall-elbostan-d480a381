@@ -351,32 +351,37 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
               const isActive = idx === activeIndex;
               return (
                 <li key={`${d.ring}-${d.slug}`} role="option" aria-selected={isActive}>
-                  <Link
-                    ref={(el) => (itemsRef.current[idx] = el)}
-                    to={`/devices/${d.slug}`}
-                    tabIndex={isActive ? 0 : -1}
-                    onFocus={() => setActiveIndex(idx)}
-                    onKeyDown={(e) => handleItemKeyDown(e, idx)}
-                    className="group flex h-full items-center gap-2.5 rounded-lg border bg-white/[0.03] px-3 py-2.5 transition-all hover:border-[#FCD34D]/50 hover:bg-white/[0.07] focus:outline-none focus-visible:border-[#FCD34D] focus-visible:bg-white/[0.08] focus-visible:ring-2 focus-visible:ring-[#FCD34D]/50"
-                    style={{ borderColor: "rgba(205,187,154,0.18)" }}
-                  >
-                    <span
-                      aria-hidden
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors"
-                      style={{ background: `${color}15`, color }}
-                    >
-                      <d.Icon size={18} strokeWidth={1.7} />
-                    </span>
-                    <span className="flex min-w-0 flex-1 items-center justify-between gap-1">
-                      <span className="truncate font-arabic text-[0.82rem] text-white/90 group-hover:text-white">
-                        {d.label}
-                      </span>
-                      <ArrowLeft
-                        className="h-3 w-3 shrink-0 opacity-0 transition-all group-hover:opacity-70 group-focus-visible:opacity-90"
-                        style={{ color: "#FCD34D" }}
-                      />
-                    </span>
-                  </Link>
+                  <HoverCard openDelay={180} closeDelay={120}>
+                    <HoverCardTrigger asChild>
+                      <Link
+                        ref={(el) => (itemsRef.current[idx] = el)}
+                        to={`/devices/${d.slug}`}
+                        tabIndex={isActive ? 0 : -1}
+                        onFocus={() => setActiveIndex(idx)}
+                        onKeyDown={(e) => handleItemKeyDown(e, idx)}
+                        className="group flex h-full items-center gap-2.5 rounded-lg border bg-white/[0.03] px-3 py-2.5 transition-all hover:border-[#FCD34D]/50 hover:bg-white/[0.07] focus:outline-none focus-visible:border-[#FCD34D] focus-visible:bg-white/[0.08] focus-visible:ring-2 focus-visible:ring-[#FCD34D]/50"
+                        style={{ borderColor: "rgba(205,187,154,0.18)" }}
+                      >
+                        <span
+                          aria-hidden
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md transition-colors"
+                          style={{ background: `${color}15`, color }}
+                        >
+                          <d.Icon size={18} strokeWidth={1.7} />
+                        </span>
+                        <span className="flex min-w-0 flex-1 items-center justify-between gap-1">
+                          <span className="truncate font-arabic text-[0.82rem] text-white/90 group-hover:text-white">
+                            {d.label}
+                          </span>
+                          <ArrowLeft
+                            className="h-3 w-3 shrink-0 opacity-0 transition-all group-hover:opacity-70 group-focus-visible:opacity-90"
+                            style={{ color: "#FCD34D" }}
+                          />
+                        </span>
+                      </Link>
+                    </HoverCardTrigger>
+                    <DevicePreviewCard slug={d.slug} ring={d.ring} accent={color} />
+                  </HoverCard>
                 </li>
               );
             })}
