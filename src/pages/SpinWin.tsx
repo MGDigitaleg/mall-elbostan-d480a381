@@ -140,7 +140,21 @@ const SpinWin = () => {
       setTargetIndex(idx);
       setSettled(false);
       setStep("spinning");
-    } catch {
+
+      // Persist attempt locally for the user's history panel
+      try {
+        addSpinHistory({
+          won: Boolean(data?.won),
+          prize_name_ar: data?.result?.prize?.name_ar ?? null,
+          claim_code: data?.result?.claim_code ?? null,
+          is_grand: Boolean(data?.result?.is_grand),
+          is_visitor: Boolean(data?.result?.visitor_only),
+          expires_at: data?.result?.expires_at ?? null,
+        });
+        setHistoryKey((k) => k + 1);
+      } catch {
+        // non-fatal
+      }
       trackEvent("spin_win_error", { reason: "network_or_unknown" });
       toast({ title: "خطأ", description: "حدث خطأ — حاول مرة أخرى", variant: "destructive" });
     } finally {
