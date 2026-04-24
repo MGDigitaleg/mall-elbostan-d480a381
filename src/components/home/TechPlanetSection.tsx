@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { TechPlanetCatalog } from "@/components/home/TechPlanetCatalog";
-import { TechPlanetAuditBanner } from "@/components/home/TechPlanetAuditBanner";
+
 
 type Device = {
   Icon: LucideIcon;
@@ -1007,11 +1007,6 @@ export const TechPlanetSection = () => {
               </div>
             </div>
           </div>
-
-          {import.meta.env.DEV && (() => {
-            const { missing, extras, duplicates } = computeOrbitAudit();
-            return <TechPlanetAuditBanner missing={missing} extras={extras} duplicates={duplicates} />;
-          })()}
 
           <TechPlanetCatalog inner={innerOrbit} middle={middleOrbit} outer={outerOrbit} />
 
