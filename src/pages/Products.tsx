@@ -798,6 +798,7 @@ const Products = () => {
               </div>
             )}
           </div>
+        </div>
 
           {/* Quick category chips */}
           {quickChips.length > 0 && (
