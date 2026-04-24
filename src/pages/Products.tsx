@@ -656,20 +656,18 @@ const Products = () => {
 
               {/* Row 2: Category dropdowns (Section + Sort) */}
               <div className="flex items-center gap-2 flex-wrap">
-                {/* Mall filter */}
-                {mallList.length > 1 && (
-                  <select
-                    value={selectedMall}
-                    onChange={(e) => setSelectedMall(e.target.value)}
-                    className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
-                  >
-                    <option value="all">جميع الفروع</option>
-                    {mallList.map((m) => (
-                      <option key={m} value={m}>{m}</option>
-                    ))}
-                  </select>
-                )}
+                {/* Section filter */}
+                <select
+                  value={selectedSection}
+                  onChange={(e) => setSelectedSection(e.target.value)}
+                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
+                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
+                >
+                  <option value="all">جميع الأقسام</option>
+                  {mergedSections.map((c) => (
+                    <option key={c.id} value={c.id}>{c.label}</option>
+                  ))}
+                </select>
 
                 {/* Shop filter */}
                 <select
