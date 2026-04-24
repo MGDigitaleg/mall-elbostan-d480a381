@@ -220,14 +220,14 @@ export const TENANT_LOGO_REGISTRY: TenantLogoEntry[] = [
     notes: "AI-generated placeholder. Official logo not yet sourced.",
   },
   {
-    slug: "infinity",
-    displayNameAr: "Infinity",
-    displayNameEn: "Infinity",
+    slug: "ics",
+    displayNameAr: "إنفينيتي لخدمات الكمبيوتر / ICS",
+    displayNameEn: "Infinity Computer Services / ICS",
     logoPath: "/logos/tenants/infinity.webp",
     verified: "generated",
     officialSite: null,
     backgroundMode: "auto",
-    notes: "AI-generated placeholder. Official logo not yet sourced.",
+    notes: "Current logo file reused for ICS until a verified official export is available.",
   },
   {
     slug: "info-max",
