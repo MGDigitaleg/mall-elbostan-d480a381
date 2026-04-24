@@ -459,6 +459,7 @@ export const TechPlanetCatalog = ({ inner, middle, outer }: Props) => {
             query={query}
             orbit={orbit}
             all={all}
+            orbitDeepLink={orbit === "all" ? null : orbitDeepLinks[orbit]}
             onClearQuery={() => {
               setQuery("");
               requestAnimationFrame(() => searchRef.current?.focus());
