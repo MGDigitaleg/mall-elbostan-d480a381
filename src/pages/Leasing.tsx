@@ -637,4 +637,43 @@ function FormInput({ value, onChange, required, type = "text", dir }: { value: s
   );
 }
 
+/* ── Dark form select ── */
+function FormSelect({
+  value, onChange, options, placeholder, required,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  options: { value: string; label: string }[];
+  placeholder: string;
+  required?: boolean;
+}) {
+  return (
+    <select
+      dir="rtl"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      required={required}
+      className="h-11 w-full cursor-pointer appearance-none rounded-xl px-4 text-[0.84rem] outline-none transition-all"
+      style={{
+        border: "1px solid hsl(0 0% 100% / 0.1)",
+        background: "hsl(0 0% 100% / 0.05)",
+        color: value ? "hsl(0 0% 97%)" : "hsl(220 15% 55%)",
+        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "left 14px center",
+        paddingLeft: "36px",
+      }}
+      onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(25 85% 50% / 0.4)"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(25 85% 50% / 0.08)"; }}
+      onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(0 0% 100% / 0.1)"; e.currentTarget.style.boxShadow = "none"; }}
+    >
+      <option value="" disabled style={{ background: "#0B1220", color: "#94A3B8" }}>{placeholder}</option>
+      {options.map((o) => (
+        <option key={o.value} value={o.value} style={{ background: "#0B1220", color: "#F8FAFC" }}>
+          {o.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 export default Leasing;
