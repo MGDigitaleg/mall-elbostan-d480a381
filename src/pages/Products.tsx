@@ -711,24 +711,13 @@ const Products = () => {
                 </select>
               </div>
 
-                {/* Sort */}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1" }}
-                >
-                  <option value="featured">الأكثر تميزاً</option>
-                  <option value="price_asc">السعر: الأقل</option>
-                  <option value="price_desc">السعر: الأعلى</option>
-                  <option value="newest">الأحدث</option>
-                </select>
-
+              {/* Row 3: Action buttons (Mobile filters + Clear) */}
+              <div className="flex items-center gap-2 flex-wrap">
                 {/* Mobile filters trigger */}
                 <Sheet>
                   <SheetTrigger asChild>
                     <button
-                      className="lg:hidden flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
+                      className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
                       style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
                     >
                       <SlidersHorizontal className="h-3.5 w-3.5" />
@@ -751,8 +740,19 @@ const Products = () => {
                     </div>
                   </SheetContent>
                 </Sheet>
+
+                {/* Clear filters button */}
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearFilters}
+                    className="flex h-9 items-center gap-1 rounded-lg px-3 text-[0.76rem] font-semibold transition-colors"
+                    style={{ border: "1px solid #ffffff12", background: "#ffffff06", color: "#94A3B8" }}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                    مسح الفلاتر
+                  </button>
+                )}
               </div>
-            </div>
 
             {/* Active filter summary */}
             {hasActiveFilters && (
