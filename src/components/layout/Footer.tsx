@@ -271,15 +271,16 @@ export function Footer() {
                 ),
               },
             ].map((store) => (
-              <a
+              <span
                 key={store.label}
-                href="#"
-                className="flex h-10 items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium transition-all duration-300 hover:bg-white/[0.06]"
+                aria-disabled="true"
+                title="التطبيق قيد التطوير"
+                className="flex h-10 cursor-not-allowed items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium opacity-60"
                 style={{ background: "#ffffff04", border: "1px solid #ffffff0A", color: "#6B7A8D" }}
               >
                 {store.icon}
                 {store.label}
-              </a>
+              </span>
             ))}
           </div>
         </div>
