@@ -562,31 +562,37 @@ const Products = () => {
 
       <div className="band-primary" />
 
-      {/* ═══ Single compact Featured Rail (top, no filters active) ═══ */}
-      {!hasActiveFilters && (isLoading || featuredHighlights.length >= 3) && (
-        <section
-          className="relative overflow-hidden"
-          style={{
-            background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(12px, 1.8vw, 24px)",
-            paddingBottom: "clamp(12px, 1.8vw, 24px)",
-          }}
-        >
-          <div className="container relative max-w-[1200px]">
-            <ProductRail
-              kicker="مختارات"
-              title="منتجات مميزة"
-              subtitle="أبرز ما اختارته محلات مول البستان."
-              products={featuredHighlights.slice(0, 6)}
-              ctaLabel="تصفّح الكل"
-              ctaTo="#products"
-              layout="rail"
-              theme="dark"
-              density="standard"
-              loading={isLoading}
-            />
-          </div>
-        </section>
+      {/* ═══ Featured Rail — only when no filters active and we have real picks ═══
+          Re-renders cleanly: hasActiveFilters is derived from state, and the
+          `key` forces a fresh mount when the filter state flips. */}
+      {!hasActiveFilters && (
+        (isLoading || featuredHighlights.length >= 3) && (
+          <section
+            key="featured-rail"
+            className="relative overflow-hidden"
+            aria-label="منتجات مميزة"
+            style={{
+              background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
+              paddingTop: "clamp(12px, 1.8vw, 24px)",
+              paddingBottom: "clamp(12px, 1.8vw, 24px)",
+            }}
+          >
+            <div className="container relative max-w-[1200px]">
+              <ProductRail
+                kicker="مختارات"
+                title="منتجات مميزة"
+                subtitle="أبرز ما اختارته محلات مول البستان."
+                products={featuredHighlights.slice(0, 6)}
+                ctaLabel="تصفّح الكل"
+                ctaTo="#products"
+                layout="rail"
+                theme="dark"
+                density="standard"
+                loading={isLoading && featuredHighlights.length === 0}
+              />
+            </div>
+          </section>
+        )
       )}
 
       <section id="products" className="heritage-deep py-4 md:py-6 scroll-mt-20">
