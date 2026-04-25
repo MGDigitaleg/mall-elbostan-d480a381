@@ -27,7 +27,7 @@ export function FloorTabs({ selected, onChange }: Props) {
   );
 
   return (
-    <div role="tablist" aria-label="اختيار الدور" className="flex gap-2 border-b border-border bg-muted/30 px-2 pt-2">
+    <div role="tablist" aria-label="اختيار الدور" className="flex gap-1.5 border-b border-border bg-muted/30 px-2 pt-2 sm:gap-2">
       {mallFloors.map((f, i) => {
         const isActive = selected === f.id;
         return (
@@ -41,7 +41,8 @@ export function FloorTabs({ selected, onChange }: Props) {
             tabIndex={isActive ? 0 : -1}
             onClick={() => onChange(f.id)}
             onKeyDown={(e) => handleKeyDown(e, i)}
-            className={`relative rounded-t-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 md:px-6 md:text-base ${
+            style={{ touchAction: "manipulation" }}
+            className={`relative flex min-h-[44px] flex-1 items-center justify-center rounded-t-lg px-3 py-2.5 text-[0.92rem] font-semibold transition-all duration-200 active:scale-[0.98] sm:flex-none sm:min-h-0 sm:px-4 sm:py-2.5 sm:text-sm md:px-6 md:text-base ${
               isActive
                 ? "bg-card text-foreground shadow-sm"
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
