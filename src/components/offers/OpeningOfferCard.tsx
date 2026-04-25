@@ -277,9 +277,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
         <div className="mb-1.5 flex items-start justify-between gap-3">
           <div className="min-w-0">
             {offer.brand && <p className={`mb-1 ${c ? "text-[0.62rem]" : "text-[0.68rem]"} font-semibold text-muted-foreground`}>{offer.brand}</p>}
-            <h3 className={`font-bold text-foreground ${titleClass}`}>
-              {offer.title_ar}
-            </h3>
+            <Link to={`/daily-deals/${offer.id}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-md">
+              <h3 className={`font-bold text-foreground transition-colors hover:text-primary ${titleClass}`}>
+                {offer.title_ar}
+              </h3>
+            </Link>
           </div>
           {discount && (
             <div className={`shrink-0 rounded-xl border border-orange/20 bg-orange/10 ${discountBoxClass} text-center`}>
@@ -334,6 +336,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
         </div>
 
         <div className={buttonsGap}>
+          <Link to={`/daily-deals/${offer.id}`} className="block">
+            <Button variant="cta" className={`${buttonHeight} w-full rounded-xl ${ctaText} font-bold gap-1.5`}>
+              تفاصيل العرض <ArrowLeft className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
           {directOfferHref && (
             <Link to={directOfferHref} className="block">
               <Button variant="outline-blue" className={`${buttonHeight} w-full rounded-xl ${buttonText} font-bold gap-1.5 justify-between overflow-hidden`}>
@@ -344,8 +351,8 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
           )}
           {showStoreLink && store && (
             <Link to={`/stores/${store.slug}`} className="block">
-              <Button variant="cta" className={`${buttonHeight} w-full rounded-xl ${ctaText} font-bold gap-1.5`}>
-                انتقل إلى صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
+              <Button variant="outline-blue" className={`${buttonHeight} w-full rounded-xl ${buttonText} font-bold gap-1.5`}>
+                صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
               </Button>
             </Link>
           )}
