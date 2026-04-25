@@ -60,8 +60,8 @@ export function DealsTeaser() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-        paddingTop: "clamp(48px, 6vw, 96px)",
-        paddingBottom: "clamp(48px, 6vw, 96px)",
+        paddingTop: "clamp(28px, 3.5vw, 56px)",
+        paddingBottom: "clamp(28px, 3.5vw, 56px)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
