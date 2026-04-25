@@ -296,14 +296,18 @@ const StoreDetail = () => {
             {/* Badge row */}
             <div className="flex flex-wrap items-center gap-2">
               {store.category && (
-                <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm"
-                      style={{
-                        background: `hsl(${storyColor} / 0.12)`,
-                        border: `1px solid hsl(${storyColor} / 0.22)`,
-                        color: `hsl(${storyColor})`,
-                      }}>
+                <Link
+                  to={`/stores?category=${encodeURIComponent(store.category)}`}
+                  aria-label={`تصفّح كل محلات فئة ${store.category}`}
+                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                  style={{
+                    background: `hsl(${storyColor} / 0.12)`,
+                    border: `1px solid hsl(${storyColor} / 0.22)`,
+                    color: `hsl(${storyColor})`,
+                  }}
+                >
                   <Tag className="h-3 w-3" />{store.category}
-                </span>
+                </Link>
               )}
               {store.unit_code && (
                 <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold backdrop-blur-sm"
