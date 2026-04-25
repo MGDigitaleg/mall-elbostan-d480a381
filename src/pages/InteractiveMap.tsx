@@ -969,6 +969,12 @@ const InteractiveMap = () => {
             setSelectedUnit(targetUnit);
             setHighlightedUnitIds(new Set([targetUnit.id]));
             scrollToMap();
+          } else {
+            toast.warning("لم نتمكن من تحديد موقع المحل على الخريطة", {
+              description: "ربما لم يُحدَّث موقعه بعد — تصفّح الخريطة لاكتشاف المحلات المتاحة.",
+              duration: 6000,
+            });
+            scrollToMap();
           }
         }}
       />
