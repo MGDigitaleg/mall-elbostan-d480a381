@@ -17,31 +17,37 @@ const PAGE_BATCH = 8;
 const DailyDeals = () => {
   const { id: offerId } = useParams<{ id?: string }>();
   const { isExpired } = useCountdown(LAUNCH_DATE);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const activeMerchant = searchParams.get("merchant");
+  const activeCategory = searchParams.get("category");
 
-  const { data: deals, isLoading } = useQuery({
-    queryKey: ["live-deals", activeMerchant],
+  const { data: allDeals, isLoading } = useQuery({
+    queryKey: ["live-deals-all"],
     queryFn: async () => {
-      let query = supabase
+      const { data } = await supabase
         .from("deals")
         .select("id, title_ar, description_ar, valid_to, featured, campaign_key, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, sort_order, created_at, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
         .eq("is_live", true)
         .eq("campaign_key", "opening-offers-2026")
         .order("featured", { ascending: false })
         .order("sort_order", { ascending: true });
-
-      if (activeMerchant) query = query.eq("stores.slug", activeMerchant);
-
-      const { data } = await query;
       return (data ?? []) as OpeningOfferRecord[];
     },
   });
 
+  // Filtered set (merchant + category) — used for the grid
+  const deals = useMemo(() => {
+    let list = allDeals ?? [];
+    if (activeMerchant) list = list.filter((d) => d.stores?.slug === activeMerchant);
+    if (activeCategory) list = list.filter((d) => (d.stores?.category ?? "") === activeCategory);
+    return list;
+  }, [allDeals, activeMerchant, activeCategory]);
+
+  // Always derived from full set so chips remain stable
   const merchantGroups = useMemo(() => {
     const map = new Map<string, { slug: string; name: string; count: number }>();
-    (deals ?? []).forEach((deal) => {
+    (allDeals ?? []).forEach((deal) => {
       if (!deal.stores) return;
       const prev = map.get(deal.stores.slug);
       map.set(deal.stores.slug, {
@@ -50,8 +56,27 @@ const DailyDeals = () => {
         count: (prev?.count ?? 0) + 1,
       });
     });
-    return Array.from(map.values());
-  }, [deals]);
+    return Array.from(map.values()).sort((a, b) => b.count - a.count);
+  }, [allDeals]);
+
+  const categoryGroups = useMemo(() => {
+    const map = new Map<string, number>();
+    (allDeals ?? []).forEach((deal) => {
+      const c = deal.stores?.category;
+      if (!c) return;
+      map.set(c, (map.get(c) ?? 0) + 1);
+    });
+    return Array.from(map.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [allDeals]);
+
+  const setFilter = (key: "merchant" | "category", value: string | null) => {
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set(key, value);
+    else next.delete(key);
+    setSearchParams(next, { replace: true });
+  };
 
   const liveOffersCount = deals?.length ?? 0;
   const merchantCount = merchantGroups.length;
