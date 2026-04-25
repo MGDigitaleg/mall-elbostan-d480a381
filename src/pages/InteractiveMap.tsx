@@ -343,7 +343,10 @@ const InteractiveMap = () => {
               <div className="hidden flex-wrap items-center justify-between gap-2 py-2.5 md:flex">
                 <FloorTabs selected={selectedFloor} onChange={handleFloorChange} />
                 <div className="flex items-center gap-3">
-                  <MapLegend />
+                  <MapLegend
+                    activeStatus={availableOnly ? "available" : statusFilter}
+                    onStatusChange={(s) => { setAvailableOnly(false); setStatusFilter(s); }}
+                  />
                   <div className="hidden items-center gap-2 rounded-xl px-3.5 py-2 text-[0.7rem] md:flex bg-muted/50 border border-border">
                     <span className="font-bold text-foreground">{floor.units.length}</span>
                     <span className="text-muted-foreground">وحدة</span>
