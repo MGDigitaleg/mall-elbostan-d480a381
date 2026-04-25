@@ -116,6 +116,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
   const isOverviewActive = zoom === 1 && pan.x === 0 && pan.y === 0 && !selectedUnitId;
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
+    didPanRef.current = false;
     if (zoom <= 1) return;
     isPanning.current = true;
     panStart.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
@@ -126,10 +127,34 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     if (!isPanning.current) return;
     const dx = e.clientX - panStart.current.x;
     const dy = e.clientY - panStart.current.y;
+    if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
+      didPanRef.current = true;
+      // Cancel any pending tap-confirm tooltip when the user starts panning.
+      setPendingUnitId((id) => (id ? null : id));
+    }
     setPan({ x: panStart.current.panX + dx, y: panStart.current.panY + dy });
   }, []);
 
   const handlePointerUp = useCallback(() => { isPanning.current = false; }, []);
+
+  // Tap-to-confirm logic: first tap on a unit shows a confirmation tooltip,
+  // second tap on the same unit (or on the ✓ button) opens the details panel.
+  const handleUnitTap = useCallback((unit: MallUnit) => {
+    if (didPanRef.current) {
+      didPanRef.current = false;
+      return;
+    }
+    if (pendingUnitId === unit.id) {
+      setPendingUnitId(null);
+      onSelectUnit(unit);
+      return;
+    }
+    setPendingUnitId(unit.id);
+  }, [pendingUnitId, onSelectUnit]);
+
+  // Clear pending confirmation when the underlying selection changes from outside
+  // (e.g., URL highlight, search), or when the floor changes.
+  useEffect(() => { setPendingUnitId(null); }, [floor.id, selectedUnitId]);
 
   /**
    * Spatial keyboard navigation between units.
