@@ -141,9 +141,9 @@ const SpinWin = () => {
       setSettled(false);
       setStep("spinning");
 
-      // Persist attempt locally for the user's history panel
+      // Persist attempt locally + cloud (if signed in) for the user's history panel
       try {
-        addSpinHistory({
+        await addSpinHistory({
           won: Boolean(data?.won),
           prize_name_ar: data?.result?.prize?.name_ar ?? null,
           claim_code: data?.result?.claim_code ?? null,

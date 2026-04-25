@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
-import { History, Trophy, Clock, Trash2, Copy, Check } from "lucide-react";
-import { getSpinHistory, clearSpinHistory, type SpinHistoryEntry } from "@/lib/spinHistory";
+import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import {
+  getSpinHistory,
+  clearSpinHistoryEverywhere,
+  syncSpinHistory,
+  type SpinHistoryEntry,
+} from "@/lib/spinHistory";
 import { useToast } from "@/hooks/use-toast";
 
 type Props = {
@@ -11,12 +18,50 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
   const { toast } = useToast();
   const [items, setItems] = useState<SpinHistoryEntry[]>([]);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [syncing, setSyncing] = useState(false);
 
+  // Track auth state and sync on changes
   useEffect(() => {
-    setItems(getSpinHistory());
-  }, [refreshKey]);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      const email = session?.user?.email ?? null;
+      setUserEmail(email);
+      if (session?.user) {
+        setSyncing(true);
+        syncSpinHistory()
+          .then(setItems)
+          .finally(() => setSyncing(false));
+      } else {
+        setItems(getSpinHistory());
+      }
+    });
 
-  if (items.length === 0) return null;
+    supabase.auth.getSession().then(({ data }) => {
+      const email = data.session?.user?.email ?? null;
+      setUserEmail(email);
+      if (data.session?.user) {
+        setSyncing(true);
+        syncSpinHistory()
+          .then(setItems)
+          .finally(() => setSyncing(false));
+      } else {
+        setItems(getSpinHistory());
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Refresh when a new spin is recorded
+  useEffect(() => {
+    if (refreshKey === 0) return;
+    if (userEmail) {
+      setSyncing(true);
+      syncSpinHistory().then(setItems).finally(() => setSyncing(false));
+    } else {
+      setItems(getSpinHistory());
+    }
+  }, [refreshKey, userEmail]);
 
   const copy = (entry: SpinHistoryEntry) => {
     if (!entry.claim_code) return;
@@ -26,75 +71,122 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
     setTimeout(() => setCopiedId(null), 1800);
   };
 
-  const onClear = () => {
-    clearSpinHistory();
+  const onClear = async () => {
+    if (!confirm("هل تريد مسح سجل المحاولات؟")) return;
+    await clearSpinHistoryEverywhere();
     setItems([]);
     toast({ title: "تم مسح سجل المحاولات" });
   };
 
+  const onSignOut = async () => {
+    await supabase.auth.signOut();
+    toast({ title: "تم تسجيل الخروج" });
+  };
+
+  // Show the panel even if empty when signed in (to surface sync state)
+  if (items.length === 0 && !userEmail) return null;
+
   return (
     <div dir="rtl" className="mt-10 max-w-3xl mx-auto card-premium p-5 md:p-6 text-right">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
             <History className="h-4 w-4 text-primary" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-foreground">سجل محاولاتك</h3>
-            <p className="text-[11px] text-muted-foreground">آخر {items.length} محاولة محفوظة على هذا الجهاز</p>
+            <p className="text-[11px] text-muted-foreground">
+              {userEmail
+                ? `مزامن مع حسابك (${userEmail}) — يظهر على كل أجهزتك`
+                : `آخر ${items.length} محاولة محفوظة على هذا الجهاز فقط`}
+            </p>
           </div>
         </div>
-        <button
-          onClick={onClear}
-          className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-destructive transition-colors"
-        >
-          <Trash2 className="w-3 h-3" />
-          مسح السجل
-        </button>
+        <div className="flex items-center gap-2">
+          {userEmail ? (
+            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-primary/10 text-primary text-[10px] font-bold">
+              <Cloud className="w-3 h-3" />
+              {syncing ? "مزامنة..." : "مزامن"}
+            </span>
+          ) : (
+            <Link
+              to="/spin-win/account"
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-md bg-primary text-primary-foreground text-[11px] font-bold hover:opacity-90 transition-opacity"
+            >
+              <LogIn className="w-3 h-3" />
+              سجّل لمزامنة السجل
+            </Link>
+          )}
+          {items.length > 0 && (
+            <button
+              onClick={onClear}
+              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-destructive transition-colors"
+            >
+              <Trash2 className="w-3 h-3" />
+              مسح
+            </button>
+          )}
+          {userEmail && (
+            <button
+              onClick={onSignOut}
+              className="inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground transition-colors"
+              title="تسجيل الخروج"
+            >
+              <LogOut className="w-3 h-3" />
+            </button>
+          )}
+        </div>
       </div>
 
-      <ul className="space-y-2">
-        {items.map((it) => {
-          const date = new Date(it.at).toLocaleString("ar-EG", {
-            day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
-          });
-          const tone = it.is_grand
-            ? "bg-navy/10 border-navy/30"
-            : it.is_visitor
-              ? "bg-orange/10 border-orange/30"
-              : it.won
-                ? "bg-primary/5 border-primary/20"
-                : "bg-muted/40 border-border";
-          return (
-            <li key={it.id} className={`flex items-center gap-3 p-3 rounded-xl border ${tone}`}>
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-card shrink-0">
-                <Trophy className={`h-4 w-4 ${it.won ? "text-primary" : "text-muted-foreground"}`} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-foreground truncate">
-                  {it.won ? (it.prize_name_ar || "جائزة") : "بدون جائزة"}
-                  {it.is_grand && <span className="mr-1 text-[10px] font-bold text-primary">• كبرى</span>}
-                  {it.is_visitor && <span className="mr-1 text-[10px] font-bold text-orange">• زائر فرع</span>}
-                </p>
-                <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
-                  <Clock className="w-3 h-3" />
-                  {date}
-                </p>
-              </div>
-              {it.claim_code && (
-                <button
-                  onClick={() => copy(it)}
-                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-card border border-border text-[11px] font-mono font-bold text-foreground hover:bg-primary/10 transition-colors"
-                  title="نسخ رمز الاستلام"
-                >
-                  {copiedId === it.id ? <Check className="w-3 h-3 text-primary" /> : <Copy className="w-3 h-3" />}
-                  {it.claim_code}
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      {items.length === 0 ? (
+        <div className="flex items-center gap-2 p-4 rounded-xl bg-muted/40 border border-border text-xs text-muted-foreground">
+          <CloudOff className="w-4 h-4" />
+          لا توجد محاولات بعد — جرّب العجلة وستظهر هنا تلقائياً.
+        </div>
+      ) : (
+        <ul className="space-y-2">
+          {items.map((it) => {
+            const date = new Date(it.at).toLocaleString("ar-EG", {
+              day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
+            });
+            const tone = it.is_grand
+              ? "bg-navy/10 border-navy/30"
+              : it.is_visitor
+                ? "bg-orange/10 border-orange/30"
+                : it.won
+                  ? "bg-primary/5 border-primary/20"
+                  : "bg-muted/40 border-border";
+            return (
+              <li key={it.id} className={`flex items-center gap-3 p-3 rounded-xl border ${tone}`}>
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-card shrink-0">
+                  <Trophy className={`h-4 w-4 ${it.won ? "text-primary" : "text-muted-foreground"}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-foreground truncate">
+                    {it.won ? (it.prize_name_ar || "جائزة") : "بدون جائزة"}
+                    {it.is_grand && <span className="mr-1 text-[10px] font-bold text-primary">• كبرى</span>}
+                    {it.is_visitor && <span className="mr-1 text-[10px] font-bold text-orange">• زائر فرع</span>}
+                  </p>
+                  <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    {date}
+                  </p>
+                </div>
+                {it.claim_code && (
+                  <button
+                    onClick={() => copy(it)}
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-card border border-border text-[11px] font-mono font-bold text-foreground hover:bg-primary/10 transition-colors"
+                    title="نسخ رمز الاستلام"
+                  >
+                    {copiedId === it.id ? <Check className="w-3 h-3 text-primary" /> : <Copy className="w-3 h-3" />}
+                    {it.claim_code}
+                  </button>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };
