@@ -468,9 +468,20 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 onKeyDown={(e) => handleUnitKeyDown(e, unit)}
-                tabIndex={0}
+                onFocus={() => setHoveredId(unit.id)}
+                onBlur={() => setHoveredId((id) => (id === unit.id ? null : id))}
+                tabIndex={isMuted ? -1 : 0}
                 role="button"
-                aria-label={`وحدة ${unit.code} - ${unit.area} متر مربع`}
+                aria-pressed={isSelected}
+                aria-disabled={isMuted || undefined}
+                data-unit-id={unit.id}
+                aria-label={(() => {
+                  const tenant = TENANT_NAMES[unit.id];
+                  const status = statusLabelsAr[unit.status];
+                  const cat = categoryLabelsAr[unit.category];
+                  const namePart = unit.status === "occupied" && tenant ? ` — ${tenant}` : "";
+                  return `وحدة ${unit.code}${namePart}، ${cat}، ${status}، ${unit.area} متر مربع`;
+                })()}
               />
             );
           })}
