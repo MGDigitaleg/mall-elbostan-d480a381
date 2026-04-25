@@ -197,6 +197,11 @@ const InteractiveMap = () => {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ prizeName, storeName: store.name_ar ?? undefined });
+        const storeLabel = store.name_ar ? `"${store.name_ar}"` : "الفائز";
+        toast.info(`موقع المحل ${storeLabel} غير محدد بعد على الخريطة`, {
+          description: "أضأنا كل المحلات المتاحة لتختار منها بسهولة.",
+          duration: 6000,
+        });
       }
     } else {
       const mapCat = resolveMapCategory(store?.category ?? null);
@@ -209,6 +214,10 @@ const InteractiveMap = () => {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ prizeName, isCategory: true });
+        toast.info("لم نحدّد محلاً واحداً لهذه المكافأة", {
+          description: "أضأنا كل المحلات المتاحة لتختار منها بسهولة.",
+          duration: 6000,
+        });
       }
     }
     setTimeout(() => clearRewardState(), 15000);
