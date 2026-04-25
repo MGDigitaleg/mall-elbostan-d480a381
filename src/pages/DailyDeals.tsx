@@ -422,8 +422,12 @@ const DailyDeals = () => {
             <section id="opening-offers-grid">
               <div className="mb-3 flex items-end justify-between gap-3">
                 <h2 className="text-[0.95rem] font-bold text-foreground">{sectionTitle}</h2>
-                <span className="text-[0.66rem] text-muted-foreground">
-                  {gridDeals.length.toLocaleString("ar-EG")} عرض
+                <span className="text-[0.66rem] text-muted-foreground" aria-live="polite">
+                  عرض{" "}
+                  <strong className="font-bold text-foreground">
+                    {Math.min(visibleDeals.length, gridDeals.length).toLocaleString("ar-EG")}
+                  </strong>{" "}
+                  من {gridDeals.length.toLocaleString("ar-EG")}
                 </span>
               </div>
 
@@ -440,17 +444,70 @@ const DailyDeals = () => {
                       />
                     ))}
                   </div>
-                  {remaining > 0 && (
-                    <div className="mt-5 flex justify-center">
-                      <Button
-                        variant="outline-blue"
-                        className="h-9 rounded-xl px-5 text-[0.74rem] font-bold"
-                        onClick={() => setVisibleCount((v) => v + PAGE_BATCH)}
-                      >
-                        عرض المزيد ({remaining.toLocaleString("ar-EG")})
-                      </Button>
+
+                  {/* Pagination footer */}
+                  <div className="mt-6 flex flex-col items-center gap-3">
+                    {/* Progress bar */}
+                    <div
+                      className="h-1 w-full max-w-md overflow-hidden rounded-full bg-muted"
+                      role="progressbar"
+                      aria-valuemin={0}
+                      aria-valuemax={gridDeals.length}
+                      aria-valuenow={Math.min(visibleDeals.length, gridDeals.length)}
+                      aria-label="نسبة العروض المعروضة"
+                    >
+                      <div
+                        className="h-full rounded-full bg-primary transition-[width] duration-300"
+                        style={{
+                          width: `${Math.min(100, (visibleDeals.length / Math.max(1, gridDeals.length)) * 100)}%`,
+                        }}
+                      />
                     </div>
-                  )}
+
+                    {remaining > 0 ? (
+                      <div className="flex flex-wrap items-center justify-center gap-2">
+                        <Button
+                          variant="cta"
+                          className="h-10 rounded-xl px-5 text-[0.78rem] font-bold gap-1.5"
+                          onClick={() => setVisibleCount((v) => v + PAGE_BATCH)}
+                        >
+                          تحميل المزيد
+                          <span className="rounded-full bg-primary-foreground/15 px-2 py-0.5 text-[0.64rem] font-bold">
+                            +{Math.min(PAGE_BATCH, remaining).toLocaleString("ar-EG")}
+                          </span>
+                        </Button>
+                        {gridDeals.length > PAGE_BATCH * 2 && (
+                          <Button
+                            variant="outline-blue"
+                            className="h-10 rounded-xl px-4 text-[0.74rem] font-bold"
+                            onClick={() => setVisibleCount(gridDeals.length)}
+                          >
+                            عرض كل العروض ({gridDeals.length.toLocaleString("ar-EG")})
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      gridDeals.length > PAGE_BATCH && (
+                        <div className="flex flex-col items-center gap-1.5">
+                          <p className="text-[0.7rem] font-semibold text-muted-foreground">
+                            وصلت لنهاية العروض المتاحة
+                          </p>
+                          <Button
+                            variant="ghost"
+                            className="h-9 rounded-xl px-4 text-[0.72rem] font-semibold"
+                            onClick={() => {
+                              setVisibleCount(PAGE_BATCH);
+                              document
+                                .getElementById("opening-offers-grid")
+                                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }}
+                          >
+                            العودة إلى الأعلى
+                          </Button>
+                        </div>
+                      )
+                    )}
+                  </div>
                 </>
               ) : activeMerchant || activeCategory ? (
                 (() => {
