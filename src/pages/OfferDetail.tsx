@@ -185,7 +185,6 @@ const OfferDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDesc}
-        canonical={`/daily-deals/${offer.id}`}
       />
 
       <div className="bg-gradient-to-b from-secondary/30 via-background to-background">
