@@ -316,19 +316,19 @@ const StoreDetail = () => {
             )}
 
             {/* Hero CTAs */}
-            <div className="flex flex-wrap gap-2.5 pt-1">
+            <div className="flex flex-wrap gap-2 pt-0.5">
               {store.whatsapp && (
                 <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                  <Button variant="cta" className="h-11 gap-2 rounded-xl px-6 text-[0.82rem] font-bold shadow-lg shadow-primary/25">
-                    <MessageCircle className="h-4 w-4" />تواصل واتساب
+                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold shadow-md shadow-primary/20">
+                    <MessageCircle className="h-3.5 w-3.5" />تواصل واتساب
                   </Button>
                 </a>
               )}
               {store.phone && (
                 <a href={`tel:${store.phone}`}>
-                  <Button className="h-11 gap-2 rounded-xl px-6 text-[0.82rem] font-bold text-white transition-all hover:bg-white/12"
+                  <Button className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold text-white transition-all hover:bg-white/12"
                           style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.15)" }}>
-                    <Phone className="h-4 w-4" />اتصل الآن
+                    <Phone className="h-3.5 w-3.5" />اتصل الآن
                   </Button>
                 </a>
               )}
@@ -343,7 +343,7 @@ const StoreDetail = () => {
 
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
-        <div className="container max-w-6xl py-10 md:py-14">
+        <div className="container max-w-6xl py-6 md:py-9">
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
 
             {/* ── Main column ── */}
