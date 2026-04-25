@@ -582,7 +582,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                     filter="url(#badgeShadow)"
                     onMouseEnter={() => setHoveredBadgeId(unit.id)}
                     onMouseLeave={() => setHoveredBadgeId(null)}
-                    onClick={() => onSelectUnit(unit)}
+                    onClick={() => handleUnitTap(unit)}
                   >
                     {/* White rounded badge background */}
                     <rect
