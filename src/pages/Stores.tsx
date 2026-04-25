@@ -496,19 +496,19 @@ const Stores = () => {
           )}
         </div>
       </section>
-      {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-6 md:py-8 bg-secondary dark:bg-background">
+      {/* ═══════════ CATEGORY CARDS (secondary discovery) ═══════════ */}
+      <section className="py-5 md:py-7 bg-secondary dark:bg-background">
         <div className="container max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5 }}
-            className="mb-7 flex items-end justify-between"
+            className="mb-5 flex items-end justify-between"
           >
             <div>
-              <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">تصفح حسب الفئة.</h2>
+              <p className="section-kicker">طرق تصفّح أخرى</p>
+              <h2 className="section-title">تصفّح حسب الفئة.</h2>
             </div>
             {selectedCategory && (
               <button onClick={() => setSelectedCategory("")} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-bold text-primary transition-colors hover:bg-primary/5" style={{ border: "1px solid hsl(var(--primary) / 0.15)" }}>
