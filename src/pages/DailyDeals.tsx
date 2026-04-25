@@ -82,6 +82,13 @@ const DailyDeals = () => {
     setSearchParams(next, { replace: true });
   };
 
+  const resetAll = () => {
+    const next = new URLSearchParams(searchParams);
+    next.delete("merchant");
+    next.delete("category");
+    setSearchParams(next, { replace: true });
+  };
+
   const liveOffersCount = allDeals?.length ?? 0;
   const merchantCount = merchantGroups.length;
   const openNowCount = (allDeals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
