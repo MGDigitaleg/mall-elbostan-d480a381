@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp } from "lucide-react";
+import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
-import { CountdownTimer } from "@/components/CountdownTimer";
 import { useCountdown } from "@/hooks/useCountdown";
 import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 import { Button } from "@/components/ui/button";
