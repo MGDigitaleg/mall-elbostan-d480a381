@@ -23,6 +23,7 @@ import {
   XCircle,
   ChevronRight,
   Check,
+  MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useKzCart } from "@/hooks/useKzCart";
