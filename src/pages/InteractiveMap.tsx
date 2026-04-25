@@ -88,7 +88,13 @@ const InteractiveMap = () => {
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [availableOnly, setAvailableOnly] = useState(false);
-  const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
+  // Per-floor selection memory: keep one selected unit per floor so switching
+  // floors does not lose context. The active unit is derived from the current
+  // floor; setting from URL/search routes to the unit's own floor.
+  const { activeUnit, setActiveUnit, clearFloorSelection } = useSelectionByFloor(selectedFloor);
+  // Backwards-compatible alias used throughout the page (any callsite that
+  // previously called setSelectedUnit now writes through the per-floor map).
+  const setSelectedUnit = setActiveUnit;
   const [spinModalOpen, setSpinModalOpen] = useState(false);
   const [hubModalOpen, setHubModalOpen] = useState(false);
   const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
