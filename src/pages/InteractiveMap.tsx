@@ -437,7 +437,7 @@ const InteractiveMap = () => {
             </div>
 
             {!isMobile && (
-              <aside className="lg:sticky lg:top-[160px] space-y-3">
+              <aside className="lg:sticky lg:top-[120px] space-y-3">
                 <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
 
                 {/* Floor summary card — enhanced */}
