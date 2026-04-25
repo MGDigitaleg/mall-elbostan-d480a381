@@ -299,18 +299,21 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       {!hideControls && (
         <div className="absolute top-3 start-3 z-10 flex flex-col gap-1">
           {[
-            { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
-            { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
-            { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط" },
+            { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير الخريطة", shortcut: "+" },
+            { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير الخريطة", shortcut: "-" },
+            { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط التكبير والتمرير", shortcut: "0" },
           ].map((btn) => (
             <button
               key={btn.label}
+              type="button"
               onClick={btn.action}
               disabled={btn.disabled}
-              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25 bg-card/95 border border-border shadow-sm"
+              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25 bg-card/95 border border-border shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card hover:border-primary/40"
               aria-label={btn.label}
+              aria-keyshortcuts={btn.shortcut}
+              title={btn.label}
             >
-              <btn.icon className="h-4 w-4 text-foreground/70" />
+              <btn.icon className="h-4 w-4 text-foreground/70" aria-hidden="true" />
             </button>
           ))}
         </div>
