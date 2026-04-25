@@ -73,21 +73,21 @@ export function DealsTeaser() {
 
       <div className="container relative">
         <Reveal rootMargin="-60px" offset={12}>
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#F97316" }}>
+              <p className="text-[0.62rem] font-semibold tracking-[0.04em] mb-1" style={{ color: "#F97316" }}>
                 عروض الافتتاح
               </p>
               <h2
-                className="text-[1rem] md:text-[1.15rem] font-bold leading-[1.2]"
+                className="text-[0.9rem] md:text-[1rem] font-bold leading-[1.2]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
               >
                 {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
               </h2>
-              <p className="mt-2 max-w-xl text-[0.76rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+              <p className="mt-1.5 max-w-xl text-[0.7rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
                 {isExpired
-                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة داخل منظومة مول البستان."
-                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة، ثم الانتقال إلى الصفحة الكاملة فور بدء عروض الافتتاح."}
+                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
+                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
