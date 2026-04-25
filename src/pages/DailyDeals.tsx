@@ -87,6 +87,9 @@ const DailyDeals = () => {
   type SortKey = "newest" | "strongest" | "expiring";
   const [sortKey, setSortKey] = useState<SortKey>("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_BATCH);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const { favorites, compare } = useOfferCollections();
+  const savedCount = favorites.length + compare.length;
 
   const discountPct = (d: OpeningOfferRecord) => {
     const cur = Number(d.price_current ?? 0);
