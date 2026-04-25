@@ -899,8 +899,12 @@ const InteractiveMap = () => {
       {/* ═══════════ MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
-      {/* ── Mobile drawer ── */}
-      <Drawer open={isMobile && !!activeUnit} onOpenChange={(open) => !open && setSelectedUnit(null)}>
+      {/* ── Mobile full-details drawer ── opens via the compact UnitInfoDrawer's
+          "تفاصيل" button so selecting a unit no longer auto-pops a heavy sheet. */}
+      <Drawer
+        open={isMobile && !!activeUnit && detailsSheetOpen}
+        onOpenChange={(open) => setDetailsSheetOpen(open)}
+      >
         <DrawerContent className="max-h-[85vh] rounded-t-2xl border-border bg-card">
           <DrawerHeader className="border-b border-border text-right">
             <DrawerTitle>{activeUnit ? `وحدة ${activeUnit.code}` : "تفاصيل الوحدة"}</DrawerTitle>
