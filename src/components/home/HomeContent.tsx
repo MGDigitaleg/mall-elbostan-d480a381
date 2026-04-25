@@ -122,8 +122,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         style={{
           contain: "layout style",
-          height: isMobile ? 440 : "70vh",
-          maxHeight: isMobile ? 540 : 560,
+          height: isMobile ? 420 : "70vh",
+          maxHeight: isMobile ? 500 : 560,
           overflow: "hidden",
           position: "relative",
         }}
@@ -171,8 +171,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 700px",
-          paddingTop: "clamp(28px, 3.6vw, 56px)",
-          paddingBottom: "clamp(24px, 3vw, 48px)",
+          paddingTop: "clamp(20px, 3vw, 48px)",
+          paddingBottom: "clamp(18px, 2.6vw, 40px)",
           ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -204,8 +204,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(24px, 3vw, 48px)",
-          paddingBottom: "clamp(24px, 3vw, 48px)",
+          paddingTop: "clamp(18px, 2.6vw, 40px)",
+          paddingBottom: "clamp(18px, 2.6vw, 40px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >

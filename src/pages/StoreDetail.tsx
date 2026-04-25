@@ -229,10 +229,10 @@ const StoreDetail = () => {
                style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
         </div>
 
-        <div className="container relative max-w-6xl pb-14 pt-6 md:pb-20 md:pt-10">
+        <div className="container relative max-w-6xl pb-7 pt-5 md:pb-10 md:pt-7">
           {/* Breadcrumb */}
           <motion.nav initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-                      className="mb-8 flex items-center gap-2 text-[0.74rem] font-medium">
+                      className="mb-4 flex items-center gap-2 text-[0.7rem] font-medium">
             <Link to="/" className="text-white/30 transition-colors hover:text-white/55">الرئيسية</Link>
             <ChevronLeft className="h-3 w-3 text-white/20" />
             <Link to="/stores" className="text-white/30 transition-colors hover:text-white/55">المحلات</Link>
@@ -240,33 +240,33 @@ const StoreDetail = () => {
             <span className="text-white/60">{store.name_ar}</span>
           </motion.nav>
 
-          <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-2xl space-y-6">
+          <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-2xl space-y-3.5">
             {/* Logo + Name */}
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-3.5">
               <div
-                    className="flex shrink-0 items-center justify-center rounded-2xl backdrop-blur-sm"
+                    className="flex shrink-0 items-center justify-center rounded-xl backdrop-blur-sm"
                     style={{
                       background: "linear-gradient(145deg, hsl(0 0% 100% / 0.1), hsl(0 0% 100% / 0.04))",
                       border: "1px solid hsl(0 0% 100% / 0.14)",
-                      boxShadow: "0 8px 32px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
-                      padding: 6,
+                      boxShadow: "0 6px 22px hsl(220 60% 5% / 0.4), inset 0 1px 0 hsl(0 0% 100% / 0.08)",
+                      padding: 5,
                     }}>
                 <TenantLogo
                   src={getVerifiedLogoUrl(store.slug, store.logo_url)}
                   alt={store.name_ar}
                   fallbackName={store.name_ar}
-                  size="lg"
+                  size="md"
                   rounded="xl"
                   darkContext
                 />
               </div>
               <div>
-                <h1 className="text-[1.85rem] font-bold leading-[1.1] text-white md:text-[2.5rem]"
+                <h1 className="text-[1.4rem] font-bold leading-[1.1] text-white md:text-[1.85rem]"
                     style={{ fontFamily: "var(--font-arabic-display)" }}>
                   {store.name_ar}
                 </h1>
                 {store.name_en && (
-                  <p className="mt-1.5 font-poppins text-[0.85rem] font-medium tracking-wider text-white/25">{store.name_en}</p>
+                  <p className="mt-1 font-poppins text-[0.74rem] font-medium tracking-wider text-white/25">{store.name_en}</p>
                 )}
               </div>
             </div>
@@ -316,19 +316,19 @@ const StoreDetail = () => {
             )}
 
             {/* Hero CTAs */}
-            <div className="flex flex-wrap gap-2.5 pt-1">
+            <div className="flex flex-wrap gap-2 pt-0.5">
               {store.whatsapp && (
                 <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                  <Button variant="cta" className="h-11 gap-2 rounded-xl px-6 text-[0.82rem] font-bold shadow-lg shadow-primary/25">
-                    <MessageCircle className="h-4 w-4" />تواصل واتساب
+                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold shadow-md shadow-primary/20">
+                    <MessageCircle className="h-3.5 w-3.5" />تواصل واتساب
                   </Button>
                 </a>
               )}
               {store.phone && (
                 <a href={`tel:${store.phone}`}>
-                  <Button className="h-11 gap-2 rounded-xl px-6 text-[0.82rem] font-bold text-white transition-all hover:bg-white/12"
+                  <Button className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold text-white transition-all hover:bg-white/12"
                           style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.15)" }}>
-                    <Phone className="h-4 w-4" />اتصل الآن
+                    <Phone className="h-3.5 w-3.5" />اتصل الآن
                   </Button>
                 </a>
               )}
@@ -343,7 +343,7 @@ const StoreDetail = () => {
 
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
-        <div className="container max-w-6xl py-10 md:py-14">
+        <div className="container max-w-6xl py-6 md:py-9">
           <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
 
             {/* ── Main column ── */}
