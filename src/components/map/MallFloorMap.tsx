@@ -454,6 +454,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               70% { transform: scale(1.65); opacity: 0; }
               100% { transform: scale(1.65); opacity: 0; }
             }
+            @keyframes tapConfirmIn {
+              0% { opacity: 0; transform: translateY(6px) scale(0.92); }
+              100% { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+              [data-tap-confirm] { animation: none !important; }
+            }
             @keyframes selectedMarkerFloat {
               0%, 100% { transform: translateY(0px); }
               50% { transform: translateY(-5px); }
