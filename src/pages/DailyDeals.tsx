@@ -78,9 +78,9 @@ const DailyDeals = () => {
     setSearchParams(next, { replace: true });
   };
 
-  const liveOffersCount = deals?.length ?? 0;
+  const liveOffersCount = allDeals?.length ?? 0;
   const merchantCount = merchantGroups.length;
-  const openNowCount = (deals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
+  const openNowCount = (allDeals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
 
   type SortKey = "newest" | "strongest" | "expiring";
   const [sortKey, setSortKey] = useState<SortKey>("newest");
