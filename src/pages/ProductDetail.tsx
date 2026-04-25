@@ -3,6 +3,7 @@ import { TenantLogo } from "@/components/TenantLogo";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { trackSeoLinkClick } from "@/lib/analytics";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildProductLd } from "@/components/SEOHead";
 import { getProductOgImage, getProductOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
