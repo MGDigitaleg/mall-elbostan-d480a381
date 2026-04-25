@@ -188,7 +188,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
 
         {store && (
           <div className={`absolute inset-x-0 bottom-0 ${overlayPad}`}>
-            <div className={`flex items-center gap-2.5 rounded-2xl border border-border/70 bg-background/92 ${c ? "px-2.5 py-1.5" : "px-3 py-2.5"} shadow-[var(--shadow-soft)] backdrop-blur-sm`}>
+            <Link
+              to={`/stores/${store.slug}`}
+              aria-label={`زيارة صفحة محل ${store.name_ar}`}
+              className={`group/store flex items-center gap-2.5 rounded-2xl border border-border/70 bg-background/92 ${c ? "px-2.5 py-1.5" : "px-3 py-2.5"} shadow-[var(--shadow-soft)] backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40`}
+            >
               <TenantLogo
                 src={getVerifiedLogoUrl(store.slug, store.logo_url)}
                 alt={store.name_ar}
@@ -196,11 +200,17 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
                 size={overlayLogoSize}
                 rounded="lg"
               />
-              <div className="min-w-0">
-                <p className={`truncate ${c ? "text-[0.7rem]" : "text-[0.76rem]"} font-bold text-foreground`}>{store.name_ar}</p>
+              <div className="min-w-0 flex-1">
+                <p className={`truncate ${c ? "text-[0.7rem]" : "text-[0.76rem]"} font-bold text-foreground transition-colors group-hover/store:text-primary`}>{store.name_ar}</p>
                 <p className={`truncate ${c ? "text-[0.62rem]" : "text-[0.66rem]"} text-muted-foreground`}>{categoryLabel}</p>
               </div>
-            </div>
+              <span
+                className={`shrink-0 inline-flex items-center gap-1 rounded-lg border border-primary/20 bg-primary/5 ${c ? "px-1.5 py-0.5 text-[0.58rem]" : "px-2 py-1 text-[0.62rem]"} font-bold text-primary opacity-90 transition-opacity group-hover/store:opacity-100`}
+              >
+                صفحة المحل
+                <ArrowLeft className="h-3 w-3" aria-hidden="true" />
+              </span>
+            </Link>
           </div>
         )}
       </div>
