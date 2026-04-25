@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
-import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES } from "@/lib/tenantMapLookup";
+import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES, UNIT_TENANT_SLUGS } from "@/lib/tenantMapLookup";
 import { TenantLogo } from "@/components/TenantLogo";
 export type ActiveRewardContext = {
   prizeName: string;
@@ -35,29 +35,48 @@ function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
 
 function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRewardContext }) {
   const badge = statusBadge[unit.status];
+  const tenantSlug = UNIT_TENANT_SLUGS[unit.id];
+  const tenantName = UNIT_TENANT_NAMES[unit.id];
+  const tenantLogo = UNIT_TENANT_LOGOS[unit.id];
+  const storeHref = tenantSlug ? `/stores/${tenantSlug}` : "/stores";
+  const isOccupied = unit.status === "occupied";
 
   return (
     <div className="space-y-3.5">
       {rewardCtx && <RewardBanner ctx={rewardCtx} />}
 
-      {/* Logo + Header */}
-      {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
-        <div className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border">
+      {/* Logo + Header (clickable when linked to a real store) */}
+      {tenantLogo && isOccupied && (
+        <Link
+          to={storeHref}
+          className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border transition-all hover:border-primary/30 hover:shadow-sm"
+          aria-label={`فتح صفحة ${tenantName ?? unit.code}`}
+        >
           <TenantLogo
-            src={UNIT_TENANT_LOGOS[unit.id]}
-            alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
-            fallbackName={UNIT_TENANT_NAMES[unit.id] ?? undefined}
+            src={tenantLogo}
+            alt={tenantName ?? unit.code}
+            fallbackName={tenantName ?? undefined}
             size="md"
             rounded="lg"
           />
-        </div>
+        </Link>
       )}
 
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="text-[1.35rem] font-extrabold text-foreground">{unit.code}</p>
-          {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
-            <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{UNIT_TENANT_NAMES[unit.id]}</p>
+          {tenantName && isOccupied && (
+            tenantSlug ? (
+              <Link
+                to={storeHref}
+                className="mt-0.5 inline-flex items-center gap-1 text-[0.84rem] font-bold text-primary hover:underline"
+              >
+                {tenantName}
+                <ArrowLeft className="h-3 w-3" />
+              </Link>
+            ) : (
+              <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{tenantName}</p>
+            )
           )}
           <p className="mt-0.5 text-[0.72rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
         </div>
@@ -118,16 +137,18 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
               <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">اطلب معاينة</Button>
             </Link>
           </>
-        ) : unit.status === "occupied" ? (
+        ) : isOccupied ? (
           <>
-            <Link to="/stores" className="block">
+            <Link to={storeHref} className="block">
               <Button variant="cta" className="h-10 w-full rounded-xl text-[0.84rem] font-bold">
                 <Store className="ml-1.5 h-3.5 w-3.5" />
-                اعرف المتجر
+                {tenantName ? `صفحة ${tenantName}` : "اعرف المتجر"}
               </Button>
             </Link>
-            <Link to="/stores" className="block">
-              <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">تواصل مع المتجر</Button>
+            <Link to={storeHref} className="block">
+              <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">
+                تواصل مع المتجر
+              </Button>
             </Link>
           </>
         ) : (
