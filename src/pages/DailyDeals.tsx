@@ -449,6 +449,35 @@ const DailyDeals = () => {
           </>
         )}
       </div>
+
+      {/* Floating button — open saved offers / comparison drawer */}
+      {(allDeals?.length ?? 0) > 0 && (
+        <button
+          type="button"
+          onClick={() => setCollectionsOpen(true)}
+          aria-label={`عرض العروض المحفوظة (${savedCount})`}
+          className="fixed bottom-5 start-5 z-40 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary px-4 py-2.5 text-[0.74rem] font-bold text-primary-foreground shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+        >
+          <Heart className="h-3.5 w-3.5" />
+          <span>محفوظاتي</span>
+          {favorites.length > 0 && (
+            <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-rose-500 px-1.5 text-[0.62rem] font-bold text-white">
+              {favorites.length.toLocaleString("ar-EG")}
+            </span>
+          )}
+          {compare.length > 0 && (
+            <span className="inline-flex h-5 items-center gap-0.5 rounded-full bg-background/20 px-1.5 text-[0.62rem] font-bold text-primary-foreground">
+              <Scale className="h-2.5 w-2.5" /> {compare.length.toLocaleString("ar-EG")}
+            </span>
+          )}
+        </button>
+      )}
+
+      <OfferCollectionsDrawer
+        open={collectionsOpen}
+        onOpenChange={setCollectionsOpen}
+        offers={allDeals ?? []}
+      />
     </MainLayout>
   );
 };
