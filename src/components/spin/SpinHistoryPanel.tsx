@@ -140,6 +140,47 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
     { key: "visitor", label: "زوار الفرع", icon: ShieldCheck, count: counts.visitor },
   ];
 
+  // Expiry summary (computed from full list)
+  const expirySummary = useMemo(() => {
+    let expired = 0;
+    let soon = 0;
+    let nextSoonMs = Infinity;
+    for (const it of items) {
+      const s = getExpiryState(it);
+      if (s.status === "expired") expired += 1;
+      else if (s.status === "soon") {
+        soon += 1;
+        if (s.remainingMs < nextSoonMs) nextSoonMs = s.remainingMs;
+      }
+    }
+    return { expired, soon, nextSoonMs };
+  }, [items]);
+
+  // Surface a one-time toast when expiring/expired prizes are present
+  useEffect(() => {
+    if (items.length === 0) return;
+    if (expirySummary.expired === 0 && expirySummary.soon === 0) return;
+    const sigKey = "mb_spin_expiry_alerted_v1";
+    const sig = `${expirySummary.expired}|${expirySummary.soon}|${new Date().toDateString()}`;
+    try {
+      if (typeof window !== "undefined" && localStorage.getItem(sigKey) === sig) return;
+      if (typeof window !== "undefined") localStorage.setItem(sigKey, sig);
+    } catch { /* ignore */ }
+
+    if (expirySummary.expired > 0) {
+      toast({
+        title: "جوائز انتهت صلاحيتها",
+        description: `لديك ${expirySummary.expired} جائزة لم تعد قابلة للاستلام.`,
+        variant: "destructive",
+      });
+    } else if (expirySummary.soon > 0) {
+      toast({
+        title: "جوائز على وشك الانتهاء",
+        description: `سارع باستلام ${expirySummary.soon} جائزة قبل انتهاء صلاحيتها.`,
+      });
+    }
+  }, [expirySummary.expired, expirySummary.soon, items.length, toast]);
+
   // Show the panel even if empty when signed in (to surface sync state)
   if (items.length === 0 && !userEmail) return null;
 
