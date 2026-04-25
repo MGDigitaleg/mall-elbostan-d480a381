@@ -151,7 +151,7 @@ export function HeroSlider() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[520px] md:min-h-[540px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[68px] md:pt-[72px] pb-10">
+      <div className="relative z-10 mx-auto flex h-full min-h-[460px] md:min-h-[480px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[64px] md:pt-[68px] pb-7">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
           {/* Text */}
           <AnimatePresence mode="wait" custom={direction}>
