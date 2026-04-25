@@ -227,6 +227,12 @@ const InteractiveMap = () => {
     }
   }, [mutedUnitIds, selectedUnit, selectedFloor]);
 
+  // Close the mobile full-details sheet whenever the active unit clears
+  // (e.g. user taps × on the compact UnitInfoDrawer or switches floors).
+  useEffect(() => {
+    if (!activeUnit) setDetailsSheetOpen(false);
+  }, [activeUnit]);
+
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
