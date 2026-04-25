@@ -917,6 +917,166 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
             </g>
           );
         })()}
+
+        {/* ── Tap-to-confirm tooltip — appears on first tap, opens details on second tap ── */}
+        {pendingUnitId && (() => {
+          const unit = floor.units.find((u) => u.id === pendingUnitId);
+          if (!unit) return null;
+          const tenantName = TENANT_NAMES[unit.id];
+          const titleText =
+            unit.status === "occupied" && tenantName
+              ? tenantName
+              : unit.status === "available"
+                ? `${unit.code} — متاح للإيجار`
+                : `${unit.code} — قريباً`;
+          const subText = `${floorLabelsAr[unit.floor]} · وحدة ${unit.code}`;
+          const hintText = "اضغط مجدداً للفتح";
+
+          // Sizing
+          const titleLen = Math.min(titleText.length, 28) * 8.5 + 28;
+          const subLen = subText.length * 5.8 + 28;
+          const hintLen = hintText.length * 6 + 60; // includes ✓ button width
+          const tooltipW = Math.max(titleLen, subLen, hintLen, 168);
+          const tooltipH = 78;
+          const tx = Math.min(Math.max(unit.labelX, 20 + tooltipW / 2), 1000 - tooltipW / 2);
+          const ty = Math.max(unit.labelY - tooltipH / 2 - 32, tooltipH / 2 + 4);
+
+          const accentColor = TENANT_BG[unit.id]
+            || (unit.status === "available" ? "#F97316" : unit.status === "coming_soon" ? "#06B6D4" : "#2563EB");
+
+          const confirmBtnW = 28;
+          const closeBtnW = 22;
+          const btnY = ty + tooltipH / 2 - 22;
+          const confirmBtnX = tx + tooltipW / 2 - confirmBtnW - 8;
+          const closeBtnX = tx - tooltipW / 2 + 8;
+
+          return (
+            <g
+              data-tap-confirm="true"
+              style={{
+                filter: "drop-shadow(0 8px 22px rgba(0,0,0,0.45))",
+                animation: "tapConfirmIn 180ms cubic-bezier(0.34,1.56,0.64,1) both",
+                transformOrigin: `${tx}px ${ty + tooltipH / 2}px`,
+              }}
+            >
+              {/* Background card */}
+              <rect
+                x={tx - tooltipW / 2}
+                y={ty - tooltipH / 2}
+                width={tooltipW}
+                height={tooltipH}
+                rx="12"
+                fill="#0B1220"
+                opacity="0.98"
+              />
+              {/* Brand accent strip */}
+              <rect
+                x={tx - tooltipW / 2}
+                y={ty - tooltipH / 2}
+                width={tooltipW}
+                height="4"
+                rx="12"
+                fill={accentColor}
+              />
+              {/* Pointer arrow */}
+              <polygon
+                points={`${tx - 7},${ty + tooltipH / 2} ${tx + 7},${ty + tooltipH / 2} ${tx},${ty + tooltipH / 2 + 8}`}
+                fill="#0B1220"
+                opacity="0.98"
+              />
+              {/* Title (tenant or status name) */}
+              <text
+                x={tx}
+                y={ty - tooltipH / 2 + 22}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="text-[12px] font-bold"
+                fill="#FFFFFF"
+              >
+                {titleText.length > 28 ? `${titleText.slice(0, 27)}…` : titleText}
+              </text>
+              {/* Floor + unit code */}
+              <text
+                x={tx}
+                y={ty - tooltipH / 2 + 38}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="text-[9px] font-medium"
+                fill="#94A3B8"
+              >
+                {subText}
+              </text>
+
+              {/* Close (×) button */}
+              <g
+                style={{ cursor: "pointer" }}
+                onClick={(e) => { e.stopPropagation(); setPendingUnitId(null); }}
+                role="button"
+                aria-label="إلغاء الاختيار"
+              >
+                <rect
+                  x={closeBtnX}
+                  y={btnY}
+                  width={closeBtnW}
+                  height={20}
+                  rx="6"
+                  fill="#1E293B"
+                  stroke="#334155"
+                  strokeWidth="0.8"
+                />
+                <text
+                  x={closeBtnX + closeBtnW / 2}
+                  y={btnY + 11}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[12px] font-bold"
+                  fill="#CBD5E1"
+                >×</text>
+              </g>
+
+              {/* Hint label */}
+              <text
+                x={tx - 6}
+                y={btnY + 11}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="text-[9.5px] font-semibold"
+                fill="#E2E8F0"
+              >
+                {hintText}
+              </text>
+
+              {/* Confirm (✓) button — opens the details panel */}
+              <g
+                style={{ cursor: "pointer" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPendingUnitId(null);
+                  onSelectUnit(unit);
+                }}
+                role="button"
+                aria-label="تأكيد وفتح التفاصيل"
+              >
+                <rect
+                  x={confirmBtnX}
+                  y={btnY}
+                  width={confirmBtnW}
+                  height={20}
+                  rx="6"
+                  fill={accentColor}
+                />
+                <text
+                  x={confirmBtnX + confirmBtnW / 2}
+                  y={btnY + 11}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="text-[11px] font-bold"
+                  fill="#FFFFFF"
+                >✓</text>
+              </g>
+            </g>
+          );
+        })()}
       </svg>
       </div>
     </div>
