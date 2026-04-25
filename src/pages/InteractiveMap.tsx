@@ -241,47 +241,42 @@ const InteractiveMap = () => {
         }}
       />
 
-      {/* ═══════════ HERO ═══════════ */}
+      {/* ═══════════ HERO (compact, single-row) ═══════════ */}
       <section className="relative overflow-hidden" style={{ background: "linear-gradient(165deg, #071326 0%, #0B1B34 50%, #0D1F3C 100%)" }}>
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/3 left-[15%] h-[400px] w-[400px] rounded-full opacity-[0.05]" style={{ background: "radial-gradient(circle, #2563EB, transparent 70%)" }} />
           <div className="absolute inset-0 opacity-[0.015]" style={{ backgroundImage: "linear-gradient(hsl(0 0% 100%) 1px, transparent 1px), linear-gradient(90deg, hsl(0 0% 100%) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         </div>
 
         <div className="relative mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="py-5 md:py-7">
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <motion.div variants={fadeUp} initial="hidden" animate="visible">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="h-[2px] w-6 rounded-full" style={{ background: "#CDBB9A" }} />
-                  <span className="font-poppins text-[0.54rem] font-bold tracking-[0.22em] uppercase" style={{ color: "#CDBB9A" }}>Interactive Directory</span>
-                </div>
-                <h1 className="text-[1.15rem] font-bold leading-[1.15] md:text-[1.4rem] lg:text-[1.7rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
+          <div className="flex items-center justify-between gap-3 py-2.5 md:py-3.5">
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" className="min-w-0 flex items-center gap-2.5">
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg" style={{ background: "#ffffff08", border: "1px solid #ffffff14" }}>
+                <Compass className="h-3.5 w-3.5" style={{ color: "#CDBB9A" }} />
+              </div>
+              <div className="min-w-0">
+                <h1 className="truncate text-[0.95rem] font-bold leading-tight md:text-[1.05rem]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
                   الخريطة التفاعلية
                 </h1>
-                <p className="mt-1 max-w-[28rem] text-[0.74rem] leading-[1.65]" style={{ color: "#94A3B8" }}>
-                  تنقّل بين الأدوار، حدد الوحدات، واستفسر عن المتاح.
+                <p className="truncate text-[0.62rem] font-medium md:text-[0.66rem]" style={{ color: "#7C8BA1" }}>
+                  تنقّل بين الأدوار وحدد الوحدات
                 </p>
-              </motion.div>
+              </div>
+            </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.5 }}
-                          className="flex items-center gap-1.5">
-                {[
-                  { v: `${mallFloors.length}`, l: "أدوار", icon: Layers, color: "#F8FAFC" },
-                  { v: `${allMallUnits.length}`, l: "وحدة", icon: Building2, color: "#F8FAFC" },
-                  { v: `${availableMallUnits.length}`, l: "متاحة", icon: Sparkles, color: "#F97316" },
-                ].map((s) => (
-                  <div key={s.l} className="flex items-center gap-2 rounded-lg px-2.5 py-1.5"
-                       style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}>
-                    <s.icon className="h-3.5 w-3.5" style={{ color: s.color }} />
-                    <div>
-                      <span className="font-poppins text-[0.92rem] font-extrabold leading-none" style={{ color: s.color }}>{s.v}</span>
-                      <p className="mt-0.5 text-[0.5rem] font-semibold" style={{ color: "#7C8BA1" }}>{s.l}</p>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.4 }}
+                        className="flex items-center gap-1.5 shrink-0">
+              {[
+                { v: `${mallFloors.length}`, l: "أدوار", color: "#F8FAFC" },
+                { v: `${allMallUnits.length}`, l: "وحدة", color: "#F8FAFC" },
+                { v: `${availableMallUnits.length}`, l: "متاحة", color: "#F97316" },
+              ].map((s) => (
+                <div key={s.l} className="flex items-baseline gap-1 rounded-md px-2 py-1"
+                     style={{ background: "#ffffff06", border: "1px solid #ffffff0D" }}>
+                  <span className="font-poppins text-[0.78rem] font-extrabold leading-none" style={{ color: s.color }}>{s.v}</span>
+                  <span className="text-[0.55rem] font-semibold" style={{ color: "#7C8BA1" }}>{s.l}</span>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
 
