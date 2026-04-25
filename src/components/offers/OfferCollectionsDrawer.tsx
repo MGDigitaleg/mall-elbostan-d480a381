@@ -42,7 +42,7 @@ export function OfferCollectionsDrawer({ open, onOpenChange, offers }: Props) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-full sm:max-w-2xl lg:max-w-4xl overflow-y-auto" dir="rtl">
+      <SheetContent side="right" className="w-full sm:max-w-2xl lg:max-w-4xl overflow-y-auto" dir="rtl">
         <SheetHeader className="text-right">
           <SheetTitle className="flex items-center gap-2 text-[1.05rem]">
             <Heart className="h-4 w-4 text-rose-500" />
