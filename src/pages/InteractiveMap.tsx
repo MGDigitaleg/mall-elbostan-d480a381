@@ -375,15 +375,15 @@ const InteractiveMap = () => {
       })()}
 
       {/* ═══════════ MAP + DETAILS PANEL ═══════════ */}
-      <section className="py-4 md:py-5 bg-secondary dark:bg-background">
-        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
-          <div className="grid gap-4 lg:grid-cols-[1fr_340px] lg:items-start">
+      <section className="py-3 md:py-4 bg-secondary dark:bg-background">
+        <div className="mx-auto w-full max-w-[1440px] px-3 md:px-6 lg:px-10">
+          <div className="grid gap-3 lg:grid-cols-[1fr_340px] lg:items-start">
             <div
               ref={mapRef}
               className={`relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 ${
                 isFullscreen
                   ? "fixed inset-0 z-50 rounded-none border-0"
-                  : "aspect-square min-h-[240px] max-w-full max-h-[min(calc(100vh-200px),600px)] lg:max-h-[calc(100vh-280px)] mx-auto w-full"
+                  : "aspect-square min-h-[260px] max-w-full max-h-[min(calc(100vh-160px),720px)] lg:max-h-[calc(100vh-220px)] mx-auto w-full"
               }`}
             >
               {/* Fullscreen toggle */}
