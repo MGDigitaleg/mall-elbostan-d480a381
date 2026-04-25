@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
 import { OfferSpotlightStrip } from "@/components/offers/OfferSpotlightStrip";
 import { OfferCollectionsDrawer } from "@/components/offers/OfferCollectionsDrawer";
+import { OfferCardSkeletonGrid, OfferHeroSkeleton } from "@/components/offers/OfferCardSkeleton";
+import { SearchX, RotateCcw } from "lucide-react";
 import { useOfferCollections } from "@/hooks/useOfferCollections";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
