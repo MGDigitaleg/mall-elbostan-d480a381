@@ -5,6 +5,7 @@ import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, Ch
 import { useState } from "react";
 import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { useSitePhone } from "@/hooks/useSitePhone";
+import { trackSeoLinkClick } from "@/lib/analytics";
 
 const footerColumns = [
   {
