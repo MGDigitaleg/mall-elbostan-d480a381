@@ -1,5 +1,5 @@
-import { useMemo, useState, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useMemo, useState, useCallback, useEffect } from "react";
+import { useParams, Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import {
@@ -65,7 +65,21 @@ function inferOfferFilterCategory(offer: {
 
 const StoreDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
+  const fromMap = searchParams.get("from") === "map";
+  const initialTab = fromMap ? "map" : (searchParams.get("tab") as "map" | "offers" | "leasing" | null) ?? "map";
+  const [activeTab, setActiveTab] = useState<"map" | "offers" | "leasing">(initialTab);
   const [offerFilter, setOfferFilter] = useState("كل الأقسام");
+
+  // Auto-scroll into the relevant section when arriving from the map
+  useEffect(() => {
+    if (!fromMap) return;
+    const t = setTimeout(() => {
+      document.getElementById("store-from-map")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 350);
+    return () => clearTimeout(t);
+  }, [fromMap]);
+
 
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
@@ -362,6 +376,46 @@ const StoreDetail = () => {
         <div className="h-px w-full" style={{ background: "linear-gradient(to left, transparent, hsl(var(--primary) / 0.25), transparent)" }} />
       </section>
 
+      {/* ═══════════ STORE TABS — quick jump for visitors arriving from the map ═══════════ */}
+      <nav
+        aria-label="أقسام صفحة المتجر"
+        className="sticky top-[56px] z-30 border-b border-border bg-card/95 backdrop-blur-xl md:top-[64px] xl:top-[68px]"
+      >
+        <div className="container max-w-6xl">
+          <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-hide">
+            {([
+              { id: "map", label: "من الخريطة", anchor: "store-from-map", icon: Compass },
+              { id: "offers", label: "العروض", anchor: "store-offers", icon: Tag },
+              { id: "leasing", label: store.status === "available" ? "استفسار / إيجار" : "تواصل وزيارة", anchor: "store-leasing", icon: Building2 },
+            ] as const).map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    document.getElementById(tab.anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className={`relative flex shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-[0.78rem] font-bold transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <tab.icon className="h-3.5 w-3.5" />
+                  <span>{tab.label}</span>
+                  {tab.id === "map" && fromMap && (
+                    <span className="ml-1 inline-flex h-1.5 w-1.5 rounded-full bg-primary" aria-label="جئت من الخريطة" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </nav>
+
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
         <div className="container max-w-6xl py-5 md:py-7">
@@ -534,7 +588,7 @@ const StoreDetail = () => {
               )}
 
               {(isStoreOffersLoading || storeOffers) && (
-                <motion.div variants={fadeChild}>
+                <motion.div variants={fadeChild} id="store-offers" className="scroll-mt-[140px]">
                   <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
                     <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
                       <div className="flex items-center gap-3">
@@ -634,7 +688,7 @@ const StoreDetail = () => {
                         className="space-y-5 lg:sticky lg:top-24 lg:self-start">
 
               {/* Quick Info Card */}
-              <motion.div variants={fadeChild}>
+              <motion.div variants={fadeChild} id="store-from-map" className="scroll-mt-[140px]">
                 <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-premium)]">
                   <div className="border-b border-border px-5 py-4" style={{ background: "linear-gradient(135deg, hsl(var(--card)), hsl(var(--background)))" }}>
                     <div className="flex items-center gap-2.5">
@@ -722,7 +776,7 @@ const StoreDetail = () => {
               )}
 
               {/* Leasing CTA */}
-              <motion.div variants={fadeChild}>
+              <motion.div variants={fadeChild} id="store-leasing" className="scroll-mt-[140px]">
                 <div className="relative overflow-hidden rounded-2xl p-7 text-center"
                      style={{ background: "var(--gradient-hero)", border: "1px solid hsl(var(--primary) / 0.18)" }}>
                   <div className="pointer-events-none absolute inset-0 opacity-30"

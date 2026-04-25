@@ -38,7 +38,7 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
   const tenantSlug = UNIT_TENANT_SLUGS[unit.id];
   const tenantName = UNIT_TENANT_NAMES[unit.id];
   const tenantLogo = UNIT_TENANT_LOGOS[unit.id];
-  const storeHref = tenantSlug ? `/stores/${tenantSlug}` : "/stores";
+  const storeHref = tenantSlug ? `/stores/${tenantSlug}?from=map` : "/stores";
   const isOccupied = unit.status === "occupied";
 
   return (
