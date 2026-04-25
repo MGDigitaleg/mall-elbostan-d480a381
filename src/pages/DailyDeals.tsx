@@ -16,7 +16,7 @@ import { SearchX, RotateCcw } from "lucide-react";
 import { useOfferCollections } from "@/hooks/useOfferCollections";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
-const PAGE_BATCH = 8;
+const PAGE_BATCH = 12;
 
 const DailyDeals = () => {
   const { id: offerId } = useParams<{ id?: string }>();
