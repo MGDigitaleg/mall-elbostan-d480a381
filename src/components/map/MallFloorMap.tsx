@@ -627,6 +627,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 {tenantLogo && hasName ? (
                   <g
                     pointerEvents="all"
+                    /* Badge is a visual duplicate of the unit polygon's tap
+                       target. Hide it from assistive tech to avoid two tab
+                       stops/announcements per unit; the polygon already exposes
+                       the full accessible name and selection state. */
+                    aria-hidden="true"
+                    focusable={false as unknown as boolean}
                     style={{
                       cursor: "pointer",
                       transformOrigin: `${unit.labelX}px ${badgeY + badgeH / 2}px`,
