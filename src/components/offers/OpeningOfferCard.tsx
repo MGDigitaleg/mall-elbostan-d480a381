@@ -106,8 +106,8 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
   const overlayChipText = c ? "text-[0.6rem]" : "text-[0.64rem]";
 
   return (
-    <article id={cardId} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)] scroll-mt-24">
-      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-gradient-to-br from-secondary/45 via-background to-muted/30`}>
+    <article id={cardId} className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-premium)] scroll-mt-24 ${isExpired ? "border-destructive/40 opacity-90" : isEndingSoon ? "border-orange/40" : "border-border/70 hover:border-primary/25"}`}>
+      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-gradient-to-br from-secondary/45 via-background to-muted/30 ${isExpired ? "grayscale" : ""}`}>
         {offer.image_primary ? (
           <>
             <img
