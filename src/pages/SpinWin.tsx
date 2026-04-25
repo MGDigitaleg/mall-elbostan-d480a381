@@ -15,7 +15,7 @@ import { PrizeWheel, type WheelSegment } from "@/components/spin/PrizeWheel";
 import { StoreRing } from "@/components/spin/StoreRing";
 import { ClaimQRCode } from "@/components/spin/ClaimQRCode";
 import { SpinHistoryPanel } from "@/components/spin/SpinHistoryPanel";
-import { addSpinHistory } from "@/lib/spinHistory";
+import { addSpinHistory, getSpinHistory, syncSpinHistory } from "@/lib/spinHistory";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
@@ -74,6 +74,26 @@ const SpinWin = () => {
   const [targetIndex, setTargetIndex] = useState<number | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [historyKey, setHistoryKey] = useState(0);
+  const [attemptsUsedToday, setAttemptsUsedToday] = useState(0);
+
+  // Daily attempts policy enforced by the backend (1 spin per phone per day)
+  const DAILY_ATTEMPTS = 1;
+  const attemptsRemaining = Math.max(0, DAILY_ATTEMPTS - attemptsUsedToday);
+  const hasAttempts = attemptsRemaining > 0;
+
+  // Recompute attempts used today from local + cloud history
+  useEffect(() => {
+    let cancelled = false;
+    const compute = async () => {
+      const items = await syncSpinHistory().catch(() => getSpinHistory());
+      if (cancelled) return;
+      const today = new Date().toDateString();
+      const usedToday = items.filter((it) => new Date(it.at).toDateString() === today).length;
+      setAttemptsUsedToday(Math.min(DAILY_ATTEMPTS, usedToday));
+    };
+    compute();
+    return () => { cancelled = true; };
+  }, [historyKey]);
 
   // Responsive wheel/ring sizing
   const [viewportW, setViewportW] = useState(typeof window !== "undefined" ? window.innerWidth : 1024);
