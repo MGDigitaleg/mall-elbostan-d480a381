@@ -621,168 +621,210 @@ const Products = () => {
       <section id="products" className="heritage-deep py-4 md:py-6 scroll-mt-20">
         <div className="container max-w-[1200px]">
 
-          {/* Filter bar */}
-          <div className="lg:sticky lg:top-14 z-20 -mx-1 mb-5 rounded-xl px-1 py-3 backdrop-blur-xl" style={{ background: "#0B1220E8" }}>
-            {/* Mobile: stacked vertically / Desktop: row */}
-            <div className="flex flex-col gap-3">
-              {/* Row 1: Search */}
-              <div className="relative flex-1">
-                <Search className="absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2" style={{ color: "#475569" }} />
-                <input
-                  type="text"
-                  placeholder="ابحث عن منتج أو علامة تجارية..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  dir="rtl"
-                  className="h-10 w-full rounded-lg pr-10 pl-4 text-[0.84rem] text-right outline-none transition-all focus:ring-1"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
-                />
-              </div>
+          {/* Filter bar — compact, collapsible */}
+          {(() => {
+            const activeFilterCount =
+              (selectedSection !== "all" ? 1 : 0) +
+              (selectedShop !== "all" ? 1 : 0) +
+              (selectedMall !== "all" ? 1 : 0) +
+              (selectedBrand !== "all" ? 1 : 0) +
+              (priceRange ? 1 : 0) +
+              (searchTerm.trim().length > 0 ? 1 : 0);
 
-              {/* Row 2: Category dropdowns (Section + Sort) */}
-              <div className="flex flex-row items-center gap-2 flex-wrap" dir="rtl">
-                {/* Section filter */}
-                <select
-                  value={selectedSection}
-                  onChange={(e) => setSelectedSection(e.target.value)}
-                  className="h-9 w-auto max-w-[200px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
-                >
-                  <option value="all">جميع الأقسام</option>
-                  {mergedSections.map((c) => (
-                    <option key={c.id} value={c.id}>{c.label}</option>
-                  ))}
-                </select>
-
-                {/* Sort */}
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className="h-9 w-auto max-w-[180px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
-                >
-                  <option value="featured">الأعلى تقييماً</option>
-                  <option value="newest">الأحدث</option>
-                  <option value="price_asc">الأرخص</option>
-                  <option value="price_desc">الأعلى سعراً</option>
-                </select>
-
-                {/* Mall filter - desktop only */}
-                {mallList.length > 1 && (
-                  <select
-                    value={selectedMall}
-                    onChange={(e) => setSelectedMall(e.target.value)}
-                    className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
-                    style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
+            return (
+              <div
+                className="lg:sticky lg:top-14 z-20 -mx-1 mb-4 rounded-xl px-2 py-1.5 backdrop-blur-xl"
+                style={{ background: "#0B1220E8", border: "1px solid #ffffff10" }}
+              >
+                {/* Collapsed strip — always visible as the bar header */}
+                <div className="flex items-center gap-2" dir="rtl">
+                  <button
+                    type="button"
+                    onClick={() => setIsFilterBarOpen((v) => !v)}
+                    aria-expanded={isFilterBarOpen}
+                    aria-controls="products-filter-panel"
+                    aria-label={isFilterBarOpen ? "طي شريط الفلاتر" : "فتح شريط الفلاتر"}
+                    className="flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[0.74rem] font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-[#0B1220]"
+                    style={{
+                      border: `1px solid ${isFilterBarOpen ? "#2563EB55" : "#ffffff14"}`,
+                      background: isFilterBarOpen ? "#2563EB18" : "#ffffff08",
+                      color: isFilterBarOpen ? "#60A5FA" : "#CBD5E1",
+                    }}
                   >
-                    <option value="all">جميع الفروع</option>
-                    {mallList.map((m) => (
-                      <option key={m} value={m}>{m}</option>
-                    ))}
-                  </select>
-                )}
+                    <SlidersHorizontal className="h-3.5 w-3.5" />
+                    <span>الفلاتر</span>
+                    {activeFilterCount > 0 && (
+                      <span
+                        className="flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold"
+                        style={{ background: "#2563EB", color: "#fff" }}
+                      >
+                        {activeFilterCount}
+                      </span>
+                    )}
+                    {isFilterBarOpen ? (
+                      <ChevronUp className="h-3.5 w-3.5" />
+                    ) : (
+                      <ChevronDown className="h-3.5 w-3.5" />
+                    )}
+                  </button>
 
-                {/* Shop filter - desktop only */}
-                <select
-                  value={selectedShop}
-                  onChange={(e) => setSelectedShop(e.target.value)}
-                  className="hidden lg:block h-9 rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
-                >
-                  <option value="all">جميع المحلات</option>
-                  {storeList?.map((s) => (
-                    <option key={s.id} value={s.slug}>{s.name_ar}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Row 3: Action buttons (Mobile filters + Clear) */}
-              <div className="flex items-center gap-2 flex-wrap">
-                {/* Mobile filters trigger */}
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <button
-                      className="flex h-9 items-center gap-1.5 rounded-lg px-3 text-[0.76rem] font-semibold transition-all"
-                      style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
-                    >
-                      <SlidersHorizontal className="h-3.5 w-3.5" />
-                      فلاتر متقدمة
-                      {(priceRange || selectedBrand !== "all") && (
-                        <span className="ml-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold" style={{ background: "#2563EB", color: "#fff" }}>
-                          {(priceRange ? 1 : 0) + (selectedBrand !== "all" ? 1 : 0)}
+                  {/* Inline status when collapsed */}
+                  {!isFilterBarOpen && (
+                    <div className="flex flex-1 items-center gap-2 overflow-hidden text-[0.72rem]" style={{ color: "#94A3B8" }}>
+                      <span className="font-bold" style={{ color: "#F8FAFC" }}>
+                        {filteredProducts.length}
+                      </span>
+                      <span>منتج</span>
+                      {hasActiveFilters && (
+                        <span className="truncate" style={{ color: "#64748B" }}>
+                          • {activeFilterCount} فلتر نشط
                         </span>
                       )}
-                    </button>
-                  </SheetTrigger>
-                  <SheetContent side="right" className="w-[300px] sm:w-[340px] bg-[#0B1220] border-[#ffffff14]" style={{ direction: "rtl" }}>
-                    <SheetHeader>
-                      <SheetTitle className="text-right text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>
-                        الفلاتر المتقدمة
-                      </SheetTitle>
-                    </SheetHeader>
-                    <div className="mt-5">
-                      <FilterSidebar />
                     </div>
-                  </SheetContent>
-                </Sheet>
+                  )}
 
-                {/* Clear filters button */}
-                {hasActiveFilters && (
-                  <button
-                    onClick={clearFilters}
-                    className="flex h-9 items-center gap-1 rounded-lg px-3 text-[0.76rem] font-semibold transition-colors"
-                    style={{ border: "1px solid #ffffff12", background: "#ffffff06", color: "#94A3B8" }}
-                  >
-                    <X className="h-3.5 w-3.5" />
-                    مسح الفلاتر
-                  </button>
-                )}
-              </div>
-
-            {/* Active filter summary - Desktop */}
-            {hasActiveFilters && (
-              <div className="mt-2.5 hidden lg:flex items-center gap-2 text-[0.72rem]" style={{ color: "#64748B" }}>
-                <span>نتائج البحث: {filteredProducts.length} منتج</span>
-                <button
-                  onClick={clearFilters}
-                  className="flex items-center gap-1 rounded-md px-2 py-0.5 transition-colors hover:text-white"
-                  style={{ border: "1px solid #ffffff12", background: "#ffffff06" }}
-                >
-                  <X className="h-3 w-3" /> مسح الفلاتر
-                </button>
-              </div>
-            )}
-
-            {/* Mobile Results Banner - Shows when filters change */}
-            {hasActiveFilters && (
-              <div className="lg:hidden mt-3 rounded-lg px-4 py-3" style={{ background: "#2563EB20", border: "1px solid #2563EB40" }}>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[0.9rem] font-bold" style={{ color: "#60A5FA" }}>
-                      {filteredProducts.length}
-                    </span>
-                    <span className="text-[0.8rem] font-medium" style={{ color: "#94A3B8" }}>
-                      منتج متاح
-                    </span>
-                  </div>
-                  <button
-                    onClick={clearFilters}
-                    className="flex items-center gap-1 rounded-md px-2 py-1 text-[0.7rem] font-semibold transition-colors"
-                    style={{ border: "1px solid #ffffff20", background: "#ffffff10", color: "#CBD5E1" }}
-                  >
-                    <X className="h-3 w-3" />
-                    مسح
-                  </button>
+                  {hasActiveFilters && (
+                    <button
+                      onClick={clearFilters}
+                      className="flex h-8 items-center gap-1 rounded-lg px-2.5 text-[0.7rem] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-[#0B1220]"
+                      style={{ border: "1px solid #ffffff14", background: "#ffffff06", color: "#CBD5E1" }}
+                      aria-label="مسح كل الفلاتر"
+                    >
+                      <X className="h-3 w-3" />
+                      <span className="hidden sm:inline">مسح الكل</span>
+                    </button>
+                  )}
                 </div>
-              </div>
-            )}
 
-            {!hasActiveFilters && (
-              <div className="mt-2 text-[0.72rem]" style={{ color: "#475569" }}>
-                {allProducts.length} منتج من {storeList?.length ?? 0} محل
+                {/* Expanded panel */}
+                <motion.div
+                  id="products-filter-panel"
+                  initial={false}
+                  animate={{
+                    height: isFilterBarOpen ? "auto" : 0,
+                    opacity: isFilterBarOpen ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.22, ease: "easeOut" }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <div className="mt-2 flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-2" dir="rtl">
+                    {/* Search */}
+                    <div className="relative flex-1 lg:min-w-[220px]">
+                      <Search className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2" style={{ color: "#475569" }} />
+                      <input
+                        type="text"
+                        placeholder="ابحث عن منتج أو علامة تجارية..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        dir="rtl"
+                        className="h-9 w-full rounded-lg pr-9 pl-3 text-[0.78rem] text-right outline-none transition-all focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                        style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#F8FAFC" }}
+                        aria-label="البحث عن منتج"
+                      />
+                    </div>
+
+                    {/* Selects row (wraps on small screens) */}
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      <select
+                        value={selectedSection}
+                        onChange={(e) => setSelectedSection(e.target.value)}
+                        className="h-9 max-w-[180px] rounded-lg px-2.5 text-[0.74rem] font-semibold outline-none text-right focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                        style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
+                        aria-label="القسم"
+                      >
+                        <option value="all">جميع الأقسام</option>
+                        {mergedSections.map((c) => (
+                          <option key={c.id} value={c.id}>{c.label}</option>
+                        ))}
+                      </select>
+
+                      <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                        className="h-9 max-w-[160px] rounded-lg px-2.5 text-[0.74rem] font-semibold outline-none text-right focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                        style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
+                        aria-label="الترتيب"
+                      >
+                        <option value="featured">الأعلى تقييماً</option>
+                        <option value="newest">الأحدث</option>
+                        <option value="price_asc">الأرخص</option>
+                        <option value="price_desc">الأعلى سعراً</option>
+                      </select>
+
+                      {mallList.length > 1 && (
+                        <select
+                          value={selectedMall}
+                          onChange={(e) => setSelectedMall(e.target.value)}
+                          className="hidden lg:block h-9 max-w-[150px] rounded-lg px-2.5 text-[0.74rem] font-semibold outline-none text-right focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                          style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
+                          aria-label="الفرع"
+                        >
+                          <option value="all">جميع الفروع</option>
+                          {mallList.map((m) => (
+                            <option key={m} value={m}>{m}</option>
+                          ))}
+                        </select>
+                      )}
+
+                      <select
+                        value={selectedShop}
+                        onChange={(e) => setSelectedShop(e.target.value)}
+                        className="hidden lg:block h-9 max-w-[170px] rounded-lg px-2.5 text-[0.74rem] font-semibold outline-none text-right focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                        style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
+                        aria-label="المحل"
+                      >
+                        <option value="all">جميع المحلات</option>
+                        {storeList?.map((s) => (
+                          <option key={s.id} value={s.slug}>{s.name_ar}</option>
+                        ))}
+                      </select>
+
+                      {/* Advanced filters (mobile + brand/price) */}
+                      <Sheet>
+                        <SheetTrigger asChild>
+                          <button
+                            className="flex h-9 items-center gap-1.5 rounded-lg px-2.5 text-[0.74rem] font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB55]"
+                            style={{ border: "1px solid #2563EB40", background: "#2563EB18", color: "#60A5FA" }}
+                            aria-label="فلاتر متقدمة"
+                          >
+                            <SlidersHorizontal className="h-3.5 w-3.5" />
+                            <span className="hidden sm:inline">فلاتر متقدمة</span>
+                            <span className="sm:hidden">متقدمة</span>
+                            {(priceRange || selectedBrand !== "all") && (
+                              <span className="flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[0.6rem] font-bold" style={{ background: "#2563EB", color: "#fff" }}>
+                                {(priceRange ? 1 : 0) + (selectedBrand !== "all" ? 1 : 0)}
+                              </span>
+                            )}
+                          </button>
+                        </SheetTrigger>
+                        <SheetContent side="right" className="w-[300px] sm:w-[340px] bg-[#0B1220] border-[#ffffff14]" style={{ direction: "rtl" }}>
+                          <SheetHeader>
+                            <SheetTitle className="text-right text-[0.95rem] font-bold" style={{ color: "#F8FAFC" }}>
+                              الفلاتر المتقدمة
+                            </SheetTitle>
+                          </SheetHeader>
+                          <div className="mt-5">
+                            <FilterSidebar />
+                          </div>
+                        </SheetContent>
+                      </Sheet>
+                    </div>
+                  </div>
+
+                  {/* Results summary */}
+                  <div className="mt-2 flex items-center gap-2 text-[0.7rem]" style={{ color: hasActiveFilters ? "#94A3B8" : "#475569" }}>
+                    {hasActiveFilters ? (
+                      <span>
+                        <span className="font-bold" style={{ color: "#F8FAFC" }}>{filteredProducts.length}</span> نتيجة تطابق فلاترك
+                      </span>
+                    ) : (
+                      <span>{allProducts.length} منتج من {storeList?.length ?? 0} محل</span>
+                    )}
+                  </div>
+                </motion.div>
               </div>
-            )}
-          </div>
+            );
+          })()}
         </div>
 
           {/* Quick category chips */}
