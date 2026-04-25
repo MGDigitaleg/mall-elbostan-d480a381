@@ -103,6 +103,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     });
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+  const handleBackToOverview = () => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+    onClearSelection?.();
+  };
+  const isOverviewActive = zoom === 1 && pan.x === 0 && pan.y === 0 && !selectedUnitId;
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (zoom <= 1) return;
