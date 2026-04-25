@@ -825,6 +825,44 @@ const Products = () => {
 
             {/* Grid column */}
             <div className="flex-1 min-w-0">
+              {/* Sort pills — clear, persistent across filter changes */}
+              <div
+                className="mb-3 flex flex-wrap items-center gap-1.5 rounded-xl p-1.5"
+                style={{ border: "1px solid #ffffff10", background: "#ffffff05" }}
+                role="radiogroup"
+                aria-label="ترتيب المنتجات"
+                dir="rtl"
+              >
+                <span className="px-2 text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>
+                  ترتيب:
+                </span>
+                {([
+                  { id: "newest", label: "الأحدث" },
+                  { id: "price_asc", label: "الأرخص" },
+                  { id: "price_desc", label: "الأعلى سعراً" },
+                  { id: "featured", label: "الأعلى تقييماً" },
+                ] as const).map((opt) => {
+                  const isActive = sortBy === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={isActive}
+                      onClick={() => setSortBy(opt.id)}
+                      className="h-8 rounded-lg px-3 text-[0.74rem] font-bold transition-all"
+                      style={
+                        isActive
+                          ? { background: "#2563EB", color: "#fff", border: "1px solid #2563EB" }
+                          : { background: "#ffffff06", color: "#CBD5E1", border: "1px solid #ffffff10" }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+
               {isLoading ? (
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                   {Array.from({ length: 12 }).map((_, i) => (
