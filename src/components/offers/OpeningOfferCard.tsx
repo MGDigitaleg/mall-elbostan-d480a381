@@ -80,6 +80,9 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
   const validTo = offer.valid_to ? new Date(offer.valid_to) : null;
   const categoryLabel = offer.category ?? store?.category ?? "عروض الافتتاح";
   const primaryTitle = offer.model ?? offer.title_ar;
+  const campaign = getCampaignState(offer.valid_to);
+  const isExpired = campaign.status === "expired";
+  const isEndingSoon = campaign.status === "ending_soon";
   const showOpenNowBadge = !!store && (offer.opening_status === "opening_soon" || store.opening_status === "opening_soon");
 
   // Compact-aware tokens — automatically shrink across all screens when compact=true
