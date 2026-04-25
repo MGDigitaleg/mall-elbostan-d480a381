@@ -346,6 +346,13 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         className="block h-auto w-full"
         role="img"
         aria-label="خريطة الطابق التفاعلية لمول البستان"
+        onClick={(e) => {
+          // Clear pending confirmation when tapping empty floor / corridor area.
+          const target = e.target as Element | null;
+          if (!target?.closest("[data-unit-id]") && !target?.closest("[data-tap-confirm]")) {
+            setPendingUnitId(null);
+          }
+        }}
       >
         <defs>
           <linearGradient id="floorGrad" x1="0" y1="0" x2="1" y2="1">
