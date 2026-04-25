@@ -60,7 +60,16 @@ export function trackSpinResult(won: boolean, params: AnalyticsParams = {}): voi
 
 /** Track an internal SEO link click (category intros, map SEO text, homepage footer). */
 export function trackSeoLinkClick(
-  section: "stores_intro" | "map_seo" | "homepage_seo",
+  section:
+    | "stores_intro"
+    | "map_seo"
+    | "homepage_seo"
+    | "stores_seo"
+    | "deals_seo"
+    | "tech_planet_seo"
+    | "about_seo"
+    | "store_detail_seo"
+    | "product_detail_seo",
   linkType: "store" | "category" | "page" | "map_pin",
   label: string,
   destination: string,
