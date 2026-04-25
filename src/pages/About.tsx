@@ -101,7 +101,9 @@ const About = () => {
                 </div>
                 <h3 className="text-[1.05rem] font-bold light-heading">فرع القاهرة الجديدة</h3>
                 <p className="text-[0.84rem] leading-[1.75] light-body max-w-[22rem]">
-                  نفس الاسم مع خريطة تفاعلية ودليل رقمي، في موقع يخدم مدينتي والرحاب والتجمع الخامس. تنظيم أوضح وتجربة حديثة.
+                  نفس الاسم مع خريطة تفاعلية ودليل رقمي، في موقع يخدم مدينتي والرحاب والتجمع الخامس. استعدّ لـ{" "}
+                  <Link to="/opening-day" className="text-primary font-semibold hover:underline">يوم الافتتاح</Link>{" "}
+                  بتجربة أوضح وتنظيم حديث.
                 </p>
                 <Link to="/new-cairo-branch">
                     <Button variant="ghost" className="gap-1.5 px-0 text-[0.82rem] font-bold text-primary hover:text-primary/80">
