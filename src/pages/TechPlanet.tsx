@@ -6,6 +6,7 @@ import { TechPlanetSection } from "@/components/home/TechPlanetSection";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { tokenizeQuery, scoreDevice } from "@/lib/deviceSearchIndex";
 import { buildTechPlanetSeo, type OrbitKey, type CatalogDeviceLite } from "@/lib/techPlanetSeo";
+import { trackSeoLinkClick } from "@/lib/analytics";
 
 const isOrbitKey = (v: string | null): v is OrbitKey =>
   v === "all" || v === "inner" || v === "middle" || v === "outer";
@@ -107,6 +108,130 @@ const TechPlanet = () => {
       </div>
 
       <TechPlanetSection />
+
+      {/* ═══════════ TECH PLANET SEO CONTENT — internal linking footer ═══════════ */}
+      <section
+        className="border-t"
+        style={{
+          background: "linear-gradient(180deg, #050E2A 0%, #02060F 100%)",
+          borderColor: "rgba(205,187,154,0.10)",
+          paddingTop: "clamp(28px, 3.4vw, 48px)",
+          paddingBottom: "clamp(28px, 3.4vw, 48px)",
+        }}
+      >
+        <div className="container max-w-4xl">
+          <h2
+            className="text-[0.96rem] font-bold mb-3"
+            style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
+          >
+            كوكب البستان — كتالوج التقنية الكامل
+          </h2>
+          <div className="text-[0.78rem] leading-[2.1] space-y-3" style={{ color: "rgba(226,232,240,0.72)" }}>
+            <p>
+              <strong style={{ color: "#FCD34D" }}>كوكب البستان</strong>{" "}
+              هو العرض الكامل لكل أنواع الأجهزة التقنية المتوفرة في محلات المول — من الحلقة الداخلية للأجهزة الأساسية، إلى الحلقات الأبعد للتخصصات النادرة. تربط هذه الصفحة كل صنف بالمحل المناسب داخل{" "}
+              <Link
+                to="/map"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "page", "الخريطة التفاعلية", "/map")}
+              >
+                الخريطة التفاعلية
+              </Link>{" "}
+              للمول.
+            </p>
+            <p>
+              تصفّح المحلات حسب فئة الجهاز:{" "}
+              <Link
+                to="/stores?category=الكمبيوتر والأجهزة"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الكمبيوتر واللابتوبات", "/stores?category=الكمبيوتر والأجهزة")}
+              >
+                محلات الكمبيوتر واللابتوبات
+              </Link>،{" "}
+              <Link
+                to="/stores?category=الهواتف والإكسسوارات"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الهواتف والإكسسوارات", "/stores?category=الهواتف والإكسسوارات")}
+              >
+                محلات الهواتف والإكسسوارات
+              </Link>،{" "}
+              <Link
+                to="/stores?category=الألعاب والترفيه"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الجيمنج والألعاب", "/stores?category=الألعاب والترفيه")}
+              >
+                محلات الجيمنج والألعاب
+              </Link>،{" "}
+              <Link
+                to="/stores?category=الطباعة والتصوير"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الطباعة والتصوير", "/stores?category=الطباعة والتصوير")}
+              >
+                الطباعة والتصوير
+              </Link>،{" "}
+              <Link
+                to="/stores?category=الشبكات والأنظمة الأمنية"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الشبكات والأمن", "/stores?category=الشبكات والأنظمة الأمنية")}
+              >
+                الشبكات والأنظمة الأمنية
+              </Link>، أو{" "}
+              <Link
+                to="/stores?category=الصيانة والدعم الفني"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "category", "الصيانة والدعم الفني", "/stores?category=الصيانة والدعم الفني")}
+              >
+                مراكز الصيانة والدعم الفني
+              </Link>.
+            </p>
+            <p>
+              قارن المواصفات والأسعار من{" "}
+              <Link
+                to="/products"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "page", "كتالوج المنتجات", "/products")}
+              >
+                كتالوج المنتجات
+              </Link>،{" "}
+              تصفّح{" "}
+              <Link
+                to="/stores"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "page", "دليل المحلات", "/stores")}
+              >
+                دليل المحلات
+              </Link>{" "}
+              الكامل، أو تابع{" "}
+              <Link
+                to="/daily-deals"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "page", "عروض الافتتاح", "/daily-deals")}
+              >
+                عروض الافتتاح
+              </Link>{" "}
+              من المحلات الجديدة. للمزيد عن المنظومة،{" "}
+              <Link
+                to="/about"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: "#60A5FA" }}
+                onClick={() => trackSeoLinkClick("tech_planet_seo", "page", "عن المول", "/about")}
+              >
+                اعرف المزيد عن مول البستان
+              </Link>.
+            </p>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

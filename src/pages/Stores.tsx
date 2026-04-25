@@ -635,6 +635,56 @@ const Stores = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══════════ STORES SEO CONTENT — internal linking footer ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(24px, 3vw, 40px)" }}>
+        <div className="container max-w-4xl">
+          <h2 className="text-[0.92rem] font-bold text-foreground mb-3" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            دليل محلات مول البستان
+          </h2>
+          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-3">
+            <p>
+              يضم{" "}
+              <strong className="text-foreground">دليل المحلات</strong>{" "}
+              أكثر من 150 محلاً متخصصاً موزّعة على ثلاثة أدوار في{" "}
+              <Link to="/new-cairo-branch" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "فرع التجمع الخامس", "/new-cairo-branch")}>فرع التجمع الخامس</Link>{" "}
+              — إلى جانب الإرث التاريخي في{" "}
+              <Link to="/downtown-branch" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "فرع وسط البلد", "/downtown-branch")}>فرع وسط البلد</Link>{" "}
+              ودليله الكامل في{" "}
+              <Link to="/downtown-directory" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "دليل وسط البلد", "/downtown-directory")}>دليل تجار وسط البلد</Link>.
+            </p>
+            <p>
+              تصفّح المحلات حسب الفئة:{" "}
+              <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الكمبيوتر والأجهزة", "/stores?category=الكمبيوتر والأجهزة")}>الكمبيوتر واللابتوبات</Link>،{" "}
+              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الهواتف والإكسسوارات", "/stores?category=الهواتف والإكسسوارات")}>الهواتف والإكسسوارات</Link>،{" "}
+              <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الألعاب والترفيه", "/stores?category=الألعاب والترفيه")}>الجيمنج والألعاب</Link>،{" "}
+              <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الطباعة والتصوير", "/stores?category=الطباعة والتصوير")}>الطباعة والتصوير</Link>،{" "}
+              <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الشبكات والأمن", "/stores?category=الشبكات والأنظمة الأمنية")}>الشبكات والأمن</Link>، أو{" "}
+              <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "category", "الصيانة والدعم الفني", "/stores?category=الصيانة والدعم الفني")}>الصيانة والدعم الفني</Link>.
+            </p>
+            <p>
+              لمعرفة موقع كل محل بدقة على الأدوار، استخدم{" "}
+              <Link to="/map" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "الخريطة التفاعلية", "/map")}>الخريطة التفاعلية</Link>،{" "}
+              أو قارن بين المنتجات والأسعار من خلال{" "}
+              <Link to="/products" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "كتالوج المنتجات", "/products")}>كتالوج المنتجات</Link>،{" "}
+              وتابع{" "}
+              <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "عروض الافتتاح", "/daily-deals")}>عروض الافتتاح</Link>{" "}
+              من المحلات الجديدة.
+            </p>
+            <p>
+              للتجار الراغبين في فتح محل داخل المول،{" "}
+              <Link to="/leasing" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "وحدات للتأجير", "/leasing")}>تصفّح الوحدات المتاحة للتأجير</Link>{" "}
+              أو{" "}
+              <Link to="/join-marketplace" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "انضم كتاجر", "/join-marketplace")}>انضم إلى السوق الرقمي</Link>،{" "}
+              ولأي استفسار{" "}
+              <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "تواصل", "/contact")}>تواصل مع فريق المول</Link>{" "}
+              أو راجع{" "}
+              <Link to="/faq" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("stores_seo", "page", "الأسئلة الشائعة", "/faq")}>الأسئلة الشائعة</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <BackToTop />
     </MainLayout>
   );
