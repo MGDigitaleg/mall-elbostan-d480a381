@@ -65,7 +65,21 @@ function inferOfferFilterCategory(offer: {
 
 const StoreDetail = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
+  const fromMap = searchParams.get("from") === "map";
+  const initialTab = fromMap ? "map" : (searchParams.get("tab") as "map" | "offers" | "leasing" | null) ?? "map";
+  const [activeTab, setActiveTab] = useState<"map" | "offers" | "leasing">(initialTab);
   const [offerFilter, setOfferFilter] = useState("كل الأقسام");
+
+  // Auto-scroll into the relevant section when arriving from the map
+  useEffect(() => {
+    if (!fromMap) return;
+    const t = setTimeout(() => {
+      document.getElementById("store-from-map")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 350);
+    return () => clearTimeout(t);
+  }, [fromMap]);
+
 
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
