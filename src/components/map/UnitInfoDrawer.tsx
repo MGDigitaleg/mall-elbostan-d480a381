@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Tag, X } from "lucide-react";
+import { ArrowLeft, MapPin, Navigation, Tag, X } from "lucide-react";
 import { TenantLogo } from "@/components/TenantLogo";
 import { cn } from "@/lib/utils";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
