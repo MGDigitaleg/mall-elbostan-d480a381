@@ -1111,8 +1111,20 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                   setPendingUnitId(null);
                   onSelectUnit(unit);
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPendingUnitId(null);
+                    onSelectUnit(unit);
+                  }
+                }}
+                tabIndex={0}
                 role="button"
-                aria-label="تأكيد وفتح التفاصيل"
+                aria-label={`تأكيد وفتح تفاصيل وحدة ${unit.code}${
+                  TENANT_NAMES[unit.id] && unit.status === "occupied" ? ` — ${TENANT_NAMES[unit.id]}` : ""
+                }`}
+                data-confirm-action="confirm"
               >
                 <rect
                   x={confirmBtnX}
