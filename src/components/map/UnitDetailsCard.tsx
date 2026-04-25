@@ -65,8 +65,18 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="text-[1.35rem] font-extrabold text-foreground">{unit.code}</p>
-          {UNIT_TENANT_NAMES[unit.id] && unit.status === "occupied" && (
-            <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{UNIT_TENANT_NAMES[unit.id]}</p>
+          {tenantName && isOccupied && (
+            tenantSlug ? (
+              <Link
+                to={storeHref}
+                className="mt-0.5 inline-flex items-center gap-1 text-[0.84rem] font-bold text-primary hover:underline"
+              >
+                {tenantName}
+                <ArrowLeft className="h-3 w-3" />
+              </Link>
+            ) : (
+              <p className="mt-0.5 text-[0.84rem] font-bold text-muted-foreground">{tenantName}</p>
+            )
           )}
           <p className="mt-0.5 text-[0.72rem] font-medium text-muted-foreground">{floorLabelsAr[unit.floor]}</p>
         </div>
