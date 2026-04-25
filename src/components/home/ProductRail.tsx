@@ -528,7 +528,13 @@ export function ProductRail({
           )}
         </div>
       ) : (
-        <div className={getGridClasses(density)} style={{ gap: 12, rowGap: 16 }}>
+        <div
+          className={getGridClasses(density)}
+          style={{
+            columnGap: tier === "mobile" ? 10 : 12,
+            rowGap: tier === "mobile" ? 12 : 16,
+          }}
+        >
           {loading
             ? skeletonItems.map((_, i) => <SkeletonCard key={`skel-${i}`} />)
             : displayed.map((product) => (
