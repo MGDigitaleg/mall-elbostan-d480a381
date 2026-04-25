@@ -60,8 +60,8 @@ export function DealsTeaser() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-        paddingTop: "clamp(48px, 6vw, 96px)",
-        paddingBottom: "clamp(48px, 6vw, 96px)",
+        paddingTop: "clamp(28px, 3.5vw, 56px)",
+        paddingBottom: "clamp(28px, 3.5vw, 56px)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
@@ -73,21 +73,21 @@ export function DealsTeaser() {
 
       <div className="container relative">
         <Reveal rootMargin="-60px" offset={12}>
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#F97316" }}>
+              <p className="text-[0.62rem] font-semibold tracking-[0.04em] mb-1" style={{ color: "#F97316" }}>
                 عروض الافتتاح
               </p>
               <h2
-                className="text-[1rem] md:text-[1.15rem] font-bold leading-[1.2]"
+                className="text-[0.9rem] md:text-[1rem] font-bold leading-[1.2]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
               >
                 {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
               </h2>
-              <p className="mt-2 max-w-xl text-[0.76rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+              <p className="mt-1.5 max-w-xl text-[0.7rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
                 {isExpired
-                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة داخل منظومة مول البستان."
-                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة، ثم الانتقال إلى الصفحة الكاملة فور بدء عروض الافتتاح."}
+                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
+                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
@@ -104,25 +104,25 @@ export function DealsTeaser() {
           {/* Layout: promo banner + deal cards */}
           <div className="grid gap-4 lg:grid-cols-[1fr_1.6fr]">
             {/* Left: promo campaign cards */}
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
               {PROMO_CARDS.map((card) => (
                 <Link
                   key={card.title}
                   to={card.to}
-                  className="group flex items-start gap-3.5 rounded-xl p-4 transition-all duration-200 hover:bg-white/[0.04]"
+                  className="group flex items-start gap-2.5 rounded-lg p-2.5 transition-all duration-200 hover:bg-white/[0.04]"
                   style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
                 >
                   <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-105"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-105"
                     style={{ background: `${card.color}10`, border: `1px solid ${card.color}18` }}
                   >
-                    <card.icon className="h-4 w-4" style={{ color: card.color }} />
+                    <card.icon className="h-3.5 w-3.5" style={{ color: card.color }} />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[0.82rem] font-bold leading-snug" style={{ color: "#F1F5F9" }}>
+                    <p className="text-[0.74rem] font-bold leading-snug" style={{ color: "#F1F5F9" }}>
                       {card.title}
                     </p>
-                    <p className="mt-1 text-[0.7rem] leading-[1.6] line-clamp-2" style={{ color: "#94A3B8" }}>
+                    <p className="mt-0.5 text-[0.64rem] leading-[1.5] line-clamp-2" style={{ color: "#94A3B8" }}>
                       {card.desc}
                     </p>
                   </div>
