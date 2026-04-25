@@ -203,63 +203,69 @@ export function Footer() {
 
         {/* ── CATEGORY DEEP-LINKS (compact, SEO-friendly internal links) ── */}
         <div
-          className="mt-6 lg:mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3"
+          className="mt-6 lg:mt-8 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2"
           style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
           aria-label="تصفّح المحلات حسب الفئة"
         >
-          <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase shrink-0" style={{ color: "#CDBB9A" }}>
+          <span className="block mb-2 sm:mb-0 sm:shrink-0 text-[0.66rem] font-bold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>
             تصفّح حسب الفئة
           </span>
-          {[
-            { label: "كمبيوتر ولابتوب", category: "الكمبيوتر والأجهزة" },
-            { label: "موبايل وإكسسوارات", category: "الهواتف والإكسسوارات" },
-            { label: "جيمنج وألعاب", category: "الألعاب والترفيه" },
-            { label: "طباعة وتصوير", category: "الطباعة والتصوير" },
-            { label: "شبكات وأمن", category: "الشبكات والأنظمة الأمنية" },
-            { label: "صيانة ودعم فني", category: "الصيانة والدعم الفني" },
-          ].map((c) => {
-            const to = `/stores?category=${encodeURIComponent(c.category)}`;
-            return (
-              <Link
-                key={c.label}
-                to={to}
-                onClick={() => trackSeoLinkClick("footer", "category", c.category, to)}
-                className="text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
-                style={{ color: "#7C8BA1" }}
-              >
-                {c.label}
-              </Link>
-            );
-          })}
+          <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 sm:contents list-none p-0 m-0">
+            {[
+              { label: "كمبيوتر ولابتوب", category: "الكمبيوتر والأجهزة" },
+              { label: "موبايل وإكسسوارات", category: "الهواتف والإكسسوارات" },
+              { label: "جيمنج وألعاب", category: "الألعاب والترفيه" },
+              { label: "طباعة وتصوير", category: "الطباعة والتصوير" },
+              { label: "شبكات وأمن", category: "الشبكات والأنظمة الأمنية" },
+              { label: "صيانة ودعم فني", category: "الصيانة والدعم الفني" },
+            ].map((c) => {
+              const to = `/stores?category=${encodeURIComponent(c.category)}`;
+              return (
+                <li key={c.label} className="min-w-0">
+                  <Link
+                    to={to}
+                    onClick={() => trackSeoLinkClick("footer", "category", c.category, to)}
+                    className="block truncate min-h-[36px] sm:min-h-0 leading-[36px] sm:leading-normal text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
+                    style={{ color: "#7C8BA1" }}
+                  >
+                    {c.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         {/* ── QUICK DESTINATIONS (offers, map, leasing) ── */}
         <div
-          className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3"
+          className="mt-3 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2"
           style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
           aria-label="وجهات سريعة"
         >
-          <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase shrink-0" style={{ color: "#CDBB9A" }}>
+          <span className="block mb-2 sm:mb-0 sm:shrink-0 text-[0.66rem] font-bold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>
             وجهات سريعة
           </span>
-          {[
-            { label: "عروض الافتتاح", to: "/daily-deals" },
-            { label: "الخريطة التفاعلية", to: "/map" },
-            { label: "كتالوج المنتجات", to: "/products" },
-            { label: "كوكب البستان", to: "/tech-planet" },
-            { label: "اعرف أكثر", to: "/about" },
-            { label: "وحدات للتأجير", to: "/leasing" },
-          ].map((d) => (
-            <Link
-              key={d.to}
-              to={d.to}
-              onClick={() => trackSeoLinkClick("footer", "page", d.label, d.to)}
-              className="text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
-              style={{ color: "#7C8BA1" }}
-            >
-              {d.label}
-            </Link>
-          ))}
+          <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 sm:contents list-none p-0 m-0">
+            {[
+              { label: "عروض الافتتاح", to: "/daily-deals" },
+              { label: "الخريطة التفاعلية", to: "/map" },
+              { label: "كتالوج المنتجات", to: "/products" },
+              { label: "كوكب البستان", to: "/tech-planet" },
+              { label: "اعرف أكثر", to: "/about" },
+              { label: "وحدات للتأجير", to: "/leasing" },
+            ].map((d) => (
+              <li key={d.to} className="min-w-0">
+                <Link
+                  to={d.to}
+                  onClick={() => trackSeoLinkClick("footer", "page", d.label, d.to)}
+                  className="block truncate min-h-[36px] sm:min-h-0 leading-[36px] sm:leading-normal text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
+                  style={{ color: "#7C8BA1" }}
+                >
+                  {d.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* ── CONTACT STRIP ── */}
