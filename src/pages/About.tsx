@@ -159,33 +159,11 @@ const About = () => {
       </div>
     </section>
 
-    <section className="heritage-deep py-7 md:py-9 relative overflow-hidden">
-      <div className="relative container max-w-[900px]">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-6">
-            <p className="section-kicker dark-kicker">المسار</p>
-            <h2 className="section-title dark-heading">محطات بنت الاسم.</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { year: "1990", label: "البداية", desc: "افتتاح مول البستان في وسط البلد." },
-              { year: "2000+", label: "سنوات الثقة", desc: "المول يصبح مرجعاً في سوق الإلكترونيات." },
-              { year: "2024", label: "التحول الرقمي", desc: "إطلاق الدليل التفاعلي وسوق المنتجات." },
-              { year: "2026", label: "القاهرة الجديدة", desc: "فرع جديد بتجربة منظمة وحديثة." },
-            ].map((item, i) => (
-              <TimelineCountCard key={item.year} item={item} index={i} />
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
-
-    {/* ═══════════ 3.5 · WHY MALL ELBOSTAN — RICH SEO BLOCK ═══════════ */}
-    <section className="py-8 md:py-10 bg-secondary dark:bg-background">
+    {/* ═══════════ 3 · WHY MALL ELBOSTAN — consolidated value block (merged with timeline highlights) ═══════════ */}
+    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
       <div className="container max-w-[980px]">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-6">
+          <div className="text-center mb-5">
             <p className="section-kicker">حول الوجهة</p>
             <h2 className="section-title mx-auto max-w-[26rem]">لماذا مول البستان؟</h2>
           </div>
@@ -195,48 +173,26 @@ const About = () => {
               {[
                 {
                   icon: Building2,
-                  title: "إرث منذ عام 1990",
+                  title: "إرث منذ 1990 — منظومة متكاملة",
                   body: (
                     <>
-                      <strong className="text-foreground">مول البستان</strong> هو أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ عام 1990. يضم أكثر من 150 محلاً متخصصاً على 3 أدوار، ويقع في قلب التجمع الخامس بالقاهرة الجديدة.
-                    </>
-                  ),
-                },
-                {
-                  icon: Layers,
-                  title: "فئات تقنية متكاملة",
-                  body: (
-                    <>
-                      تجد لدينا{" "}
-                      <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">محلات الكمبيوتر واللابتوبات</Link>،{" "}
-                      <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الموبايلات والإكسسوارات</Link>،{" "}
-                      <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج والألعاب</Link>،{" "}
-                      <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline">الطباعة والتصوير</Link>،{" "}
-                      <Link to="/stores?category=الشبكات والأنظمة الأمنية" className="text-primary font-semibold hover:underline">الشبكات والأنظمة الأمنية</Link>،{" "}
-                      و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">خدمات الصيانة والدعم الفني</Link>.
+                      <strong className="text-foreground">مول البستان</strong> هو أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ عام 1990. أكثر من 460 محلاً عبر فرعين، بتغطية تقنية تشمل{" "}
+                      <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">الكمبيوتر</Link>،{" "}
+                      <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link>،{" "}
+                      <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link>،{" "}
+                      و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link>.
                     </>
                   ),
                 },
                 {
                   icon: Compass,
-                  title: "أدوات تصفّح ذكية",
+                  title: "تجربة منظمة في موقع مركزي",
                   body: (
                     <>
-                      استخدم <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link> لتصفّح المحلات على كل دور، أو استعرض{" "}
-                      <Link to="/products" className="text-primary font-semibold hover:underline">كتالوج المنتجات</Link> لمقارنة الأسعار. للمستثمرين،{" "}
-                      <Link to="/leasing" className="text-primary font-semibold hover:underline">وحدات تجارية متاحة للإيجار</Link> بمساحات متنوعة.
-                    </>
-                  ),
-                },
-                {
-                  icon: MapPin,
-                  title: "في قلب القاهرة الجديدة",
-                  body: (
-                    <>
-                      يخدم مول البستان سكان <strong className="text-foreground">القاهرة الجديدة</strong>،{" "}
-                      <strong className="text-foreground">مدينتي</strong>،{" "}
-                      <strong className="text-foreground">الرحاب</strong>، والمناطق المحيطة. تواصل مع{" "}
-                      <Link to="/contact" className="text-primary font-semibold hover:underline">فريق المول</Link> لأي استفسار.
+                      فرع القاهرة الجديدة يخدم <strong className="text-foreground">التجمع</strong>،{" "}
+                      <strong className="text-foreground">مدينتي</strong> و<strong className="text-foreground">الرحاب</strong>، مع{" "}
+                      <Link to="/map" className="text-primary font-semibold hover:underline">خريطة تفاعلية</Link> و
+                      <Link to="/products" className="text-primary font-semibold hover:underline"> كتالوج منتجات</Link> لمقارنة الأسعار قبل الزيارة.
                     </>
                   ),
                 },
