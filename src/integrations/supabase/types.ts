@@ -1554,6 +1554,45 @@ export type Database = {
           },
         ]
       }
+      spin_history: {
+        Row: {
+          claim_code: string | null
+          client_id: string | null
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_grand: boolean
+          is_visitor: boolean
+          prize_name_ar: string | null
+          user_id: string
+          won: boolean
+        }
+        Insert: {
+          claim_code?: string | null
+          client_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_grand?: boolean
+          is_visitor?: boolean
+          prize_name_ar?: string | null
+          user_id: string
+          won?: boolean
+        }
+        Update: {
+          claim_code?: string | null
+          client_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_grand?: boolean
+          is_visitor?: boolean
+          prize_name_ar?: string | null
+          user_id?: string
+          won?: boolean
+        }
+        Relationships: []
+      }
       spin_sessions: {
         Row: {
           claim_code: string | null

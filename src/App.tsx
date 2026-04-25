@@ -25,6 +25,7 @@ const JoinMarketplace = lazy(() => lazyRetry(() => import("./pages/JoinMarketpla
 const InteractiveMap = lazy(() => lazyRetry(() => import("./pages/InteractiveMap")));
 const Leasing = lazy(() => lazyRetry(() => import("./pages/Leasing")));
 const SpinWin = lazy(() => lazyRetry(() => import("./pages/SpinWin")));
+const SpinAccount = lazy(() => lazyRetry(() => import("./pages/SpinAccount")));
 const SpinClaim = lazy(() => lazyRetry(() => import("./pages/SpinClaim")));
 const OpeningDay = lazy(() => lazyRetry(() => import("./pages/OpeningDay")));
 const DailyDeals = lazy(() => lazyRetry(() => import("./pages/DailyDeals")));
@@ -158,6 +159,7 @@ function AppLayout() {
             <Route path="/map" element={<InteractiveMap />} />
             <Route path="/leasing" element={<Leasing />} />
             <Route path="/spin-win" element={<SpinWin />} />
+            <Route path="/spin-win/account" element={<SpinAccount />} />
             <Route path="/spin-win/claim" element={<SpinClaim />} />
             <Route path="/spin-win/claim/:code" element={<SpinClaim />} />
             <Route path="/opening-day" element={<OpeningDay />} />
