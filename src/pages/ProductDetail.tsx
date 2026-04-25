@@ -558,6 +558,42 @@ const ProductDetail = () => {
       )}
 
       {/* Related mall products */}
+      {/* ═══════════ SEO PROSE — contextual internal linking ═══════════ */}
+      <section className="border-t border-border bg-card dark:bg-background" style={{ paddingTop: "clamp(18px, 2vw, 28px)", paddingBottom: "clamp(18px, 2vw, 28px)" }}>
+        <div className="container max-w-4xl">
+          <div className="text-[0.74rem] leading-[2.05] text-muted-foreground space-y-2.5">
+            <p>
+              <strong className="text-foreground">{mallProduct!.name_ar}</strong>
+              {category && <> ضمن فئة <Link to={`/products?section=${encodeURIComponent(category.name_ar)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "category", `منتجات ${category.name_ar}`, `/products?section=${category.name_ar}`)}>منتجات {category.name_ar}</Link></>}
+              {store && <> — متوفّر في{" "}
+                <Link to={`/stores/${store.slug}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "store", store.name_ar, `/stores/${store.slug}`)}>{store.name_ar}</Link>
+                {store.unit_code && <> — <Link to={`/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "map_pin", store.name_ar, `/map?highlight=${store.unit_code}`)}>اعرض موقع المحل على الخريطة (وحدة {store.unit_code})</Link></>}.
+              </>}
+            </p>
+            <p>
+              تصفّح بدائل وعروض مماثلة:{" "}
+              {category && (
+                <>
+                  <Link to={`/stores?category=${encodeURIComponent(category.name_ar)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "category", `محلات ${category.name_ar}`, `/stores?category=${category.name_ar}`)}>محلات {category.name_ar}</Link>
+                  <span className="text-muted-foreground/40 mx-1.5">•</span>
+                </>
+              )}
+              {store?.category && store.category !== category?.name_ar && (
+                <>
+                  <Link to={`/stores?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "category", `محلات ${store.category}`, `/stores?category=${store.category}`)}>محلات {store.category}</Link>
+                  <span className="text-muted-foreground/40 mx-1.5">•</span>
+                </>
+              )}
+              <Link to="/products" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "page", "كتالوج المنتجات", "/products")}>كتالوج المنتجات الكامل</Link>
+              <span className="text-muted-foreground/40 mx-1.5">•</span>
+              <Link to="/map" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "page", "الخريطة التفاعلية", "/map")}>الخريطة التفاعلية</Link>
+              <span className="text-muted-foreground/40 mx-1.5">•</span>
+              <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("product_detail_seo", "page", "عروض الافتتاح", "/daily-deals")}>عروض الافتتاح</Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {relatedMallProducts && relatedMallProducts.length > 0 && (
         <section className="border-t border-border bg-background py-7 md:py-9">
           <div className="container max-w-6xl">
