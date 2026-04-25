@@ -104,25 +104,25 @@ export function DealsTeaser() {
           {/* Layout: promo banner + deal cards */}
           <div className="grid gap-4 lg:grid-cols-[1fr_1.6fr]">
             {/* Left: promo campaign cards */}
-            <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
               {PROMO_CARDS.map((card) => (
                 <Link
                   key={card.title}
                   to={card.to}
-                  className="group flex items-start gap-3.5 rounded-xl p-4 transition-all duration-200 hover:bg-white/[0.04]"
+                  className="group flex items-start gap-2.5 rounded-lg p-2.5 transition-all duration-200 hover:bg-white/[0.04]"
                   style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
                 >
                   <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-transform group-hover:scale-105"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-105"
                     style={{ background: `${card.color}10`, border: `1px solid ${card.color}18` }}
                   >
-                    <card.icon className="h-4 w-4" style={{ color: card.color }} />
+                    <card.icon className="h-3.5 w-3.5" style={{ color: card.color }} />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[0.82rem] font-bold leading-snug" style={{ color: "#F1F5F9" }}>
+                    <p className="text-[0.74rem] font-bold leading-snug" style={{ color: "#F1F5F9" }}>
                       {card.title}
                     </p>
-                    <p className="mt-1 text-[0.7rem] leading-[1.6] line-clamp-2" style={{ color: "#94A3B8" }}>
+                    <p className="mt-0.5 text-[0.64rem] leading-[1.5] line-clamp-2" style={{ color: "#94A3B8" }}>
                       {card.desc}
                     </p>
                   </div>
