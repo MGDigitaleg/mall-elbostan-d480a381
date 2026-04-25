@@ -75,16 +75,16 @@ export function DealsTeaser() {
         <Reveal rootMargin="-60px" offset={12}>
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <p className="text-[0.62rem] font-semibold tracking-[0.04em] mb-1" style={{ color: "#F97316" }}>
+              <p className="text-[0.66rem] font-bold tracking-[0.06em] mb-1 uppercase" style={{ color: "#FDBA74" }}>
                 عروض الافتتاح
               </p>
               <h2
-                className="text-[0.9rem] md:text-[1rem] font-bold leading-[1.2]"
-                style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}
+                className="text-[0.95rem] md:text-[1.05rem] font-extrabold leading-[1.25]"
+                style={{ fontFamily: "var(--font-arabic-display)", color: "#FFFFFF" }}
               >
                 {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
               </h2>
-              <p className="mt-1.5 max-w-xl text-[0.7rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
+              <p className="mt-1.5 max-w-xl text-[0.74rem] leading-[1.65] font-medium" style={{ color: "#E2E8F0" }}>
                 {isExpired
                   ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
