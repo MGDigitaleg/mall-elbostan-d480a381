@@ -296,7 +296,7 @@ const Stores = () => {
       />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-9 md:py-12 bg-secondary dark:bg-background">
+      <section className="py-6 md:py-8 bg-secondary dark:bg-background">
         <div className="container max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
