@@ -250,8 +250,15 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         e.preventDefault();
         if (zoom > 1) setPan((p) => ({ ...p, x: p.x - PAN_STEP }));
         break;
+      case "Escape":
+        // Dismiss pending tap-confirm tooltip without leaving the map.
+        if (pendingUnitId) {
+          e.preventDefault();
+          setPendingUnitId(null);
+        }
+        break;
     }
-  }, [zoom]);
+  }, [zoom, pendingUnitId]);
 
   const activeMarkerUnit = activeMarkerUnitId
     ? floor.units.find((unit) => unit.id === activeMarkerUnitId) ?? null
@@ -268,34 +275,45 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       aria-roledescription="خريطة طوابق تفاعلية"
       onKeyDown={handleContainerKeyDown}
     >
-      {/* Live region — announces selection changes to screen readers */}
+      {/* Live region — announces selection + tap-confirm changes to screen readers */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {selectedUnitId
+        {pendingUnitId
           ? (() => {
-              const u = floor.units.find((x) => x.id === selectedUnitId);
+              const u = floor.units.find((x) => x.id === pendingUnitId);
               if (!u) return "";
               const tenant = TENANT_NAMES[u.id];
               const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
-              return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+              return `تم تظليل وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}. اضغط مجدداً لفتح التفاصيل أو Escape للإلغاء.`;
             })()
-          : ""}
+          : selectedUnitId
+            ? (() => {
+                const u = floor.units.find((x) => x.id === selectedUnitId);
+                if (!u) return "";
+                const tenant = TENANT_NAMES[u.id];
+                const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
+                return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+              })()
+            : ""}
       </div>
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 start-3 z-10 flex flex-col gap-1">
           {[
-            { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير" },
-            { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير" },
-            { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط" },
+            { action: handleZoomIn, disabled: zoom >= MAX_ZOOM, icon: ZoomIn, label: "تكبير الخريطة", shortcut: "+" },
+            { action: handleZoomOut, disabled: zoom <= MIN_ZOOM, icon: ZoomOut, label: "تصغير الخريطة", shortcut: "-" },
+            { action: handleReset, disabled: zoom === 1 && pan.x === 0 && pan.y === 0, icon: RotateCcw, label: "إعادة ضبط التكبير والتمرير", shortcut: "0" },
           ].map((btn) => (
             <button
               key={btn.label}
+              type="button"
               onClick={btn.action}
               disabled={btn.disabled}
-              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25 bg-card/95 border border-border shadow-sm"
+              className="flex h-9 w-9 items-center justify-center rounded-lg transition-all disabled:opacity-25 bg-card/95 border border-border shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card hover:border-primary/40"
               aria-label={btn.label}
+              aria-keyshortcuts={btn.shortcut}
+              title={btn.label}
             >
-              <btn.icon className="h-4 w-4 text-foreground/70" />
+              <btn.icon className="h-4 w-4 text-foreground/70" aria-hidden="true" />
             </button>
           ))}
         </div>
@@ -315,19 +333,32 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       {!hideControls && (floorLabel || onClearSelection) && (
         <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 sm:gap-2">
           {floorLabel && (
-            <div className="pointer-events-auto inline-flex min-h-[34px] items-center gap-1.5 rounded-full border border-border bg-card/95 px-3.5 py-1.5 text-[0.74rem] font-bold text-foreground shadow-sm backdrop-blur-sm sm:min-h-0 sm:px-3 sm:py-1 sm:text-[0.68rem]">
-              <Layers className="h-3.5 w-3.5 text-primary sm:h-3 sm:w-3" />
+            <div
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-label={`الدور الحالي: ${floorLabel}`}
+              className="pointer-events-auto inline-flex min-h-[34px] items-center gap-1.5 rounded-full border border-border bg-card/95 px-3.5 py-1.5 text-[0.74rem] font-bold text-foreground shadow-sm backdrop-blur-sm sm:min-h-0 sm:px-3 sm:py-1 sm:text-[0.68rem]"
+            >
+              <Layers className="h-3.5 w-3.5 text-primary sm:h-3 sm:w-3" aria-hidden="true" />
               <span>{floorLabel}</span>
             </div>
           )}
           {!isOverviewActive && (
             <button
+              type="button"
               onClick={handleBackToOverview}
-              className="pointer-events-auto inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-4 py-2 text-[0.78rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 active:scale-[0.97] dark:text-orange-foreground sm:min-h-0 sm:gap-1 sm:px-3 sm:py-1 sm:text-[0.68rem]"
+              className="pointer-events-auto inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-4 py-2 text-[0.78rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-card dark:text-orange-foreground sm:min-h-0 sm:gap-1 sm:px-3 sm:py-1 sm:text-[0.68rem]"
               style={{ touchAction: "manipulation" }}
-              aria-label="العودة إلى نظرة عامة"
+              aria-label={
+                selectedUnitId
+                  ? "إلغاء اختيار الوحدة وإعادة التكبير إلى نظرة عامة على الخريطة"
+                  : "إعادة الخريطة إلى نظرة عامة"
+              }
+              aria-keyshortcuts="0"
+              title="نظرة عامة"
             >
-              <X className="h-4 w-4 sm:h-3 sm:w-3" />
+              <X className="h-4 w-4 sm:h-3 sm:w-3" aria-hidden="true" />
               <span>نظرة عامة</span>
             </button>
           )}
@@ -469,6 +500,21 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               0%, 100% { transform: translateY(0px); }
               50% { transform: translateY(-5px); }
             }
+            /* Keyboard focus rings for SVG interactive elements (unit polygons
+               and the in-map tap-confirm action buttons). High contrast against
+               both the cream floor and the dark tooltip card. */
+            #units-layer [data-unit-id]:focus { outline: none; }
+            #units-layer [data-unit-id]:focus-visible {
+              stroke: #2563EB;
+              stroke-width: 4;
+              stroke-dasharray: 6 3;
+              filter: drop-shadow(0 0 4px rgba(37,99,235,0.55));
+            }
+            [data-tap-confirm] [data-confirm-action]:focus { outline: none; }
+            [data-tap-confirm] [data-confirm-action]:focus-visible rect {
+              stroke: #FFFFFF;
+              stroke-width: 2;
+            }
           `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
@@ -506,6 +552,16 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
             const hoverBrightness = hasBrand && isHovered ? "brightness(1.25)" : undefined;
 
+            const isPending = pendingUnitId === unit.id;
+            const tenantName = TENANT_NAMES[unit.id];
+            const namePart = unit.status === "occupied" && tenantName ? ` — ${tenantName}` : "";
+            const statePart = isSelected
+              ? "، مُختارة حالياً"
+              : isPending
+                ? "، بانتظار التأكيد، اضغط مجدداً للفتح"
+                : "";
+            const ariaLabel = `وحدة ${unit.code}${namePart}، ${categoryLabelsAr[unit.category]}، ${statusLabelsAr[unit.status]}، ${unit.area} متر مربع، ${floorLabelsAr[unit.floor]}${statePart}`;
+
             return (
               <motion.polygon
                 key={unit.id}
@@ -520,10 +576,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFFFFFCC" : "#00000030") : stroke}
                 strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? (hasBrand ? 2.8 : 2.2) : 1.2}
                 filter={hoverBrightness ? undefined : appliedFilter}
-                style={{ 
+                style={{
                   transition: "fill 0.2s, stroke 0.25s, stroke-width 0.25s, filter 0.25s",
                   filter: hoverBrightness || undefined,
                   animation: !isMuted ? (unit.status === "available" ? "availablePulse 2.5s ease-in-out infinite" : unit.status === "coming_soon" ? "comingSoonPulse 3s ease-in-out infinite" : undefined) : undefined,
+                  // High-contrast focus ring — visible on keyboard focus only.
+                  outline: "none",
                 }}
                 onClick={() => handleUnitTap(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
@@ -535,14 +593,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 role="button"
                 aria-pressed={isSelected}
                 aria-disabled={isMuted || undefined}
+                aria-keyshortcuts="Enter Space"
                 data-unit-id={unit.id}
-                aria-label={(() => {
-                  const tenant = TENANT_NAMES[unit.id];
-                  const status = statusLabelsAr[unit.status];
-                  const cat = categoryLabelsAr[unit.category];
-                  const namePart = unit.status === "occupied" && tenant ? ` — ${tenant}` : "";
-                  return `وحدة ${unit.code}${namePart}، ${cat}، ${status}، ${unit.area} متر مربع`;
-                })()}
+                aria-label={ariaLabel}
               />
             );
           })}
@@ -590,6 +643,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 {tenantLogo && hasName ? (
                   <g
                     pointerEvents="all"
+                    /* Badge is a visual duplicate of the unit polygon's tap
+                       target. Hide it from assistive tech to avoid two tab
+                       stops/announcements per unit; the polygon already exposes
+                       the full accessible name and selection state. */
+                    aria-hidden="true"
+                    focusable={false as unknown as boolean}
                     style={{
                       cursor: "pointer",
                       transformOrigin: `${unit.labelX}px ${badgeY + badgeH / 2}px`,
@@ -1022,8 +1081,17 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               <g
                 style={{ cursor: "pointer" }}
                 onClick={(e) => { e.stopPropagation(); setPendingUnitId(null); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPendingUnitId(null);
+                  }
+                }}
+                tabIndex={0}
                 role="button"
-                aria-label="إلغاء الاختيار"
+                aria-label={`إلغاء اختيار وحدة ${unit.code}`}
+                data-confirm-action="cancel"
               >
                 <rect
                   x={closeBtnX}
@@ -1065,8 +1133,20 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                   setPendingUnitId(null);
                   onSelectUnit(unit);
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPendingUnitId(null);
+                    onSelectUnit(unit);
+                  }
+                }}
+                tabIndex={0}
                 role="button"
-                aria-label="تأكيد وفتح التفاصيل"
+                aria-label={`تأكيد وفتح تفاصيل وحدة ${unit.code}${
+                  TENANT_NAMES[unit.id] && unit.status === "occupied" ? ` — ${TENANT_NAMES[unit.id]}` : ""
+                }`}
+                data-confirm-action="confirm"
               >
                 <rect
                   x={confirmBtnX}
