@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Store, Zap, Gift, ShoppingBag, Tag } from "lucide-react";
+import { OffersPrimaryCta, OffersSecondaryCta, OffersCtaGroup } from "@/components/offers/OffersCtaButtons";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
@@ -89,32 +90,10 @@ export function DealsTeaser() {
                   ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
-              <div dir="rtl" className="mt-3 flex flex-row flex-nowrap items-center gap-2 sm:gap-2.5">
-                <Link to="/daily-deals" className="inline-flex shrink-0">
-                  <Button
-                    className="h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5 whitespace-nowrap"
-                    style={{
-                      background: "#F97316",
-                      color: "#FFFFFF",
-                      boxShadow: "0 8px 20px -8px rgba(249,115,22,0.55)",
-                    }}
-                  >
-                    <Tag className="h-3.5 w-3.5 shrink-0" />
-                    <span>افتح صفحة عروض الافتتاح</span>
-                    <ArrowLeft className="h-3.5 w-3.5 shrink-0" />
-                  </Button>
-                </Link>
-                <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
-                  <Button
-                    variant="ghost"
-                    className="h-9 rounded-xl px-3 gap-1.5 text-[0.76rem] font-bold whitespace-nowrap hover:bg-white/[0.06]"
-                    style={{ color: "#93C5FD" }}
-                  >
-                    <span>جميع العروض</span>
-                    <ArrowLeft className="h-3.5 w-3.5 shrink-0" />
-                  </Button>
-                </Link>
-              </div>
+              <OffersCtaGroup className="mt-3">
+                <OffersPrimaryCta to="/daily-deals" label="افتح صفحة عروض الافتتاح" />
+                <OffersSecondaryCta to="/daily-deals" label="جميع العروض" hiddenOnMobile />
+              </OffersCtaGroup>
             </div>
           </div>
 
