@@ -330,7 +330,10 @@ const InteractiveMap = () => {
                       />
                     </div>
                     <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-                      <MapLegend />
+                      <MapLegend
+                        activeStatus={availableOnly ? "available" : statusFilter}
+                        onStatusChange={(s) => { setAvailableOnly(false); setStatusFilter(s); }}
+                      />
                     </div>
                   </SheetContent>
                 </Sheet>
