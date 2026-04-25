@@ -2,7 +2,7 @@ import { lazy, Suspense, useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/home/Reveal";
 
-import { ArrowLeft, Phone, Mail } from "lucide-react";
+import { ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -68,7 +68,7 @@ type ProductRow = {
 };
 
 export function HomeContent({ faqs }: HomeContentProps) {
-  const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
+  const faqItems = (faqs.length >= 4 ? faqs : fallbackFaqs).slice(0, 4);
   const isMobile = useIsMobile();
   const { phone: officialPhone } = useSitePhone();
 
@@ -93,7 +93,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         )
         .eq("status", "published")
         .order("created_at", { ascending: false })
-        .limit(36);
+        .limit(48);
       return (data ?? []) as ProductRow[];
     },
     enabled: ready,
@@ -103,17 +103,17 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const products = allProducts ?? [];
   const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
 
-  /* Featured first (large block) */
+  /* Featured first (large block) — 18 items */
   const featuredProducts = useMemo(() => {
     const featured = productsWithImages.filter((p) => p.featured);
     const rest = productsWithImages.filter((p) => !p.featured);
-    return [...featured, ...rest].slice(0, 12);
+    return [...featured, ...rest].slice(0, 18);
   }, [productsWithImages]);
 
-  /* Latest picks (skip those already shown above) */
+  /* Latest picks — 12 items, skipping any already in featured */
   const latestProducts = useMemo(() => {
     const featuredIds = new Set(featuredProducts.map((p) => p.id));
-    return productsWithImages.filter((p) => !featuredIds.has(p.id)).slice(0, 8);
+    return productsWithImages.filter((p) => !featuredIds.has(p.id)).slice(0, 12);
   }, [productsWithImages, featuredProducts]);
 
   return (
@@ -122,8 +122,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         style={{
           contain: "layout style",
-          height: isMobile ? 480 : "78vh",
-          maxHeight: isMobile ? 580 : 620,
+          height: isMobile ? 440 : "70vh",
+          maxHeight: isMobile ? 540 : 560,
           overflow: "hidden",
           position: "relative",
         }}
@@ -134,24 +134,24 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ HOMEPAGE ANCHOR NAV ═══════════ */}
       <HomeAnchorNav />
 
-      {/* ═══════════ SEO INTRO (compact) ═══════════ */}
+      {/* ═══════════ SEO INTRO (compact bridge) ═══════════ */}
       <section
         className="bg-card dark:bg-background"
-        style={{ paddingTop: "clamp(18px, 2.2vw, 28px)", paddingBottom: "clamp(12px, 1.6vw, 20px)" }}
+        style={{ paddingTop: "clamp(12px, 1.5vw, 20px)", paddingBottom: "clamp(8px, 1vw, 14px)" }}
       >
-        <div className="container max-w-4xl text-center">
+        <div className="container max-w-3xl text-center">
           <h1
-            className="text-[1rem] md:text-[1.2rem] font-bold leading-[1.4] text-foreground"
+            className="text-[0.92rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground"
             style={{ fontFamily: "var(--font-arabic-display)" }}
           >
-            مول البستان: وجهتك الأولى للكمبيوتر والإلكترونيات في وسط القاهرة
+            مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة
           </h1>
-          <p className="mt-2 text-[0.78rem] leading-[1.85] text-muted-foreground max-w-2xl mx-auto">
-            أكثر من 150 محل متخصص في{" "}
-            <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">اللابتوبات والكمبيوتر</Link>،{" "}
-            <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link>،{" "}
-            <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link>{" "}
-            و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link>.
+          <p className="mt-1.5 text-[0.74rem] leading-[1.7] text-muted-foreground max-w-xl mx-auto">
+            +150 محل في{" "}
+            <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">الكمبيوتر</Link> ·{" "}
+            <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link> ·{" "}
+            <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link> ·{" "}
+            <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link>
           </p>
         </div>
       </section>
@@ -170,9 +170,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 600px",
-          paddingTop: "clamp(40px, 5vw, 80px)",
-          paddingBottom: "clamp(32px, 4vw, 64px)",
+          containIntrinsicSize: "auto 700px",
+          paddingTop: "clamp(28px, 3.6vw, 56px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
           ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -180,7 +180,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           <ProductRail
             kicker="من محلات المول"
             title="منتجات مختارة"
-            subtitle="أبرز ما تقدمه محلات مول البستان — منتجات مختارة بعناية."
+            subtitle="أبرز ما تقدمه محلات مول البستان."
             products={featuredProducts}
             ctaLabel="عرض كل المنتجات"
             ctaTo="/products"
@@ -193,8 +193,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 280 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 220px" } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 220 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
@@ -203,9 +203,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 480px",
-          paddingTop: "clamp(36px, 4.5vw, 72px)",
-          paddingBottom: "clamp(36px, 4.5vw, 72px)",
+          containIntrinsicSize: "auto 560px",
+          paddingTop: "clamp(24px, 3vw, 48px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -218,7 +218,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             ctaLabel="تصفّح الجديد"
             ctaTo="/products"
             layout="grid"
-            density="premium"
+            density="standard"
             theme="light"
             loading={productsLoading}
           />
@@ -232,14 +232,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           scrollMarginTop: 80,
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 200px",
-          paddingTop: "clamp(24px, 3vw, 48px)",
-          paddingBottom: "clamp(24px, 3vw, 48px)",
+          containIntrinsicSize: "auto 180px",
+          paddingTop: "clamp(18px, 2.4vw, 36px)",
+          paddingBottom: "clamp(18px, 2.4vw, 36px)",
         } as React.CSSProperties}
       >
         <div className="container">
           <Reveal className="mx-auto max-w-[64rem]">
-            <Suspense fallback={<div style={{ minHeight: 140 }} />}>
+            <Suspense fallback={<div style={{ minHeight: 120 }} />}>
               <MapTeaserCompact />
             </Suspense>
           </Reveal>
@@ -268,34 +268,30 @@ export function HomeContent({ faqs }: HomeContentProps) {
         className="relative overflow-hidden"
         style={{
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-          paddingTop: "clamp(36px, 4.5vw, 72px)",
-          paddingBottom: "clamp(36px, 4.5vw, 72px)",
+          paddingTop: "clamp(24px, 3vw, 48px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
         }}
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-        </div>
-
         <div className="container relative max-w-5xl">
           <Reveal>
-            <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+            <div className="grid items-start gap-6 lg:grid-cols-[0.75fr_1.25fr]">
               <div className="lg:sticky lg:top-24">
-                <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-3" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
-                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+                <p className="text-[0.64rem] font-semibold tracking-[0.04em] mb-2" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
+                <h2 className="text-[1.05rem] md:text-[1.25rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
                   إجابات سريعة.
                 </h2>
-                <p className="mt-2.5 text-[0.8rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
+                <p className="mt-2 text-[0.76rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
                   أبرز الأسئلة حول الموقع والافتتاح والتأجير.
                 </p>
-                <Link to="/faq" className="mt-4 inline-flex">
-                  <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
+                <Link to="/faq" className="mt-3 inline-flex">
+                  <Button className="h-9 rounded-xl border px-5 text-[0.76rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
                           style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
                     جميع الأسئلة <ArrowLeft className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
-              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2">
                 {faqItems.map((faq, i) => (
                   <AccordionItem
                     key={faq.id}
@@ -303,7 +299,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                     className="overflow-hidden rounded-xl border px-4 transition-colors data-[state=open]:bg-white/[0.03]"
                     style={{ background: "#ffffff03", borderColor: "#ffffff0A" }}
                   >
-                    <AccordionTrigger className="min-h-[3rem] py-3.5 text-right text-[0.84rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
+                    <AccordionTrigger className="min-h-[2.75rem] py-3 text-right text-[0.82rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
                       <span className="flex items-center gap-2.5">
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-poppins text-[0.6rem] font-extrabold"
                               style={{ background: "#2563EB12", color: "#60A5FA", border: "1px solid #2563EB20" }}>
@@ -312,7 +308,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                         {faq.question_ar}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-3.5 pr-9 text-[0.78rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+                    <AccordionContent className="pb-3 pr-9 text-[0.76rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
                       {faq.answer_ar}
                     </AccordionContent>
                   </AccordionItem>
@@ -330,37 +326,34 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           scrollMarginTop: 80,
           background: "linear-gradient(180deg, #0A1830 0%, #071326 100%)",
-          paddingTop: "clamp(32px, 4vw, 56px)",
-          paddingBottom: "clamp(32px, 4vw, 56px)",
+          paddingTop: "clamp(22px, 2.8vw, 40px)",
+          paddingBottom: "clamp(22px, 2.8vw, 40px)",
         }}
       >
         <div className="container max-w-4xl">
           <Reveal>
-            <div className="text-center mb-5">
-              <p className="text-[0.66rem] font-semibold tracking-[0.04em] mb-2" style={{ color: "#60A5FA" }}>تواصل معنا</p>
-              <h2 className="text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15]"
+            <div className="text-center mb-3.5">
+              <p className="text-[0.62rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#60A5FA" }}>تواصل معنا</p>
+              <h2 className="text-[1rem] md:text-[1.2rem] font-bold leading-[1.15]"
                   style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
                 نحن هنا للإجابة على استفساراتك.
               </h2>
-              <p className="mt-1.5 text-[0.78rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
-                للاستفسارات التجارية أو التأجير — رد خلال يوم عمل واحد.
-              </p>
             </div>
 
-            <div className="grid gap-2.5 sm:grid-cols-3">
+            <div className="grid gap-2 sm:grid-cols-2">
               {officialPhone && (
                 <a
                   href={`tel:${officialPhone}`}
-                  className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
+                  className="group flex items-center gap-2.5 rounded-lg p-2.5 transition-all duration-300 hover:bg-white/[0.04]"
                   style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
                         style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
                     <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
                   </span>
                   <div>
-                    <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>الهاتف</p>
-                    <p className="font-poppins text-[0.8rem] font-bold" style={{ color: "#F1F5F9" }} dir="ltr">{officialPhone}</p>
+                    <p className="text-[0.6rem]" style={{ color: "#7C8BA1" }}>الهاتف</p>
+                    <p className="font-poppins text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }} dir="ltr">{officialPhone}</p>
                   </div>
                 </a>
               )}
@@ -369,36 +362,21 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 href={`https://wa.me/${OFFICIAL_WHATSAPP}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
+                className="group flex items-center gap-2.5 rounded-lg p-2.5 transition-all duration-300 hover:bg-white/[0.04]"
                 style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
                       style={{ background: "#25D36615", border: "1px solid #25D36628" }}>
                   <Phone className="h-3.5 w-3.5" style={{ color: "#25D366" }} />
                 </span>
                 <div>
-                  <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>واتساب</p>
-                  <p className="text-[0.8rem] font-bold" style={{ color: "#F1F5F9" }}>راسلنا الآن</p>
-                </div>
-              </a>
-
-              <a
-                href="mailto:info@mallelbostan.com"
-                className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
-                style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
-                  <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
-                </span>
-                <div>
-                  <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>البريد</p>
-                  <p className="font-poppins text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }}>info@mallelbostan.com</p>
+                  <p className="text-[0.6rem]" style={{ color: "#7C8BA1" }}>واتساب</p>
+                  <p className="text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }}>راسلنا الآن</p>
                 </div>
               </a>
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2">
               <Link to="/contact" className="inline-flex">
                 <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
                         style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
