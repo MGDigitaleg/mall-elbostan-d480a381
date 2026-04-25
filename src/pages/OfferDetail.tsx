@@ -134,7 +134,7 @@ const OfferDetail = () => {
   if (isError || !offer) {
     return (
       <MainLayout>
-        <SEOHead title="العرض غير متوفر | مول البستان" descriptionAr="هذا العرض غير متاح حالياً." />
+        <SEOHead title="العرض غير متوفر | مول البستان" description="هذا العرض غير متاح حالياً." />
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-foreground">العرض غير متوفر</h1>
           <p className="mt-3 text-muted-foreground">قد يكون العرض قد انتهى أو تم تعديله.</p>
@@ -184,8 +184,8 @@ const OfferDetail = () => {
     <MainLayout>
       <SEOHead
         title={seoTitle}
-        descriptionAr={seoDesc}
-        canonicalPath={`/daily-deals/${offer.id}`}
+        description={seoDesc}
+        canonical={`/daily-deals/${offer.id}`}
       />
 
       <div className="bg-gradient-to-b from-secondary/30 via-background to-background">
