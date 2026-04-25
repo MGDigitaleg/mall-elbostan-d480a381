@@ -110,3 +110,8 @@ export const UNIT_TENANT_LOGOS: Record<string, string> = Object.fromEntries(
     .filter(([, { slug }]) => isTenantLogoVerified(slug))
     .map(([unit, { path }]) => [unit, path])
 );
+
+/** Tenant slugs by unit id — used to deep-link from the map to the store detail page */
+export const UNIT_TENANT_SLUGS: Record<string, string> = Object.fromEntries(
+  Object.entries(_allMapLogos).map(([unit, { slug }]) => [unit, slug])
+);
