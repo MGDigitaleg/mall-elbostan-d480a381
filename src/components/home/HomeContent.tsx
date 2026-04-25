@@ -170,9 +170,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 600px",
-          paddingTop: "clamp(40px, 5vw, 80px)",
-          paddingBottom: "clamp(32px, 4vw, 64px)",
+          containIntrinsicSize: "auto 700px",
+          paddingTop: "clamp(28px, 3.6vw, 56px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
           ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -180,7 +180,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           <ProductRail
             kicker="من محلات المول"
             title="منتجات مختارة"
-            subtitle="أبرز ما تقدمه محلات مول البستان — منتجات مختارة بعناية."
+            subtitle="أبرز ما تقدمه محلات مول البستان."
             products={featuredProducts}
             ctaLabel="عرض كل المنتجات"
             ctaTo="/products"
@@ -193,8 +193,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 280px" } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 280 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 220px" } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 220 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
@@ -203,9 +203,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 480px",
-          paddingTop: "clamp(36px, 4.5vw, 72px)",
-          paddingBottom: "clamp(36px, 4.5vw, 72px)",
+          containIntrinsicSize: "auto 560px",
+          paddingTop: "clamp(24px, 3vw, 48px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -218,7 +218,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
             ctaLabel="تصفّح الجديد"
             ctaTo="/products"
             layout="grid"
-            density="premium"
+            density="standard"
             theme="light"
             loading={productsLoading}
           />
@@ -232,14 +232,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           scrollMarginTop: 80,
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 200px",
-          paddingTop: "clamp(24px, 3vw, 48px)",
-          paddingBottom: "clamp(24px, 3vw, 48px)",
+          containIntrinsicSize: "auto 180px",
+          paddingTop: "clamp(18px, 2.4vw, 36px)",
+          paddingBottom: "clamp(18px, 2.4vw, 36px)",
         } as React.CSSProperties}
       >
         <div className="container">
           <Reveal className="mx-auto max-w-[64rem]">
-            <Suspense fallback={<div style={{ minHeight: 140 }} />}>
+            <Suspense fallback={<div style={{ minHeight: 120 }} />}>
               <MapTeaserCompact />
             </Suspense>
           </Reveal>
