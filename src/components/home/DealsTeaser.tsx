@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Store, Zap, Gift, ShoppingBag, Tag } from "lucide-react";
+import { Store } from "lucide-react";
 import { OffersPrimaryCta, OffersSecondaryCta, OffersCtaGroup } from "@/components/offers/OffersCtaButtons";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -7,34 +7,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/home/Reveal";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
-import { CountdownTimer } from "@/components/CountdownTimer";
 import { useCountdown } from "@/hooks/useCountdown";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
-
-const PROMO_CARDS = [
-  {
-    icon: Zap,
-    title: "عروض الافتتاح",
-    desc: "خصومات حصرية من محلات المول احتفالاً بالافتتاح الكبير.",
-    color: "#F97316",
-    to: "/daily-deals",
-  },
-  {
-    icon: Gift,
-    title: "أدر واربح",
-    desc: "جوائز حقيقية من المحلات المشاركة — سجّل الآن.",
-    color: "#2563EB",
-    to: "/spin-win",
-  },
-  {
-    icon: ShoppingBag,
-    title: "منتجات مميزة",
-    desc: "تصفّح أحدث المنتجات من محلات مول البستان.",
-    color: "#06B6D4",
-    to: "/products",
-  },
-];
 
 export function DealsTeaser() {
   const { isExpired } = useCountdown(LAUNCH_DATE);
@@ -48,48 +23,43 @@ export function DealsTeaser() {
         .eq("is_live", true)
         .order("featured", { ascending: false })
         .order("sort_order", { ascending: true })
-        .limit(4);
+        .limit(3);
       return (data ?? []) as OpeningOfferRecord[];
     },
   });
 
   const hasDeals = !isLoading && deals && deals.length > 0;
-  const teaserDeals = deals?.slice(0, isExpired ? 4 : 3) ?? [];
+  const teaserDeals = deals?.slice(0, 3) ?? [];
 
   return (
     <section
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-        paddingTop: "clamp(20px, 2.4vw, 36px)",
-        paddingBottom: "clamp(20px, 2.4vw, 36px)",
+        paddingTop: "clamp(16px, 2vw, 28px)",
+        paddingBottom: "clamp(16px, 2vw, 28px)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-0 right-0 w-[360px] h-[360px] rounded-full opacity-[0.03]"
+          className="absolute top-0 right-0 w-[280px] h-[280px] rounded-full opacity-[0.025]"
           style={{ background: "radial-gradient(circle, #F97316 0%, transparent 70%)" }}
         />
       </div>
 
       <div className="container relative">
         <Reveal rootMargin="-60px" offset={12}>
-          <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+          <div className="mb-2.5 flex flex-wrap items-end justify-between gap-2">
             <div className="min-w-0">
-              <p className="text-[0.6rem] font-bold tracking-[0.06em] mb-0.5 uppercase" style={{ color: "#FDBA74" }}>
+              <p className="text-[0.58rem] font-bold tracking-[0.06em] mb-0.5 uppercase" style={{ color: "#FDBA74" }}>
                 عروض الافتتاح
               </p>
               <h2
-                className="text-[0.82rem] md:text-[0.92rem] font-extrabold leading-[1.25]"
+                className="text-[0.8rem] md:text-[0.9rem] font-extrabold leading-[1.25]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#FFFFFF" }}
               >
-                {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
+                {isExpired ? "مختارات من عروض الافتتاح." : "معاينات عروض الافتتاح."}
               </h2>
-              <p className="mt-1 max-w-xl text-[0.68rem] leading-[1.55] font-medium" style={{ color: "#CBD5E1" }}>
-                {isExpired
-                  ? "مختارات سريعة من صفحة عروض الافتتاح، مع ربط مباشر بصفحات المحلات المشاركة."
-                  : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
-              </p>
             </div>
             <OffersCtaGroup>
               <OffersPrimaryCta to="/daily-deals" label="افتح صفحة العروض" placement="home_deals_teaser" />
@@ -97,91 +67,47 @@ export function DealsTeaser() {
             </OffersCtaGroup>
           </div>
 
-          {/* Layout: promo banner + deal cards */}
-          <div className="grid gap-4 lg:grid-cols-[1fr_1.6fr]">
-            {/* Left: promo campaign cards */}
-            <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-1">
-              {PROMO_CARDS.map((card) => (
-                <Link
-                  key={card.title}
-                  to={card.to}
-                  className="group flex items-start gap-2.5 rounded-lg p-2.5 transition-all duration-200 hover:bg-white/[0.04]"
-                  style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-                >
+          {/* Single-row offer teaser */}
+          <div>
+            {isLoading ? (
+              <div className="grid gap-2.5 grid-cols-1 sm:grid-cols-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className="rounded-xl p-3 space-y-2" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                    <Skeleton className="h-3 w-1/3 bg-white/10" />
+                    <Skeleton className="h-4 w-3/4 bg-white/10" />
+                    <Skeleton className="h-3 w-full bg-white/10" />
+                  </div>
+                ))}
+              </div>
+            ) : hasDeals ? (
+              <div className="-mx-4 flex snap-x snap-mandatory gap-2.5 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:gap-2.5 sm:overflow-visible sm:px-0 sm:pb-0 items-stretch sm:auto-rows-fr [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {teaserDeals.map((deal) => (
                   <div
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-transform group-hover:scale-105"
-                    style={{ background: `${card.color}10`, border: `1px solid ${card.color}18` }}
+                    key={deal.id}
+                    className="snap-start shrink-0 basis-[82%] xs:basis-[72%] sm:basis-auto sm:shrink h-full flex rounded-xl overflow-hidden"
+                    style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
                   >
-                    <card.icon className="h-3.5 w-3.5" style={{ color: card.color }} />
+                    <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-[0.74rem] font-bold leading-snug" style={{ color: "#F1F5F9" }}>
-                      {card.title}
-                    </p>
-                    <p className="mt-0.5 text-[0.64rem] leading-[1.5] line-clamp-2" style={{ color: "#94A3B8" }}>
-                      {card.desc}
-                    </p>
-                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Pre-launch state — slim */
+              <div className="flex items-center justify-center gap-3 rounded-xl p-4 text-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <Store className="h-5 w-5 shrink-0" style={{ color: "#F97316", opacity: 0.5 }} />
+                <p className="text-[0.74rem] leading-[1.5]" style={{ color: "#CBD5E1" }}>
+                  عروض الافتتاح قيد الإعداد —
+                </p>
+                <Link to="/daily-deals">
+                  <Button
+                    className="h-8 rounded-lg px-3 text-[0.72rem] font-bold"
+                    style={{ background: "#F97316", color: "#fff" }}
+                  >
+                    صفحة العروض
+                  </Button>
                 </Link>
-              ))}
-            </div>
-
-             {/* Right: opening offers */}
-            <div>
-              {isLoading ? (
-                <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <div key={i} className="rounded-xl p-4 space-y-3" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                      <Skeleton className="h-3 w-1/3 bg-white/10" />
-                      <Skeleton className="h-4 w-3/4 bg-white/10" />
-                      <Skeleton className="h-3 w-full bg-white/10" />
-                    </div>
-                  ))}
-                </div>
-              ) : hasDeals ? (
-                <div className="space-y-2.5">
-                  {!isExpired && (
-                    <div className="rounded-lg p-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <p className="mb-1.5 text-[0.62rem] font-bold tracking-wide" style={{ color: "#F8FAFC" }}>
-                        العدّ التنازلي لعروض الافتتاح
-                      </p>
-                      <CountdownTimer compact />
-                    </div>
-                  )}
-                  {/* Mobile: snap carousel with larger cards. From sm: grid */}
-                  <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 items-stretch sm:auto-rows-fr [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  {teaserDeals.map((deal) => (
-                    <div
-                      key={deal.id}
-                      className="snap-start shrink-0 basis-[86%] xs:basis-[78%] sm:basis-auto sm:shrink h-full flex rounded-xl overflow-hidden"
-                      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
-                    >
-                      <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
-                    </div>
-                  ))}
-                  </div>
-                </div>
-              ) : (
-                /* Pre-launch state */
-                <div className="flex flex-col items-center justify-center rounded-xl p-8 text-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", minHeight: "280px" }}>
-                  <Store className="mb-3 h-8 w-8" style={{ color: "#F97316", opacity: 0.4 }} />
-                  <h3 className="text-[0.92rem] font-bold" style={{ color: "#F1F5F9" }}>
-                    عروض الافتتاح قيد الإعداد
-                  </h3>
-                  <p className="mt-1.5 max-w-[18rem] text-[0.76rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
-                    لن تبقى الصفحة مجرد ملصقات أو عدّاد فقط — ستظهر هنا عروض منظمة مرتبطة مباشرة بصفحات المحلات المشاركة.
-                  </p>
-                  <Link to="/daily-deals" className="mt-4">
-                    <Button
-                      className="h-9 rounded-xl px-5 text-[0.78rem] font-bold"
-                      style={{ background: "#F97316", color: "#fff" }}
-                    >
-                      صفحة العروض
-                    </Button>
-                  </Link>
-                </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </Reveal>
       </div>
