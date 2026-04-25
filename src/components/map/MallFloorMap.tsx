@@ -250,8 +250,15 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         e.preventDefault();
         if (zoom > 1) setPan((p) => ({ ...p, x: p.x - PAN_STEP }));
         break;
+      case "Escape":
+        // Dismiss pending tap-confirm tooltip without leaving the map.
+        if (pendingUnitId) {
+          e.preventDefault();
+          setPendingUnitId(null);
+        }
+        break;
     }
-  }, [zoom]);
+  }, [zoom, pendingUnitId]);
 
   const activeMarkerUnit = activeMarkerUnitId
     ? floor.units.find((unit) => unit.id === activeMarkerUnitId) ?? null
