@@ -40,17 +40,12 @@ const About = () => {
       jsonLd={organizationLd}
     />
 
-    {/* ═══════════ 1 · HERO ═══════════ */}
+    {/* ═══════════ 1 · HERO (compact, no image — branch cards below carry imagery) ═══════════ */}
     <PageHero
       kicker="من نحن"
       kickerEn="About Us"
       title={<>اسم <span style={{ color: "#CDBB9A" }}>يعرفه السوق.</span></>}
-      subtitle="من وسط البلد إلى القاهرة الجديدة — نفس الثقة، وتجربة أوضح."
-      ctas={[
-        { label: "استكشف الخريطة", to: "/map", icon: Compass },
-        { label: "دليل المحلات", to: "/stores" },
-      ]}
-      image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلاً" }}
+      subtitle="من وسط البلد إلى القاهرة الجديدة — نفس الثقة، تجربة أوضح."
       compact
     />
 
