@@ -644,6 +644,7 @@ const StoreDetail = () => {
                   </div>
                   <div className="divide-y divide-border/60">
                     <InfoRow icon={Tag} label="الفئة" value={store.category ?? "متجر"} color={storyColor} />
+                    {floorName && <InfoRow icon={Layers3} label="الدور" value={floorName} />}
                     <InfoRow icon={Building2} label="الوحدة" value={store.unit_code ? `وحدة ${store.unit_code}` : "—"} highlight />
                     <InfoRow icon={MapPin} label="الموقع" value="مول البستان — القاهرة الجديدة" />
                     {store.opening_hours && <InfoRow icon={Clock3} label="ساعات العمل" value={store.opening_hours} />}
@@ -660,19 +661,23 @@ const StoreDetail = () => {
               {/* Contact Card */}
               <StoreContactCard store={store} />
 
-              {/* Map Quick Link */}
+              {/* Map Quick Link — deep-link to highlighted unit */}
               <motion.div variants={fadeChild}>
-                <Link to="/map" className="group block">
-                  <div className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card p-5 shadow-[var(--shadow-soft)] transition-all hover:border-primary/20 hover:shadow-[var(--shadow-card)]">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors"
-                         style={{ background: "hsl(var(--primary) / 0.06)", border: "1px solid hsl(var(--primary) / 0.1)" }}>
+                <Link to={mapDeepLink} className="group block">
+                  <div className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-soft)] transition-all hover:border-primary/30 hover:shadow-[var(--shadow-card)]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
+                         style={{ background: "hsl(var(--primary) / 0.08)", border: "1px solid hsl(var(--primary) / 0.14)" }}>
                       <Compass className="h-5 w-5 text-primary transition-transform duration-300 group-hover:rotate-45" />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-[0.84rem] font-bold text-foreground">اعرض الموقع على الخريطة</p>
-                      <p className="text-[0.7rem] text-muted-foreground">خريطة تفاعلية لمول البستان</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[0.84rem] font-bold text-foreground">
+                        {store.unit_code ? `موقع الوحدة ${store.unit_code}` : "اعرض على الخريطة"}
+                      </p>
+                      <p className="text-[0.68rem] text-muted-foreground truncate">
+                        {floorName ? `${floorName} — خريطة تفاعلية` : "خريطة تفاعلية لمول البستان"}
+                      </p>
                     </div>
-                    <ArrowUpLeft className="h-4 w-4 text-muted-foreground/30 transition-all group-hover:text-primary/50 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
+                    <ArrowUpLeft className="h-4 w-4 text-muted-foreground/30 transition-all group-hover:text-primary group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
                   </div>
                 </Link>
               </motion.div>
