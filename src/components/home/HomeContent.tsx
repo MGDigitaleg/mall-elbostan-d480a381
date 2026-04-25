@@ -68,7 +68,7 @@ type ProductRow = {
 };
 
 export function HomeContent({ faqs }: HomeContentProps) {
-  const faqItems = (faqs.length >= 5 ? faqs : fallbackFaqs).slice(0, 6);
+  const faqItems = (faqs.length >= 4 ? faqs : fallbackFaqs).slice(0, 4);
   const isMobile = useIsMobile();
   const { phone: officialPhone } = useSitePhone();
 
