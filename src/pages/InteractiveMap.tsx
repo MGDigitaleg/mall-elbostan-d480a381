@@ -225,14 +225,16 @@ const InteractiveMap = () => {
     return new Set(floor.units.filter((u) => !filtered.has(u.id)).map((u) => u.id));
   }, [filteredUnits, floor.units]);
 
-  const activeUnit = selectedUnit && selectedUnit.floor === selectedFloor ? selectedUnit : null;
+  // `activeUnit` is provided by useSelectionByFloor and is automatically scoped
+  // to the currently visible floor — no extra derivation needed here.
 
-  // Keep details panel in sync with filters: drop selection when it's filtered out.
+  // Keep selection in sync with filters: drop selection on the current floor
+  // when it has been filtered out by the user.
   useEffect(() => {
-    if (selectedUnit && selectedUnit.floor === selectedFloor && mutedUnitIds.has(selectedUnit.id)) {
-      setSelectedUnit(null);
+    if (activeUnit && mutedUnitIds.has(activeUnit.id)) {
+      clearFloorSelection(selectedFloor);
     }
-  }, [mutedUnitIds, selectedUnit, selectedFloor]);
+  }, [mutedUnitIds, activeUnit, selectedFloor, clearFloorSelection]);
 
   // Close the mobile full-details sheet whenever the active unit clears
   // (e.g. user taps × on the compact UnitInfoDrawer or switches floors).
