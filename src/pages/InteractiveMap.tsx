@@ -30,6 +30,7 @@ import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import { MapErrorBoundary } from "@/components/map/MapErrorBoundary";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
+import { MapQuickPreview } from "@/components/map/MapQuickPreview";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
