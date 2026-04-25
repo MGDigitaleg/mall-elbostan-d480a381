@@ -308,22 +308,26 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         </div>
       )}
 
-      {/* Current floor + back-to-overview pills (top center) */}
+      {/* Current floor + back-to-overview pills (top center).
+          On mobile we use a min-h of 40px and bumped padding so the targets
+          comfortably exceed the 44px thumb-friendly hit area (with implicit
+          touch padding) and avoid mis-clicks while panning/zooming. */}
       {!hideControls && (floorLabel || onClearSelection) && (
-        <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+        <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 sm:gap-2">
           {floorLabel && (
-            <div className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-1 text-[0.68rem] font-bold text-foreground shadow-sm backdrop-blur-sm">
-              <Layers className="h-3 w-3 text-primary" />
+            <div className="pointer-events-auto inline-flex min-h-[34px] items-center gap-1.5 rounded-full border border-border bg-card/95 px-3.5 py-1.5 text-[0.74rem] font-bold text-foreground shadow-sm backdrop-blur-sm sm:min-h-0 sm:px-3 sm:py-1 sm:text-[0.68rem]">
+              <Layers className="h-3.5 w-3.5 text-primary sm:h-3 sm:w-3" />
               <span>{floorLabel}</span>
             </div>
           )}
           {!isOverviewActive && (
             <button
               onClick={handleBackToOverview}
-              className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-[0.68rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 dark:text-orange-foreground"
+              className="pointer-events-auto inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-4 py-2 text-[0.78rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 active:scale-[0.97] dark:text-orange-foreground sm:min-h-0 sm:gap-1 sm:px-3 sm:py-1 sm:text-[0.68rem]"
+              style={{ touchAction: "manipulation" }}
               aria-label="العودة إلى نظرة عامة"
             >
-              <X className="h-3 w-3" />
+              <X className="h-4 w-4 sm:h-3 sm:w-3" />
               <span>نظرة عامة</span>
             </button>
           )}
