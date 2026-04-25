@@ -264,34 +264,7 @@ const About = () => {
       </div>
     </section>
 
-    {/* ═══════════ 4 · WHY EL BOSTAN ═══════════ */}
-    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
-      <div className="container max-w-[900px]">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-5">
-            <p className="section-kicker">لماذا البستان</p>
-            <h2 className="section-title mx-auto max-w-[20rem]">ما يميّز المكان.</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عاماً و+460 محلاً عبر فرعين." },
-              { icon: Layers, title: "+100 ألف منتج", desc: "آلاف التصنيفات الفرعية تحت سقف واحد." },
-              { icon: Store, title: "محلات متخصصة", desc: "تجّار بخبرة حقيقية في كل فئة تقنية." },
-              { icon: MapPin, title: "فرعان رئيسيان", desc: "وسط البلد والقاهرة الجديدة." },
-            ].map((item) => (
-              <div key={item.title} className="rounded-xl border border-border bg-card p-4 text-center transition-all hover:shadow-[var(--shadow-card)]">
-                <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
-                  <item.icon className="h-4.5 w-4.5" />
-                </div>
-                <p className="text-[0.88rem] font-bold light-heading">{item.title}</p>
-                <p className="mt-1 text-[0.76rem] leading-[1.6] light-body">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+    {/* (Removed duplicate "Why El Bostan" — already covered above & on homepage) */}
 
     {/* ═══════════ 5 · FROM MARKET TO PLATFORM ═══════════ */}
     <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
