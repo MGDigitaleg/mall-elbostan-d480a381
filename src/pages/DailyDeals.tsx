@@ -219,7 +219,10 @@ const DailyDeals = () => {
 
       <div dir="rtl" className="container space-y-4 py-4 md:py-5">
         {isLoading ? (
-          <LoadingGrid />
+          <div className="space-y-4">
+            <OfferHeroSkeleton />
+            <OfferCardSkeletonGrid count={8} />
+          </div>
         ) : !allDeals || allDeals.length === 0 ? (
           <EmptyState title="لا توجد عروض افتتاح منشورة حالياً" description="سيتم عرض عروض المحلات الجديدة هنا فور تجهيزها وربطها بصفحات المتاجر." />
         ) : (
