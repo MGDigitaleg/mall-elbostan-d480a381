@@ -174,8 +174,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 700px",
-          paddingTop: "clamp(20px, 3vw, 48px)",
-          paddingBottom: "clamp(18px, 2.6vw, 40px)",
+          paddingTop: "clamp(14px, 2.4vw, 44px)",
+          paddingBottom: "clamp(12px, 2.2vw, 36px)",
           ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -207,8 +207,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(18px, 2.6vw, 40px)",
-          paddingBottom: "clamp(18px, 2.6vw, 40px)",
+          paddingTop: "clamp(12px, 2.2vw, 36px)",
+          paddingBottom: "clamp(12px, 2.2vw, 36px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -236,8 +236,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           scrollMarginTop: 80,
           contentVisibility: "auto",
           containIntrinsicSize: "auto 180px",
-          paddingTop: "clamp(18px, 2.4vw, 36px)",
-          paddingBottom: "clamp(18px, 2.4vw, 36px)",
+          paddingTop: "clamp(12px, 2vw, 32px)",
+          paddingBottom: "clamp(12px, 2vw, 32px)",
         } as React.CSSProperties}
       >
         <div className="container">
