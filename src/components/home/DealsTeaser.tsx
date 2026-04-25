@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Store, Zap, Gift, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Store, Zap, Gift, ShoppingBag, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
