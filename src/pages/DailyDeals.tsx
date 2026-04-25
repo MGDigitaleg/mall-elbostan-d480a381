@@ -145,10 +145,10 @@ const DailyDeals = () => {
       {/* Compact hero */}
       <section dir="rtl" className="relative overflow-hidden border-b border-border/40" style={{ background: "var(--gradient-hero)" }}>
         <div className="absolute inset-0 opacity-[0.08]" style={{ background: "radial-gradient(circle at top right, hsl(var(--primary) / 0.45), transparent 35%)" }} />
-        <div className="container relative py-5 md:py-6">
-          <div className="flex flex-col gap-3 text-right">
+        <div className="container relative py-3.5 md:py-4">
+          <div className="flex flex-col gap-2 text-right">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.66rem] font-semibold text-white/75">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.62rem] font-semibold text-white/75">
                 {isExpired ? <LayoutGrid className="h-3 w-3" /> : <Clock3 className="h-3 w-3" />}
                 {isExpired ? "العروض متاحة الآن" : "افتتاح تجريبي"}
               </span>
@@ -159,21 +159,21 @@ const DailyDeals = () => {
               )}
             </div>
 
-            <h1 className="text-[1.25rem] font-bold leading-tight text-white md:text-[1.6rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            <h1 className="text-[1.1rem] font-bold leading-tight text-white md:text-[1.4rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
               {isExpired ? "عروض المحلات المشاركة داخل مول البستان" : "عروض المحلات المشاركة متاحة الآن"}
             </h1>
 
             {/* Inline stats pills */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[0.72rem] text-white/80">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.68rem] text-white/80">
               <span className="inline-flex items-center gap-1.5">
                 <Store className="h-3.5 w-3.5 text-white/60" />
                 <strong className="font-bold text-white">{merchantCount.toLocaleString("ar-EG")}</strong>
-                <span className="text-white/60">محلات مشاركة</span>
+                <span className="text-white/60">محلات</span>
               </span>
               <span className="h-1 w-1 rounded-full bg-white/30" />
               <span className="inline-flex items-center gap-1.5">
                 <strong className="font-bold text-white">{liveOffersCount.toLocaleString("ar-EG")}</strong>
-                <span className="text-white/60">عروض متاحة</span>
+                <span className="text-white/60">عرض</span>
               </span>
               <span className="h-1 w-1 rounded-full bg-white/30" />
               <span className="inline-flex items-center gap-1.5">
@@ -191,7 +191,7 @@ const DailyDeals = () => {
         </div>
       </section>
 
-      <div dir="rtl" className="container space-y-6 py-5 md:py-6">
+      <div dir="rtl" className="container space-y-4 py-4 md:py-5">
         {isLoading ? (
           <LoadingGrid />
         ) : !deals || deals.length === 0 ? (

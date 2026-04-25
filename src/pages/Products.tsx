@@ -565,7 +565,7 @@ const Products = () => {
         kicker="سوق المول"
         kickerEn="Marketplace"
         title={<>جميع <span style={{ color: "#CDBB9A" }}>المنتجات.</span></>}
-        subtitle="تصفّح منتجات جميع محلات المول في مكان واحد — ابحث، قارن، واطلب مباشرة."
+        subtitle="ابحث، قارن، واطلب من محلات المول مباشرة."
         ctas={[
           { label: "تصفّح المنتجات", to: "#products", icon: Search },
           { label: "دليل المحلات", to: "/stores", icon: Store },
@@ -575,58 +575,26 @@ const Products = () => {
 
       <div className="band-primary" />
 
-      {/* ═══ Premium Featured Rail (top, no filters active) ═══ */}
+      {/* ═══ Single compact Featured Rail (top, no filters active) ═══ */}
       {!hasActiveFilters && (isLoading || featuredHighlights.length >= 3) && (
         <section
           className="relative overflow-hidden"
           style={{
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(40px, 5vw, 72px)",
-            paddingBottom: "clamp(40px, 5vw, 72px)",
+            paddingTop: "clamp(20px, 2.6vw, 36px)",
+            paddingBottom: "clamp(20px, 2.6vw, 36px)",
           }}
         >
-          <div className="absolute inset-0 pointer-events-none">
-            <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]"
-              style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }}
-            />
-          </div>
           <div className="container relative max-w-[1200px]">
             <ProductRail
-              kicker="اختيارات مميزة"
-              title="منتجات مميزة من المول"
-              subtitle="أبرز ما اختارته محلات مول البستان لك."
-              products={featuredHighlights}
+              kicker="مختارات"
+              title="منتجات مميزة"
+              subtitle="أبرز ما اختارته محلات مول البستان."
+              products={featuredHighlights.slice(0, 8)}
               ctaLabel="تصفّح الكل"
               ctaTo="#products"
               layout="rail"
               theme="dark"
-              density="premium"
-              loading={isLoading}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* ═══ Trending Rail (standard density, light theme) ═══ */}
-      {!hasActiveFilters && (isLoading || trendingHighlights.length >= 6) && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            paddingTop: "clamp(40px, 5vw, 72px)",
-            paddingBottom: "clamp(40px, 5vw, 72px)",
-          }}
-        >
-          <div className="container max-w-[1200px]">
-            <ProductRail
-              kicker="الأكثر طلباً"
-              title="المنتجات الرائجة"
-              subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
-              products={trendingHighlights}
-              ctaLabel="تصفّح كل المنتجات"
-              ctaTo="#products"
-              layout="grid"
-              theme="light"
               density="standard"
               loading={isLoading}
             />
@@ -928,25 +896,22 @@ const Products = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-7 md:py-9" style={{ background: "hsl(var(--background))" }}>
+      <section className="py-5 md:py-7" style={{ background: "hsl(var(--background))" }}>
         <div className="container max-w-[1200px]">
-          <div className="rounded-xl border border-border bg-card p-6 md:p-8">
-            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="rounded-xl border border-border bg-card p-4 md:p-5">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="section-kicker">انضم للمحلات</p>
-                <h2 className="section-title max-w-[20rem]">اعرض منتجاتك في سوق المول.</h2>
-                <p className="mt-1 max-w-[22rem] text-[0.82rem] leading-[1.7] light-body">
-                  أضف منتجاتك وأوصل لعملاء جدد.
-                </p>
+                <h2 className="section-title max-w-[20rem]" style={{ fontSize: "clamp(15px, 1.4vw, 18px)" }}>اعرض منتجاتك في سوق المول.</h2>
               </div>
               <div className="flex flex-wrap gap-2">
                 <Link to="/join-marketplace">
-                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.82rem] font-bold">
+                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.78rem] font-bold">
                     انضم كتاجر
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">دليل المحلات</Button>
+                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.78rem]">دليل المحلات</Button>
                 </Link>
               </div>
             </div>

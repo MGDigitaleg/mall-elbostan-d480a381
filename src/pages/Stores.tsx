@@ -296,7 +296,7 @@ const Stores = () => {
       />
 
       {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-9 md:py-12 bg-secondary dark:bg-background">
+      <section className="py-6 md:py-8 bg-secondary dark:bg-background">
         <div className="container max-w-[1200px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -386,7 +386,7 @@ const Stores = () => {
       <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent 15%, #CDBB9A30, transparent 85%)" }} />
 
       {/* ═══════════ DIRECTORY ═══════════ */}
-      <section id="directory" className="py-9 md:py-12 scroll-mt-20" style={{ background: "linear-gradient(170deg, #071326 0%, #0D1F3C 100%)" }}>
+      <section id="directory" className="py-6 md:py-8 scroll-mt-20" style={{ background: "linear-gradient(170deg, #071326 0%, #0D1F3C 100%)" }}>
         <div className="container max-w-[1200px]">
           {/* Sticky glassmorphic search + filters bar */}
           <div

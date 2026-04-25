@@ -474,11 +474,11 @@ export const TechPlanetSection = () => {
         style={{
           background:
             "radial-gradient(ellipse 70% 60% at 50% 38%, #1B3470 0%, #0B1E48 22%, #050E2A 52%, #02060F 82%, #00030A 100%)",
-          paddingTop: "clamp(56px, 7vw, 112px)",
-          paddingBottom: "clamp(56px, 7vw, 112px)",
-          minHeight: isMobile ? 580 : 760,
+          paddingTop: "clamp(36px, 4.5vw, 72px)",
+          paddingBottom: "clamp(36px, 4.5vw, 72px)",
+          minHeight: isMobile ? 480 : 620,
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 760px",
+          containIntrinsicSize: "auto 620px",
         }}
       >
         <style>{`

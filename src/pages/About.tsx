@@ -50,13 +50,13 @@ const About = () => {
       kicker="من نحن"
       kickerEn="About Us"
       title={<>اسم <span style={{ color: "#CDBB9A" }}>يعرفه السوق.</span></>}
-      subtitle="بدأ من وسط البلد، ويستمر اليوم في القاهرة الجديدة — نفس الثقة، وتجربة أوضح."
+      subtitle="من وسط البلد إلى القاهرة الجديدة — نفس الثقة، وتجربة أوضح."
       ctas={[
         { label: "استكشف الخريطة", to: "/map", icon: Compass },
-        { label: "فرع وسط البلد", to: "/downtown-branch" },
-        { label: "فرع القاهرة الجديدة", to: "/new-cairo-branch" },
+        { label: "دليل المحلات", to: "/stores" },
       ]}
       image={{ src: aboutDowntownCard, alt: "الواجهة الرئيسية لمول البستان — وسط البلد ليلاً" }}
+      compact
     />
 
     {/* ═══════════ 2 · TWO BRANCHES ═══════════ */}
@@ -264,34 +264,7 @@ const About = () => {
       </div>
     </section>
 
-    {/* ═══════════ 4 · WHY EL BOSTAN ═══════════ */}
-    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
-      <div className="container max-w-[900px]">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-5">
-            <p className="section-kicker">لماذا البستان</p>
-            <h2 className="section-title mx-auto max-w-[20rem]">ما يميّز المكان.</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              { icon: Award, title: "اسم معروف", desc: "أكثر من 30 عاماً و+460 محلاً عبر فرعين." },
-              { icon: Layers, title: "+100 ألف منتج", desc: "آلاف التصنيفات الفرعية تحت سقف واحد." },
-              { icon: Store, title: "محلات متخصصة", desc: "تجّار بخبرة حقيقية في كل فئة تقنية." },
-              { icon: MapPin, title: "فرعان رئيسيان", desc: "وسط البلد والقاهرة الجديدة." },
-            ].map((item) => (
-              <div key={item.title} className="rounded-xl border border-border bg-card p-4 text-center transition-all hover:shadow-[var(--shadow-card)]">
-                <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-secondary text-primary">
-                  <item.icon className="h-4.5 w-4.5" />
-                </div>
-                <p className="text-[0.88rem] font-bold light-heading">{item.title}</p>
-                <p className="mt-1 text-[0.76rem] leading-[1.6] light-body">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+    {/* (Removed duplicate "Why El Bostan" — already covered above & on homepage) */}
 
     {/* ═══════════ 5 · FROM MARKET TO PLATFORM ═══════════ */}
     <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
@@ -325,28 +298,20 @@ const About = () => {
     </section>
 
     {/* ═══════════ 6 · CLOSING CTA ═══════════ */}
-    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
+    <section className="py-5 md:py-7 bg-secondary dark:bg-background">
       <div className="container max-w-[720px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
-            <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase text-muted-foreground">ابدأ من هنا</span>
-            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
-          </div>
-          <h2 className="mx-auto max-w-[22rem] text-[1.2rem] font-bold leading-[1.15] md:text-[1.45rem] light-heading">
+          <h2 className="mx-auto max-w-[22rem] text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15] light-heading">
             ابدأ من هنا.
           </h2>
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link to="/map">
               <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
                 <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
               </Button>
             </Link>
-            <Link to="/products">
-              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">منتجات المحلات</Button>
-            </Link>
-            <Link to="/downtown-branch">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">فرع وسط البلد</Button>
+            <Link to="/stores">
+              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">دليل المحلات</Button>
             </Link>
           </div>
         </motion.div>
