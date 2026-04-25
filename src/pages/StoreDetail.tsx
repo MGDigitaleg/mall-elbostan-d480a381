@@ -200,6 +200,10 @@ const StoreDetail = () => {
   }
 
   const storyColor = activeStory?.color ?? "var(--primary)";
+  const floorName: string | null = (store as any).floors?.name_ar ?? null;
+  const mapDeepLink = store.unit_code
+    ? `/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`
+    : "/map";
 
   return (
     <MainLayout>
