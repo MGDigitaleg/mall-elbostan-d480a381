@@ -137,16 +137,18 @@ function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRew
               <Button variant="outline-blue" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">اطلب معاينة</Button>
             </Link>
           </>
-        ) : unit.status === "occupied" ? (
+        ) : isOccupied ? (
           <>
-            <Link to="/stores" className="block">
+            <Link to={storeHref} className="block">
               <Button variant="cta" className="h-10 w-full rounded-xl text-[0.84rem] font-bold">
                 <Store className="ml-1.5 h-3.5 w-3.5" />
-                اعرف المتجر
+                {tenantName ? `صفحة ${tenantName}` : "اعرف المتجر"}
               </Button>
             </Link>
-            <Link to="/stores" className="block">
-              <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">تواصل مع المتجر</Button>
+            <Link to={storeHref} className="block">
+              <Button variant="secondary" className="h-10 w-full rounded-xl text-[0.82rem] font-bold">
+                تواصل مع المتجر
+              </Button>
             </Link>
           </>
         ) : (
