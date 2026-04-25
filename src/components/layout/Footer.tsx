@@ -200,6 +200,34 @@ export function Footer() {
           </div>
         </div>
 
+        {/* ── CATEGORY DEEP-LINKS (compact, SEO-friendly internal links) ── */}
+        <div
+          className="mt-6 lg:mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3"
+          style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
+          aria-label="تصفّح المحلات حسب الفئة"
+        >
+          <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase shrink-0" style={{ color: "#CDBB9A" }}>
+            تصفّح حسب الفئة
+          </span>
+          {[
+            { label: "كمبيوتر ولابتوب", to: "/stores?category=الكمبيوتر والأجهزة" },
+            { label: "موبايل وإكسسوارات", to: "/stores?category=الهواتف والإكسسوارات" },
+            { label: "جيمنج وألعاب", to: "/stores?category=الألعاب والترفيه" },
+            { label: "طباعة وتصوير", to: "/stores?category=الطباعة والتصوير" },
+            { label: "شبكات وأمن", to: "/stores?category=الشبكات والأنظمة الأمنية" },
+            { label: "صيانة ودعم فني", to: "/stores?category=الصيانة والدعم الفني" },
+          ].map((c) => (
+            <Link
+              key={c.label}
+              to={c.to}
+              className="text-[0.74rem] transition-colors hover:text-white"
+              style={{ color: "#7C8BA1" }}
+            >
+              {c.label}
+            </Link>
+          ))}
+        </div>
+
         {/* ── CONTACT STRIP ── */}
         <div
           className="mt-6 lg:mt-10 rounded-2xl px-4 py-3 lg:px-5 lg:py-4 grid gap-2.5 lg:gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8"
@@ -271,15 +299,16 @@ export function Footer() {
                 ),
               },
             ].map((store) => (
-              <a
+              <span
                 key={store.label}
-                href="#"
-                className="flex h-10 items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium transition-all duration-300 hover:bg-white/[0.06]"
+                aria-disabled="true"
+                title="التطبيق قيد التطوير"
+                className="flex h-10 cursor-not-allowed items-center gap-2 rounded-xl px-4 text-[0.73rem] font-medium opacity-60"
                 style={{ background: "#ffffff04", border: "1px solid #ffffff0A", color: "#6B7A8D" }}
               >
                 {store.icon}
                 {store.label}
-              </a>
+              </span>
             ))}
           </div>
         </div>

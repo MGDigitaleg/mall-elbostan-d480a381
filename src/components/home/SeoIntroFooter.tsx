@@ -37,7 +37,9 @@ export function SeoIntroFooter() {
             استخدم <Link to="/map" className="text-primary font-semibold hover:underline" onClick={t("الخريطة التفاعلية", "/map")}>الخريطة التفاعلية</Link>{" "}
             لتصفح المحلات على كل دور، أو تصفّح{" "}
             <Link to="/products" className="text-primary font-semibold hover:underline" onClick={t("كتالوج المنتجات", "/products")}>كتالوج المنتجات</Link>{" "}
-            لمقارنة الأسعار. للمستثمرين،{" "}
+            لمقارنة الأسعار، وتابع{" "}
+            <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={t("عروض الافتتاح", "/daily-deals")}>عروض الافتتاح</Link>{" "}
+            من المحلات الجديدة. للمستثمرين،{" "}
             <Link to="/leasing" className="text-primary font-semibold hover:underline" onClick={t("وحدات للإيجار", "/leasing")}>وحدات تجارية متاحة للإيجار</Link>{" "}
             بمساحات متنوعة.
           </p>
@@ -47,7 +49,8 @@ export function SeoIntroFooter() {
             <strong className="text-foreground">مدينتي</strong>، {" "}
             <strong className="text-foreground">الرحاب</strong>، والمناطق المحيطة.{" "}
             <Link to="/about" className="text-primary font-semibold hover:underline" onClick={t("عن المول", "/about")}>اعرف المزيد عن المول</Link>{" "}
-            أو <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={t("تواصل", "/contact")}>تواصل مع الفريق</Link>.
+            أو تواصل مع{" "}
+            <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={t("فريق المول", "/contact")}>فريق المول</Link>.
           </p>
         </div>
       </div>
