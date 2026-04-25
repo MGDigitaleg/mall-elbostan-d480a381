@@ -122,8 +122,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         style={{
           contain: "layout style",
-          height: isMobile ? 440 : "70vh",
-          maxHeight: isMobile ? 540 : 560,
+          height: isMobile ? 420 : "70vh",
+          maxHeight: isMobile ? 500 : 560,
           overflow: "hidden",
           position: "relative",
         }}
