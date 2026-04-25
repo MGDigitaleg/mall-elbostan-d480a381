@@ -21,6 +21,7 @@ import {
   Minimize2,
 } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -128,6 +129,14 @@ const InteractiveMap = () => {
         setHighlightedUnitIds(new Set());
         setActiveRewardCtx(undefined);
       }, 15000);
+    } else {
+      // Graceful fallback: the linked unit code no longer exists on the map.
+      const storeLabel = storeName ? `"${storeName}"` : "المطلوب";
+      toast.warning(`لم نتمكن من تحديد موقع المحل ${storeLabel} على الخريطة`, {
+        description: "ربما تغيّر موقعه أو لم يُحدَّث بعد — تصفّح الخريطة لاكتشاف المحلات المتاحة.",
+        duration: 6000,
+      });
+      setTimeout(() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 400);
     }
     setSearchParams({}, { replace: true });
   }, []);
@@ -188,6 +197,11 @@ const InteractiveMap = () => {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ prizeName, storeName: store.name_ar ?? undefined });
+        const storeLabel = store.name_ar ? `"${store.name_ar}"` : "الفائز";
+        toast.info(`موقع المحل ${storeLabel} غير محدد بعد على الخريطة`, {
+          description: "أضأنا كل المحلات المتاحة لتختار منها بسهولة.",
+          duration: 6000,
+        });
       }
     } else {
       const mapCat = resolveMapCategory(store?.category ?? null);
@@ -200,6 +214,10 @@ const InteractiveMap = () => {
         const occupiedIds = new Set(mallFloors.flatMap((f) => f.units.filter((u) => u.status === "occupied").map((u) => u.id)));
         setHighlightedUnitIds(occupiedIds);
         setActiveRewardCtx({ prizeName, isCategory: true });
+        toast.info("لم نحدّد محلاً واحداً لهذه المكافأة", {
+          description: "أضأنا كل المحلات المتاحة لتختار منها بسهولة.",
+          duration: 6000,
+        });
       }
     }
     setTimeout(() => clearRewardState(), 15000);
@@ -950,6 +968,12 @@ const InteractiveMap = () => {
             setSelectedFloor(targetUnit.floor);
             setSelectedUnit(targetUnit);
             setHighlightedUnitIds(new Set([targetUnit.id]));
+            scrollToMap();
+          } else {
+            toast.warning("لم نتمكن من تحديد موقع المحل على الخريطة", {
+              description: "ربما لم يُحدَّث موقعه بعد — تصفّح الخريطة لاكتشاف المحلات المتاحة.",
+              duration: 6000,
+            });
             scrollToMap();
           }
         }}
