@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut, Filter, Crown, ShieldCheck, Sparkles } from "lucide-react";
+import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut, Filter, Crown, ShieldCheck, Sparkles, AlertTriangle, TimerReset } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -15,6 +15,36 @@ type Props = {
 };
 
 type FilterKey = "all" | "won" | "grand" | "visitor";
+
+const SOON_THRESHOLD_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
+
+type ExpiryState = {
+  status: "none" | "ok" | "soon" | "expired";
+  remainingMs: number;
+  label: string;
+};
+
+function getExpiryState(entry: SpinHistoryEntry): ExpiryState {
+  if (!entry.won || !entry.expires_at) {
+    return { status: "none", remainingMs: 0, label: "" };
+  }
+  const remaining = new Date(entry.expires_at).getTime() - Date.now();
+  if (Number.isNaN(remaining)) return { status: "none", remainingMs: 0, label: "" };
+  if (remaining <= 0) return { status: "expired", remainingMs: remaining, label: "انتهت الصلاحية" };
+
+  const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+  const hours = Math.floor((remaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+  const label =
+    days >= 1
+      ? `تنتهي خلال ${days} ${days === 1 ? "يوم" : "أيام"}`
+      : `تنتهي خلال ${Math.max(1, hours)} ${hours === 1 ? "ساعة" : "ساعات"}`;
+
+  return {
+    status: remaining <= SOON_THRESHOLD_MS ? "soon" : "ok",
+    remainingMs: remaining,
+    label,
+  };
+}
 
 export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
   const { toast } = useToast();
@@ -110,6 +140,47 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
     { key: "visitor", label: "زوار الفرع", icon: ShieldCheck, count: counts.visitor },
   ];
 
+  // Expiry summary (computed from full list)
+  const expirySummary = useMemo(() => {
+    let expired = 0;
+    let soon = 0;
+    let nextSoonMs = Infinity;
+    for (const it of items) {
+      const s = getExpiryState(it);
+      if (s.status === "expired") expired += 1;
+      else if (s.status === "soon") {
+        soon += 1;
+        if (s.remainingMs < nextSoonMs) nextSoonMs = s.remainingMs;
+      }
+    }
+    return { expired, soon, nextSoonMs };
+  }, [items]);
+
+  // Surface a one-time toast when expiring/expired prizes are present
+  useEffect(() => {
+    if (items.length === 0) return;
+    if (expirySummary.expired === 0 && expirySummary.soon === 0) return;
+    const sigKey = "mb_spin_expiry_alerted_v1";
+    const sig = `${expirySummary.expired}|${expirySummary.soon}|${new Date().toDateString()}`;
+    try {
+      if (typeof window !== "undefined" && localStorage.getItem(sigKey) === sig) return;
+      if (typeof window !== "undefined") localStorage.setItem(sigKey, sig);
+    } catch { /* ignore */ }
+
+    if (expirySummary.expired > 0) {
+      toast({
+        title: "جوائز انتهت صلاحيتها",
+        description: `لديك ${expirySummary.expired} جائزة لم تعد قابلة للاستلام.`,
+        variant: "destructive",
+      });
+    } else if (expirySummary.soon > 0) {
+      toast({
+        title: "جوائز على وشك الانتهاء",
+        description: `سارع باستلام ${expirySummary.soon} جائزة قبل انتهاء صلاحيتها.`,
+      });
+    }
+  }, [expirySummary.expired, expirySummary.soon, items.length, toast]);
+
   // Show the panel even if empty when signed in (to surface sync state)
   if (items.length === 0 && !userEmail) return null;
 
@@ -172,6 +243,41 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
         </div>
       ) : (
         <>
+          {/* Expiry alert banner */}
+          {(expirySummary.expired > 0 || expirySummary.soon > 0) && (
+            <div
+              className={`mb-3 flex items-start gap-2.5 p-3 rounded-xl border ${
+                expirySummary.expired > 0
+                  ? "bg-destructive/10 border-destructive/30"
+                  : "bg-orange/10 border-orange/30"
+              }`}
+            >
+              <div
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                  expirySummary.expired > 0
+                    ? "bg-destructive/15 text-destructive"
+                    : "bg-orange/20 text-orange"
+                }`}
+              >
+                {expirySummary.expired > 0 ? <AlertTriangle className="w-4 h-4" /> : <TimerReset className="w-4 h-4" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">
+                  {expirySummary.expired > 0 && expirySummary.soon > 0
+                    ? `لديك ${expirySummary.expired} جائزة منتهية و ${expirySummary.soon} على وشك الانتهاء`
+                    : expirySummary.expired > 0
+                      ? `لديك ${expirySummary.expired} ${expirySummary.expired === 1 ? "جائزة منتهية الصلاحية" : "جوائز منتهية الصلاحية"}`
+                      : `لديك ${expirySummary.soon} ${expirySummary.soon === 1 ? "جائزة على وشك الانتهاء" : "جوائز على وشك الانتهاء"}`}
+                </p>
+                <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                  {expirySummary.expired > 0
+                    ? "الرموز المنتهية لم تعد قابلة للاستلام من المتجر الراعي."
+                    : "ننصح بالتوجه للفرع لاستلام الجائزة قبل انتهاء صلاحية الرمز."}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Filter tabs */}
           <div className="flex items-center gap-1.5 mb-3 overflow-x-auto pb-1 -mx-1 px-1">
             <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-muted-foreground shrink-0 ml-1">
@@ -220,13 +326,20 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
                 const date = new Date(it.at).toLocaleString("ar-EG", {
                   day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
                 });
-                const tone = it.is_grand
-                  ? "bg-navy/10 border-navy/30"
-                  : it.is_visitor
-                    ? "bg-orange/10 border-orange/30"
-                    : it.won
-                      ? "bg-primary/5 border-primary/20"
-                      : "bg-muted/40 border-border";
+                const expiry = getExpiryState(it);
+                const isExpired = expiry.status === "expired";
+                const isSoon = expiry.status === "soon";
+                const tone = isExpired
+                  ? "bg-destructive/5 border-destructive/30 opacity-80"
+                  : isSoon
+                    ? "bg-orange/10 border-orange/40"
+                    : it.is_grand
+                      ? "bg-navy/10 border-navy/30"
+                      : it.is_visitor
+                        ? "bg-orange/10 border-orange/30"
+                        : it.won
+                          ? "bg-primary/5 border-primary/20"
+                          : "bg-muted/40 border-border";
                 return (
                   <li key={it.id} className={`flex items-center gap-3 p-3 rounded-xl border ${tone}`}>
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-card shrink-0">
@@ -238,16 +351,37 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
                         {it.is_grand && <span className="mr-1 text-[10px] font-bold text-primary">• كبرى</span>}
                         {it.is_visitor && <span className="mr-1 text-[10px] font-bold text-orange">• زائر فرع</span>}
                       </p>
-                      <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {date}
+                      <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1.5 flex-wrap">
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {date}
+                        </span>
+                        {expiry.status !== "none" && (
+                          <span
+                            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
+                              isExpired
+                                ? "bg-destructive/15 text-destructive"
+                                : isSoon
+                                  ? "bg-orange/20 text-orange"
+                                  : "bg-primary/10 text-primary"
+                            }`}
+                          >
+                            {isExpired ? <AlertTriangle className="w-3 h-3" /> : <TimerReset className="w-3 h-3" />}
+                            {expiry.label}
+                          </span>
+                        )}
                       </p>
                     </div>
                     {it.claim_code && (
                       <button
                         onClick={() => copy(it)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-card border border-border text-[11px] font-mono font-bold text-foreground hover:bg-primary/10 transition-colors"
-                        title="نسخ رمز الاستلام"
+                        disabled={isExpired}
+                        className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border text-[11px] font-mono font-bold transition-colors ${
+                          isExpired
+                            ? "bg-muted/40 border-border text-muted-foreground line-through cursor-not-allowed"
+                            : "bg-card border-border text-foreground hover:bg-primary/10"
+                        }`}
+                        title={isExpired ? "انتهت صلاحية الرمز" : "نسخ رمز الاستلام"}
                       >
                         {copiedId === it.id ? <Check className="w-3 h-3 text-primary" /> : <Copy className="w-3 h-3" />}
                         {it.claim_code}
