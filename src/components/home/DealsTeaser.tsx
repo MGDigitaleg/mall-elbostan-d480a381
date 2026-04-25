@@ -139,10 +139,10 @@ export function DealsTeaser() {
                   ))}
                 </div>
               ) : hasDeals ? (
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {!isExpired && (
-                    <div className="rounded-xl p-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <p className="mb-2 text-[0.7rem] font-bold" style={{ color: "#F8FAFC" }}>
+                    <div className="rounded-lg p-2.5" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <p className="mb-1.5 text-[0.62rem] font-bold tracking-wide" style={{ color: "#F8FAFC" }}>
                         العدّ التنازلي لعروض الافتتاح
                       </p>
                       <CountdownTimer compact />
