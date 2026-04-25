@@ -118,7 +118,7 @@ const DailyDeals = () => {
     const arr = [...list];
     if (sortKey === "newest") {
       arr.sort((a, b) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
-    } else if (sortKey === "strongest") {
+    } else if (sortKey === "discount") {
       arr.sort((a, b) => discountPct(b) - discountPct(a));
     } else if (sortKey === "expiring") {
       const far = Number.POSITIVE_INFINITY;
