@@ -129,6 +129,14 @@ const InteractiveMap = () => {
         setHighlightedUnitIds(new Set());
         setActiveRewardCtx(undefined);
       }, 15000);
+    } else {
+      // Graceful fallback: the linked unit code no longer exists on the map.
+      const storeLabel = storeName ? `"${storeName}"` : "المطلوب";
+      toast.warning(`لم نتمكن من تحديد موقع المحل ${storeLabel} على الخريطة`, {
+        description: "ربما تغيّر موقعه أو لم يُحدَّث بعد — تصفّح الخريطة لاكتشاف المحلات المتاحة.",
+        duration: 6000,
+      });
+      setTimeout(() => mapRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 400);
     }
     setSearchParams({}, { replace: true });
   }, []);
