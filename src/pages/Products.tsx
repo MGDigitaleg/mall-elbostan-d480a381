@@ -58,6 +58,11 @@ const Products = () => {
   const urlBrand = searchParams.get("brand") ?? "all";
   const urlPriceMin = Number(searchParams.get("price_min") ?? "");
   const urlPriceMax = Number(searchParams.get("price_max") ?? "");
+  const urlSortRaw = searchParams.get("sort");
+  const validSorts = ["featured", "price_asc", "price_desc", "newest"] as const;
+  const urlSort = (validSorts as readonly string[]).includes(urlSortRaw ?? "")
+    ? (urlSortRaw as typeof validSorts[number])
+    : "featured";
 
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedShop, setSelectedShop] = useState(urlShopName);
@@ -69,7 +74,7 @@ const Products = () => {
       ? [urlPriceMin, urlPriceMax]
       : null
   );
-  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
+  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">(urlSort);
 
   // Sync URL when filters change
   useEffect(() => {
