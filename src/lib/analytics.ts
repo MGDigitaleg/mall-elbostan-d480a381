@@ -69,7 +69,8 @@ export function trackSeoLinkClick(
     | "tech_planet_seo"
     | "about_seo"
     | "store_detail_seo"
-    | "product_detail_seo",
+    | "product_detail_seo"
+    | "footer",
   linkType: "store" | "category" | "page" | "map_pin",
   label: string,
   destination: string,
