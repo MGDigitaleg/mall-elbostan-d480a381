@@ -89,30 +89,33 @@ export function DealsTeaser() {
                   ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
-              <Link to="/daily-deals" className="mt-3 inline-flex">
-                <Button
-                  className="h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5"
-                  style={{
-                    background: "#F97316",
-                    color: "#FFFFFF",
-                    boxShadow: "0 8px 20px -8px rgba(249,115,22,0.55)",
-                  }}
-                >
-                  <Tag className="h-3.5 w-3.5" />
-                  افتح صفحة عروض الافتتاح
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                </Button>
-              </Link>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <Link to="/daily-deals" className="inline-flex">
+                  <Button
+                    className="h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5"
+                    style={{
+                      background: "#F97316",
+                      color: "#FFFFFF",
+                      boxShadow: "0 8px 20px -8px rgba(249,115,22,0.55)",
+                    }}
+                  >
+                    <Tag className="h-3.5 w-3.5" />
+                    افتح صفحة عروض الافتتاح
+                    <ArrowLeft className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+                <Link to="/daily-deals" className="hidden lg:inline-flex">
+                  <Button
+                    variant="ghost"
+                    className="h-9 rounded-xl px-3 gap-1.5 text-[0.76rem] font-bold hover:bg-white/[0.06]"
+                    style={{ color: "#93C5FD" }}
+                  >
+                    جميع العروض
+                    <ArrowLeft className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
-              <Button
-                variant="ghost"
-                className="gap-1.5 text-[0.78rem] font-bold"
-                style={{ color: "#60A5FA" }}
-              >
-                جميع العروض <ArrowLeft className="h-3.5 w-3.5" />
-              </Button>
-            </Link>
           </div>
 
           {/* Layout: promo banner + deal cards */}
