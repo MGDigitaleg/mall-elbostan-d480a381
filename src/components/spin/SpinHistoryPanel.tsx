@@ -16,6 +16,36 @@ type Props = {
 
 type FilterKey = "all" | "won" | "grand" | "visitor";
 
+const SOON_THRESHOLD_MS = 3 * 24 * 60 * 60 * 1000; // 3 days
+
+type ExpiryState = {
+  status: "none" | "ok" | "soon" | "expired";
+  remainingMs: number;
+  label: string;
+};
+
+function getExpiryState(entry: SpinHistoryEntry): ExpiryState {
+  if (!entry.won || !entry.expires_at) {
+    return { status: "none", remainingMs: 0, label: "" };
+  }
+  const remaining = new Date(entry.expires_at).getTime() - Date.now();
+  if (Number.isNaN(remaining)) return { status: "none", remainingMs: 0, label: "" };
+  if (remaining <= 0) return { status: "expired", remainingMs: remaining, label: "انتهت الصلاحية" };
+
+  const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+  const hours = Math.floor((remaining % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+  const label =
+    days >= 1
+      ? `تنتهي خلال ${days} ${days === 1 ? "يوم" : "أيام"}`
+      : `تنتهي خلال ${Math.max(1, hours)} ${hours === 1 ? "ساعة" : "ساعات"}`;
+
+  return {
+    status: remaining <= SOON_THRESHOLD_MS ? "soon" : "ok",
+    remainingMs: remaining,
+    label,
+  };
+}
+
 export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
   const { toast } = useToast();
   const [items, setItems] = useState<SpinHistoryEntry[]>([]);
