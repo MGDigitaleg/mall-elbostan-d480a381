@@ -213,6 +213,14 @@ const InteractiveMap = () => {
   }, [filteredUnits, floor.units]);
 
   const activeUnit = selectedUnit && selectedUnit.floor === selectedFloor ? selectedUnit : null;
+
+  // Keep details panel in sync with filters: drop selection when it's filtered out.
+  useEffect(() => {
+    if (selectedUnit && selectedUnit.floor === selectedFloor && mutedUnitIds.has(selectedUnit.id)) {
+      setSelectedUnit(null);
+    }
+  }, [mutedUnitIds, selectedUnit, selectedFloor]);
+
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
   const floorComingSoon = floor.units.filter((u) => u.status === "coming_soon").length;
