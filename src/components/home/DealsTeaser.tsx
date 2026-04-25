@@ -89,6 +89,20 @@ export function DealsTeaser() {
                   ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
+              <Link to="/daily-deals" className="mt-3 inline-flex">
+                <Button
+                  className="h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5"
+                  style={{
+                    background: "#F97316",
+                    color: "#FFFFFF",
+                    boxShadow: "0 8px 20px -8px rgba(249,115,22,0.55)",
+                  }}
+                >
+                  <Tag className="h-3.5 w-3.5" />
+                  افتح صفحة عروض الافتتاح
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
             </div>
             <Link to="/daily-deals" className="hidden lg:inline-flex shrink-0">
               <Button
