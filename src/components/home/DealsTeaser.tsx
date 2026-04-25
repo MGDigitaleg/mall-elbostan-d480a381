@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, Store, Zap, Gift, ShoppingBag, Tag } from "lucide-react";
+import { OffersPrimaryCta, OffersSecondaryCta, OffersCtaGroup } from "@/components/offers/OffersCtaButtons";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
