@@ -277,9 +277,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
         <div className="mb-1.5 flex items-start justify-between gap-3">
           <div className="min-w-0">
             {offer.brand && <p className={`mb-1 ${c ? "text-[0.62rem]" : "text-[0.68rem]"} font-semibold text-muted-foreground`}>{offer.brand}</p>}
-            <h3 className={`font-bold text-foreground ${titleClass}`}>
-              {offer.title_ar}
-            </h3>
+            <Link to={`/daily-deals/${offer.id}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-md">
+              <h3 className={`font-bold text-foreground transition-colors hover:text-primary ${titleClass}`}>
+                {offer.title_ar}
+              </h3>
+            </Link>
           </div>
           {discount && (
             <div className={`shrink-0 rounded-xl border border-orange/20 bg-orange/10 ${discountBoxClass} text-center`}>
