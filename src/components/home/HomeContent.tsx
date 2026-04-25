@@ -341,19 +341,20 @@ export function HomeContent({ faqs }: HomeContentProps) {
             </div>
 
             <div className="grid gap-2.5 sm:grid-cols-3">
+            <div className="grid gap-2 sm:grid-cols-2">
               {officialPhone && (
                 <a
                   href={`tel:${officialPhone}`}
-                  className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
+                  className="group flex items-center gap-2.5 rounded-lg p-2.5 transition-all duration-300 hover:bg-white/[0.04]"
                   style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
                         style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
                     <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
                   </span>
                   <div>
-                    <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>الهاتف</p>
-                    <p className="font-poppins text-[0.8rem] font-bold" style={{ color: "#F1F5F9" }} dir="ltr">{officialPhone}</p>
+                    <p className="text-[0.6rem]" style={{ color: "#7C8BA1" }}>الهاتف</p>
+                    <p className="font-poppins text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }} dir="ltr">{officialPhone}</p>
                   </div>
                 </a>
               )}
@@ -362,36 +363,21 @@ export function HomeContent({ faqs }: HomeContentProps) {
                 href={`https://wa.me/${OFFICIAL_WHATSAPP}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
+                className="group flex items-center gap-2.5 rounded-lg p-2.5 transition-all duration-300 hover:bg-white/[0.04]"
                 style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
               >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md"
                       style={{ background: "#25D36615", border: "1px solid #25D36628" }}>
                   <Phone className="h-3.5 w-3.5" style={{ color: "#25D366" }} />
                 </span>
                 <div>
-                  <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>واتساب</p>
-                  <p className="text-[0.8rem] font-bold" style={{ color: "#F1F5F9" }}>راسلنا الآن</p>
-                </div>
-              </a>
-
-              <a
-                href="mailto:info@mallelbostan.com"
-                className="group flex items-center gap-3 rounded-xl p-3.5 transition-all duration-300 hover:bg-white/[0.04]"
-                style={{ background: "#ffffff03", border: "1px solid #ffffff0A" }}
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
-                      style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
-                  <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
-                </span>
-                <div>
-                  <p className="text-[0.66rem]" style={{ color: "#7C8BA1" }}>البريد</p>
-                  <p className="font-poppins text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }}>info@mallelbostan.com</p>
+                  <p className="text-[0.6rem]" style={{ color: "#7C8BA1" }}>واتساب</p>
+                  <p className="text-[0.78rem] font-bold" style={{ color: "#F1F5F9" }}>راسلنا الآن</p>
                 </div>
               </a>
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2">
               <Link to="/contact" className="inline-flex">
                 <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
                         style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
