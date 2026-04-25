@@ -34,18 +34,18 @@ export function OffersPrimaryCta({
     >
       <Button
         className={cn(
-          "h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5 whitespace-nowrap",
+          "h-7 rounded-lg px-2.5 text-[0.68rem] font-bold gap-1 whitespace-nowrap",
           className,
         )}
         style={{
           background: "#F97316",
           color: "#FFFFFF",
-          boxShadow: "0 8px 20px -8px rgba(249,115,22,0.55)",
+          boxShadow: "0 4px 12px -6px rgba(249,115,22,0.5)",
         }}
       >
-        <Icon className="h-3.5 w-3.5 shrink-0" />
+        <Icon className="h-3 w-3 shrink-0" />
         <span>{label}</span>
-        {showArrow && <ArrowLeft className="h-3.5 w-3.5 shrink-0" />}
+        {showArrow && <ArrowLeft className="h-3 w-3 shrink-0" />}
       </Button>
     </Link>
   );
@@ -75,13 +75,13 @@ export function OffersSecondaryCta({
       <Button
         variant="ghost"
         className={cn(
-          "h-9 rounded-xl px-3 gap-1.5 text-[0.76rem] font-bold whitespace-nowrap hover:bg-white/[0.06]",
+          "h-7 rounded-lg px-2 gap-1 text-[0.68rem] font-bold whitespace-nowrap hover:bg-white/[0.06]",
           className,
         )}
         style={{ color: "#93C5FD" }}
       >
         <span>{label}</span>
-        {showArrow && <ArrowLeft className="h-3.5 w-3.5 shrink-0" />}
+        {showArrow && <ArrowLeft className="h-3 w-3 shrink-0" />}
       </Button>
     </Link>
   );
