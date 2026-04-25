@@ -1,12 +1,8 @@
-import { useRef } from "react";
 import { motion } from "framer-motion";
-// SEOHead imported below with organizationLd
 import {
   ArrowLeft,
   Building2,
   Compass,
-  Layers,
-  MapPin,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -15,8 +11,6 @@ import { useSitePhone } from "@/hooks/useSitePhone";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { BranchStatCard } from "@/components/branch/BranchStatCard";
-import { useCountUp } from "@/hooks/useCountUp";
-import { parseStatValue } from "@/lib/statUtils";
 import aboutDowntownCard from "@/assets/about-downtown-card.webp";
 import aboutNewCairoCard from "@/assets/about-newcairo-card.webp";
 
