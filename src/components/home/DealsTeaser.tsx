@@ -61,40 +61,40 @@ export function DealsTeaser() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-        paddingTop: "clamp(28px, 3.5vw, 56px)",
-        paddingBottom: "clamp(28px, 3.5vw, 56px)",
+        paddingTop: "clamp(20px, 2.4vw, 36px)",
+        paddingBottom: "clamp(20px, 2.4vw, 36px)",
       }}
     >
       <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.03]"
+          className="absolute top-0 right-0 w-[360px] h-[360px] rounded-full opacity-[0.03]"
           style={{ background: "radial-gradient(circle, #F97316 0%, transparent 70%)" }}
         />
       </div>
 
       <div className="container relative">
         <Reveal rootMargin="-60px" offset={12}>
-          <div className="mb-4 flex items-end justify-between gap-3">
-            <div>
-              <p className="text-[0.66rem] font-bold tracking-[0.06em] mb-1 uppercase" style={{ color: "#FDBA74" }}>
+          <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-[0.6rem] font-bold tracking-[0.06em] mb-0.5 uppercase" style={{ color: "#FDBA74" }}>
                 عروض الافتتاح
               </p>
               <h2
-                className="text-[0.95rem] md:text-[1.05rem] font-extrabold leading-[1.25]"
+                className="text-[0.82rem] md:text-[0.92rem] font-extrabold leading-[1.25]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#FFFFFF" }}
               >
                 {isExpired ? "جولة مختارة من عروض الافتتاح." : "معاينات عروض الافتتاح من المحلات الجديدة."}
               </h2>
-              <p className="mt-1.5 max-w-xl text-[0.74rem] leading-[1.65] font-medium" style={{ color: "#E2E8F0" }}>
+              <p className="mt-1 max-w-xl text-[0.68rem] leading-[1.55] font-medium" style={{ color: "#CBD5E1" }}>
                 {isExpired
-                  ? "مختارات سريعة من صفحة عروض الافتتاح الرئيسية، مع ربط مباشر بصفحات المحلات المشاركة."
+                  ? "مختارات سريعة من صفحة عروض الافتتاح، مع ربط مباشر بصفحات المحلات المشاركة."
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
-              <OffersCtaGroup className="mt-3">
-                <OffersPrimaryCta to="/daily-deals" label="افتح صفحة عروض الافتتاح" placement="home_deals_teaser" />
-                <OffersSecondaryCta to="/daily-deals" label="جميع العروض" hiddenOnMobile placement="home_deals_teaser" />
-              </OffersCtaGroup>
             </div>
+            <OffersCtaGroup>
+              <OffersPrimaryCta to="/daily-deals" label="افتح صفحة العروض" placement="home_deals_teaser" />
+              <OffersSecondaryCta to="/daily-deals" label="جميع العروض" hiddenOnMobile placement="home_deals_teaser" />
+            </OffersCtaGroup>
           </div>
 
           {/* Layout: promo banner + deal cards */}
