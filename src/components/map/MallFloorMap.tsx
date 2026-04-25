@@ -521,6 +521,16 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
             const hoverBrightness = hasBrand && isHovered ? "brightness(1.25)" : undefined;
 
+            const isPending = pendingUnitId === unit.id;
+            const tenantName = TENANT_NAMES[unit.id];
+            const namePart = unit.status === "occupied" && tenantName ? ` — ${tenantName}` : "";
+            const statePart = isSelected
+              ? "، مُختارة حالياً"
+              : isPending
+                ? "، بانتظار التأكيد، اضغط مجدداً للفتح"
+                : "";
+            const ariaLabel = `وحدة ${unit.code}${namePart}، ${categoryLabelsAr[unit.category]}، ${statusLabelsAr[unit.status]}، ${unit.area} متر مربع، ${floorLabelsAr[unit.floor]}${statePart}`;
+
             return (
               <motion.polygon
                 key={unit.id}
@@ -535,10 +545,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 stroke={isHighlighted ? "#2563EB" : isSelected ? "#E8740E" : hasBrand ? (isHovered ? "#FFFFFFCC" : "#00000030") : stroke}
                 strokeWidth={isHighlighted ? 2.5 : isSelected ? 3.5 : isHovered ? (hasBrand ? 2.8 : 2.2) : 1.2}
                 filter={hoverBrightness ? undefined : appliedFilter}
-                style={{ 
+                style={{
                   transition: "fill 0.2s, stroke 0.25s, stroke-width 0.25s, filter 0.25s",
                   filter: hoverBrightness || undefined,
                   animation: !isMuted ? (unit.status === "available" ? "availablePulse 2.5s ease-in-out infinite" : unit.status === "coming_soon" ? "comingSoonPulse 3s ease-in-out infinite" : undefined) : undefined,
+                  // High-contrast focus ring — visible on keyboard focus only.
+                  outline: "none",
                 }}
                 onClick={() => handleUnitTap(unit)}
                 onMouseEnter={() => setHoveredId(unit.id)}
@@ -550,14 +562,9 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 role="button"
                 aria-pressed={isSelected}
                 aria-disabled={isMuted || undefined}
+                aria-keyshortcuts="Enter Space"
                 data-unit-id={unit.id}
-                aria-label={(() => {
-                  const tenant = TENANT_NAMES[unit.id];
-                  const status = statusLabelsAr[unit.status];
-                  const cat = categoryLabelsAr[unit.category];
-                  const namePart = unit.status === "occupied" && tenant ? ` — ${tenant}` : "";
-                  return `وحدة ${unit.code}${namePart}، ${cat}، ${status}، ${unit.area} متر مربع`;
-                })()}
+                aria-label={ariaLabel}
               />
             );
           })}
