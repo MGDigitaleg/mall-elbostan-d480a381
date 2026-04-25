@@ -722,7 +722,7 @@ const StoreDetail = () => {
               )}
 
               {/* Leasing CTA */}
-              <motion.div variants={fadeChild}>
+              <motion.div variants={fadeChild} id="store-leasing" className="scroll-mt-[140px]">
                 <div className="relative overflow-hidden rounded-2xl p-7 text-center"
                      style={{ background: "var(--gradient-hero)", border: "1px solid hsl(var(--primary) / 0.18)" }}>
                   <div className="pointer-events-none absolute inset-0 opacity-30"
