@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut, Filter, Crown, ShieldCheck, Sparkles } from "lucide-react";
+import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut, Filter, Crown, ShieldCheck, Sparkles, AlertTriangle, TimerReset } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
