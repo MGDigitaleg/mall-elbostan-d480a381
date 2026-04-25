@@ -213,29 +213,74 @@ const DailyDeals = () => {
       <div dir="rtl" className="container space-y-4 py-4 md:py-5">
         {isLoading ? (
           <LoadingGrid />
-        ) : !deals || deals.length === 0 ? (
+        ) : !allDeals || allDeals.length === 0 ? (
           <EmptyState title="لا توجد عروض افتتاح منشورة حالياً" description="سيتم عرض عروض المحلات الجديدة هنا فور تجهيزها وربطها بصفحات المتاجر." />
         ) : (
           <>
-            {/* Spotlight Strip — replaces the old large preview section */}
-            {spotlightOffers.length > 0 && <OfferSpotlightStrip offers={spotlightOffers} />}
+            {/* Spotlight Strip — top picks (always from full set, ignores filters) */}
+            {spotlightOffers.length > 0 && !activeMerchant && !activeCategory && (
+              <OfferSpotlightStrip offers={spotlightOffers} />
+            )}
 
             {/* Sticky filter + sort bar */}
-            <div className="sticky top-16 z-20 -mx-4 border-b border-border/50 bg-background/95 px-4 py-2.5 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-              <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:justify-between">
-                {merchantGroups.length > 0 && (
-                  <div className="flex flex-wrap items-center gap-1.5 overflow-x-auto">
-                    <Link to="/daily-deals">
-                      <Button variant={activeMerchant ? "outline-blue" : "cta"} className="h-8 rounded-full px-3 text-[0.7rem] font-bold">
-                        الكل
-                      </Button>
-                    </Link>
-                    {merchantGroups.map((m) => (
-                      <Link key={m.slug} to={`/daily-deals?merchant=${m.slug}`}>
-                        <Button variant={activeMerchant === m.slug ? "cta" : "outline-blue"} className="h-8 rounded-full px-3 text-[0.7rem] font-bold">
-                          {m.name} ({m.count.toLocaleString("ar-EG")})
-                        </Button>
-                      </Link>
+            <div className="sticky top-16 z-20 -mx-4 space-y-2 border-b border-border/50 bg-background/95 px-4 py-2.5 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+              {/* Merchant filter row */}
+              {merchantGroups.length > 0 && (
+                <div className="flex items-center gap-1.5 overflow-x-auto">
+                  <span className="inline-flex shrink-0 items-center gap-1 px-1 text-[0.6rem] font-semibold text-muted-foreground">
+                    <Store className="h-3 w-3" /> المحل
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setFilter("merchant", null)}
+                    className={`h-7 shrink-0 rounded-full px-3 text-[0.66rem] font-bold transition-colors ${
+                      !activeMerchant ? "bg-primary text-primary-foreground" : "border border-border/70 bg-card text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    الكل
+                  </button>
+                  {merchantGroups.map((m) => (
+                    <button
+                      key={m.slug}
+                      type="button"
+                      onClick={() => setFilter("merchant", activeMerchant === m.slug ? null : m.slug)}
+                      className={`h-7 shrink-0 rounded-full px-3 text-[0.66rem] font-bold transition-colors ${
+                        activeMerchant === m.slug ? "bg-primary text-primary-foreground" : "border border-border/70 bg-card text-foreground/80 hover:text-foreground"
+                      }`}
+                    >
+                      {m.name} ({m.count.toLocaleString("ar-EG")})
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Category + Sort row */}
+              <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+                {categoryGroups.length > 0 && (
+                  <div className="flex items-center gap-1.5 overflow-x-auto">
+                    <span className="inline-flex shrink-0 items-center gap-1 px-1 text-[0.6rem] font-semibold text-muted-foreground">
+                      <Tag className="h-3 w-3" /> الفئة
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setFilter("category", null)}
+                      className={`h-7 shrink-0 rounded-full px-3 text-[0.66rem] font-bold transition-colors ${
+                        !activeCategory ? "bg-primary text-primary-foreground" : "border border-border/70 bg-card text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      الكل
+                    </button>
+                    {categoryGroups.map((c) => (
+                      <button
+                        key={c.name}
+                        type="button"
+                        onClick={() => setFilter("category", activeCategory === c.name ? null : c.name)}
+                        className={`h-7 shrink-0 rounded-full px-3 text-[0.66rem] font-bold transition-colors ${
+                          activeCategory === c.name ? "bg-primary text-primary-foreground" : "border border-border/70 bg-card text-foreground/80 hover:text-foreground"
+                        }`}
+                      >
+                        {c.name} ({c.count.toLocaleString("ar-EG")})
+                      </button>
                     ))}
                   </div>
                 )}
@@ -264,6 +309,20 @@ const DailyDeals = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Active merchant — link to store page */}
+              {activeMerchant && (
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-primary/20 bg-primary/[0.04] px-3 py-1.5">
+                  <span className="text-[0.66rem] text-muted-foreground">
+                    عرض عروض <strong className="font-bold text-foreground">{merchantGroups.find((m) => m.slug === activeMerchant)?.name ?? activeMerchant}</strong> فقط
+                  </span>
+                  <Link to={`/stores/${activeMerchant}`}>
+                    <Button variant="outline-blue" className="h-7 rounded-full px-3 text-[0.62rem] font-bold gap-1">
+                      صفحة المحل <ArrowLeft className="h-3 w-3" />
+                    </Button>
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Unified grid */}
