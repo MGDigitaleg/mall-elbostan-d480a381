@@ -173,13 +173,13 @@ const DailyDeals = () => {
           <div className="flex flex-col gap-2 text-right">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.62rem] font-semibold text-white/75">
-                {isExpired ? <LayoutGrid className="h-3 w-3" /> : <Clock3 className="h-3 w-3" />}
-                {isExpired ? "العروض متاحة الآن" : "افتتاح تجريبي — العروض متاحة"}
+                <LayoutGrid className="h-3 w-3" />
+                {isExpired ? "العروض متاحة الآن" : "العروض متاحة — تصفّح وقارن"}
               </span>
               {!isExpired && (
-                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[0.6rem] font-semibold text-white/60">
+                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[0.58rem] font-medium text-white/55">
                   <Clock3 className="h-2.5 w-2.5" />
-                  افتتاح رسمي ١ مايو ٢٠٢٦
+                  دعم: افتتاح رسمي ١ مايو ٢٠٢٦
                 </span>
               )}
             </div>
