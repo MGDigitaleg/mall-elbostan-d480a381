@@ -330,19 +330,32 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       {!hideControls && (floorLabel || onClearSelection) && (
         <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 sm:gap-2">
           {floorLabel && (
-            <div className="pointer-events-auto inline-flex min-h-[34px] items-center gap-1.5 rounded-full border border-border bg-card/95 px-3.5 py-1.5 text-[0.74rem] font-bold text-foreground shadow-sm backdrop-blur-sm sm:min-h-0 sm:px-3 sm:py-1 sm:text-[0.68rem]">
-              <Layers className="h-3.5 w-3.5 text-primary sm:h-3 sm:w-3" />
+            <div
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              aria-label={`الدور الحالي: ${floorLabel}`}
+              className="pointer-events-auto inline-flex min-h-[34px] items-center gap-1.5 rounded-full border border-border bg-card/95 px-3.5 py-1.5 text-[0.74rem] font-bold text-foreground shadow-sm backdrop-blur-sm sm:min-h-0 sm:px-3 sm:py-1 sm:text-[0.68rem]"
+            >
+              <Layers className="h-3.5 w-3.5 text-primary sm:h-3 sm:w-3" aria-hidden="true" />
               <span>{floorLabel}</span>
             </div>
           )}
           {!isOverviewActive && (
             <button
+              type="button"
               onClick={handleBackToOverview}
-              className="pointer-events-auto inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-4 py-2 text-[0.78rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 active:scale-[0.97] dark:text-orange-foreground sm:min-h-0 sm:gap-1 sm:px-3 sm:py-1 sm:text-[0.68rem]"
+              className="pointer-events-auto inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-orange/30 bg-orange/10 px-4 py-2 text-[0.78rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange focus-visible:ring-offset-2 focus-visible:ring-offset-card dark:text-orange-foreground sm:min-h-0 sm:gap-1 sm:px-3 sm:py-1 sm:text-[0.68rem]"
               style={{ touchAction: "manipulation" }}
-              aria-label="العودة إلى نظرة عامة"
+              aria-label={
+                selectedUnitId
+                  ? "إلغاء اختيار الوحدة وإعادة التكبير إلى نظرة عامة على الخريطة"
+                  : "إعادة الخريطة إلى نظرة عامة"
+              }
+              aria-keyshortcuts="0"
+              title="نظرة عامة"
             >
-              <X className="h-4 w-4 sm:h-3 sm:w-3" />
+              <X className="h-4 w-4 sm:h-3 sm:w-3" aria-hidden="true" />
               <span>نظرة عامة</span>
             </button>
           )}
