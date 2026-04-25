@@ -70,7 +70,11 @@ const StoreDetail = () => {
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
     queryFn: async () => {
-      const { data } = await supabase.from("stores").select("*").eq("slug", slug!).maybeSingle();
+      const { data } = await supabase
+        .from("stores")
+        .select("*, floors:floor_id(name_ar, name_en)")
+        .eq("slug", slug!)
+        .maybeSingle();
       return data;
     },
     enabled: !!slug,
@@ -196,6 +200,10 @@ const StoreDetail = () => {
   }
 
   const storyColor = activeStory?.color ?? "var(--primary)";
+  const floorName: string | null = (store as any).floors?.name_ar ?? null;
+  const mapDeepLink = store.unit_code
+    ? `/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`
+    : "/map";
 
   return (
     <MainLayout>
@@ -289,6 +297,12 @@ const StoreDetail = () => {
                   <Building2 className="h-3 w-3" />وحدة {store.unit_code}
                 </span>
               )}
+              {floorName && (
+                <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm"
+                      style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.12)", color: "hsl(0 0% 100% / 0.7)" }}>
+                  <Layers3 className="h-3 w-3" />{floorName}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm"
                     style={{
                       background: store.status === "available" ? "hsl(25 95% 55% / 0.12)" : "hsl(155 70% 40% / 0.12)",
@@ -332,6 +346,13 @@ const StoreDetail = () => {
                   </Button>
                 </a>
               )}
+              <Link to={mapDeepLink}>
+                <Button className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold text-white transition-all hover:bg-white/12"
+                        style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.15)" }}>
+                  <Compass className="h-3.5 w-3.5" />
+                  {store.unit_code ? `حدد ${store.unit_code} على الخريطة` : "اعرض على الخريطة"}
+                </Button>
+              </Link>
               <ShareButton name={store.name_ar} />
             </div>
           </motion.div>
@@ -343,32 +364,32 @@ const StoreDetail = () => {
 
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
-        <div className="container max-w-6xl py-6 md:py-9">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+        <div className="container max-w-6xl py-5 md:py-7">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
 
             {/* ── Main column ── */}
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
 
-              {/* About section */}
-              {(store.long_description_ar || store.short_description_ar) && (
+              {/* About section — only show when there's a long description distinct from the hero short */}
+              {store.long_description_ar && store.long_description_ar.trim() !== (store.short_description_ar ?? "").trim() && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-2xl border border-border/70 bg-card p-6 md:p-8 shadow-[var(--shadow-card)]">
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  <div className="rounded-2xl border border-border/70 bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl"
                            style={{ background: `hsl(${storyColor} / 0.08)`, border: `1px solid hsl(${storyColor} / 0.12)` }}>
-                        <Store className="h-5 w-5" style={{ color: `hsl(${storyColor})` }} />
+                        <Store className="h-4 w-4" style={{ color: `hsl(${storyColor})` }} />
                       </div>
                       <div>
-                        <h2 className="text-[1rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                        <h2 className="text-[0.95rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
                           عن {store.name_ar}
                         </h2>
                         {store.name_en && (
-                          <p className="text-[0.68rem] font-medium text-muted-foreground/60 font-poppins">{store.name_en}</p>
+                          <p className="text-[0.66rem] font-medium text-muted-foreground/60 font-poppins">{store.name_en}</p>
                         )}
                       </div>
                     </div>
-                    <p className="text-[0.86rem] leading-[2.2] text-muted-foreground">
-                      {store.long_description_ar ?? store.short_description_ar}
+                    <p className="text-[0.84rem] leading-[2.05] text-muted-foreground">
+                      {store.long_description_ar}
                     </p>
                   </div>
                 </motion.div>
@@ -623,6 +644,7 @@ const StoreDetail = () => {
                   </div>
                   <div className="divide-y divide-border/60">
                     <InfoRow icon={Tag} label="الفئة" value={store.category ?? "متجر"} color={storyColor} />
+                    {floorName && <InfoRow icon={Layers3} label="الدور" value={floorName} />}
                     <InfoRow icon={Building2} label="الوحدة" value={store.unit_code ? `وحدة ${store.unit_code}` : "—"} highlight />
                     <InfoRow icon={MapPin} label="الموقع" value="مول البستان — القاهرة الجديدة" />
                     {store.opening_hours && <InfoRow icon={Clock3} label="ساعات العمل" value={store.opening_hours} />}
@@ -639,19 +661,23 @@ const StoreDetail = () => {
               {/* Contact Card */}
               <StoreContactCard store={store} />
 
-              {/* Map Quick Link */}
+              {/* Map Quick Link — deep-link to highlighted unit */}
               <motion.div variants={fadeChild}>
-                <Link to="/map" className="group block">
-                  <div className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card p-5 shadow-[var(--shadow-soft)] transition-all hover:border-primary/20 hover:shadow-[var(--shadow-card)]">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition-colors"
-                         style={{ background: "hsl(var(--primary) / 0.06)", border: "1px solid hsl(var(--primary) / 0.1)" }}>
+                <Link to={mapDeepLink} className="group block">
+                  <div className="flex items-center gap-4 rounded-2xl border border-border/70 bg-card p-4 shadow-[var(--shadow-soft)] transition-all hover:border-primary/30 hover:shadow-[var(--shadow-card)]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
+                         style={{ background: "hsl(var(--primary) / 0.08)", border: "1px solid hsl(var(--primary) / 0.14)" }}>
                       <Compass className="h-5 w-5 text-primary transition-transform duration-300 group-hover:rotate-45" />
                     </div>
-                    <div className="flex-1">
-                      <p className="text-[0.84rem] font-bold text-foreground">اعرض الموقع على الخريطة</p>
-                      <p className="text-[0.7rem] text-muted-foreground">خريطة تفاعلية لمول البستان</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[0.84rem] font-bold text-foreground">
+                        {store.unit_code ? `موقع الوحدة ${store.unit_code}` : "اعرض على الخريطة"}
+                      </p>
+                      <p className="text-[0.68rem] text-muted-foreground truncate">
+                        {floorName ? `${floorName} — خريطة تفاعلية` : "خريطة تفاعلية لمول البستان"}
+                      </p>
                     </div>
-                    <ArrowUpLeft className="h-4 w-4 text-muted-foreground/30 transition-all group-hover:text-primary/50 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
+                    <ArrowUpLeft className="h-4 w-4 text-muted-foreground/30 transition-all group-hover:text-primary group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
                   </div>
                 </Link>
               </motion.div>
