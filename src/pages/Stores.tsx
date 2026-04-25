@@ -379,6 +379,16 @@ const Stores = () => {
                     {val.text}
                   </FilterChip>
                 ))}
+                <span className="mx-1.5 h-4 w-px" style={{ background: "#ffffff14" }} />
+                {/* Map-first quick action */}
+                <Link
+                  to={selectedCategory ? `/map?category=${encodeURIComponent(selectedCategory)}` : "/map"}
+                  className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold transition-all duration-200 hover:brightness-110"
+                  style={{ border: "1px solid #2D6BFF45", background: "linear-gradient(135deg, #2D6BFF25, #2D6BFF15)", color: "#5B9AFF", boxShadow: "0 0 0 1px #2D6BFF15" }}
+                >
+                  <Compass className="h-3 w-3" />
+                  عرض على الخريطة
+                </Link>
               </div>
             </div>
 
@@ -752,7 +762,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           </p>
         )}
 
-        {/* Footer with status + unit */}
+        {/* Footer with status + unit (map deep-link) */}
         <div className="mt-auto pt-3.5">
           <div className="flex items-center gap-2 border-t pt-3" style={{ borderColor: "#ffffff0A" }}>
             <span
@@ -764,9 +774,19 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
             </span>
 
             {store.unit_code && (
-              <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-medium" style={{ background: "#ffffff06", border: "1px solid #ffffff0C", color: "#64748B" }}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = `/map?highlight=${encodeURIComponent(store.unit_code!)}&store=${encodeURIComponent(store.name_ar)}`;
+                }}
+                title={`عرض ${store.name_ar} على الخريطة`}
+                className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-semibold transition-colors hover:brightness-125"
+                style={{ background: "#2D6BFF12", border: "1px solid #2D6BFF25", color: "#5B9AFF" }}
+              >
                 <MapPin className="h-2.5 w-2.5" />{store.unit_code}
-              </span>
+              </button>
             )}
 
             <span className="flex-1" />
