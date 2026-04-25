@@ -76,7 +76,28 @@ function getCampaignState(validTo?: string | null): CampaignState {
   return { status: "active", label: "" };
 }
 
-export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض" }: Props) {
+export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض", hideCollectionActions = false }: Props) {
+  const { isFavorite, isCompared, toggleFavorite, toggleCompare } = useOfferCollections();
+  const favorite = isFavorite(offer.id);
+  const compared = isCompared(offer.id);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(offer.id);
+    toast.success(favorite ? "أُزيل من المفضلة" : "أُضيف إلى المفضلة", { duration: 1500 });
+  };
+
+  const handleCompareClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const result = toggleCompare(offer.id);
+    if (!result.ok && result.reason === "limit") {
+      toast.error(`يمكن مقارنة حتى ${COMPARE_MAX} عروض فقط`, { duration: 1800 });
+      return;
+    }
+    toast.success(compared ? "أُزيل من المقارنة" : "أُضيف إلى المقارنة", { duration: 1500 });
+  };
   const store = offer.stores;
   const discount = calculateDiscount(offer.price_current, offer.price_old);
   const priceNow = formatCurrency(offer.price_current, offer.currency ?? "EGP");
