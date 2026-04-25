@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { History, Trophy, Clock, Trash2, Copy, Check, Cloud, CloudOff, LogIn, LogOut, Filter, Crown, ShieldCheck, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -14,12 +14,15 @@ type Props = {
   refreshKey?: number; // bump to force re-read after a new spin
 };
 
+type FilterKey = "all" | "won" | "grand" | "visitor";
+
 export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
   const { toast } = useToast();
   const [items, setItems] = useState<SpinHistoryEntry[]>([]);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
+  const [filter, setFilter] = useState<FilterKey>("all");
 
   // Track auth state and sync on changes
   useEffect(() => {
