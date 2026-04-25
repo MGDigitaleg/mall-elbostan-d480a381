@@ -185,11 +185,13 @@ export function HeroSlider() {
 
           {/* Countdown — visually softened */}
           <div className="w-full md:w-auto flex justify-center md:block">
-            <div className="rounded-xl border px-3 py-2 md:px-4 md:py-2.5 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
-              <p className="mb-1.5 md:mb-2 text-center text-[0.55rem] md:text-[0.6rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.85 }}>
+            <div className="rounded-xl border px-3 py-2 md:px-3.5 md:py-2.5 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
+              <p className="mb-1.5 text-center text-[0.55rem] md:text-[0.58rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.8 }}>
                 الافتتاح الكبير
               </p>
-              <CountdownTimer compact />
+              <div className="origin-top scale-[0.78] md:scale-[0.82] -mb-3">
+                <CountdownTimer compact />
+              </div>
             </div>
           </div>
         </div>
