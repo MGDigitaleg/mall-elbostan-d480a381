@@ -373,8 +373,55 @@ const SpinWin = () => {
                 </span>
               </label>
 
-              <Button type="submit" variant="cta" className="w-full h-12 text-base font-bold" disabled={loading}>
-                {loading ? "جاري التحضير..." : "ابدأ الآن"}
+              {/* Attempts remaining badge */}
+              <div
+                className={`flex items-center justify-between gap-2 p-3 rounded-xl border ${
+                  hasAttempts
+                    ? "bg-primary/5 border-primary/20"
+                    : "bg-orange/10 border-orange/30"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`flex h-8 w-8 items-center justify-center rounded-lg ${
+                      hasAttempts ? "bg-primary/15 text-primary" : "bg-orange/20 text-orange"
+                    }`}
+                  >
+                    <ClockIcon className="w-4 h-4" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs font-bold text-foreground leading-tight">
+                      {hasAttempts ? "المحاولات المتبقية اليوم" : "استنفدت محاولاتك اليوم"}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground leading-tight mt-0.5">
+                      {hasAttempts
+                        ? "محاولة واحدة لكل رقم هاتف يومياً"
+                        : "تقدر تحاول مرة تانية بكرة"}
+                    </p>
+                  </div>
+                </div>
+                <span
+                  className={`inline-flex items-center justify-center min-w-[44px] h-8 px-2 rounded-lg text-sm font-extrabold ${
+                    hasAttempts
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-orange/20 text-orange"
+                  }`}
+                >
+                  {attemptsRemaining}/{DAILY_ATTEMPTS}
+                </span>
+              </div>
+
+              <Button
+                type="submit"
+                variant="cta"
+                className="w-full h-12 text-base font-bold"
+                disabled={loading || !hasAttempts}
+              >
+                {loading
+                  ? "جاري التحضير..."
+                  : !hasAttempts
+                    ? "حاول مرة أخرى غداً"
+                    : "ابدأ الآن"}
               </Button>
             </motion.form>
           )}
