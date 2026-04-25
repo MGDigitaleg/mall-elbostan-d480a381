@@ -830,7 +830,7 @@ const StoreDetail = () => {
                     محلات {store.category}
                   </Link>
                   <span className="text-muted-foreground/40 mx-1.5">•</span>
-                  <Link to={`/products?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "products_category", store.category!, `/products?category=${store.category}`)}>
+                  <Link to={`/products?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", `منتجات ${store.category}`, `/products?category=${store.category}`)}>
                     منتجات {store.category}
                   </Link>
                   <span className="text-muted-foreground/40 mx-1.5">•</span>
