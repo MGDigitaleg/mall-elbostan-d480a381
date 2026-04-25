@@ -565,7 +565,7 @@ const Products = () => {
         kicker="سوق المول"
         kickerEn="Marketplace"
         title={<>جميع <span style={{ color: "#CDBB9A" }}>المنتجات.</span></>}
-        subtitle="تصفّح منتجات جميع محلات المول في مكان واحد — ابحث، قارن، واطلب مباشرة."
+        subtitle="ابحث، قارن، واطلب من محلات المول مباشرة."
         ctas={[
           { label: "تصفّح المنتجات", to: "#products", icon: Search },
           { label: "دليل المحلات", to: "/stores", icon: Store },
