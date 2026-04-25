@@ -999,44 +999,48 @@ export function ProductCard({ product, index, onNavigate }: { product: UnifiedPr
           )}
         </div>
 
-        {/* Info */}
+        {/* Info — clearer hierarchy: category chip → name → store → price */}
         <div className="flex flex-1 flex-col justify-between p-3">
           <div>
             {product.section && (
-              <p className="mb-1 text-[0.6rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.section}</p>
+              <span
+                className="inline-block mb-1.5 rounded px-1.5 py-0.5 text-[0.56rem] font-bold tracking-wide"
+                style={{ background: "#2563EB18", color: "#7DB0FF", border: "1px solid #2563EB30" }}
+              >
+                {product.section}
+              </span>
             )}
-            <h3 className="text-[0.8rem] font-bold leading-snug line-clamp-2 transition-colors group-hover:text-primary" style={{ color: "#F8FAFC" }}>
+            <h3 className="text-[0.82rem] font-bold leading-snug line-clamp-2 transition-colors group-hover:text-primary" style={{ color: "#F8FAFC" }}>
               {product.product_name}
             </h3>
             {product.shop_name && (
-              <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem]" style={{ color: "#64748B" }}>
+              <p className="mt-1.5 flex items-center gap-1.5 text-[0.66rem] font-medium" style={{ color: "#94A3B8" }}>
                 {product.storeLogo ? (
                   <img src={product.storeLogo} alt="" className="h-4 w-4 rounded-sm bg-card object-contain" style={{ padding: 1 }} />
                 ) : (
                   <Store className="h-3 w-3" />
                 )}
-                {product.shop_name}
+                <span className="truncate">{product.shop_name}</span>
               </p>
             )}
-            <p className="mt-0.5 text-[0.58rem]" style={{ color: "#475569" }}>{product.mall}</p>
           </div>
 
-          {/* Price */}
-          <div className="mt-2.5 flex items-center justify-between">
+          {/* Price — bigger, primary */}
+          <div className="mt-2.5 flex items-end justify-between border-t pt-2" style={{ borderColor: "#ffffff0A" }}>
             {product.price ? (
-              <div className="flex items-center gap-1.5">
-                <p className="font-poppins text-[0.88rem] font-bold" style={{ color: "#F8FAFC" }}>
-                  {Number(product.price).toLocaleString("ar-EG")}
-                  <span className="mr-0.5 text-[0.62rem]" style={{ color: "#64748B" }}>ج.م</span>
-                </p>
+              <div className="flex flex-col">
                 {hasDiscount && (
-                  <span className="font-poppins text-[0.62rem] line-through" style={{ color: "#64748B" }}>
-                    {Number(product.comparePrice!).toLocaleString("ar-EG")}
+                  <span className="font-poppins text-[0.6rem] line-through leading-none mb-0.5" style={{ color: "#64748B" }}>
+                    {Number(product.comparePrice!).toLocaleString("ar-EG")} ج.م
                   </span>
                 )}
+                <p className="font-poppins text-[1rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>
+                  {Number(product.price).toLocaleString("ar-EG")}
+                  <span className="mr-0.5 text-[0.62rem] font-semibold" style={{ color: "#94A3B8" }}>ج.م</span>
+                </p>
               </div>
             ) : product.priceNote ? (
-              <p className="text-[0.7rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.priceNote}</p>
+              <p className="text-[0.74rem] font-semibold" style={{ color: "#5B9AFF" }}>{product.priceNote}</p>
             ) : (
               <span className="text-[0.66rem]" style={{ color: "#475569" }}>اسأل عن السعر</span>
             )}
