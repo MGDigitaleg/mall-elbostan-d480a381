@@ -632,10 +632,10 @@ const Products = () => {
                   className="h-9 w-auto max-w-[180px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
-                  <option value="featured">الأكثر تميزاً</option>
-                  <option value="price_asc">السعر: الأقل</option>
-                  <option value="price_desc">السعر: الأعلى</option>
+                  <option value="featured">الأعلى تقييماً</option>
                   <option value="newest">الأحدث</option>
+                  <option value="price_asc">الأرخص</option>
+                  <option value="price_desc">الأعلى سعراً</option>
                 </select>
 
                 {/* Mall filter - desktop only */}
