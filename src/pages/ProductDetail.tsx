@@ -503,6 +503,16 @@ const ProductDetail = () => {
                     </Button>
                   </a>
                 )}
+                {store?.unit_code && (
+                  <Link
+                    to={`/map?highlight=${encodeURIComponent(store.unit_code)}`}
+                    aria-label={`عرض المحل على الخريطة — وحدة ${store.unit_code}`}
+                  >
+                    <Button variant="ghost" className="h-10 rounded-lg px-4 text-[0.8rem] text-foreground/70 gap-1.5">
+                      <MapPin className="h-3.5 w-3.5" /> عرض على الخريطة
+                    </Button>
+                  </Link>
+                )}
               </div>
               {store && (
                 <Link to={`/stores/${store.slug}`} className="group mt-2 block rounded-xl border border-border bg-white dark:bg-card transition-all hover:shadow-sm">
