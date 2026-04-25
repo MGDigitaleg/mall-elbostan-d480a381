@@ -33,6 +33,7 @@ import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/Unit
 import { MapQuickPreview } from "@/components/map/MapQuickPreview";
 import { UnitInfoDrawer } from "@/components/map/UnitInfoDrawer";
 import { useUnitOffersCount } from "@/hooks/useUnitOffersCount";
+import { useSelectionByFloor } from "@/hooks/useSelectionByFloor";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
@@ -88,7 +89,13 @@ const InteractiveMap = () => {
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [availableOnly, setAvailableOnly] = useState(false);
-  const [selectedUnit, setSelectedUnit] = useState<MallUnit | null>(null);
+  // Per-floor selection memory: keep one selected unit per floor so switching
+  // floors does not lose context. The active unit is derived from the current
+  // floor; setting from URL/search routes to the unit's own floor.
+  const { activeUnit, setActiveUnit, clearFloorSelection } = useSelectionByFloor(selectedFloor);
+  // Backwards-compatible alias used throughout the page (any callsite that
+  // previously called setSelectedUnit now writes through the per-floor map).
+  const setSelectedUnit = setActiveUnit;
   const [spinModalOpen, setSpinModalOpen] = useState(false);
   const [hubModalOpen, setHubModalOpen] = useState(false);
   const [highlightedUnitIds, setHighlightedUnitIds] = useState<Set<string>>(new Set());
@@ -218,14 +225,16 @@ const InteractiveMap = () => {
     return new Set(floor.units.filter((u) => !filtered.has(u.id)).map((u) => u.id));
   }, [filteredUnits, floor.units]);
 
-  const activeUnit = selectedUnit && selectedUnit.floor === selectedFloor ? selectedUnit : null;
+  // `activeUnit` is provided by useSelectionByFloor and is automatically scoped
+  // to the currently visible floor — no extra derivation needed here.
 
-  // Keep details panel in sync with filters: drop selection when it's filtered out.
+  // Keep selection in sync with filters: drop selection on the current floor
+  // when it has been filtered out by the user.
   useEffect(() => {
-    if (selectedUnit && selectedUnit.floor === selectedFloor && mutedUnitIds.has(selectedUnit.id)) {
-      setSelectedUnit(null);
+    if (activeUnit && mutedUnitIds.has(activeUnit.id)) {
+      clearFloorSelection(selectedFloor);
     }
-  }, [mutedUnitIds, selectedUnit, selectedFloor]);
+  }, [mutedUnitIds, activeUnit, selectedFloor, clearFloorSelection]);
 
   // Close the mobile full-details sheet whenever the active unit clears
   // (e.g. user taps × on the compact UnitInfoDrawer or switches floors).
