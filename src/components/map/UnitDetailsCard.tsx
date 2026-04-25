@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
 import { categoryLabelsAr, floorLabelsAr, statusLabelsAr } from "@/lib/mallFloorGeometry";
-import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES } from "@/lib/tenantMapLookup";
+import { UNIT_TENANT_LOGOS, UNIT_TENANT_NAMES, UNIT_TENANT_SLUGS } from "@/lib/tenantMapLookup";
 import { TenantLogo } from "@/components/TenantLogo";
 export type ActiveRewardContext = {
   prizeName: string;
