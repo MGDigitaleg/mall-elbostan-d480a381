@@ -3,15 +3,10 @@ import { motion } from "framer-motion";
 // SEOHead imported below with organizationLd
 import {
   ArrowLeft,
-  Award,
   Building2,
   Compass,
   Layers,
   MapPin,
-  ShoppingBag,
-  Store,
-  Users,
-  Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
