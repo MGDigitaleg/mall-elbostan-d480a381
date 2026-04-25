@@ -273,14 +273,14 @@ const About = () => {
           <h2 className="mx-auto max-w-[22rem] text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15] light-heading">
             ابدأ من هنا.
           </h2>
+          <p className="mt-2.5 text-[0.82rem] leading-[1.7] text-muted-foreground max-w-[26rem] mx-auto">
+            ابدأ تجربة المول من الخريطة التفاعلية — كل المحلات والفئات في مكان واحد.
+          </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link to="/map">
-              <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
-                <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
+              <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.86rem] font-bold">
+                <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة التفاعلية
               </Button>
-            </Link>
-            <Link to="/stores">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">دليل المحلات</Button>
             </Link>
           </div>
         </motion.div>
