@@ -336,6 +336,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
         </div>
 
         <div className={buttonsGap}>
+          <Link to={`/daily-deals/${offer.id}`} className="block">
+            <Button variant="cta" className={`${buttonHeight} w-full rounded-xl ${ctaText} font-bold gap-1.5`}>
+              تفاصيل العرض <ArrowLeft className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
           {directOfferHref && (
             <Link to={directOfferHref} className="block">
               <Button variant="outline-blue" className={`${buttonHeight} w-full rounded-xl ${buttonText} font-bold gap-1.5 justify-between overflow-hidden`}>
