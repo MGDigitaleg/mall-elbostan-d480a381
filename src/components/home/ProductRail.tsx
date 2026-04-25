@@ -419,7 +419,7 @@ export function ProductRail({
   return (
     <div>
       {/* Header */}
-      <div style={{ marginBottom: 16 }} className="flex items-end justify-between gap-4">
+      <div style={{ marginBottom: 14 }} className="flex items-end justify-between gap-2 sm:gap-3 lg:gap-4">
         <div>
           {kicker && (
             <p
