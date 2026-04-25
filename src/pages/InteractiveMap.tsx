@@ -429,6 +429,8 @@ const InteractiveMap = () => {
                       atriumConfig={atriumConfig}
                       highlightedUnitIds={highlightedUnitIds}
                       activeMarkerUnitId={activeUnit?.id ?? null}
+                      floorLabel={floorLabelsAr[selectedFloor]}
+                      onClearSelection={() => setSelectedUnit(null)}
                       className={isFullscreen ? "min-h-screen" : undefined}
                     />
                   </motion.div>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ZoomIn, ZoomOut, RotateCcw } from "lucide-react";
+import { ZoomIn, ZoomOut, RotateCcw, Layers, X } from "lucide-react";
 import { AtriumInteractiveLayer } from "./AtriumInteractiveLayer";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
@@ -29,6 +29,8 @@ type Props = {
   activeMarkerUnitId?: string | null;
   hideControls?: boolean;
   className?: string;
+  floorLabel?: string;
+  onClearSelection?: () => void;
 };
 
 // ── Status fills — refined, high-contrast ──
@@ -44,7 +46,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#0A9AB8",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className, floorLabel, onClearSelection }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
@@ -101,6 +103,12 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
     });
   };
   const handleReset = () => { setZoom(1); setPan({ x: 0, y: 0 }); };
+  const handleBackToOverview = () => {
+    setZoom(1);
+    setPan({ x: 0, y: 0 });
+    onClearSelection?.();
+  };
+  const isOverviewActive = zoom === 1 && pan.x === 0 && pan.y === 0 && !selectedUnitId;
 
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     if (zoom <= 1) return;
@@ -201,6 +209,28 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       {zoom > 1 && (
         <div className="absolute top-3 end-3 z-10 rounded-lg px-2.5 py-1 text-[0.68rem] font-bold bg-card/95 border border-border text-foreground">
           {Math.round(zoom * 100)}%
+        </div>
+      )}
+
+      {/* Current floor + back-to-overview pills (top center) */}
+      {!hideControls && (floorLabel || onClearSelection) && (
+        <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+          {floorLabel && (
+            <div className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-1 text-[0.68rem] font-bold text-foreground shadow-sm backdrop-blur-sm">
+              <Layers className="h-3 w-3 text-primary" />
+              <span>{floorLabel}</span>
+            </div>
+          )}
+          {!isOverviewActive && (
+            <button
+              onClick={handleBackToOverview}
+              className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-[0.68rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 dark:text-orange-foreground"
+              aria-label="العودة إلى نظرة عامة"
+            >
+              <X className="h-3 w-3" />
+              <span>نظرة عامة</span>
+            </button>
+          )}
         </div>
       )}
 
