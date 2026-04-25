@@ -30,6 +30,7 @@ import { MapFilters } from "@/components/map/MapFilters";
 import { FloorTabs } from "@/components/map/FloorTabs";
 import { MapErrorBoundary } from "@/components/map/MapErrorBoundary";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
+import { MapQuickPreview } from "@/components/map/MapQuickPreview";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
@@ -436,11 +437,24 @@ const InteractiveMap = () => {
                   </motion.div>
                 </AnimatePresence>
               </MapErrorBoundary>
+
+              {/* Quick preview panel — appears in-map on desktop without leaving the map */}
+              {!isMobile && (
+                <MapQuickPreview
+                  unit={activeUnit}
+                  onClose={() => setSelectedUnit(null)}
+                  onExpand={() => {
+                    document.getElementById("unit-details-anchor")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                />
+              )}
             </div>
 
             {!isMobile && (
               <aside className="lg:sticky lg:top-[120px] space-y-3">
-                <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
+                <div id="unit-details-anchor" className="scroll-mt-[120px]">
+                  <UnitDetailsCard unit={activeUnit} rewardContext={activeRewardCtx} />
+                </div>
 
                 {/* Floor summary card — enhanced */}
                 <div className="rounded-xl border border-border bg-card overflow-hidden">
