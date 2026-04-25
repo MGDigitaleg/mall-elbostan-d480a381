@@ -1059,8 +1059,17 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               <g
                 style={{ cursor: "pointer" }}
                 onClick={(e) => { e.stopPropagation(); setPendingUnitId(null); }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setPendingUnitId(null);
+                  }
+                }}
+                tabIndex={0}
                 role="button"
-                aria-label="إلغاء الاختيار"
+                aria-label={`إلغاء اختيار وحدة ${unit.code}`}
+                data-confirm-action="cancel"
               >
                 <rect
                   x={closeBtnX}
