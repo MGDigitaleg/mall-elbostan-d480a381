@@ -438,6 +438,60 @@ const DailyDeals = () => {
                     </div>
                   )}
                 </>
+              ) : activeMerchant || activeCategory ? (
+                (() => {
+                  const merchantInfo = activeMerchant
+                    ? merchantGroups.find((m) => m.slug === activeMerchant)
+                    : null;
+                  const categoryInfo = activeCategory
+                    ? categoryGroups.find((c) => c.name === activeCategory)
+                    : null;
+                  return (
+                    <div
+                      role="status"
+                      aria-live="polite"
+                      className="relative overflow-hidden rounded-2xl border border-border/70 bg-card p-8 text-center shadow-[var(--shadow-soft)]"
+                    >
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-border/60 bg-secondary/40">
+                        <SearchX className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+                      </div>
+                      <h3 className="mt-4 text-[1rem] font-bold text-foreground">
+                        لا توجد عروض مطابقة للفلاتر الحالية
+                      </h3>
+                      <p className="mx-auto mt-2 max-w-md text-[0.8rem] leading-7 text-muted-foreground">
+                        {merchantInfo && categoryInfo
+                          ? `لا توجد عروض حالياً من «${merchantInfo.name}» ضمن فئة «${categoryInfo.name}». جرّب إزالة أحد الفلاتر أو استعراض كل العروض.`
+                          : merchantInfo
+                          ? `لا توجد عروض منشورة حالياً من «${merchantInfo.name}». ربما تكون مخزّنة أو قيد التحضير.`
+                          : categoryInfo
+                          ? `لا توجد عروض حالياً ضمن فئة «${categoryInfo.name}». جرّب فئة أخرى أو استعرض كل العروض.`
+                          : "جرّب إزالة الفلاتر لرؤية كل العروض المتاحة."}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+                        <Button
+                          variant="cta"
+                          onClick={resetAll}
+                          className="h-9 rounded-xl px-4 text-[0.74rem] font-bold gap-1.5"
+                        >
+                          <RotateCcw className="h-3.5 w-3.5" /> مسح كل الفلاتر
+                        </Button>
+                        {merchantInfo && (
+                          <Link to={`/stores/${merchantInfo.slug}`}>
+                            <Button variant="outline-blue" className="h-9 rounded-xl px-4 text-[0.74rem] font-bold gap-1.5">
+                              صفحة {merchantInfo.name} <ArrowLeft className="h-3.5 w-3.5" />
+                            </Button>
+                          </Link>
+                        )}
+                        <Link to="/stores">
+                          <Button variant="ghost" className="h-9 rounded-xl px-4 text-[0.74rem] font-semibold gap-1.5">
+                            استعراض المحلات <ArrowLeft className="h-3.5 w-3.5" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                })()
               ) : (
                 <div className="rounded-2xl border border-border/70 bg-muted/20 p-6 text-center text-[0.78rem] text-muted-foreground">
                   جميع العروض المميّزة معروضة في الأعلى. تصفّح المحلات للمزيد.
