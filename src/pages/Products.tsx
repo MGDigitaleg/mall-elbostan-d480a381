@@ -1048,6 +1048,14 @@ export function ProductCard({ product, index, onNavigate }: { product: UnifiedPr
     ? Math.round(((product.comparePrice! - product.price!) / product.comparePrice!) * 100)
     : 0;
 
+  // "حجز/استفسار" badge — derived from priceNote keywords or missing price
+  const noteLower = (product.priceNote ?? "").toLowerCase();
+  const inquiryKeywords = ["حجز", "احجز", "استفسار", "استفسر", "تواصل", "اتصل", "عند الطلب", "حسب الطلب", "السعر عند"];
+  const isInquiry =
+    !hasDiscount &&
+    (inquiryKeywords.some((k) => noteLower.includes(k.toLowerCase())) ||
+      (!product.price && !!product.priceNote));
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -1083,17 +1091,30 @@ export function ProductCard({ product, index, onNavigate }: { product: UnifiedPr
             </div>
           )}
 
-          {product.featured && !hasDiscount && (
+          {product.featured && !hasDiscount && !isInquiry && (
             <span
               className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
               style={{ background: "#2D6BFF", color: "#fff" }}
+              aria-label="منتج مميز"
             >
               مميز
             </span>
           )}
           {hasDiscount && (
-            <span className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold bg-destructive text-white">
+            <span
+              className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold bg-destructive text-white"
+              aria-label={`خصم ${discountPct}٪`}
+            >
               خصم {discountPct}%
+            </span>
+          )}
+          {isInquiry && (
+            <span
+              className="absolute top-2 right-2 rounded-md px-1.5 py-0.5 text-[0.58rem] font-bold"
+              style={{ background: "#F59E0B", color: "#1A1308", border: "1px solid #FBBF24" }}
+              aria-label="حجز أو استفسار"
+            >
+              حجز / استفسار
             </span>
           )}
           {product.brand && (
