@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX } from "lucide-react";
+import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX, Heart, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import { optimizeImageUrl } from "@/lib/imageUtils";
+import { useOfferCollections, COMPARE_MAX } from "@/hooks/useOfferCollections";
+import { toast } from "sonner";
 
 export type OpeningOfferRecord = {
   id: string;
@@ -39,6 +41,8 @@ type Props = {
   showAllStoreOffersCta?: boolean;
   directOfferHref?: string;
   directOfferLabel?: string;
+  /** Hide favorite/compare quick actions (e.g. inside the saved drawer itself). */
+  hideCollectionActions?: boolean;
 };
 
 function formatCurrency(value?: number | null, currency = "EGP") {
