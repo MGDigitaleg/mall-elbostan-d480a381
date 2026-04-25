@@ -562,8 +562,8 @@ const Products = () => {
           className="relative overflow-hidden"
           style={{
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(20px, 2.6vw, 36px)",
-            paddingBottom: "clamp(20px, 2.6vw, 36px)",
+            paddingTop: "clamp(12px, 1.8vw, 24px)",
+            paddingBottom: "clamp(12px, 1.8vw, 24px)",
           }}
         >
           <div className="container relative max-w-[1200px]">
@@ -571,7 +571,7 @@ const Products = () => {
               kicker="مختارات"
               title="منتجات مميزة"
               subtitle="أبرز ما اختارته محلات مول البستان."
-              products={featuredHighlights.slice(0, 8)}
+              products={featuredHighlights.slice(0, 6)}
               ctaLabel="تصفّح الكل"
               ctaTo="#products"
               layout="rail"
@@ -583,7 +583,7 @@ const Products = () => {
         </section>
       )}
 
-      <section id="products" className="heritage-deep py-7 md:py-9 scroll-mt-20">
+      <section id="products" className="heritage-deep py-4 md:py-6 scroll-mt-20">
         <div className="container max-w-[1200px]">
 
           {/* Filter bar */}
