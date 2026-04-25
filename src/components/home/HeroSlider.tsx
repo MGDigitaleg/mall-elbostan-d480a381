@@ -183,13 +183,13 @@ export function HeroSlider() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Countdown — visually softened */}
+          {/* Countdown — minimal supporting element */}
           <div className="w-full md:w-auto flex justify-center md:block">
-            <div className="rounded-xl border px-3 py-2 md:px-3.5 md:py-2.5 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
-              <p className="mb-1.5 text-center text-[0.55rem] md:text-[0.58rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.8 }}>
-                الافتتاح الكبير
+            <div className="rounded-lg border px-2.5 py-1.5 md:px-3 md:py-2 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.05)", background: "hsla(220, 45%, 10%, 0.38)" }}>
+              <p className="mb-1 text-center text-[0.5rem] md:text-[0.54rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.7 }}>
+                الافتتاح
               </p>
-              <div className="origin-top scale-[0.78] md:scale-[0.82] -mb-3">
+              <div className="origin-top scale-[0.7] md:scale-[0.74] -mb-4">
                 <CountdownTimer compact />
               </div>
             </div>
@@ -197,16 +197,16 @@ export function HeroSlider() {
         </div>
 
         {/* Trust bar — slimmer */}
-        <div className="mt-auto rounded-xl border backdrop-blur-md px-3 py-2 md:px-5 md:py-2.5 flex items-center justify-center gap-5 md:gap-9" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
+        <div className="mt-auto rounded-lg border backdrop-blur-md px-3 py-1.5 md:px-4 md:py-2 flex items-center justify-center gap-4 md:gap-7" style={{ borderColor: "hsla(0, 0%, 100%, 0.05)", background: "hsla(220, 45%, 10%, 0.4)" }}>
           {[
             { value: "+150", label: "محل متخصص" },
             { value: "3", label: "أدوار" },
-            { value: "1990", label: "سنة التأسيس" },
+            { value: "1990", label: "التأسيس" },
             { value: "2", label: "فرعين" },
           ].map((s) => (
             <div key={s.label} className="flex items-center gap-1.5">
-              <span className="font-poppins text-[0.82rem] md:text-[0.92rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.value}</span>
-              <span className="text-[0.56rem] md:text-[0.62rem] font-medium" style={{ color: "#94A3B8" }}>{s.label}</span>
+              <span className="font-poppins text-[0.74rem] md:text-[0.84rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.value}</span>
+              <span className="text-[0.52rem] md:text-[0.58rem] font-medium" style={{ color: "#94A3B8" }}>{s.label}</span>
             </div>
           ))}
         </div>
