@@ -256,9 +256,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
             )}
           </div>
           {validTo && !c && (
-            <div className="mt-2 flex items-center gap-1.5 text-[0.68rem] text-muted-foreground">
+            <div className={`mt-2 flex items-center gap-1.5 text-[0.68rem] ${isExpired ? "text-destructive font-semibold" : isEndingSoon ? "text-orange font-semibold" : "text-muted-foreground"}`}>
               <Clock3 className="h-3 w-3" />
-              <span>حتى {validTo.toLocaleDateString("ar-EG")}</span>
+              <span>
+                {isExpired ? "انتهت الحملة" : isEndingSoon ? campaign.label : `حتى ${validTo.toLocaleDateString("ar-EG")}`}
+              </span>
             </div>
           )}
         </div>
