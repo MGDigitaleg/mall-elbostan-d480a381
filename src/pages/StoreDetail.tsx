@@ -376,6 +376,46 @@ const StoreDetail = () => {
         <div className="h-px w-full" style={{ background: "linear-gradient(to left, transparent, hsl(var(--primary) / 0.25), transparent)" }} />
       </section>
 
+      {/* ═══════════ STORE TABS — quick jump for visitors arriving from the map ═══════════ */}
+      <nav
+        aria-label="أقسام صفحة المتجر"
+        className="sticky top-[56px] z-30 border-b border-border bg-card/95 backdrop-blur-xl md:top-[64px] xl:top-[68px]"
+      >
+        <div className="container max-w-6xl">
+          <div className="flex items-center gap-1 overflow-x-auto py-2 scrollbar-hide">
+            {([
+              { id: "map", label: "من الخريطة", anchor: "store-from-map", icon: Compass },
+              { id: "offers", label: "العروض", anchor: "store-offers", icon: Tag },
+              { id: "leasing", label: store.status === "available" ? "استفسار / إيجار" : "تواصل وزيارة", anchor: "store-leasing", icon: Building2 },
+            ] as const).map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(tab.id);
+                    document.getElementById(tab.anchor)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                  className={`relative flex shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-[0.78rem] font-bold transition-colors ${
+                    isActive
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  <tab.icon className="h-3.5 w-3.5" />
+                  <span>{tab.label}</span>
+                  {tab.id === "map" && fromMap && (
+                    <span className="ml-1 inline-flex h-1.5 w-1.5 rounded-full bg-primary" aria-label="جئت من الخريطة" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </nav>
+
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
         <div className="container max-w-6xl py-5 md:py-7">
