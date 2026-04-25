@@ -364,8 +364,8 @@ const StoreDetail = () => {
 
       {/* ═══════════ CONTENT ═══════════ */}
       <div style={{ background: "hsl(var(--background))" }}>
-        <div className="container max-w-6xl py-6 md:py-9">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+        <div className="container max-w-6xl py-5 md:py-7">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
 
             {/* ── Main column ── */}
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
