@@ -158,12 +158,33 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
               {categoryLabel}
             </span>
           </div>
-          {offer.featured && (
+          {offer.featured && !isExpired && !isEndingSoon && (
             <span className={`ms-auto rounded-full border border-primary/20 bg-background/90 px-2.5 py-0.5 ${overlayChipText} font-bold text-primary backdrop-blur-sm`}>
               مميز
             </span>
           )}
+          {isEndingSoon && (
+            <span className={`ms-auto inline-flex items-center gap-1 rounded-full border border-orange/30 bg-orange/95 px-2.5 py-1 ${overlayChipText} font-bold text-orange-foreground shadow-[0_4px_12px_-2px_hsl(var(--orange)/0.55)] backdrop-blur-sm`}>
+              <AlertTriangle className="h-3 w-3" />
+              {campaign.label}
+            </span>
+          )}
+          {isExpired && (
+            <span className={`ms-auto inline-flex items-center gap-1 rounded-full border border-destructive/40 bg-destructive/95 px-2.5 py-1 ${overlayChipText} font-bold text-destructive-foreground backdrop-blur-sm`}>
+              <BadgeX className="h-3 w-3" />
+              {campaign.label}
+            </span>
+          )}
         </div>
+
+        {isExpired && (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-background/55 backdrop-blur-[2px]">
+            <span className={`inline-flex items-center gap-1.5 rounded-xl border border-destructive/40 bg-destructive px-3 py-1.5 ${c ? "text-[0.72rem]" : "text-[0.82rem]"} font-extrabold text-destructive-foreground shadow-lg`}>
+              <BadgeX className="h-3.5 w-3.5" />
+              انتهت الحملة
+            </span>
+          </div>
+        )}
 
         {store && (
           <div className={`absolute inset-x-0 bottom-0 ${overlayPad}`}>
