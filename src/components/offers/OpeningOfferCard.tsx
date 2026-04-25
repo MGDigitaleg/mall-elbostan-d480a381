@@ -52,6 +52,26 @@ function calculateDiscount(current?: number | null, old?: number | null) {
   return Math.round(((old - current) / old) * 100);
 }
 
+type CampaignState = { status: "expired" | "ending_soon" | "active" | "none"; label: string; days?: number };
+
+function getCampaignState(validTo?: string | null): CampaignState {
+  if (!validTo) return { status: "none", label: "" };
+  const ts = new Date(validTo).getTime();
+  if (isNaN(ts)) return { status: "none", label: "" };
+  const remaining = ts - Date.now();
+  if (remaining <= 0) return { status: "expired", label: "انتهت الحملة" };
+  const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  if (remaining <= 3 * 24 * 60 * 60 * 1000) {
+    return {
+      status: "ending_soon",
+      label: days >= 1 ? `تنتهي خلال ${days} ${days === 1 ? "يوم" : "أيام"}` : `تنتهي خلال ${hours} ساعة`,
+      days,
+    };
+  }
+  return { status: "active", label: "" };
+}
+
 export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض" }: Props) {
   const store = offer.stores;
   const discount = calculateDiscount(offer.price_current, offer.price_old);
