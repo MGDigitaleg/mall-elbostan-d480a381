@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, Tag, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { trackOffersCtaClick } from "@/lib/analytics";
 
 type CommonProps = {
   to: string;
@@ -9,6 +10,8 @@ type CommonProps = {
   icon?: LucideIcon;
   className?: string;
   showArrow?: boolean;
+  /** Where this CTA is rendered (e.g. "home_deals_teaser"). Used for analytics. */
+  placement?: string;
 };
 
 /**
@@ -21,9 +24,14 @@ export function OffersPrimaryCta({
   icon: Icon = Tag,
   className,
   showArrow = true,
+  placement = "unknown",
 }: CommonProps) {
   return (
-    <Link to={to} className="inline-flex shrink-0">
+    <Link
+      to={to}
+      className="inline-flex shrink-0"
+      onClick={() => trackOffersCtaClick("primary", placement, to, label)}
+    >
       <Button
         className={cn(
           "h-9 rounded-xl px-4 text-[0.76rem] font-bold gap-1.5 whitespace-nowrap",
@@ -53,6 +61,7 @@ export function OffersSecondaryCta({
   className,
   showArrow = true,
   hiddenOnMobile = false,
+  placement = "unknown",
 }: CommonProps & { hiddenOnMobile?: boolean }) {
   return (
     <Link
@@ -61,6 +70,7 @@ export function OffersSecondaryCta({
         "shrink-0",
         hiddenOnMobile ? "hidden lg:inline-flex" : "inline-flex",
       )}
+      onClick={() => trackOffersCtaClick("secondary", placement, to, label)}
     >
       <Button
         variant="ghost"

@@ -72,3 +72,21 @@ export function trackSeoLinkClick(
     link_destination: destination,
   });
 }
+
+/**
+ * Track a click on an offers CTA (primary/secondary) anywhere on the site.
+ * Used to measure conversion from homepage teaser → /daily-deals page.
+ */
+export function trackOffersCtaClick(
+  ctaType: "primary" | "secondary",
+  placement: string,
+  destination: string,
+  label: string,
+): void {
+  trackEvent("offers_cta_click", {
+    cta_type: ctaType,
+    placement,
+    link_destination: destination,
+    link_label: label,
+  });
+}

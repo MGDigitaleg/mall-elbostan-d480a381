@@ -91,8 +91,8 @@ export function DealsTeaser() {
                   : "معاينات منظمة قبل الافتتاح لعروض المحلات المشاركة."}
               </p>
               <OffersCtaGroup className="mt-3">
-                <OffersPrimaryCta to="/daily-deals" label="افتح صفحة عروض الافتتاح" />
-                <OffersSecondaryCta to="/daily-deals" label="جميع العروض" hiddenOnMobile />
+                <OffersPrimaryCta to="/daily-deals" label="افتح صفحة عروض الافتتاح" placement="home_deals_teaser" />
+                <OffersSecondaryCta to="/daily-deals" label="جميع العروض" hiddenOnMobile placement="home_deals_teaser" />
               </OffersCtaGroup>
             </div>
           </div>
