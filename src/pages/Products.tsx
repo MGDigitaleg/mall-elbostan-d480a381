@@ -1064,24 +1064,26 @@ export function ProductCard({ product, index, onNavigate }: { product: UnifiedPr
       (!product.price && !!product.priceNote));
 
   return (
-    <motion.div
+    <motion.article
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: Math.min(index * 0.02, 0.2), duration: 0.3 }}
+      className="group relative flex flex-col rounded-xl overflow-hidden transition-all duration-200"
+      style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "#2D6BFF30";
+        e.currentTarget.style.background = "#ffffff0A";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "#ffffff0C";
+        e.currentTarget.style.background = "#ffffff05";
+      }}
     >
       <Link
         to={detailPath}
         onClick={() => onNavigate?.()}
-        className="group flex flex-col rounded-xl overflow-hidden transition-all duration-200"
-        style={{ border: "1px solid #ffffff0C", background: "#ffffff05" }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = "#2D6BFF30";
-          e.currentTarget.style.background = "#ffffff0A";
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = "#ffffff0C";
-          e.currentTarget.style.background = "#ffffff05";
-        }}
+        className="flex flex-1 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        aria-label={product.product_name}
       >
         {/* Image */}
         <div className="relative aspect-square overflow-hidden bg-card dark:bg-muted/20">
@@ -1183,7 +1185,24 @@ export function ProductCard({ product, index, onNavigate }: { product: UnifiedPr
           </div>
         </div>
       </Link>
-    </motion.div>
+
+      {/* Secondary CTA — "عرض المتجر" (independent link to avoid nested anchors) */}
+      {product.storeSlug && (
+        <Link
+          to={`/stores/${product.storeSlug}`}
+          onClick={() => onNavigate?.()}
+          className="relative z-10 flex items-center justify-between gap-1.5 border-t px-3 py-2 text-[0.68rem] font-bold transition-colors hover:bg-[#2563EB]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          style={{ borderColor: "#ffffff0A", color: "#CBD5E1", background: "#ffffff04" }}
+          aria-label={`عرض متجر ${product.shop_name ?? ""}`}
+        >
+          <span className="flex items-center gap-1.5 truncate">
+            <Store className="h-3 w-3" aria-hidden="true" />
+            <span className="truncate">عرض المتجر</span>
+          </span>
+          <ArrowUpLeft className="h-3 w-3 opacity-70" aria-hidden="true" />
+        </Link>
+      )}
+    </motion.article>
   );
 }
 
