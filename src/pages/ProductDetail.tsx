@@ -23,6 +23,7 @@ import {
   XCircle,
   ChevronRight,
   Check,
+  MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useKzCart } from "@/hooks/useKzCart";
@@ -501,6 +502,16 @@ const ProductDetail = () => {
                       <Phone className="h-3.5 w-3.5" /> اتصل بالمحل
                     </Button>
                   </a>
+                )}
+                {store?.unit_code && (
+                  <Link
+                    to={`/map?highlight=${encodeURIComponent(store.unit_code)}`}
+                    aria-label={`عرض المحل على الخريطة — وحدة ${store.unit_code}`}
+                  >
+                    <Button variant="ghost" className="h-10 rounded-lg px-4 text-[0.8rem] text-foreground/70 gap-1.5">
+                      <MapPin className="h-3.5 w-3.5" /> عرض على الخريطة
+                    </Button>
+                  </Link>
                 )}
               </div>
               {store && (
