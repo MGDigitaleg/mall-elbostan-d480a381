@@ -157,80 +157,90 @@ export function FeaturedProducts() {
                 const isFeatured = product.featured;
 
                 return (
-                  <Link
+                  <article
                     key={product.id}
-                    to={`/products/${product.slug}`}
-                    className="group flex flex-col rounded-2xl border border-border/70 bg-card dark:bg-secondary overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
+                    className="group relative flex flex-col rounded-2xl border border-border/70 bg-card dark:bg-secondary overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.06] hover:border-primary/15"
                   >
-                    {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-muted/30 dark:bg-muted/20">
-                      {product.image_url ? (
-                        <img
-                          src={optimizeImageUrl(product.image_url, 250)}
-                          srcSet={unsplashSrcSet(product.image_url, [250, 500]) || undefined}
-                          sizes="(max-width: 640px) 45vw, 250px"
-                          alt={product.name_ar}
-                          className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center">
-                          <ShoppingBag className="h-8 w-8 text-muted-foreground/8" />
-                        </div>
-                      )}
-
-                      {/* Category chip */}
-                      {store?.category && (
-                        <span className="absolute top-2.5 right-2.5 rounded-lg bg-foreground/75 px-2 py-0.5 text-[0.58rem] font-bold text-white leading-tight backdrop-blur-sm">
-                          {store.category}
-                        </span>
-                      )}
-
-                      {/* Featured badge */}
-                      {isFeatured && (
-                        <span className="absolute top-2.5 left-2.5 flex items-center gap-1 rounded-lg bg-primary/90 px-2 py-0.5 text-[0.56rem] font-bold text-white leading-tight backdrop-blur-sm">
-                          <Sparkles className="h-2.5 w-2.5" />
-                          مميز
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Info */}
-                    <div className="flex flex-1 flex-col justify-between border-t border-border/50 p-3 md:p-3.5">
-                      <div>
-                        <p className="text-[0.8rem] font-bold text-foreground line-clamp-2 leading-[1.45] group-hover:text-primary transition-colors">
-                          {product.name_ar}
-                        </p>
-                        {store && (
-                          <div className="mt-1.5 flex items-center gap-1.5">
-                            {store.logo_url ? (
-                              <img
-                                src={store.logo_url}
-                                alt={store.name_ar}
-                                className="h-4 w-4 rounded object-contain border border-border bg-card shrink-0"
-                                loading="lazy"
-                              />
-                            ) : (
-                              <Store className="h-3 w-3 text-muted-foreground/25 shrink-0" />
-                            )}
-                            <span className="text-[0.66rem] text-muted-foreground line-clamp-1">
-                              {store.name_ar}
-                            </span>
+                    {/* Stretched primary product link — wraps image + title */}
+                    <Link
+                      to={`/products/${product.slug}`}
+                      className="flex flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 rounded-2xl"
+                      aria-label={`عرض تفاصيل ${product.name_ar}`}
+                    >
+                      {/* Image */}
+                      <div className="relative aspect-square overflow-hidden bg-muted/30 dark:bg-muted/20">
+                        {product.image_url ? (
+                          <img
+                            src={optimizeImageUrl(product.image_url, 250)}
+                            srcSet={unsplashSrcSet(product.image_url, [250, 500]) || undefined}
+                            sizes="(max-width: 640px) 45vw, 250px"
+                            alt={product.name_ar}
+                            className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center">
+                            <ShoppingBag className="h-8 w-8 text-muted-foreground/8" />
                           </div>
+                        )}
+
+                        {/* Category chip */}
+                        {store?.category && (
+                          <span className="absolute top-2.5 right-2.5 rounded-lg bg-foreground/75 px-2 py-0.5 text-[0.58rem] font-bold text-white leading-tight backdrop-blur-sm">
+                            {store.category}
+                          </span>
+                        )}
+
+                        {/* Featured badge */}
+                        {isFeatured && (
+                          <span className="absolute top-2.5 left-2.5 flex items-center gap-1 rounded-lg bg-primary/90 px-2 py-0.5 text-[0.56rem] font-bold text-white leading-tight backdrop-blur-sm">
+                            <Sparkles className="h-2.5 w-2.5" />
+                            مميز
+                          </span>
                         )}
                       </div>
 
-                      {product.price ? (
-                        <p className="mt-2.5 font-poppins text-[0.88rem] font-extrabold text-primary">
-                          {Number(product.price).toLocaleString("ar-EG")} جم
+                      {/* Title + price (still part of product link) */}
+                      <div className="flex flex-col border-t border-border/50 px-3 pt-3 md:px-3.5 md:pt-3.5">
+                        <p className="text-[0.8rem] font-bold text-foreground line-clamp-2 leading-[1.45] group-hover:text-primary transition-colors">
+                          {product.name_ar}
                         </p>
-                      ) : product.price_note ? (
-                        <p className="mt-2.5 text-[0.72rem] font-bold text-primary">
-                          {product.price_note}
-                        </p>
-                      ) : null}
-                    </div>
-                  </Link>
+                        {product.price ? (
+                          <p className="mt-2 font-poppins text-[0.88rem] font-extrabold text-primary">
+                            {Number(product.price).toLocaleString("ar-EG")} جم
+                          </p>
+                        ) : product.price_note ? (
+                          <p className="mt-2 text-[0.72rem] font-bold text-primary">
+                            {product.price_note}
+                          </p>
+                        ) : null}
+                      </div>
+                    </Link>
+
+                    {/* Separate store link — sibling, NOT nested inside product link */}
+                    {store?.slug && (
+                      <Link
+                        to={`/stores/${store.slug}`}
+                        className="relative z-10 mx-3 mt-2 mb-3 md:mx-3.5 flex items-center justify-between gap-2 rounded-lg border border-border/60 bg-muted/30 px-2.5 py-1.5 text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                        aria-label={`زيارة محل ${store.name_ar}`}
+                      >
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          {store.logo_url ? (
+                            <img
+                              src={store.logo_url}
+                              alt=""
+                              className="h-4 w-4 rounded object-contain border border-border bg-card shrink-0"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <Store className="h-3 w-3 shrink-0" />
+                          )}
+                          <span className="text-[0.66rem] font-semibold line-clamp-1">{store.name_ar}</span>
+                        </span>
+                        <ArrowUpLeft className="h-3 w-3 shrink-0 opacity-60 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                      </Link>
+                    )}
+                  </article>
                 );
               })}
             </div>
