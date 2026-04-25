@@ -29,8 +29,8 @@ export function MerchantLogoWall() {
         className="heritage-deep relative overflow-hidden"
         style={{
           contain: "layout style",
-          paddingTop: "clamp(32px, 4vw, 64px)",
-          paddingBottom: "clamp(32px, 4vw, 64px)",
+          paddingTop: "clamp(22px, 2.8vw, 44px)",
+          paddingBottom: "clamp(22px, 2.8vw, 44px)",
         }}
       >
         <div className="container animate-pulse">
@@ -58,8 +58,8 @@ export function MerchantLogoWall() {
       className="heritage-deep relative overflow-hidden"
       style={{
         contain: "layout style",
-        paddingTop: "clamp(32px, 4vw, 64px)",
-        paddingBottom: "clamp(32px, 4vw, 64px)",
+        paddingTop: "clamp(22px, 2.8vw, 44px)",
+        paddingBottom: "clamp(22px, 2.8vw, 44px)",
       }}
     >
       <div className="relative container">

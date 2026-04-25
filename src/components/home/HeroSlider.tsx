@@ -151,7 +151,7 @@ export function HeroSlider() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex h-full min-h-[560px] md:min-h-[580px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[72px] md:pt-[76px] pb-14">
+      <div className="relative z-10 mx-auto flex h-full min-h-[520px] md:min-h-[540px] max-w-[1440px] flex-col justify-center px-5 md:px-10 pt-[68px] md:pt-[72px] pb-10">
         <div className="flex w-full flex-col items-center text-center md:flex-row md:items-center md:justify-between md:text-start gap-6 md:gap-8">
           {/* Text */}
           <AnimatePresence mode="wait" custom={direction}>
@@ -183,28 +183,30 @@ export function HeroSlider() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Countdown */}
+          {/* Countdown — visually softened */}
           <div className="w-full md:w-auto flex justify-center md:block">
-            <div className="rounded-2xl border px-4 py-3 md:px-6 md:py-5 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.08)", background: "hsla(220, 45%, 10%, 0.65)", boxShadow: "0 8px 32px hsla(220, 60%, 5%, 0.4)" }}>
-              <p className="mb-2 md:mb-3.5 text-center text-[0.6rem] md:text-[0.66rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>
+            <div className="rounded-xl border px-3 py-2 md:px-3.5 md:py-2.5 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
+              <p className="mb-1.5 text-center text-[0.55rem] md:text-[0.58rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.8 }}>
                 الافتتاح الكبير
               </p>
-              <CountdownTimer compact />
+              <div className="origin-top scale-[0.78] md:scale-[0.82] -mb-3">
+                <CountdownTimer compact />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Trust bar */}
-        <div className="mt-auto rounded-2xl border backdrop-blur-md px-4 py-3 md:px-6 md:py-3.5 flex items-center justify-center gap-6 md:gap-10" style={{ borderColor: "hsla(0, 0%, 100%, 0.08)", background: "hsla(220, 45%, 10%, 0.55)" }}>
+        {/* Trust bar — slimmer */}
+        <div className="mt-auto rounded-xl border backdrop-blur-md px-3 py-2 md:px-5 md:py-2.5 flex items-center justify-center gap-5 md:gap-9" style={{ borderColor: "hsla(0, 0%, 100%, 0.06)", background: "hsla(220, 45%, 10%, 0.45)" }}>
           {[
             { value: "+150", label: "محل متخصص" },
             { value: "3", label: "أدوار" },
             { value: "1990", label: "سنة التأسيس" },
             { value: "2", label: "فرعين" },
           ].map((s) => (
-            <div key={s.label} className="flex items-center gap-2">
-              <span className="font-poppins text-[0.9rem] md:text-[1rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.value}</span>
-              <span className="text-[0.6rem] md:text-[0.66rem] font-medium" style={{ color: "#94A3B8" }}>{s.label}</span>
+            <div key={s.label} className="flex items-center gap-1.5">
+              <span className="font-poppins text-[0.82rem] md:text-[0.92rem] font-extrabold leading-none" style={{ color: "#F8FAFC" }}>{s.value}</span>
+              <span className="text-[0.56rem] md:text-[0.62rem] font-medium" style={{ color: "#94A3B8" }}>{s.label}</span>
             </div>
           ))}
         </div>

@@ -16,9 +16,9 @@ export const TechPlanetCTA = () => {
       style={{
         background:
           "radial-gradient(ellipse 70% 80% at 50% 50%, #1B3470 0%, #0B1E48 30%, #050E2A 65%, #02060F 100%)",
-        paddingTop: "clamp(40px, 5vw, 72px)",
-        paddingBottom: "clamp(40px, 5vw, 72px)",
-        minHeight: 300,
+        paddingTop: "clamp(22px, 2.8vw, 40px)",
+        paddingBottom: "clamp(22px, 2.8vw, 40px)",
+        minHeight: 180,
       }}
     >
       {/* Star field — 30 stars only */}
@@ -98,21 +98,21 @@ export const TechPlanetCTA = () => {
             </p>
             <h2
               id="tech-planet-cta-title"
-              className="mt-3 font-arabic-display text-[clamp(1.4rem,3vw,2.1rem)] font-semibold leading-tight text-white"
+              className="mt-2 font-arabic-display text-[clamp(1.05rem,2.2vw,1.5rem)] font-semibold leading-tight text-white"
             >
               كوكب البستان — كل التقنية تدور حولك
             </h2>
             <p
-              className="mx-auto mt-3 max-w-[34rem] font-arabic text-[0.86rem] leading-relaxed md:mx-0"
+              className="mx-auto mt-1.5 max-w-[34rem] font-arabic text-[0.76rem] leading-relaxed md:mx-0"
               style={{ color: "rgba(255,255,255,0.72)" }}
             >
-              اكتشف 33 فئة جهاز، 6 أقسام رئيسية، وتجارب المول كاملة من نقطة واحدة.
+              33 فئة جهاز و6 أقسام رئيسية في نقطة واحدة.
             </p>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 md:justify-start">
               <Link to="/tech-planet">
                 <button
-                  className="inline-flex h-11 items-center gap-2 rounded-full px-6 font-arabic text-[0.85rem] font-bold transition-transform hover:scale-[1.02]"
+                  className="inline-flex h-9 items-center gap-2 rounded-full px-5 font-arabic text-[0.78rem] font-bold transition-transform hover:scale-[1.02]"
                   style={{
                     background: "linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%)",
                     color: "#071326",
@@ -125,7 +125,7 @@ export const TechPlanetCTA = () => {
               </Link>
               <Link to="/stores">
                 <button
-                  className="inline-flex h-11 items-center gap-2 rounded-full border px-5 font-arabic text-[0.85rem] font-semibold backdrop-blur-sm transition-colors hover:bg-white/10"
+                  className="inline-flex h-9 items-center gap-2 rounded-full border px-4 font-arabic text-[0.78rem] font-semibold backdrop-blur-sm transition-colors hover:bg-white/10"
                   style={{
                     borderColor: "rgba(205,187,154,0.4)",
                     color: "#E0F2FE",

@@ -31,6 +31,9 @@ const DealsTeaser = lazy(() =>
 const MapTeaserCompact = lazy(() =>
   import("@/components/home/MapTeaserCompact").then((m) => ({ default: m.MapTeaserCompact }))
 );
+const TechPlanetCTA = lazy(() =>
+  import("@/components/home/TechPlanetCTA").then((m) => ({ default: m.TechPlanetCTA }))
+);
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -241,6 +244,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
             </Suspense>
           </Reveal>
         </div>
+      </section>
+
+      {/* ═══════════ 7.5 · TECH PLANET TEASER (compact strip) ═══════════ */}
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 200px" } as React.CSSProperties}>
+        <LazySection minHeight={180}>
+          <Suspense fallback={<div style={{ minHeight: 180 }} />}><TechPlanetCTA /></Suspense>
+        </LazySection>
       </section>
 
       {/* ═══════════ 8 · WHY EL BOSTAN ═══════════ */}
