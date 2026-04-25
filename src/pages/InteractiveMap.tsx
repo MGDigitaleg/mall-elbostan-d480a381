@@ -437,6 +437,17 @@ const InteractiveMap = () => {
                   </motion.div>
                 </AnimatePresence>
               </MapErrorBoundary>
+
+              {/* Quick preview panel — appears in-map on desktop without leaving the map */}
+              {!isMobile && (
+                <MapQuickPreview
+                  unit={activeUnit}
+                  onClose={() => setSelectedUnit(null)}
+                  onExpand={() => {
+                    document.getElementById("unit-details-anchor")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
+                />
+              )}
             </div>
 
             {!isMobile && (
