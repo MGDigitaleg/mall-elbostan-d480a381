@@ -16,7 +16,7 @@ import { SearchX, RotateCcw } from "lucide-react";
 import { useOfferCollections } from "@/hooks/useOfferCollections";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
-const PAGE_BATCH = 8;
+const PAGE_BATCH = 12;
 
 const DailyDeals = () => {
   const { id: offerId } = useParams<{ id?: string }>();
@@ -94,9 +94,15 @@ const DailyDeals = () => {
   const merchantCount = merchantGroups.length;
   const openNowCount = (allDeals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
 
-  type SortKey = "newest" | "strongest" | "expiring";
+  type SortKey = "newest" | "discount" | "expiring";
   const [sortKey, setSortKey] = useState<SortKey>("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_BATCH);
+
+  // Reset pagination whenever sorting or filters change so users always see the
+  // first page of the new ordering instead of a sliced middle.
+  useEffect(() => {
+    setVisibleCount(PAGE_BATCH);
+  }, [sortKey, activeMerchant, activeCategory]);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const { favorites, compare } = useOfferCollections();
   const savedCount = favorites.length + compare.length;
@@ -112,7 +118,7 @@ const DailyDeals = () => {
     const arr = [...list];
     if (sortKey === "newest") {
       arr.sort((a, b) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
-    } else if (sortKey === "strongest") {
+    } else if (sortKey === "discount") {
       arr.sort((a, b) => discountPct(b) - discountPct(a));
     } else if (sortKey === "expiring") {
       const far = Number.POSITIVE_INFINITY;
@@ -165,7 +171,7 @@ const DailyDeals = () => {
 
   const sortOptions: { key: SortKey; label: string }[] = [
     { key: "newest", label: "الأحدث" },
-    { key: "strongest", label: "الأقوى" },
+    { key: "discount", label: "الأعلى خصمًا" },
     { key: "expiring", label: "الأقرب لانتهاء العرض" },
   ];
 
@@ -416,8 +422,12 @@ const DailyDeals = () => {
             <section id="opening-offers-grid">
               <div className="mb-3 flex items-end justify-between gap-3">
                 <h2 className="text-[0.95rem] font-bold text-foreground">{sectionTitle}</h2>
-                <span className="text-[0.66rem] text-muted-foreground">
-                  {gridDeals.length.toLocaleString("ar-EG")} عرض
+                <span className="text-[0.66rem] text-muted-foreground" aria-live="polite">
+                  عرض{" "}
+                  <strong className="font-bold text-foreground">
+                    {Math.min(visibleDeals.length, gridDeals.length).toLocaleString("ar-EG")}
+                  </strong>{" "}
+                  من {gridDeals.length.toLocaleString("ar-EG")}
                 </span>
               </div>
 
@@ -434,17 +444,70 @@ const DailyDeals = () => {
                       />
                     ))}
                   </div>
-                  {remaining > 0 && (
-                    <div className="mt-5 flex justify-center">
-                      <Button
-                        variant="outline-blue"
-                        className="h-9 rounded-xl px-5 text-[0.74rem] font-bold"
-                        onClick={() => setVisibleCount((v) => v + PAGE_BATCH)}
-                      >
-                        عرض المزيد ({remaining.toLocaleString("ar-EG")})
-                      </Button>
+
+                  {/* Pagination footer */}
+                  <div className="mt-6 flex flex-col items-center gap-3">
+                    {/* Progress bar */}
+                    <div
+                      className="h-1 w-full max-w-md overflow-hidden rounded-full bg-muted"
+                      role="progressbar"
+                      aria-valuemin={0}
+                      aria-valuemax={gridDeals.length}
+                      aria-valuenow={Math.min(visibleDeals.length, gridDeals.length)}
+                      aria-label="نسبة العروض المعروضة"
+                    >
+                      <div
+                        className="h-full rounded-full bg-primary transition-[width] duration-300"
+                        style={{
+                          width: `${Math.min(100, (visibleDeals.length / Math.max(1, gridDeals.length)) * 100)}%`,
+                        }}
+                      />
                     </div>
-                  )}
+
+                    {remaining > 0 ? (
+                      <div className="flex flex-wrap items-center justify-center gap-2">
+                        <Button
+                          variant="cta"
+                          className="h-10 rounded-xl px-5 text-[0.78rem] font-bold gap-1.5"
+                          onClick={() => setVisibleCount((v) => v + PAGE_BATCH)}
+                        >
+                          تحميل المزيد
+                          <span className="rounded-full bg-primary-foreground/15 px-2 py-0.5 text-[0.64rem] font-bold">
+                            +{Math.min(PAGE_BATCH, remaining).toLocaleString("ar-EG")}
+                          </span>
+                        </Button>
+                        {gridDeals.length > PAGE_BATCH * 2 && (
+                          <Button
+                            variant="outline-blue"
+                            className="h-10 rounded-xl px-4 text-[0.74rem] font-bold"
+                            onClick={() => setVisibleCount(gridDeals.length)}
+                          >
+                            عرض كل العروض ({gridDeals.length.toLocaleString("ar-EG")})
+                          </Button>
+                        )}
+                      </div>
+                    ) : (
+                      gridDeals.length > PAGE_BATCH && (
+                        <div className="flex flex-col items-center gap-1.5">
+                          <p className="text-[0.7rem] font-semibold text-muted-foreground">
+                            وصلت لنهاية العروض المتاحة
+                          </p>
+                          <Button
+                            variant="ghost"
+                            className="h-9 rounded-xl px-4 text-[0.72rem] font-semibold"
+                            onClick={() => {
+                              setVisibleCount(PAGE_BATCH);
+                              document
+                                .getElementById("opening-offers-grid")
+                                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                            }}
+                          >
+                            العودة إلى الأعلى
+                          </Button>
+                        </div>
+                      )
+                    )}
+                  </div>
                 </>
               ) : activeMerchant || activeCategory ? (
                 (() => {
