@@ -204,17 +204,6 @@ export function DealsTeaser() {
               )}
             </div>
           </div>
-
-          <div className="mt-5 flex justify-center lg:hidden">
-            <Link to="/daily-deals">
-              <Button
-                className="h-9 rounded-xl px-5 text-[0.78rem] font-bold gap-1.5"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "#CBD5E1" }}
-              >
-                جميع العروض <ArrowLeft className="h-3 w-3" />
-              </Button>
-            </Link>
-          </div>
         </Reveal>
       </div>
     </section>
