@@ -379,6 +379,16 @@ const Stores = () => {
                     {val.text}
                   </FilterChip>
                 ))}
+                <span className="mx-1.5 h-4 w-px" style={{ background: "#ffffff14" }} />
+                {/* Map-first quick action */}
+                <Link
+                  to={selectedCategory ? `/map?category=${encodeURIComponent(selectedCategory)}` : "/map"}
+                  className="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-bold transition-all duration-200 hover:brightness-110"
+                  style={{ border: "1px solid #2D6BFF45", background: "linear-gradient(135deg, #2D6BFF25, #2D6BFF15)", color: "#5B9AFF", boxShadow: "0 0 0 1px #2D6BFF15" }}
+                >
+                  <Compass className="h-3 w-3" />
+                  عرض على الخريطة
+                </Link>
               </div>
             </div>
 
