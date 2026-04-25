@@ -122,8 +122,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <section
         style={{
           contain: "layout style",
-          height: isMobile ? 420 : "70vh",
-          maxHeight: isMobile ? 500 : 560,
+          height: isMobile ? 380 : "70vh",
+          maxHeight: isMobile ? 460 : 560,
           overflow: "hidden",
           position: "relative",
         }}
@@ -134,14 +134,14 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ HOMEPAGE ANCHOR NAV ═══════════ */}
       <HomeAnchorNav />
 
-      {/* ═══════════ SEO INTRO (compact bridge) ═══════════ */}
+      {/* ═══════════ SEO INTRO (compact bridge — desktop only, mobile hidden to tighten flow) ═══════════ */}
       <section
-        className="bg-card dark:bg-background"
-        style={{ paddingTop: "clamp(12px, 1.5vw, 20px)", paddingBottom: "clamp(8px, 1vw, 14px)" }}
+        className="hidden md:block bg-card dark:bg-background"
+        style={{ paddingTop: "clamp(10px, 1.2vw, 16px)", paddingBottom: "clamp(6px, 0.8vw, 12px)" }}
       >
         <div className="container max-w-3xl text-center">
           <h1
-            className="text-[0.92rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground"
+            className="text-[1rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground"
             style={{ fontFamily: "var(--font-arabic-display)" }}
           >
             مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة
@@ -155,6 +155,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </p>
         </div>
       </section>
+
+      {/* Mobile-only invisible H1 for SEO since visual h1 hidden on mobile */}
+      <h1 className="sr-only md:hidden">مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة</h1>
 
       {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
       <QuickActions />
@@ -171,8 +174,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 700px",
-          paddingTop: "clamp(20px, 3vw, 48px)",
-          paddingBottom: "clamp(18px, 2.6vw, 40px)",
+          paddingTop: "clamp(14px, 2.4vw, 44px)",
+          paddingBottom: "clamp(12px, 2.2vw, 36px)",
           ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -204,8 +207,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(18px, 2.6vw, 40px)",
-          paddingBottom: "clamp(18px, 2.6vw, 40px)",
+          paddingTop: "clamp(12px, 2.2vw, 36px)",
+          paddingBottom: "clamp(12px, 2.2vw, 36px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
@@ -233,8 +236,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           scrollMarginTop: 80,
           contentVisibility: "auto",
           containIntrinsicSize: "auto 180px",
-          paddingTop: "clamp(18px, 2.4vw, 36px)",
-          paddingBottom: "clamp(18px, 2.4vw, 36px)",
+          paddingTop: "clamp(12px, 2vw, 32px)",
+          paddingBottom: "clamp(12px, 2vw, 32px)",
         } as React.CSSProperties}
       >
         <div className="container">
@@ -246,15 +249,15 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
-      {/* ═══════════ 7.5 · TECH PLANET TEASER (compact strip) ═══════════ */}
+      {/* ═══════════ 8 · WHY EL BOSTAN ═══════════ */}
+      <WhyElBostan />
+
+      {/* ═══════════ 8.5 · TECH PLANET TEASER (compact strip — within about cluster) ═══════════ */}
       <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 200px" } as React.CSSProperties}>
         <LazySection minHeight={180}>
           <Suspense fallback={<div style={{ minHeight: 180 }} />}><TechPlanetCTA /></Suspense>
         </LazySection>
       </section>
-
-      {/* ═══════════ 8 · WHY EL BOSTAN ═══════════ */}
-      <WhyElBostan />
 
       {/* ═══════════ 9 · ABOUT STRIP — MERCHANT LOGO WALL ═══════════ */}
       <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 240px" } as React.CSSProperties}>
