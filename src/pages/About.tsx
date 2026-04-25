@@ -237,35 +237,3 @@ const About = () => {
 };
 
 export default About;
-
-function TimelineCountCard({ item, index }: { item: { year: string; label: string; desc: string }; index: number }) {
-  const parsed = parseStatValue(item.year);
-  const isNumeric = parsed.num > 0;
-
-  const { ref, display } = useCountUp({
-    end: parsed.num,
-    prefix: parsed.prefix,
-    suffix: parsed.suffix,
-    duration: 1800,
-    startOnView: true,
-  });
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="heritage-surface rounded-xl p-4 text-center"
-    >
-      <p
-        ref={ref as React.Ref<HTMLParagraphElement>}
-        className="font-poppins text-[1.4rem] font-extrabold dark-heading"
-      >
-        {isNumeric ? display : item.year}
-      </p>
-      <p className="mt-1 text-[0.82rem] font-bold" style={{ color: "#CDBB9A" }}>{item.label}</p>
-      <p className="mt-1.5 text-[0.76rem] leading-[1.6] dark-muted">{item.desc}</p>
-    </motion.div>
-  );
-}
