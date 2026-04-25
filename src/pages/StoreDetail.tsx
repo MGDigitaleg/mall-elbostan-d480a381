@@ -634,7 +634,7 @@ const StoreDetail = () => {
                         className="space-y-5 lg:sticky lg:top-24 lg:self-start">
 
               {/* Quick Info Card */}
-              <motion.div variants={fadeChild}>
+              <motion.div variants={fadeChild} id="store-from-map" className="scroll-mt-[140px]">
                 <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-premium)]">
                   <div className="border-b border-border px-5 py-4" style={{ background: "linear-gradient(135deg, hsl(var(--card)), hsl(var(--background)))" }}>
                     <div className="flex items-center gap-2.5">
