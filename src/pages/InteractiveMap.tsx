@@ -33,6 +33,7 @@ import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/Unit
 import { MapQuickPreview } from "@/components/map/MapQuickPreview";
 import { UnitInfoDrawer } from "@/components/map/UnitInfoDrawer";
 import { useUnitOffersCount } from "@/hooks/useUnitOffersCount";
+import { useSelectionByFloor } from "@/hooks/useSelectionByFloor";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
