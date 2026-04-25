@@ -70,7 +70,11 @@ const StoreDetail = () => {
   const { data: store, isLoading } = useQuery({
     queryKey: ["store", slug],
     queryFn: async () => {
-      const { data } = await supabase.from("stores").select("*").eq("slug", slug!).maybeSingle();
+      const { data } = await supabase
+        .from("stores")
+        .select("*, floors:floor_id(name_ar, name_en)")
+        .eq("slug", slug!)
+        .maybeSingle();
       return data;
     },
     enabled: !!slug,
