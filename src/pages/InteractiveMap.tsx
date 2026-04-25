@@ -98,6 +98,10 @@ const InteractiveMap = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
+  // Controls the mobile full-details Drawer; the compact in-map UnitInfoDrawer
+  // remains the default surface after selection on mobile.
+  const [detailsSheetOpen, setDetailsSheetOpen] = useState(false);
+  const { data: offersBySlug } = useUnitOffersCount();
 
   // Auto-highlight unit from URL params
   useEffect(() => {
