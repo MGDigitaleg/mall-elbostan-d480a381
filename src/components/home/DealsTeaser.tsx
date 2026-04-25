@@ -152,9 +152,9 @@ export function DealsTeaser() {
                       <CountdownTimer compact />
                     </div>
                   )}
-                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
+                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 items-stretch auto-rows-fr">
                   {teaserDeals.map((deal) => (
-                    <div key={deal.id} className="h-full rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div key={deal.id} className="h-full flex rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
                       <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
                     </div>
                   ))}
