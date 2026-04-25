@@ -297,6 +297,12 @@ const StoreDetail = () => {
                   <Building2 className="h-3 w-3" />وحدة {store.unit_code}
                 </span>
               )}
+              {floorName && (
+                <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm"
+                      style={{ background: "hsl(0 0% 100% / 0.06)", border: "1px solid hsl(0 0% 100% / 0.12)", color: "hsl(0 0% 100% / 0.7)" }}>
+                  <Layers3 className="h-3 w-3" />{floorName}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[0.72rem] font-semibold backdrop-blur-sm"
                     style={{
                       background: store.status === "available" ? "hsl(25 95% 55% / 0.12)" : "hsl(155 70% 40% / 0.12)",
