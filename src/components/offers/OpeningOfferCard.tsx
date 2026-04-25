@@ -351,8 +351,8 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
           )}
           {showStoreLink && store && (
             <Link to={`/stores/${store.slug}`} className="block">
-              <Button variant="cta" className={`${buttonHeight} w-full rounded-xl ${ctaText} font-bold gap-1.5`}>
-                انتقل إلى صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
+              <Button variant="outline-blue" className={`${buttonHeight} w-full rounded-xl ${buttonText} font-bold gap-1.5`}>
+                صفحة المتجر <ArrowLeft className="h-3.5 w-3.5" />
               </Button>
             </Link>
           )}
