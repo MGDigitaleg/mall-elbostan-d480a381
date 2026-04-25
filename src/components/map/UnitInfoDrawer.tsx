@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MapPin, Tag, X } from "lucide-react";
+import { ArrowLeft, MapPin, Navigation, Tag, X } from "lucide-react";
 import { TenantLogo } from "@/components/TenantLogo";
 import { cn } from "@/lib/utils";
 import type { MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
@@ -187,6 +187,17 @@ function UnitInfoBody({
 
       {/* Actions */}
       <div className="flex shrink-0 items-center gap-1.5">
+        <a
+          href="https://www.google.com/maps/dir/?api=1&destination=30.00688915799785,31.426935129305683&destination_place_id=Mall+El+Bostan"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="فتح الاتجاهات إلى مول البستان على خرائط جوجل"
+          title="فتح الاتجاهات"
+          className="inline-flex h-8 items-center gap-1 rounded-lg border border-border bg-background px-2 text-[0.72rem] font-bold text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+        >
+          <Navigation className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">الاتجاهات</span>
+        </a>
         {isOccupied && tenantSlug && (
           <Link
             to={`/stores/${tenantSlug}`}
