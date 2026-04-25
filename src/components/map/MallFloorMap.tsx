@@ -268,17 +268,25 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       aria-roledescription="خريطة طوابق تفاعلية"
       onKeyDown={handleContainerKeyDown}
     >
-      {/* Live region — announces selection changes to screen readers */}
+      {/* Live region — announces selection + tap-confirm changes to screen readers */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {selectedUnitId
+        {pendingUnitId
           ? (() => {
-              const u = floor.units.find((x) => x.id === selectedUnitId);
+              const u = floor.units.find((x) => x.id === pendingUnitId);
               if (!u) return "";
               const tenant = TENANT_NAMES[u.id];
               const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
-              return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+              return `تم تظليل وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}. اضغط مجدداً لفتح التفاصيل أو Escape للإلغاء.`;
             })()
-          : ""}
+          : selectedUnitId
+            ? (() => {
+                const u = floor.units.find((x) => x.id === selectedUnitId);
+                if (!u) return "";
+                const tenant = TENANT_NAMES[u.id];
+                const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
+                return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+              })()
+            : ""}
       </div>
       {/* Zoom controls */}
       {!hideControls && (
