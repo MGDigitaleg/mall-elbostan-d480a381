@@ -29,6 +29,8 @@ type Props = {
   activeMarkerUnitId?: string | null;
   hideControls?: boolean;
   className?: string;
+  floorLabel?: string;
+  onClearSelection?: () => void;
 };
 
 // ── Status fills — refined, high-contrast ──
@@ -44,7 +46,7 @@ const statusStroke: Record<MallUnitStatus, string> = {
   coming_soon: "#0A9AB8",
 };
 
-export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className }: Props) {
+export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className, floorLabel, onClearSelection }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
   const atriumMode = atriumConfig?.mode ?? "spin";
