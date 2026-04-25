@@ -119,23 +119,25 @@ function UnitInfoBody({
   return (
     <div className="flex items-center gap-2.5 p-2.5 sm:p-3">
       {/* Logo / status indicator */}
-      <div
-        className={cn(
-          "relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-background",
-          tone.border,
-        )}
-        aria-hidden="true"
-      >
-        {tenantLogo ? (
-          <TenantLogo
-            src={tenantLogo}
-            alt={tenantName ?? unit.code}
-            className="h-full w-full object-contain p-1"
-          />
-        ) : (
+      {tenantLogo ? (
+        <TenantLogo
+          src={tenantLogo}
+          alt={tenantName ?? unit.code}
+          size="sm"
+          rounded="lg"
+          className="shrink-0"
+        />
+      ) : (
+        <div
+          className={cn(
+            "flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border bg-background",
+            tone.border,
+          )}
+          aria-hidden="true"
+        >
           <MapPin className={cn("h-5 w-5", tone.chipText)} />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Name + meta */}
       <div className="min-w-0 flex-1">
