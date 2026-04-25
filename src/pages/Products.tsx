@@ -896,25 +896,22 @@ const Products = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-7 md:py-9" style={{ background: "hsl(var(--background))" }}>
+      <section className="py-5 md:py-7" style={{ background: "hsl(var(--background))" }}>
         <div className="container max-w-[1200px]">
-          <div className="rounded-xl border border-border bg-card p-6 md:p-8">
-            <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="rounded-xl border border-border bg-card p-4 md:p-5">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="section-kicker">انضم للمحلات</p>
-                <h2 className="section-title max-w-[20rem]">اعرض منتجاتك في سوق المول.</h2>
-                <p className="mt-1 max-w-[22rem] text-[0.82rem] leading-[1.7] light-body">
-                  أضف منتجاتك وأوصل لعملاء جدد.
-                </p>
+                <h2 className="section-title max-w-[20rem]" style={{ fontSize: "clamp(15px, 1.4vw, 18px)" }}>اعرض منتجاتك في سوق المول.</h2>
               </div>
               <div className="flex flex-wrap gap-2">
                 <Link to="/join-marketplace">
-                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.82rem] font-bold">
+                  <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-5 text-[0.78rem] font-bold">
                     انضم كتاجر
                   </Button>
                 </Link>
                 <Link to="/stores">
-                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem]">دليل المحلات</Button>
+                  <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.78rem]">دليل المحلات</Button>
                 </Link>
               </div>
             </div>
