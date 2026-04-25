@@ -6,6 +6,7 @@ import { TechPlanetSection } from "@/components/home/TechPlanetSection";
 import { deviceCatalog } from "@/lib/deviceCatalog";
 import { tokenizeQuery, scoreDevice } from "@/lib/deviceSearchIndex";
 import { buildTechPlanetSeo, type OrbitKey, type CatalogDeviceLite } from "@/lib/techPlanetSeo";
+import { trackSeoLinkClick } from "@/lib/analytics";
 
 const isOrbitKey = (v: string | null): v is OrbitKey =>
   v === "all" || v === "inner" || v === "middle" || v === "outer";
