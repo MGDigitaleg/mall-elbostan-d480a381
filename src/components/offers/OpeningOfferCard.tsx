@@ -202,6 +202,39 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
           )}
         </div>
 
+        {!hideCollectionActions && !isExpired && (
+          <div className={`absolute top-1/2 -translate-y-1/2 flex flex-col gap-1.5 z-10 ${c ? "end-2" : "end-2.5"}`}>
+            <button
+              type="button"
+              onClick={handleFavoriteClick}
+              aria-pressed={favorite}
+              aria-label={favorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+              title={favorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-md shadow-sm transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                favorite
+                  ? "border-rose-400/40 bg-rose-500 text-white"
+                  : "border-border/70 bg-background/90 text-foreground/70 hover:text-rose-500 hover:border-rose-400/40"
+              }`}
+            >
+              <Heart className={`h-3.5 w-3.5 ${favorite ? "fill-current" : ""}`} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={handleCompareClick}
+              aria-pressed={compared}
+              aria-label={compared ? "إزالة من المقارنة" : "إضافة إلى المقارنة"}
+              title={compared ? "إزالة من المقارنة" : "إضافة إلى المقارنة"}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-md shadow-sm transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                compared
+                  ? "border-primary/40 bg-primary text-primary-foreground"
+                  : "border-border/70 bg-background/90 text-foreground/70 hover:text-primary hover:border-primary/40"
+              }`}
+            >
+              <Scale className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
+          </div>
+        )}
+
         {isExpired && (
           <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-background/55 backdrop-blur-[2px]">
             <span className={`inline-flex items-center gap-1.5 rounded-xl border border-destructive/40 bg-destructive px-3 py-1.5 ${c ? "text-[0.72rem]" : "text-[0.82rem]"} font-extrabold text-destructive-foreground shadow-lg`}>
