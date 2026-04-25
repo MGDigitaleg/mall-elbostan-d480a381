@@ -534,7 +534,7 @@ const StoreDetail = () => {
               )}
 
               {(isStoreOffersLoading || storeOffers) && (
-                <motion.div variants={fadeChild}>
+                <motion.div variants={fadeChild} id="store-offers" className="scroll-mt-[140px]">
                   <div className="overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)]">
                     <div className="flex items-center justify-between border-b border-border px-5 py-4 md:px-6">
                       <div className="flex items-center gap-3">
