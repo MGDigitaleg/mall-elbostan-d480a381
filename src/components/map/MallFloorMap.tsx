@@ -212,6 +212,28 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
         </div>
       )}
 
+      {/* Current floor + back-to-overview pills (top center) */}
+      {!hideControls && (floorLabel || onClearSelection) && (
+        <div className="pointer-events-none absolute top-3 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5">
+          {floorLabel && (
+            <div className="pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-border bg-card/95 px-3 py-1 text-[0.68rem] font-bold text-foreground shadow-sm backdrop-blur-sm">
+              <Layers className="h-3 w-3 text-primary" />
+              <span>{floorLabel}</span>
+            </div>
+          )}
+          {!isOverviewActive && (
+            <button
+              onClick={handleBackToOverview}
+              className="pointer-events-auto inline-flex items-center gap-1 rounded-full border border-orange/30 bg-orange/10 px-3 py-1 text-[0.68rem] font-bold text-orange shadow-sm backdrop-blur-sm transition-colors hover:bg-orange/20 dark:text-orange-foreground"
+              aria-label="العودة إلى نظرة عامة"
+            >
+              <X className="h-3 w-3" />
+              <span>نظرة عامة</span>
+            </button>
+          )}
+        </div>
+      )}
+
       <div
         ref={containerRef}
         
