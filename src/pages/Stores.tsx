@@ -752,7 +752,7 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
           </p>
         )}
 
-        {/* Footer with status + unit */}
+        {/* Footer with status + unit (map deep-link) */}
         <div className="mt-auto pt-3.5">
           <div className="flex items-center gap-2 border-t pt-3" style={{ borderColor: "#ffffff0A" }}>
             <span
@@ -764,9 +764,19 @@ function StoreCard({ store, index }: { store: StoreRow; index: number }) {
             </span>
 
             {store.unit_code && (
-              <span className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-medium" style={{ background: "#ffffff06", border: "1px solid #ffffff0C", color: "#64748B" }}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  window.location.href = `/map?highlight=${encodeURIComponent(store.unit_code!)}&store=${encodeURIComponent(store.name_ar)}`;
+                }}
+                title={`عرض ${store.name_ar} على الخريطة`}
+                className="flex items-center gap-1 rounded-md px-2 py-0.5 text-[0.62rem] font-semibold transition-colors hover:brightness-125"
+                style={{ background: "#2D6BFF12", border: "1px solid #2D6BFF25", color: "#5B9AFF" }}
+              >
                 <MapPin className="h-2.5 w-2.5" />{store.unit_code}
-              </span>
+              </button>
             )}
 
             <span className="flex-1" />
