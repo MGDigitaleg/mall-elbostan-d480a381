@@ -4,6 +4,7 @@ import { ZoomIn, ZoomOut, RotateCcw, Layers, X } from "lucide-react";
 import { AtriumInteractiveLayer } from "./AtriumInteractiveLayer";
 import { cn } from "@/lib/utils";
 import type { MallFloor, MallUnit, MallUnitStatus } from "@/lib/mallFloorGeometry";
+import { categoryLabelsAr, statusLabelsAr, floorLabelsAr } from "@/lib/mallFloorGeometry";
 
 import { UNIT_TENANT_NAMES as TENANT_NAMES, UNIT_TENANT_LOGOS as TENANT_LOGOS, UNIT_TENANT_BG_COLORS as TENANT_BG } from "@/lib/tenantMapLookup";
 
@@ -126,14 +127,66 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
   const handlePointerUp = useCallback(() => { isPanning.current = false; }, []);
 
+  /**
+   * Spatial keyboard navigation between units.
+   * - Enter / Space: select the unit
+   * - Arrow keys: move focus to the spatially-nearest unit in that screen direction.
+   *   In RTL, ArrowRight = previous (moves toward "earlier" unit on screen),
+   *   ArrowLeft = next. Up/Down work in screen coordinates as expected.
+   */
+  const moveFocusToUnit = useCallback((unitId: string) => {
+    const el = containerRef.current?.querySelector<SVGElement>(`[data-unit-id="${unitId}"]`);
+    el?.focus();
+  }, []);
+
+  const findNeighbor = useCallback((from: MallUnit, dir: "up" | "down" | "left" | "right"): MallUnit | null => {
+    const candidates = floor.units.filter((u) => u.id !== from.id && !mutedUnitIds.has(u.id));
+    if (!candidates.length) return null;
+    const fx = from.labelX;
+    const fy = from.labelY;
+    let best: { unit: MallUnit; score: number } | null = null;
+    for (const u of candidates) {
+      const dx = u.labelX - fx;
+      const dy = u.labelY - fy;
+      // Directional gate
+      const aligned =
+        dir === "up" ? dy < -1 :
+        dir === "down" ? dy > 1 :
+        dir === "left" ? dx < -1 :
+        /* right */ dx > 1;
+      if (!aligned) continue;
+      // Penalize off-axis distance more than on-axis distance
+      const onAxis = (dir === "up" || dir === "down") ? Math.abs(dy) : Math.abs(dx);
+      const offAxis = (dir === "up" || dir === "down") ? Math.abs(dx) : Math.abs(dy);
+      const score = onAxis + offAxis * 2.2;
+      if (!best || score < best.score) best = { unit: u, score };
+    }
+    return best?.unit ?? null;
+  }, [floor.units, mutedUnitIds]);
+
   const handleUnitKeyDown = useCallback(
     (e: React.KeyboardEvent, unit: MallUnit) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         onSelectUnit(unit);
+        return;
+      }
+      // Map RTL arrow semantics: ArrowRight = visual-left in LTR sense -> use as "previous"
+      // For a 2D mall map we navigate spatially regardless of RTL.
+      let dir: "up" | "down" | "left" | "right" | null = null;
+      if (e.key === "ArrowUp") dir = "up";
+      else if (e.key === "ArrowDown") dir = "down";
+      else if (e.key === "ArrowLeft") dir = "left";
+      else if (e.key === "ArrowRight") dir = "right";
+      if (!dir) return;
+      const next = findNeighbor(unit, dir);
+      if (next) {
+        e.preventDefault();
+        e.stopPropagation();
+        moveFocusToUnit(next.id);
       }
     },
-    [onSelectUnit],
+    [onSelectUnit, findNeighbor, moveFocusToUnit],
   );
 
   const handleContainerKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -181,9 +234,23 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}
       tabIndex={0}
       role="application"
-      aria-label="خريطة تفاعلية — استخدم + و - للتكبير والتصغير، والأسهم للتحريك"
+      dir="rtl"
+      aria-label={`خريطة تفاعلية لـ${floorLabel ? ` ${floorLabel}` : "مول البستان"}. استخدم Tab للتنقل بين الوحدات، الأسهم للانتقال بين الوحدات المجاورة، Enter لاختيار وحدة، + و - للتكبير والتصغير، 0 لإعادة الضبط.`}
+      aria-roledescription="خريطة طوابق تفاعلية"
       onKeyDown={handleContainerKeyDown}
     >
+      {/* Live region — announces selection changes to screen readers */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {selectedUnitId
+          ? (() => {
+              const u = floor.units.find((x) => x.id === selectedUnitId);
+              if (!u) return "";
+              const tenant = TENANT_NAMES[u.id];
+              const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
+              return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+            })()
+          : ""}
+      </div>
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 start-3 z-10 flex flex-col gap-1">
@@ -415,9 +482,20 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                 onMouseEnter={() => setHoveredId(unit.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 onKeyDown={(e) => handleUnitKeyDown(e, unit)}
-                tabIndex={0}
+                onFocus={() => setHoveredId(unit.id)}
+                onBlur={() => setHoveredId((id) => (id === unit.id ? null : id))}
+                tabIndex={isMuted ? -1 : 0}
                 role="button"
-                aria-label={`وحدة ${unit.code} - ${unit.area} متر مربع`}
+                aria-pressed={isSelected}
+                aria-disabled={isMuted || undefined}
+                data-unit-id={unit.id}
+                aria-label={(() => {
+                  const tenant = TENANT_NAMES[unit.id];
+                  const status = statusLabelsAr[unit.status];
+                  const cat = categoryLabelsAr[unit.category];
+                  const namePart = unit.status === "occupied" && tenant ? ` — ${tenant}` : "";
+                  return `وحدة ${unit.code}${namePart}، ${cat}، ${status}، ${unit.area} متر مربع`;
+                })()}
               />
             );
           })}

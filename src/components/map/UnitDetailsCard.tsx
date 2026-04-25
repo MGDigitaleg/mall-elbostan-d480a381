@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Building2, Compass, Gift, MapPin, Phone, Ruler, Store, Tag } from "lucide-react";
@@ -219,8 +220,29 @@ type Props = {
 };
 
 export function UnitDetailsCard({ unit, rewardContext }: Props) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const lastUnitId = useRef<string | null>(null);
+  const previouslyFocusedUnitId = useRef<string | null>(null);
+
+  useEffect(() => {
+    const newId = unit?.id ?? null;
+    if (newId && newId !== lastUnitId.current) {
+      previouslyFocusedUnitId.current = newId;
+      requestAnimationFrame(() => headingRef.current?.focus());
+    }
+    if (!newId && lastUnitId.current && previouslyFocusedUnitId.current) {
+      const id = previouslyFocusedUnitId.current;
+      const el = document.querySelector<HTMLElement>(`[data-unit-id="${id}"]`);
+      el?.focus?.();
+    }
+    lastUnitId.current = newId;
+  }, [unit?.id]);
+
   return (
-    <div
+    <section
+      role="region"
+      aria-labelledby="unit-details-heading"
+      aria-live="polite"
       className="rounded-xl border bg-card transition-all duration-200 overflow-hidden"
       style={{
         borderColor: unit ? statusBadge[unit.status].dot + "50" : undefined,
@@ -230,20 +252,23 @@ export function UnitDetailsCard({ unit, rewardContext }: Props) {
       }}
     >
       {/* Panel header */}
-      <div
-        className="flex items-center gap-2 border-b border-border px-4 py-2.5 bg-muted/50"
-      >
+      <div className="flex items-center gap-2 border-b border-border px-4 py-2.5 bg-muted/50">
         <div
           className="h-[3px] w-4 rounded-full transition-colors"
           style={{ background: unit ? statusBadge[unit.status].dot : undefined }}
         />
-        <h2 className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
-          {unit ? "تفاصيل الوحدة" : "لوحة التفاصيل"}
+        <h2
+          id="unit-details-heading"
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+        >
+          {unit ? `تفاصيل الوحدة ${unit.code}` : "لوحة التفاصيل"}
         </h2>
       </div>
       <div className="p-4">
         {unit ? <UnitDetail unit={unit} rewardCtx={rewardContext} /> : <EmptyPanel />}
       </div>
-    </div>
+    </section>
   );
 }
