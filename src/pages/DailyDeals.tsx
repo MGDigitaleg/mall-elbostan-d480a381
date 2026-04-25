@@ -609,6 +609,44 @@ const DailyDeals = () => {
         onOpenChange={setCollectionsOpen}
         offers={allDeals ?? []}
       />
+
+      {/* ═══════════ DEALS SEO CONTENT — internal linking footer ═══════════ */}
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(24px, 3vw, 40px)", paddingBottom: "clamp(24px, 3vw, 40px)" }}>
+        <div className="container max-w-4xl">
+          <h2 className="text-[0.92rem] font-bold text-foreground mb-3" style={{ fontFamily: "var(--font-arabic-display)" }}>
+            عروض افتتاح مول البستان
+          </h2>
+          <div className="text-[0.76rem] leading-[2.1] text-muted-foreground space-y-3">
+            <p>
+              <strong className="text-foreground">عروض الافتتاح</strong>{" "}
+              مجموعة من أقوى الخصومات والباقات التي تطرحها{" "}
+              <Link to="/stores" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "محلات المول", "/stores")}>محلات مول البستان</Link>{" "}
+              بمناسبة افتتاح فرع التجمع الخامس. تشمل العروض فئات{" "}
+              <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "category", "الكمبيوتر واللابتوبات", "/stores?category=الكمبيوتر والأجهزة")}>الكمبيوتر واللابتوبات</Link>،{" "}
+              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "category", "الهواتف والإكسسوارات", "/stores?category=الهواتف والإكسسوارات")}>الهواتف والإكسسوارات</Link>،{" "}
+              <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "category", "الجيمنج والألعاب", "/stores?category=الألعاب والترفيه")}>الجيمنج والألعاب</Link>،{" "}
+              <Link to="/stores?category=الطباعة والتصوير" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "category", "الطباعة والتصوير", "/stores?category=الطباعة والتصوير")}>الطباعة والتصوير</Link>، و{" "}
+              <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "category", "الصيانة", "/stores?category=الصيانة والدعم الفني")}>الصيانة والدعم الفني</Link>.
+            </p>
+            <p>
+              قارن بين المنتجات المعروضة عبر{" "}
+              <Link to="/products" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "كتالوج المنتجات", "/products")}>كتالوج المنتجات الكامل</Link>،{" "}
+              أو حدد موقع المحل صاحب العرض على{" "}
+              <Link to="/map" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "الخريطة", "/map")}>الخريطة التفاعلية</Link>،{" "}
+              وتعرّف على باقي{" "}
+              <Link to="/opening-day" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "يوم الافتتاح", "/opening-day")}>فعاليات يوم الافتتاح</Link>{" "}
+              ومسابقة{" "}
+              <Link to="/spin-win" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "اربح مع البستان", "/spin-win")}>اربح مع البستان</Link>.
+            </p>
+            <p>
+              لأي استفسار عن شروط العروض راجع{" "}
+              <Link to="/faq" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "الأسئلة الشائعة", "/faq")}>الأسئلة الشائعة</Link>{" "}
+              أو{" "}
+              <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("deals_seo", "page", "التواصل", "/contact")}>تواصل مع فريق المول</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
     </MainLayout>
   );
 };
