@@ -234,9 +234,23 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
       style={{ background: "hsl(var(--card))", boxShadow: "0 2px 8px hsl(0 0% 0% / 0.05), 0 12px 36px hsl(0 0% 0% / 0.04)" }}
       tabIndex={0}
       role="application"
-      aria-label="خريطة تفاعلية — استخدم + و - للتكبير والتصغير، والأسهم للتحريك"
+      dir="rtl"
+      aria-label={`خريطة تفاعلية لـ${floorLabel ? ` ${floorLabel}` : "مول البستان"}. استخدم Tab للتنقل بين الوحدات، الأسهم للانتقال بين الوحدات المجاورة، Enter لاختيار وحدة، + و - للتكبير والتصغير، 0 لإعادة الضبط.`}
+      aria-roledescription="خريطة طوابق تفاعلية"
       onKeyDown={handleContainerKeyDown}
     >
+      {/* Live region — announces selection changes to screen readers */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {selectedUnitId
+          ? (() => {
+              const u = floor.units.find((x) => x.id === selectedUnitId);
+              if (!u) return "";
+              const tenant = TENANT_NAMES[u.id];
+              const namePart = u.status === "occupied" && tenant ? ` ${tenant}` : "";
+              return `تم اختيار وحدة ${u.code}${namePart} في ${floorLabelsAr[u.floor]}، ${categoryLabelsAr[u.category]}، ${statusLabelsAr[u.status]}.`;
+            })()
+          : ""}
+      </div>
       {/* Zoom controls */}
       {!hideControls && (
         <div className="absolute top-3 start-3 z-10 flex flex-col gap-1">
