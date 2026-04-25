@@ -813,27 +813,45 @@ const StoreDetail = () => {
       </div>
 
       {/* ═══════════ SEO FOOTER TEXT ═══════════ */}
-      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(16px, 2vw, 28px)", paddingBottom: "clamp(16px, 2vw, 28px)" }}>
+      <section className="bg-card dark:bg-background border-t border-border/30" style={{ paddingTop: "clamp(20px, 2.4vw, 32px)", paddingBottom: "clamp(20px, 2.4vw, 32px)" }}>
         <div className="container max-w-4xl">
-          <div className="text-[0.72rem] leading-[2.1] text-muted-foreground space-y-2">
+          <div className="text-[0.74rem] leading-[2.05] text-muted-foreground space-y-2.5">
             <p>
               <strong className="text-foreground">{store.name_ar}</strong> — محل {store.category ?? "تكنولوجيا"} ضمن{" "}
-              <Link to="/stores" className="text-primary font-semibold hover:underline">محلات مول البستان</Link> في التجمع الخامس، القاهرة الجديدة.
-              {store.unit_code && <> يقع في الوحدة {store.unit_code} — <Link to={`/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`} className="text-primary font-semibold hover:underline">عرض على الخريطة</Link>.</>}
+              <Link to="/stores" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "محلات مول البستان", "/stores")}>محلات مول البستان</Link> في{" "}
+              <Link to="/new-cairo-branch" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "فرع التجمع الخامس", "/new-cairo-branch")}>فرع التجمع الخامس</Link>.
+              {store.unit_code && <> الوحدة {store.unit_code} — <Link to={`/map?highlight=${encodeURIComponent(store.unit_code)}&store=${encodeURIComponent(store.name_ar)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "map_pin", store.name_ar, `/map?highlight=${store.unit_code}`)}>اعرض الموقع على الخريطة التفاعلية</Link>.</>}
             </p>
             <p>
               تصفّح أيضاً:{" "}
               {store.category && (
-                <Link to={`/stores?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline">
-                  محلات {store.category}
-                </Link>
+                <>
+                  <Link to={`/stores?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", store.category!, `/stores?category=${store.category}`)}>
+                    محلات {store.category}
+                  </Link>
+                  <span className="text-muted-foreground/40 mx-1.5">•</span>
+                  <Link to={`/products?category=${encodeURIComponent(store.category)}`} className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "products_category", store.category!, `/products?category=${store.category}`)}>
+                    منتجات {store.category}
+                  </Link>
+                  <span className="text-muted-foreground/40 mx-1.5">•</span>
+                </>
               )}
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/products" className="text-primary font-semibold hover:underline">جميع المنتجات</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/map" className="text-primary font-semibold hover:underline">الخريطة التفاعلية</Link>
-              <span className="text-muted-foreground/40 mx-1">•</span>
-              <Link to="/leasing" className="text-primary font-semibold hover:underline">فرص التأجير</Link>
+              <Link to="/products" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "كتالوج المنتجات", "/products")}>كتالوج المنتجات الكامل</Link>
+              <span className="text-muted-foreground/40 mx-1.5">•</span>
+              <Link to="/map" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "الخريطة التفاعلية", "/map")}>الخريطة التفاعلية</Link>
+              <span className="text-muted-foreground/40 mx-1.5">•</span>
+              <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "عروض الافتتاح", "/daily-deals")}>عروض الافتتاح</Link>
+            </p>
+            <p>
+              تخصصات قريبة:{" "}
+              <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", "الكمبيوتر والأجهزة", "/stores?category=الكمبيوتر والأجهزة")}>الكمبيوتر</Link>،{" "}
+              <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", "الهواتف", "/stores?category=الهواتف والإكسسوارات")}>الهواتف</Link>،{" "}
+              <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", "الجيمنج", "/stores?category=الألعاب والترفيه")}>الجيمنج</Link>،{" "}
+              <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "category", "الصيانة", "/stores?category=الصيانة والدعم الفني")}>الصيانة</Link>،{" "}
+              أو استكشف{" "}
+              <Link to="/tech-planet" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "كوكب البستان", "/tech-planet")}>كوكب البستان</Link>{" "}
+              للتنقل بين كل التخصصات. للاستفسار{" "}
+              <Link to="/contact" className="text-primary font-semibold hover:underline" onClick={() => trackSeoLinkClick("store_detail_seo", "page", "تواصل", "/contact")}>تواصل مع فريق المول</Link>.
             </p>
           </div>
         </div>
