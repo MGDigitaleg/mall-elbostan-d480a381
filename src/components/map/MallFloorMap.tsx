@@ -50,6 +50,10 @@ const statusStroke: Record<MallUnitStatus, string> = {
 export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit, onAtriumClick, atriumConfig, highlightedUnitIds, activeMarkerUnitId, hideControls, className, floorLabel, onClearSelection }: Props) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [hoveredBadgeId, setHoveredBadgeId] = useState<string | null>(null);
+  // Tap-to-confirm: first tap shows a confirmation tooltip; second tap (or ✓) opens details.
+  // Prevents accidental selections while panning/zooming on touch devices.
+  const [pendingUnitId, setPendingUnitId] = useState<string | null>(null);
+  const didPanRef = useRef(false);
   const atriumMode = atriumConfig?.mode ?? "spin";
   const pulseColor = atriumConfig?.pulseColor;
   const atriumLabel = atriumConfig?.label;
