@@ -127,14 +127,66 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
 
   const handlePointerUp = useCallback(() => { isPanning.current = false; }, []);
 
+  /**
+   * Spatial keyboard navigation between units.
+   * - Enter / Space: select the unit
+   * - Arrow keys: move focus to the spatially-nearest unit in that screen direction.
+   *   In RTL, ArrowRight = previous (moves toward "earlier" unit on screen),
+   *   ArrowLeft = next. Up/Down work in screen coordinates as expected.
+   */
+  const moveFocusToUnit = useCallback((unitId: string) => {
+    const el = containerRef.current?.querySelector<SVGElement>(`[data-unit-id="${unitId}"]`);
+    el?.focus();
+  }, []);
+
+  const findNeighbor = useCallback((from: MallUnit, dir: "up" | "down" | "left" | "right"): MallUnit | null => {
+    const candidates = floor.units.filter((u) => u.id !== from.id && !mutedUnitIds.has(u.id));
+    if (!candidates.length) return null;
+    const fx = from.labelX;
+    const fy = from.labelY;
+    let best: { unit: MallUnit; score: number } | null = null;
+    for (const u of candidates) {
+      const dx = u.labelX - fx;
+      const dy = u.labelY - fy;
+      // Directional gate
+      const aligned =
+        dir === "up" ? dy < -1 :
+        dir === "down" ? dy > 1 :
+        dir === "left" ? dx < -1 :
+        /* right */ dx > 1;
+      if (!aligned) continue;
+      // Penalize off-axis distance more than on-axis distance
+      const onAxis = (dir === "up" || dir === "down") ? Math.abs(dy) : Math.abs(dx);
+      const offAxis = (dir === "up" || dir === "down") ? Math.abs(dx) : Math.abs(dy);
+      const score = onAxis + offAxis * 2.2;
+      if (!best || score < best.score) best = { unit: u, score };
+    }
+    return best?.unit ?? null;
+  }, [floor.units, mutedUnitIds]);
+
   const handleUnitKeyDown = useCallback(
     (e: React.KeyboardEvent, unit: MallUnit) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         onSelectUnit(unit);
+        return;
+      }
+      // Map RTL arrow semantics: ArrowRight = visual-left in LTR sense -> use as "previous"
+      // For a 2D mall map we navigate spatially regardless of RTL.
+      let dir: "up" | "down" | "left" | "right" | null = null;
+      if (e.key === "ArrowUp") dir = "up";
+      else if (e.key === "ArrowDown") dir = "down";
+      else if (e.key === "ArrowLeft") dir = "left";
+      else if (e.key === "ArrowRight") dir = "right";
+      if (!dir) return;
+      const next = findNeighbor(unit, dir);
+      if (next) {
+        e.preventDefault();
+        e.stopPropagation();
+        moveFocusToUnit(next.id);
       }
     },
-    [onSelectUnit],
+    [onSelectUnit, findNeighbor, moveFocusToUnit],
   );
 
   const handleContainerKeyDown = useCallback((e: React.KeyboardEvent) => {
