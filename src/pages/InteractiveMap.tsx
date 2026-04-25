@@ -31,6 +31,8 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import { MapErrorBoundary } from "@/components/map/MapErrorBoundary";
 import { UnitDetailsCard, type ActiveRewardContext } from "@/components/map/UnitDetailsCard";
 import { MapQuickPreview } from "@/components/map/MapQuickPreview";
+import { UnitInfoDrawer } from "@/components/map/UnitInfoDrawer";
+import { useUnitOffersCount } from "@/hooks/useUnitOffersCount";
 import { MapLegend } from "@/components/map/MapLegend";
 import { AtriumSpinModal, type SpinWinResult } from "@/components/map/AtriumSpinModal";
 import { AtriumHubModal, DEFAULT_ATRIUM_CONFIG, type AtriumConfig } from "@/components/map/AtriumHubModal";
@@ -96,6 +98,10 @@ const InteractiveMap = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [atriumConfig] = useState<AtriumConfig>(DEFAULT_ATRIUM_CONFIG);
+  // Controls the mobile full-details Drawer; the compact in-map UnitInfoDrawer
+  // remains the default surface after selection on mobile.
+  const [detailsSheetOpen, setDetailsSheetOpen] = useState(false);
+  const { data: offersBySlug } = useUnitOffersCount();
 
   // Auto-highlight unit from URL params
   useEffect(() => {
@@ -220,6 +226,12 @@ const InteractiveMap = () => {
       setSelectedUnit(null);
     }
   }, [mutedUnitIds, selectedUnit, selectedFloor]);
+
+  // Close the mobile full-details sheet whenever the active unit clears
+  // (e.g. user taps × on the compact UnitInfoDrawer or switches floors).
+  useEffect(() => {
+    if (!activeUnit) setDetailsSheetOpen(false);
+  }, [activeUnit]);
 
   const floorAvailable = floor.units.filter((u) => u.status === "available").length;
   const floorOccupied = floor.units.filter((u) => u.status === "occupied").length;
@@ -460,6 +472,17 @@ const InteractiveMap = () => {
                   onExpand={() => {
                     document.getElementById("unit-details-anchor")?.scrollIntoView({ behavior: "smooth", block: "start" });
                   }}
+                />
+              )}
+
+              {/* Compact unit info drawer — mobile-only bottom bar with name, status,
+                  offers count and a clear button to deselect/return to overview. */}
+              {isMobile && (
+                <UnitInfoDrawer
+                  unit={activeUnit}
+                  offersBySlug={offersBySlug}
+                  onClear={() => setSelectedUnit(null)}
+                  onViewDetails={() => setDetailsSheetOpen(true)}
                 />
               )}
             </div>
@@ -882,8 +905,12 @@ const InteractiveMap = () => {
       {/* ═══════════ MERCHANT LOGO WALL ═══════════ */}
       <MerchantLogoWall />
 
-      {/* ── Mobile drawer ── */}
-      <Drawer open={isMobile && !!activeUnit} onOpenChange={(open) => !open && setSelectedUnit(null)}>
+      {/* ── Mobile full-details drawer ── opens via the compact UnitInfoDrawer's
+          "تفاصيل" button so selecting a unit no longer auto-pops a heavy sheet. */}
+      <Drawer
+        open={isMobile && !!activeUnit && detailsSheetOpen}
+        onOpenChange={(open) => setDetailsSheetOpen(open)}
+      >
         <DrawerContent className="max-h-[85vh] rounded-t-2xl border-border bg-card">
           <DrawerHeader className="border-b border-border text-right">
             <DrawerTitle>{activeUnit ? `وحدة ${activeUnit.code}` : "تفاصيل الوحدة"}</DrawerTitle>
