@@ -310,19 +310,88 @@ const DailyDeals = () => {
                 </div>
               </div>
 
-              {/* Active merchant — link to store page */}
-              {activeMerchant && (
-                <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-primary/20 bg-primary/[0.04] px-3 py-1.5">
-                  <span className="text-[0.66rem] text-muted-foreground">
-                    عرض عروض <strong className="font-bold text-foreground">{merchantGroups.find((m) => m.slug === activeMerchant)?.name ?? activeMerchant}</strong> فقط
-                  </span>
-                  <Link to={`/stores/${activeMerchant}`}>
-                    <Button variant="outline-blue" className="h-7 rounded-full px-3 text-[0.62rem] font-bold gap-1">
-                      صفحة المحل <ArrowLeft className="h-3 w-3" />
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              {/* Active filters summary — removable chips + reset all */}
+              {(activeMerchant || activeCategory) && (() => {
+                const merchantInfo = activeMerchant
+                  ? merchantGroups.find((m) => m.slug === activeMerchant)
+                  : null;
+                const categoryInfo = activeCategory
+                  ? categoryGroups.find((c) => c.name === activeCategory)
+                  : null;
+                const resetAll = () => {
+                  const next = new URLSearchParams(searchParams);
+                  next.delete("merchant");
+                  next.delete("category");
+                  setSearchParams(next, { replace: true });
+                };
+                return (
+                  <div
+                    role="region"
+                    aria-label="الفلاتر النشطة"
+                    className="flex flex-wrap items-center gap-2 rounded-lg border border-primary/20 bg-primary/[0.04] px-3 py-1.5"
+                  >
+                    <span className="text-[0.62rem] font-semibold text-muted-foreground">
+                      الفلاتر النشطة:
+                    </span>
+                    <span className="text-[0.66rem] text-muted-foreground">
+                      {gridDeals.length.toLocaleString("ar-EG")} عرض مطابق
+                    </span>
+
+                    {merchantInfo && (
+                      <button
+                        type="button"
+                        onClick={() => setFilter("merchant", null)}
+                        aria-label={`إزالة فلتر المحل: ${merchantInfo.name}`}
+                        className="group inline-flex h-7 items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 text-[0.64rem] font-bold text-foreground transition-colors hover:bg-primary/20"
+                      >
+                        <Store className="h-3 w-3 opacity-70" aria-hidden="true" />
+                        <span>المحل: {merchantInfo.name}</span>
+                        <span className="rounded-full bg-background/60 px-1.5 text-[0.58rem] font-bold text-muted-foreground">
+                          {merchantInfo.count.toLocaleString("ar-EG")}
+                        </span>
+                        <span className="text-[0.78rem] leading-none opacity-70 transition-opacity group-hover:opacity-100" aria-hidden="true">
+                          ×
+                        </span>
+                      </button>
+                    )}
+
+                    {categoryInfo && (
+                      <button
+                        type="button"
+                        onClick={() => setFilter("category", null)}
+                        aria-label={`إزالة فلتر الفئة: ${categoryInfo.name}`}
+                        className="group inline-flex h-7 items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-2.5 text-[0.64rem] font-bold text-foreground transition-colors hover:bg-primary/20"
+                      >
+                        <Tag className="h-3 w-3 opacity-70" aria-hidden="true" />
+                        <span>الفئة: {categoryInfo.name}</span>
+                        <span className="rounded-full bg-background/60 px-1.5 text-[0.58rem] font-bold text-muted-foreground">
+                          {categoryInfo.count.toLocaleString("ar-EG")}
+                        </span>
+                        <span className="text-[0.78rem] leading-none opacity-70 transition-opacity group-hover:opacity-100" aria-hidden="true">
+                          ×
+                        </span>
+                      </button>
+                    )}
+
+                    <div className="ms-auto flex items-center gap-1.5">
+                      {activeMerchant && (
+                        <Link to={`/stores/${activeMerchant}`}>
+                          <Button variant="outline-blue" className="h-7 rounded-full px-3 text-[0.62rem] font-bold gap-1">
+                            صفحة المحل <ArrowLeft className="h-3 w-3" />
+                          </Button>
+                        </Link>
+                      )}
+                      <button
+                        type="button"
+                        onClick={resetAll}
+                        className="h-7 rounded-full border border-border/70 bg-card px-3 text-[0.62rem] font-bold text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        إعادة الضبط
+                      </button>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Unified grid */}
