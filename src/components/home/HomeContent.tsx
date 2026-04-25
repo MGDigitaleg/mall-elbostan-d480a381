@@ -134,24 +134,24 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* ═══════════ HOMEPAGE ANCHOR NAV ═══════════ */}
       <HomeAnchorNav />
 
-      {/* ═══════════ SEO INTRO (compact) ═══════════ */}
+      {/* ═══════════ SEO INTRO (compact bridge) ═══════════ */}
       <section
         className="bg-card dark:bg-background"
-        style={{ paddingTop: "clamp(18px, 2.2vw, 28px)", paddingBottom: "clamp(12px, 1.6vw, 20px)" }}
+        style={{ paddingTop: "clamp(12px, 1.5vw, 20px)", paddingBottom: "clamp(8px, 1vw, 14px)" }}
       >
-        <div className="container max-w-4xl text-center">
+        <div className="container max-w-3xl text-center">
           <h1
-            className="text-[1rem] md:text-[1.2rem] font-bold leading-[1.4] text-foreground"
+            className="text-[0.92rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground"
             style={{ fontFamily: "var(--font-arabic-display)" }}
           >
-            مول البستان: وجهتك الأولى للكمبيوتر والإلكترونيات في وسط القاهرة
+            مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة
           </h1>
-          <p className="mt-2 text-[0.78rem] leading-[1.85] text-muted-foreground max-w-2xl mx-auto">
-            أكثر من 150 محل متخصص في{" "}
-            <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">اللابتوبات والكمبيوتر</Link>،{" "}
-            <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link>،{" "}
-            <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link>{" "}
-            و<Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link>.
+          <p className="mt-1.5 text-[0.74rem] leading-[1.7] text-muted-foreground max-w-xl mx-auto">
+            +150 محل في{" "}
+            <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">الكمبيوتر</Link> ·{" "}
+            <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link> ·{" "}
+            <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link> ·{" "}
+            <Link to="/stores?category=الصيانة والدعم الفني" className="text-primary font-semibold hover:underline">الصيانة</Link>
           </p>
         </div>
       </section>
