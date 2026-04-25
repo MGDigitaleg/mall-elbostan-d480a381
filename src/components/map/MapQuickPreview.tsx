@@ -42,7 +42,7 @@ export function MapQuickPreview({ unit, onClose, onExpand }: Props) {
               const tenantName = UNIT_TENANT_NAMES[unit.id];
               const tenantLogo = UNIT_TENANT_LOGOS[unit.id];
               const isOccupied = unit.status === "occupied";
-              const storeHref = tenantSlug ? `/stores/${tenantSlug}` : "/stores";
+              const storeHref = tenantSlug ? `/stores/${tenantSlug}?from=map` : "/stores";
               const displayName = (isOccupied && tenantName) || unit.code;
 
               return (
