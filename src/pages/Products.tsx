@@ -79,6 +79,26 @@ const Products = () => {
   );
   const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">(urlSort);
 
+  // Filter bar collapse state — persisted; defaults open on desktop, collapsed on mobile
+  const [isFilterBarOpen, setIsFilterBarOpen] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      const stored = window.localStorage.getItem("products-filter-bar-open");
+      if (stored === "true") return true;
+      if (stored === "false") return false;
+    } catch {
+      // ignore
+    }
+    return window.matchMedia("(min-width: 1024px)").matches;
+  });
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("products-filter-bar-open", String(isFilterBarOpen));
+    } catch {
+      // ignore
+    }
+  }, [isFilterBarOpen]);
+
   // Sync URL when filters change (sort included so the choice survives filter changes)
   useEffect(() => {
     const params = new URLSearchParams();
