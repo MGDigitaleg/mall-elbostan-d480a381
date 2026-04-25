@@ -31,6 +31,9 @@ const DealsTeaser = lazy(() =>
 const MapTeaserCompact = lazy(() =>
   import("@/components/home/MapTeaserCompact").then((m) => ({ default: m.MapTeaserCompact }))
 );
+const TechPlanetCTA = lazy(() =>
+  import("@/components/home/TechPlanetCTA").then((m) => ({ default: m.TechPlanetCTA }))
+);
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
