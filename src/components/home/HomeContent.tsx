@@ -93,7 +93,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         )
         .eq("status", "published")
         .order("created_at", { ascending: false })
-        .limit(36);
+        .limit(48);
       return (data ?? []) as ProductRow[];
     },
     enabled: ready,
@@ -103,17 +103,17 @@ export function HomeContent({ faqs }: HomeContentProps) {
   const products = allProducts ?? [];
   const productsWithImages = useMemo(() => products.filter((p) => p.image_url), [products]);
 
-  /* Featured first (large block) */
+  /* Featured first (large block) — 18 items */
   const featuredProducts = useMemo(() => {
     const featured = productsWithImages.filter((p) => p.featured);
     const rest = productsWithImages.filter((p) => !p.featured);
-    return [...featured, ...rest].slice(0, 12);
+    return [...featured, ...rest].slice(0, 18);
   }, [productsWithImages]);
 
-  /* Latest picks (skip those already shown above) */
+  /* Latest picks — 12 items, skipping any already in featured */
   const latestProducts = useMemo(() => {
     const featuredIds = new Set(featuredProducts.map((p) => p.id));
-    return productsWithImages.filter((p) => !featuredIds.has(p.id)).slice(0, 8);
+    return productsWithImages.filter((p) => !featuredIds.has(p.id)).slice(0, 12);
   }, [productsWithImages, featuredProducts]);
 
   return (
