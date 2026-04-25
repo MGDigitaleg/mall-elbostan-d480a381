@@ -430,26 +430,7 @@ const Products = () => {
       }));
   }, [allProducts]);
 
-  /* ── Trending products (after featured) — most-recent non-featured with images ── */
-  const trendingHighlights = useMemo(() => {
-    return allProducts
-      .filter((p) => p.product_image)
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 18)
-      .map((p) => ({
-        id: p.id,
-        name_ar: p.product_name,
-        slug: p.slug,
-        price: p.price,
-        price_note: p.priceNote,
-        image_url: p.product_image,
-        featured: p.featured,
-        brand: p.brand,
-        stores: p.shop_name
-          ? { name_ar: p.shop_name, slug: p.storeSlug ?? "", logo_url: p.storeLogo, category: p.section }
-          : null,
-      }));
-  }, [allProducts]);
+  /* Trending highlights removed — single featured strip only on this page */
 
   const clearFilters = useCallback(() => {
     setSelectedSection("all");
