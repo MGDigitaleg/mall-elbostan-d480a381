@@ -246,6 +246,13 @@ export function HomeContent({ faqs }: HomeContentProps) {
         </div>
       </section>
 
+      {/* ═══════════ 7.5 · TECH PLANET TEASER (compact strip) ═══════════ */}
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 200px" } as React.CSSProperties}>
+        <LazySection minHeight={180}>
+          <Suspense fallback={<div style={{ minHeight: 180 }} />}><TechPlanetCTA /></Suspense>
+        </LazySection>
+      </section>
+
       {/* ═══════════ 8 · WHY EL BOSTAN ═══════════ */}
       <WhyElBostan />
 
