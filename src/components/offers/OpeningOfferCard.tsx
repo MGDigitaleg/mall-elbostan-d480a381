@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX } from "lucide-react";
+import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX, Heart, Scale } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import { optimizeImageUrl } from "@/lib/imageUtils";
+import { useOfferCollections, COMPARE_MAX } from "@/hooks/useOfferCollections";
+import { toast } from "sonner";
 
 export type OpeningOfferRecord = {
   id: string;
@@ -39,6 +41,8 @@ type Props = {
   showAllStoreOffersCta?: boolean;
   directOfferHref?: string;
   directOfferLabel?: string;
+  /** Hide favorite/compare quick actions (e.g. inside the saved drawer itself). */
+  hideCollectionActions?: boolean;
 };
 
 function formatCurrency(value?: number | null, currency = "EGP") {
@@ -72,7 +76,28 @@ function getCampaignState(validTo?: string | null): CampaignState {
   return { status: "active", label: "" };
 }
 
-export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض" }: Props) {
+export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض", hideCollectionActions = false }: Props) {
+  const { isFavorite, isCompared, toggleFavorite, toggleCompare } = useOfferCollections();
+  const favorite = isFavorite(offer.id);
+  const compared = isCompared(offer.id);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(offer.id);
+    toast.success(favorite ? "أُزيل من المفضلة" : "أُضيف إلى المفضلة", { duration: 1500 });
+  };
+
+  const handleCompareClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const result = toggleCompare(offer.id);
+    if (!result.ok && result.reason === "limit") {
+      toast.error(`يمكن مقارنة حتى ${COMPARE_MAX} عروض فقط`, { duration: 1800 });
+      return;
+    }
+    toast.success(compared ? "أُزيل من المقارنة" : "أُضيف إلى المقارنة", { duration: 1500 });
+  };
   const store = offer.stores;
   const discount = calculateDiscount(offer.price_current, offer.price_old);
   const priceNow = formatCurrency(offer.price_current, offer.currency ?? "EGP");
@@ -176,6 +201,39 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
             </span>
           )}
         </div>
+
+        {!hideCollectionActions && !isExpired && (
+          <div className={`absolute top-1/2 -translate-y-1/2 flex flex-col gap-1.5 z-10 ${c ? "end-2" : "end-2.5"}`}>
+            <button
+              type="button"
+              onClick={handleFavoriteClick}
+              aria-pressed={favorite}
+              aria-label={favorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+              title={favorite ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-md shadow-sm transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                favorite
+                  ? "border-rose-400/40 bg-rose-500 text-white"
+                  : "border-border/70 bg-background/90 text-foreground/70 hover:text-rose-500 hover:border-rose-400/40"
+              }`}
+            >
+              <Heart className={`h-3.5 w-3.5 ${favorite ? "fill-current" : ""}`} aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={handleCompareClick}
+              aria-pressed={compared}
+              aria-label={compared ? "إزالة من المقارنة" : "إضافة إلى المقارنة"}
+              title={compared ? "إزالة من المقارنة" : "إضافة إلى المقارنة"}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-md shadow-sm transition-all hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                compared
+                  ? "border-primary/40 bg-primary text-primary-foreground"
+                  : "border-border/70 bg-background/90 text-foreground/70 hover:text-primary hover:border-primary/40"
+              }`}
+            >
+              <Scale className="h-3.5 w-3.5" aria-hidden="true" />
+            </button>
+          </div>
+        )}
 
         {isExpired && (
           <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-background/55 backdrop-blur-[2px]">

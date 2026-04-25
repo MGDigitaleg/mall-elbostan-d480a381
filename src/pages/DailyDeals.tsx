@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag } from "lucide-react";
+import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag, Heart, Scale } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -10,6 +10,8 @@ import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 import { Button } from "@/components/ui/button";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
 import { OfferSpotlightStrip } from "@/components/offers/OfferSpotlightStrip";
+import { OfferCollectionsDrawer } from "@/components/offers/OfferCollectionsDrawer";
+import { useOfferCollections } from "@/hooks/useOfferCollections";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
 const PAGE_BATCH = 8;
@@ -85,6 +87,9 @@ const DailyDeals = () => {
   type SortKey = "newest" | "strongest" | "expiring";
   const [sortKey, setSortKey] = useState<SortKey>("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_BATCH);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const { favorites, compare } = useOfferCollections();
+  const savedCount = favorites.length + compare.length;
 
   const discountPct = (d: OpeningOfferRecord) => {
     const cur = Number(d.price_current ?? 0);
@@ -444,6 +449,35 @@ const DailyDeals = () => {
           </>
         )}
       </div>
+
+      {/* Floating button — open saved offers / comparison drawer */}
+      {(allDeals?.length ?? 0) > 0 && (
+        <button
+          type="button"
+          onClick={() => setCollectionsOpen(true)}
+          aria-label={`عرض العروض المحفوظة (${savedCount})`}
+          className="fixed bottom-5 start-5 z-40 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary px-4 py-2.5 text-[0.74rem] font-bold text-primary-foreground shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+        >
+          <Heart className="h-3.5 w-3.5" />
+          <span>محفوظاتي</span>
+          {favorites.length > 0 && (
+            <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-rose-500 px-1.5 text-[0.62rem] font-bold text-white">
+              {favorites.length.toLocaleString("ar-EG")}
+            </span>
+          )}
+          {compare.length > 0 && (
+            <span className="inline-flex h-5 items-center gap-0.5 rounded-full bg-background/20 px-1.5 text-[0.62rem] font-bold text-primary-foreground">
+              <Scale className="h-2.5 w-2.5" /> {compare.length.toLocaleString("ar-EG")}
+            </span>
+          )}
+        </button>
+      )}
+
+      <OfferCollectionsDrawer
+        open={collectionsOpen}
+        onOpenChange={setCollectionsOpen}
+        offers={allDeals ?? []}
+      />
     </MainLayout>
   );
 };
