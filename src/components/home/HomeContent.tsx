@@ -268,34 +268,30 @@ export function HomeContent({ faqs }: HomeContentProps) {
         className="relative overflow-hidden"
         style={{
           background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-          paddingTop: "clamp(36px, 4.5vw, 72px)",
-          paddingBottom: "clamp(36px, 4.5vw, 72px)",
+          paddingTop: "clamp(24px, 3vw, 48px)",
+          paddingBottom: "clamp(24px, 3vw, 48px)",
         }}
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }} />
-        </div>
-
         <div className="container relative max-w-5xl">
           <Reveal>
-            <div className="grid items-start gap-8 lg:grid-cols-[0.75fr_1.25fr]">
+            <div className="grid items-start gap-6 lg:grid-cols-[0.75fr_1.25fr]">
               <div className="lg:sticky lg:top-24">
-                <p className="text-[0.68rem] font-semibold tracking-[0.04em] mb-3" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
-                <h2 className="text-[1.15rem] md:text-[1.35rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
+                <p className="text-[0.64rem] font-semibold tracking-[0.04em] mb-2" style={{ color: "#60A5FA" }}>أسئلة شائعة</p>
+                <h2 className="text-[1.05rem] md:text-[1.25rem] font-bold leading-[1.15]" style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
                   إجابات سريعة.
                 </h2>
-                <p className="mt-2.5 text-[0.8rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
+                <p className="mt-2 text-[0.76rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
                   أبرز الأسئلة حول الموقع والافتتاح والتأجير.
                 </p>
-                <Link to="/faq" className="mt-4 inline-flex">
-                  <Button className="h-9 rounded-xl border px-5 text-[0.78rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
+                <Link to="/faq" className="mt-3 inline-flex">
+                  <Button className="h-9 rounded-xl border px-5 text-[0.76rem] font-bold gap-1.5 transition-colors hover:bg-white/8"
                           style={{ borderColor: "#ffffff15", background: "#ffffff06", color: "#CBD5E1" }}>
                     جميع الأسئلة <ArrowLeft className="h-3 w-3" />
                   </Button>
                 </Link>
               </div>
 
-              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2.5">
+              <Accordion type="single" collapsible defaultValue={faqItems[0]?.id} className="space-y-2">
                 {faqItems.map((faq, i) => (
                   <AccordionItem
                     key={faq.id}
@@ -303,7 +299,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                     className="overflow-hidden rounded-xl border px-4 transition-colors data-[state=open]:bg-white/[0.03]"
                     style={{ background: "#ffffff03", borderColor: "#ffffff0A" }}
                   >
-                    <AccordionTrigger className="min-h-[3rem] py-3.5 text-right text-[0.84rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
+                    <AccordionTrigger className="min-h-[2.75rem] py-3 text-right text-[0.82rem] font-bold hover:no-underline" style={{ color: "#F1F5F9" }}>
                       <span className="flex items-center gap-2.5">
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md font-poppins text-[0.6rem] font-extrabold"
                               style={{ background: "#2563EB12", color: "#60A5FA", border: "1px solid #2563EB20" }}>
@@ -312,7 +308,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                         {faq.question_ar}
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className="pb-3.5 pr-9 text-[0.78rem] leading-[1.8]" style={{ color: "#94A3B8" }}>
+                    <AccordionContent className="pb-3 pr-9 text-[0.76rem] leading-[1.75]" style={{ color: "#94A3B8" }}>
                       {faq.answer_ar}
                     </AccordionContent>
                   </AccordionItem>
