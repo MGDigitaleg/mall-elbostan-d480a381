@@ -165,7 +165,10 @@ const About = () => {
                   title: "إرث منذ 1990 — منظومة متكاملة",
                   body: (
                     <>
-                      <strong className="text-foreground">مول البستان</strong> هو أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ عام 1990. أكثر من 460 محلاً عبر فرعين، بتغطية تقنية تشمل{" "}
+                      <strong className="text-foreground">مول البستان</strong> هو أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ عام 1990 — تعرّف على{" "}
+                      <Link to="/downtown-branch" className="text-primary font-semibold hover:underline">قصة فرع وسط البلد</Link>{" "}
+                      ودليله الكامل في{" "}
+                      <Link to="/downtown-directory" className="text-primary font-semibold hover:underline">دليل تجار وسط البلد</Link>. يضم اليوم أكثر من 460 محلاً عبر فرعين، بتغطية تشمل{" "}
                       <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">الكمبيوتر</Link>،{" "}
                       <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link>،{" "}
                       <Link to="/stores?category=الألعاب والترفيه" className="text-primary font-semibold hover:underline">الجيمنج</Link>،{" "}
@@ -178,10 +181,15 @@ const About = () => {
                   title: "تجربة منظمة في موقع مركزي",
                   body: (
                     <>
-                      فرع القاهرة الجديدة يخدم <strong className="text-foreground">التجمع</strong>،{" "}
-                      <strong className="text-foreground">مدينتي</strong> و<strong className="text-foreground">الرحاب</strong>، مع{" "}
-                      <Link to="/map" className="text-primary font-semibold hover:underline">خريطة تفاعلية</Link> و
-                      <Link to="/products" className="text-primary font-semibold hover:underline"> كتالوج منتجات</Link> لمقارنة الأسعار قبل الزيارة.
+                      <Link to="/new-cairo-branch" className="text-primary font-semibold hover:underline">فرع القاهرة الجديدة</Link>{" "}
+                      يخدم التجمع، مدينتي والرحاب، مع{" "}
+                      <Link to="/map" className="text-primary font-semibold hover:underline">خريطة تفاعلية</Link>،{" "}
+                      <Link to="/products" className="text-primary font-semibold hover:underline">كتالوج منتجات</Link>{" "}
+                      للمقارنة قبل الزيارة، و<Link to="/tech-planet" className="text-primary font-semibold hover:underline">كوكب البستان</Link>{" "}
+                      لاستكشاف التخصصات. للتجار:{" "}
+                      <Link to="/leasing" className="text-primary font-semibold hover:underline">وحدات للتأجير</Link>،{" "}
+                      وللاستفسارات{" "}
+                      <Link to="/contact" className="text-primary font-semibold hover:underline">تواصل مع فريق المول</Link>.
                     </>
                   ),
                 },
