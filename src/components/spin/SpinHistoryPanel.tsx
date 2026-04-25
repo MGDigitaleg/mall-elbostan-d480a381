@@ -243,6 +243,41 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
         </div>
       ) : (
         <>
+          {/* Expiry alert banner */}
+          {(expirySummary.expired > 0 || expirySummary.soon > 0) && (
+            <div
+              className={`mb-3 flex items-start gap-2.5 p-3 rounded-xl border ${
+                expirySummary.expired > 0
+                  ? "bg-destructive/10 border-destructive/30"
+                  : "bg-orange/10 border-orange/30"
+              }`}
+            >
+              <div
+                className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                  expirySummary.expired > 0
+                    ? "bg-destructive/15 text-destructive"
+                    : "bg-orange/20 text-orange"
+                }`}
+              >
+                {expirySummary.expired > 0 ? <AlertTriangle className="w-4 h-4" /> : <TimerReset className="w-4 h-4" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground">
+                  {expirySummary.expired > 0 && expirySummary.soon > 0
+                    ? `لديك ${expirySummary.expired} جائزة منتهية و ${expirySummary.soon} على وشك الانتهاء`
+                    : expirySummary.expired > 0
+                      ? `لديك ${expirySummary.expired} ${expirySummary.expired === 1 ? "جائزة منتهية الصلاحية" : "جوائز منتهية الصلاحية"}`
+                      : `لديك ${expirySummary.soon} ${expirySummary.soon === 1 ? "جائزة على وشك الانتهاء" : "جوائز على وشك الانتهاء"}`}
+                </p>
+                <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                  {expirySummary.expired > 0
+                    ? "الرموز المنتهية لم تعد قابلة للاستلام من المتجر الراعي."
+                    : "ننصح بالتوجه للفرع لاستلام الجائزة قبل انتهاء صلاحية الرمز."}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Filter tabs */}
           <div className="flex items-center gap-1.5 mb-3 overflow-x-auto pb-1 -mx-1 px-1">
             <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-muted-foreground shrink-0 ml-1">
