@@ -94,9 +94,15 @@ const DailyDeals = () => {
   const merchantCount = merchantGroups.length;
   const openNowCount = (allDeals ?? []).filter((deal) => deal.opening_status === "opening_soon").length;
 
-  type SortKey = "newest" | "strongest" | "expiring";
+  type SortKey = "newest" | "discount" | "expiring";
   const [sortKey, setSortKey] = useState<SortKey>("newest");
   const [visibleCount, setVisibleCount] = useState(PAGE_BATCH);
+
+  // Reset pagination whenever sorting or filters change so users always see the
+  // first page of the new ordering instead of a sliced middle.
+  useEffect(() => {
+    setVisibleCount(PAGE_BATCH);
+  }, [sortKey, activeMerchant, activeCategory]);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const { favorites, compare } = useOfferCollections();
   const savedCount = favorites.length + compare.length;
