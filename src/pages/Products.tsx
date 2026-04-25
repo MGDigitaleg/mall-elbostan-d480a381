@@ -575,58 +575,26 @@ const Products = () => {
 
       <div className="band-primary" />
 
-      {/* ═══ Premium Featured Rail (top, no filters active) ═══ */}
+      {/* ═══ Single compact Featured Rail (top, no filters active) ═══ */}
       {!hasActiveFilters && (isLoading || featuredHighlights.length >= 3) && (
         <section
           className="relative overflow-hidden"
           style={{
             background: "linear-gradient(160deg, #071326 0%, #0D1F3C 50%, #071326 100%)",
-            paddingTop: "clamp(40px, 5vw, 72px)",
-            paddingBottom: "clamp(40px, 5vw, 72px)",
+            paddingTop: "clamp(20px, 2.6vw, 36px)",
+            paddingBottom: "clamp(20px, 2.6vw, 36px)",
           }}
         >
-          <div className="absolute inset-0 pointer-events-none">
-            <div
-              className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.04]"
-              style={{ background: "radial-gradient(circle, #2563EB 0%, transparent 70%)" }}
-            />
-          </div>
           <div className="container relative max-w-[1200px]">
             <ProductRail
-              kicker="اختيارات مميزة"
-              title="منتجات مميزة من المول"
-              subtitle="أبرز ما اختارته محلات مول البستان لك."
-              products={featuredHighlights}
+              kicker="مختارات"
+              title="منتجات مميزة"
+              subtitle="أبرز ما اختارته محلات مول البستان."
+              products={featuredHighlights.slice(0, 8)}
               ctaLabel="تصفّح الكل"
               ctaTo="#products"
               layout="rail"
               theme="dark"
-              density="premium"
-              loading={isLoading}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* ═══ Trending Rail (standard density, light theme) ═══ */}
-      {!hasActiveFilters && (isLoading || trendingHighlights.length >= 6) && (
-        <section
-          className="bg-card dark:bg-background"
-          style={{
-            paddingTop: "clamp(40px, 5vw, 72px)",
-            paddingBottom: "clamp(40px, 5vw, 72px)",
-          }}
-        >
-          <div className="container max-w-[1200px]">
-            <ProductRail
-              kicker="الأكثر طلباً"
-              title="المنتجات الرائجة"
-              subtitle="منتجات يبحث عنها الزوار ويطلبها السوق."
-              products={trendingHighlights}
-              ctaLabel="تصفّح كل المنتجات"
-              ctaTo="#products"
-              layout="grid"
-              theme="light"
               density="standard"
               loading={isLoading}
             />
