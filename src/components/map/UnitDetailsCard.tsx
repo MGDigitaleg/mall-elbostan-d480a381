@@ -35,22 +35,31 @@ function RewardBanner({ ctx }: { ctx: ActiveRewardContext }) {
 
 function UnitDetail({ unit, rewardCtx }: { unit: MallUnit; rewardCtx?: ActiveRewardContext }) {
   const badge = statusBadge[unit.status];
+  const tenantSlug = UNIT_TENANT_SLUGS[unit.id];
+  const tenantName = UNIT_TENANT_NAMES[unit.id];
+  const tenantLogo = UNIT_TENANT_LOGOS[unit.id];
+  const storeHref = tenantSlug ? `/stores/${tenantSlug}` : "/stores";
+  const isOccupied = unit.status === "occupied";
 
   return (
     <div className="space-y-3.5">
       {rewardCtx && <RewardBanner ctx={rewardCtx} />}
 
-      {/* Logo + Header */}
-      {UNIT_TENANT_LOGOS[unit.id] && unit.status === "occupied" && (
-        <div className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border">
+      {/* Logo + Header (clickable when linked to a real store) */}
+      {tenantLogo && isOccupied && (
+        <Link
+          to={storeHref}
+          className="flex items-center justify-center rounded-xl p-4 bg-secondary dark:bg-muted/30 border border-border transition-all hover:border-primary/30 hover:shadow-sm"
+          aria-label={`فتح صفحة ${tenantName ?? unit.code}`}
+        >
           <TenantLogo
-            src={UNIT_TENANT_LOGOS[unit.id]}
-            alt={UNIT_TENANT_NAMES[unit.id] ?? unit.code}
-            fallbackName={UNIT_TENANT_NAMES[unit.id] ?? undefined}
+            src={tenantLogo}
+            alt={tenantName ?? unit.code}
+            fallbackName={tenantName ?? undefined}
             size="md"
             rounded="lg"
           />
-        </div>
+        </Link>
       )}
 
       <div className="flex items-start justify-between gap-2">
