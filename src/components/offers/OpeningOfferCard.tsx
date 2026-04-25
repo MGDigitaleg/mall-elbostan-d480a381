@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock3, Store, Tag } from "lucide-react";
+import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
