@@ -152,9 +152,14 @@ export function DealsTeaser() {
                       <CountdownTimer compact />
                     </div>
                   )}
-                  <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 items-stretch auto-rows-fr">
+                  {/* Mobile: snap carousel with larger cards. From sm: grid */}
+                  <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:px-0 sm:pb-0 items-stretch sm:auto-rows-fr [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   {teaserDeals.map((deal) => (
-                    <div key={deal.id} className="h-full flex rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                    <div
+                      key={deal.id}
+                      className="snap-start shrink-0 basis-[86%] xs:basis-[78%] sm:basis-auto sm:shrink h-full flex rounded-xl overflow-hidden"
+                      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+                    >
                       <OpeningOfferCard offer={deal} compact showAllStoreOffersCta={false} />
                     </div>
                   ))}
