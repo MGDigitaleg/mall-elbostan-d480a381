@@ -326,13 +326,20 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
                 const date = new Date(it.at).toLocaleString("ar-EG", {
                   day: "numeric", month: "short", hour: "2-digit", minute: "2-digit",
                 });
-                const tone = it.is_grand
-                  ? "bg-navy/10 border-navy/30"
-                  : it.is_visitor
-                    ? "bg-orange/10 border-orange/30"
-                    : it.won
-                      ? "bg-primary/5 border-primary/20"
-                      : "bg-muted/40 border-border";
+                const expiry = getExpiryState(it);
+                const isExpired = expiry.status === "expired";
+                const isSoon = expiry.status === "soon";
+                const tone = isExpired
+                  ? "bg-destructive/5 border-destructive/30 opacity-80"
+                  : isSoon
+                    ? "bg-orange/10 border-orange/40"
+                    : it.is_grand
+                      ? "bg-navy/10 border-navy/30"
+                      : it.is_visitor
+                        ? "bg-orange/10 border-orange/30"
+                        : it.won
+                          ? "bg-primary/5 border-primary/20"
+                          : "bg-muted/40 border-border";
                 return (
                   <li key={it.id} className={`flex items-center gap-3 p-3 rounded-xl border ${tone}`}>
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-card shrink-0">
@@ -344,16 +351,37 @@ export const SpinHistoryPanel = ({ refreshKey = 0 }: Props) => {
                         {it.is_grand && <span className="mr-1 text-[10px] font-bold text-primary">• كبرى</span>}
                         {it.is_visitor && <span className="mr-1 text-[10px] font-bold text-orange">• زائر فرع</span>}
                       </p>
-                      <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {date}
+                      <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1.5 flex-wrap">
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          {date}
+                        </span>
+                        {expiry.status !== "none" && (
+                          <span
+                            className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold ${
+                              isExpired
+                                ? "bg-destructive/15 text-destructive"
+                                : isSoon
+                                  ? "bg-orange/20 text-orange"
+                                  : "bg-primary/10 text-primary"
+                            }`}
+                          >
+                            {isExpired ? <AlertTriangle className="w-3 h-3" /> : <TimerReset className="w-3 h-3" />}
+                            {expiry.label}
+                          </span>
+                        )}
                       </p>
                     </div>
                     {it.claim_code && (
                       <button
                         onClick={() => copy(it)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-card border border-border text-[11px] font-mono font-bold text-foreground hover:bg-primary/10 transition-colors"
-                        title="نسخ رمز الاستلام"
+                        disabled={isExpired}
+                        className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border text-[11px] font-mono font-bold transition-colors ${
+                          isExpired
+                            ? "bg-muted/40 border-border text-muted-foreground line-through cursor-not-allowed"
+                            : "bg-card border-border text-foreground hover:bg-primary/10"
+                        }`}
+                        title={isExpired ? "انتهت صلاحية الرمز" : "نسخ رمز الاستلام"}
                       >
                         {copiedId === it.id ? <Check className="w-3 h-3 text-primary" /> : <Copy className="w-3 h-3" />}
                         {it.claim_code}
