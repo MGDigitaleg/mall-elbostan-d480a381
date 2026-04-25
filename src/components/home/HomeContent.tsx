@@ -340,7 +340,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
               </h2>
             </div>
 
-            <div className="grid gap-2.5 sm:grid-cols-3">
             <div className="grid gap-2 sm:grid-cols-2">
               {officialPhone && (
                 <a
