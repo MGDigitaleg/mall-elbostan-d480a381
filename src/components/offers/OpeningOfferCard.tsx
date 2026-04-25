@@ -198,7 +198,7 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
           </div>
         )}
 
-        <div className={`rounded-2xl border border-border/60 bg-secondary/35 ${priceBoxPad}`}>
+        <div className={`mt-auto rounded-2xl border border-border/60 bg-secondary/35 ${priceBoxPad}`}>
           <div className="flex items-end justify-between gap-3">
             <div>
               {priceNow && <p className={`${priceNowClass} font-bold text-primary`}>{priceNow}</p>}
