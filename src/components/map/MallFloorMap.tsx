@@ -484,6 +484,21 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
               0%, 100% { transform: translateY(0px); }
               50% { transform: translateY(-5px); }
             }
+            /* Keyboard focus rings for SVG interactive elements (unit polygons
+               and the in-map tap-confirm action buttons). High contrast against
+               both the cream floor and the dark tooltip card. */
+            #units-layer [data-unit-id]:focus { outline: none; }
+            #units-layer [data-unit-id]:focus-visible {
+              stroke: #2563EB;
+              stroke-width: 4;
+              stroke-dasharray: 6 3;
+              filter: drop-shadow(0 0 4px rgba(37,99,235,0.55));
+            }
+            [data-tap-confirm] [data-confirm-action]:focus { outline: none; }
+            [data-tap-confirm] [data-confirm-action]:focus-visible rect {
+              stroke: #FFFFFF;
+              stroke-width: 2;
+            }
           `}</style>
           {floor.units.map((unit) => {
             const badgeW = 80;
