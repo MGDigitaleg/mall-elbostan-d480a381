@@ -76,7 +76,7 @@ const Products = () => {
   );
   const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">(urlSort);
 
-  // Sync URL when filters change
+  // Sync URL when filters change (sort included so the choice survives filter changes)
   useEffect(() => {
     const params = new URLSearchParams();
     if (selectedShop !== "all") params.set("shop_name", selectedShop);
@@ -88,8 +88,9 @@ const Products = () => {
       params.set("price_max", String(priceRange[1]));
     }
     if (searchTerm.trim()) params.set("q", searchTerm.trim());
+    if (sortBy !== "featured") params.set("sort", sortBy);
     setSearchParams(params, { replace: true });
-  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, setSearchParams]);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy, setSearchParams]);
 
   /* ── Fetch mall products ── */
   const { data: mallProducts, isLoading: loadingMall } = useQuery({
