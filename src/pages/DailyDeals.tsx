@@ -171,7 +171,7 @@ const DailyDeals = () => {
 
   const sortOptions: { key: SortKey; label: string }[] = [
     { key: "newest", label: "الأحدث" },
-    { key: "strongest", label: "الأقوى" },
+    { key: "discount", label: "الأعلى خصمًا" },
     { key: "expiring", label: "الأقرب لانتهاء العرض" },
   ];
 
