@@ -211,20 +211,53 @@ export function Footer() {
             تصفّح حسب الفئة
           </span>
           {[
-            { label: "كمبيوتر ولابتوب", to: "/stores?category=الكمبيوتر والأجهزة" },
-            { label: "موبايل وإكسسوارات", to: "/stores?category=الهواتف والإكسسوارات" },
-            { label: "جيمنج وألعاب", to: "/stores?category=الألعاب والترفيه" },
-            { label: "طباعة وتصوير", to: "/stores?category=الطباعة والتصوير" },
-            { label: "شبكات وأمن", to: "/stores?category=الشبكات والأنظمة الأمنية" },
-            { label: "صيانة ودعم فني", to: "/stores?category=الصيانة والدعم الفني" },
-          ].map((c) => (
+            { label: "كمبيوتر ولابتوب", category: "الكمبيوتر والأجهزة" },
+            { label: "موبايل وإكسسوارات", category: "الهواتف والإكسسوارات" },
+            { label: "جيمنج وألعاب", category: "الألعاب والترفيه" },
+            { label: "طباعة وتصوير", category: "الطباعة والتصوير" },
+            { label: "شبكات وأمن", category: "الشبكات والأنظمة الأمنية" },
+            { label: "صيانة ودعم فني", category: "الصيانة والدعم الفني" },
+          ].map((c) => {
+            const to = `/stores?category=${encodeURIComponent(c.category)}`;
+            return (
+              <Link
+                key={c.label}
+                to={to}
+                onClick={() => trackSeoLinkClick("footer", "category", c.category, to)}
+                className="text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
+                style={{ color: "#7C8BA1" }}
+              >
+                {c.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* ── QUICK DESTINATIONS (offers, map, leasing) ── */}
+        <div
+          className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3"
+          style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
+          aria-label="وجهات سريعة"
+        >
+          <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase shrink-0" style={{ color: "#CDBB9A" }}>
+            وجهات سريعة
+          </span>
+          {[
+            { label: "عروض الافتتاح", to: "/daily-deals" },
+            { label: "الخريطة التفاعلية", to: "/map" },
+            { label: "كتالوج المنتجات", to: "/products" },
+            { label: "كوكب البستان", to: "/tech-planet" },
+            { label: "اعرف أكثر", to: "/about" },
+            { label: "وحدات للتأجير", to: "/leasing" },
+          ].map((d) => (
             <Link
-              key={c.label}
-              to={c.to}
-              className="text-[0.74rem] transition-colors hover:text-white"
+              key={d.to}
+              to={d.to}
+              onClick={() => trackSeoLinkClick("footer", "page", d.label, d.to)}
+              className="text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
               style={{ color: "#7C8BA1" }}
             >
-              {c.label}
+              {d.label}
             </Link>
           ))}
         </div>
