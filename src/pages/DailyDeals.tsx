@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
-import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag } from "lucide-react";
+import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag, Heart, Scale } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -10,6 +10,8 @@ import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 import { Button } from "@/components/ui/button";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
 import { OfferSpotlightStrip } from "@/components/offers/OfferSpotlightStrip";
+import { OfferCollectionsDrawer } from "@/components/offers/OfferCollectionsDrawer";
+import { useOfferCollections } from "@/hooks/useOfferCollections";
 
 const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
 const PAGE_BATCH = 8;
