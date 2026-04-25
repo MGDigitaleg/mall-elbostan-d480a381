@@ -326,21 +326,18 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           scrollMarginTop: 80,
           background: "linear-gradient(180deg, #0A1830 0%, #071326 100%)",
-          paddingTop: "clamp(32px, 4vw, 56px)",
-          paddingBottom: "clamp(32px, 4vw, 56px)",
+          paddingTop: "clamp(22px, 2.8vw, 40px)",
+          paddingBottom: "clamp(22px, 2.8vw, 40px)",
         }}
       >
         <div className="container max-w-4xl">
           <Reveal>
-            <div className="text-center mb-5">
-              <p className="text-[0.66rem] font-semibold tracking-[0.04em] mb-2" style={{ color: "#60A5FA" }}>تواصل معنا</p>
-              <h2 className="text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15]"
+            <div className="text-center mb-3.5">
+              <p className="text-[0.62rem] font-semibold tracking-[0.04em] mb-1.5" style={{ color: "#60A5FA" }}>تواصل معنا</p>
+              <h2 className="text-[1rem] md:text-[1.2rem] font-bold leading-[1.15]"
                   style={{ fontFamily: "var(--font-arabic-display)", color: "#F8FAFC" }}>
                 نحن هنا للإجابة على استفساراتك.
               </h2>
-              <p className="mt-1.5 text-[0.78rem] leading-[1.6]" style={{ color: "#94A3B8" }}>
-                للاستفسارات التجارية أو التأجير — رد خلال يوم عمل واحد.
-              </p>
             </div>
 
             <div className="grid gap-2.5 sm:grid-cols-3">
