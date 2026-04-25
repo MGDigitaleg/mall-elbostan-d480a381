@@ -346,6 +346,13 @@ const StoreDetail = () => {
                   </Button>
                 </a>
               )}
+              <Link to={mapDeepLink}>
+                <Button className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold text-white transition-all hover:bg-white/12"
+                        style={{ background: "hsl(0 0% 100% / 0.08)", border: "1px solid hsl(0 0% 100% / 0.15)" }}>
+                  <Compass className="h-3.5 w-3.5" />
+                  {store.unit_code ? `حدد ${store.unit_code} على الخريطة` : "اعرض على الخريطة"}
+                </Button>
+              </Link>
               <ShareButton name={store.name_ar} />
             </div>
           </motion.div>
