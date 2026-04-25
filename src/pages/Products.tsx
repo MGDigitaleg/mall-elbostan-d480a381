@@ -863,6 +863,69 @@ const Products = () => {
                 })}
               </div>
 
+              {/* Active filters summary — removable chips */}
+              {hasActiveFilters && (() => {
+                const chips: { key: string; label: string; onRemove: () => void }[] = [];
+                if (searchTerm.trim()) {
+                  chips.push({ key: "q", label: `بحث: ${searchTerm.trim()}`, onRemove: () => setSearchTerm("") });
+                }
+                if (selectedSection !== "all") {
+                  chips.push({ key: "section", label: `الفئة: ${selectedSection}`, onRemove: () => setSelectedSection("all") });
+                }
+                if (selectedShop !== "all") {
+                  const storeName = storeList?.find((s) => s.slug === selectedShop)?.name_ar ?? selectedShop;
+                  chips.push({ key: "shop", label: `المحل: ${storeName}`, onRemove: () => setSelectedShop("all") });
+                }
+                if (selectedBrand !== "all") {
+                  chips.push({ key: "brand", label: `الماركة: ${selectedBrand}`, onRemove: () => setSelectedBrand("all") });
+                }
+                if (selectedMall !== "all") {
+                  chips.push({ key: "mall", label: `الفرع: ${selectedMall}`, onRemove: () => setSelectedMall("all") });
+                }
+                if (priceRange) {
+                  const fmt = (n: number) => new Intl.NumberFormat("ar-EG").format(n);
+                  chips.push({
+                    key: "price",
+                    label: `السعر: ${fmt(priceRange[0])}–${fmt(priceRange[1])} ج.م`,
+                    onRemove: () => setPriceRange(null),
+                  });
+                }
+                return (
+                  <div
+                    className="mb-3 flex flex-wrap items-center gap-1.5 rounded-xl p-1.5"
+                    style={{ border: "1px solid #ffffff10", background: "#ffffff05" }}
+                    dir="rtl"
+                    role="region"
+                    aria-label="الفلاتر النشطة"
+                  >
+                    <span className="px-2 text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>
+                      الفلاتر النشطة:
+                    </span>
+                    {chips.map((c) => (
+                      <button
+                        key={c.key}
+                        type="button"
+                        onClick={c.onRemove}
+                        className="group inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[0.74rem] font-bold transition-all hover:bg-[#2563EB]/15"
+                        style={{ background: "#ffffff06", color: "#E2E8F0", border: "1px solid #ffffff10" }}
+                        aria-label={`إزالة الفلتر: ${c.label}`}
+                      >
+                        <span>{c.label}</span>
+                        <X className="h-3 w-3 opacity-70 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={clearFilters}
+                      className="ms-auto h-8 rounded-lg px-3 text-[0.7rem] font-bold transition-colors hover:text-white"
+                      style={{ color: "#94A3B8" }}
+                    >
+                      مسح الكل
+                    </button>
+                  </div>
+                );
+              })()}
+
               {isLoading ? (
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                   {Array.from({ length: 12 }).map((_, i) => (
