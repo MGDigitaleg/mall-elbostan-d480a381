@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, Clock3, Store, Tag } from "lucide-react";
+import { ArrowLeft, Clock3, Store, Tag, AlertTriangle, BadgeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
@@ -52,6 +52,26 @@ function calculateDiscount(current?: number | null, old?: number | null) {
   return Math.round(((old - current) / old) * 100);
 }
 
+type CampaignState = { status: "expired" | "ending_soon" | "active" | "none"; label: string; days?: number };
+
+function getCampaignState(validTo?: string | null): CampaignState {
+  if (!validTo) return { status: "none", label: "" };
+  const ts = new Date(validTo).getTime();
+  if (isNaN(ts)) return { status: "none", label: "" };
+  const remaining = ts - Date.now();
+  if (remaining <= 0) return { status: "expired", label: "انتهت الحملة" };
+  const days = Math.floor(remaining / (24 * 60 * 60 * 1000));
+  const hours = Math.floor(remaining / (60 * 60 * 1000));
+  if (remaining <= 3 * 24 * 60 * 60 * 1000) {
+    return {
+      status: "ending_soon",
+      label: days >= 1 ? `تنتهي خلال ${days} ${days === 1 ? "يوم" : "أيام"}` : `تنتهي خلال ${hours} ساعة`,
+      days,
+    };
+  }
+  return { status: "active", label: "" };
+}
+
 export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink = true, showAllStoreOffersCta = false, directOfferHref, directOfferLabel = "انتقل إلى العرض" }: Props) {
   const store = offer.stores;
   const discount = calculateDiscount(offer.price_current, offer.price_old);
@@ -60,6 +80,9 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
   const validTo = offer.valid_to ? new Date(offer.valid_to) : null;
   const categoryLabel = offer.category ?? store?.category ?? "عروض الافتتاح";
   const primaryTitle = offer.model ?? offer.title_ar;
+  const campaign = getCampaignState(offer.valid_to);
+  const isExpired = campaign.status === "expired";
+  const isEndingSoon = campaign.status === "ending_soon";
   const showOpenNowBadge = !!store && (offer.opening_status === "opening_soon" || store.opening_status === "opening_soon");
 
   // Compact-aware tokens — automatically shrink across all screens when compact=true
@@ -83,8 +106,8 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
   const overlayChipText = c ? "text-[0.6rem]" : "text-[0.64rem]";
 
   return (
-    <article id={cardId} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/70 bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-[var(--shadow-premium)] scroll-mt-24">
-      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-gradient-to-br from-secondary/45 via-background to-muted/30`}>
+    <article id={cardId} className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-premium)] scroll-mt-24 ${isExpired ? "border-destructive/40 opacity-90" : isEndingSoon ? "border-orange/40" : "border-border/70 hover:border-primary/25"}`}>
+      <div className={`relative ${aspectClass} overflow-hidden border-b border-border/60 bg-gradient-to-br from-secondary/45 via-background to-muted/30 ${isExpired ? "grayscale" : ""}`}>
         {offer.image_primary ? (
           <>
             <img
@@ -135,12 +158,33 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
               {categoryLabel}
             </span>
           </div>
-          {offer.featured && (
+          {offer.featured && !isExpired && !isEndingSoon && (
             <span className={`ms-auto rounded-full border border-primary/20 bg-background/90 px-2.5 py-0.5 ${overlayChipText} font-bold text-primary backdrop-blur-sm`}>
               مميز
             </span>
           )}
+          {isEndingSoon && (
+            <span className={`ms-auto inline-flex items-center gap-1 rounded-full border border-orange/30 bg-orange/95 px-2.5 py-1 ${overlayChipText} font-bold text-orange-foreground shadow-[0_4px_12px_-2px_hsl(var(--orange)/0.55)] backdrop-blur-sm`}>
+              <AlertTriangle className="h-3 w-3" />
+              {campaign.label}
+            </span>
+          )}
+          {isExpired && (
+            <span className={`ms-auto inline-flex items-center gap-1 rounded-full border border-destructive/40 bg-destructive/95 px-2.5 py-1 ${overlayChipText} font-bold text-destructive-foreground backdrop-blur-sm`}>
+              <BadgeX className="h-3 w-3" />
+              {campaign.label}
+            </span>
+          )}
         </div>
+
+        {isExpired && (
+          <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-background/55 backdrop-blur-[2px]">
+            <span className={`inline-flex items-center gap-1.5 rounded-xl border border-destructive/40 bg-destructive px-3 py-1.5 ${c ? "text-[0.72rem]" : "text-[0.82rem]"} font-extrabold text-destructive-foreground shadow-lg`}>
+              <BadgeX className="h-3.5 w-3.5" />
+              انتهت الحملة
+            </span>
+          </div>
+        )}
 
         {store && (
           <div className={`absolute inset-x-0 bottom-0 ${overlayPad}`}>
@@ -212,9 +256,11 @@ export function OpeningOfferCard({ offer, cardId, compact = false, showStoreLink
             )}
           </div>
           {validTo && !c && (
-            <div className="mt-2 flex items-center gap-1.5 text-[0.68rem] text-muted-foreground">
+            <div className={`mt-2 flex items-center gap-1.5 text-[0.68rem] ${isExpired ? "text-destructive font-semibold" : isEndingSoon ? "text-orange font-semibold" : "text-muted-foreground"}`}>
               <Clock3 className="h-3 w-3" />
-              <span>حتى {validTo.toLocaleDateString("ar-EG")}</span>
+              <span>
+                {isExpired ? "انتهت الحملة" : isEndingSoon ? campaign.label : `حتى ${validTo.toLocaleDateString("ar-EG")}`}
+              </span>
             </div>
           )}
         </div>
