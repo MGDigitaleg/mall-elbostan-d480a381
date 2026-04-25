@@ -29,6 +29,7 @@ const SpinAccount = lazy(() => lazyRetry(() => import("./pages/SpinAccount")));
 const SpinClaim = lazy(() => lazyRetry(() => import("./pages/SpinClaim")));
 const OpeningDay = lazy(() => lazyRetry(() => import("./pages/OpeningDay")));
 const DailyDeals = lazy(() => lazyRetry(() => import("./pages/DailyDeals")));
+const OfferDetail = lazy(() => lazyRetry(() => import("./pages/OfferDetail")));
 const Careers = lazy(() => lazyRetry(() => import("./pages/Careers")));
 const Blog = lazy(() => lazyRetry(() => import("./pages/Blog")));
 const BlogPost = lazy(() => lazyRetry(() => import("./pages/BlogPost")));
