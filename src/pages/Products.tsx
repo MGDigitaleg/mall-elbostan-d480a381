@@ -58,6 +58,11 @@ const Products = () => {
   const urlBrand = searchParams.get("brand") ?? "all";
   const urlPriceMin = Number(searchParams.get("price_min") ?? "");
   const urlPriceMax = Number(searchParams.get("price_max") ?? "");
+  const urlSortRaw = searchParams.get("sort");
+  const validSorts = ["featured", "price_asc", "price_desc", "newest"] as const;
+  const urlSort = (validSorts as readonly string[]).includes(urlSortRaw ?? "")
+    ? (urlSortRaw as typeof validSorts[number])
+    : "featured";
 
   const [searchTerm, setSearchTerm] = useState(urlSearch);
   const [selectedShop, setSelectedShop] = useState(urlShopName);
@@ -69,9 +74,9 @@ const Products = () => {
       ? [urlPriceMin, urlPriceMax]
       : null
   );
-  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">("featured");
+  const [sortBy, setSortBy] = useState<"featured" | "price_asc" | "price_desc" | "newest">(urlSort);
 
-  // Sync URL when filters change
+  // Sync URL when filters change (sort included so the choice survives filter changes)
   useEffect(() => {
     const params = new URLSearchParams();
     if (selectedShop !== "all") params.set("shop_name", selectedShop);
@@ -83,8 +88,9 @@ const Products = () => {
       params.set("price_max", String(priceRange[1]));
     }
     if (searchTerm.trim()) params.set("q", searchTerm.trim());
+    if (sortBy !== "featured") params.set("sort", sortBy);
     setSearchParams(params, { replace: true });
-  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, setSearchParams]);
+  }, [selectedShop, selectedSection, selectedMall, selectedBrand, priceRange, searchTerm, sortBy, setSearchParams]);
 
   /* ── Fetch mall products ── */
   const { data: mallProducts, isLoading: loadingMall } = useQuery({
@@ -626,10 +632,10 @@ const Products = () => {
                   className="h-9 w-auto max-w-[180px] rounded-lg px-3 text-[0.76rem] font-semibold outline-none text-right"
                   style={{ border: "1px solid #ffffff12", background: "#ffffff08", color: "#CBD5E1", direction: "rtl" }}
                 >
-                  <option value="featured">الأكثر تميزاً</option>
-                  <option value="price_asc">السعر: الأقل</option>
-                  <option value="price_desc">السعر: الأعلى</option>
+                  <option value="featured">الأعلى تقييماً</option>
                   <option value="newest">الأحدث</option>
+                  <option value="price_asc">الأرخص</option>
+                  <option value="price_desc">الأعلى سعراً</option>
                 </select>
 
                 {/* Mall filter - desktop only */}
@@ -819,6 +825,44 @@ const Products = () => {
 
             {/* Grid column */}
             <div className="flex-1 min-w-0">
+              {/* Sort pills — clear, persistent across filter changes */}
+              <div
+                className="mb-3 flex flex-wrap items-center gap-1.5 rounded-xl p-1.5"
+                style={{ border: "1px solid #ffffff10", background: "#ffffff05" }}
+                role="radiogroup"
+                aria-label="ترتيب المنتجات"
+                dir="rtl"
+              >
+                <span className="px-2 text-[0.68rem] font-semibold" style={{ color: "#64748B" }}>
+                  ترتيب:
+                </span>
+                {([
+                  { id: "newest", label: "الأحدث" },
+                  { id: "price_asc", label: "الأرخص" },
+                  { id: "price_desc", label: "الأعلى سعراً" },
+                  { id: "featured", label: "الأعلى تقييماً" },
+                ] as const).map((opt) => {
+                  const isActive = sortBy === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={isActive}
+                      onClick={() => setSortBy(opt.id)}
+                      className="h-8 rounded-lg px-3 text-[0.74rem] font-bold transition-all"
+                      style={
+                        isActive
+                          ? { background: "#2563EB", color: "#fff", border: "1px solid #2563EB" }
+                          : { background: "#ffffff06", color: "#CBD5E1", border: "1px solid #ffffff10" }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+
               {isLoading ? (
                 <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                   {Array.from({ length: 12 }).map((_, i) => (
