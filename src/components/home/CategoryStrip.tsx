@@ -35,9 +35,9 @@ export function CategoryStrip() {
     >
       <div className="container">
         <div>
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-[0.78rem] font-bold" style={{ color: "#E2E8F0" }}>
+          <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="min-w-0">
+              <h2 className="text-[0.78rem] font-bold truncate" style={{ color: "#E2E8F0" }}>
                 أقسام المول — كمبيوتر، موبايلات، جيمنج، وأكثر
               </h2>
               <p className="text-[0.58rem] mt-0.5" style={{ color: "#64748B" }}>
@@ -46,14 +46,14 @@ export function CategoryStrip() {
             </div>
             <Link
               to="/stores"
-              className="text-[0.66rem] font-semibold transition-colors hover:opacity-80"
+              className="shrink-0 text-[0.66rem] font-semibold transition-colors hover:opacity-80 whitespace-nowrap"
               style={{ color: "#60A5FA" }}
             >
               جميع المحلات
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-4 md:grid-cols-8">
+          <div className="grid grid-cols-4 gap-x-2 gap-y-2 sm:grid-cols-4 sm:gap-2 md:grid-cols-8 md:gap-1.5">
             {CATEGORIES.map((cat) => (
               <Link
                 key={cat.slug}
