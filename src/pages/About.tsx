@@ -298,28 +298,20 @@ const About = () => {
     </section>
 
     {/* ═══════════ 6 · CLOSING CTA ═══════════ */}
-    <section className="py-7 md:py-9 bg-secondary dark:bg-background">
+    <section className="py-5 md:py-7 bg-secondary dark:bg-background">
       <div className="container max-w-[720px] text-center">
         <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
-            <span className="font-poppins text-[0.58rem] font-bold tracking-[0.22em] uppercase text-muted-foreground">ابدأ من هنا</span>
-            <div className="h-[2px] w-5 rounded-full bg-[#CDBB9A]" />
-          </div>
-          <h2 className="mx-auto max-w-[22rem] text-[1.2rem] font-bold leading-[1.15] md:text-[1.45rem] light-heading">
+          <h2 className="mx-auto max-w-[22rem] text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15] light-heading">
             ابدأ من هنا.
           </h2>
-          <div className="mt-5 flex flex-wrap justify-center gap-2">
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link to="/map">
               <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
                 <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
               </Button>
             </Link>
-            <Link to="/products">
-              <Button variant="secondary" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">منتجات المحلات</Button>
-            </Link>
-            <Link to="/downtown-branch">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">فرع وسط البلد</Button>
+            <Link to="/stores">
+              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">دليل المحلات</Button>
             </Link>
           </div>
         </motion.div>
