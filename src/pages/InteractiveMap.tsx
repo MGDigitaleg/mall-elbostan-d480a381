@@ -481,7 +481,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ AVAILABLE UNITS GRID ═══════════ */}
-      <section className="border-t border-border bg-background py-10 md:py-12">
+      <section className="border-t border-border bg-background py-6 md:py-8">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
             <div>
@@ -548,7 +548,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ COMMERCIAL OPPORTUNITY ═══════════ */}
-      <section className="border-t border-border bg-secondary py-10 md:py-12 dark:bg-background">
+      <section className="border-t border-border bg-secondary py-6 md:py-8 dark:bg-background">
         <div className="mx-auto w-full max-w-[1440px] px-5 md:px-8 lg:px-12">
           <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
             <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}
@@ -666,7 +666,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ SEO LANDING SECTION ═══════════ */}
-      <section className="border-t border-border bg-background py-10 md:py-12">
+      <section className="border-t border-border bg-background py-6 md:py-8">
         <div className="mx-auto w-full max-w-[1280px] px-5 md:px-8 lg:px-14">
           <div className="mb-8 text-center">
             <span className="font-poppins text-[0.6rem] font-bold uppercase tracking-[0.25em] text-primary/80">Floor Directory</span>
@@ -816,7 +816,7 @@ const InteractiveMap = () => {
       </section>
 
       {/* ═══════════ FINAL CTA ═══════════ */}
-      <section className="relative overflow-hidden py-12 md:py-16" style={{ background: "var(--gradient-hero)" }}>
+      <section className="relative overflow-hidden py-7 md:py-10" style={{ background: "var(--gradient-hero)" }}>
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[600px] rounded-full opacity-[0.05]"
                style={{ background: "radial-gradient(circle, hsl(var(--primary)), transparent 65%)" }} />
