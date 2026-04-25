@@ -204,8 +204,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(24px, 3vw, 48px)",
-          paddingBottom: "clamp(24px, 3vw, 48px)",
+          paddingTop: "clamp(18px, 2.6vw, 40px)",
+          paddingBottom: "clamp(18px, 2.6vw, 40px)",
           ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
