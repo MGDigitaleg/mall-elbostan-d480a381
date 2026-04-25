@@ -468,6 +468,17 @@ const InteractiveMap = () => {
                   }}
                 />
               )}
+
+              {/* Compact unit info drawer — mobile-only bottom bar with name, status,
+                  offers count and a clear button to deselect/return to overview. */}
+              {isMobile && (
+                <UnitInfoDrawer
+                  unit={activeUnit}
+                  offersBySlug={offersBySlug}
+                  onClear={() => setSelectedUnit(null)}
+                  onViewDetails={() => setDetailsSheetOpen(true)}
+                />
+              )}
             </div>
 
             {!isMobile && (
