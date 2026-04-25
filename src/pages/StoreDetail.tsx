@@ -9,6 +9,7 @@ import {
   Share2, Shield, Monitor, Gamepad2, Sparkles,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { trackSeoLinkClick } from "@/lib/analytics";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead, buildStoreLd } from "@/components/SEOHead";
 import { getStoreOgImage, getStoreOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
