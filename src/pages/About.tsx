@@ -264,38 +264,7 @@ const About = () => {
       </div>
     </section>
 
-    {/* (Removed duplicate "Why El Bostan" — already covered above & on homepage) */}
-
-    {/* ═══════════ 5 · FROM MARKET TO PLATFORM ═══════════ */}
-    <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
-      <div className="relative container max-w-[820px]">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-5">
-            <p className="section-kicker dark-kicker">الأدوات الرقمية</p>
-            <h2 className="section-title dark-heading">من المول إلى المنصة.</h2>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              { icon: Compass, label: "الخريطة التفاعلية", desc: "تصفّح كل دور ومحل بسهولة.", to: "/map" },
-              { icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح المنتجات من كل المحلات.", to: "/products" },
-              { icon: Users, label: "دليل المحلات", desc: "تعرّف على كل محل وتخصصه.", to: "/stores" },
-            ].map((item) => (
-              <Link key={item.label} to={item.to} className="heritage-surface rounded-xl p-5 text-center group transition-all border border-transparent hover:border-primary/20">
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/[0.08] border border-primary/[0.15]">
-                  <item.icon className="h-4.5 w-4.5 text-primary" />
-                </div>
-                <p className="text-[0.88rem] font-bold dark-heading">{item.label}</p>
-                <p className="mt-1 text-[0.76rem] leading-[1.6] dark-muted">{item.desc}</p>
-                <span className="mt-2.5 inline-flex items-center gap-1 text-[0.76rem] font-bold text-primary group-hover:gap-2 transition-all">
-                  استكشف <ArrowLeft className="h-3 w-3" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+    {/* (Removed "From market to platform" — overlapped with the Why-block links and the closing CTA) */}
 
     {/* ═══════════ 6 · CLOSING CTA ═══════════ */}
     <section className="py-5 md:py-7 bg-secondary dark:bg-background">
