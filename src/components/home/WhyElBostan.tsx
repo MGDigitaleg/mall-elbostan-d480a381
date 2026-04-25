@@ -15,8 +15,8 @@ export function WhyElBostan() {
     <section
       className="bg-card dark:bg-background"
       style={{
-        paddingTop: "clamp(48px, 6vw, 96px)",
-        paddingBottom: "clamp(48px, 6vw, 96px)",
+        paddingTop: "clamp(32px, 4vw, 64px)",
+        paddingBottom: "clamp(32px, 4vw, 64px)",
       }}
     >
       <div className="container">

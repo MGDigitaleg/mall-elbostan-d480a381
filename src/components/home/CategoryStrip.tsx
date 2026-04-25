@@ -28,47 +28,47 @@ export function CategoryStrip() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
-        paddingTop: "clamp(28px, 3.5vw, 48px)",
-        paddingBottom: "clamp(28px, 3.5vw, 48px)",
-        minHeight: 296,
+        paddingTop: "clamp(18px, 2.4vw, 32px)",
+        paddingBottom: "clamp(18px, 2.4vw, 32px)",
+        minHeight: 220,
       }}
     >
       <div className="container">
         <div>
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3">
             <div>
-              <h2 className="text-[0.82rem] font-bold" style={{ color: "#E2E8F0" }}>
+              <h2 className="text-[0.78rem] font-bold" style={{ color: "#E2E8F0" }}>
                 أقسام المول — كمبيوتر، موبايلات، جيمنج، وأكثر
               </h2>
-              <p className="text-[0.62rem] mt-0.5" style={{ color: "#64748B" }}>
-                تصفّح محلات مول البستان حسب التخصص
+              <p className="text-[0.58rem] mt-0.5" style={{ color: "#64748B" }}>
+                تصفّح المحلات حسب التخصص
               </p>
             </div>
             <Link
               to="/stores"
-              className="text-[0.7rem] font-semibold transition-colors hover:opacity-80"
+              className="text-[0.66rem] font-semibold transition-colors hover:opacity-80"
               style={{ color: "#60A5FA" }}
             >
               جميع المحلات
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-4 md:grid-cols-8">
+          <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-4 md:grid-cols-8">
             {CATEGORIES.map((cat) => (
               <Link
                 key={cat.slug}
                 to={`/stores?category=${encodeURIComponent(cat.slug)}`}
-                className="group flex flex-col items-center gap-2 rounded-xl p-3 transition-all duration-200 hover:bg-white/[0.06]"
+                className="group flex flex-col items-center gap-1.5 rounded-lg p-2 transition-all duration-200 hover:bg-white/[0.06]"
                 style={{ border: "1px solid rgba(255,255,255,0.05)" }}
               >
                 <div
-                  className="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg transition-transform duration-200 group-hover:scale-110"
                   style={{ background: "rgba(37,99,235,0.08)", border: "1px solid rgba(37,99,235,0.15)" }}
                 >
-                  <cat.icon className="h-4.5 w-4.5" style={{ color: "#60A5FA" }} />
+                  <cat.icon className="h-4 w-4" style={{ color: "#60A5FA" }} />
                 </div>
                 <span
-                  className="text-center text-[0.6rem] md:text-[0.64rem] font-semibold leading-tight line-clamp-2"
+                  className="text-center text-[0.58rem] md:text-[0.62rem] font-semibold leading-tight line-clamp-2"
                   style={{ color: "#CBD5E1" }}
                 >
                   {cat.label}
