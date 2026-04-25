@@ -201,6 +201,23 @@
 }
 
 @layer utilities {
+  /* ── Skeleton shimmer overlay (semantic, theme-reactive) ── */
+  .skeleton-shimmer {
+    pointer-events: none;
+    background-image: linear-gradient(
+      110deg,
+      transparent 30%,
+      hsl(var(--foreground) / 0.06) 50%,
+      transparent 70%
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: shimmer 1.6s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-shimmer { animation: none; }
+  }
+
   /* ── Gradients ── */
   .text-gradient-blue {
     background: var(--gradient-blue);
