@@ -3,15 +3,10 @@ import { motion } from "framer-motion";
 // SEOHead imported below with organizationLd
 import {
   ArrowLeft,
-  Award,
   Building2,
   Compass,
   Layers,
   MapPin,
-  ShoppingBag,
-  Store,
-  Users,
-  Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -264,38 +259,7 @@ const About = () => {
       </div>
     </section>
 
-    {/* (Removed duplicate "Why El Bostan" — already covered above & on homepage) */}
-
-    {/* ═══════════ 5 · FROM MARKET TO PLATFORM ═══════════ */}
-    <section className="heritage-deep relative overflow-hidden py-7 md:py-9">
-      <div className="relative container max-w-[820px]">
-        <motion.div variants={sectionReveal} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-60px" }}>
-          <div className="text-center mb-5">
-            <p className="section-kicker dark-kicker">الأدوات الرقمية</p>
-            <h2 className="section-title dark-heading">من المول إلى المنصة.</h2>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              { icon: Compass, label: "الخريطة التفاعلية", desc: "تصفّح كل دور ومحل بسهولة.", to: "/map" },
-              { icon: ShoppingBag, label: "منتجات المحلات", desc: "تصفّح المنتجات من كل المحلات.", to: "/products" },
-              { icon: Users, label: "دليل المحلات", desc: "تعرّف على كل محل وتخصصه.", to: "/stores" },
-            ].map((item) => (
-              <Link key={item.label} to={item.to} className="heritage-surface rounded-xl p-5 text-center group transition-all border border-transparent hover:border-primary/20">
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/[0.08] border border-primary/[0.15]">
-                  <item.icon className="h-4.5 w-4.5 text-primary" />
-                </div>
-                <p className="text-[0.88rem] font-bold dark-heading">{item.label}</p>
-                <p className="mt-1 text-[0.76rem] leading-[1.6] dark-muted">{item.desc}</p>
-                <span className="mt-2.5 inline-flex items-center gap-1 text-[0.76rem] font-bold text-primary group-hover:gap-2 transition-all">
-                  استكشف <ArrowLeft className="h-3 w-3" />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </section>
+    {/* (Removed "From market to platform" — overlapped with the Why-block links and the closing CTA) */}
 
     {/* ═══════════ 6 · CLOSING CTA ═══════════ */}
     <section className="py-5 md:py-7 bg-secondary dark:bg-background">
@@ -304,14 +268,14 @@ const About = () => {
           <h2 className="mx-auto max-w-[22rem] text-[1.1rem] md:text-[1.3rem] font-bold leading-[1.15] light-heading">
             ابدأ من هنا.
           </h2>
+          <p className="mt-2.5 text-[0.82rem] leading-[1.7] text-muted-foreground max-w-[26rem] mx-auto">
+            ابدأ تجربة المول من الخريطة التفاعلية — كل المحلات والفئات في مكان واحد.
+          </p>
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <Link to="/map">
-              <Button variant="cta" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">
-                <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة
+              <Button variant="cta" className="h-10 rounded-lg px-6 text-[0.86rem] font-bold">
+                <Compass className="ml-2 h-4 w-4" /> استكشف الخريطة التفاعلية
               </Button>
-            </Link>
-            <Link to="/stores">
-              <Button variant="outline-blue" className="h-9 rounded-lg px-5 text-[0.82rem] font-bold">دليل المحلات</Button>
             </Link>
           </div>
         </motion.div>
