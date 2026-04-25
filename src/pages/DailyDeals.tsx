@@ -174,17 +174,18 @@ const DailyDeals = () => {
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.62rem] font-semibold text-white/75">
                 {isExpired ? <LayoutGrid className="h-3 w-3" /> : <Clock3 className="h-3 w-3" />}
-                {isExpired ? "العروض متاحة الآن" : "افتتاح تجريبي"}
+                {isExpired ? "العروض متاحة الآن" : "افتتاح تجريبي — العروض متاحة"}
               </span>
               {!isExpired && (
-                <div className="hidden md:block">
-                  <CountdownTimer compact />
-                </div>
+                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[0.6rem] font-semibold text-white/60">
+                  <Clock3 className="h-2.5 w-2.5" />
+                  افتتاح رسمي ١ مايو ٢٠٢٦
+                </span>
               )}
             </div>
 
             <h1 className="text-[1.1rem] font-bold leading-tight text-white md:text-[1.4rem]" style={{ fontFamily: "var(--font-arabic-display)" }}>
-              {isExpired ? "عروض المحلات المشاركة داخل مول البستان" : "عروض المحلات المشاركة متاحة الآن"}
+              عروض المحلات المشاركة داخل مول البستان
             </h1>
 
             {/* Inline stats pills */}
@@ -205,12 +206,6 @@ const DailyDeals = () => {
                 <span className="text-white/60">مفتوحة الآن</span>
               </span>
             </div>
-
-            {!isExpired && (
-              <div className="md:hidden">
-                <CountdownTimer compact />
-              </div>
-            )}
           </div>
         </div>
       </section>
