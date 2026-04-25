@@ -295,96 +295,6 @@ const Stores = () => {
         topStores={filtered?.filter((s) => s.featured && s.status === "leased").slice(0, 5).map((s) => ({ name_ar: s.name_ar, slug: s.slug, unit_code: s.unit_code }))}
       />
 
-      {/* ═══════════ CATEGORY CARDS ═══════════ */}
-      <section className="py-6 md:py-8 bg-secondary dark:bg-background">
-        <div className="container max-w-[1200px]">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5 }}
-            className="mb-7 flex items-end justify-between"
-          >
-            <div>
-              <p className="section-kicker">التصنيف التجاري</p>
-              <h2 className="section-title">تصفح حسب الفئة.</h2>
-            </div>
-            {selectedCategory && (
-              <button onClick={() => setSelectedCategory("")} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-bold text-primary transition-colors hover:bg-primary/5" style={{ border: "1px solid hsl(var(--primary) / 0.15)" }}>
-                <X className="h-3 w-3" /> مسح التصنيف
-              </button>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"
-          >
-            {primaryCategories.map((cat) => {
-              const meta = categoryMeta[cat];
-              const Icon = meta.icon;
-              const count = stores?.filter((s) => s.category === cat).length ?? 0;
-              const isActive = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setSelectedCategory(isActive ? "" : cat);
-                    document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-card"
-                  style={{
-                    borderColor: isActive ? `${meta.color}50` : "hsl(var(--border))",
-                    background: isActive ? `linear-gradient(155deg, ${meta.color}0A, hsl(var(--card)))` : undefined,
-                    boxShadow: isActive
-                      ? `0 0 0 1px ${meta.color}20, 0 12px 32px ${meta.color}15`
-                      : "0 1px 6px hsl(0 0% 0% / 0.04)",
-                  }}
-                >
-                  {/* Ambient category glow on hover */}
-                  <div
-                    className="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{ background: `radial-gradient(circle, ${meta.color}15, transparent 70%)` }}
-                  />
-
-                  <div
-                    className="relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
-                    style={{
-                      background: isActive ? `${meta.color}15` : `${meta.color}08`,
-                      border: `1px solid ${isActive ? `${meta.color}40` : `${meta.color}12`}`,
-                    }}
-                  >
-                    <Icon className="h-5 w-5 transition-colors" style={{ color: meta.color }} />
-                  </div>
-
-                  <div className="mt-4">
-                    <p className="text-[0.78rem] font-bold text-foreground line-clamp-1">{cat}</p>
-                    <p className="mt-0.5 text-[0.6rem] text-muted-foreground">{meta.label}</p>
-                  </div>
-
-                  <div className="mt-3.5 flex items-center justify-between">
-                    {count > 0 ? (
-                      <span className="rounded-full px-2.5 py-0.5 text-[0.64rem] font-extrabold" style={{ background: `${meta.color}10`, color: meta.color }}>
-                        {count} محل
-                      </span>
-                    ) : (
-                      <span className="text-[0.62rem] light-muted">قريباً</span>
-                    )}
-                    <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-60 group-hover:-translate-x-1.5" style={{ color: meta.color }} />
-                  </div>
-                </button>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Separator */}
-      <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent 15%, #CDBB9A30, transparent 85%)" }} />
-
       {/* ═══════════ DIRECTORY ═══════════ */}
       <section id="directory" className="py-6 md:py-8 scroll-mt-20" style={{ background: "linear-gradient(170deg, #071326 0%, #0D1F3C 100%)" }}>
         <div className="container max-w-[1200px]">
@@ -586,6 +496,96 @@ const Stores = () => {
           )}
         </div>
       </section>
+      {/* ═══════════ CATEGORY CARDS ═══════════ */}
+      <section className="py-6 md:py-8 bg-secondary dark:bg-background">
+        <div className="container max-w-[1200px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5 }}
+            className="mb-7 flex items-end justify-between"
+          >
+            <div>
+              <p className="section-kicker">التصنيف التجاري</p>
+              <h2 className="section-title">تصفح حسب الفئة.</h2>
+            </div>
+            {selectedCategory && (
+              <button onClick={() => setSelectedCategory("")} className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[0.72rem] font-bold text-primary transition-colors hover:bg-primary/5" style={{ border: "1px solid hsl(var(--primary) / 0.15)" }}>
+                <X className="h-3 w-3" /> مسح التصنيف
+              </button>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="grid gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6"
+          >
+            {primaryCategories.map((cat) => {
+              const meta = categoryMeta[cat];
+              const Icon = meta.icon;
+              const count = stores?.filter((s) => s.category === cat).length ?? 0;
+              const isActive = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => {
+                    setSelectedCategory(isActive ? "" : cat);
+                    document.getElementById("directory")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-card"
+                  style={{
+                    borderColor: isActive ? `${meta.color}50` : "hsl(var(--border))",
+                    background: isActive ? `linear-gradient(155deg, ${meta.color}0A, hsl(var(--card)))` : undefined,
+                    boxShadow: isActive
+                      ? `0 0 0 1px ${meta.color}20, 0 12px 32px ${meta.color}15`
+                      : "0 1px 6px hsl(0 0% 0% / 0.04)",
+                  }}
+                >
+                  {/* Ambient category glow on hover */}
+                  <div
+                    className="pointer-events-none absolute -top-8 -right-8 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(circle, ${meta.color}15, transparent 70%)` }}
+                  />
+
+                  <div
+                    className="relative flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      background: isActive ? `${meta.color}15` : `${meta.color}08`,
+                      border: `1px solid ${isActive ? `${meta.color}40` : `${meta.color}12`}`,
+                    }}
+                  >
+                    <Icon className="h-5 w-5 transition-colors" style={{ color: meta.color }} />
+                  </div>
+
+                  <div className="mt-4">
+                    <p className="text-[0.78rem] font-bold text-foreground line-clamp-1">{cat}</p>
+                    <p className="mt-0.5 text-[0.6rem] text-muted-foreground">{meta.label}</p>
+                  </div>
+
+                  <div className="mt-3.5 flex items-center justify-between">
+                    {count > 0 ? (
+                      <span className="rounded-full px-2.5 py-0.5 text-[0.64rem] font-extrabold" style={{ background: `${meta.color}10`, color: meta.color }}>
+                        {count} محل
+                      </span>
+                    ) : (
+                      <span className="text-[0.62rem] light-muted">قريباً</span>
+                    )}
+                    <ArrowLeft className="h-3.5 w-3.5 opacity-0 transition-all duration-300 group-hover:opacity-60 group-hover:-translate-x-1.5" style={{ color: meta.color }} />
+                  </div>
+                </button>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Separator */}
+      <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent 15%, #CDBB9A30, transparent 85%)" }} />
+
 
       {/* ═══════════ MAP + LEASING CTA ═══════════ */}
       <section className="relative overflow-hidden py-9 md:py-12 bg-secondary dark:bg-background">
