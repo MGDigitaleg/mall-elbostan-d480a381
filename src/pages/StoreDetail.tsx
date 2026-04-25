@@ -370,26 +370,26 @@ const StoreDetail = () => {
             {/* ── Main column ── */}
             <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-40px" }} className="space-y-6">
 
-              {/* About section */}
-              {(store.long_description_ar || store.short_description_ar) && (
+              {/* About section — only show when there's a long description distinct from the hero short */}
+              {store.long_description_ar && store.long_description_ar.trim() !== (store.short_description_ar ?? "").trim() && (
                 <motion.div variants={fadeChild}>
-                  <div className="rounded-2xl border border-border/70 bg-card p-6 md:p-8 shadow-[var(--shadow-card)]">
-                    <div className="mb-5 flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  <div className="rounded-2xl border border-border/70 bg-card p-5 md:p-6 shadow-[var(--shadow-card)]">
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-xl"
                            style={{ background: `hsl(${storyColor} / 0.08)`, border: `1px solid hsl(${storyColor} / 0.12)` }}>
-                        <Store className="h-5 w-5" style={{ color: `hsl(${storyColor})` }} />
+                        <Store className="h-4 w-4" style={{ color: `hsl(${storyColor})` }} />
                       </div>
                       <div>
-                        <h2 className="text-[1rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
+                        <h2 className="text-[0.95rem] font-bold text-foreground" style={{ fontFamily: "var(--font-arabic-display)" }}>
                           عن {store.name_ar}
                         </h2>
                         {store.name_en && (
-                          <p className="text-[0.68rem] font-medium text-muted-foreground/60 font-poppins">{store.name_en}</p>
+                          <p className="text-[0.66rem] font-medium text-muted-foreground/60 font-poppins">{store.name_en}</p>
                         )}
                       </div>
                     </div>
-                    <p className="text-[0.86rem] leading-[2.2] text-muted-foreground">
-                      {store.long_description_ar ?? store.short_description_ar}
+                    <p className="text-[0.84rem] leading-[2.05] text-muted-foreground">
+                      {store.long_description_ar}
                     </p>
                   </div>
                 </motion.div>
