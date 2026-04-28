@@ -1,6 +1,6 @@
 import { useCountdown } from "@/hooks/useCountdown";
 
-const OPENING_DATE = new Date("2026-05-01T00:00:00+02:00");
+const OPENING_DATE = new Date("2026-05-15T00:00:00+02:00");
 
 interface CountdownBlockProps {
   compact?: boolean;

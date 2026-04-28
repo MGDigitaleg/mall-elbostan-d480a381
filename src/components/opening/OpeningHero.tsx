@@ -6,7 +6,7 @@ import { PageHero } from "@/components/PageHero";
 export function OpeningHero() {
   return (
     <PageHero
-      kicker="١ مايو ٢٠٢٦"
+      kicker="١٥ مايو ٢٠٢٦"
       kickerEn="Opening Day"
       title={<>الافتتاح الكبير<span className="block mt-1 text-primary">خطّط لزيارتك.</span></>}
       subtitle="الموعد، الفعاليات، والمكافآت — كل التفاصيل هنا."

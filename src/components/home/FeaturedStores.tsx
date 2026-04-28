@@ -55,7 +55,7 @@ export function FeaturedStores() {
                 }}
               >
                 <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "#FCD34D", boxShadow: "0 0 6px #FCD34D" }} />
-                الافتتاح الرسمي: 1 مايو 2026
+                الافتتاح الرسمي: 15 مايو 2026
               </p>
             </div>
             <Link to="/stores" className="hidden lg:inline-flex">
