@@ -9,7 +9,7 @@ import { Reveal } from "@/components/home/Reveal";
 import { OpeningOfferCard, type OpeningOfferRecord } from "@/components/offers/OpeningOfferCard";
 import { useCountdown } from "@/hooks/useCountdown";
 
-const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
+const LAUNCH_DATE = new Date("2026-05-15T00:00:00+02:00");
 
 export function DealsTeaser() {
   const { isExpired } = useCountdown(LAUNCH_DATE);

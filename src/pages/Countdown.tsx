@@ -9,8 +9,8 @@ const Countdown = () => {
       <SEOHead
         title="قريباً — الافتتاح الكبير"
         titleEn="Coming Soon — Grand Opening"
-        description="مول البستان — أكبر وجهة تقنية متخصصة في القاهرة الجديدة. الافتتاح الكبير ١ مايو ٢٠٢٦."
-        descriptionEn="Mall Elbostan — the biggest tech destination in New Cairo. Grand opening May 1, 2026."
+        description="مول البستان — أكبر وجهة تقنية متخصصة في القاهرة الجديدة. الافتتاح الكبير ١٥ مايو ٢٠٢٦."
+        descriptionEn="Mall Elbostan — the biggest tech destination in New Cairo. Grand opening May 15, 2026."
         keywords="افتتاح مول البستان, افتتاح 2026, مول تكنولوجيا جديد, القاهرة الجديدة, grand opening"
         ogImage={ogCountdown}
         breadcrumbs={[{ name: "العد التنازلي", url: "/countdown" }]}
@@ -43,7 +43,7 @@ const Countdown = () => {
               className="font-poppins text-[0.65rem] font-bold tracking-[0.25em] uppercase"
               style={{ color: "hsl(var(--primary))" }}
             >
-              ١ مايو ٢٠٢٦
+              ١٥ مايو ٢٠٢٦
             </p>
             <h1
               className="text-3xl md:text-5xl font-bold leading-[1.35]"

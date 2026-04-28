@@ -16,7 +16,7 @@ import { SearchX, RotateCcw } from "lucide-react";
 import { useOfferCollections } from "@/hooks/useOfferCollections";
 import { trackSeoLinkClick } from "@/lib/analytics";
 
-const LAUNCH_DATE = new Date("2026-05-01T00:00:00+02:00");
+const LAUNCH_DATE = new Date("2026-05-15T00:00:00+02:00");
 const PAGE_BATCH = 12;
 
 const DailyDeals = () => {
@@ -201,7 +201,7 @@ const DailyDeals = () => {
               {!isExpired && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[0.58rem] font-medium text-white/55">
                   <Clock3 className="h-2.5 w-2.5" />
-                  دعم: افتتاح رسمي ١ مايو ٢٠٢٦
+                  دعم: افتتاح رسمي ١٥ مايو ٢٠٢٦
                 </span>
               )}
             </div>

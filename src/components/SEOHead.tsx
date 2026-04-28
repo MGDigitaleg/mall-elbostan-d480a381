@@ -287,7 +287,7 @@ export function buildEventLd(events: { title_ar: string; event_date?: string | n
     "@context": "https://schema.org",
     "@type": "Event",
     name: e.title_ar,
-    startDate: e.event_date ?? "2026-05-01",
+    startDate: e.event_date ?? "2026-05-15",
     location: {
       "@type": "Place",
       name: "مول البستان",
