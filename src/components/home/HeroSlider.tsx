@@ -41,11 +41,11 @@ const slides = [
   {
     image: ncHero3,
     alt: "التصميم الداخلي لمول البستان — فرع القاهرة الجديدة، وحدات تجارية متاحة",
-    kicker: "١٥ مايو ٢٠٢٦",
-    headline: "الافتتاح الكبير — فرع القاهرة الجديدة.",
-    sub: "وحدات تجارية متاحة للإيجار ومحلات جاهزة في أكبر مول تكنولوجيا بالتجمع الخامس.",
+    kicker: "فرع القاهرة الجديدة",
+    headline: "وجهتك للتقنية في قلب القاهرة الجديدة.",
+    sub: "محلات متخصصة، وحدات تجارية متاحة للإيجار، وتجربة تسوّق منظمة في التجمع الخامس.",
     cta: { label: "الوحدات المتاحة", to: "/leasing", icon: MapPin },
-    ctaSecondary: { label: "تفاصيل الافتتاح", to: "/opening-day" },
+    ctaSecondary: { label: "اكتشف المحلات", to: "/stores" },
   },
 ];
 
@@ -183,17 +183,7 @@ export function HeroSlider() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Countdown — minimal supporting element */}
-          <div className="w-full md:w-auto flex justify-center md:block">
-            <div className="rounded-lg border px-2.5 py-1.5 md:px-3 md:py-2 backdrop-blur-md" style={{ borderColor: "hsla(0, 0%, 100%, 0.05)", background: "hsla(220, 45%, 10%, 0.38)" }}>
-              <p className="mb-1 text-center text-[0.5rem] md:text-[0.54rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A", opacity: 0.7 }}>
-                الافتتاح
-              </p>
-              <div className="origin-top scale-[0.7] md:scale-[0.74] -mb-4">
-                <CountdownTimer compact />
-              </div>
-            </div>
-          </div>
+          {/* Countdown removed pre-launch — focus on destination identity */}
         </div>
 
         {/* Trust bar — slimmer */}

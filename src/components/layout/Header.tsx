@@ -25,8 +25,7 @@ const branchItems = [
 
 const secondaryNavItems = [
   { label: "الوحدات المتاحة", path: "/leasing" },
-  { label: "يوم الافتتاح", path: "/opening-day" },
-  { label: "عروض الافتتاح", path: "/daily-deals" },
+  { label: "العروض", path: "/daily-deals" },
   { label: "تواصل معنا", path: "/contact" },
 ];
 
@@ -244,22 +243,6 @@ export function Header() {
 
             <ThemeToggle isTransparent={isTransparent} />
 
-            <div className="mx-1.5 h-5 w-px" style={{ background: isTransparent ? "rgba(255,255,255,0.12)" : (isDark ? "rgba(255,255,255,0.1)" : "#D8DEE8") }} />
-
-            <Link to="/spin-win" className="relative z-10 inline-flex">
-              <Button
-                size="sm"
-                className="h-[34px] gap-1.5 rounded-lg px-4 text-[0.76rem] font-bold transition-all duration-300 hover:scale-[1.03]"
-                style={{
-                  background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)",
-                  color: "#fff",
-                  boxShadow: "0 2px 10px rgba(37,99,235,0.22)",
-                }}
-              >
-                <Sparkles className="h-3.5 w-3.5" />
-                أدر واربح
-              </Button>
-            </Link>
           </div>
         </div>
 
@@ -299,16 +282,6 @@ export function Header() {
                 )}
               </Link>
             )}
-            <Link to="/spin-win">
-              <Button
-                size="sm"
-                className="h-8 gap-1.5 rounded-lg px-3.5 text-[0.74rem] font-bold"
-                style={{ background: "linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)", color: "#fff", boxShadow: "0 2px 8px rgba(37,99,235,0.2)" }}
-              >
-                <Sparkles className="h-3 w-3" />
-                أدر واربح
-              </Button>
-            </Link>
             <HeaderMenuSheet
               isActive={isActive}
               trigger={

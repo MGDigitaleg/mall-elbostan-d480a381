@@ -39,12 +39,12 @@ const slides = [
   },
   {
     image: ncHero3,
-    alt: "الافتتاح الكبير",
-    kicker: "١٥ مايو ٢٠٢٦",
-    headline: "الافتتاح الكبير قريباً.",
-    sub: "فرع القاهرة الجديدة — وحدات متاحة.",
+    alt: "فرع القاهرة الجديدة",
+    kicker: "فرع القاهرة الجديدة",
+    headline: "وجهتك للتقنية في التجمع الخامس.",
+    sub: "محلات متخصصة ووحدات تجارية متاحة.",
     cta: { label: "الوحدات المتاحة", to: "/leasing" },
-    ctaSecondary: { label: "الافتتاح", to: "/opening-day" },
+    ctaSecondary: { label: "المحلات", to: "/stores" },
   },
 ];
 

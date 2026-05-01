@@ -25,7 +25,7 @@ const footerColumns = [
     links: [
       { label: "منتجات المحلات", path: "/products" },
       { label: "انضم كتاجر", path: "/join-marketplace" },
-      { label: "عروض الافتتاح", path: "/daily-deals" },
+      { label: "العروض", path: "/daily-deals" },
       { label: "الوحدات المتاحة", path: "/leasing" },
       { label: "يوم الافتتاح", path: "/opening-day" },
     ],
@@ -247,7 +247,7 @@ export function Footer() {
           </span>
           <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 sm:contents list-none p-0 m-0">
             {[
-              { label: "عروض الافتتاح", to: "/daily-deals" },
+              { label: "العروض", to: "/daily-deals" },
               { label: "الخريطة التفاعلية", to: "/map" },
               { label: "كتالوج المنتجات", to: "/products" },
               { label: "كوكب البستان", to: "/tech-planet" },

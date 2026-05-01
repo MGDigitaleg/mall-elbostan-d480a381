@@ -49,7 +49,7 @@ const satellites: Satellite[] = [
   { Icon: ShoppingBag, label: "كل المنتجات", to: "/products", color: "#60A5FA" },
   { Icon: Tag, label: "عروض اليوم", to: "/daily-deals", color: "#F97316" },
   { Icon: Trophy, label: "اربح بدورة", to: "/spin-win", color: "#FCD34D" },
-  { Icon: PartyPopper, label: "يوم الافتتاح", to: "/opening-day", color: "#EC4899" },
+  { Icon: PartyPopper, label: "الفعاليات", to: "/opening-day", color: "#EC4899" },
   { Icon: Building2, label: "فرع وسط البلد", to: "/downtown-directory", color: "#CDBB9A" },
   { Icon: Boxes, label: "كسر زيرو", to: "/kz", color: "#06B6D4" },
 ];
