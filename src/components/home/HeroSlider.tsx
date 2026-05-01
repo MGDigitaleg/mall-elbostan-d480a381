@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Compass, MapPin, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CountdownTimer } from "@/components/CountdownTimer";
+
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";

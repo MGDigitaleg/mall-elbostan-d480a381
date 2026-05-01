@@ -5,7 +5,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Compass, MapPin, Sparkles, Info, ShoppingBag, Briefcase,
-  FileText, Phone, Map, Tag, HelpCircle, Gamepad2, Store, Sun, Moon, Home, Radio,
+  FileText, Phone, Map, Tag, HelpCircle, Store, Sun, Moon, Home, Radio,
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 

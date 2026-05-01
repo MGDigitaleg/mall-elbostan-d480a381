@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Compass, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CountdownTimer } from "@/components/CountdownTimer";
+
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
