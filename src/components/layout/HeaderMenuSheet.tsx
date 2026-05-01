@@ -5,7 +5,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   Compass, MapPin, Sparkles, Info, ShoppingBag, Briefcase,
-  FileText, Phone, Map, Tag, HelpCircle, Gamepad2, Store, Sun, Moon, Home, Radio,
+  FileText, Phone, Map, Tag, HelpCircle, Store, Sun, Moon, Home, Radio,
 } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -45,7 +45,7 @@ const navSections: Array<{
       { label: "دليل المحلات", path: "/stores", icon: Store },
       { label: "منتجات المحلات", path: "/products", icon: ShoppingBag },
       { label: "الخريطة التفاعلية", path: "/map", icon: Map },
-      { label: "عروض الافتتاح", path: "/daily-deals", icon: Tag, badge: "soon" },
+      { label: "العروض", path: "/daily-deals", icon: Tag, badge: "soon" },
     ],
   },
   {
@@ -60,8 +60,6 @@ const navSections: Array<{
     title: "خدمات",
     items: [
       { label: "الوحدات المتاحة", path: "/leasing", icon: Briefcase },
-      { label: "يوم الافتتاح", path: "/opening-day", icon: Sparkles, badge: "soon" },
-      { label: "أدر واربح", path: "/spin-win", icon: Gamepad2, badge: "hot" },
       { label: "انضم كتاجر", path: "/join-marketplace", icon: ShoppingBag },
       { label: "فرص العمل", path: "/careers", icon: Briefcase },
     ],
@@ -165,7 +163,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 الخريطة
               </Button>
             </Link>
-            <Link to="/spin-win" onClick={handleLinkClick}>
+            <Link to="/stores" onClick={handleLinkClick}>
               <Button
                 className="h-12 w-full gap-2 rounded-xl text-[0.8rem] font-bold"
                 style={{
@@ -175,7 +173,7 @@ export function HeaderMenuSheet({ isActive, trigger }: HeaderMenuSheetProps) {
                 }}
               >
                 <Sparkles className="h-4 w-4" />
-                أدر واربح
+                دليل المحلات
               </Button>
             </Link>
           </div>

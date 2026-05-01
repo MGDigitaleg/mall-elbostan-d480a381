@@ -38,8 +38,8 @@ export function SeoIntroFooter() {
             لتصفح المحلات على كل دور، أو تصفّح{" "}
             <Link to="/products" className="text-primary font-semibold hover:underline" onClick={t("كتالوج المنتجات", "/products")}>كتالوج المنتجات</Link>{" "}
             لمقارنة الأسعار، وتابع{" "}
-            <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={t("عروض الافتتاح", "/daily-deals")}>عروض الافتتاح</Link>{" "}
-            من المحلات الجديدة. للمستثمرين،{" "}
+            <Link to="/daily-deals" className="text-primary font-semibold hover:underline" onClick={t("العروض", "/daily-deals")}>أحدث العروض</Link>{" "}
+            من المحلات. للمستثمرين،{" "}
             <Link to="/leasing" className="text-primary font-semibold hover:underline" onClick={t("وحدات للإيجار", "/leasing")}>وحدات تجارية متاحة للإيجار</Link>{" "}
             بمساحات متنوعة.
           </p>

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Compass, Store, MapPin, Sparkles, ShoppingBag } from "lucide-react";
+import { Compass, Store, MapPin, Tag, ShoppingBag } from "lucide-react";
 
 const ACTIONS = [
   { icon: Compass, label: "الخريطة", to: "/map", color: "#2563EB" },
   { icon: Store, label: "دليل المحلات", to: "/stores", color: "#06B6D4" },
   { icon: ShoppingBag, label: "المنتجات", to: "/products", color: "#10B981" },
-  { icon: Sparkles, label: "أدر واربح", to: "/spin-win", color: "#8B5CF6" },
+  { icon: Tag, label: "العروض", to: "/daily-deals", color: "#8B5CF6" },
   { icon: MapPin, label: "الوصول", to: "/new-cairo-branch", color: "#EC4899" },
 ];
 

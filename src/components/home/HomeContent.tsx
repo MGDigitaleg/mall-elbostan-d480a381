@@ -41,7 +41,7 @@ import { CategoryStrip } from "@/components/home/CategoryStrip";
 
 const fallbackFaqs = [
   { id: "faq-1", question_ar: "أين يقع مول البستان؟", answer_ar: "في قلب القاهرة الجديدة، ضمن موقع يخدم مدينتي والرحاب والمناطق المحيطة." },
-  { id: "faq-2", question_ar: "متى موعد الافتتاح؟", answer_ar: "الافتتاح الكبير مقرر في 15 مايو 2026." },
+  { id: "faq-2", question_ar: "متى موعد الافتتاح؟", answer_ar: "الافتتاح الرسمي مقرر في مايو 2026 — تابع صفحة يوم الافتتاح للتفاصيل." },
   { id: "faq-3", question_ar: "هل تتوفر وحدات للتأجير؟", answer_ar: "نعم، وحدات متعددة المساحات. استعرضها عبر الخريطة التفاعلية." },
   { id: "faq-4", question_ar: "كيف أجد محلاً داخل المول؟", answer_ar: "استخدم الخريطة التفاعلية أو دليل المحلات." },
   { id: "faq-5", question_ar: "هل سيتوفر تسوّق إلكتروني؟", answer_ar: "السوق الرقمي مرحلة قادمة." },
@@ -284,7 +284,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
                   إجابات سريعة.
                 </h2>
                 <p className="mt-2 text-[0.76rem] leading-[1.7] max-w-[20rem]" style={{ color: "#94A3B8" }}>
-                  أبرز الأسئلة حول الموقع والافتتاح والتأجير.
+                  أبرز الأسئلة حول المحلات والمول والتأجير.
                 </p>
                 <Link to="/faq" className="mt-3 inline-flex">
                   <Button className="h-9 rounded-xl border px-5 text-[0.76rem] font-bold gap-1.5 transition-colors hover:bg-white/8"

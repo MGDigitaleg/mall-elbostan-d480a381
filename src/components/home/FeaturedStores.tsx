@@ -45,18 +45,6 @@ export function FeaturedStores() {
               <h2 className="section-title" style={{ fontFamily: "var(--font-arabic-display)", fontSize: "clamp(15px, 1.4vw, 18px)" }}>
                 تعرّف على المحلات.
               </h2>
-              <p
-                className="mt-1 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-arabic"
-                style={{
-                  fontSize: 11,
-                  color: "#FCD34D",
-                  borderColor: "rgba(252,211,77,0.35)",
-                  background: "rgba(252,211,77,0.08)",
-                }}
-              >
-                <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "#FCD34D", boxShadow: "0 0 6px #FCD34D" }} />
-                الافتتاح الرسمي: 15 مايو 2026
-              </p>
             </div>
             <Link to="/stores" className="hidden lg:inline-flex">
               <Button variant="ghost" className="gap-1 text-primary hover:text-primary/80" style={{ fontSize: 13, fontWeight: 700 }}>

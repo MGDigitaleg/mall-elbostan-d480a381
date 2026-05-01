@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Compass, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CountdownTimer } from "@/components/CountdownTimer";
+
 
 import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
@@ -39,12 +39,12 @@ const slides = [
   },
   {
     image: ncHero3,
-    alt: "الافتتاح الكبير",
-    kicker: "١٥ مايو ٢٠٢٦",
-    headline: "الافتتاح الكبير قريباً.",
-    sub: "فرع القاهرة الجديدة — وحدات متاحة.",
+    alt: "فرع القاهرة الجديدة",
+    kicker: "فرع القاهرة الجديدة",
+    headline: "وجهتك للتقنية في التجمع الخامس.",
+    sub: "محلات متخصصة ووحدات تجارية متاحة.",
     cta: { label: "الوحدات المتاحة", to: "/leasing" },
-    ctaSecondary: { label: "الافتتاح", to: "/opening-day" },
+    ctaSecondary: { label: "المحلات", to: "/stores" },
   },
 ];
 
@@ -86,13 +86,7 @@ export function HeroSliderMobile() {
       <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.95) 0%, hsla(218, 50%, 10%, 0.65) 50%, hsla(218, 50%, 8%, 0.45) 100%)" }} />
 
       <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16" style={{ position: "absolute", inset: 0 }}>
-        {/* Countdown */}
-        <div className="mb-4 flex justify-center">
-          <div className="rounded-xl border px-4 py-2.5" style={{ borderColor: "hsla(0, 0%, 100%, 0.1)", background: "hsla(220, 45%, 10%, 0.7)" }}>
-            <p className="mb-1.5 text-center text-[0.58rem] font-semibold tracking-[0.14em] uppercase" style={{ color: "#CDBB9A" }}>الافتتاح الكبير</p>
-            <CountdownTimer compact />
-          </div>
-        </div>
+        {/* Countdown removed pre-launch */}
 
         {/* Text */}
         <div className="text-center space-y-2.5" key={current} style={{ animation: "heroFadeUp 500ms ease-out" }}>

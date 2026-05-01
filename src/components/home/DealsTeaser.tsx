@@ -52,13 +52,13 @@ export function DealsTeaser() {
           <div className="mb-2.5 flex flex-wrap items-end justify-between gap-2">
             <div className="min-w-0">
               <p className="text-[0.58rem] font-bold tracking-[0.06em] mb-0.5 uppercase" style={{ color: "#FDBA74" }}>
-                عروض الافتتاح
+                عروض مختارة
               </p>
               <h2
                 className="text-[0.8rem] md:text-[0.9rem] font-extrabold leading-[1.25]"
                 style={{ fontFamily: "var(--font-arabic-display)", color: "#FFFFFF" }}
               >
-                {isExpired ? "مختارات من عروض الافتتاح." : "معاينات عروض الافتتاح."}
+                {isExpired ? "مختارات من العروض." : "معاينات العروض."}
               </h2>
             </div>
             <OffersCtaGroup>
@@ -96,7 +96,7 @@ export function DealsTeaser() {
               <div className="flex items-center justify-center gap-3 rounded-xl p-4 text-center" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <Store className="h-5 w-5 shrink-0" style={{ color: "#F97316", opacity: 0.5 }} />
                 <p className="text-[0.74rem] leading-[1.5]" style={{ color: "#CBD5E1" }}>
-                  عروض الافتتاح قيد الإعداد —
+                  العروض قيد الإعداد —
                 </p>
                 <Link to="/daily-deals">
                   <Button
