@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildOfferLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
@@ -185,6 +185,25 @@ const OfferDetail = () => {
       <SEOHead
         title={seoTitle}
         description={seoDesc}
+        ogImage={offer.image_primary ?? undefined}
+        breadcrumbs={[
+          { name: "عروض اليوم", url: "/daily-deals" },
+          ...(store ? [{ name: store.name_ar, url: `/stores/${store.slug}` }] : []),
+          { name: offer.title_ar, url: `/offers/${offer.id}` },
+        ]}
+        jsonLd={buildOfferLd({
+          title_ar: offer.title_ar,
+          description_ar: offer.description_ar,
+          price_current: offer.price_current,
+          price_old: offer.price_old,
+          currency: offer.currency,
+          image_primary: offer.image_primary,
+          valid_from: offer.valid_from,
+          valid_to: offer.valid_to,
+          store_name: store?.name_ar ?? null,
+          url: `/offers/${offer.id}`,
+        })}
+        noIndex={isExpired}
       />
 
       <div className="bg-gradient-to-b from-secondary/30 via-background to-background">
