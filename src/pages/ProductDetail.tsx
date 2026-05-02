@@ -29,6 +29,7 @@ import {
 import { motion } from "framer-motion";
 import { useKzCart } from "@/hooks/useKzCart";
 import { toast } from "@/hooks/use-toast";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 
 /* ══════════════════════════════════════════════════════════
    Unified Product Detail — handles both mall & KZ products
