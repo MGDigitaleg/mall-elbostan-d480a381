@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildOrganizationLd, shoppingCenterLd, websiteLd, buildFaqLd } from "@/components/SEOHead";
+import { SEOHead, buildCoreGraphLd, buildFaqLd, buildSiteNavLd, buildSpeakableLd } from "@/components/SEOHead";
 import { useSitePhone } from "@/hooks/useSitePhone";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
