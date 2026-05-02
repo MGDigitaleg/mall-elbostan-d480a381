@@ -3,7 +3,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildCollectionPageLd } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Search, ShoppingBag, X, SlidersHorizontal, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -79,6 +79,17 @@ const KzProducts = () => {
         titleEn="All Products - Kasr Zero"
         description="تصفّح جميع منتجات Kasr Zero — لابتوبات، هواتف، شاشات، إكسسوارات بأفضل الأسعار."
         breadcrumbs={[{ name: "Kasr Zero", url: "/kz" }, { name: "المنتجات", url: "/kz/products" }]}
+        jsonLd={filtered.length > 0 ? buildCollectionPageLd({
+          name: "جميع منتجات Kasr Zero",
+          description: "كتالوج منتجات Kasr Zero الكامل",
+          url: "/kz/products",
+          items: filtered.slice(0, 50).map((p: any) => {
+            const v = p.kz_product_variants?.find((x: any) => x.is_default) ?? p.kz_product_variants?.[0];
+            const img = p.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
+            return { name: p.title, url: `/kz/products/${p.slug}`, image: img?.image_url ?? null };
+          }),
+        }) : undefined}
+        noIndex={hasFilters}
       />
 
       {/* Header */}

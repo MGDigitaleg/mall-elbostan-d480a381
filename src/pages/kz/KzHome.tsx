@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildCollectionPageLd } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Search, ShoppingBag, Cpu, Smartphone, Monitor, Laptop, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -50,6 +50,34 @@ const KzHome = () => {
         descriptionEn="Shop the latest electronics — laptops, phones, monitors, accessories and more."
         keywords="Kasr Zero, كاسر زيرو, لابتوب, موبايل, شاشات, اكسسوارات, مول البستان, اسعار الالكترونيات"
         breadcrumbs={[{ name: "Kasr Zero", url: "/kz" }]}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": ["OnlineStore", "ElectronicsStore"],
+            "@id": "https://mallelbostan.com/kz#store",
+            name: "Kasr Zero",
+            alternateName: "كاسر زيرو",
+            description: "متجر إلكترونيات Kasr Zero داخل مول البستان — لابتوبات، هواتف، شاشات، وإكسسوارات بأسعار تنافسية.",
+            url: "https://mallelbostan.com/kz",
+            currenciesAccepted: "EGP",
+            paymentAccepted: "Cash, Credit Card",
+            containedInPlace: { "@id": "https://mallelbostan.com/#mall" },
+            parentOrganization: { "@id": "https://mallelbostan.com/#organization" },
+            potentialAction: {
+              "@type": "SearchAction",
+              target: { "@type": "EntryPoint", urlTemplate: "https://mallelbostan.com/kz/search?q={query}" },
+              "query-input": "required name=query",
+            },
+          },
+          ...(categories && categories.length > 0
+            ? [buildCollectionPageLd({
+                name: "تصنيفات Kasr Zero",
+                description: "تصفّح تصنيفات منتجات Kasr Zero",
+                url: "/kz",
+                items: categories.map((c) => ({ name: c.name, url: `/kz/category/${c.slug}` })),
+              })]
+            : []),
+        ]}
       />
 
       {/* Hero */}

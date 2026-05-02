@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildSearchResultsLd } from "@/components/SEOHead";
 import { Search, ShoppingBag } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -28,7 +28,21 @@ const KzSearch = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="بحث - Kasr Zero" titleEn="Search - Kasr Zero" description="ابحث عن منتج في Kasr Zero" />
+      <SEOHead
+        title={trimmed ? `بحث: ${trimmed} - Kasr Zero` : "بحث - Kasr Zero"}
+        titleEn="Search - Kasr Zero"
+        description={trimmed ? `نتائج بحث "${trimmed}" في Kasr Zero` : "ابحث عن منتج في Kasr Zero"}
+        breadcrumbs={[{ name: "Kasr Zero", url: "/kz" }, { name: "بحث", url: "/kz/search" }]}
+        noIndex
+        jsonLd={trimmed && results && results.length > 0 ? buildSearchResultsLd({
+          url: "/kz/search",
+          query: trimmed,
+          results: results.map((p: any) => {
+            const img = p.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
+            return { name: p.title, url: `/kz/products/${p.slug}`, image: img?.image_url ?? null };
+          }),
+        }) : undefined}
+      />
 
       <section className="py-8 md:py-10" style={{ background: "linear-gradient(135deg, #071326 0%, #0d1f3c 100%)" }}>
         <div className="container max-w-[700px]">
