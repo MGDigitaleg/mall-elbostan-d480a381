@@ -96,6 +96,7 @@ const Contact = () => {
         descriptionEn="Contact Mall Elbostan in New Cairo's Fifth Settlement. General inquiries, unit leasing, tech partnerships, or career opportunities. We respond within one business day."
         keywords="تواصل مول البستان, رقم مول البستان, عنوان مول البستان, تأجير وحدات, القاهرة الجديدة, التجمع الخامس, contact mall elbostan"
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
+        jsonLd={buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: "info@mallelbostan.com" })}
       />
 
       <PageHero
