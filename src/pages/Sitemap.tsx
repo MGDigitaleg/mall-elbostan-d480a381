@@ -73,14 +73,13 @@ export default function Sitemap() {
       <SEOHead
         title="خريطة الموقع — مول البستان"
         description="استعرض جميع أقسام موقع مول البستان: الصفحات الرئيسية، فئات الأجهزة، المحلات، المنتجات، والمدونة."
-        canonical="https://www.mallelbostan.com/sitemap"
       />
 
       <PageHero
-        eyebrow="الفهرس العام"
+        kicker="الفهرس العام"
         title="خريطة الموقع"
-        description="نظرة سريعة على كل أقسام مول البستان — عدد الصفحات في كل قسم وآخر تاريخ تحديث."
-        icon={Map}
+        subtitle="نظرة سريعة على كل أقسام مول البستان — عدد الصفحات في كل قسم وآخر تاريخ تحديث."
+        compact
       />
 
       <section className="container py-12 md:py-16">
