@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { TenantLogo } from "@/components/TenantLogo";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildBranchLd } from "@/components/SEOHead";
 import {
   Compass, ShoppingBag, Layers, Store, Gift, ArrowLeft, MapPin, Phone,
   Building2, Cpu, Gamepad2, Monitor, Award, Users,
