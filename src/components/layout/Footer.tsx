@@ -203,7 +203,7 @@ export function Footer() {
         </div>
 
         {/* ── CATEGORY DEEP-LINKS (compact, SEO-friendly internal links) ── */}
-        <div
+        <nav
           className="mt-6 lg:mt-8 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2"
           style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
           aria-label="تصفّح المحلات حسب الفئة"
