@@ -173,12 +173,12 @@ export function Footer() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-2 pt-1 lg:pt-2 justify-center lg:justify-start">
-              <Link to="/map">
+              <Link to="/map" aria-label="استكشف الخريطة التفاعلية لمحلات المول">
                 <Button variant="cta" className="h-9 lg:h-10 rounded-xl px-4 lg:px-5 text-[0.78rem] font-bold shadow-lg shadow-primary/20">
-                  <Compass className="ml-1.5 h-3.5 w-3.5" /> استكشف الخريطة
+                  <Compass className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" /> استكشف الخريطة
                 </Button>
               </Link>
-              <Link to="/leasing">
+              <Link to="/leasing" aria-label="تأجير وشراء وحدات في مول البستان">
                 <Button
                   className="h-9 lg:h-10 rounded-xl px-4 lg:px-5 text-[0.78rem] font-bold transition-all duration-300 hover:bg-white/[0.08]"
                   style={{ background: "#ffffff06", color: "#CBD5E1", border: "1px solid #ffffff12" }}
