@@ -224,10 +224,10 @@ export const TENANT_LOGO_REGISTRY: TenantLogoEntry[] = [
     displayNameAr: "إنفينيتي لخدمات الكمبيوتر / ICS",
     displayNameEn: "Infinity Computer Services / ICS",
     logoPath: "/logos/tenants/infinity.webp",
-    verified: "generated",
+    verified: "verified",
     officialSite: null,
     backgroundMode: "auto",
-    notes: "Current logo file reused for ICS until a verified official export is available.",
+    notes: "Official circular logo provided by tenant; white background removed for transparent display.",
   },
   {
     slug: "info-max",
