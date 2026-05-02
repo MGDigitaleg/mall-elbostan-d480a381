@@ -363,21 +363,21 @@ export function Footer() {
               <span style={{ color: "#2A3444" }}>|</span>
               <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
-              <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
-              <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
-              <Link to="/sitemap" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
-              <Link to="/rss" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
-                <Rss className="h-3 w-3" />
+            <nav aria-label="روابط قانونية وفهارس الموقع" className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
+              <Link to="/terms" aria-label="شروط استخدام مول البستان" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
+              <Link to="/privacy" aria-label="سياسة الخصوصية لمول البستان" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
+              <Link to="/sitemap" aria-label="فهرس صفحات مول البستان" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
+              <Link to="/rss" aria-label="خلاصة RSS لمدونة مول البستان" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
+                <Rss className="h-3 w-3" aria-hidden="true" />
                 RSS
               </Link>
               <span>
                 Developed by{" "}
-                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
+                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" aria-label="موقع شركة MG Digital — مطوّر الموقع (يفتح في نافذة جديدة)" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
                   MG Digital
                 </a>
               </span>
-            </div>
+            </nav>
           </div>
         </div>
       </div>
