@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown } from "lucide-react";
+import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown, Rss } from "lucide-react";
 import { useState } from "react";
 import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { useSitePhone } from "@/hooks/useSitePhone";
