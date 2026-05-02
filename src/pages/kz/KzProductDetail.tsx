@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useKzCart } from "@/hooks/useKzCart";
 import { toast } from "@/hooks/use-toast";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 
 const KzProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -238,7 +239,7 @@ const KzProductDetail = () => {
                   <p className="mb-2 text-[0.78rem] font-bold text-foreground">الوصف</p>
                   <div
                     className="prose prose-sm max-w-none text-[0.82rem] leading-[1.9] text-muted-foreground [&_table]:w-full [&_table]:border-collapse [&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-1.5 [&_th]:border [&_th]:border-border [&_th]:px-3 [&_th]:py-1.5 [&_th]:bg-secondary/50 [&_th]:text-foreground [&_th]:font-semibold [&_strong]:text-foreground [&_h4]:text-foreground [&_h4]:mt-4 [&_h4]:mb-2 [&_h4]:text-[0.88rem]"
-                    dangerouslySetInnerHTML={{ __html: product.description }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(product.description) }}
                   />
                 </div>
               )}
