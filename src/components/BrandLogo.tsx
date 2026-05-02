@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import logoDark from "@/assets/logo-brand-dark.webp";
-import logoWhite from "@/assets/logo-brand-white.webp";
+import logoWhite from "@/assets/logo-brand-white-sm.webp";
 
 type BrandLogoProps = {
   className?: string;
