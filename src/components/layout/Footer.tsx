@@ -366,6 +366,10 @@ export function Footer() {
               <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
               <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
               <Link to="/sitemap" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
+              <Link to="/rss" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
+                <Rss className="h-3 w-3" />
+                RSS
+              </Link>
               <span>
                 Developed by{" "}
                 <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
