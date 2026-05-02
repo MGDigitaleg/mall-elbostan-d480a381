@@ -31,7 +31,7 @@ const About = () => {
       descriptionEn="Learn about Mall Elbostan — Egypt's first specialized technology mall since 1990. Two branches, 150+ stores, and an interactive floor map."
       keywords="عن مول البستان, تاريخ مول البستان, مول تكنولوجيا مصر, أقدم مول إلكترونيات, القاهرة الجديدة, وسط البلد"
       breadcrumbs={[{ name: "عن المول", url: "/about" }]}
-      jsonLd={organizationLd}
+      jsonLd={[organizationLd, buildAboutPageLd()]}
     />
 
     {/* ═══════════ 1 · HERO (compact, no image — branch cards below carry imagery) ═══════════ */}
