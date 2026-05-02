@@ -192,12 +192,12 @@ export const TENANT_LOGO_REGISTRY: TenantLogoEntry[] = [
   {
     slug: "egypt-laptop",
     displayNameAr: "Egypt Laptop",
-    displayNameEn: "Egypt Laptop",
+    displayNameEn: "Egypt Laptop — End User & Corporate",
     logoPath: "/logos/tenants/egypt-laptop.webp",
-    verified: "generated",
+    verified: "verified",
     officialSite: null,
     backgroundMode: "auto",
-    notes: "AI-generated placeholder. Official logo not yet sourced.",
+    notes: "Official tenant-provided logo; white background removed and excess whitespace trimmed.",
   },
   {
     slug: "print-show",
