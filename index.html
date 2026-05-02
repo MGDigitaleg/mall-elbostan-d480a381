@@ -55,6 +55,11 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
+    <!-- Preload LCP hero image (homepage only) — must be discoverable in initial HTML -->
+    <script>
+      (function(){if(location.pathname==='/'||location.pathname===''){var l=document.createElement('link');l.rel='preload';l.as='image';l.href='/hero/nc-hero-1.webp';l.fetchPriority='high';document.head.appendChild(l)}})();
+    </script>
+
     <!-- Preload critical Arabic fonts to prevent layout shifts -->
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YOG-eCRXMRrKATtYV0.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/ibmplexsansarabic/v15/Qw3NZRtWPQCuHme67tEYUIx3Kh0PHR9N6YOG-eCUXMRrKATt.woff2" />
