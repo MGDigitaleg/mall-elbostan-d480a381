@@ -267,19 +267,20 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         {/* ── CONTACT STRIP ── */}
-        <div
-          className="mt-6 lg:mt-10 rounded-2xl px-4 py-3 lg:px-5 lg:py-4 grid gap-2.5 lg:gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8"
+        <address
+          className="mt-6 lg:mt-10 rounded-2xl px-4 py-3 lg:px-5 lg:py-4 grid gap-2.5 lg:gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8 not-italic"
           style={{ background: "#ffffff04", border: "1px solid #ffffff0A", backdropFilter: "blur(8px)" }}
+          aria-label="بيانات التواصل"
         >
           <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase sm:col-span-3 md:col-auto" style={{ color: "#CDBB9A" }}>
             تواصل معنا
           </span>
 
-          <a href="mailto:info@mallelbostan.com" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
+          <a href="mailto:info@mallelbostan.com" aria-label="راسل إدارة مول البستان عبر البريد الإلكتروني" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }} aria-hidden="true">
               <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
             </span>
             <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
