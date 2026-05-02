@@ -30,16 +30,21 @@ export function BackToTop({ threshold = 600 }: Props) {
       return;
     }
 
+    let rafId: number | null = null;
     const measure = () => {
-      const el = document.querySelector<HTMLElement>("[data-sticky-cta]");
-      if (!el) {
-        setStickyOffset(null);
-        return;
-      }
-      // StickyCTA is already positioned 56px above viewport bottom (above MobileBottomNav).
-      // Lift BackToTop above the CTA card with a 12px gap.
-      const h = el.getBoundingClientRect().height;
-      setStickyOffset(Math.round(h + 48 + 12));
+      if (rafId != null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        const el = document.querySelector<HTMLElement>("[data-sticky-cta]");
+        if (!el) {
+          setStickyOffset(null);
+          return;
+        }
+        // StickyCTA is already positioned 56px above viewport bottom (above MobileBottomNav).
+        // Lift BackToTop above the CTA card with a 12px gap.
+        const h = el.getBoundingClientRect().height;
+        setStickyOffset(Math.round(h + 48 + 12));
+      });
     };
 
     measure();
@@ -51,6 +56,7 @@ export function BackToTop({ threshold = 600 }: Props) {
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
+      if (rafId != null) cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
 
