@@ -176,7 +176,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 700px",
           paddingTop: "clamp(14px, 2.4vw, 44px)",
           paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(featuredProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
+          // Hide while loading or when too few products to render — prevents post-load layout shift
+          ...(productsLoading || featuredProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
@@ -209,7 +210,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 560px",
           paddingTop: "clamp(12px, 2.2vw, 36px)",
           paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
+          ...(productsLoading || latestProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
