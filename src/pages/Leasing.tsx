@@ -183,6 +183,10 @@ const Leasing = () => {
         descriptionEn="Commercial units for lease at Mall Elbostan, a premium technology destination in New Cairo."
         keywords="وحدات تجارية للايجار, ايجار محل مول, القاهرة الجديدة, التجمع الخامس, مول تكنولوجيا, commercial leasing"
         breadcrumbs={[{ name: "التأجير", url: "/leasing" }]}
+        jsonLd={[
+          buildServiceLd({ name: "تأجير وحدات تجارية في مول البستان", description: "وحدات تجارية متنوعة للإيجار في مول البستان — أكشاك، محلات صغيرة ومتوسطة وكبيرة، ووحدات رئيسية.", url: "/leasing", serviceType: "Commercial Real Estate Leasing" }),
+          ...(availableUnits && availableUnits.length > 0 ? [buildRealEstateListingLd(availableUnits)] : []),
+        ]}
       />
 
       {/* ═══════════ HERO ═══════════ */}
