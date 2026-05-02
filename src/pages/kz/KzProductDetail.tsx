@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildKzProductLd } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShoppingBag, ShoppingCart, CheckCircle, XCircle, ChevronLeft, ChevronRight, ArrowLeft, Check } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -88,11 +88,25 @@ const KzProductDetail = () => {
         title={product.seo_title || product.title}
         titleEn={product.title}
         description={product.seo_description || product.short_description || product.title}
+        ogImage={images[0]?.image_url ?? undefined}
         breadcrumbs={[
           { name: "المنتجات", url: "/products" },
           { name: "Kasr Zero", url: "/products?store=kasr-zero" },
           { name: product.title, url: `/kz/products/${product.slug}` },
         ]}
+        jsonLd={buildKzProductLd({
+          title: product.title,
+          slug: product.slug,
+          brand: product.brand,
+          short_description: product.short_description,
+          description: product.description,
+          image: images[0]?.image_url ?? null,
+          sku: selectedVariant?.sku ?? null,
+          price: selectedVariant?.price ?? null,
+          compare_price: selectedVariant?.compare_price ?? null,
+          in_stock: inStock,
+          condition: product.condition,
+        })}
       />
 
       <section className="py-6 md:py-8" style={{ background: "hsl(var(--background))" }}>

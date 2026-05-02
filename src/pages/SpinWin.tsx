@@ -3,7 +3,7 @@ import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLef
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildPromoEventLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
@@ -207,6 +207,13 @@ const SpinWin = () => {
         descriptionEn="Spin the wheel at Mall Elbostan – New Cairo and win instant prizes."
         keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
         breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]}
+        jsonLd={buildPromoEventLd({
+          name: "أدر واربح — حملة افتتاح مول البستان",
+          description: "حملة جوائز فورية: لف العجلة واربح خصومات وهدايا حقيقية من محلات مول البستان بالتجمع الخامس.",
+          url: "/spin-win",
+          startDate: "2026-05-01",
+          endDate: "2026-08-31",
+        })}
       />
 
       {/* ─── Hero ─── */}
