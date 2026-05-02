@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Rss, ExternalLink, Copy, Check, Calendar } from "lucide-react";
+import { Rss as RssIcon, ExternalLink, Copy, Check, Calendar } from "lucide-react";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { supabase } from "@/integrations/supabase/client";
