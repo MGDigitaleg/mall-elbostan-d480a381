@@ -77,18 +77,21 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
   // Reserve exact height: heading ~32px + links * 28px line-height + gaps
   const desktopHeight = 32 + linkCount * 28 + (linkCount - 1) * 10;
 
+  const sectionId = `footer-col-${col.title}`;
   return (
-    <div style={{ minHeight: undefined }} className="lg:min-h-0" data-footer-col>
+    <nav aria-label={col.title} style={{ minHeight: undefined }} className="lg:min-h-0" data-footer-col>
       {/* Mobile: accordion trigger */}
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={openMobile}
+        aria-controls={sectionId}
+        aria-label={`${openMobile ? "إخفاء" : "عرض"} روابط ${col.title}`}
         className="flex w-full items-center justify-between lg:hidden"
         style={{ height: 40 }}
       >
         <div className="flex items-center gap-2">
-          <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
+          <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} aria-hidden="true" />
           <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" style={{ color: "#CDBB9A" }}>
             {col.title}
           </span>
@@ -96,18 +99,20 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
         <ChevronDown
           className="h-4 w-4 transition-transform duration-200"
           style={{ color: "#CDBB9A", transform: openMobile ? "rotate(180deg)" : "rotate(0deg)" }}
+          aria-hidden="true"
         />
       </button>
 
       {/* Desktop: static heading */}
       <div className="mb-4 hidden items-center gap-2 lg:flex" style={{ height: 20 }}>
-        <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
-        <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" role="heading" aria-level={2} style={{ color: "#CDBB9A" }}>
+        <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} aria-hidden="true" />
+        <h2 className="text-[0.66rem] font-bold tracking-[0.16em] uppercase m-0" style={{ color: "#CDBB9A" }}>
           {col.title}
-        </span>
+        </h2>
       </div>
 
       <ul
+        id={sectionId}
         className={`space-y-2.5 overflow-hidden transition-all duration-200 lg:block pt-2 lg:pt-0 ${openMobile ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"}`}
         style={{ contain: "layout style" }}
       >
@@ -115,6 +120,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
           <li key={link.path} style={{ height: 20 }}>
             <Link
               to={link.path}
+              aria-label={`${link.label} — مول البستان`}
               className="text-[0.8rem] leading-[20px] transition-colors duration-200 hover:text-white inline-block"
               style={{ color: "#7C8BA1" }}
             >
@@ -123,7 +129,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 
