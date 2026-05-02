@@ -66,39 +66,49 @@ serve(async (req) => {
   const sb = createClient(supabaseUrl, serviceKey);
 
   try {
-    // ── Admin auth guard ──
-    const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(
-        JSON.stringify({ success: false, error: "Unauthorized" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-    const userClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
-      global: { headers: { Authorization: authHeader } },
-    });
-    const { data: { user }, error: authErr } = await userClient.auth.getUser(
-      authHeader.replace("Bearer ", "")
+    // ── Auth: accept either an admin bearer token OR an internal webhook secret ──
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const webhookSecret = req.headers.get("X-Webhook-Secret");
+    const expectedWebhookSecret = Deno.env.get("INDEXING_WEBHOOK_SECRET");
+    const isWebhook = Boolean(
+      expectedWebhookSecret &&
+      webhookSecret &&
+      webhookSecret === expectedWebhookSecret
     );
-    if (authErr || !user) {
-      return new Response(
-        JSON.stringify({ success: false, error: "Unauthorized" }),
-        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+
+    if (!isWebhook) {
+      if (!authHeader) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Unauthorized" }),
+          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      const userClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
+        global: { headers: { Authorization: authHeader } },
+      });
+      const { data: { user }, error: authErr } = await userClient.auth.getUser(
+        authHeader.replace("Bearer ", "")
       );
-    }
-    const { data: isAdmin } = await sb.rpc("has_role", {
-      _user_id: user.id,
-      _role: "admin",
-    });
-    if (!isAdmin) {
-      return new Response(
-        JSON.stringify({ success: false, error: "Forbidden" }),
-        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      if (authErr || !user) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Unauthorized" }),
+          { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      const { data: isAdmin } = await sb.rpc("has_role", {
+        _user_id: user.id,
+        _role: "admin",
+      });
+      if (!isAdmin) {
+        return new Response(
+          JSON.stringify({ success: false, error: "Forbidden" }),
+          { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
     }
 
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
-    const source: string = body.source ?? "manual";
+    const source: string = body.source ?? (isWebhook ? "trigger" : "manual");
     const requestedEnv: string | undefined = body.env;
     const customUrls: string[] = body.urls ?? [];
 
@@ -192,8 +202,9 @@ serve(async (req) => {
     }
 
     const indexNowHosts = [
-      "https://api.indexnow.org/indexnow",
+      "https://api.indexnow.org/indexnow", // fans out to Bing, Yandex, Seznam, Naver
       "https://www.bing.com/indexnow",
+      "https://yandex.com/indexnow",
     ];
 
     for (const endpoint of indexNowHosts) {
