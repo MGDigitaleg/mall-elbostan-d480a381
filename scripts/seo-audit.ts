@@ -31,6 +31,10 @@ const DYNAMIC_PAGES = new Set([
   "src/pages/kz/KzCategory.tsx",
   "src/pages/Stores.tsx",
   "src/pages/Products.tsx",
+  "src/pages/Leasing.tsx",
+  "src/pages/Contact.tsx",
+  "src/pages/Index.tsx",
+  "src/pages/About.tsx",
 ]);
 
 /** Pages allowed to use noIndex */
