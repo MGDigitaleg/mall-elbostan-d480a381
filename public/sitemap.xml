@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Sitemap index — Mall El Bostan
-  - sitemap-main.xml    : core pages (homepage, stores, products, info, branches…)
-  - sitemap-devices.xml : full device taxonomy (pillars + clusters + long-tail)
+  All URLs are generated dynamically from the database with real lastmod
+  values via the `sitemap` edge function. This index is the single entry
+  point that search engines should crawl (referenced from robots.txt).
 -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://mallelbostan.com/sitemap-main.xml</loc>
-    <lastmod>2026-04-24</lastmod>
+    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages</loc>
   </sitemap>
   <sitemap>
-    <loc>https://mallelbostan.com/sitemap-devices.xml</loc>
-    <lastmod>2026-04-24</lastmod>
+    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products</loc>
+  </sitemap>
+  <sitemap>
+    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog</loc>
   </sitemap>
 </sitemapindex>
