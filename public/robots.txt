@@ -1,6 +1,22 @@
-# Mall Elbostan — مول البستان
+# Mall El Bostan — مول البستان
 # https://mallelbostan.com
+# Static fallback — dynamic version available at:
+#   https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/robots
 
+# AI training crawlers — disallow
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+# Default rules
 User-agent: *
 Allow: /
 Allow: /stores
@@ -19,31 +35,35 @@ Allow: /daily-deals
 Allow: /new-cairo-branch
 Allow: /downtown-branch
 Allow: /downtown-directory
+Allow: /devices
 Allow: /market-echo
+Allow: /tech-planet
 Allow: /kz
+Allow: /sitemap
 Allow: /privacy
 Allow: /terms
 Allow: /reward-terms
 
-# Block admin and internal routes
+# Block admin, internal flows, and parameterized listings
 Disallow: /admin
 Disallow: /admin/
 Disallow: /spin-win/claim
+Disallow: /spin-win/account
 Disallow: /countdown
 Disallow: /kz/cart
 Disallow: /kz/search
-
-# Block filtered/parameterized pages from indexing
 Disallow: /products?*
 Disallow: /stores?*
 Disallow: /kz/products?*
+Disallow: /daily-deals?*
 
-# Crawl delay
 Crawl-delay: 1
 
-# Sitemaps — dynamic edge function generates fresh XML from the database
-Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap
-# Static sitemap index (references sitemap-main.xml + sitemap-devices.xml)
+# Sitemaps — dynamic edge function returns fresh lastmod from the database
 Sitemap: https://mallelbostan.com/sitemap.xml
-Sitemap: https://mallelbostan.com/sitemap-main.xml
-Sitemap: https://mallelbostan.com/sitemap-devices.xml
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog
