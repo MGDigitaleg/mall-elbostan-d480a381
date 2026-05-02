@@ -35,6 +35,7 @@ const footerColumns = [
     links: [
       { label: "الأسئلة الشائعة", path: "/faq" },
       { label: "المدونة", path: "/blog" },
+      { label: "خلاصة RSS", path: "/rss" },
       { label: "فرص العمل", path: "/careers" },
       { label: "تواصل معنا", path: "/contact" },
       { label: "الخصوصية", path: "/privacy" },
