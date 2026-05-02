@@ -75,7 +75,7 @@ export function SEOHead({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {/* robots meta is set below in the SEO crawler hints block */}
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="author" content="مول البستان" />
 
