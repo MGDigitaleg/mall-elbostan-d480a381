@@ -158,18 +158,18 @@ export function Footer() {
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-2 pt-1 justify-center lg:justify-start">
+            <nav aria-label="حسابات مول البستان على الشبكات الاجتماعية" className="flex items-center gap-2 pt-1 justify-center lg:justify-start">
               {socialLinks.map((s) => (
-                <SocialIcon key={s.label} href={s.href} label={s.label}>
-                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} />
+                <SocialIcon key={s.label} href={s.href} label={`تابع مول البستان على ${s.label}`}>
+                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} aria-hidden="true" />
                 </SocialIcon>
               ))}
-              <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="TikTok">
-                <span className="transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }}>
+              <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="تابع مول البستان على TikTok">
+                <span className="transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} aria-hidden="true">
                   <TikTokIcon />
                 </span>
               </SocialIcon>
-            </div>
+            </nav>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-2 pt-1 lg:pt-2 justify-center lg:justify-start">
