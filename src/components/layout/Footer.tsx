@@ -267,6 +267,8 @@ export function Footer() {
                 <Link
                   to={d.to}
                   onClick={() => trackSeoLinkClick("footer", "page", d.label, d.to)}
+                  aria-label={`${d.label} — مول البستان`}
+                  title={`${d.label} في مول البستان`}
                   className="block truncate min-h-[36px] sm:min-h-0 leading-[36px] sm:leading-normal text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
                   style={{ color: "#7C8BA1" }}
                 >
