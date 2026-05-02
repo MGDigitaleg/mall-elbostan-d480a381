@@ -791,6 +791,110 @@ export function buildSpeakableLd(cssSelectors: string[] = ["h1", "[data-speakabl
   };
 }
 
+/** SearchResultsPage — for in-site search pages (e.g. /kz/search). */
+export function buildSearchResultsLd(opts: { url: string; query: string; results: { name: string; url: string; image?: string | null; price?: number | null }[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SearchResultsPage",
+    name: `نتائج البحث: ${opts.query}`,
+    url: `${BASE_URL}${opts.url}`,
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: opts.results.length,
+      itemListElement: opts.results.slice(0, 30).map((r, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: r.url.startsWith("http") ? r.url : `${BASE_URL}${r.url}`,
+        name: r.name,
+        ...(r.image ? { image: r.image } : {}),
+      })),
+    },
+  };
+}
+
+/** Generic Product builder used by Kasr Zero (with variant data). */
+export function buildKzProductLd(product: {
+  title: string;
+  slug: string;
+  brand?: string | null;
+  short_description?: string | null;
+  description?: string | null;
+  image?: string | null;
+  sku?: string | null;
+  price?: number | null;
+  compare_price?: number | null;
+  currency?: string;
+  in_stock?: boolean;
+  condition?: string | null;
+}) {
+  const itemCondition =
+    product.condition === "used"
+      ? "https://schema.org/UsedCondition"
+      : product.condition === "refurbished"
+      ? "https://schema.org/RefurbishedCondition"
+      : "https://schema.org/NewCondition";
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.short_description ?? product.description?.replace(/<[^>]+>/g, "").slice(0, 300) ?? product.title,
+    url: `${BASE_URL}/kz/products/${product.slug}`,
+    image: product.image ?? undefined,
+    ...(product.brand ? { brand: { "@type": "Brand", name: product.brand } } : {}),
+    ...(product.sku ? { sku: product.sku } : {}),
+    ...(product.price
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: product.price,
+            priceCurrency: product.currency ?? "EGP",
+            availability: product.in_stock === false ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+            itemCondition,
+            url: `${BASE_URL}/kz/products/${product.slug}`,
+            seller: { "@type": "Organization", name: "Kasr Zero" },
+            ...(product.compare_price && product.compare_price > (product.price ?? 0)
+              ? { priceSpecification: { "@type": "PriceSpecification", price: product.price, priceCurrency: product.currency ?? "EGP" } }
+              : {}),
+          },
+        }
+      : {}),
+  };
+}
+
+/** Promotional Event — for campaigns like Spin & Win. */
+export function buildPromoEventLd(opts: { name: string; description: string; url: string; startDate?: string; endDate?: string; image?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+    startDate: opts.startDate ?? "2026-05-01",
+    endDate: opts.endDate ?? "2026-12-31",
+    image: opts.image,
+    location: [
+      {
+        "@type": "Place",
+        name: "مول البستان — التجمع الخامس",
+        address: { "@type": "PostalAddress", streetAddress: "شارع التسعين، التجمع الخامس", addressLocality: "القاهرة الجديدة", addressCountry: "EG" },
+      },
+      { "@type": "VirtualLocation", url: `${BASE_URL}${opts.url}` },
+    ],
+    organizer: { "@id": `${BASE_URL}/#organization` },
+    offers: {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: "EGP",
+      availability: "https://schema.org/InStock",
+      url: `${BASE_URL}${opts.url}`,
+      validFrom: opts.startDate ?? "2026-05-01",
+    },
+  };
+}
+
 /** Bundle the three core entities (Organization + ShoppingCenter + WebSite) into one @graph payload. */
 export function buildCoreGraphLd(phoneOverride?: string, extra: Record<string, unknown>[] = []) {
   return {
