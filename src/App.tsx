@@ -45,6 +45,7 @@ const DeviceCategory = lazy(() => lazyRetry(() => import("./pages/DeviceCategory
 const DevicePage = lazy(() => lazyRetry(() => import("./pages/DevicePage")));
 const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/DowntownMerchantDetail")));
 const TechPlanet = lazy(() => lazyRetry(() => import("./pages/TechPlanet")));
+const Sitemap = lazy(() => lazyRetry(() => import("./pages/Sitemap")));
 const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
 
 /* ── Kasr Zero pages ── */
