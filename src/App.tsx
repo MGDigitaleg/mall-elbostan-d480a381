@@ -181,6 +181,7 @@ function AppLayout() {
             <Route path="/countdown" element={<Countdown />} />
             <Route path="/tech-planet" element={<TechPlanet />} />
             <Route path="/sitemap" element={<Sitemap />} />
+            <Route path="/rss" element={<Rss />} />
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
