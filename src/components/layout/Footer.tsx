@@ -77,18 +77,21 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
   // Reserve exact height: heading ~32px + links * 28px line-height + gaps
   const desktopHeight = 32 + linkCount * 28 + (linkCount - 1) * 10;
 
+  const sectionId = `footer-col-${col.title}`;
   return (
-    <div style={{ minHeight: undefined }} className="lg:min-h-0" data-footer-col>
+    <nav aria-label={col.title} style={{ minHeight: undefined }} className="lg:min-h-0" data-footer-col>
       {/* Mobile: accordion trigger */}
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={openMobile}
+        aria-controls={sectionId}
+        aria-label={`${openMobile ? "إخفاء" : "عرض"} روابط ${col.title}`}
         className="flex w-full items-center justify-between lg:hidden"
         style={{ height: 40 }}
       >
         <div className="flex items-center gap-2">
-          <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
+          <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} aria-hidden="true" />
           <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" style={{ color: "#CDBB9A" }}>
             {col.title}
           </span>
@@ -96,18 +99,20 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
         <ChevronDown
           className="h-4 w-4 transition-transform duration-200"
           style={{ color: "#CDBB9A", transform: openMobile ? "rotate(180deg)" : "rotate(0deg)" }}
+          aria-hidden="true"
         />
       </button>
 
       {/* Desktop: static heading */}
       <div className="mb-4 hidden items-center gap-2 lg:flex" style={{ height: 20 }}>
-        <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} />
-        <span className="text-[0.66rem] font-bold tracking-[0.16em] uppercase" role="heading" aria-level={2} style={{ color: "#CDBB9A" }}>
+        <div className="h-px w-4 rounded-full" style={{ background: "#CDBB9A" }} aria-hidden="true" />
+        <h2 className="text-[0.66rem] font-bold tracking-[0.16em] uppercase m-0" style={{ color: "#CDBB9A" }}>
           {col.title}
-        </span>
+        </h2>
       </div>
 
       <ul
+        id={sectionId}
         className={`space-y-2.5 overflow-hidden transition-all duration-200 lg:block pt-2 lg:pt-0 ${openMobile ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"}`}
         style={{ contain: "layout style" }}
       >
@@ -115,6 +120,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
           <li key={link.path} style={{ height: 20 }}>
             <Link
               to={link.path}
+              aria-label={`${link.label} — مول البستان`}
               className="text-[0.8rem] leading-[20px] transition-colors duration-200 hover:text-white inline-block"
               style={{ color: "#7C8BA1" }}
             >
@@ -123,7 +129,7 @@ function NavColumn({ col, openMobile, onToggle }: { col: typeof footerColumns[0]
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
 }
 
@@ -149,7 +155,7 @@ export function Footer() {
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5 flex flex-col items-center text-center lg:items-start lg:text-right">
-            <Link to="/" className="brand-logo-glow inline-flex items-center" style={{ height: 64 }}>
+            <Link to="/" aria-label="مول البستان — الصفحة الرئيسية" className="brand-logo-glow inline-flex items-center" style={{ height: 64 }}>
               <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
             </Link>
 
@@ -158,27 +164,27 @@ export function Footer() {
             </p>
 
             {/* Social icons */}
-            <div className="flex items-center gap-2 pt-1 justify-center lg:justify-start">
+            <nav aria-label="حسابات مول البستان على الشبكات الاجتماعية" className="flex items-center gap-2 pt-1 justify-center lg:justify-start">
               {socialLinks.map((s) => (
-                <SocialIcon key={s.label} href={s.href} label={s.label}>
-                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} />
+                <SocialIcon key={s.label} href={s.href} label={`تابع مول البستان على ${s.label}`}>
+                  <s.icon className="h-[15px] w-[15px] transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} aria-hidden="true" />
                 </SocialIcon>
               ))}
-              <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="TikTok">
-                <span className="transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }}>
+              <SocialIcon href="https://www.tiktok.com/@mallelbostan" label="تابع مول البستان على TikTok">
+                <span className="transition-colors group-hover:text-white" style={{ color: "#7C8BA1" }} aria-hidden="true">
                   <TikTokIcon />
                 </span>
               </SocialIcon>
-            </div>
+            </nav>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-2 pt-1 lg:pt-2 justify-center lg:justify-start">
-              <Link to="/map">
+              <Link to="/map" aria-label="استكشف الخريطة التفاعلية لمحلات المول">
                 <Button variant="cta" className="h-9 lg:h-10 rounded-xl px-4 lg:px-5 text-[0.78rem] font-bold shadow-lg shadow-primary/20">
-                  <Compass className="ml-1.5 h-3.5 w-3.5" /> استكشف الخريطة
+                  <Compass className="ml-1.5 h-3.5 w-3.5" aria-hidden="true" /> استكشف الخريطة
                 </Button>
               </Link>
-              <Link to="/leasing">
+              <Link to="/leasing" aria-label="تأجير وشراء وحدات في مول البستان">
                 <Button
                   className="h-9 lg:h-10 rounded-xl px-4 lg:px-5 text-[0.78rem] font-bold transition-all duration-300 hover:bg-white/[0.08]"
                   style={{ background: "#ffffff06", color: "#CBD5E1", border: "1px solid #ffffff12" }}
@@ -203,7 +209,7 @@ export function Footer() {
         </div>
 
         {/* ── CATEGORY DEEP-LINKS (compact, SEO-friendly internal links) ── */}
-        <div
+        <nav
           className="mt-6 lg:mt-8 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2"
           style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
           aria-label="تصفّح المحلات حسب الفئة"
@@ -226,6 +232,8 @@ export function Footer() {
                   <Link
                     to={to}
                     onClick={() => trackSeoLinkClick("footer", "category", c.category, to)}
+                    aria-label={`تصفّح محلات فئة ${c.category}`}
+                    title={`محلات ${c.category} في مول البستان`}
                     className="block truncate min-h-[36px] sm:min-h-0 leading-[36px] sm:leading-normal text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
                     style={{ color: "#7C8BA1" }}
                   >
@@ -235,10 +243,10 @@ export function Footer() {
               );
             })}
           </ul>
-        </div>
+        </nav>
 
         {/* ── QUICK DESTINATIONS (offers, map, leasing) ── */}
-        <div
+        <nav
           className="mt-3 rounded-xl px-3 py-2.5 lg:px-4 lg:py-3 sm:flex sm:flex-wrap sm:items-center sm:gap-x-3 sm:gap-y-2"
           style={{ background: "#ffffff03", border: "1px solid #ffffff08" }}
           aria-label="وجهات سريعة"
@@ -259,6 +267,8 @@ export function Footer() {
                 <Link
                   to={d.to}
                   onClick={() => trackSeoLinkClick("footer", "page", d.label, d.to)}
+                  aria-label={`${d.label} — مول البستان`}
+                  title={`${d.label} في مول البستان`}
                   className="block truncate min-h-[36px] sm:min-h-0 leading-[36px] sm:leading-normal text-[0.74rem] transition-colors hover:text-white rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
                   style={{ color: "#7C8BA1" }}
                 >
@@ -267,34 +277,35 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         {/* ── CONTACT STRIP ── */}
-        <div
-          className="mt-6 lg:mt-10 rounded-2xl px-4 py-3 lg:px-5 lg:py-4 grid gap-2.5 lg:gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8"
+        <address
+          className="mt-6 lg:mt-10 rounded-2xl px-4 py-3 lg:px-5 lg:py-4 grid gap-2.5 lg:gap-4 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:gap-8 not-italic"
           style={{ background: "#ffffff04", border: "1px solid #ffffff0A", backdropFilter: "blur(8px)" }}
+          aria-label="بيانات التواصل"
         >
           <span className="text-[0.66rem] font-bold tracking-[0.14em] uppercase sm:col-span-3 md:col-auto" style={{ color: "#CDBB9A" }}>
             تواصل معنا
           </span>
 
-          <a href="mailto:info@mallelbostan.com" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }}>
+          <a href="mailto:info@mallelbostan.com" aria-label="راسل إدارة مول البستان عبر البريد الإلكتروني" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }} aria-hidden="true">
               <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
             </span>
             <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
           </a>
 
           {officialPhone ? (
-            <a href={`tel:${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+            <a href={`tel:${officialPhone}`} aria-label={`اتصل بإدارة مول البستان على الرقم ${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }} aria-hidden="true">
                 <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
               </span>
               <span className="font-poppins text-[0.78rem]" dir="ltr">{officialPhone}</span>
             </a>
           ) : (
-            <a href={`https://wa.me/${OFFICIAL_WHATSAPP}`} target="_blank" rel="noopener" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+            <a href={`https://wa.me/${OFFICIAL_WHATSAPP}`} target="_blank" rel="noopener" aria-label="تواصل مع إدارة مول البستان عبر واتساب" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }} aria-hidden="true">
                 <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
               </span>
               <span className="font-poppins text-[0.78rem]">واتساب الإدارة</span>
@@ -302,19 +313,19 @@ export function Footer() {
           )}
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }} aria-hidden="true">
               <MapPin className="h-3.5 w-3.5" style={{ color: "#22D3EE" }} />
             </span>
             التجمع الخامس، القاهرة الجديدة
           </span>
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#F9731615", border: "1px solid #F9731628" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#F9731615", border: "1px solid #F9731628" }} aria-hidden="true">
               <MapPin className="h-3.5 w-3.5" style={{ color: "#FB923C" }} />
             </span>
             18 شارع البستان، باب اللوق، القاهرة
           </span>
-        </div>
+        </address>
 
         {/* ── APP BADGES (hidden on mobile) ── */}
         <div className="mt-7 hidden sm:flex flex-col gap-3.5 sm:flex-row sm:items-center">
@@ -362,21 +373,21 @@ export function Footer() {
               <span style={{ color: "#2A3444" }}>|</span>
               <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
-              <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
-              <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
-              <Link to="/sitemap" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
-              <Link to="/rss" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
-                <Rss className="h-3 w-3" />
+            <nav aria-label="روابط قانونية وفهارس الموقع" className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
+              <Link to="/terms" aria-label="شروط استخدام مول البستان" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
+              <Link to="/privacy" aria-label="سياسة الخصوصية لمول البستان" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
+              <Link to="/sitemap" aria-label="فهرس صفحات مول البستان" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
+              <Link to="/rss" aria-label="خلاصة RSS لمدونة مول البستان" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
+                <Rss className="h-3 w-3" aria-hidden="true" />
                 RSS
               </Link>
               <span>
                 Developed by{" "}
-                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
+                <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" aria-label="موقع شركة MG Digital — مطوّر الموقع (يفتح في نافذة جديدة)" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
                   MG Digital
                 </a>
               </span>
-            </div>
+            </nav>
           </div>
         </div>
       </div>
