@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildCollectionPageLd } from "@/components/SEOHead";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShoppingBag, ArrowLeft, ChevronLeft } from "lucide-react";
 
@@ -52,6 +52,16 @@ const KzCategory = () => {
           { name: "المنتجات", url: "/kz/products" },
           ...(category ? [{ name: category.name, url: `/kz/category/${category.slug}` }] : []),
         ]}
+        jsonLd={category && products && products.length > 0 ? buildCollectionPageLd({
+          name: `${category.name} — Kasr Zero`,
+          description: `منتجات ${category.name} من Kasr Zero`,
+          url: `/kz/category/${category.slug}`,
+          items: products.map((p: any) => {
+            const img = p.kz_product_images?.sort((a: any, b: any) => a.sort_order - b.sort_order)?.[0];
+            return { name: p.title, url: `/kz/products/${p.slug}`, image: img?.image_url ?? null };
+          }),
+        }) : undefined}
+        noIndex={!isLoading && (!products || products.length === 0)}
       />
 
       <section className="py-8 md:py-10" style={{ background: "linear-gradient(135deg, #071326 0%, #0d1f3c 100%)" }}>
