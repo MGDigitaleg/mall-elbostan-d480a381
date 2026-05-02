@@ -364,8 +364,8 @@ export function Footer() {
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
               <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
               <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
-              <a href="/sitemap.xml" target="_blank" rel="noopener" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</a>
-              <a href="/sitemap-devices.xml" target="_blank" rel="noopener" className="transition-colors duration-200 hover:text-slate-300">خريطة الأجهزة</a>
+              <Link to="/sitemap" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
+              <a href="/sitemap.xml" target="_blank" rel="noopener" className="transition-colors duration-200 hover:text-slate-300">XML</a>
               <span>
                 Developed by{" "}
                 <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
