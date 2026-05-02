@@ -106,6 +106,23 @@ export function SEOHead({
         <meta property="article:modified_time" content={articleModifiedTime} />
       )}
 
+      {/* Geo targeting — improves local SEO for Egypt / Cairo */}
+      <meta name="geo.region" content="EG-C" />
+      <meta name="geo.placename" content="القاهرة الجديدة" />
+      <meta name="geo.position" content="30.03;31.46" />
+      <meta name="ICBM" content="30.03, 31.46" />
+
+      {/* Facebook business contact data */}
+      <meta property="business:contact_data:locality" content="القاهرة الجديدة" />
+      <meta property="business:contact_data:region" content="القاهرة" />
+      <meta property="business:contact_data:country_name" content="Egypt" />
+
+      {/* Search engine crawler hints */}
+      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+      <meta name="googlebot" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+      <meta name="bingbot" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+      <meta name="format-detection" content="telephone=yes" />
+
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={fullTitle} />
