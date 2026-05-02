@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildOrganizationLd } from "@/components/SEOHead";
+import { SEOHead, buildOrganizationLd, buildAboutPageLd } from "@/components/SEOHead";
 import { useSitePhone } from "@/hooks/useSitePhone";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
