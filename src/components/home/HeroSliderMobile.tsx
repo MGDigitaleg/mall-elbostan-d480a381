@@ -4,7 +4,7 @@ import { Compass, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
-import ncHero1 from "@/assets/nc-hero-1-enhanced.webp";
+const ncHero1 = "/hero/nc-hero-1.webp";
 import dtHero1 from "@/assets/downtown-hero-1.webp";
 import ncHero3 from "@/assets/nc-hero-3-enhanced.webp";
 import downtownHeroNight from "@/assets/downtown-hero-night-clean2.webp";
