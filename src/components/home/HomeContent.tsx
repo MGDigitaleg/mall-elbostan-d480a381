@@ -210,7 +210,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 560px",
           paddingTop: "clamp(12px, 2.2vw, 36px)",
           paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(latestProducts.length < 3 && !productsLoading ? { display: "none" } : {}),
+          ...(productsLoading || latestProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
