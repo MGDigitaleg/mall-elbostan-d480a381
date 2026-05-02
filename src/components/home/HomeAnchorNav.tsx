@@ -28,7 +28,7 @@ export function HomeAnchorNav() {
       dir="rtl"
       aria-label="روابط أقسام الصفحة الرئيسية"
       className="bg-card dark:bg-background border-b border-border/40"
-      style={{ paddingTop: "clamp(10px, 1.5vw, 14px)", paddingBottom: "clamp(10px, 1.5vw, 14px)" }}
+      style={{ paddingTop: "clamp(10px, 1.5vw, 14px)", paddingBottom: "clamp(10px, 1.5vw, 14px)", minHeight: 56, contain: "layout" }}
     >
       <div className="container">
         <ul

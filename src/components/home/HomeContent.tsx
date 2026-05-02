@@ -166,7 +166,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* Removed content-visibility:auto here — section is near the fold and the
           intrinsic-size estimate caused a measurable CLS on mobile. Keeping a
           minHeight reserves space without the post-render reflow. */}
-      <section style={{ contain: "layout", minHeight: 260 } as React.CSSProperties}>
+      <section style={{ contain: "layout", minHeight: 280 } as React.CSSProperties}>
         <CategoryStrip />
       </section>
 
@@ -201,8 +201,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
       {/* Mobile rendered ~603px; bumped intrinsic size to better match reality. */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 620px", minHeight: 320 } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 320 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 640px", minHeight: 340 } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 340 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
