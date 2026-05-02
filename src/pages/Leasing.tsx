@@ -10,7 +10,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildRealEstateListingLd, buildServiceLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
