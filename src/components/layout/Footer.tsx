@@ -287,15 +287,15 @@ export function Footer() {
           </a>
 
           {officialPhone ? (
-            <a href={`tel:${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+            <a href={`tel:${officialPhone}`} aria-label={`اتصل بإدارة مول البستان على الرقم ${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }} aria-hidden="true">
                 <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
               </span>
               <span className="font-poppins text-[0.78rem]" dir="ltr">{officialPhone}</span>
             </a>
           ) : (
-            <a href={`https://wa.me/${OFFICIAL_WHATSAPP}`} target="_blank" rel="noopener" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
-              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }}>
+            <a href={`https://wa.me/${OFFICIAL_WHATSAPP}`} target="_blank" rel="noopener" aria-label="تواصل مع إدارة مول البستان عبر واتساب" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+              <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#10B98115", border: "1px solid #10B98128" }} aria-hidden="true">
                 <Phone className="h-3.5 w-3.5" style={{ color: "#34D399" }} />
               </span>
               <span className="font-poppins text-[0.78rem]">واتساب الإدارة</span>
@@ -303,19 +303,19 @@ export function Footer() {
           )}
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#06B6D415", border: "1px solid #06B6D428" }} aria-hidden="true">
               <MapPin className="h-3.5 w-3.5" style={{ color: "#22D3EE" }} />
             </span>
             التجمع الخامس، القاهرة الجديدة
           </span>
 
           <span className="flex items-center gap-2.5 text-[0.8rem]" style={{ color: "#8896AB" }}>
-            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#F9731615", border: "1px solid #F9731628" }}>
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#F9731615", border: "1px solid #F9731628" }} aria-hidden="true">
               <MapPin className="h-3.5 w-3.5" style={{ color: "#FB923C" }} />
             </span>
             18 شارع البستان، باب اللوق، القاهرة
           </span>
-        </div>
+        </address>
 
         {/* ── APP BADGES (hidden on mobile) ── */}
         <div className="mt-7 hidden sm:flex flex-col gap-3.5 sm:flex-row sm:items-center">
