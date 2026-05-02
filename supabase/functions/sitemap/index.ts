@@ -262,9 +262,63 @@ Deno.serve(async (req) => {
 
     const url = new URL(req.url);
     const section = url.searchParams.get("section");
+    const format = url.searchParams.get("format");
 
     const data = await fetchAllData(supabase);
     const total = totalUrls(data);
+
+    // JSON summary for the public-facing sitemap overview page
+    if (format === "summary") {
+      const today = new Date().toISOString().slice(0, 10);
+      const summary = {
+        total_urls: total,
+        generated_at: new Date().toISOString(),
+        sections: [
+          {
+            key: "pages",
+            label_ar: "الصفحات الرئيسية",
+            description_ar: "صفحات المول، الفروع، الدليل، والمعلومات الأساسية.",
+            count: STATIC_ROUTES.length + data.downtown.length,
+            lastmod: latestDate(data.downtown) ?? today,
+          },
+          {
+            key: "devices",
+            label_ar: "فئات الأجهزة",
+            description_ar: "صفحات تصنيفات الأجهزة والمنتجات التقنية.",
+            count: DEVICE_SLUGS.length,
+            lastmod: today,
+          },
+          {
+            key: "stores",
+            label_ar: "المحلات",
+            description_ar: "صفحات المحلات والتجار داخل المول.",
+            count: data.stores.length,
+            lastmod: latestDate(data.stores) ?? today,
+          },
+          {
+            key: "products",
+            label_ar: "المنتجات",
+            description_ar: "كتالوج منتجات المحلات وقصر زيرو.",
+            count: data.products.length + data.kzProducts.length,
+            lastmod: latestDate([...data.products, ...data.kzProducts]) ?? today,
+          },
+          {
+            key: "blog",
+            label_ar: "المدونة",
+            description_ar: "مقالات ومحتوى المدونة المنشور.",
+            count: data.blog.length,
+            lastmod: latestDate(data.blog) ?? today,
+          },
+        ],
+      };
+      return new Response(JSON.stringify(summary), {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=600, s-maxage=600",
+        },
+      });
+    }
 
     // If a specific section is requested, return that sub-sitemap
     if (section) {
