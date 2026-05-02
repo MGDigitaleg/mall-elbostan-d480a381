@@ -66,6 +66,37 @@ serve(async (req) => {
   const sb = createClient(supabaseUrl, serviceKey);
 
   try {
+    // ── Admin auth guard ──
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    const userClient = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
+      global: { headers: { Authorization: authHeader } },
+    });
+    const { data: { user }, error: authErr } = await userClient.auth.getUser(
+      authHeader.replace("Bearer ", "")
+    );
+    if (authErr || !user) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Unauthorized" }),
+        { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    const { data: isAdmin } = await sb.rpc("has_role", {
+      _user_id: user.id,
+      _role: "admin",
+    });
+    if (!isAdmin) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Forbidden" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     const body = req.method === "POST" ? await req.json().catch(() => ({})) : {};
     const source: string = body.source ?? "manual";
     const requestedEnv: string | undefined = body.env;
@@ -74,8 +105,25 @@ serve(async (req) => {
     const envConfig = resolveEnv(requestedEnv);
     const { siteUrl, host, indexNowKeyEnv } = envConfig;
 
-    const urlList = customUrls.length > 0
-      ? customUrls.map((u: string) => u.startsWith("http") ? u : `${siteUrl}${u}`)
+    // Restrict customUrls: only allow URLs whose host matches the resolved siteUrl host,
+    // or relative paths (which get prefixed with siteUrl).
+    const normalizedUrls: string[] = [];
+    for (const u of customUrls) {
+      if (typeof u !== "string" || u.length === 0) continue;
+      if (u.startsWith("http")) {
+        try {
+          const parsed = new URL(u);
+          if (parsed.host !== host) continue; // reject foreign hosts
+          normalizedUrls.push(parsed.toString());
+        } catch {
+          continue;
+        }
+      } else {
+        normalizedUrls.push(`${siteUrl}${u.startsWith("/") ? u : `/${u}`}`);
+      }
+    }
+    const urlList = normalizedUrls.length > 0
+      ? normalizedUrls
       : KEY_PAGES.map((p) => `${siteUrl}${p}`);
 
     const indexNowKey = Deno.env.get(indexNowKeyEnv);
