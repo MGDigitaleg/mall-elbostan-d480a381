@@ -7,7 +7,8 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildContactPageLd } from "@/components/SEOHead";
+import { OFFICIAL_PHONE, OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { PageHero } from "@/components/PageHero";
@@ -95,6 +96,7 @@ const Contact = () => {
         descriptionEn="Contact Mall Elbostan in New Cairo's Fifth Settlement. General inquiries, unit leasing, tech partnerships, or career opportunities. We respond within one business day."
         keywords="تواصل مول البستان, رقم مول البستان, عنوان مول البستان, تأجير وحدات, القاهرة الجديدة, التجمع الخامس, contact mall elbostan"
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
+        jsonLd={buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: "info@mallelbostan.com" })}
       />
 
       <PageHero

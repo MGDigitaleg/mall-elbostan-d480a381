@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { TenantLogo } from "@/components/TenantLogo";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildBranchLd } from "@/components/SEOHead";
 import {
   Compass, ShoppingBag, Layers, Store, Gift, ArrowLeft, MapPin, Phone,
   Building2, Cpu, Gamepad2, Monitor, Award, Users,
@@ -80,6 +80,18 @@ const NewCairoBranch = () => {
         description="مول البستان — فرع القاهرة الجديدة. الامتداد الحديث لأعرق وجهة تقنية في مصر، في قلب التجمع الخامس. محلات موبايلات ولابتوب وإلكترونيات."
         keywords="مول البستان القاهرة الجديدة, محلات موبايلات التجمع الخامس, لابتوب القاهرة الجديدة, الكترونيات, new cairo mall"
         breadcrumbs={[{ name: "فرع القاهرة الجديدة", url: "/new-cairo-branch" }]}
+        jsonLd={buildBranchLd({
+          id: "new-cairo",
+          nameAr: "مول البستان — فرع القاهرة الجديدة",
+          nameEn: "Mall Elbostan New Cairo",
+          url: "/new-cairo-branch",
+          streetAddress: "شارع التسعين، التجمع الخامس",
+          addressLocality: "القاهرة الجديدة",
+          latitude: 30.03,
+          longitude: 31.46,
+          description: "الفرع الجديد لمول البستان في قلب التجمع الخامس — أكثر من 150 محل تقنية حديث.",
+          foundingDate: "2026",
+        })}
       />
 
       {/* ═══════════ 1 · HERO ═══════════ */}

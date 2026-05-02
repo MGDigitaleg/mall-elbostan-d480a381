@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildBranchLd } from "@/components/SEOHead";
 import { Building2, Award, Users, Globe, MapPin, Phone, Mail, Clock, ExternalLink, ArrowLeft, Layers, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -34,6 +34,18 @@ const DowntownBranch = () => (
       descriptionEn="Mall Elbostan Downtown — the original branch since 1990."
       keywords="مول البستان وسط البلد, محلات كمبيوتر وسط البلد, شارع البستان, الكترونيات وسط البلد, downtown cairo electronics"
       breadcrumbs={[{ name: "فرع وسط البلد", url: "/downtown-branch" }]}
+      jsonLd={buildBranchLd({
+        id: "downtown",
+        nameAr: "مول البستان — فرع وسط البلد",
+        nameEn: "Mall Elbostan Downtown",
+        url: "/downtown-branch",
+        streetAddress: "18 شارع البستان، باب اللوق",
+        addressLocality: "القاهرة",
+        latitude: 30.0444,
+        longitude: 31.2357,
+        description: "الفرع الأصلي لمول البستان منذ 1990 — وجهة تقنية تاريخية في قلب القاهرة.",
+        foundingDate: "1990",
+      })}
     />
 
     {/* ═══════════ 1 · HERO ═══════════ */}

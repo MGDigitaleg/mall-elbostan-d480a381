@@ -75,7 +75,7 @@ export function SEOHead({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {/* robots meta is set below in the SEO crawler hints block */}
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="author" content="مول البستان" />
 
@@ -105,6 +105,23 @@ export function SEOHead({
       {type === "article" && articleModifiedTime && (
         <meta property="article:modified_time" content={articleModifiedTime} />
       )}
+
+      {/* Geo targeting — improves local SEO for Egypt / Cairo */}
+      <meta name="geo.region" content="EG-C" />
+      <meta name="geo.placename" content="القاهرة الجديدة" />
+      <meta name="geo.position" content="30.03;31.46" />
+      <meta name="ICBM" content="30.03, 31.46" />
+
+      {/* Facebook business contact data */}
+      <meta property="business:contact_data:locality" content="القاهرة الجديدة" />
+      <meta property="business:contact_data:region" content="القاهرة" />
+      <meta property="business:contact_data:country_name" content="Egypt" />
+
+      {/* Search engine crawler hints */}
+      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"} />
+      <meta name="googlebot" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+      <meta name="bingbot" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+      <meta name="format-detection" content="telephone=yes" />
 
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
@@ -498,3 +515,287 @@ export function buildBlogListLd(posts: { title_ar: string; slug: string }[]) {
     },
   };
 }
+
+// ──────────────────────────────────────────────────────────────────────
+// Extended schema.org builders — coverage for every page type
+// ──────────────────────────────────────────────────────────────────────
+
+/** Generic WebPage — for static legal/info pages (Privacy, Terms, Reward Terms). */
+export function buildWebPageLd(opts: { name: string; description: string; url: string; inLanguage?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    inLanguage: opts.inLanguage ?? "ar",
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    about: { "@id": `${BASE_URL}/#mall` },
+    publisher: { "@id": `${BASE_URL}/#organization` },
+  };
+}
+
+/** ContactPage with multiple ContactPoint nodes (sales, leasing, support). */
+export function buildContactPageLd(opts: { phone?: string | null; whatsapp?: string | null; email?: string | null }) {
+  const contactPoints: Record<string, unknown>[] = [];
+  if (opts.phone) {
+    contactPoints.push({
+      "@type": "ContactPoint",
+      telephone: opts.phone,
+      contactType: "customer service",
+      areaServed: "EG",
+      availableLanguage: ["Arabic", "English"],
+    });
+  }
+  if (opts.whatsapp) {
+    contactPoints.push({
+      "@type": "ContactPoint",
+      telephone: opts.whatsapp.startsWith("+") ? opts.whatsapp : `+${opts.whatsapp}`,
+      contactType: "sales",
+      areaServed: "EG",
+      availableLanguage: ["Arabic", "English"],
+    });
+  }
+  if (opts.email) {
+    contactPoints.push({
+      "@type": "ContactPoint",
+      email: opts.email,
+      contactType: "customer support",
+      availableLanguage: ["Arabic", "English"],
+    });
+  }
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: "تواصل مع مول البستان",
+    url: `${BASE_URL}/contact`,
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    about: { "@id": `${BASE_URL}/#organization` },
+    mainEntity: {
+      "@id": `${BASE_URL}/#organization`,
+      contactPoint: contactPoints,
+    },
+  };
+}
+
+/** AboutPage referencing the organization. */
+export function buildAboutPageLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "عن مول البستان",
+    url: `${BASE_URL}/about`,
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    mainEntity: { "@id": `${BASE_URL}/#organization` },
+  };
+}
+
+/** CollectionPage + ItemList — for directory / category landing pages. */
+export function buildCollectionPageLd(opts: {
+  name: string;
+  description?: string;
+  url: string;
+  items: { name: string; url: string; image?: string | null }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: opts.items.length,
+      itemListElement: opts.items.slice(0, 50).map((it, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: it.name,
+        url: it.url.startsWith("http") ? it.url : `${BASE_URL}${it.url}`,
+        ...(it.image ? { image: it.image } : {}),
+      })),
+    },
+  };
+}
+
+/** Branch — Place / LocalBusiness for a specific physical branch. */
+export function buildBranchLd(branch: {
+  id: string;
+  nameAr: string;
+  nameEn?: string;
+  url: string;
+  streetAddress: string;
+  addressLocality: string;
+  latitude: number;
+  longitude: number;
+  telephone?: string;
+  image?: string;
+  description?: string;
+  foundingDate?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "ShoppingCenter"],
+    "@id": `${BASE_URL}${branch.url}#branch`,
+    branchOf: { "@id": `${BASE_URL}/#organization` },
+    name: branch.nameAr,
+    alternateName: branch.nameEn,
+    description: branch.description,
+    url: `${BASE_URL}${branch.url}`,
+    image: branch.image,
+    telephone: branch.telephone,
+    foundingDate: branch.foundingDate,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: branch.streetAddress,
+      addressLocality: branch.addressLocality,
+      addressRegion: "القاهرة",
+      addressCountry: "EG",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: branch.latitude,
+      longitude: branch.longitude,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "10:00",
+        closes: "22:00",
+      },
+    ],
+  };
+}
+
+/** RealEstateListing — for available leasing units. */
+export function buildRealEstateListingLd(units: {
+  unit_code: string;
+  area_sqm?: number | null;
+  description_ar?: string | null;
+  status?: string | null;
+}[]) {
+  const available = units.filter((u) => u.status === "available");
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "وحدات تجارية متاحة للإيجار في مول البستان",
+    numberOfItems: available.length,
+    itemListElement: available.slice(0, 30).map((u, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "RealEstateListing",
+        name: `وحدة ${u.unit_code} — مول البستان`,
+        description: u.description_ar ?? `وحدة تجارية للإيجار بمساحة ${u.area_sqm ?? "—"} م²`,
+        url: `${BASE_URL}/leasing#${u.unit_code}`,
+        ...(u.area_sqm
+          ? {
+              floorSize: { "@type": "QuantitativeValue", value: u.area_sqm, unitCode: "MTK" },
+            }
+          : {}),
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "شارع التسعين، التجمع الخامس",
+          addressLocality: "القاهرة الجديدة",
+          addressCountry: "EG",
+        },
+      },
+    })),
+  };
+}
+
+/** Single Offer schema (for OfferDetail). */
+export function buildOfferLd(offer: {
+  title_ar: string;
+  description_ar?: string | null;
+  price_current?: number | null;
+  price_old?: number | null;
+  currency?: string | null;
+  image_primary?: string | null;
+  valid_from?: string | null;
+  valid_to?: string | null;
+  store_name?: string | null;
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    name: offer.title_ar,
+    description: offer.description_ar ?? offer.title_ar,
+    url: `${BASE_URL}${offer.url}`,
+    image: offer.image_primary ?? undefined,
+    ...(offer.price_current
+      ? {
+          price: offer.price_current,
+          priceCurrency: offer.currency ?? "EGP",
+          availability: "https://schema.org/InStock",
+        }
+      : {}),
+    ...(offer.valid_from ? { validFrom: offer.valid_from } : {}),
+    ...(offer.valid_to ? { priceValidUntil: offer.valid_to.slice(0, 10) } : {}),
+    ...(offer.store_name
+      ? { seller: { "@type": "Organization", name: offer.store_name } }
+      : {}),
+    eligibleRegion: { "@type": "Country", name: "Egypt" },
+  };
+}
+
+/** Service schema — for marketplace / leasing service pages. */
+export function buildServiceLd(opts: { name: string; description: string; url: string; serviceType?: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    serviceType: opts.serviceType ?? opts.name,
+    provider: { "@id": `${BASE_URL}/#organization` },
+    areaServed: { "@type": "Country", name: "Egypt" },
+  };
+}
+
+/** SiteNavigationElement — improves Sitelinks display in Google results. */
+export function buildSiteNavLd() {
+  const links = [
+    { name: "الرئيسية", url: "/" },
+    { name: "المحلات", url: "/stores" },
+    { name: "المنتجات", url: "/products" },
+    { name: "الخريطة التفاعلية", url: "/map" },
+    { name: "العروض", url: "/daily-deals" },
+    { name: "الأقسام", url: "/devices" },
+    { name: "تأجير وحدة", url: "/leasing" },
+    { name: "فرع وسط البلد", url: "/downtown-branch" },
+    { name: "فرع القاهرة الجديدة", url: "/new-cairo-branch" },
+    { name: "عن المول", url: "/about" },
+    { name: "تواصل معنا", url: "/contact" },
+    { name: "المدونة", url: "/blog" },
+  ];
+  return {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: links.map((l) => l.name),
+    url: links.map((l) => `${BASE_URL}${l.url}`),
+  };
+}
+
+/** SpeakableSpecification — marks H1/intro for Google Assistant voice search. */
+export function buildSpeakableLd(cssSelectors: string[] = ["h1", "[data-speakable]"]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: cssSelectors,
+    },
+  };
+}
+
+/** Bundle the three core entities (Organization + ShoppingCenter + WebSite) into one @graph payload. */
+export function buildCoreGraphLd(phoneOverride?: string, extra: Record<string, unknown>[] = []) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [buildOrganizationLd(phoneOverride), shoppingCenterLd, websiteLd, ...extra],
+  };
+}
+

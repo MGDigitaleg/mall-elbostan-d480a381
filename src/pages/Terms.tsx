@@ -1,9 +1,16 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildWebPageLd } from "@/components/SEOHead";
 
 const Terms = () => (
   <MainLayout>
-    <SEOHead title="الشروط والأحكام" titleEn="Terms & Conditions" description="الشروط والأحكام لاستخدام موقع مول البستان." descriptionEn="Terms and conditions of Mall Elbostan website." breadcrumbs={[{ name: "الشروط والأحكام", url: "/terms" }]} />
+    <SEOHead
+      title="الشروط والأحكام"
+      titleEn="Terms & Conditions"
+      description="الشروط والأحكام لاستخدام موقع مول البستان."
+      descriptionEn="Terms and conditions of Mall Elbostan website."
+      breadcrumbs={[{ name: "الشروط والأحكام", url: "/terms" }]}
+      jsonLd={buildWebPageLd({ name: "الشروط والأحكام — مول البستان", description: "شروط استخدام موقع مول البستان.", url: "/terms" })}
+    />
     <div className="container py-20 max-w-3xl">
       <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">الشروط والأحكام</h1>
       <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">

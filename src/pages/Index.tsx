@@ -1,5 +1,5 @@
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildOrganizationLd, shoppingCenterLd, websiteLd, buildFaqLd } from "@/components/SEOHead";
+import { SEOHead, buildCoreGraphLd, buildFaqLd, buildSiteNavLd, buildSpeakableLd } from "@/components/SEOHead";
 import { useSitePhone } from "@/hooks/useSitePhone";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,7 +8,6 @@ import { BackToTop } from "@/components/BackToTop";
 
 const Index = () => {
   const { phone } = useSitePhone();
-  const organizationLd = buildOrganizationLd(phone);
 
   /* FAQs are used for JSON-LD and the FAQ section far below the fold —
      defer with a staleTime so the query doesn't block initial paint. */
@@ -21,6 +20,12 @@ const Index = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  const extras = [
+    ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : []),
+    buildSiteNavLd(),
+    buildSpeakableLd(["h1", "[data-speakable]"]),
+  ];
+
   return (
     <MainLayout>
       <SEOHead
@@ -31,7 +36,7 @@ const Index = () => {
         keywords="مول البستان, مول تكنولوجيا, محلات كمبيوتر, محلات موبايلات, لابتوب, جيمنج, اكسسوارات, صيانة, الكترونيات, القاهرة, التجمع الخامس, Mall Elbostan, technology mall Cairo"
         ogImageWidth={1200}
         ogImageHeight={630}
-        jsonLd={[organizationLd, shoppingCenterLd, websiteLd, ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : [])]}
+        jsonLd={buildCoreGraphLd(phone, extras)}
       />
 
       <HomeContent faqs={faqs ?? []} />
