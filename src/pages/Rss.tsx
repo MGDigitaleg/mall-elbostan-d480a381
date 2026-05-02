@@ -82,7 +82,7 @@ export default function Rss() {
         <div className="mb-10 rounded-2xl border bg-card p-5 md:p-6">
           <div className="flex items-start gap-3">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Rss className="h-5 w-5" />
+              <RssIcon className="h-5 w-5" />
             </span>
             <div className="flex-1 min-w-0">
               <h2 className="text-base font-bold text-foreground">رابط الخلاصة</h2>
