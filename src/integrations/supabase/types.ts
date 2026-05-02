@@ -2077,6 +2077,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      notify_indexing_ping: { Args: { _urls: Json }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
