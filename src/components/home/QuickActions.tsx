@@ -17,6 +17,8 @@ export function QuickActions() {
         background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
         paddingTop: "clamp(10px, 1.4vw, 18px)",
         paddingBottom: "clamp(10px, 1.4vw, 18px)",
+        minHeight: 78,
+        contain: "layout",
       }}
     >
       <div className="container">
