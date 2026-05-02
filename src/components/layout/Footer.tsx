@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown } from "lucide-react";
+import { Facebook, Instagram, Youtube, Phone, Mail, MapPin, Compass, ArrowUp, ChevronDown, Rss } from "lucide-react";
 import { useState } from "react";
 import { OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { useSitePhone } from "@/hooks/useSitePhone";
@@ -35,6 +35,7 @@ const footerColumns = [
     links: [
       { label: "الأسئلة الشائعة", path: "/faq" },
       { label: "المدونة", path: "/blog" },
+      { label: "خلاصة RSS", path: "/rss" },
       { label: "فرص العمل", path: "/careers" },
       { label: "تواصل معنا", path: "/contact" },
       { label: "الخصوصية", path: "/privacy" },
@@ -365,6 +366,10 @@ export function Footer() {
               <Link to="/terms" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
               <Link to="/privacy" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
               <Link to="/sitemap" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
+              <Link to="/rss" className="inline-flex items-center gap-1 transition-colors duration-200 hover:text-slate-300">
+                <Rss className="h-3 w-3" />
+                RSS
+              </Link>
               <span>
                 Developed by{" "}
                 <a href="https://mg.digital" target="_blank" rel="noopener noreferrer" className="font-poppins font-medium transition-colors duration-200 hover:text-slate-300" style={{ color: "#506078" }}>
