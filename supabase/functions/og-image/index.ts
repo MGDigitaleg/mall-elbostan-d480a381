@@ -1,3 +1,4 @@
+import { withLogging } from "../_shared/log.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { initialize, svg2png } from "https://esm.sh/svg2png-wasm@0.6.1";
 
@@ -173,7 +174,7 @@ function generateSvg(title: string, type: string, category?: string): string {
 </svg>`;
 }
 
-serve(async (req) => {
+serve(withLogging("og-image", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders });
   }
