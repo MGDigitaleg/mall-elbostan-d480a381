@@ -1,3 +1,4 @@
+import { withLogging } from "../_shared/log.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const corsHeaders = {
@@ -22,7 +23,7 @@ type PrizeRow = {
   competition_store_id: string;
 };
 
-Deno.serve(async (req) => {
+Deno.serve(withLogging("spin", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -278,7 +279,7 @@ Deno.serve(async (req) => {
     console.error("Spin error:", err);
     return json({ error: "حدث خطأ غير متوقع" }, 500);
   }
-});
+}));
 
 function generateClaimCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

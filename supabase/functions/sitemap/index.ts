@@ -1,3 +1,4 @@
+import { withLogging } from "../_shared/log.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
 
 const corsHeaders = {
@@ -250,7 +251,7 @@ function buildSubSitemap(section: string, data: DynamicData): string {
   return wrapUrlset(dedupeEntries(entries));
 }
 
-Deno.serve(async (req) => {
+Deno.serve(withLogging("sitemap", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -359,4 +360,4 @@ Deno.serve(async (req) => {
       headers: corsHeaders,
     });
   }
-});
+}));

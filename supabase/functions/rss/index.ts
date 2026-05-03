@@ -1,3 +1,4 @@
+import { withLogging } from "../_shared/log.ts";
 // RSS feed for Mall El Bostan blog
 // Returns RSS 2.0 XML with latest published posts.
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.4";
@@ -64,7 +65,7 @@ ${items}
 </rss>`;
 }
 
-Deno.serve(async (req) => {
+Deno.serve(withLogging("rss", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -96,4 +97,4 @@ Deno.serve(async (req) => {
     console.error("rss error:", err);
     return new Response("Internal Server Error", { status: 500, headers: corsHeaders });
   }
-});
+}));

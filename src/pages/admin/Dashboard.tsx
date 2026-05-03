@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
-import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch, Globe, RefreshCw, Rocket, Phone, Bell, Database } from "lucide-react";
+import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, Users, Settings, LogOut, FolderTree, ShoppingBag, LayoutGrid, Trophy, Award, BarChart3, Building2, Cpu, Sparkles, Ticket, ScanSearch, Globe, RefreshCw, Rocket, Phone, Bell, Database, Activity } from "lucide-react";
 
 const adminSections = [
   { title: "جاهزية الإطلاق", icon: Rocket, path: "/admin/launch-readiness", desc: "GO/NO-GO · GSC · هاتف · sitemap · schema · noindex" },
   { title: "النسخ الاحتياطية", icon: Database, path: "/admin/backup", desc: "تصدير بيانات الجداول بصيغة JSON أو ZIP يحوي CSV لكل جدول" },
+  { title: "تشخيص Edge Functions", icon: Activity, path: "/admin/edge-logs", desc: "سجل الاستدعاءات والأخطاء وفحص صحة الدوال الخلفية" },
   { title: "عروض السوشيال", icon: Bell, path: "/admin/social-offers", desc: "سجل المحلات المراقَبة · طابور المراجعة · اعتماد ونشر" },
   { title: "إعدادات التواصل", icon: Phone, path: "/admin/contact-settings", desc: "تحديث رقم الهاتف الرسمي في الفوتر و JSON-LD" },
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },

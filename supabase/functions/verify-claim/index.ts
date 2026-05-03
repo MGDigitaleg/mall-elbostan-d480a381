@@ -1,6 +1,7 @@
+import { withLogging } from "../_shared/log.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
-Deno.serve(async (req) => {
+Deno.serve(withLogging("verify-claim", async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -108,7 +109,7 @@ Deno.serve(async (req) => {
     console.error("Verify claim error:", err);
     return json({ error: "حدث خطأ غير متوقع" }, 500);
   }
-});
+}));
 
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {

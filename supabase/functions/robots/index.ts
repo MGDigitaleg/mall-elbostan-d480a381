@@ -1,3 +1,4 @@
+import { withLogging } from "../_shared/log.ts";
 // Dynamic robots.txt generator — Mall El Bostan
 // Reflects current admin routes, internal paths, and sitemap endpoints.
 // Served by GET requests; cached at the edge for 1 hour.
@@ -100,7 +101,7 @@ function buildRobots(): string {
   return lines.join("\n") + "\n";
 }
 
-Deno.serve((req) => {
+Deno.serve(withLogging("robots", (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -112,4 +113,4 @@ Deno.serve((req) => {
       "Cache-Control": "public, max-age=3600, s-maxage=3600",
     },
   });
-});
+}));
