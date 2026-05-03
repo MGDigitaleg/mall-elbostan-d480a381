@@ -31,31 +31,57 @@ export function BackToTop({ threshold = 600 }: Props) {
     }
 
     let rafId: number | null = null;
+    let lastHeight = -1;
     const measure = () => {
       if (rafId != null) return;
       rafId = requestAnimationFrame(() => {
         rafId = null;
         const el = document.querySelector<HTMLElement>("[data-sticky-cta]");
         if (!el) {
-          setStickyOffset(null);
+          if (lastHeight !== -1) {
+            lastHeight = -1;
+            setStickyOffset(null);
+          }
           return;
         }
         // StickyCTA is already positioned 56px above viewport bottom (above MobileBottomNav).
         // Lift BackToTop above the CTA card with a 12px gap.
         const h = el.getBoundingClientRect().height;
-        setStickyOffset(Math.round(h + 48 + 12));
+        const next = Math.round(h + 48 + 12);
+        if (next !== lastHeight) {
+          lastHeight = next;
+          setStickyOffset(next);
+        }
       });
     };
 
     measure();
 
-    const observer = new MutationObserver(measure);
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Narrow observation: only react to childList changes, and debounce via rAF.
+    // Avoids forced reflows triggered by every site-wide DOM mutation.
+    let scheduled = false;
+    const scheduleMeasure = () => {
+      if (scheduled) return;
+      scheduled = true;
+      // Defer to idle/next frame so we don't measure mid-mutation batch.
+      requestAnimationFrame(() => {
+        scheduled = false;
+        measure();
+      });
+    };
 
-    window.addEventListener("resize", measure);
+    const observer = new MutationObserver(scheduleMeasure);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: false,
+      characterData: false,
+    });
+
+    window.addEventListener("resize", scheduleMeasure, { passive: true });
     return () => {
       observer.disconnect();
-      window.removeEventListener("resize", measure);
+      window.removeEventListener("resize", scheduleMeasure);
       if (rafId != null) cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
