@@ -393,6 +393,48 @@ export type Database = {
         }
         Relationships: []
       }
+      edge_function_logs: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          error_message: string | null
+          error_stack: string | null
+          function_name: string
+          id: string
+          method: string | null
+          path: string | null
+          request_summary: Json | null
+          status: string
+          status_code: number | null
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          error_stack?: string | null
+          function_name: string
+          id?: string
+          method?: string | null
+          path?: string | null
+          request_summary?: Json | null
+          status?: string
+          status_code?: number | null
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          error_stack?: string | null
+          function_name?: string
+          id?: string
+          method?: string | null
+          path?: string | null
+          request_summary?: Json | null
+          status?: string
+          status_code?: number | null
+        }
+        Relationships: []
+      }
       events: {
         Row: {
           category: string | null
