@@ -119,14 +119,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
   return (
     <div>
       {/* ═══════════ 1 · HERO ═══════════ */}
+      {/* Height is CSS-driven (mobile-first) so the prerendered HTML and the
+          first client paint agree — eliminates the post-hydration layout shift
+          that was pushing all sections below the hero. */}
       <section
-        style={{
-          contain: "layout style",
-          height: isMobile ? 380 : "70vh",
-          maxHeight: isMobile ? 460 : 560,
-          overflow: "hidden",
-          position: "relative",
-        }}
+        className="home-hero-shell"
+        style={{ contain: "layout style", overflow: "hidden", position: "relative" }}
       >
         {isMobile ? <HeroSliderMobile /> : <HeroSlider />}
       </section>
