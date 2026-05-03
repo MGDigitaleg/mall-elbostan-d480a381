@@ -856,3 +856,15 @@
           drop-shadow(0 0 24px rgba(37, 99, 235, 0.35));
   transform: scale(1.03);
 }
+
+/* Home hero — fixed CSS-driven height to avoid CLS from JS-based sizing */
+.home-hero-shell {
+  height: 380px;
+  max-height: 460px;
+}
+@media (min-width: 768px) {
+  .home-hero-shell {
+    height: 70vh;
+    max-height: 560px;
+  }
+}
