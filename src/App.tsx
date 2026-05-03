@@ -228,6 +228,7 @@ function AppLayout() {
             <Route path="/admin/social-offers" element={<AdminSocialOffers />} />
             <Route path="/admin/backup" element={<AdminBackup />} />
             <Route path="/admin/edge-logs" element={<AdminEdgeFunctionLogs />} />
+            <Route path="/admin/database" element={<AdminDatabase />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
