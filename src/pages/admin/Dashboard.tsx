@@ -6,6 +6,7 @@ import { Store, Building, Calendar, Gift, Tag, Briefcase, FileText, HelpCircle, 
 
 const adminSections = [
   { title: "جاهزية الإطلاق", icon: Rocket, path: "/admin/launch-readiness", desc: "GO/NO-GO · GSC · هاتف · sitemap · schema · noindex" },
+  { title: "النسخ الاحتياطية", icon: Database, path: "/admin/backup", desc: "تصدير بيانات الجداول بصيغة JSON أو ZIP يحوي CSV لكل جدول" },
   { title: "عروض السوشيال", icon: Bell, path: "/admin/social-offers", desc: "سجل المحلات المراقَبة · طابور المراجعة · اعتماد ونشر" },
   { title: "إعدادات التواصل", icon: Phone, path: "/admin/contact-settings", desc: "تحديث رقم الهاتف الرسمي في الفوتر و JSON-LD" },
   { title: "المتاجر", icon: Store, path: "/admin/stores", desc: "إدارة المتاجر والعلامات التجارية" },
