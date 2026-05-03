@@ -279,7 +279,7 @@ Deno.serve(withLogging("spin", async (req) => {
     console.error("Spin error:", err);
     return json({ error: "حدث خطأ غير متوقع" }, 500);
   }
-});
+}));
 
 function generateClaimCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
