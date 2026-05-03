@@ -73,6 +73,7 @@ const AdminSocialOffers = lazy(() => lazyRetry(() => import("./pages/admin/Admin
 const AdminBackup = lazy(() => lazyRetry(() => import("./pages/admin/AdminBackup")));
 const AdminEdgeFunctionLogs = lazy(() => lazyRetry(() => import("./pages/admin/AdminEdgeFunctionLogs")));
 const AdminDatabase = lazy(() => lazyRetry(() => import("./pages/admin/AdminDatabase")));
+const AdminCloudStatus = lazy(() => lazyRetry(() => import("./pages/admin/AdminCloudStatus")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
