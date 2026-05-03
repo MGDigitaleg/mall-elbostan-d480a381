@@ -230,6 +230,7 @@ function AppLayout() {
             <Route path="/admin/backup" element={<AdminBackup />} />
             <Route path="/admin/edge-logs" element={<AdminEdgeFunctionLogs />} />
             <Route path="/admin/database" element={<AdminDatabase />} />
+            <Route path="/admin/cloud-status" element={<AdminCloudStatus />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
