@@ -118,7 +118,7 @@ function json(data: unknown, status = 200) {
       ...corsHeaders,
       "Content-Type": "application/json",
     },
-  });
+  }));
 }
 
 const corsHeaders = {

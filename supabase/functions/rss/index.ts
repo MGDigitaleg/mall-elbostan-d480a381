@@ -97,4 +97,4 @@ Deno.serve(withLogging("rss", async (req) => {
     console.error("rss error:", err);
     return new Response("Internal Server Error", { status: 500, headers: corsHeaders });
   }
-});
+}));

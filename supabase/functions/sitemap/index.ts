@@ -360,4 +360,4 @@ Deno.serve(withLogging("sitemap", async (req) => {
       headers: corsHeaders,
     });
   }
-});
+}));

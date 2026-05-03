@@ -240,4 +240,4 @@ serve(withLogging("og-image", async (req) => {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
-});
+}));
