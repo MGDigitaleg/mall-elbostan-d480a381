@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          changed_columns: string[] | null
+          created_at: string
+          id: string
+          new_data: Json | null
+          old_data: Json | null
+          row_id: string | null
+          table_name: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          changed_columns?: string[] | null
+          created_at?: string
+          id?: string
+          new_data?: Json | null
+          old_data?: Json | null
+          row_id?: string | null
+          table_name: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          changed_columns?: string[] | null
+          created_at?: string
+          id?: string
+          new_data?: Json | null
+          old_data?: Json | null
+          row_id?: string | null
+          table_name?: string
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           category: string | null
@@ -2111,6 +2147,37 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_browse_table: {
+        Args: { p_limit?: number; p_table: string }
+        Returns: Json
+      }
+      admin_list_columns: {
+        Args: { p_table: string }
+        Returns: {
+          column_default: string
+          column_name: string
+          data_type: string
+          is_nullable: string
+        }[]
+      }
+      admin_list_policies: {
+        Args: { p_table: string }
+        Returns: {
+          cmd: string
+          policy_name: string
+          qual: string
+          roles: string[]
+          with_check: string
+        }[]
+      }
+      admin_list_tables: {
+        Args: never
+        Returns: {
+          has_rls: boolean
+          row_count: number
+          table_name: string
+        }[]
+      }
       decrement_prize_stock: { Args: { p_prize_id: string }; Returns: boolean }
       has_role: {
         Args: {

@@ -72,6 +72,7 @@ const AdminContactSettings = lazy(() => lazyRetry(() => import("./pages/admin/Ad
 const AdminSocialOffers = lazy(() => lazyRetry(() => import("./pages/admin/AdminSocialOffers")));
 const AdminBackup = lazy(() => lazyRetry(() => import("./pages/admin/AdminBackup")));
 const AdminEdgeFunctionLogs = lazy(() => lazyRetry(() => import("./pages/admin/AdminEdgeFunctionLogs")));
+const AdminDatabase = lazy(() => lazyRetry(() => import("./pages/admin/AdminDatabase")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
@@ -227,6 +228,7 @@ function AppLayout() {
             <Route path="/admin/social-offers" element={<AdminSocialOffers />} />
             <Route path="/admin/backup" element={<AdminBackup />} />
             <Route path="/admin/edge-logs" element={<AdminEdgeFunctionLogs />} />
+            <Route path="/admin/database" element={<AdminDatabase />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
