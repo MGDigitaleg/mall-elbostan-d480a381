@@ -155,8 +155,8 @@ export function Footer() {
         <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr_1fr_1fr] lg:gap-8 lg:gap-y-10 xl:gap-12">
           {/* Brand column */}
           <div className="space-y-3 lg:space-y-5 flex flex-col items-center text-center lg:items-start lg:text-right">
-            <Link to="/" aria-label="مول البستان — الصفحة الرئيسية" className="brand-logo-glow inline-flex items-center" style={{ height: 64 }}>
-              <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto" variant="light" priority={false} />
+            <Link to="/" aria-label="مول البستان — الصفحة الرئيسية" className="brand-logo-glow inline-flex items-center" style={{ height: 64, minWidth: 110, contain: "layout" }}>
+              <BrandLogo align="start" imageClassName="h-[clamp(48px,10vw,64px)] max-h-[64px] w-auto aspect-[600/349]" variant="light" priority={false} />
             </Link>
 
             <p className="max-w-[260px] text-[0.82rem] leading-[1.7] font-light" style={{ color: "#8896AB" }}>
