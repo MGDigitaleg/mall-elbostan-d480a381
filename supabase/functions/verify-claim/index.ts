@@ -109,7 +109,7 @@ Deno.serve(withLogging("verify-claim", async (req) => {
     console.error("Verify claim error:", err);
     return json({ error: "حدث خطأ غير متوقع" }, 500);
   }
-});
+}));
 
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
