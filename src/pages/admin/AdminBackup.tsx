@@ -68,12 +68,9 @@ async function fetchAllRows(table: string): Promise<any[]> {
 
 function toCsv(rows: any[]): string {
   if (rows.length === 0) return "";
-  const headers = Array.from(
-    rows.reduce((set: Set<string>, r) => {
-      Object.keys(r).forEach((k) => set.add(k));
-      return set;
-    }, new Set<string>())
-  );
+  const headerSet = new Set<string>();
+  rows.forEach((r) => Object.keys(r).forEach((k) => headerSet.add(k)));
+  const headers: string[] = Array.from(headerSet);
   const escape = (v: any) => {
     if (v === null || v === undefined) return "";
     const s = typeof v === "object" ? JSON.stringify(v) : String(v);
