@@ -3,13 +3,20 @@ import { describe, it, expect } from "vitest";
 const SITEMAP_URL =
   "https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=images";
 
+const PUBLIC_BASE = "https://mallelbostan.com";
 const FETCH_TIMEOUT_MS = 15_000;
 const IMAGE_TIMEOUT_MS = 10_000;
 const MAX_CONCURRENCY = 8;
 
+function resolveUrl(value: string): string {
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.startsWith("/")) return `${PUBLIC_BASE}${value}`;
+  return value;
+}
+
 function isValidHttpsUrl(value: string): boolean {
   try {
-    const u = new URL(value);
+    const u = new URL(resolveUrl(value));
     return u.protocol === "https:" || u.protocol === "http:";
   } catch {
     return false;
