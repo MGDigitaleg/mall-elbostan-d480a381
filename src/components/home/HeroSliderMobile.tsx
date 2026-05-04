@@ -107,7 +107,7 @@ export function HeroSliderMobile() {
           <div className="flex flex-row-reverse justify-center gap-2 pt-2">
             <Link to={slide.cta.to}>
               <Button variant="cta" className="h-11 rounded-xl px-5 text-[0.82rem] font-bold shadow-lg shadow-primary/20">
-                {slide.cta.to === "/stores" ? <Compass className="ml-1.5 h-4 w-4" /> : <MapPin className="ml-1.5 h-4 w-4" />}
+                {slide.cta.to === "/stores" ? <Compass className="me-1.5 h-4 w-4" /> : <MapPin className="me-1.5 h-4 w-4" />}
                 {slide.cta.label}
               </Button>
             </Link>
