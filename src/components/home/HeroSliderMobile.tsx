@@ -85,7 +85,7 @@ export function HeroSliderMobile() {
 
       <div className="absolute inset-0 z-[1]" style={{ background: "linear-gradient(to top, hsla(218, 55%, 7%, 0.95) 0%, hsla(218, 50%, 10%, 0.65) 50%, hsla(218, 50%, 8%, 0.45) 100%)" }} />
 
-      <div className="relative z-10 flex h-full min-h-[520px] flex-col justify-end px-5 pt-[80px] pb-16" style={{ position: "absolute", inset: 0 }}>
+      <div className="relative z-10 flex h-full flex-col justify-end px-5 pt-16 pb-12" style={{ position: "absolute", inset: 0 }}>
         {/* Countdown removed pre-launch */}
 
         {/* Text */}
