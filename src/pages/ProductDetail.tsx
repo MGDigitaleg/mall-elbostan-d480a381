@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { trackSeoLinkClick } from "@/lib/analytics";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildProductLd } from "@/components/SEOHead";
+import { SEOHead, buildProductLd, buildProductRichLd } from "@/components/SEOHead";
 import { getProductOgImage, getProductOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
