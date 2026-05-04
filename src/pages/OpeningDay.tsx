@@ -31,7 +31,16 @@ const OpeningDay = () => {
         description="تابع تفاصيل يوم افتتاح مول البستان من الفعاليات للجوائز وخطة الزيارة."
         descriptionEn="Follow Mall Elbostan opening day details, from events to rewards and visit planning."
         breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]}
-        jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined}
+        jsonLd={[
+          buildEventEnhancedLd({
+            name: "يوم افتتاح مول البستان",
+            description: "حفل افتتاح مول البستان بالتجمع الخامس مع جوائز وفعاليات وعروض من المحلات المشاركة.",
+            url: "/opening-day",
+            startDate: "2026-05-01",
+            endDate: "2026-05-15",
+          }),
+          ...(events && events.length > 0 ? [buildEventLd(events)] : []),
+        ]}
       />
 
       <OpeningHero />
