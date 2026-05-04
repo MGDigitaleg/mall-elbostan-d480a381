@@ -10,7 +10,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
-import { SEOHead, buildRealEstateListingLd, buildServiceLd } from "@/components/SEOHead";
+import { SEOHead, buildRealEstateListingLd, buildServiceLd, buildFaqLd, buildHowToLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -186,6 +186,24 @@ const Leasing = () => {
         jsonLd={[
           buildServiceLd({ name: "تأجير وحدات تجارية في مول البستان", description: "وحدات تجارية متنوعة للإيجار في مول البستان — أكشاك، محلات صغيرة ومتوسطة وكبيرة، ووحدات رئيسية.", url: "/leasing", serviceType: "Commercial Real Estate Leasing" }),
           ...(availableUnits && availableUnits.length > 0 ? [buildRealEstateListingLd(availableUnits)] : []),
+          buildHowToLd({
+            name: "كيفية حجز وحدة تجارية في مول البستان",
+            description: "خطوات بسيطة لحجز وحدتك التجارية داخل مول البستان بالتجمع الخامس.",
+            totalTime: "PT1D",
+            steps: [
+              { name: "اختر الوحدة", text: "تصفح الوحدات المتاحة على الخريطة التفاعلية وحدّد الوحدة المناسبة لنشاطك." },
+              { name: "أرسل الاستفسار", text: "املأ نموذج الاستفسار بالمعلومات الأساسية عن نشاطك ومتطلباتك." },
+              { name: "تواصل فريق التأجير", text: "نتواصل معك خلال يوم عمل واحد لمناقشة الشروط وتفاصيل الوحدة." },
+              { name: "المعاينة والتعاقد", text: "ترتيب زيارة معاينة للوحدة، ثم استكمال إجراءات التعاقد والتسليم." },
+            ],
+          }),
+          buildFaqLd([
+            { question_ar: "ما هي مساحات الوحدات المتاحة؟", answer_ar: "تتراوح الوحدات بين أكشاك صغيرة ومحلات متوسطة ووحدات رئيسية كبيرة لتناسب مختلف الأنشطة التقنية." },
+            { question_ar: "ما المستندات المطلوبة للحجز؟", answer_ar: "السجل التجاري، البطاقة الضريبية، وصورة بطاقة الرقم القومي للمستأجر، إضافة إلى نبذة عن النشاط." },
+            { question_ar: "هل تتوفر مرافق وخدمات داخل المول؟", answer_ar: "نعم، يوفر المول مواقف سيارات، تكييف مركزي، أمن 24/7، وWi-Fi، وكاميرات مراقبة، إضافة إلى صيانة دائمة." },
+            { question_ar: "كم يستغرق الرد على الاستفسار؟", answer_ar: "نلتزم بالرد على جميع الاستفسارات خلال يوم عمل واحد." },
+            { question_ar: "هل يمكن معاينة الوحدة قبل التعاقد؟", answer_ar: "بالتأكيد، نرتب زيارة معاينة على الطبيعة قبل استكمال إجراءات التعاقد." },
+          ]),
         ]}
       />
 
