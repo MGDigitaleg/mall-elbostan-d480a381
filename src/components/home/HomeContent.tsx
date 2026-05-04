@@ -174,7 +174,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 700px",
+          containIntrinsicSize: "auto 560px",
           paddingTop: "clamp(10px, 1.6vw, 28px)",
           paddingBottom: "clamp(10px, 1.6vw, 28px)",
           ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : {}),
