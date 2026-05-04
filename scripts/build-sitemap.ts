@@ -28,8 +28,15 @@ const APP_TSX_PATH = resolve(ROOT, "src/App.tsx");
 const ROBOTS_PATH = resolve(ROOT, "public/robots.txt");
 const SITEMAP_PATH = resolve(ROOT, "public/sitemap.xml");
 
-const PUBLIC_BASE = "https://mallelbostan.com";
-const EDGE_BASE = "https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap";
+// Base URLs — overridable per environment so dev/staging/prod don't drift.
+//   PUBLIC_SITE_URL  → public canonical origin (default: production domain)
+//   SUPABASE_URL     → Supabase project URL hosting the sitemap edge function
+const stripSlash = (s: string) => s.replace(/\/+$/, "");
+const PUBLIC_BASE = stripSlash(process.env.PUBLIC_SITE_URL ?? "https://mallelbostan.com");
+const SUPABASE_URL = stripSlash(
+  process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL ?? "https://wrheltmgquyqqhscrpds.supabase.co"
+);
+const EDGE_BASE = `${SUPABASE_URL}/functions/v1/sitemap`;
 
 // Routes intentionally excluded from public crawling
 const EXCLUDED_FROM_SITEMAP = new Set<string>([

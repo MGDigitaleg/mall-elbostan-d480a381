@@ -8,8 +8,11 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const SITE = "https://mallelbostan.com";
-const FN_BASE = "https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap";
+// Public site origin — overridable per environment via PUBLIC_SITE_URL secret.
+// FN_BASE derives from SUPABASE_URL so each environment uses its own functions endpoint.
+const SITE = (Deno.env.get("PUBLIC_SITE_URL") ?? "https://mallelbostan.com").replace(/\/+$/, "");
+const SUPABASE_URL = (Deno.env.get("SUPABASE_URL") ?? "https://wrheltmgquyqqhscrpds.supabase.co").replace(/\/+$/, "");
+const FN_BASE = `${SUPABASE_URL}/functions/v1/sitemap`;
 
 // ── Allowed public routes (kept in sync with App.tsx) ─────────────
 const ALLOWED = [
