@@ -123,19 +123,26 @@ if (missingFromEdge.length) {
 }
 
 // ── 5. Parity check #3: robots.txt Sitemap entries match section keys ────
+// Accept either query-string form (`?section=key`) or clean per-section
+// public files (`/sitemap-key.xml`). Both must resolve to a known section.
 const robots = readFileSync(ROBOTS_PATH, "utf8");
 const robotsSitemapEntries = Array.from(robots.matchAll(/^Sitemap:\s*(\S+)/gm)).map((m) => m[1]);
 
-const robotsSectionKeys = robotsSitemapEntries
-  .map((u) => {
-    try {
-      const parsed = new URL(u);
-      return parsed.searchParams.get("section");
-    } catch {
-      return null;
+const robotsSectionKeys: string[] = [];
+for (const u of robotsSitemapEntries) {
+  try {
+    const parsed = new URL(u);
+    const qs = parsed.searchParams.get("section");
+    if (qs) {
+      robotsSectionKeys.push(qs);
+      continue;
     }
-  })
-  .filter((v): v is string => !!v);
+    const m = parsed.pathname.match(/\/sitemap-([a-z0-9-]+)\.xml$/i);
+    if (m) robotsSectionKeys.push(m[1]);
+  } catch {
+    // ignore unparseable URL
+  }
+}
 
 const robotsHasIndex = robotsSitemapEntries.some(
   (u) => u === `${PUBLIC_BASE}/sitemap.xml` || u === EDGE_BASE
