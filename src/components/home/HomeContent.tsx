@@ -164,7 +164,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* Removed content-visibility:auto here — section is near the fold and the
           intrinsic-size estimate caused a measurable CLS on mobile. Keeping a
           minHeight reserves space without the post-render reflow. */}
-      <section style={{ contain: "layout", minHeight: 440 } as React.CSSProperties}>
+      <section style={{ contain: "layout" } as React.CSSProperties}>
         <CategoryStrip />
       </section>
 
