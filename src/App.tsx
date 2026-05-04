@@ -144,8 +144,16 @@ function AppLayout() {
 
   return (
     <>
+      {showChrome && (
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-primary-foreground focus:shadow-lg"
+        >
+          تخطي إلى المحتوى
+        </a>
+      )}
       {showChrome && <Header />}
-      <main className={showChrome ? (hasDarkHero ? "flex-1 min-h-[calc(100vh-660px)]" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px] min-h-[calc(100vh-660px)]") : "flex-1"}>
+      <main id="main-content" className={showChrome ? (hasDarkHero ? "flex-1 min-h-[calc(100vh-660px)]" : "flex-1 pt-[56px] md:pt-[64px] xl:pt-[68px] min-h-[calc(100vh-660px)]") : "flex-1"}>
         <LazyErrorBoundary>
         <Suspense fallback={<PageFallback />}>
           <Routes>
