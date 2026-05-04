@@ -17,6 +17,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        xs: "380px",
+      },
       fontFamily: {
         cairo: ["Alexandria", "sans-serif"],
         poppins: ["Inter", "sans-serif"],

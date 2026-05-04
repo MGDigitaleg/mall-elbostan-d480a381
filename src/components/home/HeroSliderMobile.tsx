@@ -91,16 +91,16 @@ export function HeroSliderMobile() {
         {/* Countdown removed pre-launch */}
 
         {/* Text */}
-        <div className="text-center space-y-2.5" key={current} style={{ animation: "heroFadeUp 500ms ease-out", direction: "rtl" }}>
-          <span className="inline-block rounded-full px-3 py-1 text-[0.58rem] font-bold tracking-[0.15em] uppercase" style={{ background: "#CDBB9A14", color: "#CDBB9A", border: "1px solid #CDBB9A25" }}>
+        <div className="text-center space-y-2 sm:space-y-2.5" key={current} style={{ animation: "heroFadeUp 500ms ease-out", direction: "rtl" }}>
+          <span className="inline-block rounded-full px-2.5 py-1 text-[0.55rem] xs:text-[0.58rem] font-bold tracking-[0.14em] uppercase" style={{ background: "#CDBB9A14", color: "#CDBB9A", border: "1px solid #CDBB9A25" }}>
             {slide.kicker}
           </span>
 
-          <h1 className="text-[1.35rem] font-bold leading-[1.25] text-center" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)", textAlign: "center" }}>
+          <h1 className="text-[1.1rem] xs:text-[1.2rem] sm:text-[1.35rem] font-bold leading-[1.3] text-center text-balance px-2" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)", textAlign: "center" }}>
             {slide.headline}
           </h1>
 
-          <p className="text-[0.82rem] leading-[1.6] max-w-[20rem] mx-auto text-center" style={{ color: "#B0BEC5", textAlign: "center" }}>
+          <p className="text-[0.74rem] xs:text-[0.78rem] sm:text-[0.82rem] leading-[1.65] max-w-[19rem] sm:max-w-[20rem] mx-auto text-center text-balance px-2" style={{ color: "#B0BEC5", textAlign: "center" }}>
             {slide.sub}
           </p>
 
