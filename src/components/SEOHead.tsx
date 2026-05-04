@@ -104,7 +104,7 @@ export function SEOHead({
       <meta name="description" content={trimmedDescription} />
       <link rel="canonical" href={canonical} />
       {/* robots meta is set below in the SEO crawler hints block */}
-      {keywords && <meta name="keywords" content={keywords} />}
+      {mergedKeywords && <meta name="keywords" content={mergedKeywords} />}
       <meta name="author" content="مول البستان" />
       <meta name="theme-color" content="#071326" media="(prefers-color-scheme: dark)" />
       <meta name="theme-color" content="#1F61FF" media="(prefers-color-scheme: light)" />
@@ -135,6 +135,14 @@ export function SEOHead({
       {type === "article" && articleModifiedTime && (
         <meta property="article:modified_time" content={articleModifiedTime} />
       )}
+
+      {/* Topical tags — boost social previews & Google discovery for store/category/collection pages */}
+      {cleanTags.map((t) => (
+        <meta key={`og-tag-${t}`} property={type === "article" ? "article:tag" : "og:tag"} content={t} />
+      ))}
+      {cleanTags.map((t) => (
+        <meta key={`tag-${t}`} name="tag" content={t} />
+      ))}
 
       {/* Geo targeting — improves local SEO for Egypt / Cairo */}
       <meta name="geo.region" content="EG-C" />
