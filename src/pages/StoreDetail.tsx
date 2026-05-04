@@ -11,7 +11,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { trackSeoLinkClick } from "@/lib/analytics";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildStoreLd } from "@/components/SEOHead";
+import { SEOHead, buildStoreLd, buildOfferCatalogLd, buildSpeakableLd } from "@/components/SEOHead";
 import { getStoreOgImage, getStoreOgAlt, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } from "@/lib/ogImageUtils";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
