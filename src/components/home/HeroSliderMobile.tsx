@@ -91,20 +91,20 @@ export function HeroSliderMobile() {
         {/* Countdown removed pre-launch */}
 
         {/* Text */}
-        <div className="text-center space-y-2.5" key={current} style={{ animation: "heroFadeUp 500ms ease-out" }}>
+        <div className="text-center space-y-2.5" key={current} style={{ animation: "heroFadeUp 500ms ease-out", direction: "rtl" }}>
           <span className="inline-block rounded-full px-3 py-1 text-[0.58rem] font-bold tracking-[0.15em] uppercase" style={{ background: "#CDBB9A14", color: "#CDBB9A", border: "1px solid #CDBB9A25" }}>
             {slide.kicker}
           </span>
 
-          <h1 className="text-[1.35rem] font-bold leading-[1.25]" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)" }}>
+          <h1 className="text-[1.35rem] font-bold leading-[1.25] text-center" style={{ color: "#F8FAFC", fontFamily: "var(--font-arabic-display)", textAlign: "center" }}>
             {slide.headline}
           </h1>
 
-          <p className="text-[0.82rem] leading-[1.6] max-w-[20rem] mx-auto" style={{ color: "#B0BEC5" }}>
+          <p className="text-[0.82rem] leading-[1.6] max-w-[20rem] mx-auto text-center" style={{ color: "#B0BEC5", textAlign: "center" }}>
             {slide.sub}
           </p>
 
-          <div className="flex justify-center gap-2 pt-2">
+          <div className="flex flex-row-reverse justify-center gap-2 pt-2">
             <Link to={slide.cta.to}>
               <Button variant="cta" className="h-11 rounded-xl px-5 text-[0.82rem] font-bold shadow-lg shadow-primary/20">
                 {slide.cta.to === "/stores" ? <Compass className="ml-1.5 h-4 w-4" /> : <MapPin className="ml-1.5 h-4 w-4" />}
