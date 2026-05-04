@@ -209,6 +209,7 @@ export default function Sitemap() {
                   { href: "/sitemap-blog.xml", label: "المدونة", desc: "مقالات ومحتوى المدونة." },
                   { href: "/sitemap-images.xml", label: "الصور", desc: "فهرس صور المنتجات والمحلات." },
                   { href: "/sitemap-news.xml", label: "الأخبار", desc: "أحدث الأخبار والإعلانات." },
+                  { href: "/sitemap-main.xml", label: "السايت ماب التقليدي", desc: "نسخة احتياطية متوافقة مع الأدوات القديمة." },
                   { href: "/robots.txt", label: "robots.txt", desc: "قواعد زحف محركات البحث." },
                 ].map((item) => (
                   <li key={item.href}>
