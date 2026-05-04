@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildEventLd } from "@/components/SEOHead";
+import { SEOHead, buildEventLd, buildEventEnhancedLd } from "@/components/SEOHead";
 import { OpeningHero } from "@/components/opening/OpeningHero";
 import { OpeningRoadmap } from "@/components/opening/OpeningRoadmap";
 import { OpeningSchedule } from "@/components/opening/OpeningSchedule";
