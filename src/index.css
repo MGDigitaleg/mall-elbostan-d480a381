@@ -857,10 +857,12 @@
   transform: scale(1.03);
 }
 
-/* Home hero — fixed CSS-driven height to avoid CLS from JS-based sizing */
+/* Home hero — fixed CSS-driven height to avoid CLS from JS-based sizing.
+   Mobile height fits the inner content (headline + sub + CTAs + paddings) so
+   text is not clipped by overflow:hidden on the shell. */
 .home-hero-shell {
-  height: 380px;
-  max-height: 460px;
+  height: 560px;
+  max-height: 600px;
 }
 @media (min-width: 768px) {
   .home-hero-shell {
