@@ -29,7 +29,7 @@ const TYPE_META: Record<PrizeType, { label: string; icon: any; color: string; bg
    ═══════════════════════════════════════════════════════════ */
 export default function AdminSpinHub() {
   const { loading: authLoading } = useRequireAdmin();
-  const [tab, setTab] = useState<"inventory" | "visitor_codes" | "winners">("inventory");
+  const [tab, setTab] = useState<"settings" | "inventory" | "visitor_codes" | "winners">("settings");
 
   if (authLoading) return <Shell loading />;
 
@@ -38,6 +38,7 @@ export default function AdminSpinHub() {
       <CampaignToggleCard campaignKey="spin_win" />
       <div className="mb-6 flex flex-wrap gap-2 border-b border-border">
         {[
+          { key: "settings", label: "إعدادات الحملة", icon: Settings },
           { key: "inventory", label: "مخزون الجوائز", icon: Gift },
           { key: "visitor_codes", label: "أكواد الزوار", icon: QrCode },
           { key: "winners", label: "الفائزون", icon: Users },
@@ -57,6 +58,7 @@ export default function AdminSpinHub() {
         ))}
       </div>
 
+      {tab === "settings" && <SpinCampaignSettings />}
       {tab === "inventory" && <InventoryTab />}
       {tab === "visitor_codes" && <VisitorCodesTab />}
       {tab === "winners" && <WinnersTab />}
