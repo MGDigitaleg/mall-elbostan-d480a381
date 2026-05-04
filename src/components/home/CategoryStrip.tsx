@@ -28,9 +28,8 @@ export function CategoryStrip() {
       className="relative overflow-hidden"
       style={{
         background: "linear-gradient(180deg, #071326 0%, #0D1A30 100%)",
-        paddingTop: "clamp(18px, 2.4vw, 32px)",
-        paddingBottom: "clamp(18px, 2.4vw, 32px)",
-        minHeight: 260,
+        paddingTop: "clamp(14px, 1.8vw, 24px)",
+        paddingBottom: "clamp(14px, 1.8vw, 24px)",
       }}
     >
       <div className="container">
