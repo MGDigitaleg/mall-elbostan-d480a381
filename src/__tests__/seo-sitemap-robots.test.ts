@@ -33,7 +33,7 @@ const CORE_PUBLIC_ROUTES = [
   "/new-cairo-branch",
   "/downtown-branch",
   "/downtown-directory",
-  "/devices",
+  
   "/market-echo",
   "/tech-planet",
   "/kz",
