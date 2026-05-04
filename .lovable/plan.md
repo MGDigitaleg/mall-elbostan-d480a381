@@ -1,99 +1,70 @@
-# خطة تحسين أداء الموبايل — مول البستان
+# خطة استغلال المساحات وإزالة الفراغات بين أقسام الصفحة الرئيسية
 
-التقرير الحالي: **Performance 67** (Mobile)، LCP 5.4s، CLS 0.222، Forced Reflow ~120ms، JS غير مستخدم 103KB، صور غير مُحسّنة 288KB، كاش غير مُستخدم 391KB.
+## التشخيص
 
-الهدف: الوصول إلى **90+** على الموبايل دون أي تغيير بصري أو وظيفي.
+من اللقطات الثلاث يظهر فراغ أبيض كبير في 3 مواضع على الموبايل:
 
----
+1. **بين شبكة الفئات (CategoryStrip) و"منتجات مختارة"** — فراغ ~140px.
+2. **بين زر "عرض كل المنتجات" وقسم "عروض مختارة"** — فراغ ~280px.
+3. **بين بطاقة "كوكب البستان" وقسم "تعرّف على المحلات"** — فراغ ~180px.
 
-## 1) إصلاح Layout Shifts (CLS 0.222 → < 0.05)
+**السبب الجذري** في `HomeContent.tsx`: قيم `minHeight` و`containIntrinsicSize` المحجوزة لأقسام متعددة أكبر من الارتفاع الفعلي للمحتوى بعد التحميل، فيظل الفرق فراغاً مرئياً:
 
-السبب الرئيسي: عناصر تتغير ارتفاعاتها بعد التحميل (Hero، Categories، Footer، DealsTeaser).
-
-- **Hero**: تثبيت الارتفاع عبر CSS فقط (تم في الإصلاح السابق — يحتاج نشر).
-- **CategoryStrip**: زيادة `minHeight` ليطابق الارتفاع الفعلي على الموبايل (~330px بدل 280px) ومنع `display: none` المؤجل على الفئات.
-- **DealsTeaser & ProductRail**: استبدال نمط `display:none` المشروط بـ Skeleton ثابت بنفس الأبعاد بحيث لا يقفز المحتوى عند ظهور البيانات.
-- **Footer**: حجز ارتفاع مبدئي (`min-height` على `<footer>`) وتأجيل تحميل صور الفوتر (logo والشركاء) مع `width/height` صريحين.
-
-## 2) إصلاح Forced Reflow (~120ms)
-
-الموجود في `index-*.js` و `ProductRail` و `accordion`.
-
-- استبدال أي قراءة لـ `offsetWidth/getBoundingClientRect` بعد كتابات DOM بنمط مؤجل (`requestAnimationFrame`).
-- في `HomeAnchorNav` تستخدم `el.getBoundingClientRect()` داخل onClick — تأجيله داخل rAF.
-- في `ProductRail` (Carousel/scroll snap) فحص واستبدال أي قياس متزامن بعد التمرير بـ `IntersectionObserver`.
-
-## 3) تحسين الصور (288KB توفير)
-
-- **`/logos/tenants/infinity.webp`**: المعروض 49×49 لكن الحجم 1058×1058 — إنشاء نسخة مصغّرة (96×96) واستخدامها في بطاقات الخريطة.
-- **منتجات Dell Latitude**: المعروض 357×285 بينما الحجم 1000×800 — خفض الجودة وإعادة تصدير عند 600×480.
-- **صور الفوتر `logo-brand-white-sm`**: المعروض 144×84 والملف 288×168 — ضبط ولا حاجة لإنشاء نسخ جديدة (ضمن الحد المقبول لشاشات الـRetina).
-- إضافة `srcset` و`sizes` لصور الـHero ومنتجات الواجهة (نسخ 480w/768w/1280w).
-
-## 4) كاش HTTP (391KB توفير)
-
-أصول `/logos/tenants/*` و`/images/products/*` و`/hero/*` تأتي حالياً بدون `Cache-Control`.
-
-- إضافة headers عبر ملف `public/_headers` (Lovable يدعمه عند النشر) بحيث:
-  - `/assets/*` → `max-age=31536000, immutable` (موجود تلقائياً مع Vite hash).
-  - `/logos/*`, `/images/*`, `/hero/*` → `max-age=2592000` (30 يوم).
-  - `/~flock.js` → خارج نطاقنا (تابع لـ Lovable analytics).
-
-## 5) تقليل JavaScript غير المستخدم (103KB)
-
-- المشكلة: `index-*.js` ضخم (174KB) — يحوي `framer-motion`، `accordion`، إلخ مدمجين.
-- **تأجيل framer-motion على الموبايل**: استخدام `Reveal` بنسخة CSS بسيطة بدل framer للعناصر تحت الطية.
-- **Lazy-load `Accordion`**: استخدامه فقط داخل قسم الـFAQ — تحويله إلى `lazy()`.
-- **إزالة `proxy-Pl1jXLWZ.js` (37KB)**: يبدو من Supabase realtime/postgrest helpers — التحقق إن كان كل المستوردات مطلوبة في الصفحة الرئيسية.
-- مراجعة `manualChunks` في `vite.config.ts` لفصل: `vendor-react`, `vendor-supabase`, `vendor-motion`.
-
-## 6) تسريع LCP (5.4s → < 2.5s)
-
-- صورة الـHero `nc-hero-1.webp` تحمّل بـ `preload` (موجود) لكن تكمل في 700ms+ ثم النص يُرسم بعد framer-motion.
-- إزالة animation `motion` على H1 الـHero (استخدام CSS keyframe بدل framer).
-- إعادة ضغط `nc-hero-1.webp` بجودة 75 بدل 85 (توفير 15KB إضافي).
-- إنشاء نسخة موبايل أصغر `nc-hero-1-mobile.webp` (768×432) واستخدامها عبر `<picture>` في HeroSliderMobile.
-
-## 7) تحسينات إضافية صغيرة
-
-- إزالة `preconnect` لـ `images.unsplash.com` غير مستخدم على الواجهة.
-- تأجيل تحميل خط `Inter` (ليس مستخدماً تحت الطية في الموبايل).
-- إزالة أي استدعاء `useQuery` غير مفعّل قبل التفاعل (بالفعل `enabled: ready`، التأكد من بقية الصفحات).
-
----
-
-## التنفيذ على دفعات آمنة
-
-**الدفعة 1 — CLS و Reflow** (خطر صفر، أكبر أثر):
-- إصلاحات `HomeContent` و `CategoryStrip` و `Footer` و `HomeAnchorNav`.
-
-**الدفعة 2 — الصور والكاش**:
-- إنشاء النسخ المصغرة (`infinity-96.webp`، `dell-latitude-*-600.jpg`).
-- إضافة `public/_headers`.
-- إضافة `srcset/sizes` على الـHero والمنتجات.
-
-**الدفعة 3 — تقسيم JS**:
-- ضبط `manualChunks` في vite config.
-- تأجيل framer-motion للأقسام تحت الطية.
-- Lazy-load Accordion.
-
-**الدفعة 4 — قياس وتحقق**:
-- نشر، تشغيل Lighthouse، مقارنة قبل/بعد.
-
----
-
-## ضمانات عدم التخريب
-
-- لا تغييرات بصرية: فقط `min-height` و`srcset` و`headers` و`lazy()`.
-- لا تغييرات على الـcomponents الأساسية (`ProductRail`, `Hero`) بخلاف استبدال طرق التحميل.
-- كل دفعة قابلة للتراجع باستقلال.
-- بعد كل دفعة: نشر وتشغيل Lighthouse للتحقق.
-
-## التوقعات
-
-| المقياس | قبل | بعد |
+| القسم | المحجوز حالياً | الواقعي على الموبايل |
 |---|---|---|
-| Performance | 67 | 90+ |
-| LCP | 5.4s | ~2.0s |
-| CLS | 0.222 | < 0.05 |
-| Total bytes | ~600KB | ~250KB |
+| CategoryStrip | `minHeight: 360` | ~480px (أكبر، آمن) |
+| Featured Products | `minHeight: 700` + `containIntrinsicSize 700` | الفعلي يتوسع تلقائياً — `minHeight` يخلق فراغ سفلي عند تحميل أبطأ |
+| DealsTeaser | `minHeight: 620` + `containIntrinsicSize 640` | ~560px → فراغ ~60-80px |
+| Latest Picks | `minHeight: 560` + `containIntrinsicSize 560` | يتوسع تلقائياً |
+| Map Teaser | `containIntrinsicSize 180` | جيد |
+| TechPlanetCTA | `containIntrinsicSize 200` + `LazySection minHeight 180` | الفعلي ~120px |
+| MerchantLogoWall | `containIntrinsicSize 240` + `LazySection minHeight 240` | الفعلي ~520px (أصغر بكثير من المحجوز يسبب قفزة، الأكبر آمن) |
+
+السبب الإضافي: استخدام `minHeight` ثابت **بالإضافة إلى** `contentVisibility:auto + containIntrinsicSize` يضاعف الحجز — يكفي واحد منهما.
+
+---
+
+## الإصلاحات
+
+### 1) إزالة `minHeight` الزائد من الأقسام التي تستخدم `contentVisibility`
+
+الاكتفاء بـ `containIntrinsicSize` كمقاس أولي، ثم يتقلص لحجم المحتوى الفعلي تلقائياً بعد render. التغييرات في `src/components/home/HomeContent.tsx`:
+
+- **Featured Products**: حذف `minHeight: 700`؛ الإبقاء فقط على `display: none` عند < 3 منتجات.
+- **DealsTeaser**: تقليل `minHeight` من 620 إلى 0 (إزالة)، وتقليل `containIntrinsicSize` من 640 إلى 540.
+- **Latest Picks**: حذف `minHeight: 560`، تقليل `containIntrinsicSize` إلى 480.
+- **TechPlanetCTA**: تقليل `LazySection minHeight` من 180 إلى 120، و`containIntrinsicSize` من 200 إلى 140.
+- **CategoryStrip**: رفع `minHeight` من 360 إلى الأقرب للواقع (440 على الموبايل) لإزالة قفزة CLS مع تجنّب الفراغ.
+
+### 2) تقليص padding بين الأقسام الموبايلية
+
+القيم الحالية `clamp(12px, 2.2vw, 36px)` على الموبايل ≈ 14-16px لكل جانب — مقبولة لكن يمكن تكثيفها:
+
+- توحيد `paddingTop/Bottom` في الأقسام التجارية المتتالية إلى `clamp(10px, 1.6vw, 28px)` لتقصير الانتقال بين Featured → Deals → Latest.
+- إزالة spacing مزدوج بين أقسام متتالية بنفس الخلفية الفاتحة.
+
+### 3) معالجة الفراغ تحت "كوكب البستان" → "محلات المول"
+
+تقليل padding سفلي لقسم TechPlanet، وتقليل `containIntrinsicSize` لـ MerchantLogoWall إلى قيمة قريبة من الواقع (نحو 480) بدلاً من 240 الحالية (تسبب قفزة عكسية).
+
+### 4) تقليل ارتفاع `LazySection` الافتراضي
+
+التحقق من `LazySection.tsx` للتأكد أن `minHeight` يُلغى بعد ظهور المحتوى (يستبدله ارتفاع المحتوى الفعلي). إن لم يكن، تعديله ليكون `minHeight` مبدئياً فقط ثم يصبح `auto` بعد التحميل.
+
+---
+
+## النتيجة المتوقعة
+
+- اختفاء الفراغات الـ3 الكبيرة في اللقطات.
+- تدفق بصري متماسك بين الأقسام التجارية.
+- الحفاظ على CLS ≤ 0.08 (قيمة "good") لأن الحجز سيظل أقرب لارتفاع المحتوى الحقيقي.
+- لا تأثير على الأداء أو حساب LCP (الأقسام الأبعد عن الـviewport تظل خلف `contentVisibility:auto`).
+
+---
+
+## الملفات المعدَّلة
+
+- `src/components/home/HomeContent.tsx` — معظم التغييرات.
+- `src/components/home/LazySection.tsx` — تعديل بسيط إن لزم لإلغاء minHeight بعد التحميل.
+
+لا تغييرات في تصميم البطاقات، النصوص، أو سلوك التحميل — فقط إصلاح أحجام الحجز.
