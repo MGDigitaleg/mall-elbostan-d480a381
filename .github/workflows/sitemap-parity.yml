@@ -64,6 +64,52 @@ jobs:
             exit 1
           fi
           echo "✓ committed sitemap.xml matches generator output"
+      # Validate every per-section sitemap-*.xml file:
+      #   1. Exists and is non-empty
+      #   2. Has a real <urlset> root (NOT a nested <sitemapindex>, which
+      #      Google rejects — this was the bug that caused 0 indexed pages).
+      #   3. Is well-formed XML
+      #   4. Every <loc> entry in sitemap.xml points to an existing file
+      - name: Validate per-section sitemap-*.xml files
+        run: |
+          set -e
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const indexXml = fs.readFileSync('public/sitemap.xml', 'utf8');
+            const locs = [...indexXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+            if (locs.length === 0) { console.error('✖ sitemap.xml has no <loc> entries'); process.exit(1); }
+            let failed = 0;
+            for (const url of locs) {
+              const file = url.replace(/^https?:\/\/[^/]+\//, '');
+              const fp = path.join('public', file);
+              if (!fs.existsSync(fp)) {
+                console.error('  ✖', file, '— missing in /public');
+                failed++; continue;
+              }
+              const xml = fs.readFileSync(fp, 'utf8');
+              if (!xml.trim().startsWith('<?xml')) {
+                console.error('  ✖', file, '— missing XML declaration');
+                failed++; continue;
+              }
+              if (/<sitemapindex\b/i.test(xml)) {
+                console.error('  ✖', file, '— nested <sitemapindex> (Google rejects this)');
+                failed++; continue;
+              }
+              if (!/<urlset\b/i.test(xml)) {
+                console.error('  ✖', file, '— root must be <urlset>');
+                failed++; continue;
+              }
+              if (!/<\/urlset>\s*$/i.test(xml)) {
+                console.error('  ✖', file, '— unclosed <urlset>');
+                failed++; continue;
+              }
+              const urls = (xml.match(/<url>/g) || []).length;
+              console.log('  ✓', file, '—', urls, 'URLs');
+            }
+            if (failed > 0) { console.error('\n✖', failed, 'sitemap file(s) failed validation'); process.exit(1); }
+            console.log('\n✓ All', locs.length, 'sitemap-*.xml files valid (urlset root, no nesting).');
+          "
 
       - name: Upload generated sitemap as artifact
         if: always()
