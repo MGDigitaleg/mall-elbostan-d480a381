@@ -45,7 +45,11 @@ function matchesRoute(path: string): string | null {
 }
 
 // ── 2. Walk every public/sitemap-*.xml and collect <loc> URLs ───────────
-const files = readdirSync(PUBLIC_DIR).filter((f) => /^sitemap-[a-z0-9-]+\.xml$/i.test(f));
+// Exclude sitemap-main.xml — legacy shim that intentionally points at the
+// edge function for backwards compatibility with old external links.
+const files = readdirSync(PUBLIC_DIR).filter(
+  (f) => /^sitemap-[a-z0-9-]+\.xml$/i.test(f) && f !== "sitemap-main.xml"
+);
 type Loc = { file: string; url: string; path: string };
 const locs: Loc[] = [];
 for (const f of files) {
