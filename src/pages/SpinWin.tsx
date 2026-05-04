@@ -3,7 +3,7 @@ import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLef
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
-import { SEOHead, buildPromoEventLd, buildEventEnhancedLd, buildSpeakableLd } from "@/components/SEOHead";
+import { SEOHead, buildPromoEventLd, buildEventEnhancedLd, buildSpeakableLd, buildFaqLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
@@ -252,6 +252,64 @@ const SpinWin = () => {
                 location: { "@id": "https://mallelbostan.com/#mall" },
               },
               buildSpeakableLd(["h1", "[data-speakable]"]),
+              buildFaqLd([
+                {
+                  question_ar: "من يحق له المشاركة في عجلة الجوائز؟",
+                  answer_ar:
+                    "المشاركة متاحة لزوار مول البستان – القاهرة الجديدة من عمر 18 عاماً فأكثر، بواقع محاولة واحدة لكل زائر خلال فترة الحملة، ويُشترط تقديم رقم هاتف صحيح للتحقق.",
+                },
+                {
+                  question_ar: "ما هي مدة الحملة؟",
+                  answer_ar: `تبدأ الحملة من ${startIso} وتستمر حتى ${endIso}، ويحق للإدارة تمديدها أو إنهاءها وفق ما تراه مناسباً مع الإعلان المسبق.`,
+                },
+                {
+                  question_ar: "كيف يتم استبدال الجائزة؟",
+                  answer_ar:
+                    "يتم استبدال الجائزة حصرياً داخل مول البستان – القاهرة الجديدة عبر إبراز كود الفوز وبطاقة هوية سارية لدى مكتب خدمة الزوار، خلال المدة الموضحة على شاشة الفوز.",
+                },
+                {
+                  question_ar: "هل يمكن تحويل الجائزة إلى مبلغ نقدي؟",
+                  answer_ar:
+                    "لا. الجوائز غير قابلة للاستبدال النقدي أو التحويل لشخص آخر، ولا يجوز تجزئتها أو دمجها مع عروض أخرى ما لم يُذكر خلاف ذلك صراحةً.",
+                },
+                {
+                  question_ar: "ما هي حدود المشاركة والشروط الأساسية؟",
+                  answer_ar:
+                    "محاولة واحدة لكل رقم هاتف خلال فترة الحملة. يُستثنى موظفو مول البستان والمحلات المشاركة وذووهم. تحتفظ الإدارة بحق إلغاء أي مشاركة في حال الاشتباه في التلاعب أو تكرار التسجيل.",
+                },
+                {
+                  question_ar: "هل المشاركة مجانية؟",
+                  answer_ar:
+                    "نعم، المشاركة في عجلة جوائز مول البستان مجانية بالكامل ولا تتطلب أي عملية شراء.",
+                },
+              ]),
+              {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "@id": "https://mallelbostan.com/spin-win#terms",
+                name: "شروط وأحكام عجلة جوائز مول البستان",
+                description:
+                  "الشروط والأحكام الكاملة للمشاركة في حملة عجلة الجوائز بمول البستان – القاهرة الجديدة، بما يشمل الأهلية ومدة الحملة وآلية استبدال الجوائز وحدود المشاركة.",
+                url: "https://mallelbostan.com/spin-win",
+                inLanguage: langs,
+                isPartOf: { "@id": "https://mallelbostan.com/#website" },
+                about: { "@id": "https://mallelbostan.com/#mall" },
+                publisher: { "@id": "https://mallelbostan.com/#organization" },
+                mainEntity: {
+                  "@type": "CreativeWork",
+                  name: "Terms of Service — Spin & Win",
+                  inLanguage: langs,
+                  datePublished: startIso,
+                  text: [
+                    "المشاركة متاحة لمن أتم 18 عاماً من زوار مول البستان – القاهرة الجديدة.",
+                    `سريان الحملة من ${startIso} حتى ${endIso} ما لم يُعلن خلاف ذلك.`,
+                    "محاولة واحدة لكل رقم هاتف، ويُحظر التسجيل المتكرر أو استخدام أرقام وهمية.",
+                    "يتم استبدال الجوائز حصرياً داخل المول بإبراز كود الفوز وبطاقة هوية سارية.",
+                    "الجوائز غير قابلة للاستبدال نقداً أو التحويل أو الدمج مع عروض أخرى.",
+                    "تحتفظ إدارة مول البستان بحق إلغاء أي مشاركة مخالفة وتعديل الشروط مع الإعلان.",
+                  ].join(" \n"),
+                },
+              },
             ]}
           />
         );
