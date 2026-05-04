@@ -75,7 +75,7 @@ export default function Sitemap() {
     let mounted = true;
     setLoading(true);
     supabase.functions
-      .invoke("sitemap", { method: "GET", body: undefined as never, headers: {}, query: { format: "summary" } } as never)
+      .invoke("sitemap?format=summary", { method: "GET" })
       .then(({ data, error: err }) => {
         if (!mounted) return;
         if (err || !data) {
