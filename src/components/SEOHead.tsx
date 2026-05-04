@@ -49,6 +49,22 @@ export function SEOHead({
   const ogH = ogImageHeight ?? 630;
   const ogAlt = ogImageAlt ?? fullTitle;
 
+  // Trim description to ≤160 chars at last whole word for optimal SERP display
+  const trimmedDescription = (() => {
+    if (!description) return description;
+    if (description.length <= 160) return description;
+    const cut = description.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(" ");
+    return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+  })();
+  const trimmedDescriptionEn = (() => {
+    if (!descriptionEn) return descriptionEn;
+    if (descriptionEn.length <= 160) return descriptionEn;
+    const cut = descriptionEn.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(" ");
+    return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+  })();
+
   const breadcrumbLd = breadcrumbs
     ? {
         "@context": "https://schema.org",
