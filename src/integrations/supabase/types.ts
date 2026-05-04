@@ -2211,6 +2211,7 @@ export type Database = {
           table_name: string
         }[]
       }
+      can_manage_content: { Args: { _user_id: string }; Returns: boolean }
       decrement_prize_stock: { Args: { p_prize_id: string }; Returns: boolean }
       has_role: {
         Args: {
@@ -2222,7 +2223,7 @@ export type Database = {
       notify_indexing_ping: { Args: { _urls: Json }; Returns: undefined }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "moderator" | "user" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2350,7 +2351,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "user", "editor"],
     },
   },
 } as const

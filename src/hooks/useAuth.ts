@@ -1,40 +1,53 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-export function useAuth() {
+export type AppRole = "admin" | "editor" | "moderator" | "user";
+
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+  roles: AppRole[];
+  isAdmin: boolean;
+  isEditor: boolean;
+  /** True if user can manage content tables (admin OR editor). */
+  canManageContent: boolean;
+}
+
+async function loadRoles(userId: string): Promise<AppRole[]> {
+  const { data } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", userId);
+  return ((data ?? []) as { role: AppRole }[]).map((r) => r.role);
+}
+
+export function useAuth(): AuthState & { signOut: () => Promise<void> } {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [roles, setRoles] = useState<AppRole[]>([]);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    // 1) Subscribe FIRST to avoid missing the initial event
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        const { data } = await supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id)
-          .eq("role", "admin")
-          .maybeSingle();
-        setIsAdmin(!!data);
+        // defer the role fetch to avoid deadlocks inside the auth callback
+        setTimeout(() => {
+          loadRoles(session.user.id).then(setRoles);
+        }, 0);
       } else {
-        setIsAdmin(false);
+        setRoles([]);
       }
       setLoading(false);
     });
 
+    // 2) Then read existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        supabase
-          .from("user_roles")
-          .select("role")
-          .eq("user_id", session.user.id)
-          .eq("role", "admin")
-          .maybeSingle()
-          .then(({ data }) => setIsAdmin(!!data));
+        loadRoles(session.user.id).then(setRoles);
       }
       setLoading(false);
     });
@@ -42,23 +55,52 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     await supabase.auth.signOut();
-  };
+  }, []);
 
-  return { user, loading, isAdmin, signOut };
+  const isAdmin = roles.includes("admin");
+  const isEditor = roles.includes("editor");
+
+  return {
+    user,
+    loading,
+    roles,
+    isAdmin,
+    isEditor,
+    canManageContent: isAdmin || isEditor,
+    signOut,
+  };
 }
 
+/** Require admin role; redirect to /admin/login otherwise. */
 export function useRequireAdmin() {
-  const { user, loading, isAdmin } = useAuth();
+  const auth = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) {
+    if (!auth.loading && (!auth.user || !auth.isAdmin)) {
       navigate("/admin/login");
     }
-  }, [user, loading, isAdmin, navigate]);
+  }, [auth.loading, auth.user, auth.isAdmin, navigate]);
 
-  const { signOut } = useAuth();
-  return { user, loading, isAdmin, signOut };
+  return auth;
+}
+
+/**
+ * Require admin OR editor — used for content management pages
+ * (stores, blog, deals, jobs, faqs, events, products, downtown,
+ * spin prizes/competition stores/campaign settings, etc.).
+ */
+export function useRequireContentAccess() {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.loading && (!auth.user || !auth.canManageContent)) {
+      navigate("/admin/login");
+    }
+  }, [auth.loading, auth.user, auth.canManageContent, navigate]);
+
+  return auth;
 }
