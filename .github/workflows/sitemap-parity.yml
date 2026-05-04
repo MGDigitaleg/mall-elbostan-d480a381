@@ -162,6 +162,28 @@ jobs:
       - name: Validate every sitemap URL maps to a React Router route
         run: bun scripts/verify-sitemap-routes.ts
 
+      # Always-run summary report (does not fail the build). Renders a
+      # markdown table per file with URL count, root, well-formedness, and
+      # any drift — uploaded as an artifact and surfaced in the job summary.
+      - name: Generate sitemap report
+        if: always()
+        run: bun scripts/sitemap-report.ts
+
+      - name: Publish report to GitHub job summary
+        if: always()
+        run: |
+          if [ -f reports/sitemap-report.md ]; then
+            cat reports/sitemap-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload sitemap report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-report
+          path: reports/sitemap-report.md
+          retention-days: 30
+
       - name: Upload generated sitemap as artifact
         if: always()
         uses: actions/upload-artifact@v4
