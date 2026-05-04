@@ -101,7 +101,7 @@ describe("SEOHead — hreflang / canonical / RTL with multi JSON-LD", () => {
         title="t"
         description="d"
         jsonLd={[
-          ...buildCoreGraphLd(undefined, [
+          buildCoreGraphLd(undefined, [
             buildFaqLd([{ question_ar: "س؟", answer_ar: "ج." }]),
             buildSiteNavLd(),
             buildSpeakableLd(["h1"]),
