@@ -20,6 +20,7 @@ Disallow: /
 User-agent: *
 Allow: /
 Allow: /stores
+Allow: /stores/category/
 Allow: /products
 Allow: /map
 Allow: /leasing
@@ -59,11 +60,15 @@ Disallow: /daily-deals?*
 
 Crawl-delay: 1
 
-# Sitemaps — dynamic edge function returns fresh lastmod from the database
+# Sitemaps — index points to dynamic sub-sitemaps with fresh lastmod
 Sitemap: https://mallelbostan.com/sitemap.xml
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=categories
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=offers
 Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=images
+Sitemap: https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=news

@@ -6,19 +6,13 @@
   point that search engines should crawl (referenced from robots.txt).
 -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products</loc>
-  </sitemap>
-  <sitemap>
-    <loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog</loc>
-  </sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=categories</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=offers</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=images</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=news</loc></sitemap>
 </sitemapindex>

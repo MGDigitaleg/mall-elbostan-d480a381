@@ -18,6 +18,7 @@ const About = lazy(() => lazyRetry(() => import("./pages/About")));
 const NewCairoBranch = lazy(() => lazyRetry(() => import("./pages/NewCairoBranch")));
 const DowntownBranch = lazy(() => lazyRetry(() => import("./pages/DowntownBranch")));
 const Stores = lazy(() => lazyRetry(() => import("./pages/Stores")));
+const StoresCategory = lazy(() => lazyRetry(() => import("./pages/StoresCategory")));
 const StoreDetail = lazy(() => lazyRetry(() => import("./pages/StoreDetail")));
 const Products = lazy(() => lazyRetry(() => import("./pages/Products")));
 const ProductDetail = lazy(() => lazyRetry(() => import("./pages/ProductDetail")));
@@ -159,6 +160,7 @@ function AppLayout() {
             <Route path="/devices/:pillar/:cluster" element={<DevicePage />} />
             <Route path="/devices/:pillar/:cluster/:longtail" element={<DevicePage />} />
             <Route path="/stores" element={<Stores />} />
+            <Route path="/stores/category/:slug" element={<StoresCategory />} />
             <Route path="/stores/:slug" element={<StoreDetail />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/:slug" element={<ProductDetail />} />

@@ -15,6 +15,7 @@ const FN_BASE = "https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap";
 const ALLOWED = [
   "/",
   "/stores",
+  "/stores/category/",
   "/products",
   "/map",
   "/leasing",
@@ -41,20 +42,14 @@ const ALLOWED = [
 ];
 
 // ── Disallowed routes ─────────────────────────────────────────────
-// Admin, internal flows, and parameterized filter pages.
 const DISALLOWED = [
-  // Admin (entire subtree)
   "/admin",
   "/admin/",
-  // Auth/internal flows
   "/spin-win/claim",
   "/spin-win/account",
-  // Campaign-only pages
   "/countdown",
-  // Cart / transactional
   "/kz/cart",
   "/kz/search",
-  // Filtered/parameterized listing pages — avoid duplicate content
   "/products?*",
   "/stores?*",
   "/kz/products?*",
@@ -93,10 +88,14 @@ function buildRobots(): string {
   lines.push(`Sitemap: ${SITE}/sitemap.xml`);
   lines.push(`Sitemap: ${FN_BASE}`);
   lines.push(`Sitemap: ${FN_BASE}?section=pages`);
+  lines.push(`Sitemap: ${FN_BASE}?section=categories`);
   lines.push(`Sitemap: ${FN_BASE}?section=devices`);
   lines.push(`Sitemap: ${FN_BASE}?section=stores`);
   lines.push(`Sitemap: ${FN_BASE}?section=products`);
+  lines.push(`Sitemap: ${FN_BASE}?section=offers`);
   lines.push(`Sitemap: ${FN_BASE}?section=blog`);
+  lines.push(`Sitemap: ${FN_BASE}?section=images`);
+  lines.push(`Sitemap: ${FN_BASE}?section=news`);
 
   return lines.join("\n") + "\n";
 }

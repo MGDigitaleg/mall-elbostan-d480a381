@@ -903,3 +903,310 @@ export function buildCoreGraphLd(phoneOverride?: string, extra: Record<string, u
   };
 }
 
+
+// ──────────────────────────────────────────────────────────────────────
+// Phase-2 schema builders — extended coverage
+// ──────────────────────────────────────────────────────────────────────
+
+/** ImageObject — for hero & product images */
+export function buildImageObjectLd(opts: {
+  url: string; caption?: string; width?: number; height?: number; license?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: opts.url,
+    url: opts.url,
+    ...(opts.caption ? { caption: opts.caption, name: opts.caption } : {}),
+    ...(opts.width ? { width: opts.width } : {}),
+    ...(opts.height ? { height: opts.height } : {}),
+    license: opts.license ?? `${BASE_URL}/terms`,
+    creditText: "Mall El Bostan",
+    creator: { "@id": `${BASE_URL}/#organization` },
+    copyrightNotice: "© Mall El Bostan",
+  };
+}
+
+/** VideoObject — for hero/promo videos */
+export function buildVideoObjectLd(v: {
+  name: string; description: string; thumbnailUrl: string; uploadDate: string;
+  contentUrl?: string; embedUrl?: string; duration?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: v.name,
+    description: v.description,
+    thumbnailUrl: v.thumbnailUrl,
+    uploadDate: v.uploadDate,
+    ...(v.contentUrl ? { contentUrl: v.contentUrl } : {}),
+    ...(v.embedUrl ? { embedUrl: v.embedUrl } : {}),
+    ...(v.duration ? { duration: v.duration } : {}),
+    publisher: { "@id": `${BASE_URL}/#organization` },
+  };
+}
+
+/** MerchantReturnPolicy — Google Shopping requirement */
+export function buildMerchantReturnPolicyLd() {
+  return {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: "EG",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 14,
+    returnMethod: "https://schema.org/ReturnByMail",
+    returnFees: "https://schema.org/FreeReturn",
+  };
+}
+
+/** OfferShippingDetails — Google Shopping enrichment */
+export function buildShippingDetailsLd() {
+  return {
+    "@type": "OfferShippingDetails",
+    shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "EGP" },
+    shippingDestination: { "@type": "DefinedRegion", addressCountry: "EG" },
+    deliveryTime: {
+      "@type": "ShippingDeliveryTime",
+      handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+      transitTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 5, unitCode: "DAY" },
+    },
+  };
+}
+
+/** QAPage — for single-question pages */
+export function buildQAPageLd(opts: { question: string; answer: string; url: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "QAPage",
+    mainEntity: {
+      "@type": "Question",
+      name: opts.question,
+      text: opts.question,
+      answerCount: 1,
+      acceptedAnswer: { "@type": "Answer", text: opts.answer, url: `${BASE_URL}${opts.url}` },
+    },
+  };
+}
+
+/** HowTo — directions to mall, picking gear etc. */
+export function buildHowToLd(opts: {
+  name: string; description: string;
+  steps: { name: string; text: string }[];
+  totalTime?: string; estimatedCost?: { value: number; currency: string };
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: opts.name,
+    description: opts.description,
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    ...(opts.estimatedCost
+      ? { estimatedCost: { "@type": "MonetaryAmount", value: opts.estimatedCost.value, currency: opts.estimatedCost.currency } }
+      : {}),
+    step: opts.steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
+/** Brand schema — brand landing pages */
+export function buildBrandLd(opts: { name: string; logo?: string; url?: string; sameAs?: string[] }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Brand",
+    name: opts.name,
+    ...(opts.logo ? { logo: opts.logo } : {}),
+    ...(opts.url ? { url: opts.url } : {}),
+    ...(opts.sameAs ? { sameAs: opts.sameAs } : {}),
+  };
+}
+
+/** OfferCatalog — for store catalog grouping */
+export function buildOfferCatalogLd(opts: {
+  storeName: string;
+  storeUrl: string;
+  items: { name: string; url: string; price?: number | null; image?: string | null }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: `كتالوج ${opts.storeName}`,
+    url: `${BASE_URL}${opts.storeUrl}`,
+    itemListElement: opts.items.slice(0, 50).map((p) => ({
+      "@type": "Offer",
+      url: `${BASE_URL}${p.url}`,
+      itemOffered: {
+        "@type": "Product",
+        name: p.name,
+        ...(p.image ? { image: p.image } : {}),
+      },
+      ...(p.price ? { price: p.price, priceCurrency: "EGP" } : {}),
+    })),
+  };
+}
+
+/** Amenity features — for Place / ShoppingCenter */
+export function buildAmenityFeatures() {
+  const amenities = [
+    { name: "مواقف سيارات", value: true },
+    { name: "Wi-Fi مجاني", value: true },
+    { name: "مصاعد كهربائية", value: true },
+    { name: "سلالم متحركة", value: true },
+    { name: "دورات مياه", value: true },
+    { name: "صراف آلي (ATM)", value: true },
+    { name: "مسجد", value: true },
+    { name: "تكييف مركزي", value: true },
+    { name: "أمن 24/7", value: true },
+    { name: "كاميرات مراقبة", value: true },
+  ];
+  return amenities.map((a) => ({
+    "@type": "LocationFeatureSpecification",
+    name: a.name,
+    value: a.value,
+  }));
+}
+
+/** AggregateOffer — when one product is sold by multiple stores */
+export function buildAggregateOfferLd(opts: {
+  lowPrice: number; highPrice: number; offerCount: number; currency?: string;
+}) {
+  return {
+    "@type": "AggregateOffer",
+    priceCurrency: opts.currency ?? "EGP",
+    lowPrice: opts.lowPrice,
+    highPrice: opts.highPrice,
+    offerCount: opts.offerCount,
+    availability: "https://schema.org/InStock",
+  };
+}
+
+/** Map schema — for /map page */
+export function buildMapLd(opts: { name: string; url: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Map",
+    name: opts.name,
+    url: `${BASE_URL}${opts.url}`,
+    mapType: "https://schema.org/VenueMap",
+    about: { "@id": `${BASE_URL}/#mall` },
+  };
+}
+
+/** Place — enhanced public venue */
+export function buildPlaceLd(opts: {
+  name: string; url: string; latitude: number; longitude: number; image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Place",
+    name: opts.name,
+    url: `${BASE_URL}${opts.url}`,
+    ...(opts.image ? { image: opts.image } : {}),
+    geo: { "@type": "GeoCoordinates", latitude: opts.latitude, longitude: opts.longitude },
+    publicAccess: true,
+    smokingAllowed: false,
+    amenityFeature: buildAmenityFeatures(),
+    isAccessibleForFree: true,
+  };
+}
+
+/** NewsArticle — for news-style blog posts */
+export function buildNewsArticleLd(post: {
+  title_ar: string; excerpt_ar?: string | null; cover_image_url?: string | null;
+  published_at?: string | null; updated_at?: string | null; slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: post.title_ar,
+    description: post.excerpt_ar ?? "",
+    image: post.cover_image_url ?? undefined,
+    datePublished: post.published_at ?? undefined,
+    dateModified: post.updated_at ?? post.published_at ?? undefined,
+    url: `${BASE_URL}/blog/${post.slug}`,
+    inLanguage: "ar",
+    author: { "@type": "Organization", name: "مول البستان", url: BASE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "مول البستان",
+      url: BASE_URL,
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/og-default.jpg`, width: 1200, height: 630 },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/blog/${post.slug}` },
+  };
+}
+
+/** Dataset — catalog metadata for crawlers / future Merchant Center */
+export function buildDatasetLd(opts: { name: string; description: string; url: string; itemCount?: number }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    creator: { "@id": `${BASE_URL}/#organization` },
+    license: `${BASE_URL}/terms`,
+    inLanguage: "ar",
+    keywords: ["كتالوج", "منتجات", "محلات", "مول البستان", "إلكترونيات", "كمبيوتر", "موبايل"],
+    ...(opts.itemCount ? { variableMeasured: `${opts.itemCount} عنصر` } : {}),
+  };
+}
+
+/** Enhanced Event — for opening day / promotional campaigns */
+export function buildEventEnhancedLd(opts: {
+  name: string; description: string; url: string;
+  startDate: string; endDate?: string; image?: string;
+  performer?: string; sponsor?: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: opts.name,
+    description: opts.description,
+    url: `${BASE_URL}${opts.url}`,
+    startDate: opts.startDate,
+    ...(opts.endDate ? { endDate: opts.endDate } : {}),
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    isAccessibleForFree: true,
+    image: opts.image,
+    location: {
+      "@type": "Place",
+      name: "مول البستان — التجمع الخامس",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "شارع التسعين، التجمع الخامس",
+        addressLocality: "القاهرة الجديدة",
+        addressRegion: "القاهرة",
+        addressCountry: "EG",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: 30.03, longitude: 31.46 },
+    },
+    organizer: { "@id": `${BASE_URL}/#organization` },
+    ...(opts.performer ? { performer: { "@type": "Organization", name: opts.performer } } : {}),
+    ...(opts.sponsor && opts.sponsor.length > 0
+      ? { sponsor: opts.sponsor.map((s) => ({ "@type": "Organization", name: s })) }
+      : {}),
+    offers: {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: "EGP",
+      availability: "https://schema.org/InStock",
+      url: `${BASE_URL}${opts.url}`,
+      validFrom: opts.startDate,
+    },
+  };
+}
+
+/** Build a Product LD with full Shopping enrichment (return policy + shipping) */
+export function buildProductRichLd(product: Parameters<typeof buildProductLd>[0]) {
+  const base = buildProductLd(product) as Record<string, unknown>;
+  const offers = base.offers as Record<string, unknown> | undefined;
+  if (offers) {
+    offers.shippingDetails = buildShippingDetailsLd();
+    offers.hasMerchantReturnPolicy = buildMerchantReturnPolicyLd();
+  }
+  return base;
+}
