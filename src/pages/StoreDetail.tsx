@@ -231,7 +231,20 @@ const StoreDetail = () => {
         ogImageAlt={getStoreOgAlt(store.name_ar, store.category)}
         keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, التجمع الخامس, القاهرة الجديدة, محل ${store.category ?? 'إلكترونيات'}`}
         breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
-        jsonLd={buildStoreLd(store)}
+        jsonLd={[
+          buildStoreLd(store),
+          buildSpeakableLd(["h1"]),
+          ...(storeProducts && storeProducts.length > 0 ? [buildOfferCatalogLd({
+            storeName: store.name_ar,
+            storeUrl: `/stores/${store.slug}`,
+            items: storeProducts.map((p) => ({
+              name: p.name_ar,
+              url: `/products/${p.slug}`,
+              price: p.price ?? null,
+              image: p.image_url ?? null,
+            })),
+          })] : []),
+        ]}
       />
 
       {/* ═══════════ HERO ═══════════ */}
