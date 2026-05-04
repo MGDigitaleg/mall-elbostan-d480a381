@@ -2,7 +2,8 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 import { OFFICIAL_PHONE } from "@/lib/contactInfo";
 
-const BASE_URL = "https://mallelbostan.com";
+// Public site origin — overridable per environment via VITE_PUBLIC_SITE_URL.
+const BASE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL ?? "https://mallelbostan.com").replace(/\/+$/, "");
 
 interface SEOHeadProps {
   title: string;

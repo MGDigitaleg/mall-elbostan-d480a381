@@ -18,7 +18,8 @@
 import { tokenizeQuery, scoreDevice } from "./deviceSearchIndex";
 import { resolveDeviceHref } from "./deviceHref";
 
-const BASE_URL = "https://mallelbostan.com";
+// Public site origin — overridable per environment via VITE_PUBLIC_SITE_URL.
+const BASE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL ?? "https://mallelbostan.com").replace(/\/+$/, "");
 
 export type OrbitKey = "all" | "inner" | "middle" | "outer";
 
