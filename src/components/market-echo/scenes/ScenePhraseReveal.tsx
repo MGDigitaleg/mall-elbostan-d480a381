@@ -53,7 +53,7 @@ export function ScenePhraseReveal() {
             {word}
           </span>
         ))}
-      </h1>
+      </h2>
 
       {/* Supporting line */}
       <p
