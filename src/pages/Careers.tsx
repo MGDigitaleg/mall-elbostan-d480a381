@@ -3,7 +3,7 @@ import { Briefcase, Upload, CheckCircle2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildJobPostingLd } from "@/components/SEOHead";
+import { SEOHead, buildJobPostingLd, buildCollectionPageLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
