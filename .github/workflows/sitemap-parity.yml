@@ -162,6 +162,35 @@ jobs:
       - name: Validate every sitemap URL maps to a React Router route
         run: bun scripts/verify-sitemap-routes.ts
 
+      # Detect duplicate <loc> entries inside any single sitemap-*.xml file.
+      # Duplicates split crawl budget and can dilute indexing signals.
+      - name: Check for duplicate URLs in sitemap files
+        run: |
+          set -e
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const dir = 'public';
+            const files = fs.readdirSync(dir).filter(f => /^sitemap-[a-z0-9-]+\.xml\$/i.test(f) && f !== 'sitemap-main.xml');
+            let failed = 0;
+            for (const f of files) {
+              const xml = fs.readFileSync(path.join(dir, f), 'utf8');
+              const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].trim());
+              const seen = new Map();
+              for (const u of locs) seen.set(u, (seen.get(u) || 0) + 1);
+              const dups = [...seen.entries()].filter(([, n]) => n > 1);
+              if (dups.length === 0) {
+                console.log('  ✓', f, '—', locs.length, 'unique URLs');
+              } else {
+                console.error('  ✖', f, '—', dups.length, 'duplicate URL(s):');
+                for (const [u, n] of dups.slice(0, 10)) console.error('     ×' + n, u);
+                failed += dups.length;
+              }
+            }
+            if (failed > 0) { console.error('\n✖', failed, 'duplicate URL(s) found'); process.exit(1); }
+            console.log('\n✓ No duplicate URLs in any sitemap file.');
+          "
+
       # Always-run summary report (does not fail the build). Renders a
       # markdown table per file with URL count, root, well-formedness, and
       # any drift — uploaded as an artifact and surfaced in the job summary.
