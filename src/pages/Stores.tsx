@@ -244,8 +244,30 @@ const Stores = () => {
           : [{ name: "المحلات", url: "/stores" }]
         }
         jsonLd={[
-          ...(filtered && filtered.length > 0 ? [buildStoreListLd(filtered)] : []),
-          ...(!selectedCategory ? [buildCategoryListLd(primaryCategories.map(c => ({ name: c, url: `/stores?category=${encodeURIComponent(c)}` })))] : []),
+          ...(filtered && filtered.length > 0
+            ? [
+                buildStoreListLd(filtered),
+                buildCollectionPageLd({
+                  name: selectedCategory
+                    ? `محلات ${selectedCategory} في مول البستان`
+                    : "دليل محلات مول البستان",
+                  description: selectedCategory
+                    ? `قائمة بمحلات ${selectedCategory} داخل مول البستان بالتجمع الخامس.`
+                    : "دليل شامل لجميع محلات مول البستان مرتبة حسب التخصص التقني.",
+                  url: selectedCategory
+                    ? `/stores?category=${encodeURIComponent(selectedCategory)}`
+                    : "/stores",
+                  items: filtered.map((s: any) => ({
+                    name: s.name_ar,
+                    url: `/stores/${s.slug}`,
+                    image: s.logo_url ?? null,
+                  })),
+                }),
+              ]
+            : []),
+          ...(!selectedCategory
+            ? [buildCategoryListLd(primaryCategories.map(c => ({ name: c, url: `/stores?category=${encodeURIComponent(c)}` })))]
+            : []),
         ]}
         noIndex={!!search || !!selectedStatus}
       />
