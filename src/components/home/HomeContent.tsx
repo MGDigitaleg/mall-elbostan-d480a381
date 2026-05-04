@@ -164,7 +164,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* Removed content-visibility:auto here — section is near the fold and the
           intrinsic-size estimate caused a measurable CLS on mobile. Keeping a
           minHeight reserves space without the post-render reflow. */}
-      <section style={{ contain: "layout", minHeight: 360 } as React.CSSProperties}>
+      <section style={{ contain: "layout", minHeight: 440 } as React.CSSProperties}>
         <CategoryStrip />
       </section>
 
@@ -175,10 +175,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 700px",
-          paddingTop: "clamp(14px, 2.4vw, 44px)",
-          paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          // Reserve space while loading to prevent layout shift; only collapse if final result is too few
-          ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : { minHeight: 700 }),
+          paddingTop: "clamp(10px, 1.6vw, 28px)",
+          paddingBottom: "clamp(10px, 1.6vw, 28px)",
+          ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
@@ -198,9 +197,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
-      {/* Mobile rendered ~603px; bumped intrinsic size to better match reality. */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 640px", minHeight: 620 } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 620 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 540px" } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 540 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
@@ -209,10 +207,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(12px, 2.2vw, 36px)",
-          paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(!productsLoading && latestProducts.length < 3 ? { display: "none" } : { minHeight: 560 }),
+          containIntrinsicSize: "auto 480px",
+          paddingTop: "clamp(10px, 1.6vw, 28px)",
+          paddingBottom: "clamp(10px, 1.6vw, 28px)",
+          ...(!productsLoading && latestProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
@@ -256,16 +254,16 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <WhyElBostan />
 
       {/* ═══════════ 8.5 · TECH PLANET TEASER (compact strip — within about cluster) ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 200px" } as React.CSSProperties}>
-        <LazySection minHeight={180}>
-          <Suspense fallback={<div style={{ minHeight: 180 }} />}><TechPlanetCTA /></Suspense>
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 140px" } as React.CSSProperties}>
+        <LazySection minHeight={120}>
+          <Suspense fallback={<div style={{ minHeight: 120 }} />}><TechPlanetCTA /></Suspense>
         </LazySection>
       </section>
 
       {/* ═══════════ 9 · ABOUT STRIP — MERCHANT LOGO WALL ═══════════ */}
-      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 240px" } as React.CSSProperties}>
-        <LazySection minHeight={240}>
-          <Suspense fallback={<div style={{ minHeight: 240 }} />}><MerchantLogoWall /></Suspense>
+      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 480px" } as React.CSSProperties}>
+        <LazySection minHeight={420}>
+          <Suspense fallback={<div style={{ minHeight: 420 }} />}><MerchantLogoWall /></Suspense>
         </LazySection>
       </section>
 
