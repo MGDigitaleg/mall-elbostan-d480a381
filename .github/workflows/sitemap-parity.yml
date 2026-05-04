@@ -111,6 +111,51 @@ jobs:
             console.log('\n✓ All', locs.length, 'sitemap-*.xml files valid (urlset root, no nesting).');
           "
 
+      # Validate robots.txt:
+      #   1. Every "Sitemap:" entry points to a file that exists in /public
+      #   2. Every per-section sitemap-*.xml that exists in /public is
+      #      referenced by robots.txt (no orphan files invisible to crawlers)
+      #   3. The sitemap index (sitemap.xml) is listed
+      - name: Validate robots.txt sitemap entries
+        run: |
+          set -e
+          node -e "
+            const fs = require('fs');
+            const path = require('path');
+            const robots = fs.readFileSync('public/robots.txt', 'utf8');
+            const entries = [...robots.matchAll(/^Sitemap:\s*(\S+)/gm)].map(m => m[1]);
+            if (entries.length === 0) { console.error('✖ robots.txt has no Sitemap: entries'); process.exit(1); }
+
+            const referenced = new Set();
+            let failed = 0;
+            for (const url of entries) {
+              const file = url.replace(/^https?:\/\/[^/]+\//, '');
+              const fp = path.join('public', file);
+              if (!fs.existsSync(fp)) {
+                console.error('  ✖', url, '— file not found at public/' + file);
+                failed++; continue;
+              }
+              referenced.add(file);
+              console.log('  ✓', file);
+            }
+
+            if (!referenced.has('sitemap.xml')) {
+              console.error('  ✖ robots.txt missing index entry: sitemap.xml');
+              failed++;
+            }
+
+            // Find orphan sitemap-*.xml files in /public not listed in robots.txt
+            const onDisk = fs.readdirSync('public').filter(f => /^sitemap-[a-z0-9-]+\.xml$/i.test(f));
+            const orphans = onDisk.filter(f => !referenced.has(f) && f !== 'sitemap-main.xml');
+            for (const f of orphans) {
+              console.error('  ✖ orphan file (in /public but not in robots.txt):', f);
+              failed++;
+            }
+
+            if (failed > 0) { console.error('\n✖', failed, 'robots.txt issue(s)'); process.exit(1); }
+            console.log('\n✓ robots.txt: all', entries.length, 'Sitemap entries resolve and no orphans.');
+          "
+
       - name: Upload generated sitemap as artifact
         if: always()
         uses: actions/upload-artifact@v4
