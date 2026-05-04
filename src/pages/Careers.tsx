@@ -3,7 +3,7 @@ import { Briefcase, Upload, CheckCircle2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildJobPostingLd } from "@/components/SEOHead";
+import { SEOHead, buildJobPostingLd, buildCollectionPageLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -50,7 +50,31 @@ const Careers = () => {
 
   return (
     <MainLayout>
-      <SEOHead title="الوظائف" titleEn="Careers" description="انضم لفريق عمل مول البستان — فرص وظيفية في قطاع التكنولوجيا والتجزئة بالقاهرة الجديدة." descriptionEn="Join Mall Elbostan's team - career opportunities in tech and retail." keywords="وظائف مول البستان, فرص عمل, توظيف تكنولوجيا, القاهرة الجديدة, careers" breadcrumbs={[{ name: "الوظائف", url: "/careers" }]} jsonLd={jobs && jobs.length > 0 ? buildJobPostingLd(jobs) : undefined} noIndex={!isLoading && (!jobs || jobs.length === 0)} />
+      <SEOHead
+        title="الوظائف"
+        titleEn="Careers"
+        description="انضم لفريق عمل مول البستان — فرص وظيفية في قطاع التكنولوجيا والتجزئة بالقاهرة الجديدة."
+        descriptionEn="Join Mall Elbostan's team - career opportunities in tech and retail."
+        keywords="وظائف مول البستان, فرص عمل, توظيف تكنولوجيا, القاهرة الجديدة, careers"
+        breadcrumbs={[{ name: "الوظائف", url: "/careers" }]}
+        jsonLd={
+          jobs && jobs.length > 0
+            ? [
+                ...buildJobPostingLd(jobs),
+                buildCollectionPageLd({
+                  name: "فرص العمل في مول البستان",
+                  description: "قائمة بفرص العمل المتاحة داخل محلات مول البستان وإدارة المول.",
+                  url: "/careers",
+                  items: jobs.map((j: any) => ({
+                    name: j.title_ar,
+                    url: `/careers#${j.id}`,
+                  })),
+                }),
+              ]
+            : undefined
+        }
+        noIndex={!isLoading && (!jobs || jobs.length === 0)}
+      />
       <div className="container py-20">
         <div className="text-center mb-12">
           <Briefcase className="w-16 h-16 text-primary mx-auto mb-4" />
