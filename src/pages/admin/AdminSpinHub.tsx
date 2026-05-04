@@ -10,10 +10,11 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, Plus, Pencil, Trash2, Gift, CheckCircle, XCircle,
-  QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users,
+  QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users, Settings,
 } from "lucide-react";
 import { CampaignToggleCard } from "@/components/admin/CampaignToggleCard";
 import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
+import { SpinCampaignSettings } from "@/components/admin/SpinCampaignSettings";
 
 type PrizeType = "instant" | "grand" | "visitor";
 
