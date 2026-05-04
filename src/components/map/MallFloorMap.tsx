@@ -713,6 +713,7 @@ export function MallFloorMap({ floor, selectedUnitId, mutedUnitIds, onSelectUnit
                           y={badgeY - 14}
                           textAnchor="middle"
                           dominantBaseline="middle"
+                          direction="rtl"
                           className="text-[10px] font-bold"
                           fill="#FFFFFF"
                         >
