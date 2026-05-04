@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:seo": "vitest run --coverage src/components/__tests__/SEOHead.test.tsx src/components/__tests__/SEOHead.hreflang.test.tsx src/components/__tests__/SEOHead.ordering.test.tsx src/components/__tests__/SEOHead.validity.test.tsx"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
