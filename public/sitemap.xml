@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Sitemap index — Mall El Bostan
-  All URLs are generated dynamically from the database with real lastmod
-  values via the `sitemap` edge function. This index is the single entry
-  point that search engines should crawl (referenced from robots.txt).
+  AUTO-GENERATED at build time by scripts/build-sitemap.ts
+  Source of truth: supabase/functions/sitemap/index.ts (sections list)
+  Do NOT edit by hand — re-run `bun run prebuild` to regenerate.
+  Generated: 2026-05-04
 -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=categories</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=offers</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=images</loc></sitemap>
-  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=news</loc></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=pages</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=categories</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=devices</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=stores</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=products</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=offers</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=blog</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=images</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap?section=news</loc><lastmod>2026-05-04</lastmod></sitemap>
 </sitemapindex>
