@@ -30,7 +30,7 @@ const About = () => {
       description="تعرف على مول البستان — أول مول متخصص في الكمبيوتر والإلكترونيات في مصر منذ 1990. فرعان في وسط البلد والتجمع الخامس، أكثر من 150 محل، وخريطة تفاعلية."
       descriptionEn="Learn about Mall Elbostan — Egypt's first specialized technology mall since 1990. Two branches, 150+ stores, and an interactive floor map."
       keywords="عن مول البستان, تاريخ مول البستان, مول تكنولوجيا مصر, أقدم مول إلكترونيات, القاهرة الجديدة, وسط البلد"
-      breadcrumbs={[{ name: "عن المول", url: "/about" }]}
+      breadcrumbs={[{ name: "عن البستان", url: "/about" }]}
       jsonLd={[organizationLd, buildAboutPageLd()]}
     />
 

@@ -230,7 +230,7 @@ const StoreDetail = () => {
         ogImageHeight={OG_IMAGE_HEIGHT}
         ogImageAlt={getStoreOgAlt(store.name_ar, store.category)}
         keywords={`${store.name_ar}, ${store.name_en ?? ''}, ${store.category ?? 'تكنولوجيا'}, مول البستان, التجمع الخامس, القاهرة الجديدة, محل ${store.category ?? 'إلكترونيات'}`}
-        breadcrumbs={[{ name: "المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
+        breadcrumbs={[{ name: "دليل المحلات", url: "/stores" }, { name: store.name_ar, url: `/stores/${store.slug}` }]}
         jsonLd={[
           buildStoreLd(store),
           buildSpeakableLd(["h1"]),
