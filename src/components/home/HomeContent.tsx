@@ -254,16 +254,16 @@ export function HomeContent({ faqs }: HomeContentProps) {
       <WhyElBostan />
 
       {/* ═══════════ 8.5 · TECH PLANET TEASER (compact strip — within about cluster) ═══════════ */}
-      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 200px" } as React.CSSProperties}>
-        <LazySection minHeight={180}>
-          <Suspense fallback={<div style={{ minHeight: 180 }} />}><TechPlanetCTA /></Suspense>
+      <section style={{ contentVisibility: "auto", containIntrinsicSize: "auto 140px" } as React.CSSProperties}>
+        <LazySection minHeight={120}>
+          <Suspense fallback={<div style={{ minHeight: 120 }} />}><TechPlanetCTA /></Suspense>
         </LazySection>
       </section>
 
       {/* ═══════════ 9 · ABOUT STRIP — MERCHANT LOGO WALL ═══════════ */}
-      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 240px" } as React.CSSProperties}>
-        <LazySection minHeight={240}>
-          <Suspense fallback={<div style={{ minHeight: 240 }} />}><MerchantLogoWall /></Suspense>
+      <section id="home-stores" style={{ scrollMarginTop: 80, contentVisibility: "auto", containIntrinsicSize: "auto 480px" } as React.CSSProperties}>
+        <LazySection minHeight={420}>
+          <Suspense fallback={<div style={{ minHeight: 420 }} />}><MerchantLogoWall /></Suspense>
         </LazySection>
       </section>
 
