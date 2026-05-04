@@ -113,7 +113,11 @@ describe("SEOHead — JSON-LD script ordering", () => {
       // extras follow in their passed order
       expect(types[3]).toBe("FAQPage");
       expect(types[4]).toBe("SiteNavigationElement");
-      expect(types[5]).toBe("SpeakableSpecification");
+      // buildSpeakableLd wraps a SpeakableSpecification inside a WebPage node
+      expect(types[5]).toBe("WebPage");
+      expect((graph[5] as { speakable?: { "@type"?: string } }).speakable?.["@type"]).toBe(
+        "SpeakableSpecification"
+      );
     });
   });
 
