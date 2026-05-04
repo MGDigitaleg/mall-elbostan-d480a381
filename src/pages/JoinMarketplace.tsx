@@ -52,6 +52,12 @@ const JoinMarketplace = () => {
         descriptionEn="Connect your store to Mall Elbostan's digital marketplace — showcase products to thousands of visitors."
         keywords="انضم لمول البستان, بيع اونلاين, سوق الكتروني, محلات القاهرة الجديدة, marketplace"
         breadcrumbs={[{ name: "انضم للسوق", url: "/join-marketplace" }]}
+        jsonLd={buildServiceLd({
+          name: "الانضمام لسوق مول البستان الرقمي",
+          description: "برنامج للمحلات والتجار للانضمام لسوق مول البستان الرقمي وعرض المنتجات للمستخدمين.",
+          url: "/join-marketplace",
+          serviceType: "Marketplace Onboarding",
+        })}
       />
 
       {/* Hero */}
