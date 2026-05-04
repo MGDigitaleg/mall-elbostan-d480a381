@@ -110,4 +110,20 @@ export default defineConfig(({ mode }) => ({
     },
     dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react-dom") || id.includes("scheduler")) return "vendor-react-dom";
+            if (id.includes("/react/") || id.includes("react-router")) return "vendor-react";
+            if (id.includes("@supabase") || id.includes("@tanstack")) return "vendor-data";
+            if (id.includes("framer-motion")) return "vendor-motion";
+            if (id.includes("@radix-ui")) return "vendor-radix";
+            if (id.includes("lucide-react")) return "vendor-icons";
+          }
+        },
+      },
+    },
+  },
 }));

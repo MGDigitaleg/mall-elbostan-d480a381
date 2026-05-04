@@ -1,150 +1,99 @@
-# خطة: توسيع Schema.org وتسريع الفهرسة
+# خطة تحسين أداء الموبايل — مول البستان
 
-## الوضع الحالي
+التقرير الحالي: **Performance 67** (Mobile)، LCP 5.4s، CLS 0.222، Forced Reflow ~120ms، JS غير مستخدم 103KB، صور غير مُحسّنة 288KB، كاش غير مُستخدم 391KB.
 
-النظام يحتوي على بنية SEO قوية بالفعل عبر `src/components/SEOHead.tsx`:
-- Organization / LocalBusiness / ElectronicsStore
-- ShoppingCenter, WebSite + SearchAction
-- Store, Product, BlogPosting, JobPosting, FAQPage, Event
-- BreadcrumbList تلقائي + ItemList للقوائم
-- Sitemap ديناميكي عبر edge function + IndexNow ping يدوي
-
-**الفجوات المُكتشفة:**
-1. صفحات كثيرة بدون JSON-LD مخصص: `Leasing`, `Contact`, `Privacy`, `Terms`, `RewardTerms`, `InteractiveMap`, `MarketEcho`, `DowntownBranch`, `NewCairoBranch`, `DowntownDirectory`, `DeviceCategory`, `DevicePage`, `TechPlanet`, `OfferDetail`, `JoinMarketplace`, `SpinWin`, `kz/*`.
-2. لا يوجد schema لـ: `Offer/Discount` (للعروض), `RealEstateListing` (لوحدات الإيجار), `ContactPage`, `AboutPage`, `WebPage` افتراضي, `SiteNavigationElement` (للهيدر), `Speakable` (للصوت), `VideoObject` (للسلايدر), `ImageObject`, `ProfilePage` (للمتاجر), `Review/AggregateRating` (متروك عمداً — لا تقييمات وهمية).
-3. `aggregateRating` غير مفعّل (وهذا صحيح حسب القواعد — لا نضيف تقييمات وهمية).
-4. الفهرسة: `ping-indexing` يعمل يدوياً فقط — لا triggers تلقائية عند نشر متجر/منتج/مدوّنة جديدة.
-5. لا يوجد `@graph` يربط Organization + ShoppingCenter + WebSite في كائن واحد (يقلل ازدواجية).
-6. لا يوجد lastmod ديناميكي في sitemap الثابت (`/sitemap-main.xml`).
-
-## الهدف
-
-1. تغطية 100% من الصفحات العامة بـ JSON-LD صحيح ومناسب لنوع كل صفحة.
-2. توحيد الكيانات الرئيسية في `@graph` لتقوية ربط Knowledge Graph.
-3. أتمتة فهرسة الصفحات الجديدة فور إنشائها.
+الهدف: الوصول إلى **90+** على الموبايل دون أي تغيير بصري أو وظيفي.
 
 ---
 
-## الخطوات
+## 1) إصلاح Layout Shifts (CLS 0.222 → < 0.05)
 
-### 1. توسيع `SEOHead.tsx` ببناة Schema جديدة
+السبب الرئيسي: عناصر تتغير ارتفاعاتها بعد التحميل (Hero، Categories، Footer، DealsTeaser).
 
-إضافة الدوال التالية:
+- **Hero**: تثبيت الارتفاع عبر CSS فقط (تم في الإصلاح السابق — يحتاج نشر).
+- **CategoryStrip**: زيادة `minHeight` ليطابق الارتفاع الفعلي على الموبايل (~330px بدل 280px) ومنع `display: none` المؤجل على الفئات.
+- **DealsTeaser & ProductRail**: استبدال نمط `display:none` المشروط بـ Skeleton ثابت بنفس الأبعاد بحيث لا يقفز المحتوى عند ظهور البيانات.
+- **Footer**: حجز ارتفاع مبدئي (`min-height` على `<footer>`) وتأجيل تحميل صور الفوتر (logo والشركاء) مع `width/height` صريحين.
 
-- `buildContactPageLd()` — `ContactPage` + `ContactPoint` متعدد (مبيعات، تأجير، دعم).
-- `buildAboutPageLd()` — `AboutPage` يربط بـ Organization.
-- `buildWebPageLd(name, description)` — `WebPage` افتراضي للصفحات العامة (Privacy/Terms/Reward).
-- `buildLeasingListingLd(units)` — مصفوفة `RealEstateListing` لوحدات الإيجار المتاحة (مساحة، طابق، حالة).
-- `buildOfferLd(offer)` — `Offer` كامل لصفحات العروض (priceValidUntil, eligibleRegion, seller).
-- `buildOffersListLd(offers)` — `ItemList` من `Offer`.
-- `buildPlaceLd(branch)` — `Place`/`LocalBusiness` لصفحات الفروع (Downtown / New Cairo) مع geo و openingHours خاصة بالفرع.
-- `buildBranchCollectionLd()` — `ItemList` يربط الفرعين.
-- `buildSpeakableLd(selectors)` — `SpeakableSpecification` للهيرو (Google Assistant / صوت).
-- `buildSiteNavLd()` — `SiteNavigationElement` للروابط الرئيسية (يُضاف مرة واحدة في الهيدر/الفوتر).
-- `buildCollectionPageLd(name, items)` — للصفحات التجميعية مثل `DowntownDirectory`, `DeviceCategory`, `TechPlanet`.
-- `buildVideoObjectLd(video)` — لأي فيديو في الهيرو/الـ MarketEcho إن وُجد.
-- `buildKzProductLd()` — Product مخصص لـ Kasr Zero مع `seller` ثابت.
+## 2) إصلاح Forced Reflow (~120ms)
 
-### 2. توحيد الكيانات في `@graph`
+الموجود في `index-*.js` و `ProductRail` و `accordion`.
 
-تعديل `Index.tsx` لاستخدام كائن `@graph` واحد بدل 3 كائنات منفصلة:
-```ts
-{ "@context": "https://schema.org", "@graph": [organizationLd, shoppingCenterLd, websiteLd, faqLd] }
-```
-يقلل التكرار ويوضح العلاقات لجوجل (`@id` مرجعي بين الكيانات موجود مسبقاً).
+- استبدال أي قراءة لـ `offsetWidth/getBoundingClientRect` بعد كتابات DOM بنمط مؤجل (`requestAnimationFrame`).
+- في `HomeAnchorNav` تستخدم `el.getBoundingClientRect()` داخل onClick — تأجيله داخل rAF.
+- في `ProductRail` (Carousel/scroll snap) فحص واستبدال أي قياس متزامن بعد التمرير بـ `IntersectionObserver`.
 
-### 3. إضافة JSON-LD للصفحات الناقصة
+## 3) تحسين الصور (288KB توفير)
 
-| الصفحة | Schema المضاف |
-|--------|---------------|
-| `Leasing.tsx` | `RealEstateListing[]` + `WebPage` + `Offer` للوحدات المتاحة |
-| `Contact.tsx` | `ContactPage` + `ContactPoint` متعدد |
-| `About.tsx` | `AboutPage` (موجود جزئياً — يُحسّن) |
-| `Privacy/Terms/RewardTerms` | `WebPage` بسيط |
-| `InteractiveMap.tsx` | `Map` + `Place` + `ItemList` للطوابق |
-| `MarketEcho.tsx` | `Article` + `Speakable` |
-| `DowntownBranch/NewCairoBranch` | `Place`/`LocalBusiness` فرعي بـ geo و openingHours خاصة |
-| `DowntownDirectory.tsx` | `CollectionPage` + `ItemList` |
-| `DeviceCategory/DevicePage/TechPlanet` | `CollectionPage` + `ItemList` للمنتجات المرتبطة |
-| `OfferDetail.tsx` | `Offer` + `Product` (إن وُجد) |
-| `JoinMarketplace.tsx` | `WebPage` + `Service` |
-| `SpinWin.tsx` | `Event` (Promotional) + `WebPage` |
-| `kz/*` | `Store` لـ Kasr Zero + `Product` + `ItemList` |
+- **`/logos/tenants/infinity.webp`**: المعروض 49×49 لكن الحجم 1058×1058 — إنشاء نسخة مصغّرة (96×96) واستخدامها في بطاقات الخريطة.
+- **منتجات Dell Latitude**: المعروض 357×285 بينما الحجم 1000×800 — خفض الجودة وإعادة تصدير عند 600×480.
+- **صور الفوتر `logo-brand-white-sm`**: المعروض 144×84 والملف 288×168 — ضبط ولا حاجة لإنشاء نسخ جديدة (ضمن الحد المقبول لشاشات الـRetina).
+- إضافة `srcset` و`sizes` لصور الـHero ومنتجات الواجهة (نسخ 480w/768w/1280w).
 
-### 4. إضافة `SiteNavigationElement` عالمياً
+## 4) كاش HTTP (391KB توفير)
 
-إضافة JSON-LD واحد في `MainLayout.tsx` يحتوي روابط التنقل الأساسية — يساعد جوجل في فهم بنية الموقع وإظهار sitelinks في نتائج البحث.
+أصول `/logos/tenants/*` و`/images/products/*` و`/hero/*` تأتي حالياً بدون `Cache-Control`.
 
-### 5. إثراء الـ meta tags
+- إضافة headers عبر ملف `public/_headers` (Lovable يدعمه عند النشر) بحيث:
+  - `/assets/*` → `max-age=31536000, immutable` (موجود تلقائياً مع Vite hash).
+  - `/logos/*`, `/images/*`, `/hero/*` → `max-age=2592000` (30 يوم).
+  - `/~flock.js` → خارج نطاقنا (تابع لـ Lovable analytics).
 
-في `SEOHead.tsx` إضافة:
-- `<meta name="geo.region" content="EG-C">`
-- `<meta name="geo.placename" content="القاهرة الجديدة">`
-- `<meta name="geo.position" content="30.03;31.46">`
-- `<meta name="ICBM" content="30.03, 31.46">`
-- `<meta name="theme-color" content="#0B1220">` (إن لم يكن موجوداً)
-- `<meta property="business:contact_data:*">` لـ Facebook
-- `<link rel="alternate" type="application/rss+xml">` للمدونة (إن أُضيف لاحقاً RSS)
+## 5) تقليل JavaScript غير المستخدم (103KB)
 
-### 6. تسريع الفهرسة (Indexing Acceleration)
+- المشكلة: `index-*.js` ضخم (174KB) — يحوي `framer-motion`، `accordion`، إلخ مدمجين.
+- **تأجيل framer-motion على الموبايل**: استخدام `Reveal` بنسخة CSS بسيطة بدل framer للعناصر تحت الطية.
+- **Lazy-load `Accordion`**: استخدامه فقط داخل قسم الـFAQ — تحويله إلى `lazy()`.
+- **إزالة `proxy-Pl1jXLWZ.js` (37KB)**: يبدو من Supabase realtime/postgrest helpers — التحقق إن كان كل المستوردات مطلوبة في الصفحة الرئيسية.
+- مراجعة `manualChunks` في `vite.config.ts` لفصل: `vendor-react`, `vendor-supabase`, `vendor-motion`.
 
-أ. **Trigger تلقائي على قاعدة البيانات:**
-إنشاء database webhook (أو trigger + http extension) عند:
-- INSERT/UPDATE في `tenants` (متجر جديد/محدّث)
-- INSERT/UPDATE في `products`
-- INSERT/UPDATE في `blog_posts`
-- INSERT في `offers`
-يستدعي تلقائياً edge function `ping-indexing` بالـ URL الجديد فقط.
+## 6) تسريع LCP (5.4s → < 2.5s)
 
-ب. **تحسين `ping-indexing`:**
-- إضافة دفعات (batch) — IndexNow يقبل حتى 10,000 URL في طلب واحد.
-- إضافة Bing webmaster ping (`https://www.bing.com/ping?sitemap=...`).
-- إضافة Yandex IndexNow (نفس API، endpoint مختلف).
+- صورة الـHero `nc-hero-1.webp` تحمّل بـ `preload` (موجود) لكن تكمل في 700ms+ ثم النص يُرسم بعد framer-motion.
+- إزالة animation `motion` على H1 الـHero (استخدام CSS keyframe بدل framer).
+- إعادة ضغط `nc-hero-1.webp` بجودة 75 بدل 85 (توفير 15KB إضافي).
+- إنشاء نسخة موبايل أصغر `nc-hero-1-mobile.webp` (768×432) واستخدامها عبر `<picture>` في HeroSliderMobile.
 
-ج. **lastmod ديناميكي في sitemap-main.xml:**
-تحويل `public/sitemap-main.xml` إلى ديناميكي عبر edge function (مثل sitemap الموجود) ليعكس آخر تحديث فعلي لكل صفحة من DB، بدل تاريخ ثابت `2026-04-24`.
+## 7) تحسينات إضافية صغيرة
 
-د. **ping تلقائي عند publish/deploy:**
-إضافة خطوة في GitHub Action (`.github/workflows/seo-audit.yml`) لاستدعاء `ping-indexing` بعد كل deploy ناجح.
-
-هـ. **prerendering hint:**
-إضافة `<link rel="preconnect">` لـ Google/Bing CDN في `index.html` لتسريع robot fetching.
-
-### 7. تحديث `seo-audit.ts`
-
-توسيع نطاق التحقق ليشمل الصفحات الجديدة في `DYNAMIC_PAGES` ويتأكد من وجود JSON-LD مخصص لكل نوع صفحة (وليس فقط breadcrumbs).
+- إزالة `preconnect` لـ `images.unsplash.com` غير مستخدم على الواجهة.
+- تأجيل تحميل خط `Inter` (ليس مستخدماً تحت الطية في الموبايل).
+- إزالة أي استدعاء `useQuery` غير مفعّل قبل التفاعل (بالفعل `enabled: ready`، التأكد من بقية الصفحات).
 
 ---
 
-## الملفات المتأثرة
+## التنفيذ على دفعات آمنة
 
-**تعديل:**
-- `src/components/SEOHead.tsx` — +12 builder جديد + meta tags
-- `src/components/layout/MainLayout.tsx` — SiteNavigation LD
-- `src/pages/Index.tsx` — تحويل لـ @graph
-- `src/pages/{Leasing,Contact,Privacy,Terms,RewardTerms,InteractiveMap,MarketEcho,DowntownBranch,NewCairoBranch,DowntownDirectory,DeviceCategory,DevicePage,TechPlanet,OfferDetail,JoinMarketplace,SpinWin}.tsx`
-- `src/pages/kz/{KzHome,KzCategory,KzProducts,KzProductDetail}.tsx`
-- `supabase/functions/ping-indexing/index.ts` — Bing + Yandex + batches
-- `scripts/seo-audit.ts`
-- `index.html` — preconnect + theme-color
+**الدفعة 1 — CLS و Reflow** (خطر صفر، أكبر أثر):
+- إصلاحات `HomeContent` و `CategoryStrip` و `Footer` و `HomeAnchorNav`.
 
-**إنشاء:**
-- `supabase/functions/sitemap-main/index.ts` — sitemap-main ديناميكي
-- `supabase/migrations/<timestamp>_indexing_triggers.sql` — Database triggers تستدعي `ping-indexing` تلقائياً
-- `.github/workflows` — خطوة post-deploy ping (اختياري)
+**الدفعة 2 — الصور والكاش**:
+- إنشاء النسخ المصغرة (`infinity-96.webp`، `dell-latitude-*-600.jpg`).
+- إضافة `public/_headers`.
+- إضافة `srcset/sizes` على الـHero والمنتجات.
+
+**الدفعة 3 — تقسيم JS**:
+- ضبط `manualChunks` في vite config.
+- تأجيل framer-motion للأقسام تحت الطية.
+- Lazy-load Accordion.
+
+**الدفعة 4 — قياس وتحقق**:
+- نشر، تشغيل Lighthouse، مقارنة قبل/بعد.
 
 ---
 
-## ملاحظات مهمة (NON-NEGOTIABLES)
+## ضمانات عدم التخريب
 
-- **لا** سنضيف `aggregateRating` أو `Review` وهمية — يبقى الموقع نظيفاً من البيانات المضللة.
-- **لا** سنبالغ في schema تتسبب في تحذيرات Rich Results (مثل Product بدون price/availability).
-- جميع الـ schema الجديدة ستمر عبر `validate-rich-results.ts` للتحقق.
-- البنية تبقى Mall-first: ShoppingCenter يبقى الكيان الجذر، والمتاجر/المنتجات تابعة له عبر `containedInPlace`.
+- لا تغييرات بصرية: فقط `min-height` و`srcset` و`headers` و`lazy()`.
+- لا تغييرات على الـcomponents الأساسية (`ProductRail`, `Hero`) بخلاف استبدال طرق التحميل.
+- كل دفعة قابلة للتراجع باستقلال.
+- بعد كل دفعة: نشر وتشغيل Lighthouse للتحقق.
 
-## التحقق بعد التنفيذ
+## التوقعات
 
-1. تشغيل `bun run scripts/seo-audit.ts` — يجب أن يمر بدون errors.
-2. تشغيل `bun run scripts/validate-rich-results.ts` على عينة من كل نوع صفحة.
-3. اختبار يدوي عبر Google Rich Results Test و Schema.org Validator.
-4. مراقبة Google Search Console لمدة أسبوع للتحقق من ارتفاع معدل الفهرسة.
+| المقياس | قبل | بعد |
+|---|---|---|
+| Performance | 67 | 90+ |
+| LCP | 5.4s | ~2.0s |
+| CLS | 0.222 | < 0.05 |
+| Total bytes | ~600KB | ~250KB |

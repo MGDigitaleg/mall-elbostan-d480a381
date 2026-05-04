@@ -164,7 +164,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
       {/* Removed content-visibility:auto here — section is near the fold and the
           intrinsic-size estimate caused a measurable CLS on mobile. Keeping a
           minHeight reserves space without the post-render reflow. */}
-      <section style={{ contain: "layout", minHeight: 280 } as React.CSSProperties}>
+      <section style={{ contain: "layout", minHeight: 360 } as React.CSSProperties}>
         <CategoryStrip />
       </section>
 
@@ -177,8 +177,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 700px",
           paddingTop: "clamp(14px, 2.4vw, 44px)",
           paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          // Hide while loading or when too few products to render — prevents post-load layout shift
-          ...(productsLoading || featuredProducts.length < 3 ? { display: "none" } : {}),
+          // Reserve space while loading to prevent layout shift; only collapse if final result is too few
+          ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : { minHeight: 700 }),
         } as React.CSSProperties}
       >
         <div className="container">
@@ -199,8 +199,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
       {/* Mobile rendered ~603px; bumped intrinsic size to better match reality. */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 640px", minHeight: 340 } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 340 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 640px", minHeight: 620 } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 620 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
@@ -212,7 +212,7 @@ export function HomeContent({ faqs }: HomeContentProps) {
           containIntrinsicSize: "auto 560px",
           paddingTop: "clamp(12px, 2.2vw, 36px)",
           paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(productsLoading || latestProducts.length < 3 ? { display: "none" } : {}),
+          ...(!productsLoading && latestProducts.length < 3 ? { display: "none" } : { minHeight: 560 }),
         } as React.CSSProperties}
       >
         <div className="container">
