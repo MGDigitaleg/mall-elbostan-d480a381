@@ -20,6 +20,7 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
 import { useCampaignStatus } from "@/hooks/useCampaignStatus";
+import { useCampaignSettings } from "@/hooks/useCampaignSettings";
 import { trackSpinSubmit, trackSpinResult, trackEvent } from "@/lib/analytics";
 import { Clock as ClockIcon } from "lucide-react";
 
