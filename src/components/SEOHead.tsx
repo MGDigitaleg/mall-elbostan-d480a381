@@ -21,6 +21,8 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   breadcrumbs?: { name: string; url: string }[];
   noIndex?: boolean;
+  /** Topical tags emitted as og/article tags + appended to keywords. Useful for store, category, and collection pages. */
+  tags?: string[];
 }
 
 export function SEOHead({
@@ -40,7 +42,17 @@ export function SEOHead({
   jsonLd,
   breadcrumbs,
   noIndex,
+  tags,
 }: SEOHeadProps) {
+  const cleanTags = (tags ?? [])
+    .map((t) => (t ?? "").trim())
+    .filter((t, i, a) => t.length > 0 && a.indexOf(t) === i)
+    .slice(0, 12);
+  const mergedKeywords = (() => {
+    if (cleanTags.length === 0) return keywords;
+    if (!keywords) return cleanTags.join(", ");
+    return `${keywords}, ${cleanTags.join(", ")}`;
+  })();
   const location = useLocation();
   const fullTitle = `${title} | مول البستان`;
   const canonical = `${BASE_URL}${location.pathname}`;
