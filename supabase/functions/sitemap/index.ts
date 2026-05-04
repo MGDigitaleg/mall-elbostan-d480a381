@@ -6,7 +6,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const BASE_URL = "https://mallelbostan.com";
+// Public site origin — overridable per environment via PUBLIC_SITE_URL secret.
+// Falls back to the production custom domain so existing behavior is preserved.
+const BASE_URL = (Deno.env.get("PUBLIC_SITE_URL") ?? "https://mallelbostan.com").replace(/\/+$/, "");
 
 // XML namespaces
 const NS = {
