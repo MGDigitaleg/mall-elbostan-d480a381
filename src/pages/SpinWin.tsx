@@ -252,51 +252,62 @@ const SpinWin = () => {
                 location: { "@id": "https://mallelbostan.com/#mall" },
               },
               buildSpeakableLd(["h1", "[data-speakable]"]),
-              buildFaqLd([
-                {
-                  question_ar: "من يحق له المشاركة في عجلة الجوائز؟",
-                  answer_ar:
-                    "المشاركة متاحة لزوار مول البستان – القاهرة الجديدة من عمر 18 عاماً فأكثر، بواقع محاولة واحدة لكل زائر خلال فترة الحملة، ويُشترط تقديم رقم هاتف صحيح للتحقق.",
-                },
-                {
-                  question_ar: "ما هي مدة الحملة؟",
-                  answer_ar: `تبدأ الحملة من ${startIso} وتستمر حتى ${endIso}، ويحق للإدارة تمديدها أو إنهاءها وفق ما تراه مناسباً مع الإعلان المسبق.`,
-                },
-                {
-                  question_ar: "كيف يتم استبدال الجائزة؟",
-                  answer_ar:
-                    "يتم استبدال الجائزة حصرياً داخل مول البستان – القاهرة الجديدة عبر إبراز كود الفوز وبطاقة هوية سارية لدى مكتب خدمة الزوار، خلال المدة الموضحة على شاشة الفوز.",
-                },
-                {
-                  question_ar: "هل يمكن تحويل الجائزة إلى مبلغ نقدي؟",
-                  answer_ar:
-                    "لا. الجوائز غير قابلة للاستبدال النقدي أو التحويل لشخص آخر، ولا يجوز تجزئتها أو دمجها مع عروض أخرى ما لم يُذكر خلاف ذلك صراحةً.",
-                },
-                {
-                  question_ar: "ما هي حدود المشاركة والشروط الأساسية؟",
-                  answer_ar:
-                    "محاولة واحدة لكل رقم هاتف خلال فترة الحملة. يُستثنى موظفو مول البستان والمحلات المشاركة وذووهم. تحتفظ الإدارة بحق إلغاء أي مشاركة في حال الاشتباه في التلاعب أو تكرار التسجيل.",
-                },
-                {
-                  question_ar: "هل المشاركة مجانية؟",
-                  answer_ar:
-                    "نعم، المشاركة في عجلة جوائز مول البستان مجانية بالكامل ولا تتطلب أي عملية شراء.",
-                },
-              ]),
+              {
+                ...buildFaqLd([
+                  {
+                    question_ar: "من يحق له المشاركة في عجلة الجوائز؟",
+                    answer_ar:
+                      "المشاركة متاحة لزوار مول البستان – القاهرة الجديدة من عمر 18 عاماً فأكثر، بواقع محاولة واحدة لكل زائر خلال فترة الحملة، ويُشترط تقديم رقم هاتف صحيح للتحقق.",
+                  },
+                  {
+                    question_ar: "ما هي مدة الحملة؟",
+                    answer_ar: `تبدأ الحملة من ${startIso} وتستمر حتى ${endIso}، ويحق للإدارة تمديدها أو إنهاءها وفق ما تراه مناسباً مع الإعلان المسبق.`,
+                  },
+                  {
+                    question_ar: "كيف يتم استبدال الجائزة؟",
+                    answer_ar:
+                      "يتم استبدال الجائزة حصرياً داخل مول البستان – القاهرة الجديدة عبر إبراز كود الفوز وبطاقة هوية سارية لدى مكتب خدمة الزوار، خلال المدة الموضحة على شاشة الفوز.",
+                  },
+                  {
+                    question_ar: "هل يمكن تحويل الجائزة إلى مبلغ نقدي؟",
+                    answer_ar:
+                      "لا. الجوائز غير قابلة للاستبدال النقدي أو التحويل لشخص آخر، ولا يجوز تجزئتها أو دمجها مع عروض أخرى ما لم يُذكر خلاف ذلك صراحةً.",
+                  },
+                  {
+                    question_ar: "ما هي حدود المشاركة والشروط الأساسية؟",
+                    answer_ar:
+                      "محاولة واحدة لكل رقم هاتف خلال فترة الحملة. يُستثنى موظفو مول البستان والمحلات المشاركة وذووهم. تحتفظ الإدارة بحق إلغاء أي مشاركة في حال الاشتباه في التلاعب أو تكرار التسجيل.",
+                  },
+                  {
+                    question_ar: "هل المشاركة مجانية؟",
+                    answer_ar:
+                      "نعم، المشاركة في عجلة جوائز مول البستان مجانية بالكامل ولا تتطلب أي عملية شراء.",
+                  },
+                ]),
+                "@id": "https://mallelbostan.com/spin-win#faq",
+                url: "https://mallelbostan.com/spin-win#faq",
+                name: "الأسئلة الشائعة — عجلة جوائز مول البستان",
+                inLanguage: langs,
+                isPartOf: { "@id": "https://mallelbostan.com/spin-win#webpage" },
+                about: { "@id": "https://mallelbostan.com/#mall" },
+                publisher: { "@id": "https://mallelbostan.com/#organization" },
+              },
               {
                 "@context": "https://schema.org",
-                "@type": "WebPage",
+                "@type": ["WebPage", "TermsOfService"],
                 "@id": "https://mallelbostan.com/spin-win#terms",
+                url: "https://mallelbostan.com/spin-win#terms",
                 name: "شروط وأحكام عجلة جوائز مول البستان",
                 description:
                   "الشروط والأحكام الكاملة للمشاركة في حملة عجلة الجوائز بمول البستان – القاهرة الجديدة، بما يشمل الأهلية ومدة الحملة وآلية استبدال الجوائز وحدود المشاركة.",
-                url: "https://mallelbostan.com/spin-win",
                 inLanguage: langs,
-                isPartOf: { "@id": "https://mallelbostan.com/#website" },
+                datePublished: startIso,
+                isPartOf: { "@id": "https://mallelbostan.com/spin-win#webpage" },
                 about: { "@id": "https://mallelbostan.com/#mall" },
                 publisher: { "@id": "https://mallelbostan.com/#organization" },
                 mainEntity: {
                   "@type": "CreativeWork",
+                  "@id": "https://mallelbostan.com/spin-win#terms-content",
                   name: "Terms of Service — Spin & Win",
                   inLanguage: langs,
                   datePublished: startIso,
@@ -309,6 +320,24 @@ const SpinWin = () => {
                     "تحتفظ إدارة مول البستان بحق إلغاء أي مشاركة مخالفة وتعديل الشروط مع الإعلان.",
                   ].join(" \n"),
                 },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "@id": "https://mallelbostan.com/spin-win#webpage",
+                url: "https://mallelbostan.com/spin-win",
+                name: `${headlineAr} — مول البستان`,
+                inLanguage: langs,
+                isPartOf: { "@id": "https://mallelbostan.com/#website" },
+                about: { "@id": "https://mallelbostan.com/#mall" },
+                hasPart: [
+                  { "@id": "https://mallelbostan.com/spin-win#faq" },
+                  { "@id": "https://mallelbostan.com/spin-win#terms" },
+                ],
+                significantLink: [
+                  "https://mallelbostan.com/spin-win#faq",
+                  "https://mallelbostan.com/spin-win#terms",
+                ],
               },
             ]}
           />
