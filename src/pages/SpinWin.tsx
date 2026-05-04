@@ -3,7 +3,7 @@ import { Gift, Sparkles, Copy, Check, MapPin, FileText, Store, Clock, ChevronLef
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { StickyCTA } from "@/components/layout/StickyCTA";
-import { SEOHead, buildPromoEventLd, buildEventEnhancedLd, buildSpeakableLd } from "@/components/SEOHead";
+import { SEOHead, buildPromoEventLd, buildEventEnhancedLd, buildSpeakableLd, buildFaqLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
