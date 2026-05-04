@@ -99,7 +99,9 @@ export function SEOHead({
   ];
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags>
+      <html lang="ar" dir="rtl" />
+      <body dir="rtl" />
       <title>{fullTitle}</title>
       <meta name="description" content={trimmedDescription} />
       <link rel="canonical" href={canonical} />
@@ -168,12 +170,13 @@ export function SEOHead({
       <meta name="twitter:image" content={ogImg} />
       <meta name="twitter:image:alt" content={ogAlt} />
 
-      {/* JSON-LD */}
-      {allJsonLd.map((ld, i) => (
-        <script key={i} type="application/ld+json">
-          {JSON.stringify(ld)}
+      {/* JSON-LD — single concatenated <script> for fastest parse + safe </script> escape.
+          Helmet's `prioritizeSeoTags` hoists this near the top of <head> so crawlers get it before render-blocking work. */}
+      {allJsonLd.length > 0 && (
+        <script type="application/ld+json">
+          {JSON.stringify(allJsonLd.length === 1 ? allJsonLd[0] : allJsonLd).replace(/</g, "\\u003c")}
         </script>
-      ))}
+      )}
     </Helmet>
   );
 }
