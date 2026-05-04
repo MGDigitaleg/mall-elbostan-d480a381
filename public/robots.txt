@@ -36,7 +36,6 @@ Allow: /daily-deals
 Allow: /new-cairo-branch
 Allow: /downtown-branch
 Allow: /downtown-directory
-Allow: /devices
 Allow: /market-echo
 Allow: /tech-planet
 Allow: /kz

@@ -47,7 +47,7 @@ const STATIC_ROUTES = [
   { loc: "/new-cairo-branch", priority: "0.8", changefreq: "monthly" },
   { loc: "/downtown-branch", priority: "0.8", changefreq: "monthly" },
   { loc: "/downtown-directory", priority: "0.7", changefreq: "weekly" },
-  { loc: "/devices", priority: "0.7", changefreq: "weekly" },
+  
   { loc: "/blog", priority: "0.6", changefreq: "weekly" },
   { loc: "/careers", priority: "0.5", changefreq: "monthly" },
   { loc: "/market-echo", priority: "0.5", changefreq: "monthly" },

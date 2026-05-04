@@ -31,7 +31,7 @@ const ALLOWED = [
   "/new-cairo-branch",
   "/downtown-branch",
   "/downtown-directory",
-  "/devices",
+  
   "/market-echo",
   "/tech-planet",
   "/kz",
