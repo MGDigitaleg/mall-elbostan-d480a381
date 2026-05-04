@@ -72,7 +72,7 @@ export function HeroSliderMobile() {
   const slide = slides[current];
 
   return (
-    <div className="absolute inset-0 overflow-hidden" style={{ contain: "layout style", background: "#0a1628" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+    <div dir="rtl" className="absolute inset-0 overflow-hidden" style={{ contain: "layout style", background: "#0a1628" }} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
       {slides.map((s, i) => {
         const nextIdx = (current + 1) % slides.length;
         if (i !== current && i !== nextIdx) return null;
