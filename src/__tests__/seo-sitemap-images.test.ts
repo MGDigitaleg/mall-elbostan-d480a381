@@ -33,7 +33,8 @@ async function fetchWithTimeout(url: string, init: RequestInit = {}, timeout = I
   }
 }
 
-async function checkImage(url: string): Promise<{ url: string; status: number; ok: boolean }> {
+async function checkImage(rawUrl: string): Promise<{ url: string; status: number; ok: boolean }> {
+  const url = resolveUrl(rawUrl);
   try {
     let res = await fetchWithTimeout(url, { method: "HEAD" });
     // Some CDNs (Unsplash, Supabase Storage) reject HEAD or return 405/403 — fall back to a tiny GET
