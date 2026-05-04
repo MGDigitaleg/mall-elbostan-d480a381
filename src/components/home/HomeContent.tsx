@@ -207,10 +207,10 @@ export function HomeContent({ faqs }: HomeContentProps) {
         style={{
           contain: "layout",
           contentVisibility: "auto",
-          containIntrinsicSize: "auto 560px",
-          paddingTop: "clamp(12px, 2.2vw, 36px)",
-          paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          ...(!productsLoading && latestProducts.length < 3 ? { display: "none" } : { minHeight: 560 }),
+          containIntrinsicSize: "auto 480px",
+          paddingTop: "clamp(10px, 1.6vw, 28px)",
+          paddingBottom: "clamp(10px, 1.6vw, 28px)",
+          ...(!productsLoading && latestProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
