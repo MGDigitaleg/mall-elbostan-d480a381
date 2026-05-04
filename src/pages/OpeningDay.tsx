@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildEventLd } from "@/components/SEOHead";
+import { SEOHead, buildEventLd, buildEventEnhancedLd } from "@/components/SEOHead";
 import { OpeningHero } from "@/components/opening/OpeningHero";
 import { OpeningRoadmap } from "@/components/opening/OpeningRoadmap";
 import { OpeningSchedule } from "@/components/opening/OpeningSchedule";
@@ -31,7 +31,16 @@ const OpeningDay = () => {
         description="تابع تفاصيل يوم افتتاح مول البستان من الفعاليات للجوائز وخطة الزيارة."
         descriptionEn="Follow Mall Elbostan opening day details, from events to rewards and visit planning."
         breadcrumbs={[{ name: "يوم الافتتاح", url: "/opening-day" }]}
-        jsonLd={events && events.length > 0 ? buildEventLd(events) : undefined}
+        jsonLd={[
+          buildEventEnhancedLd({
+            name: "يوم افتتاح مول البستان",
+            description: "حفل افتتاح مول البستان بالتجمع الخامس مع جوائز وفعاليات وعروض من المحلات المشاركة.",
+            url: "/opening-day",
+            startDate: "2026-05-01",
+            endDate: "2026-05-15",
+          }),
+          ...(events && events.length > 0 ? buildEventLd(events) : []),
+        ]}
       />
 
       <OpeningHero />

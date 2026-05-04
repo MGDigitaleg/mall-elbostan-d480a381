@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildContactPageLd } from "@/components/SEOHead";
+import { SEOHead, buildContactPageLd, buildHowToLd } from "@/components/SEOHead";
 import { OFFICIAL_PHONE, OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -96,7 +96,19 @@ const Contact = () => {
         descriptionEn="Contact Mall Elbostan in New Cairo's Fifth Settlement. General inquiries, unit leasing, tech partnerships, or career opportunities. We respond within one business day."
         keywords="تواصل مول البستان, رقم مول البستان, عنوان مول البستان, تأجير وحدات, القاهرة الجديدة, التجمع الخامس, contact mall elbostan"
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
-        jsonLd={buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: "info@mallelbostan.com" })}
+        jsonLd={[
+          buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: "info@mallelbostan.com" }),
+          buildHowToLd({
+            name: "كيف تصل إلى مول البستان",
+            description: "خطوات الوصول إلى مول البستان في التجمع الخامس بالقاهرة الجديدة.",
+            totalTime: "PT20M",
+            steps: [
+              { name: "افتح خرائط جوجل", text: "اكتب «مول البستان التجمع الخامس» في تطبيق Google Maps." },
+              { name: "اتجه إلى شارع التسعين", text: "توجّه إلى شارع التسعين الجنوبي بالقاهرة الجديدة." },
+              { name: "ادخل البوابة الرئيسية", text: "ستجد البوابة الرئيسية للمول مع مواقف سيارات." },
+            ],
+          }),
+        ]}
       />
 
       <PageHero

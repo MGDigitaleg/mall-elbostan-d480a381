@@ -4,7 +4,7 @@ import { Link, useLocation, useParams, useSearchParams } from "react-router-dom"
 import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag, Heart, Scale } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildCollectionPageLd } from "@/components/SEOHead";
 import { useCountdown } from "@/hooks/useCountdown";
 import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 import { Button } from "@/components/ui/button";
@@ -185,6 +185,16 @@ const DailyDeals = () => {
         descriptionEn="Opening offers from participating new tenants at Mall Elbostan, linked directly to each store inside the mall system."
         keywords="عروض الافتتاح, عروض مول البستان, Infinity Computer Services, Kareem Stores, خصومات لابتوب, إكسسوارات تصوير, mall offers"
         breadcrumbs={[{ name: "عروض الافتتاح", url: "/daily-deals" }]}
+        jsonLd={deals && deals.length > 0 ? buildCollectionPageLd({
+          name: "عروض الافتتاح — مول البستان",
+          description: "عروض المحلات المشاركة في يوم افتتاح مول البستان.",
+          url: "/daily-deals",
+          items: deals.map((d) => ({
+            name: d.title_ar ?? "عرض",
+            url: `/daily-deals/${d.id}`,
+            image: d.image_primary ?? null,
+          })),
+        }) : undefined}
         noIndex={!deals || deals.length === 0}
       />
 

@@ -24,7 +24,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildMapLd, buildPlaceLd, buildSpeakableLd } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { MapFilters } from "@/components/map/MapFilters";
@@ -275,18 +275,11 @@ const InteractiveMap = () => {
         descriptionEn="Use Mall Elbostan's interactive map to browse stores across 3 floors. Find computer, mobile, gaming shops and available units in New Cairo."
         keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات كمبيوتر, محلات موبايلات, القاهرة الجديدة, interactive mall map"
         breadcrumbs={[{ name: "الخريطة التفاعلية", url: "/map" }]}
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Map",
-          name: "خريطة مول البستان التفاعلية",
-          description: "خريطة تفاعلية لتصفح محلات ووحدات مول البستان على 3 أدوار في التجمع الخامس، القاهرة الجديدة",
-          url: "https://mallelbostan.com/map",
-          about: {
-            "@type": "ShoppingCenter",
-            "@id": "https://mallelbostan.com/#mall",
-            name: "مول البستان",
-          },
-        }}
+        jsonLd={[
+          buildMapLd({ name: "خريطة مول البستان التفاعلية", url: "/map" }),
+          buildPlaceLd({ name: "مول البستان", url: "/map", latitude: 30.03, longitude: 31.46 }),
+          buildSpeakableLd(["h1"]),
+        ]}
       />
 
       {/* ═══════════ HERO (compact, single-row) ═══════════ */}

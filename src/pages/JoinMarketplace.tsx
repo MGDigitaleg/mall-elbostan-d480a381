@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Store, Globe, TrendingUp, ShoppingBag, Layers, Zap, CheckCircle2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildServiceLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -52,6 +52,12 @@ const JoinMarketplace = () => {
         descriptionEn="Connect your store to Mall Elbostan's digital marketplace — showcase products to thousands of visitors."
         keywords="انضم لمول البستان, بيع اونلاين, سوق الكتروني, محلات القاهرة الجديدة, marketplace"
         breadcrumbs={[{ name: "انضم للسوق", url: "/join-marketplace" }]}
+        jsonLd={buildServiceLd({
+          name: "الانضمام لسوق مول البستان الرقمي",
+          description: "برنامج للمحلات والتجار للانضمام لسوق مول البستان الرقمي وعرض المنتجات للمستخدمين.",
+          url: "/join-marketplace",
+          serviceType: "Marketplace Onboarding",
+        })}
       />
 
       {/* Hero */}
