@@ -86,19 +86,14 @@ function buildRobots(): string {
   lines.push("Crawl-delay: 1");
   lines.push("");
 
-  // Sitemaps — prefer the dynamic edge function (always fresh lastmod)
+  // Sitemaps — expose clean public URLs on the canonical domain instead
+  // of the internal Supabase functions endpoint. Each per-section file is
+  // a static shim under /public that wraps the live edge function.
   lines.push("# Sitemaps");
   lines.push(`Sitemap: ${SITE}/sitemap.xml`);
-  lines.push(`Sitemap: ${FN_BASE}`);
-  lines.push(`Sitemap: ${FN_BASE}?section=pages`);
-  lines.push(`Sitemap: ${FN_BASE}?section=categories`);
-  lines.push(`Sitemap: ${FN_BASE}?section=devices`);
-  lines.push(`Sitemap: ${FN_BASE}?section=stores`);
-  lines.push(`Sitemap: ${FN_BASE}?section=products`);
-  lines.push(`Sitemap: ${FN_BASE}?section=offers`);
-  lines.push(`Sitemap: ${FN_BASE}?section=blog`);
-  lines.push(`Sitemap: ${FN_BASE}?section=images`);
-  lines.push(`Sitemap: ${FN_BASE}?section=news`);
+  for (const key of ["pages", "categories", "devices", "stores", "products", "offers", "blog", "images", "news"]) {
+    lines.push(`Sitemap: ${SITE}/sitemap-${key}.xml`);
+  }
 
   return lines.join("\n") + "\n";
 }

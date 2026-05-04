@@ -200,8 +200,15 @@ export default function Sitemap() {
               <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
                 {[
                   { href: "/sitemap.xml", label: "فهرس السايت ماب الرئيسي", desc: "الفهرس الذي يربط كل أقسام الموقع." },
-                  { href: "/sitemap-main.xml", label: "صفحات المول الأساسية", desc: "الصفحات الثابتة والفروع والدليل." },
+                  { href: "/sitemap-pages.xml", label: "الصفحات الأساسية", desc: "الصفحات الثابتة والفروع والدليل." },
+                  { href: "/sitemap-categories.xml", label: "تصنيفات المحلات", desc: "روابط فئات المحلات داخل المول." },
                   { href: "/sitemap-devices.xml", label: "فئات الأجهزة", desc: "صفحات تصنيفات الأجهزة التقنية." },
+                  { href: "/sitemap-stores.xml", label: "محلات المول", desc: "صفحات كل محل داخل المنصة." },
+                  { href: "/sitemap-products.xml", label: "كتالوج المنتجات", desc: "صفحات المنتجات المتاحة للبيع." },
+                  { href: "/sitemap-offers.xml", label: "العروض اليومية", desc: "صفحات العروض والتخفيضات." },
+                  { href: "/sitemap-blog.xml", label: "المدونة", desc: "مقالات ومحتوى المدونة." },
+                  { href: "/sitemap-images.xml", label: "الصور", desc: "فهرس صور المنتجات والمحلات." },
+                  { href: "/sitemap-news.xml", label: "الأخبار", desc: "أحدث الأخبار والإعلانات." },
                   { href: "/robots.txt", label: "robots.txt", desc: "قواعد زحف محركات البحث." },
                 ].map((item) => (
                   <li key={item.href}>
