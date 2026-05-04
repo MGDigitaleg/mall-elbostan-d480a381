@@ -74,16 +74,16 @@ export default function Sitemap() {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    fetch(`${FN_BASE}?format=summary`)
-      .then((r) => {
-        if (!r.ok) throw new Error("failed");
-        return r.json();
-      })
-      .then((data: SitemapSummary) => {
-        if (mounted) {
-          setSummary(data);
-          setError(null);
+    supabase.functions
+      .invoke("sitemap", { method: "GET", body: undefined as never, headers: {}, query: { format: "summary" } } as never)
+      .then(({ data, error: err }) => {
+        if (!mounted) return;
+        if (err || !data) {
+          setError("تعذّر تحميل ملخص خريطة الموقع، حاول مرة أخرى.");
+          return;
         }
+        setSummary(data as SitemapSummary);
+        setError(null);
       })
       .catch(() => mounted && setError("تعذّر تحميل ملخص خريطة الموقع، حاول مرة أخرى."))
       .finally(() => mounted && setLoading(false));
