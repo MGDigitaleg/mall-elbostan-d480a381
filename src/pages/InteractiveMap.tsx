@@ -24,7 +24,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildMapLd, buildPlaceLd, buildSpeakableLd } from "@/components/SEOHead";
 import { MallFloorMap } from "@/components/map/MallFloorMap";
 import { MerchantLogoWall } from "@/components/home/MerchantLogoWall";
 import { MapFilters } from "@/components/map/MapFilters";
