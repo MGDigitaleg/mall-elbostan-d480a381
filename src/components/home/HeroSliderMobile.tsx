@@ -62,7 +62,9 @@ export function HeroSliderMobile() {
   const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (touchStart.current === null) return;
-    const diff = touchStart.current - e.changedTouches[0].clientX;
+    // RTL: swipe left should go to previous, swipe right to next
+    const rawDiff = touchStart.current - e.changedTouches[0].clientX;
+    const diff = -rawDiff;
     if (Math.abs(diff) > 50) setCurrent((c) => diff > 0 ? (c + 1) % slides.length : (c - 1 + slides.length) % slides.length);
     touchStart.current = null;
   };
