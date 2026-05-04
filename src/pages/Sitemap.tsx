@@ -43,11 +43,13 @@ const SECTION_PUBLIC_PATHS: Record<string, string> = {
 // The canonical public sitemap URL — this is what's submitted to Google Search
 // Console. Internal Supabase function URLs are an implementation detail and
 // must not be exposed to end users.
-const PUBLIC_SITE_URL = "https://mallelbostan.com";
+// Public site origin — overridable per environment via VITE_PUBLIC_SITE_URL.
+// Falls back to the production custom domain only if the env var is unset.
+const PUBLIC_SITE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL ?? "https://mallelbostan.com").replace(/\/+$/, "");
 const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_URL}/sitemap.xml`;
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const FN_BASE = `${SUPABASE_URL}/functions/v1/sitemap`;
+const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL ?? "").replace(/\/+$/, "");
+const FN_BASE = SUPABASE_URL ? `${SUPABASE_URL}/functions/v1/sitemap` : "";
 
 function formatArabicDate(iso: string): string {
   try {
