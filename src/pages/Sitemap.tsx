@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Map, FileText, Store, Package, Newspaper, Cpu, RefreshCw, ExternalLink } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface SitemapSection {
   key: string;
@@ -48,8 +49,9 @@ const SECTION_PUBLIC_PATHS: Record<string, string> = {
 const PUBLIC_SITE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL ?? "https://mallelbostan.com").replace(/\/+$/, "");
 const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_URL}/sitemap.xml`;
 
-const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL ?? "").replace(/\/+$/, "");
-const FN_BASE = SUPABASE_URL ? `${SUPABASE_URL}/functions/v1/sitemap` : "";
+// Internal Supabase edge function URLs are intentionally NOT exposed here.
+// The summary is fetched via the SDK so the function endpoint never appears
+// in the page source, network panel as a hand-built URL, or rendered DOM.
 
 function formatArabicDate(iso: string): string {
   try {
@@ -72,16 +74,16 @@ export default function Sitemap() {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    fetch(`${FN_BASE}?format=summary`)
-      .then((r) => {
-        if (!r.ok) throw new Error("failed");
-        return r.json();
-      })
-      .then((data: SitemapSummary) => {
-        if (mounted) {
-          setSummary(data);
-          setError(null);
+    supabase.functions
+      .invoke("sitemap?format=summary", { method: "GET" })
+      .then(({ data, error: err }) => {
+        if (!mounted) return;
+        if (err || !data) {
+          setError("تعذّر تحميل ملخص خريطة الموقع، حاول مرة أخرى.");
+          return;
         }
+        setSummary(data as SitemapSummary);
+        setError(null);
       })
       .catch(() => mounted && setError("تعذّر تحميل ملخص خريطة الموقع، حاول مرة أخرى."))
       .finally(() => mounted && setLoading(false));
