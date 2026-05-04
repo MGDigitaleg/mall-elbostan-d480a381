@@ -1,0 +1,74 @@
+name: Sitemap Build & Parity Guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sitemap-parity:
+    name: prebuild → verify public/sitemap.xml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # Runs scripts/build-sitemap.ts which:
+      #   1. Cross-checks parity between edge function STATIC_ROUTES,
+      #      App.tsx React Router routes, and robots.txt sections.
+      #   2. Regenerates public/sitemap.xml from the single source of truth
+      #      (the sections list inside supabase/functions/sitemap/index.ts).
+      # The script exits non-zero on any drift.
+      - name: Run prebuild (sitemap parity guard)
+        run: bun run prebuild
+
+      - name: Assert public/sitemap.xml exists & is well-formed
+        run: |
+          set -e
+          test -s public/sitemap.xml
+          echo "✓ sitemap.xml exists and is non-empty"
+          # Quick well-formedness check using xmllint if available, else node
+          if command -v xmllint >/dev/null 2>&1; then
+            xmllint --noout public/sitemap.xml
+          else
+            node -e "
+              const fs = require('fs');
+              const xml = fs.readFileSync('public/sitemap.xml', 'utf8');
+              if (!/^<\?xml/.test(xml.trim())) { console.error('Missing XML declaration'); process.exit(1); }
+              if (!/<sitemapindex[\s>]/.test(xml)) { console.error('Missing <sitemapindex>'); process.exit(1); }
+              if (!/<\/sitemapindex>\s*$/.test(xml)) { console.error('Unclosed <sitemapindex>'); process.exit(1); }
+              const count = (xml.match(/<sitemap>/g) || []).length;
+              if (count === 0) { console.error('No <sitemap> entries'); process.exit(1); }
+              console.log('✓ sitemap.xml well-formed with', count, 'sections');
+            "
+          fi
+
+      # Re-running prebuild must produce the *same* file. If the committed
+      # public/sitemap.xml drifts from what the source of truth generates,
+      # this diff fails the build (ignoring the auto-updated lastmod date).
+      - name: Verify committed sitemap.xml matches generated output
+        run: |
+          set -e
+          # Normalize lastmod to a fixed value for comparison
+          sed -E 's#<lastmod>[0-9]{4}-[0-9]{2}-[0-9]{2}</lastmod>#<lastmod>DATE</lastmod>#g' public/sitemap.xml > /tmp/generated.xml
+          git show HEAD:public/sitemap.xml \
+            | sed -E 's#<lastmod>[0-9]{4}-[0-9]{2}-[0-9]{2}</lastmod>#<lastmod>DATE</lastmod>#g' \
+            | sed -E 's#Generated: [0-9]{4}-[0-9]{2}-[0-9]{2}#Generated: DATE#g' > /tmp/committed.xml
+          sed -i -E 's#Generated: [0-9]{4}-[0-9]{2}-[0-9]{2}#Generated: DATE#g' /tmp/generated.xml
+          if ! diff -u /tmp/committed.xml /tmp/generated.xml; then
+            echo "✖ public/sitemap.xml is out of date — run \`bun run prebuild\` and commit."
+            exit 1
+          fi
+          echo "✓ committed sitemap.xml matches generator output"
+
+      - name: Upload generated sitemap as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sitemap-xml
+          path: public/sitemap.xml
+          retention-days: 14
