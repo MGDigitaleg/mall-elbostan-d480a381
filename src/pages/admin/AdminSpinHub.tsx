@@ -10,10 +10,11 @@ import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import {
   ArrowRight, Plus, Pencil, Trash2, Gift, CheckCircle, XCircle,
-  QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users,
+  QrCode, Crown, Sparkles, Ticket, Copy, Calendar as CalendarIcon, Users, Settings,
 } from "lucide-react";
 import { CampaignToggleCard } from "@/components/admin/CampaignToggleCard";
 import { CampaignStatusBadge } from "@/components/admin/CampaignStatusBadge";
+import { SpinCampaignSettings } from "@/components/admin/SpinCampaignSettings";
 
 type PrizeType = "instant" | "grand" | "visitor";
 
@@ -28,7 +29,7 @@ const TYPE_META: Record<PrizeType, { label: string; icon: any; color: string; bg
    ═══════════════════════════════════════════════════════════ */
 export default function AdminSpinHub() {
   const { loading: authLoading } = useRequireAdmin();
-  const [tab, setTab] = useState<"inventory" | "visitor_codes" | "winners">("inventory");
+  const [tab, setTab] = useState<"settings" | "inventory" | "visitor_codes" | "winners">("settings");
 
   if (authLoading) return <Shell loading />;
 
@@ -37,6 +38,7 @@ export default function AdminSpinHub() {
       <CampaignToggleCard campaignKey="spin_win" />
       <div className="mb-6 flex flex-wrap gap-2 border-b border-border">
         {[
+          { key: "settings", label: "إعدادات الحملة", icon: Settings },
           { key: "inventory", label: "مخزون الجوائز", icon: Gift },
           { key: "visitor_codes", label: "أكواد الزوار", icon: QrCode },
           { key: "winners", label: "الفائزون", icon: Users },
@@ -56,6 +58,7 @@ export default function AdminSpinHub() {
         ))}
       </div>
 
+      {tab === "settings" && <SpinCampaignSettings />}
       {tab === "inventory" && <InventoryTab />}
       {tab === "visitor_codes" && <VisitorCodesTab />}
       {tab === "winners" && <WinnersTab />}

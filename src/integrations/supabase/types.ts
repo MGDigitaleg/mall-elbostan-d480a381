@@ -115,29 +115,62 @@ export type Database = {
       }
       campaign_settings: {
         Row: {
+          cta_label_ar: string | null
+          cta_label_en: string | null
+          description_ar: string | null
+          description_en: string | null
+          ends_at: string | null
+          headline_ar: string | null
+          headline_en: string | null
           id: string
           is_active: boolean
           key: string
+          languages: string[]
           paused_message_ar: string | null
           paused_title_ar: string | null
+          starts_at: string | null
+          subtitle_ar: string | null
+          subtitle_en: string | null
           updated_at: string
           updated_by: string | null
         }
         Insert: {
+          cta_label_ar?: string | null
+          cta_label_en?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          ends_at?: string | null
+          headline_ar?: string | null
+          headline_en?: string | null
           id?: string
           is_active?: boolean
           key: string
+          languages?: string[]
           paused_message_ar?: string | null
           paused_title_ar?: string | null
+          starts_at?: string | null
+          subtitle_ar?: string | null
+          subtitle_en?: string | null
           updated_at?: string
           updated_by?: string | null
         }
         Update: {
+          cta_label_ar?: string | null
+          cta_label_en?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          ends_at?: string | null
+          headline_ar?: string | null
+          headline_en?: string | null
           id?: string
           is_active?: boolean
           key?: string
+          languages?: string[]
           paused_message_ar?: string | null
           paused_title_ar?: string | null
+          starts_at?: string | null
+          subtitle_ar?: string | null
+          subtitle_en?: string | null
           updated_at?: string
           updated_by?: string | null
         }

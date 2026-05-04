@@ -20,6 +20,7 @@ import { FloorTabs } from "@/components/map/FloorTabs";
 import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
 import { useCampaignStatus } from "@/hooks/useCampaignStatus";
+import { useCampaignSettings } from "@/hooks/useCampaignSettings";
 import { trackSpinSubmit, trackSpinResult, trackEvent } from "@/lib/analytics";
 import { Clock as ClockIcon } from "lucide-react";
 
@@ -62,6 +63,7 @@ type SpinResponse = {
 const SpinWin = () => {
   const { toast } = useToast();
   const { data: campaign, isLoading: campaignLoading } = useCampaignStatus("spin_win");
+  const { data: campaignSettings } = useCampaignSettings("spin_win");
   const [step, setStep] = useState<"register" | "spinning">("register");
   const [settled, setSettled] = useState(false);
   const [form, setForm] = useState({ full_name: "", phone: "", email: "", visitor_token: "" });
@@ -200,45 +202,60 @@ const SpinWin = () => {
 
   return (
     <MainLayout>
-      <SEOHead
-        title="أدر واربح"
-        titleEn="Spin & Win"
-        description="لف العجلة واربح جوائز فورية من مول البستان — خصومات وهدايا حقيقية بمناسبة الافتتاح الكبير في القاهرة الجديدة."
-        descriptionEn="Spin the wheel at Mall Elbostan – New Cairo and win instant prizes."
-        keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
-        breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]}
-        jsonLd={[
-          buildPromoEventLd({
-            name: "أدر واربح — حملة افتتاح مول البستان",
-            description: "حملة جوائز فورية: لف العجلة واربح خصومات وهدايا حقيقية من محلات مول البستان بالتجمع الخامس.",
-            url: "/spin-win",
-            startDate: "2026-05-01",
-            endDate: "2026-08-31",
-          }),
-          buildEventEnhancedLd({
-            name: "أدر واربح في مول البستان",
-            description: "فعالية تفاعلية بمناسبة افتتاح مول البستان بالتجمع الخامس — جوائز فورية وخصومات حقيقية من المحلات المشاركة.",
-            url: "/spin-win",
-            startDate: "2026-05-01",
-            endDate: "2026-08-31",
-          }),
-          {
-            "@context": "https://schema.org",
-            "@type": "Game",
-            name: "عجلة الجوائز — مول البستان",
-            description: "لعبة عجلة جوائز رقمية لزوار مول البستان بفرع التجمع الخامس، تمنح خصومات وهدايا فورية من المحلات المشاركة.",
-            url: "https://mallelbostan.com/spin-win",
-            inLanguage: "ar-EG",
-            genre: "Promotional",
-            gamePlatform: "Web",
-            applicationCategory: "GameApplication",
-            isAccessibleForFree: true,
-            publisher: { "@id": "https://mallelbostan.com/#organization" },
-            location: { "@id": "https://mallelbostan.com/#mall" },
-          },
-          buildSpeakableLd(["h1", "[data-speakable]"]),
-        ]}
-      />
+      {(() => {
+        const headlineAr = campaignSettings?.headline_ar ?? "أدر واربح";
+        const headlineEn = campaignSettings?.headline_en ?? "Spin & Win";
+        const descAr =
+          campaignSettings?.description_ar ??
+          "لف العجلة واربح جوائز فورية من مول البستان — خصومات وهدايا حقيقية بمناسبة الافتتاح الكبير في القاهرة الجديدة.";
+        const descEn =
+          campaignSettings?.description_en ??
+          "Spin the wheel at Mall Elbostan – New Cairo and win instant prizes.";
+        const startIso = campaignSettings?.starts_at ?? "2026-05-01";
+        const endIso = campaignSettings?.ends_at ?? "2026-08-31";
+        const langs = campaignSettings?.languages ?? ["ar-EG"];
+        return (
+          <SEOHead
+            title={headlineAr}
+            titleEn={headlineEn}
+            description={descAr}
+            descriptionEn={descEn}
+            keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
+            breadcrumbs={[{ name: headlineAr, url: "/spin-win" }]}
+            jsonLd={[
+              buildPromoEventLd({
+                name: `${headlineAr} — حملة افتتاح مول البستان`,
+                description: descAr,
+                url: "/spin-win",
+                startDate: startIso,
+                endDate: endIso,
+              }),
+              buildEventEnhancedLd({
+                name: `${headlineAr} في مول البستان`,
+                description: descAr,
+                url: "/spin-win",
+                startDate: startIso,
+                endDate: endIso,
+              }),
+              {
+                "@context": "https://schema.org",
+                "@type": "Game",
+                name: "عجلة الجوائز — مول البستان",
+                description: descAr,
+                url: "https://mallelbostan.com/spin-win",
+                inLanguage: langs,
+                genre: "Promotional",
+                gamePlatform: "Web",
+                applicationCategory: "GameApplication",
+                isAccessibleForFree: true,
+                publisher: { "@id": "https://mallelbostan.com/#organization" },
+                location: { "@id": "https://mallelbostan.com/#mall" },
+              },
+              buildSpeakableLd(["h1", "[data-speakable]"]),
+            ]}
+          />
+        );
+      })()}
 
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden bg-navy py-14 md:py-20">
@@ -251,13 +268,13 @@ const SpinWin = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-navy-foreground text-sm font-medium mb-5">
               <Sparkles className="w-4 h-4" />
-              <span>حملة افتتاح مول البستان — التجمع</span>
+              <span>{campaignSettings?.subtitle_ar ?? "حملة افتتاح مول البستان — التجمع"}</span>
             </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold text-navy-foreground mb-4 tracking-tight">
-              لف العجلة واربح
+            <h1 className="text-3xl md:text-5xl font-extrabold text-navy-foreground mb-4 tracking-tight" data-speakable>
+              {campaignSettings?.headline_ar ?? "لف العجلة واربح"}
             </h1>
             <p className="text-navy-foreground/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-6">
-              جوائز فورية وفرصة للفوز بالجائزة الكبرى داخل فرع التجمع.
+              {campaignSettings?.description_ar ?? "جوائز فورية وفرصة للفوز بالجائزة الكبرى داخل فرع التجمع."}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/10 border border-card/20 text-navy-foreground text-xs md:text-sm font-semibold">
