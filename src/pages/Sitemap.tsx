@@ -26,6 +26,26 @@ const SECTION_ICONS: Record<string, typeof FileText> = {
   blog: Newspaper,
 };
 
+// Public-facing routes for each sitemap section — these are the user-visible
+// pages, not the internal edge function URLs.
+const SECTION_PUBLIC_PATHS: Record<string, string> = {
+  pages: "/",
+  categories: "/stores",
+  devices: "/tech-planet",
+  stores: "/stores",
+  products: "/products",
+  offers: "/daily-deals",
+  blog: "/blog",
+  images: "/products",
+  news: "/blog",
+};
+
+// The canonical public sitemap URL — this is what's submitted to Google Search
+// Console. Internal Supabase function URLs are an implementation detail and
+// must not be exposed to end users.
+const PUBLIC_SITE_URL = "https://mallelbostan.com";
+const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_URL}/sitemap.xml`;
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const FN_BASE = `${SUPABASE_URL}/functions/v1/sitemap`;
 
