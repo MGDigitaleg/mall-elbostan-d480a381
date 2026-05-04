@@ -51,12 +51,12 @@ describe("sitemap hreflang — multilingual alternates", () => {
     async (section) => {
       const xml = await fetchText(`${BASE}?section=${section}`);
 
-      // Namespace must be declared
-      expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
-
       const entries = parseUrlEntries(xml);
       // section may be empty (e.g., news) — only enforce when entries exist
       if (entries.length === 0) return;
+
+      // Namespace must be declared when entries present
+      expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
 
       const violations: string[] = [];
       for (const entry of entries) {
