@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildContactPageLd } from "@/components/SEOHead";
+import { SEOHead, buildContactPageLd, buildHowToLd } from "@/components/SEOHead";
 import { OFFICIAL_PHONE, OFFICIAL_WHATSAPP } from "@/lib/contactInfo";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
