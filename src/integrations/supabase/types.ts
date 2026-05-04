@@ -2211,6 +2211,7 @@ export type Database = {
           table_name: string
         }[]
       }
+      can_manage_content: { Args: { _user_id: string }; Returns: boolean }
       decrement_prize_stock: { Args: { p_prize_id: string }; Returns: boolean }
       has_role: {
         Args: {
