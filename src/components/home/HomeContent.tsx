@@ -197,9 +197,8 @@ export function HomeContent({ faqs }: HomeContentProps) {
       </section>
 
       {/* ═══════════ 5 · OPENING OFFERS TEASER (compact) ═══════════ */}
-      {/* Mobile rendered ~603px; bumped intrinsic size to better match reality. */}
-      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 640px", minHeight: 620 } as React.CSSProperties}>
-        <Suspense fallback={<div style={{ minHeight: 620 }} />}><DealsTeaser /></Suspense>
+      <section style={{ contain: "layout", contentVisibility: "auto", containIntrinsicSize: "auto 540px" } as React.CSSProperties}>
+        <Suspense fallback={<div style={{ minHeight: 540 }} />}><DealsTeaser /></Suspense>
       </section>
 
       {/* ═══════════ 6 · LATEST PICKS (secondary product block) ═══════════ */}
