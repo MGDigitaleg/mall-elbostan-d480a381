@@ -120,9 +120,9 @@ export function HeroSliderMobile() {
         </div>
 
         {/* Indicators */}
-        <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+        <div className="absolute bottom-4 left-1/2 z-10 flex flex-row-reverse -translate-x-1/2 gap-1.5" dir="rtl">
           {slides.map((_, i) => (
-            <button key={i} onClick={() => setCurrent(i)} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === current ? 28 : 14, background: i === current ? "#CDBB9A" : "#ffffff30" }} aria-label={`شريحة ${i + 1}`} />
+            <button key={i} onClick={() => setCurrent(i)} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === current ? 28 : 14, background: i === current ? "#CDBB9A" : "#ffffff30" }} aria-label={`شريحة ${i + 1} من ${slides.length}`} aria-current={i === current ? "true" : undefined} />
           ))}
         </div>
       </div>
