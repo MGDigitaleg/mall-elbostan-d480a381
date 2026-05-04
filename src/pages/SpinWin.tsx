@@ -207,13 +207,37 @@ const SpinWin = () => {
         descriptionEn="Spin the wheel at Mall Elbostan – New Cairo and win instant prizes."
         keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
         breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]}
-        jsonLd={buildPromoEventLd({
-          name: "أدر واربح — حملة افتتاح مول البستان",
-          description: "حملة جوائز فورية: لف العجلة واربح خصومات وهدايا حقيقية من محلات مول البستان بالتجمع الخامس.",
-          url: "/spin-win",
-          startDate: "2026-05-01",
-          endDate: "2026-08-31",
-        })}
+        jsonLd={[
+          buildPromoEventLd({
+            name: "أدر واربح — حملة افتتاح مول البستان",
+            description: "حملة جوائز فورية: لف العجلة واربح خصومات وهدايا حقيقية من محلات مول البستان بالتجمع الخامس.",
+            url: "/spin-win",
+            startDate: "2026-05-01",
+            endDate: "2026-08-31",
+          }),
+          buildEventEnhancedLd({
+            name: "أدر واربح في مول البستان",
+            description: "فعالية تفاعلية بمناسبة افتتاح مول البستان بالتجمع الخامس — جوائز فورية وخصومات حقيقية من المحلات المشاركة.",
+            url: "/spin-win",
+            startDate: "2026-05-01",
+            endDate: "2026-08-31",
+          }),
+          {
+            "@context": "https://schema.org",
+            "@type": "Game",
+            name: "عجلة الجوائز — مول البستان",
+            description: "لعبة عجلة جوائز رقمية لزوار مول البستان بفرع التجمع الخامس، تمنح خصومات وهدايا فورية من المحلات المشاركة.",
+            url: "https://mallelbostan.com/spin-win",
+            inLanguage: "ar-EG",
+            genre: "Promotional",
+            gamePlatform: "Web",
+            applicationCategory: "GameApplication",
+            isAccessibleForFree: true,
+            publisher: { "@id": "https://mallelbostan.com/#organization" },
+            location: { "@id": "https://mallelbostan.com/#mall" },
+          },
+          buildSpeakableLd(["h1", "[data-speakable]"]),
+        ]}
       />
 
       {/* ─── Hero ─── */}
