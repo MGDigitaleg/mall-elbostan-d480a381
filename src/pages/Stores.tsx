@@ -23,7 +23,7 @@ import { TenantLogo } from "@/components/TenantLogo";
 import { getVerifiedLogoUrl } from "@/lib/tenantLogoRegistry";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildStoreListLd, buildCategoryListLd } from "@/components/SEOHead";
+import { SEOHead, buildStoreListLd, buildCategoryListLd, buildCollectionPageLd } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { BackToTop } from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
