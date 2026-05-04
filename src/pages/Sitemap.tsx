@@ -49,8 +49,9 @@ const SECTION_PUBLIC_PATHS: Record<string, string> = {
 const PUBLIC_SITE_URL = (import.meta.env.VITE_PUBLIC_SITE_URL ?? "https://mallelbostan.com").replace(/\/+$/, "");
 const PUBLIC_SITEMAP_URL = `${PUBLIC_SITE_URL}/sitemap.xml`;
 
-const SUPABASE_URL = (import.meta.env.VITE_SUPABASE_URL ?? "").replace(/\/+$/, "");
-const FN_BASE = SUPABASE_URL ? `${SUPABASE_URL}/functions/v1/sitemap` : "";
+// Internal Supabase edge function URLs are intentionally NOT exposed here.
+// The summary is fetched via the SDK so the function endpoint never appears
+// in the page source, network panel as a hand-built URL, or rendered DOM.
 
 function formatArabicDate(iso: string): string {
   try {
