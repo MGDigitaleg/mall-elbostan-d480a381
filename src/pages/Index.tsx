@@ -20,10 +20,25 @@ const Index = () => {
     staleTime: 5 * 60 * 1000,
   });
 
+  const homeBreadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": "https://mallelbostan.com/#breadcrumb",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "الرئيسية",
+        item: "https://mallelbostan.com/",
+      },
+    ],
+  };
+
   const extras = [
     ...(faqs && faqs.length > 0 ? [buildFaqLd(faqs)] : []),
     buildSiteNavLd(),
     buildSpeakableLd(["h1", "[data-speakable]"]),
+    homeBreadcrumbLd,
   ];
 
   return (
