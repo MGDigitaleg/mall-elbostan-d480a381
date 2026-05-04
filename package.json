@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node --import tsx scripts/build-sitemap.ts",
+    "prebuild": "tsx scripts/build-sitemap.ts",
     "build": "vite build",
-    "build:dev": "node --import tsx scripts/build-sitemap.ts && vite build --mode development",
-    "build:sitemap": "node --import tsx scripts/build-sitemap.ts",
+    "build:dev": "tsx scripts/build-sitemap.ts && vite build --mode development",
+    "build:sitemap": "tsx scripts/build-sitemap.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
