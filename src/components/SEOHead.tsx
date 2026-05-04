@@ -21,6 +21,8 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   breadcrumbs?: { name: string; url: string }[];
   noIndex?: boolean;
+  /** Topical tags emitted as og/article tags + appended to keywords. Useful for store, category, and collection pages. */
+  tags?: string[];
 }
 
 export function SEOHead({
@@ -40,7 +42,17 @@ export function SEOHead({
   jsonLd,
   breadcrumbs,
   noIndex,
+  tags,
 }: SEOHeadProps) {
+  const cleanTags = (tags ?? [])
+    .map((t) => (t ?? "").trim())
+    .filter((t, i, a) => t.length > 0 && a.indexOf(t) === i)
+    .slice(0, 12);
+  const mergedKeywords = (() => {
+    if (cleanTags.length === 0) return keywords;
+    if (!keywords) return cleanTags.join(", ");
+    return `${keywords}, ${cleanTags.join(", ")}`;
+  })();
   const location = useLocation();
   const fullTitle = `${title} | مول البستان`;
   const canonical = `${BASE_URL}${location.pathname}`;
@@ -92,7 +104,7 @@ export function SEOHead({
       <meta name="description" content={trimmedDescription} />
       <link rel="canonical" href={canonical} />
       {/* robots meta is set below in the SEO crawler hints block */}
-      {keywords && <meta name="keywords" content={keywords} />}
+      {mergedKeywords && <meta name="keywords" content={mergedKeywords} />}
       <meta name="author" content="مول البستان" />
       <meta name="theme-color" content="#071326" media="(prefers-color-scheme: dark)" />
       <meta name="theme-color" content="#1F61FF" media="(prefers-color-scheme: light)" />
@@ -123,6 +135,14 @@ export function SEOHead({
       {type === "article" && articleModifiedTime && (
         <meta property="article:modified_time" content={articleModifiedTime} />
       )}
+
+      {/* Topical tags — boost social previews & Google discovery for store/category/collection pages */}
+      {cleanTags.map((t) => (
+        <meta key={`og-tag-${t}`} property={type === "article" ? "article:tag" : "og:tag"} content={t} />
+      ))}
+      {cleanTags.map((t) => (
+        <meta key={`tag-${t}`} name="tag" content={t} />
+      ))}
 
       {/* Geo targeting — improves local SEO for Egypt / Cairo */}
       <meta name="geo.region" content="EG-C" />

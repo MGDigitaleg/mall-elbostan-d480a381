@@ -566,6 +566,9 @@ const Products = () => {
         description="تصفّح منتجات مول البستان — لابتوبات، هواتف، إكسسوارات، جيمنج، وقطع غيار من جميع المحلات في التجمع الخامس بالقاهرة الجديدة. قارن الأسعار واطلب مباشرة."
         descriptionEn="Browse products from Mall Elbostan — laptops, phones, accessories, gaming gear from all stores in New Cairo."
         keywords="لابتوب, موبايل, اكسسوارات, جيمنج, قطع غيار, أسعار, مول البستان, التجمع الخامس"
+        ogImage="/og-default.jpg"
+        ogImageAlt="منتجات مول البستان"
+        tags={["لابتوب", "موبايل", "إكسسوارات", "جيمنج", "إلكترونيات", "مول البستان", "التجمع الخامس", "القاهرة الجديدة"]}
         breadcrumbs={[{ name: "المنتجات", url: "/products" }]}
         jsonLd={filteredProducts.length > 0 ? buildProductListLd(filteredProducts.map(p => ({ name_ar: p.product_name, slug: p.slug, price: p.price, image_url: p.product_image }))) : undefined}
         noIndex={hasActiveFilters}
