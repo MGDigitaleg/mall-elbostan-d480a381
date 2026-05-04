@@ -130,22 +130,19 @@ export default function Sitemap() {
               </div>
             </div>
 
-            {/* Canonical sitemap submitted to Google Search Console */}
-            <div className="mb-8 rounded-2xl border border-primary/20 bg-primary/5 p-5">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">الرابط الرسمي لمحركات البحث</div>
+            {/* Canonical sitemap (kept discreet — primarily for SEO crawlers) */}
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-muted/30 px-4 py-3 text-sm">
+              <span className="text-xs font-medium text-muted-foreground">فهرس خريطة الموقع</span>
               <a
                 href={PUBLIC_SITEMAP_URL}
                 target="_blank"
                 rel="noopener"
-                className="mt-2 inline-flex items-center gap-1.5 text-base font-semibold text-foreground hover:underline"
+                className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-primary hover:underline"
                 dir="ltr"
               >
                 {PUBLIC_SITEMAP_URL}
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-3.5 w-3.5" />
               </a>
-              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-                هذا هو الرابط الذي يُرسَل إلى Google Search Console، ويحتوي على فهرس بكل الأقسام أدناه.
-              </p>
             </div>
 
             {/* Sections — show the public landing page for each */}
@@ -193,16 +190,32 @@ export default function Sitemap() {
               })}
             </div>
 
-            {/* Quick access */}
+            {/* Quick access — full sitemap & robots files for SEO/devs */}
             <div className="mt-10 rounded-2xl border bg-muted/30 p-5">
-              <h3 className="text-sm font-bold text-foreground">روابط مفيدة</h3>
-              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-                <a href="/sitemap.xml" target="_blank" rel="noopener" className="text-primary hover:underline">
-                  sitemap.xml الكامل
-                </a>
-                <a href="/robots.txt" target="_blank" rel="noopener" className="text-primary hover:underline">
-                  robots.txt
-                </a>
+              <h3 className="text-sm font-bold text-foreground">ملفات الفهرسة</h3>
+              <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                {[
+                  { href: "/sitemap.xml", label: "فهرس السايت ماب الرئيسي", desc: "الفهرس الذي يربط كل أقسام الموقع." },
+                  { href: "/sitemap-main.xml", label: "صفحات المول الأساسية", desc: "الصفحات الثابتة والفروع والدليل." },
+                  { href: "/sitemap-devices.xml", label: "فئات الأجهزة", desc: "صفحات تصنيفات الأجهزة التقنية." },
+                  { href: "/robots.txt", label: "robots.txt", desc: "قواعد زحف محركات البحث." },
+                ].map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener"
+                      className="block rounded-lg px-3 py-2 transition-colors hover:bg-muted"
+                    >
+                      <span className="text-[13px] font-medium text-foreground">{item.label}</span>
+                      <span className="mt-0.5 block text-[11px] text-muted-foreground" dir="ltr">{item.href}</span>
+                      <span className="mt-1 block text-[12px] leading-relaxed text-muted-foreground">{item.desc}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 border-t pt-4 text-sm">
                 <Link to="/stores" className="text-primary hover:underline">دليل المحلات</Link>
                 <Link to="/products" className="text-primary hover:underline">كتالوج المنتجات</Link>
                 <Link to="/blog" className="text-primary hover:underline">المدونة</Link>
