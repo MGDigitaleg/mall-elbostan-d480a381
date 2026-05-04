@@ -4,9 +4,9 @@ const BASE = "https://wrheltmgquyqqhscrpds.supabase.co/functions/v1/sitemap";
 const FETCH_TIMEOUT_MS = 20_000;
 
 // Sections that represent crawlable pages → MUST include hreflang alternates
-const PAGE_SECTIONS = ["pages", "categories", "devices", "stores", "products", "blog", "news"];
-// Aggregated image/offer sections deliberately omit hreflang (they're for media discovery only)
-const MEDIA_SECTIONS = ["images", "offers"];
+const PAGE_SECTIONS = ["pages", "categories", "devices", "stores", "products", "blog", "news", "offers"];
+// Aggregated image-only section deliberately omits hreflang (media discovery)
+const MEDIA_SECTIONS = ["images"];
 
 const HREFLANGS_REQUIRED = ["ar-EG", "x-default"];
 
