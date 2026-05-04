@@ -72,10 +72,9 @@ describe("Admin pages — SEO & permission posture", () => {
 
   it("Dashboard emits no public BreadcrumbList or generic JSON-LD", async () => {
     renderUI(<AdminDashboard />);
-    await waitFor(() =>
-      expect(screen.queryByText("لوحة التحكم")).toBeTruthy() ||
-      expect(screen.queryByText(/المحتوى/)).toBeTruthy()
-    );
+    await waitFor(() => {
+      expect(screen.queryByText("المحتوى")).toBeInTheDocument();
+    });
 
     const scripts = getJsonLdScripts();
     const types = scripts.map((s) => {
