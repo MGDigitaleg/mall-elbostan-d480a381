@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead, buildBlogPostLd } from "@/components/SEOHead";
+import { SEOHead, buildBlogPostLd, buildNewsArticleLd, buildSpeakableLd } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 
 const BlogPost = () => {
