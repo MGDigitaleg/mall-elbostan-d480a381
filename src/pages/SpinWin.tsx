@@ -268,13 +268,13 @@ const SpinWin = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-navy-foreground text-sm font-medium mb-5">
               <Sparkles className="w-4 h-4" />
-              <span>حملة افتتاح مول البستان — التجمع</span>
+              <span>{campaignSettings?.subtitle_ar ?? "حملة افتتاح مول البستان — التجمع"}</span>
             </div>
-            <h1 className="text-3xl md:text-5xl font-extrabold text-navy-foreground mb-4 tracking-tight">
-              لف العجلة واربح
+            <h1 className="text-3xl md:text-5xl font-extrabold text-navy-foreground mb-4 tracking-tight" data-speakable>
+              {campaignSettings?.headline_ar ?? "لف العجلة واربح"}
             </h1>
             <p className="text-navy-foreground/70 text-base md:text-lg max-w-xl mx-auto leading-relaxed mb-6">
-              جوائز فورية وفرصة للفوز بالجائزة الكبرى داخل فرع التجمع.
+              {campaignSettings?.description_ar ?? "جوائز فورية وفرصة للفوز بالجائزة الكبرى داخل فرع التجمع."}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-card/10 border border-card/20 text-navy-foreground text-xs md:text-sm font-semibold">
