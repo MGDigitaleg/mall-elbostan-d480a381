@@ -36,7 +36,7 @@ export function LazySection({ children, minHeight = 320, rootMargin = "300px" }:
   }, [visible, rootMargin]);
 
   return (
-    <div ref={ref} style={{ minHeight, contain: "layout" }}>
+    <div ref={ref} style={{ minHeight: visible ? undefined : minHeight, contain: "layout" }}>
       {visible ? children : null}
     </div>
   );
