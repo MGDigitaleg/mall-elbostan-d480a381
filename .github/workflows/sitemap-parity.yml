@@ -156,6 +156,12 @@ jobs:
             console.log('\n✓ robots.txt: all', entries.length, 'Sitemap entries resolve and no orphans.');
           "
 
+      # For every <loc> in sitemap-*.xml, verify the path matches a real
+      # React Router route (static or :param pattern). Catches dead URLs
+      # that would 404 after deploy because the page does not exist.
+      - name: Validate every sitemap URL maps to a React Router route
+        run: bun scripts/verify-sitemap-routes.ts
+
       - name: Upload generated sitemap as artifact
         if: always()
         uses: actions/upload-artifact@v4
