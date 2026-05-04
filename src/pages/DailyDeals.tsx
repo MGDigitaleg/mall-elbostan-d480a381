@@ -4,7 +4,7 @@ import { Link, useLocation, useParams, useSearchParams } from "react-router-dom"
 import { Store, ArrowLeft, Clock3, LayoutGrid, ArrowDownUp, Tag, Heart, Scale } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { SEOHead } from "@/components/SEOHead";
+import { SEOHead, buildCollectionPageLd } from "@/components/SEOHead";
 import { useCountdown } from "@/hooks/useCountdown";
 import { LoadingGrid, EmptyState } from "@/components/ui/loading-states";
 import { Button } from "@/components/ui/button";
