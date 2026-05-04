@@ -115,8 +115,15 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
-            if (id.includes("react-dom") || id.includes("scheduler")) return "vendor-react-dom";
-            if (id.includes("/react/") || id.includes("react-router")) return "vendor-react";
+            // Keep react + react-dom + scheduler + jsx-runtime in ONE chunk
+            // to avoid "__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED" errors
+            // caused by react-dom loading before react in split chunks.
+            if (
+              id.includes("/react-dom/") ||
+              id.includes("/react/") ||
+              id.includes("/scheduler/") ||
+              id.includes("react-router")
+            ) return "vendor-react";
             if (id.includes("@supabase") || id.includes("@tanstack")) return "vendor-data";
             if (id.includes("framer-motion")) return "vendor-motion";
             if (id.includes("@radix-ui")) return "vendor-radix";
