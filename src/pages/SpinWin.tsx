@@ -202,45 +202,60 @@ const SpinWin = () => {
 
   return (
     <MainLayout>
-      <SEOHead
-        title="أدر واربح"
-        titleEn="Spin & Win"
-        description="لف العجلة واربح جوائز فورية من مول البستان — خصومات وهدايا حقيقية بمناسبة الافتتاح الكبير في القاهرة الجديدة."
-        descriptionEn="Spin the wheel at Mall Elbostan – New Cairo and win instant prizes."
-        keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
-        breadcrumbs={[{ name: "أدر واربح", url: "/spin-win" }]}
-        jsonLd={[
-          buildPromoEventLd({
-            name: "أدر واربح — حملة افتتاح مول البستان",
-            description: "حملة جوائز فورية: لف العجلة واربح خصومات وهدايا حقيقية من محلات مول البستان بالتجمع الخامس.",
-            url: "/spin-win",
-            startDate: "2026-05-01",
-            endDate: "2026-08-31",
-          }),
-          buildEventEnhancedLd({
-            name: "أدر واربح في مول البستان",
-            description: "فعالية تفاعلية بمناسبة افتتاح مول البستان بالتجمع الخامس — جوائز فورية وخصومات حقيقية من المحلات المشاركة.",
-            url: "/spin-win",
-            startDate: "2026-05-01",
-            endDate: "2026-08-31",
-          }),
-          {
-            "@context": "https://schema.org",
-            "@type": "Game",
-            name: "عجلة الجوائز — مول البستان",
-            description: "لعبة عجلة جوائز رقمية لزوار مول البستان بفرع التجمع الخامس، تمنح خصومات وهدايا فورية من المحلات المشاركة.",
-            url: "https://mallelbostan.com/spin-win",
-            inLanguage: "ar-EG",
-            genre: "Promotional",
-            gamePlatform: "Web",
-            applicationCategory: "GameApplication",
-            isAccessibleForFree: true,
-            publisher: { "@id": "https://mallelbostan.com/#organization" },
-            location: { "@id": "https://mallelbostan.com/#mall" },
-          },
-          buildSpeakableLd(["h1", "[data-speakable]"]),
-        ]}
-      />
+      {(() => {
+        const headlineAr = campaignSettings?.headline_ar ?? "أدر واربح";
+        const headlineEn = campaignSettings?.headline_en ?? "Spin & Win";
+        const descAr =
+          campaignSettings?.description_ar ??
+          "لف العجلة واربح جوائز فورية من مول البستان — خصومات وهدايا حقيقية بمناسبة الافتتاح الكبير في القاهرة الجديدة.";
+        const descEn =
+          campaignSettings?.description_en ??
+          "Spin the wheel at Mall Elbostan – New Cairo and win instant prizes.";
+        const startIso = campaignSettings?.starts_at ?? "2026-05-01";
+        const endIso = campaignSettings?.ends_at ?? "2026-08-31";
+        const langs = campaignSettings?.languages ?? ["ar-EG"];
+        return (
+          <SEOHead
+            title={headlineAr}
+            titleEn={headlineEn}
+            description={descAr}
+            descriptionEn={descEn}
+            keywords="جوائز مول البستان, عروض الافتتاح, سحب جوائز, هدايا مجانية, القاهرة الجديدة, spin and win"
+            breadcrumbs={[{ name: headlineAr, url: "/spin-win" }]}
+            jsonLd={[
+              buildPromoEventLd({
+                name: `${headlineAr} — حملة افتتاح مول البستان`,
+                description: descAr,
+                url: "/spin-win",
+                startDate: startIso,
+                endDate: endIso,
+              }),
+              buildEventEnhancedLd({
+                name: `${headlineAr} في مول البستان`,
+                description: descAr,
+                url: "/spin-win",
+                startDate: startIso,
+                endDate: endIso,
+              }),
+              {
+                "@context": "https://schema.org",
+                "@type": "Game",
+                name: "عجلة الجوائز — مول البستان",
+                description: descAr,
+                url: "https://mallelbostan.com/spin-win",
+                inLanguage: langs,
+                genre: "Promotional",
+                gamePlatform: "Web",
+                applicationCategory: "GameApplication",
+                isAccessibleForFree: true,
+                publisher: { "@id": "https://mallelbostan.com/#organization" },
+                location: { "@id": "https://mallelbostan.com/#mall" },
+              },
+              buildSpeakableLd(["h1", "[data-speakable]"]),
+            ]}
+          />
+        );
+      })()}
 
       {/* ─── Hero ─── */}
       <section className="relative overflow-hidden bg-navy py-14 md:py-20">
