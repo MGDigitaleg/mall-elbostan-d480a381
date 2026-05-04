@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
 import { PageHero } from "@/components/PageHero";
 import { Map, FileText, Store, Package, Newspaper, Cpu, RefreshCw, ExternalLink } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface SitemapSection {
   key: string;
