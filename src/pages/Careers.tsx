@@ -78,7 +78,7 @@ const Careers = () => {
       <div className="container py-20">
         <div className="text-center mb-12">
           <Briefcase className="w-16 h-16 text-primary mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gradient-blue mb-4 md:text-3xl">فرص العمل</h1>
+          <h1 className="text-2xl font-bold text-gradient-blue mb-4 md:text-3xl">الوظائف والفرص في مول البستان</h1>
           <p className="text-muted-foreground max-w-2xl mx-auto">فرص مهنية في بيئة تجارية متخصصة — انضم لفريق مول البستان وكن جزءاً من وجهة تقنية رائدة.</p>
         </div>
 

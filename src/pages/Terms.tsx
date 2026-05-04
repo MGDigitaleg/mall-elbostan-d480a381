@@ -12,7 +12,7 @@ const Terms = () => (
       jsonLd={buildWebPageLd({ name: "الشروط والأحكام — مول البستان", description: "شروط استخدام موقع مول البستان.", url: "/terms" })}
     />
     <div className="container py-20 max-w-3xl">
-      <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">الشروط والأحكام</h1>
+      <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">الشروط والأحكام — مول البستان</h1>
       <div className="card-premium p-8 text-muted-foreground leading-relaxed space-y-4">
         <p>باستخدام موقع مول البستان الإلكتروني، فإنك توافق على الالتزام بهذه الشروط والأحكام.</p>
         <h2 className="text-lg font-bold text-foreground">استخدام الموقع</h2>

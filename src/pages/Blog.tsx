@@ -18,7 +18,7 @@ const Blog = () => {
     <MainLayout>
       <SEOHead title="المدونة" titleEn="Blog" description="آخر الأخبار والمقالات عن التكنولوجيا والإلكترونيات ومول البستان في القاهرة الجديدة." descriptionEn="Latest news and articles about technology and Mall Elbostan." keywords="مدونة مول البستان, اخبار التكنولوجيا, مقالات الكترونيات, القاهرة الجديدة, blog" breadcrumbs={[{ name: "المدونة", url: "/blog" }]} jsonLd={posts && posts.length > 0 ? buildBlogListLd(posts) : undefined} noIndex={!isLoading && (!posts || posts.length === 0)} />
       <div className="container py-20">
-        <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">المدونة</h1>
+        <h1 className="text-2xl font-bold text-gradient-blue mb-8 md:text-3xl">مدونة مول البستان — أخبار التقنية والمحلات</h1>
         {isLoading ? <LoadingGrid /> : posts && posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (

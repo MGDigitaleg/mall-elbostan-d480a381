@@ -38,7 +38,7 @@ export function ScenePhraseReveal() {
       className="relative z-10 flex min-h-[80vh] flex-col items-center justify-center px-6"
     >
       {/* Main phrase — word by word */}
-      <h1 className="text-center leading-[1.25]">
+      <h2 className="text-center leading-[1.25]">
         {words.map((word, i) => (
           <span
             key={i}
@@ -53,7 +53,7 @@ export function ScenePhraseReveal() {
             {word}
           </span>
         ))}
-      </h1>
+      </h2>
 
       {/* Supporting line */}
       <p

@@ -49,6 +49,22 @@ export function SEOHead({
   const ogH = ogImageHeight ?? 630;
   const ogAlt = ogImageAlt ?? fullTitle;
 
+  // Trim description to ≤160 chars at last whole word for optimal SERP display
+  const trimmedDescription = (() => {
+    if (!description) return description;
+    if (description.length <= 160) return description;
+    const cut = description.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(" ");
+    return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+  })();
+  const trimmedDescriptionEn = (() => {
+    if (!descriptionEn) return descriptionEn;
+    if (descriptionEn.length <= 160) return descriptionEn;
+    const cut = descriptionEn.slice(0, 157);
+    const lastSpace = cut.lastIndexOf(" ");
+    return `${(lastSpace > 80 ? cut.slice(0, lastSpace) : cut).trim()}…`;
+  })();
+
   const breadcrumbLd = breadcrumbs
     ? {
         "@context": "https://schema.org",
@@ -73,11 +89,13 @@ export function SEOHead({
   return (
     <Helmet>
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={trimmedDescription} />
       <link rel="canonical" href={canonical} />
       {/* robots meta is set below in the SEO crawler hints block */}
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="author" content="مول البستان" />
+      <meta name="theme-color" content="#071326" media="(prefers-color-scheme: dark)" />
+      <meta name="theme-color" content="#1F61FF" media="(prefers-color-scheme: light)" />
 
       {/* Alternate language hints */}
       <link rel="alternate" hrefLang="ar-EG" href={canonical} />
@@ -86,7 +104,7 @@ export function SEOHead({
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={descriptionEn ?? description} />
+      <meta property="og:description" content={trimmedDescriptionEn ?? trimmedDescription} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={ogImg} />
@@ -126,7 +144,7 @@ export function SEOHead({
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={descriptionEn ?? description} />
+      <meta name="twitter:description" content={trimmedDescriptionEn ?? trimmedDescription} />
       <meta name="twitter:image" content={ogImg} />
       <meta name="twitter:image:alt" content={ogAlt} />
 

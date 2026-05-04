@@ -139,12 +139,12 @@ export function HomeContent({ faqs }: HomeContentProps) {
       >
         <div className="container max-w-3xl text-center">
           <h1
-            className="text-[1rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground"
+            className="text-[1rem] md:text-[1.08rem] font-bold leading-[1.4] text-foreground sr-only md:not-sr-only md:block"
             style={{ fontFamily: "var(--font-arabic-display)" }}
           >
-            مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة
+            مول البستان — أكبر وجهة للكمبيوتر والإلكترونيات والتقنية في القاهرة الجديدة ووسط البلد
           </h1>
-          <p className="mt-1.5 text-[0.74rem] leading-[1.7] text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-1.5 text-[0.74rem] leading-[1.7] text-muted-foreground max-w-xl mx-auto hidden md:block">
             +150 محل في{" "}
             <Link to="/stores?category=الكمبيوتر والأجهزة" className="text-primary font-semibold hover:underline">الكمبيوتر</Link> ·{" "}
             <Link to="/stores?category=الهواتف والإكسسوارات" className="text-primary font-semibold hover:underline">الهواتف</Link> ·{" "}
@@ -153,9 +153,6 @@ export function HomeContent({ faqs }: HomeContentProps) {
           </p>
         </div>
       </section>
-
-      {/* Mobile-only invisible H1 for SEO since visual h1 hidden on mobile */}
-      <h1 className="sr-only md:hidden">مول البستان — وجهتك للكمبيوتر والإلكترونيات في القاهرة</h1>
 
       {/* ═══════════ 2 · QUICK ACTIONS ═══════════ */}
       <QuickActions />
