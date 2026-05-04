@@ -39,7 +39,7 @@ const OpeningDay = () => {
             startDate: "2026-05-01",
             endDate: "2026-05-15",
           }),
-          ...(events && events.length > 0 ? [buildEventLd(events)] : []),
+          ...(events && events.length > 0 ? buildEventLd(events) : []),
         ]}
       />
 
