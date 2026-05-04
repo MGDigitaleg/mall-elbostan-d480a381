@@ -130,22 +130,19 @@ export default function Sitemap() {
               </div>
             </div>
 
-            {/* Canonical sitemap submitted to Google Search Console */}
-            <div className="mb-8 rounded-2xl border border-primary/20 bg-primary/5 p-5">
-              <div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">الرابط الرسمي لمحركات البحث</div>
+            {/* Canonical sitemap (kept discreet — primarily for SEO crawlers) */}
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-muted/30 px-4 py-3 text-sm">
+              <span className="text-xs font-medium text-muted-foreground">فهرس خريطة الموقع</span>
               <a
                 href={PUBLIC_SITEMAP_URL}
                 target="_blank"
                 rel="noopener"
-                className="mt-2 inline-flex items-center gap-1.5 text-base font-semibold text-foreground hover:underline"
+                className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-primary hover:underline"
                 dir="ltr"
               >
                 {PUBLIC_SITEMAP_URL}
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-3.5 w-3.5" />
               </a>
-              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
-                هذا هو الرابط الذي يُرسَل إلى Google Search Console، ويحتوي على فهرس بكل الأقسام أدناه.
-              </p>
             </div>
 
             {/* Sections — show the public landing page for each */}
