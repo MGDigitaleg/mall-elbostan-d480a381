@@ -121,7 +121,7 @@ const DowntownDirectory = () => {
         jsonLd={directoryLd}
         breadcrumbs={[
           { name: "فرع وسط البلد", url: "/downtown-branch" },
-          { name: "دليل المحلات", url: "/downtown-directory" },
+          { name: "دليل محلات وسط البلد", url: "/downtown-directory" },
         ]}
       />
 

@@ -184,7 +184,7 @@ const DailyDeals = () => {
         description="عروض الافتتاح من المحلات الجديدة في مول البستان، مع ربط مباشر بكل متجر داخل المنظومة الرسمية للمول."
         descriptionEn="Opening offers from participating new tenants at Mall Elbostan, linked directly to each store inside the mall system."
         keywords="عروض الافتتاح, عروض مول البستان, Infinity Computer Services, Kareem Stores, خصومات لابتوب, إكسسوارات تصوير, mall offers"
-        breadcrumbs={[{ name: "عروض الافتتاح", url: "/daily-deals" }]}
+        breadcrumbs={[{ name: "العروض", url: "/daily-deals" }]}
         jsonLd={deals && deals.length > 0 ? buildCollectionPageLd({
           name: "عروض الافتتاح — مول البستان",
           description: "عروض المحلات المشاركة في يوم افتتاح مول البستان.",

@@ -274,7 +274,7 @@ const InteractiveMap = () => {
         description="استخدم خريطة مول البستان التفاعلية لتصفح المحلات على 3 أدوار. اعثر على محلات الكمبيوتر، الموبايلات، الجيمنج، والوحدات المتاحة للتأجير في التجمع الخامس، القاهرة."
         descriptionEn="Use Mall Elbostan's interactive map to browse stores across 3 floors. Find computer, mobile, gaming shops and available units in New Cairo."
         keywords="خريطة مول البستان, دليل الطوابق, وحدات تجارية, محلات كمبيوتر, محلات موبايلات, القاهرة الجديدة, interactive mall map"
-        breadcrumbs={[{ name: "الخريطة التفاعلية", url: "/map" }]}
+        breadcrumbs={[{ name: "الخريطة", url: "/map" }]}
         jsonLd={[
           buildMapLd({ name: "خريطة مول البستان التفاعلية", url: "/map" }),
           buildPlaceLd({ name: "مول البستان", url: "/map", latitude: 30.03, longitude: 31.46 }),
