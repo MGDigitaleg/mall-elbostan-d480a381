@@ -11,9 +11,8 @@ const SITEMAP_PATH = resolve(process.cwd(), "public/sitemap.xml");
 
 function extractLocs(xml: string): string[] {
   const dom = new JSDOM(xml, { contentType: "text/xml" });
-  return Array.from(dom.window.document.getElementsByTagName("loc"))
-    .map((n) => n.textContent?.trim() ?? "")
-    .filter(Boolean);
+  const nodes = Array.from(dom.window.document.getElementsByTagName("loc")) as Element[];
+  return nodes.map((n) => n.textContent?.trim() ?? "").filter(Boolean);
 }
 
 describe("edge sitemap section URLs (from public/sitemap.xml)", () => {
