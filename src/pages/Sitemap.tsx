@@ -130,11 +130,30 @@ export default function Sitemap() {
               </div>
             </div>
 
-            {/* Sections */}
+            {/* Canonical sitemap submitted to Google Search Console */}
+            <div className="mb-8 rounded-2xl border border-primary/20 bg-primary/5 p-5">
+              <div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">الرابط الرسمي لمحركات البحث</div>
+              <a
+                href={PUBLIC_SITEMAP_URL}
+                target="_blank"
+                rel="noopener"
+                className="mt-2 inline-flex items-center gap-1.5 text-base font-semibold text-foreground hover:underline"
+                dir="ltr"
+              >
+                {PUBLIC_SITEMAP_URL}
+                <ExternalLink className="h-4 w-4" />
+              </a>
+              <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
+                هذا هو الرابط الذي يُرسَل إلى Google Search Console، ويحتوي على فهرس بكل الأقسام أدناه.
+              </p>
+            </div>
+
+            {/* Sections — show the public landing page for each */}
             <div className="grid gap-4 md:grid-cols-2">
               {summary.sections.map((s) => {
                 const Icon = SECTION_ICONS[s.key] ?? FileText;
-                const xmlUrl = `${FN_BASE}?section=${s.key}`;
+                const publicPath = SECTION_PUBLIC_PATHS[s.key] ?? "/";
+                const publicUrl = `${PUBLIC_SITE_URL}${publicPath}`;
                 return (
                   <article
                     key={s.key}
@@ -161,15 +180,14 @@ export default function Sitemap() {
                       </div>
                     </dl>
 
-                    <a
-                      href={xmlUrl}
-                      target="_blank"
-                      rel="noopener"
+                    <Link
+                      to={publicPath}
                       className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
                     >
-                      عرض ملف XML
+                      تصفح القسم
                       <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
+                    </Link>
+                    <div className="mt-1 text-[11px] text-muted-foreground" dir="ltr">{publicUrl}</div>
                   </article>
                 );
               })}
