@@ -170,13 +170,13 @@ export function SEOHead({
       <meta name="twitter:image" content={ogImg} />
       <meta name="twitter:image:alt" content={ogAlt} />
 
-      {/* JSON-LD — single concatenated <script> for fastest parse + safe </script> escape.
-          Helmet's `prioritizeSeoTags` hoists this near the top of <head> so crawlers get it before render-blocking work. */}
-      {allJsonLd.length > 0 && (
-        <script type="application/ld+json">
-          {JSON.stringify(allJsonLd.length === 1 ? allJsonLd[0] : allJsonLd).replace(/</g, "\\u003c")}
+      {/* JSON-LD — `prioritizeSeoTags` hoists these near the top of <head> so crawlers get them before render-blocking work.
+          `</` is escaped to prevent HTML parser bailout if the payload ever contains a literal closing tag. */}
+      {allJsonLd.map((ld, i) => (
+        <script key={i} type="application/ld+json">
+          {JSON.stringify(ld).replace(/</g, "\\u003c")}
         </script>
-      )}
+      ))}
     </Helmet>
   );
 }
