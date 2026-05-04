@@ -175,10 +175,9 @@ export function HomeContent({ faqs }: HomeContentProps) {
           contain: "layout",
           contentVisibility: "auto",
           containIntrinsicSize: "auto 700px",
-          paddingTop: "clamp(14px, 2.4vw, 44px)",
-          paddingBottom: "clamp(12px, 2.2vw, 36px)",
-          // Reserve space while loading to prevent layout shift; only collapse if final result is too few
-          ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : { minHeight: 700 }),
+          paddingTop: "clamp(10px, 1.6vw, 28px)",
+          paddingBottom: "clamp(10px, 1.6vw, 28px)",
+          ...(!productsLoading && featuredProducts.length < 3 ? { display: "none" } : {}),
         } as React.CSSProperties}
       >
         <div className="container">
