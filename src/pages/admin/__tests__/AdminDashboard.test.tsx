@@ -44,9 +44,10 @@ vi.mock("@/hooks/useAuth", () => ({
   }),
 }));
 
-// CampaignStatusBadge uses react-query without a provider in tests; stub it.
-vi.mock("@/components/admin/CampaignStatusBadge", () => ({
-  CampaignStatusBadge: () => null,
+// CampaignStatusBadge calls useCampaignStatus -> useQuery, which needs a QueryClientProvider.
+// Mock the underlying hook to short-circuit it in tests.
+vi.mock("@/hooks/useCampaignStatus", () => ({
+  useCampaignStatus: () => ({ data: null, isLoading: false, error: null }),
 }));
 
 import AdminDashboard from "@/pages/admin/Dashboard";
