@@ -168,7 +168,6 @@ export function SocialOfferConvertWizard({
     valid_from: state.valid_from ? new Date(state.valid_from).toISOString() : new Date().toISOString(),
     valid_to: state.valid_to ? new Date(state.valid_to).toISOString() : null,
     offer_badge_ar: state.badge.trim() || null,
-    category: state.category || null,
   });
 
   const logActivity = async (action_type: string, action_label_ar: string, payload: Record<string, unknown> = {}) => {
