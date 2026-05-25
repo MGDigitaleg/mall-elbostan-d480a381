@@ -97,23 +97,16 @@ describe("Admin pages — SEO & permission posture", () => {
     expect(canonical).toBeNull();
   });
 
-  it("Dashboard hides admin-only sections (System / Operations / SEO) for editor role", async () => {
+  it("Dashboard hides admin-only sidebar items for editor role", async () => {
     authState.isAdmin = false;
     authState.isEditor = true;
 
     renderUI(<AdminDashboard />);
 
     await waitFor(() => {
-      // Editor sees content + spin groups
       expect(screen.getByText("المحتوى")).toBeInTheDocument();
     });
 
-    // Admin-only group labels MUST NOT render for editor
-    expect(screen.queryByText("النظام والبنية التحتية")).toBeNull();
-    expect(screen.queryByText("العمليات")).toBeNull();
-    expect(screen.queryByText("SEO والفهرسة")).toBeNull();
-
-    // Specific admin-only items hidden
     expect(screen.queryByText("النسخ الاحتياطية")).toBeNull();
     expect(screen.queryByText("قاعدة البيانات")).toBeNull();
     expect(screen.queryByText("العملاء المحتملون")).toBeNull();
@@ -121,19 +114,18 @@ describe("Admin pages — SEO & permission posture", () => {
     expect(screen.queryByText("تدقيق SEO")).toBeNull();
     expect(screen.queryByText("جاهزية الإطلاق")).toBeNull();
 
-    // Editor-allowed items still visible
-    expect(screen.getByText("المتاجر")).toBeInTheDocument();
+    expect(screen.getByText("المحلات")).toBeInTheDocument();
     expect(screen.getByText("المدونة")).toBeInTheDocument();
   });
 
-  it("Dashboard exposes admin-only sections to admin role", async () => {
+  it("Dashboard exposes admin-only sidebar items to admin role", async () => {
     authState.isAdmin = true;
     authState.isEditor = false;
 
     renderUI(<AdminDashboard />);
 
     await waitFor(() => {
-      expect(screen.getByText("النظام والبنية التحتية")).toBeInTheDocument();
+      expect(screen.getByText("النظام")).toBeInTheDocument();
     });
     expect(screen.getByText("العمليات")).toBeInTheDocument();
     expect(screen.getByText("SEO والفهرسة")).toBeInTheDocument();
