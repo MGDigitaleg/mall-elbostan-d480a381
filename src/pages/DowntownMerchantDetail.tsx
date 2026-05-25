@@ -180,13 +180,15 @@ const DowntownMerchantDetail = () => {
                 <h1 className="text-[1.45rem] md:text-[1.6rem] font-bold leading-tight" style={{ color: "#F8FAFC" }}>
                   {merchant.name_ar}
                 </h1>
-                <span
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.65rem] font-bold"
-                  style={{ background: status.bg, color: status.text, border: `1px solid ${status.border}` }}
-                >
-                  <StatusIcon className="h-3 w-3" />
-                  {status.label}
-                </span>
+                {badge && badgeStyle && (
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.65rem] font-bold"
+                    style={{ background: badgeStyle.bg, color: badgeStyle.text, border: `1px solid ${badgeStyle.border}` }}
+                  >
+                    <ShieldCheck className="h-3 w-3" />
+                    {badge.label}
+                  </span>
+                )}
               </div>
 
               {merchant.name_en && (
