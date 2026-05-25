@@ -225,8 +225,10 @@ function AppLayout() {
             <Route path="/admin/jobs" element={<AdminJobs />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
             <Route path="/admin/faqs" element={<AdminFaqs />} />
-            <Route path="/admin/products" element={<AdminProducts />} />
+            <Route path="/admin/products" element={<AdminProductsManager />} />
+            <Route path="/admin/products/legacy" element={<AdminProducts />} />
             <Route path="/admin/product-categories" element={<AdminProductCategories />} />
+            <Route path="/admin/offers" element={<AdminOffersPipeline />} />
             <Route path="/admin/competition-stores" element={<AdminCompetitionStores />} />
             <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
             <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />
