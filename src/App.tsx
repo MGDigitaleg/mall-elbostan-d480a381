@@ -79,6 +79,8 @@ const AdminCloudStatus = lazy(() => lazyRetry(() => import("./pages/admin/AdminC
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoresList")));
+const AdminProductsManager = lazy(() => lazyRetry(() => import("./pages/admin/AdminProductsManager")));
+const AdminOffersPipeline = lazy(() => lazyRetry(() => import("./pages/admin/AdminOffersPipeline")));
 const AdminStoreDetail = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoreDetail")));
 const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits }))));
 const AdminEvents = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents }))));
@@ -223,8 +225,10 @@ function AppLayout() {
             <Route path="/admin/jobs" element={<AdminJobs />} />
             <Route path="/admin/blog" element={<AdminBlog />} />
             <Route path="/admin/faqs" element={<AdminFaqs />} />
-            <Route path="/admin/products" element={<AdminProducts />} />
+            <Route path="/admin/products" element={<AdminProductsManager />} />
+            <Route path="/admin/products/legacy" element={<AdminProducts />} />
             <Route path="/admin/product-categories" element={<AdminProductCategories />} />
+            <Route path="/admin/offers" element={<AdminOffersPipeline />} />
             <Route path="/admin/competition-stores" element={<AdminCompetitionStores />} />
             <Route path="/admin/store-prizes" element={<AdminStorePrizes />} />
             <Route path="/admin/spin-winners" element={<AdminSpinWinners />} />

@@ -35,7 +35,8 @@ const groups: Group[] = [
     items: [
       { title: "فئات المنتجات", url: "/admin/product-categories", icon: LayoutGrid },
       { title: "المنتجات", url: "/admin/products", icon: ShoppingBag },
-      { title: "العروض", url: "/admin/deals", icon: Tag },
+      { title: "مسار العروض", url: "/admin/offers", icon: Tag },
+      { title: "العروض (الكلاسيكي)", url: "/admin/deals", icon: Tag, adminOnly: true },
       { title: "عروض السوشيال", url: "/admin/social-offers", icon: Bell, adminOnly: true },
       { title: "منتجات Kasr Zero", url: "/admin/kz-products", icon: Cpu },
     ],
