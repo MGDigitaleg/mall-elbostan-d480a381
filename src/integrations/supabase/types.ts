@@ -1867,6 +1867,7 @@ export type Database = {
           admin_notes: string | null
           branch_context: string | null
           category: string | null
+          connector_enabled: boolean
           cover_image_url: string | null
           created_at: string
           display_name: string | null
@@ -1884,6 +1885,7 @@ export type Database = {
           is_opening_participant: boolean
           last_sync_at: string | null
           last_sync_error: string | null
+          last_sync_result: string | null
           lifecycle_status: string
           logo_url: string | null
           long_description_ar: string | null
@@ -1903,6 +1905,7 @@ export type Database = {
           status: string
           sync_log: Json
           sync_mode: string
+          sync_notes: string | null
           sync_status: string
           unit_code: string | null
           unit_label: string | null
@@ -1914,6 +1917,7 @@ export type Database = {
           admin_notes?: string | null
           branch_context?: string | null
           category?: string | null
+          connector_enabled?: boolean
           cover_image_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -1931,6 +1935,7 @@ export type Database = {
           is_opening_participant?: boolean
           last_sync_at?: string | null
           last_sync_error?: string | null
+          last_sync_result?: string | null
           lifecycle_status?: string
           logo_url?: string | null
           long_description_ar?: string | null
@@ -1950,6 +1955,7 @@ export type Database = {
           status?: string
           sync_log?: Json
           sync_mode?: string
+          sync_notes?: string | null
           sync_status?: string
           unit_code?: string | null
           unit_label?: string | null
@@ -1961,6 +1967,7 @@ export type Database = {
           admin_notes?: string | null
           branch_context?: string | null
           category?: string | null
+          connector_enabled?: boolean
           cover_image_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -1978,6 +1985,7 @@ export type Database = {
           is_opening_participant?: boolean
           last_sync_at?: string | null
           last_sync_error?: string | null
+          last_sync_result?: string | null
           lifecycle_status?: string
           logo_url?: string | null
           long_description_ar?: string | null
@@ -1997,6 +2005,7 @@ export type Database = {
           status?: string
           sync_log?: Json
           sync_mode?: string
+          sync_notes?: string | null
           sync_status?: string
           unit_code?: string | null
           unit_label?: string | null
