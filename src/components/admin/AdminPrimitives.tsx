@@ -92,3 +92,65 @@ export function AdminSectionCard({
     </section>
   );
 }
+
+/**
+ * AdminFilterPanel — collapsible filter wrapper for admin pages.
+ * Desktop: always open. Mobile: collapsed by default with summary chip + toggle.
+ */
+export function AdminFilterPanel({
+  children,
+  activeCount = 0,
+  onReset,
+  summary,
+  className,
+  defaultOpen = false,
+}: {
+  children: React.ReactNode;
+  activeCount?: number;
+  onReset?: () => void;
+  summary?: React.ReactNode;
+  className?: string;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className={cn("rounded-xl border border-border bg-card mb-4 overflow-hidden", className)}>
+      {/* Mobile toggle bar */}
+      <button
+        type="button"
+        onClick={() => setOpen(v => !v)}
+        className="md:hidden w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-bold border-b border-border bg-secondary/30"
+        aria-expanded={open}
+      >
+        <span className="inline-flex items-center gap-2">
+          <Filter className="w-4 h-4" />
+          الفلاتر
+          {activeCount > 0 && (
+            <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[0.65rem] font-bold">
+              {activeCount}
+            </span>
+          )}
+        </span>
+        <ChevronDown className={cn("w-4 h-4 transition-transform", open && "rotate-180")} />
+      </button>
+
+      {/* Summary line on mobile when collapsed */}
+      {!open && summary && (
+        <div className="md:hidden px-3 py-2 text-xs text-muted-foreground border-b border-border">
+          {summary}
+        </div>
+      )}
+
+      <div className={cn("p-3 space-y-3", !open && "hidden md:block")}>
+        {children}
+        {activeCount > 0 && onReset && (
+          <div className="flex md:hidden">
+            <Button variant="ghost" size="sm" onClick={onReset} className="gap-1 text-xs">
+              <X className="w-3.5 h-3.5" /> مسح كل الفلاتر ({activeCount})
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
