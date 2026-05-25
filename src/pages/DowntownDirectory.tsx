@@ -150,7 +150,7 @@ const DowntownDirectory = () => {
             {[
               { label: "محل تجاري", value: merchants?.length ?? 0 },
               { label: "تصنيف", value: Object.keys(categoryCounts).length },
-              { label: "موثّق", value: merchants?.filter(m => m.verification_status === "Verified" || m.verification_status === "verified").length ?? 0 },
+              { label: "موثّق", value: visibleMerchantsAll.filter(m => getPublicBadge(m)?.tone === "green").length },
             ].map((s) => (
               <div key={s.label} className="rounded-xl border px-5 py-2.5" style={{ borderColor: "hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.03)" }}>
                 <span className="text-[1.2rem] font-bold" style={{ color: "#F8FAFC" }}>{s.value}</span>
