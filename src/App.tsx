@@ -99,6 +99,16 @@ const AdminStorePrizes = lazy(() => lazyRetry(() => import("./pages/admin/AdminS
 const AdminSpinWinners = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners }))));
 const AdminSpinReports = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports }))));
 
+/* ── Merchant Portal ── */
+const MerchantOverview = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantOverview")));
+const MerchantMyStore = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyStore")));
+const MerchantMyProducts = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyProducts")));
+const MerchantMyOffers = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyOffers")));
+const MerchantMyLeads = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyLeads")));
+const MerchantExternal = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantExternal")));
+const MerchantMedia = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMedia")));
+const MerchantAccount = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantAccount")));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
