@@ -55,6 +55,8 @@ const AdminSocialOffers = () => {
   useRequireAdmin();
   const qc = useQueryClient();
   const [tab, setTab] = useState("queue");
+  const [wizardPostId, setWizardPostId] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { data: merchants = [], isLoading: loadingMerchants } = useQuery({
     queryKey: ["social-monitored-merchants"],
