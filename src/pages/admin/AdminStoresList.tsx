@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminShell } from "@/components/admin/AdminShell";
 import {
-  AdminPageHeader, AdminStatusBadge, AdminEmptyState,
+  AdminPageHeader, AdminStatusBadge, AdminEmptyState, AdminFilterPanel,
 } from "@/components/admin/AdminPrimitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -234,23 +234,27 @@ export default function AdminStoresList() {
         </div>
 
         {/* Filters */}
-        <div className="rounded-xl border border-border bg-card p-3 mb-4 space-y-3">
+        <AdminFilterPanel
+          activeCount={activeFilterCount}
+          onReset={resetFilters}
+          summary={`${filtered.length} من ${rows.length} محل`}
+        >
           <div className="flex flex-wrap items-center gap-2">
-            <div className="relative flex-1 min-w-[220px]">
+            <div className="relative flex-1 min-w-[200px]">
               <Search className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={q} onChange={(e) => setQ(e.target.value)}
-                placeholder="ابحث بالاسم، الـ slug، الفئة، أو رمز الوحدة..."
+                placeholder="ابحث بالاسم، الـ slug، الفئة..."
                 className="pr-9"
               />
             </div>
             {activeFilterCount > 0 && (
-              <Button variant="ghost" size="sm" onClick={resetFilters} className="gap-1 text-xs">
-                <X className="w-3.5 h-3.5" /> مسح الفلاتر ({activeFilterCount})
+              <Button variant="ghost" size="sm" onClick={resetFilters} className="gap-1 text-xs hidden md:inline-flex">
+                <X className="w-3.5 h-3.5" /> مسح ({activeFilterCount})
               </Button>
             )}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-2">
             <Select label="الفرع" value={branchFilter} onChange={setBranchFilter} options={[
               { value: "all", label: "كل الفروع" },
               { value: "new-cairo", label: "التجمع الخامس" },
@@ -288,7 +292,8 @@ export default function AdminStoresList() {
               { value: "error", label: "أخطاء مزامنة" },
             ]} />
           </div>
-        </div>
+        </AdminFilterPanel>
+
 
         {/* Bulk action bar */}
         {selected.size > 0 && (
