@@ -6,8 +6,8 @@ const Privacy = () => (
     <SEOHead
       title="سياسة الخصوصية"
       titleEn="Privacy Policy"
-      description="سياسة الخصوصية لمول البستان."
-      descriptionEn="Mall Elbostan privacy policy."
+      description="سياسة الخصوصية لمول البستان — كيف نجمع ونحمي بياناتك الشخصية عند استخدام الموقع، حقوقك، وطرق التواصل معنا."
+      descriptionEn="Mall Elbostan privacy policy — how we collect and protect your personal data when using the site, your rights, and contact options."
       breadcrumbs={[{ name: "سياسة الخصوصية", url: "/privacy" }]}
       jsonLd={buildWebPageLd({ name: "سياسة الخصوصية — مول البستان", description: "سياسة الخصوصية لمول البستان وكيفية حماية بياناتك.", url: "/privacy" })}
     />
