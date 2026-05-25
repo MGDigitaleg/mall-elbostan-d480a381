@@ -9,6 +9,7 @@ type Card = { title: string; description: string; to: string; icon: LucideIcon }
 
 const cards: Card[] = [
   { title: "مستخدمو الأدمن", description: "إدارة الأعضاء والصلاحيات.", to: "/admin/users", icon: Users },
+  { title: "الأدوار والصلاحيات", description: "مصفوفة الوصول لكل قسم.", to: "/admin/roles", icon: ShieldCheck },
   { title: "إعدادات التواصل", description: "الهاتف، واتساب، البريد.", to: "/admin/contact-settings", icon: Phone },
   { title: "إعدادات أدر واربح", description: "الحملة والجوائز والمتاجر.", to: "/admin/spin-system", icon: ShieldCheck },
   { title: "مراقبة عروض السوشيال", description: "المراجعة والكلمات المفتاحية.", to: "/admin/social-offers", icon: Bell },

@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Store, Building, ShoppingBag, Tag, LayoutGrid, FileText,
   Calendar, Briefcase, HelpCircle, Building2, Cpu, Sparkles, Trophy, Award,
   Gift, Ticket, Users, BarChart3, Bell, Globe, RefreshCw, Rocket, Cloud,
-  Database, Activity, Phone, ScanSearch, FolderTree, Settings,
+  Database, Activity, Phone, ScanSearch, FolderTree, Settings, ShieldCheck,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -82,6 +82,7 @@ const groups: Group[] = [
     items: [
       { title: "الإعدادات", url: "/admin/settings", icon: Settings, adminOnly: true },
       { title: "مستخدمو الأدمن", url: "/admin/users", icon: Users, adminOnly: true },
+      { title: "الأدوار والصلاحيات", url: "/admin/roles", icon: ShieldCheck, adminOnly: true },
       { title: "جاهزية الإطلاق", url: "/admin/launch-readiness", icon: Rocket, adminOnly: true },
       { title: "حالة Lovable Cloud", url: "/admin/cloud-status", icon: Cloud, adminOnly: true },
       { title: "النسخ الاحتياطية", url: "/admin/backup", icon: Database, adminOnly: true },
