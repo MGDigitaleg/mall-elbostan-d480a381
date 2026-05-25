@@ -49,11 +49,14 @@ const DowntownDirectory = () => {
     },
   });
 
+  const visibleMerchantsAll = useMemo(() => {
+    return (merchants ?? []).filter(m => !isAdminOnlyStatus(m.verification_status));
+  }, [merchants]);
+
   const filtered = useMemo(() => {
-    if (!merchants) return [];
     const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, "");
     const searchNorm = search ? normalize(search) : "";
-    return merchants.filter((m) => {
+    return visibleMerchantsAll.filter((m) => {
       const matchesSearch = !searchNorm ||
         normalize(m.name_ar).includes(searchNorm) ||
         m.name_ar.toLowerCase().includes(search.toLowerCase()) ||
@@ -61,10 +64,14 @@ const DowntownDirectory = () => {
         (m.phone && m.phone.replace(/\s+/g, "").includes(searchNorm)) ||
         (m.category && normalize(m.category).includes(searchNorm));
       const matchesCategory = selectedCategory === "الكل" || m.category === selectedCategory;
-      const matchesStatus = selectedStatus === "الكل" || m.verification_status === selectedStatus;
+      const badge = getPublicBadge(m);
+      const matchesStatus = selectedStatus === "الكل"
+        || (selectedStatus === "verified" && badge?.tone === "green")
+        || (selectedStatus === "listed"   && badge?.tone === "blue")
+        || (selectedStatus === "needs"    && badge?.tone === "amber");
       return matchesSearch && matchesCategory && matchesStatus;
     });
-  }, [merchants, search, selectedCategory, selectedStatus]);
+  }, [visibleMerchantsAll, search, selectedCategory, selectedStatus]);
 
   // Reset pagination when filters change
   const visibleMerchants = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
