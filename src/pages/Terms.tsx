@@ -6,8 +6,8 @@ const Terms = () => (
     <SEOHead
       title="الشروط والأحكام"
       titleEn="Terms & Conditions"
-      description="الشروط والأحكام لاستخدام موقع مول البستان."
-      descriptionEn="Terms and conditions of Mall Elbostan website."
+      description="الشروط والأحكام لاستخدام موقع مول البستان — القواعد المنظمة لتصفح الدليل، استخدام الخريطة التفاعلية، التواصل مع المحلات، والمسؤوليات."
+      descriptionEn="Terms and conditions for using Mall Elbostan website — rules for browsing the directory, using the interactive map, contacting stores, and liability."
       breadcrumbs={[{ name: "الشروط والأحكام", url: "/terms" }]}
       jsonLd={buildWebPageLd({ name: "الشروط والأحكام — مول البستان", description: "شروط استخدام موقع مول البستان.", url: "/terms" })}
     />

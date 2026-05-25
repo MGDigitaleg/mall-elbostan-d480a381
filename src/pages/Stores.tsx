@@ -239,7 +239,7 @@ const Stores = () => {
         }
         descriptionEn="Browse all stores at Mall Elbostan — computers, laptops, phones, gaming & accessories in New Cairo's Fifth Settlement."
         keywords={`محلات ${selectedCategory ?? "كمبيوتر"}, محلات موبايلات, دليل محلات, مول البستان, التجمع الخامس, لابتوب, جيمنج, إكسسوارات, القاهرة الجديدة`}
-        ogImage="/og-default.jpg"
+        ogImage="https://mallelbostan.com/og-default.jpg"
         ogImageAlt={selectedCategory ? `محلات ${selectedCategory} في مول البستان` : "دليل محلات مول البستان"}
         tags={selectedCategory
           ? [selectedCategory, "محلات", "مول البستان", "التجمع الخامس", "القاهرة الجديدة"]
