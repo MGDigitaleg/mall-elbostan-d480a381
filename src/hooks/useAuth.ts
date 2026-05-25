@@ -35,21 +35,28 @@ export function useAuth(): AuthState & { signOut: () => Promise<void> } {
       if (session?.user) {
         // defer the role fetch to avoid deadlocks inside the auth callback
         setTimeout(() => {
-          loadRoles(session.user.id).then(setRoles);
+          loadRoles(session.user.id).then((r) => {
+            setRoles(r);
+            setLoading(false);
+          });
         }, 0);
       } else {
         setRoles([]);
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     // 2) Then read existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        loadRoles(session.user.id).then(setRoles);
+        loadRoles(session.user.id).then((r) => {
+          setRoles(r);
+          setLoading(false);
+        });
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
