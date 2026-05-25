@@ -1,0 +1,31 @@
+# Mall Elbostan
+
+> Egypt's oldest and largest specialized technology mall since 1990. Two branches (Downtown Cairo & New Cairo Fifth Settlement), 150+ stores for computers, laptops, phones, gaming gear, accessories, networking and tech repair services.
+
+Mall Elbostan (مول البستان) is a mall-first, directory-first technology destination. The site presents the mall as a real commercial place: stores, categories, an interactive floor map, branches, and curated offers and products from tenant merchants. Content is Arabic-first (Fusha) with English equivalents.
+
+## Pages
+
+- [Home](/): Mall overview, featured stores, categories, interactive map teaser.
+- [About](/about): History of Mall Elbostan since 1990, branches, mission.
+- [Stores Directory](/stores): All tenant stores filterable by category.
+- [Products Catalog](/products): Aggregated products from tenant stores — laptops, phones, accessories, gaming gear.
+- [Interactive Map](/map): Floor-by-floor map of the mall with unit and store details.
+- [Categories](/stores?category=الكمبيوتر%20والأجهزة): Technology categories (computers, mobiles, gaming, printing, networking, repair).
+- [Daily Deals](/daily-deals): Current promotions from tenant stores.
+- [Blog](/blog): Articles on technology, mall events, and store spotlights.
+- [Leasing](/leasing): Commercial units available for lease to tenants.
+- [Contact](/contact): General inquiries, leasing, partnerships, careers.
+- [Downtown Branch](/downtown): Mall Elbostan Downtown Cairo (Bab Al-Louq, Al-Bustan Street).
+- [Downtown Directory](/downtown/directory): Tenant directory for the Downtown branch.
+- [New Cairo Branch](/new-cairo): Mall Elbostan New Cairo (Fifth Settlement).
+- [Opening Day](/opening-day): Official opening event details (May 2026).
+- [FAQ](/faq): Common questions about the mall, visiting, and tenants.
+- [Market Echo](/market-echo): Editorial brand story about the Elbostan name in Egyptian tech retail.
+
+## Optional
+
+- [Privacy Policy](/privacy): How we handle visitor data.
+- [Terms & Conditions](/terms): Site usage terms.
+- [Careers](/careers): Job opportunities at the mall.
+- [Sitemap](/sitemap.xml): XML sitemap index.
