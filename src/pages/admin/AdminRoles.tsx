@@ -146,10 +146,11 @@ export default function AdminRoles() {
         />
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           <StatCard label="إجمالي الأعضاء" value={counts.total} icon={UsersIcon} tone="neutral" />
           <StatCard label="مسؤولون" value={counts.admins} icon={ShieldCheck} tone="primary" />
           <StatCard label="محررون" value={counts.editors} icon={FileText} tone="success" />
+          <StatCard label="مراجعون" value={counts.reviewers} icon={ShieldCheck} tone="primary" />
           <StatCard label="بدون صلاحية" value={counts.none} icon={ShieldAlert} tone="danger" />
         </div>
 
