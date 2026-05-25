@@ -309,6 +309,42 @@ export type Database = {
           },
         ]
       }
+      downtown_directory_audit: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          field: string | null
+          id: string
+          merchant_id: string
+          new_value: string | null
+          note: string | null
+          old_value: string | null
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          field?: string | null
+          id?: string
+          merchant_id: string
+          new_value?: string | null
+          note?: string | null
+          old_value?: string | null
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          field?: string | null
+          id?: string
+          merchant_id?: string
+          new_value?: string | null
+          note?: string | null
+          old_value?: string | null
+        }
+        Relationships: []
+      }
       downtown_merchants: {
         Row: {
           address: string | null
@@ -316,11 +352,17 @@ export type Database = {
           branch: string
           category: string | null
           category_secondary: string | null
+          confidence_score: number | null
+          confirmed_by_team_at: string | null
           cover_image_url: string | null
           created_at: string
+          current_status: string | null
+          detailed_specialisation: string | null
           email: string | null
+          evidence_summary: string | null
           facebook_url: string | null
           floor: string | null
+          floor_unit_location: string | null
           google_maps_url: string | null
           id: string
           instagram_url: string | null
@@ -328,17 +370,28 @@ export type Database = {
           is_marketplace_enabled: boolean
           keywords_ar: string | null
           keywords_en: string | null
+          last_evidence_date: string | null
+          last_manual_check_date: string | null
           last_verified_at: string | null
           logo_url: string | null
+          missing_data: string | null
           name_ar: string
           name_en: string | null
+          next_action: string | null
+          notes_for_website_team: string | null
+          opening_hours: string | null
+          original_directory_presence: string | null
           phone: string | null
+          products_services: string | null
           products_services_ar: string | null
           products_services_en: string | null
+          recommended_badge: string | null
+          row_type: string | null
           seo_meta_description_ar: string | null
           seo_meta_description_en: string | null
           seo_title_ar: string | null
           seo_title_en: string | null
+          show_verified_publicly: boolean
           slug: string
           social_url: string | null
           sort_order: number
@@ -348,10 +401,12 @@ export type Database = {
           source_2_url: string | null
           source_3_label: string | null
           source_3_url: string | null
+          source_date_quality: string | null
           source_notes: string | null
           source_url: string | null
           summary_ar: string | null
           summary_en: string | null
+          tech_related: boolean | null
           tiktok_url: string | null
           unit_number: string | null
           updated_at: string
@@ -366,11 +421,17 @@ export type Database = {
           branch?: string
           category?: string | null
           category_secondary?: string | null
+          confidence_score?: number | null
+          confirmed_by_team_at?: string | null
           cover_image_url?: string | null
           created_at?: string
+          current_status?: string | null
+          detailed_specialisation?: string | null
           email?: string | null
+          evidence_summary?: string | null
           facebook_url?: string | null
           floor?: string | null
+          floor_unit_location?: string | null
           google_maps_url?: string | null
           id?: string
           instagram_url?: string | null
@@ -378,17 +439,28 @@ export type Database = {
           is_marketplace_enabled?: boolean
           keywords_ar?: string | null
           keywords_en?: string | null
+          last_evidence_date?: string | null
+          last_manual_check_date?: string | null
           last_verified_at?: string | null
           logo_url?: string | null
+          missing_data?: string | null
           name_ar: string
           name_en?: string | null
+          next_action?: string | null
+          notes_for_website_team?: string | null
+          opening_hours?: string | null
+          original_directory_presence?: string | null
           phone?: string | null
+          products_services?: string | null
           products_services_ar?: string | null
           products_services_en?: string | null
+          recommended_badge?: string | null
+          row_type?: string | null
           seo_meta_description_ar?: string | null
           seo_meta_description_en?: string | null
           seo_title_ar?: string | null
           seo_title_en?: string | null
+          show_verified_publicly?: boolean
           slug: string
           social_url?: string | null
           sort_order?: number
@@ -398,10 +470,12 @@ export type Database = {
           source_2_url?: string | null
           source_3_label?: string | null
           source_3_url?: string | null
+          source_date_quality?: string | null
           source_notes?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
+          tech_related?: boolean | null
           tiktok_url?: string | null
           unit_number?: string | null
           updated_at?: string
@@ -416,11 +490,17 @@ export type Database = {
           branch?: string
           category?: string | null
           category_secondary?: string | null
+          confidence_score?: number | null
+          confirmed_by_team_at?: string | null
           cover_image_url?: string | null
           created_at?: string
+          current_status?: string | null
+          detailed_specialisation?: string | null
           email?: string | null
+          evidence_summary?: string | null
           facebook_url?: string | null
           floor?: string | null
+          floor_unit_location?: string | null
           google_maps_url?: string | null
           id?: string
           instagram_url?: string | null
@@ -428,17 +508,28 @@ export type Database = {
           is_marketplace_enabled?: boolean
           keywords_ar?: string | null
           keywords_en?: string | null
+          last_evidence_date?: string | null
+          last_manual_check_date?: string | null
           last_verified_at?: string | null
           logo_url?: string | null
+          missing_data?: string | null
           name_ar?: string
           name_en?: string | null
+          next_action?: string | null
+          notes_for_website_team?: string | null
+          opening_hours?: string | null
+          original_directory_presence?: string | null
           phone?: string | null
+          products_services?: string | null
           products_services_ar?: string | null
           products_services_en?: string | null
+          recommended_badge?: string | null
+          row_type?: string | null
           seo_meta_description_ar?: string | null
           seo_meta_description_en?: string | null
           seo_title_ar?: string | null
           seo_title_en?: string | null
+          show_verified_publicly?: boolean
           slug?: string
           social_url?: string | null
           sort_order?: number
@@ -448,10 +539,12 @@ export type Database = {
           source_2_url?: string | null
           source_3_label?: string | null
           source_3_url?: string | null
+          source_date_quality?: string | null
           source_notes?: string | null
           source_url?: string | null
           summary_ar?: string | null
           summary_en?: string | null
+          tech_related?: boolean | null
           tiktok_url?: string | null
           unit_number?: string | null
           updated_at?: string
