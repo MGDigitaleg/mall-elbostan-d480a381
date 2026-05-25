@@ -13,6 +13,18 @@ type AnalyticsParams = Record<string, unknown>;
 type WindowWithAnalytics = Window & {
   gtag?: (...args: unknown[]) => void;
   dataLayer?: unknown[];
+  fbq?: (...args: unknown[]) => void;
+};
+
+const META_STANDARD: Record<string, string> = {
+  lead_submit: "Lead",
+  spin_registration: "CompleteRegistration",
+  spin_win_result: "Lead",
+  whatsapp_click: "Contact",
+  directions_click: "FindLocation",
+  offer_click: "ViewContent",
+  store_click: "ViewContent",
+  qr_visit: "ViewContent",
 };
 
 /** Fire a tracking event to GA4 + GTM dataLayer. Safe on SSR / when GA isn't loaded. */
@@ -32,6 +44,11 @@ export function trackEvent(name: string, params: AnalyticsParams = {}): void {
     }
     if (Array.isArray(w.dataLayer)) {
       w.dataLayer.push({ event: name, ...payload });
+    }
+    if (typeof w.fbq === "function") {
+      const fbEvent = META_STANDARD[name];
+      if (fbEvent) w.fbq("track", fbEvent, payload);
+      else w.fbq("trackCustom", name, payload);
     }
     // Dev-only console echo for easier debugging in DebugView
     if (import.meta.env.DEV) {
@@ -99,4 +116,34 @@ export function trackOffersCtaClick(
     link_destination: destination,
     link_label: label,
   });
+}
+
+/** Spin & Win successful form registration (before result). */
+export function trackSpinRegistration(params: AnalyticsParams = {}): void {
+  trackEvent("spin_registration", params);
+}
+
+/** Click on a store card / store name anywhere on the site. */
+export function trackStoreClick(storeSlug: string, placement: string, extra: AnalyticsParams = {}): void {
+  trackEvent("store_click", { store_slug: storeSlug, placement, ...extra });
+}
+
+/** Click on a WhatsApp link/button anywhere on the site. */
+export function trackWhatsappClick(placement: string, extra: AnalyticsParams = {}): void {
+  trackEvent("whatsapp_click", { placement, ...extra });
+}
+
+/** Click on a Google Maps / directions link. */
+export function trackDirectionsClick(branch: "new-cairo" | "downtown" | string, placement: string): void {
+  trackEvent("directions_click", { branch, placement });
+}
+
+/** Logged when a QR campaign deep-link is opened (utm_source=qr). */
+export function trackQrVisit(slug: string | null, params: AnalyticsParams = {}): void {
+  trackEvent("qr_visit", { qr_slug: slug, ...params });
+}
+
+/** Click on a specific offer/deal card. */
+export function trackOfferClick(offerId: string, placement: string, extra: AnalyticsParams = {}): void {
+  trackEvent("offer_click", { offer_id: offerId, placement, ...extra });
 }

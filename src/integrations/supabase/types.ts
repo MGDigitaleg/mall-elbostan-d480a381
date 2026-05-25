@@ -1092,6 +1092,63 @@ export type Database = {
           },
         ]
       }
+      qr_campaigns: {
+        Row: {
+          created_at: string
+          description_ar: string | null
+          destination_path: string
+          id: string
+          is_active: boolean
+          lead_count: number
+          name_ar: string
+          notes: string | null
+          placement: string | null
+          scan_count: number
+          slug: string
+          updated_at: string
+          utm_campaign: string
+          utm_content: string | null
+          utm_medium: string
+          utm_source: string
+        }
+        Insert: {
+          created_at?: string
+          description_ar?: string | null
+          destination_path?: string
+          id?: string
+          is_active?: boolean
+          lead_count?: number
+          name_ar: string
+          notes?: string | null
+          placement?: string | null
+          scan_count?: number
+          slug: string
+          updated_at?: string
+          utm_campaign: string
+          utm_content?: string | null
+          utm_medium?: string
+          utm_source?: string
+        }
+        Update: {
+          created_at?: string
+          description_ar?: string | null
+          destination_path?: string
+          id?: string
+          is_active?: boolean
+          lead_count?: number
+          name_ar?: string
+          notes?: string | null
+          placement?: string | null
+          scan_count?: number
+          slug?: string
+          updated_at?: string
+          utm_campaign?: string
+          utm_content?: string | null
+          utm_medium?: string
+          utm_source?: string
+        }
+        Relationships: []
+      }
       rewards: {
         Row: {
           active_from: string | null
@@ -1722,6 +1779,10 @@ export type Database = {
           redeemed_at: string | null
           redeemed_by: string | null
           spin_date: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
           visitor_token: string | null
           visitor_verified: boolean
         }
@@ -1742,6 +1803,10 @@ export type Database = {
           redeemed_at?: string | null
           redeemed_by?: string | null
           spin_date?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
           visitor_token?: string | null
           visitor_verified?: boolean
         }
@@ -1762,6 +1827,10 @@ export type Database = {
           redeemed_at?: string | null
           redeemed_by?: string | null
           spin_date?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
           visitor_token?: string | null
           visitor_verified?: boolean
         }

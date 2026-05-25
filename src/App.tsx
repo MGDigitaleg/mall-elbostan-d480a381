@@ -48,6 +48,7 @@ const DowntownMerchantDetail = lazy(() => lazyRetry(() => import("./pages/Downto
 const TechPlanet = lazy(() => lazyRetry(() => import("./pages/TechPlanet")));
 const Sitemap = lazy(() => lazyRetry(() => import("./pages/Sitemap")));
 const Rss = lazy(() => lazyRetry(() => import("./pages/Rss")));
+const ThankYou = lazy(() => lazyRetry(() => import("./pages/ThankYou")));
 const NotFound = lazy(() => lazyRetry(() => import("./pages/NotFound")));
 
 /* ── Kasr Zero pages ── */
@@ -79,6 +80,7 @@ const AdminCloudStatus = lazy(() => lazyRetry(() => import("./pages/admin/AdminC
 const AdminUsers = lazy(() => lazyRetry(() => import("./pages/admin/AdminUsers")));
 const AdminSettings = lazy(() => lazyRetry(() => import("./pages/admin/AdminSettings")));
 const AdminRoles = lazy(() => lazyRetry(() => import("./pages/admin/AdminRoles")));
+const AdminQrCampaigns = lazy(() => lazyRetry(() => import("./pages/admin/AdminQrCampaigns")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoresList")));
@@ -213,6 +215,8 @@ function AppLayout() {
             <Route path="/tech-planet" element={<TechPlanet />} />
             <Route path="/sitemap" element={<Sitemap />} />
             <Route path="/rss" element={<Rss />} />
+            <Route path="/thank-you" element={<ThankYou />} />
+
 
             {/* Kasr Zero */}
             <Route path="/kz" element={<KzHome />} />
@@ -265,6 +269,7 @@ function AppLayout() {
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route path="/admin/roles" element={<AdminRoles />} />
+            <Route path="/admin/qr-campaigns" element={<AdminQrCampaigns />} />
 
             {/* Merchant Portal */}
             <Route path="/merchant" element={<MerchantOverview />} />

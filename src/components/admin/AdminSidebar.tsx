@@ -7,7 +7,7 @@ import {
   LayoutDashboard, Store, Building, ShoppingBag, Tag, LayoutGrid, FileText,
   Calendar, Briefcase, HelpCircle, Building2, Cpu, Sparkles, Trophy, Award,
   Gift, Ticket, Users, BarChart3, Bell, Globe, RefreshCw, Rocket, Cloud,
-  Database, Activity, Phone, ScanSearch, FolderTree, Settings, ShieldCheck,
+  Database, Activity, Phone, ScanSearch, FolderTree, Settings, ShieldCheck, QrCode,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -76,6 +76,7 @@ const groups: Group[] = [
     label: "العمليات",
     items: [
       { title: "العملاء المحتملون", url: "/admin/leads", icon: Users, adminOnly: true },
+      { title: "حملات QR", url: "/admin/qr-campaigns", icon: QrCode, adminOnly: true },
       { title: "إعدادات التواصل", url: "/admin/contact-settings", icon: Phone, adminOnly: true },
     ],
   },

@@ -33,7 +33,12 @@ Deno.serve(withLogging("spin", async (req) => {
     const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, serviceKey);
 
-    const { full_name, phone, email, visitor_token } = await req.json();
+    const body = await req.json();
+    const { full_name, phone, email, visitor_token } = body;
+    const utm_source = typeof body.utm_source === "string" ? body.utm_source.slice(0, 120) : null;
+    const utm_medium = typeof body.utm_medium === "string" ? body.utm_medium.slice(0, 120) : null;
+    const utm_campaign = typeof body.utm_campaign === "string" ? body.utm_campaign.slice(0, 120) : null;
+    const utm_content = typeof body.utm_content === "string" ? body.utm_content.slice(0, 120) : null;
 
     // ── Validate input ──
     if (!full_name?.trim() || !phone?.trim()) {
