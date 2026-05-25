@@ -157,7 +157,7 @@ export default function AdminStoresList() {
     if (selected.size === 0) return;
     setBusy(true);
     const ids = Array.from(selected);
-    const { error } = await supabase.from("stores").update(patch).in("id", ids);
+    const { error } = await supabase.from("stores").update(patch as any).in("id", ids);
     setBusy(false);
     if (error) { toast({ title: "تعذّر تنفيذ الإجراء", description: error.message, variant: "destructive" }); return; }
     toast({ title: label, description: `تم تطبيقه على ${ids.length} محل` });
@@ -166,26 +166,26 @@ export default function AdminStoresList() {
 
   const exportCsv = () => {
     const columns: CsvColumn<Row>[] = [
-      { header: "id", accessor: "id" },
-      { header: "slug", accessor: "slug" },
-      { header: "name_ar", accessor: "name_ar" },
-      { header: "display_name", accessor: "display_name" },
-      { header: "category", accessor: "category" },
-      { header: "branch", accessor: (r) => BRANCH_LABELS[r.branch_context ?? ""] ?? r.branch_context ?? "" },
-      { header: "lifecycle", accessor: (r) => LIFECYCLE_META[r.lifecycle_status]?.label ?? r.lifecycle_status },
-      { header: "visibility", accessor: "status" },
-      { header: "opening_status", accessor: "opening_status" },
-      { header: "featured", accessor: (r) => (r.featured ? "yes" : "no") },
-      { header: "floor", accessor: "floor_label" },
-      { header: "unit", accessor: (r) => r.unit_label || r.unit_code || "" },
-      { header: "external_type", accessor: "external_store_type" },
-      { header: "external_url", accessor: "external_store_url" },
-      { header: "sync_status", accessor: "sync_status" },
-      { header: "last_sync_at", accessor: "last_sync_at" },
-      { header: "updated_at", accessor: "updated_at" },
+      { header: "id", value: (r) => r.id },
+      { header: "slug", value: (r) => r.slug },
+      { header: "name_ar", value: (r) => r.name_ar },
+      { header: "display_name", value: (r) => r.display_name },
+      { header: "category", value: (r) => r.category },
+      { header: "branch", value: (r) => BRANCH_LABELS[r.branch_context ?? ""] ?? r.branch_context ?? "" },
+      { header: "lifecycle", value: (r) => LIFECYCLE_META[r.lifecycle_status]?.label ?? r.lifecycle_status },
+      { header: "visibility", value: (r) => r.status },
+      { header: "opening_status", value: (r) => r.opening_status },
+      { header: "featured", value: (r) => (r.featured ? "yes" : "no") },
+      { header: "floor", value: (r) => r.floor_label },
+      { header: "unit", value: (r) => r.unit_label || r.unit_code || "" },
+      { header: "external_type", value: (r) => r.external_store_type },
+      { header: "external_url", value: (r) => r.external_store_url },
+      { header: "sync_status", value: (r) => r.sync_status },
+      { header: "last_sync_at", value: (r) => r.last_sync_at },
+      { header: "updated_at", value: (r) => r.updated_at },
     ];
     const source = selected.size > 0 ? filtered.filter(r => selected.has(r.id)) : filtered;
-    downloadCsv(`stores-${new Date().toISOString().slice(0,10)}.csv`, columns, source);
+    downloadCsv(`stores-${new Date().toISOString().slice(0,10)}.csv`, source, columns);
   };
 
   const createNew = async () => {
