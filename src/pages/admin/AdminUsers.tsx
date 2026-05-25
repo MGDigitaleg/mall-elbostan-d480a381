@@ -175,7 +175,7 @@ export default function AdminUsers() {
                         {banned ? (
                           <AdminStatusBadge tone="danger">معطّل</AdminStatusBadge>
                         ) : role === "none" ? (
-                          <AdminStatusBadge tone="muted">بدون صلاحية</AdminStatusBadge>
+                          <AdminStatusBadge tone="neutral">بدون صلاحية</AdminStatusBadge>
                         ) : (
                           <AdminStatusBadge tone="success">نشط</AdminStatusBadge>
                         )}
