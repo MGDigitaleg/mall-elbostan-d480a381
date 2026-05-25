@@ -5,13 +5,14 @@
  * - RankTable — ranked horizontal bar list
  * - ReportShell — page wrapper with breadcrumb back to dashboard
  */
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Database, Globe, ListChecks, Activity, Megaphone } from "lucide-react";
+import { ArrowRight, Database, Globe, ListChecks, Activity, Megaphone, Download, Printer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { downloadCsv, type CsvColumn } from "@/lib/csvExport";
 import { AdminShell } from "./AdminShell";
 
 export type RangePreset = "today" | "7d" | "30d" | "this_month" | "custom";
