@@ -377,7 +377,7 @@ function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePo
   };
 
   const updateField = async (patch: Partial<IntakePost>) => {
-    const { error } = await supabase.from("social_offer_intake").update(patch).eq("id", post.id);
+    const { error } = await supabase.from("social_offer_intake").update(patch as never).eq("id", post.id);
     if (error) toast({ title: "تعذّر التحديث", description: error.message, variant: "destructive" });
     else refresh();
   };
