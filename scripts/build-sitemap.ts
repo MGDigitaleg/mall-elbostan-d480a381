@@ -57,6 +57,14 @@ const EXCLUDED_FROM_SITEMAP = new Set<string>([
   "/merchant/external",
   "/merchant/media",
   "/merchant/account",
+  "/admin/reports",
+  "/admin/reports/traffic",
+  "/admin/reports/campaigns",
+  "/admin/reports/stores",
+  "/admin/reports/products",
+  "/admin/reports/offers",
+  "/admin/reports/leads",
+  "/admin/reports/spin",
   "*",
 ]);
 
