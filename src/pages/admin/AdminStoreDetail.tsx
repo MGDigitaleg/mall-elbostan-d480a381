@@ -107,6 +107,7 @@ export default function AdminStoreDetail() {
       external_store_type: store.external_store_type, external_store_url: store.external_store_url,
       external_store_handle: store.external_store_handle,
       sync_mode: store.sync_mode, import_products: store.import_products, import_offers: store.import_offers,
+      connector_enabled: store.connector_enabled, sync_notes: store.sync_notes,
     };
     const { error } = await supabase.from("stores").update(patch as any).eq("id", store.id);
     setSaving(false);
