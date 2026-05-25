@@ -76,6 +76,8 @@ const AdminBackup = lazy(() => lazyRetry(() => import("./pages/admin/AdminBackup
 const AdminEdgeFunctionLogs = lazy(() => lazyRetry(() => import("./pages/admin/AdminEdgeFunctionLogs")));
 const AdminDatabase = lazy(() => lazyRetry(() => import("./pages/admin/AdminDatabase")));
 const AdminCloudStatus = lazy(() => lazyRetry(() => import("./pages/admin/AdminCloudStatus")));
+const AdminUsers = lazy(() => lazyRetry(() => import("./pages/admin/AdminUsers")));
+const AdminSettings = lazy(() => lazyRetry(() => import("./pages/admin/AdminSettings")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoresList")));
@@ -249,6 +251,8 @@ function AppLayout() {
             <Route path="/admin/edge-logs" element={<AdminEdgeFunctionLogs />} />
             <Route path="/admin/database" element={<AdminDatabase />} />
             <Route path="/admin/cloud-status" element={<AdminCloudStatus />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
