@@ -13,6 +13,18 @@ type AnalyticsParams = Record<string, unknown>;
 type WindowWithAnalytics = Window & {
   gtag?: (...args: unknown[]) => void;
   dataLayer?: unknown[];
+  fbq?: (...args: unknown[]) => void;
+};
+
+const META_STANDARD: Record<string, string> = {
+  lead_submit: "Lead",
+  spin_registration: "CompleteRegistration",
+  spin_win_result: "Lead",
+  whatsapp_click: "Contact",
+  directions_click: "FindLocation",
+  offer_click: "ViewContent",
+  store_click: "ViewContent",
+  qr_visit: "ViewContent",
 };
 
 /** Fire a tracking event to GA4 + GTM dataLayer. Safe on SSR / when GA isn't loaded. */
@@ -32,6 +44,11 @@ export function trackEvent(name: string, params: AnalyticsParams = {}): void {
     }
     if (Array.isArray(w.dataLayer)) {
       w.dataLayer.push({ event: name, ...payload });
+    }
+    if (typeof w.fbq === "function") {
+      const fbEvent = META_STANDARD[name];
+      if (fbEvent) w.fbq("track", fbEvent, payload);
+      else w.fbq("trackCustom", name, payload);
     }
     // Dev-only console echo for easier debugging in DebugView
     if (import.meta.env.DEV) {
