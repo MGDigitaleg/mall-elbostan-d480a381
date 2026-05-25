@@ -180,13 +180,15 @@ const DowntownMerchantDetail = () => {
                 <h1 className="text-[1.45rem] md:text-[1.6rem] font-bold leading-tight" style={{ color: "#F8FAFC" }}>
                   {merchant.name_ar}
                 </h1>
-                <span
-                  className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.65rem] font-bold"
-                  style={{ background: status.bg, color: status.text, border: `1px solid ${status.border}` }}
-                >
-                  <StatusIcon className="h-3 w-3" />
-                  {status.label}
-                </span>
+                {badge && badgeStyle && (
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.65rem] font-bold"
+                    style={{ background: badgeStyle.bg, color: badgeStyle.text, border: `1px solid ${badgeStyle.border}` }}
+                  >
+                    <ShieldCheck className="h-3 w-3" />
+                    {badge.label}
+                  </span>
+                )}
               </div>
 
               {merchant.name_en && (
@@ -395,7 +397,8 @@ const DowntownMerchantDetail = () => {
               </h2>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {relatedMerchants.map((rm) => {
-                  const rmStatus = statusConfig[rm.verification_status] ?? statusConfig["Unknown status"];
+                  const rmBadge = getPublicBadge(rm);
+                  const rmStyle = rmBadge ? BADGE_STYLE[rmBadge.tone] : null;
                   return (
                     <Link
                       key={rm.id}
@@ -420,9 +423,11 @@ const DowntownMerchantDetail = () => {
                             {rm.name_en}
                           </p>
                         )}
-                        <span className="mt-0.5 inline-block text-[0.6rem] font-medium" style={{ color: rmStatus.text }}>
-                          {rmStatus.label}
-                        </span>
+                        {rmBadge && rmStyle && (
+                          <span className="mt-0.5 inline-block text-[0.6rem] font-medium" style={{ color: rmStyle.text }}>
+                            {rmBadge.label}
+                          </span>
+                        )}
                       </div>
                     </Link>
                   );
