@@ -97,7 +97,7 @@ const Contact = () => {
         keywords="تواصل مول البستان, رقم مول البستان, عنوان مول البستان, تأجير وحدات, القاهرة الجديدة, التجمع الخامس, contact mall elbostan"
         breadcrumbs={[{ name: "تواصل معنا", url: "/contact" }]}
         jsonLd={[
-          buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: "info@mallelbostan.com" }),
+          buildContactPageLd({ phone: OFFICIAL_PHONE || null, whatsapp: OFFICIAL_WHATSAPP, email: null }),
           buildHowToLd({
             name: "كيف تصل إلى مول البستان",
             description: "خطوات الوصول إلى مول البستان في التجمع الخامس بالقاهرة الجديدة.",
