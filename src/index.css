@@ -870,3 +870,24 @@
     max-height: 560px;
   }
 }
+
+/* ─── Print-friendly admin reports ─── */
+@media print {
+  html, body { background: #ffffff !important; }
+  /* Hide app chrome: sidebars, headers, mobile nav, toasters */
+  aside, nav, header, .no-print,
+  [data-sonner-toaster], [role="status"][data-state] {
+    display: none !important;
+  }
+  .report-print-root {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .report-print-root * {
+    color: #0f172a !important;
+    box-shadow: none !important;
+  }
+  .report-print-root a { text-decoration: none !important; }
+  .recharts-wrapper { page-break-inside: avoid; }
+  section, .rounded-xl { page-break-inside: avoid; }
+}

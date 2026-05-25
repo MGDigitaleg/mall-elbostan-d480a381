@@ -5,13 +5,14 @@
  * - RankTable — ranked horizontal bar list
  * - ReportShell — page wrapper with breadcrumb back to dashboard
  */
-import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Database, Globe, ListChecks, Activity, Megaphone } from "lucide-react";
+import { ArrowRight, Database, Globe, ListChecks, Activity, Megaphone, Download, Printer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { downloadCsv, type CsvColumn } from "@/lib/csvExport";
 import { AdminShell } from "./AdminShell";
 
 export type RangePreset = "today" | "7d" | "30d" | "this_month" | "custom";
@@ -53,14 +54,50 @@ export function buildRange(preset: RangePreset, customFrom?: string, customTo?: 
 }
 
 export function useDateRange(initial: RangePreset = "7d") {
-  const [preset, setPreset] = useState<RangePreset>(initial);
-  const [customFrom, setCustomFrom] = useState<string>("");
-  const [customTo, setCustomTo] = useState<string>("");
+  const [sp, setSp] = useSearchParams();
+  const urlPreset = (sp.get("preset") as RangePreset) || null;
+  const urlFrom = sp.get("from") || "";
+  const urlTo = sp.get("to") || "";
+  const [preset, setPresetRaw] = useState<RangePreset>(urlPreset ?? initial);
+  const [customFrom, setCustomFromRaw] = useState<string>(urlFrom);
+  const [customTo, setCustomToRaw] = useState<string>(urlTo);
+
+  // Persist to URL so drill-down navigation keeps context.
+  useEffect(() => {
+    const next = new URLSearchParams(sp);
+    next.set("preset", preset);
+    if (preset === "custom") {
+      if (customFrom) next.set("from", customFrom); else next.delete("from");
+      if (customTo) next.set("to", customTo); else next.delete("to");
+    } else {
+      next.delete("from"); next.delete("to");
+    }
+    setSp(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preset, customFrom, customTo]);
+
   const range = useMemo(
     () => buildRange(preset, customFrom, customTo),
     [preset, customFrom, customTo],
   );
-  return { preset, setPreset, customFrom, setCustomFrom, customTo, setCustomTo, range };
+  return {
+    preset, setPreset: setPresetRaw,
+    customFrom, setCustomFrom: setCustomFromRaw,
+    customTo, setCustomTo: setCustomToRaw,
+    range,
+  };
+}
+
+/** Build a query-string fragment that preserves the active range when linking between reports. */
+export function rangeToQuery(state: { preset: RangePreset; customFrom: string; customTo: string }): string {
+  const p = new URLSearchParams();
+  p.set("preset", state.preset);
+  if (state.preset === "custom") {
+    if (state.customFrom) p.set("from", state.customFrom);
+    if (state.customTo) p.set("to", state.customTo);
+  }
+  const s = p.toString();
+  return s ? `?${s}` : "";
 }
 
 const PRESETS: { value: RangePreset; label: string }[] = [
@@ -195,9 +232,9 @@ export function ReportShell({
   const sources = Array.isArray(source) ? source : source ? [source] : [];
   return (
     <AdminShell>
-      <div className="p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
+      <div className="report-print-root p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
         <div>
-          <Link to="/admin" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2">
+          <Link to="/admin" className="no-print inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2">
             <ArrowRight className="w-3 h-3" /> العودة إلى لوحة التحكم
           </Link>
           <div className="flex flex-wrap items-end justify-between gap-3">
@@ -210,12 +247,35 @@ export function ReportShell({
                 </div>
               )}
             </div>
-            {actions && <div className="flex items-center gap-2">{actions}</div>}
+            {actions && <div className="no-print flex items-center gap-2">{actions}</div>}
           </div>
         </div>
         {children}
       </div>
     </AdminShell>
+  );
+}
+
+/** CSV export + print actions for a report page. Pass into ReportShell `actions`. */
+export function ExportActions<T>({
+  filename, rows, columns,
+}: { filename: string; rows: T[]; columns: CsvColumn<T>[] }) {
+  return (
+    <>
+      <Button
+        variant="outline" size="sm" className="gap-1"
+        onClick={() => downloadCsv(filename, rows, columns)}
+        disabled={!rows.length}
+      >
+        <Download className="w-4 h-4" /> تصدير CSV
+      </Button>
+      <Button
+        variant="outline" size="sm" className="gap-1"
+        onClick={() => window.print()}
+      >
+        <Printer className="w-4 h-4" /> طباعة / PDF
+      </Button>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminSectionCard } from "@/components/admin/AdminPrimitives";
 import {
-  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi,
+  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi, ExportActions,
 } from "@/components/admin/AdminReports";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -73,6 +73,20 @@ export default function AdminReportOffers() {
       title="تقرير أداء العروض"
       subtitle="حالة العروض الحية، العروض القريبة من الانتهاء، أعلى المحلات نشاطاً، وأعلى نسب الخصم."
       source={["db"]}
+      actions={
+        <ExportActions
+          filename="offers-report"
+          rows={deals}
+          columns={[
+            { header: "العنوان", value: (d) => d.title_ar },
+            { header: "محل", value: (d) => (d.store_id ? stores[d.store_id] ?? "" : "") },
+            { header: "حية", value: (d) => (d.is_live ? "نعم" : "لا") },
+            { header: "السعر الحالي", value: (d) => d.price_current ?? "" },
+            { header: "السعر القديم", value: (d) => d.price_old ?? "" },
+            { header: "ينتهي", value: (d) => d.valid_to ?? "" },
+          ]}
+        />
+      }
     >
       <DateRangeFilter state={ds} />
 

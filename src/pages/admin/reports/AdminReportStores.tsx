@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminSectionCard } from "@/components/admin/AdminPrimitives";
 import {
-  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi,
+  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi, ExportActions,
 } from "@/components/admin/AdminReports";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -74,6 +74,21 @@ export default function AdminReportStores() {
       title="تقرير أداء المحلات"
       subtitle="ترتيب المحلات حسب العملاء، المنتجات المنشورة، العروض الحية، وحالة المزامنة الخارجية."
       source={["db"]}
+      actions={
+        <ExportActions
+          filename="stores-report"
+          rows={enriched}
+          columns={[
+            { header: "المحل", value: (r) => r.name_ar },
+            { header: "الحالة", value: (r) => r.lifecycle_status ?? "" },
+            { header: "ربط خارجي", value: (r) => r.external_store_type ?? "" },
+            { header: "مزامنة", value: (r) => r.sync_status ?? "" },
+            { header: "منتجات منشورة", value: (r) => r.products },
+            { header: "عروض حية", value: (r) => r.deals },
+            { header: `عملاء (${ds.range.label})`, value: (r) => r.leads },
+          ]}
+        />
+      }
     >
       <DateRangeFilter state={ds} />
 

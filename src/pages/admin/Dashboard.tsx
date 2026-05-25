@@ -480,9 +480,9 @@ const AdminDashboard = () => {
 
         {/* === Top sources / campaigns / stores === */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <RankBlock title="أعلى مصادر الزيارات" icon={Globe} rows={topSources} loading={loading} />
-          <RankBlock title="أفضل الحملات" icon={Megaphone} rows={topCampaigns} loading={loading} emptyHint="أضف utm_campaign في الروابط." />
-          <RankBlock title="أعلى محلات تجذب العملاء" icon={Store} rows={topStoreLeads} loading={loading} emptyHint="لا توجد عملاء مرتبطين بمحلات بعد." />
+          <RankBlock title="أعلى مصادر الزيارات" icon={Globe} rows={topSources} loading={loading} href="/admin/reports/traffic" />
+          <RankBlock title="أفضل الحملات" icon={Megaphone} rows={topCampaigns} loading={loading} emptyHint="أضف utm_campaign في الروابط." href="/admin/reports/campaigns" />
+          <RankBlock title="أعلى محلات تجذب العملاء" icon={Store} rows={topStoreLeads} loading={loading} emptyHint="لا توجد عملاء مرتبطين بمحلات بعد." href="/admin/reports/stores" />
         </div>
 
         {/* === Operations grid === */}
@@ -718,15 +718,19 @@ const AdminDashboard = () => {
 
 /** Ranked horizontal bar list — used for sources, campaigns, stores. */
 function RankBlock({
-  title, icon: Icon, rows, loading, emptyHint,
+  title, icon: Icon, rows, loading, emptyHint, href,
 }: {
-  title: string; icon: typeof Globe; rows: RankRow[]; loading: boolean; emptyHint?: string;
+  title: string; icon: typeof Globe; rows: RankRow[]; loading: boolean; emptyHint?: string; href?: string;
 }) {
   const max = Math.max(1, ...rows.map((r) => r.value));
   return (
     <AdminSectionCard
       title={title}
-      action={<Icon className="w-4 h-4 text-muted-foreground" />}
+      action={href ? (
+        <Link to={href} className="text-[0.7rem] font-bold text-primary hover:underline inline-flex items-center gap-1">
+          عرض التقرير <ArrowLeft className="w-3 h-3" />
+        </Link>
+      ) : <Icon className="w-4 h-4 text-muted-foreground" />}
     >
       {loading ? (
         <div className="space-y-2">{Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-7 w-full" />)}</div>

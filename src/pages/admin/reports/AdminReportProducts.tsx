@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminSectionCard } from "@/components/admin/AdminPrimitives";
 import {
-  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi,
+  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi, ExportActions,
 } from "@/components/admin/AdminReports";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -74,6 +74,21 @@ export default function AdminReportProducts() {
       title="تقرير أداء المنتجات"
       subtitle="جودة الكتالوج: المنشور، المسودات، التغطية بالصور، والأكثر منتجات حسب المحل والفئة."
       source={["db"]}
+      actions={
+        <ExportActions
+          filename="products-report"
+          rows={products}
+          columns={[
+            { header: "الاسم", value: (p) => p.name_ar },
+            { header: "محل", value: (p) => (p.store_id ? stores[p.store_id] ?? "" : "") },
+            { header: "فئة", value: (p) => (p.category_id ? cats[p.category_id] ?? "" : "") },
+            { header: "الحالة", value: (p) => p.status },
+            { header: "مميّز", value: (p) => (p.featured ? "نعم" : "لا") },
+            { header: "السعر", value: (p) => p.price ?? "" },
+            { header: "صورة", value: (p) => (p.image_url ? "نعم" : "لا") },
+          ]}
+        />
+      }
     >
       <DateRangeFilter state={ds} />
 
