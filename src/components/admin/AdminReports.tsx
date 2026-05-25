@@ -232,9 +232,9 @@ export function ReportShell({
   const sources = Array.isArray(source) ? source : source ? [source] : [];
   return (
     <AdminShell>
-      <div className="p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
+      <div className="report-print-root p-4 md:p-6 max-w-[1400px] mx-auto space-y-5">
         <div>
-          <Link to="/admin" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2">
+          <Link to="/admin" className="no-print inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2">
             <ArrowRight className="w-3 h-3" /> العودة إلى لوحة التحكم
           </Link>
           <div className="flex flex-wrap items-end justify-between gap-3">
@@ -247,12 +247,35 @@ export function ReportShell({
                 </div>
               )}
             </div>
-            {actions && <div className="flex items-center gap-2">{actions}</div>}
+            {actions && <div className="no-print flex items-center gap-2">{actions}</div>}
           </div>
         </div>
         {children}
       </div>
     </AdminShell>
+  );
+}
+
+/** CSV export + print actions for a report page. Pass into ReportShell `actions`. */
+export function ExportActions<T>({
+  filename, rows, columns,
+}: { filename: string; rows: T[]; columns: CsvColumn<T>[] }) {
+  return (
+    <>
+      <Button
+        variant="outline" size="sm" className="gap-1"
+        onClick={() => downloadCsv(filename, rows, columns)}
+        disabled={!rows.length}
+      >
+        <Download className="w-4 h-4" /> تصدير CSV
+      </Button>
+      <Button
+        variant="outline" size="sm" className="gap-1"
+        onClick={() => window.print()}
+      >
+        <Printer className="w-4 h-4" /> طباعة / PDF
+      </Button>
+    </>
   );
 }
 
