@@ -2277,7 +2277,7 @@ export type Database = {
       notify_indexing_ping: { Args: { _urls: Json }; Returns: undefined }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user" | "editor"
+      app_role: "admin" | "moderator" | "user" | "editor" | "reviewer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2405,7 +2405,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user", "editor"],
+      app_role: ["admin", "moderator", "user", "editor", "reviewer"],
     },
   },
 } as const
