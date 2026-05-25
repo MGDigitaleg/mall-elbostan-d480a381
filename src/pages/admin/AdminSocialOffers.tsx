@@ -158,12 +158,15 @@ const AdminSocialOffers = () => {
 
       <main className="container py-6">
         <Tabs value={tab} onValueChange={setTab} dir="rtl">
-          <TabsList className="mb-6">
+          <TabsList className="mb-6 flex-wrap h-auto">
             <TabsTrigger value="queue">
               <Inbox className="w-4 h-4 ml-1" /> طابور المراجعة ({pendingPosts.length})
             </TabsTrigger>
             <TabsTrigger value="approved">
               <CheckCircle2 className="w-4 h-4 ml-1" /> المعتمدة ({approvedPosts.length})
+            </TabsTrigger>
+            <TabsTrigger value="rejected">
+              <XCircle className="w-4 h-4 ml-1" /> المرفوضة ({rejectedPosts.length})
             </TabsTrigger>
             <TabsTrigger value="merchants">
               <StoreIcon className="w-4 h-4 ml-1" /> سجل المحلات ({merchants.length})
@@ -176,7 +179,7 @@ const AdminSocialOffers = () => {
           <TabsContent value="queue" className="space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
-                المنشورات المُكتشفة أو المُدخلة يدوياً بانتظار المراجعة قبل النشر على صفحة العروض وصفحة المتجر.
+                المنشورات المُكتشفة أو المُدخلة يدوياً بانتظار المراجعة. استخدم «معالج التحويل» لإنشاء عرض رسمي منظَّم.
               </p>
               <ManualIntakeDialog merchants={merchants} stores={stores} onSaved={() => qc.invalidateQueries({ queryKey: ["social-offer-intake"] })} />
             </div>
@@ -187,7 +190,7 @@ const AdminSocialOffers = () => {
             ) : (
               <div className="grid gap-4">
                 {pendingPosts.map((post) => (
-                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} />
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
                 ))}
               </div>
             )}
@@ -199,7 +202,22 @@ const AdminSocialOffers = () => {
             ) : (
               <div className="grid gap-4">
                 {approvedPosts.map((post) => (
-                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} />
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="rejected" className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              المنشورات المرفوضة تبقى متاحة هنا للمراجعة ويمكن إعادتها إلى طابور المراجعة لإعادة تقييمها.
+            </p>
+            {rejectedPosts.length === 0 ? (
+              <EmptyState title="لا توجد منشورات مرفوضة" />
+            ) : (
+              <div className="grid gap-4">
+                {rejectedPosts.map((post) => (
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
                 ))}
               </div>
             )}
@@ -234,6 +252,18 @@ const AdminSocialOffers = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      <SocialOfferConvertWizard
+        post={activeWizardPost}
+        stores={stores}
+        open={!!activeWizardPost}
+        onOpenChange={closeWizard}
+        onConverted={() => {
+          qc.invalidateQueries({ queryKey: ["social-offer-intake"] });
+          qc.invalidateQueries({ queryKey: ["admin-offers-pipeline-deals"] });
+          qc.invalidateQueries({ queryKey: ["admin-offers-pipeline-intake"] });
+        }}
+      />
     </div>
   );
 };
