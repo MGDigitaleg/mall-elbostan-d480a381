@@ -216,6 +216,7 @@ export default function AdminRoles() {
                               <SelectContent>
                                 <SelectItem value="admin">مسؤول</SelectItem>
                                 <SelectItem value="editor">محرر</SelectItem>
+                                <SelectItem value="reviewer">مراجع</SelectItem>
                                 <SelectItem value="none">بدون</SelectItem>
                               </SelectContent>
                             </Select>
