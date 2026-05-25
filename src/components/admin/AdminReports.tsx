@@ -54,14 +54,50 @@ export function buildRange(preset: RangePreset, customFrom?: string, customTo?: 
 }
 
 export function useDateRange(initial: RangePreset = "7d") {
-  const [preset, setPreset] = useState<RangePreset>(initial);
-  const [customFrom, setCustomFrom] = useState<string>("");
-  const [customTo, setCustomTo] = useState<string>("");
+  const [sp, setSp] = useSearchParams();
+  const urlPreset = (sp.get("preset") as RangePreset) || null;
+  const urlFrom = sp.get("from") || "";
+  const urlTo = sp.get("to") || "";
+  const [preset, setPresetRaw] = useState<RangePreset>(urlPreset ?? initial);
+  const [customFrom, setCustomFromRaw] = useState<string>(urlFrom);
+  const [customTo, setCustomToRaw] = useState<string>(urlTo);
+
+  // Persist to URL so drill-down navigation keeps context.
+  useEffect(() => {
+    const next = new URLSearchParams(sp);
+    next.set("preset", preset);
+    if (preset === "custom") {
+      if (customFrom) next.set("from", customFrom); else next.delete("from");
+      if (customTo) next.set("to", customTo); else next.delete("to");
+    } else {
+      next.delete("from"); next.delete("to");
+    }
+    setSp(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preset, customFrom, customTo]);
+
   const range = useMemo(
     () => buildRange(preset, customFrom, customTo),
     [preset, customFrom, customTo],
   );
-  return { preset, setPreset, customFrom, setCustomFrom, customTo, setCustomTo, range };
+  return {
+    preset, setPreset: setPresetRaw,
+    customFrom, setCustomFrom: setCustomFromRaw,
+    customTo, setCustomTo: setCustomToRaw,
+    range,
+  };
+}
+
+/** Build a query-string fragment that preserves the active range when linking between reports. */
+export function rangeToQuery(state: { preset: RangePreset; customFrom: string; customTo: string }): string {
+  const p = new URLSearchParams();
+  p.set("preset", state.preset);
+  if (state.preset === "custom") {
+    if (state.customFrom) p.set("from", state.customFrom);
+    if (state.customTo) p.set("to", state.customTo);
+  }
+  const s = p.toString();
+  return s ? `?${s}` : "";
 }
 
 const PRESETS: { value: RangePreset; label: string }[] = [
