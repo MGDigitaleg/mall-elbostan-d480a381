@@ -114,7 +114,29 @@ const AdminSocialOffers = () => {
     [posts]
   );
   const approvedPosts = useMemo(() => posts.filter((p) => p.review_status === "approved"), [posts]);
+  const rejectedPosts = useMemo(() => posts.filter((p) => p.review_status === "rejected"), [posts]);
   const unreadCount = notifications.filter((n) => n.unread).length;
+
+  // Auto-open wizard when navigated with ?post=ID
+  useEffect(() => {
+    const postId = searchParams.get("post");
+    if (postId && posts.find((p) => p.id === postId)) {
+      setWizardPostId(postId);
+    }
+  }, [searchParams, posts]);
+
+  const activeWizardPost = wizardPostId ? posts.find((p) => p.id === wizardPostId) ?? null : null;
+
+  const openWizard = (id: string) => setWizardPostId(id);
+  const closeWizard = (open: boolean) => {
+    if (!open) {
+      setWizardPostId(null);
+      if (searchParams.get("post")) {
+        searchParams.delete("post");
+        setSearchParams(searchParams, { replace: true });
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
