@@ -118,7 +118,7 @@ const DowntownDirectory = () => {
         titleEn="Downtown Cairo Technology Directory"
         description="أكبر دليل موثّق لمحلات التكنولوجيا والإلكترونيات في مول البستان وسط البلد — شارع البستان، باب اللوق، القاهرة. أرقام الهواتف، التصنيفات، والمراجعات."
         descriptionEn="The most trusted technology and electronics directory in Downtown Cairo - Mall El Bostan, Al-Bustan Street."
-        ogImage="/hero/downtown-hero-1.webp"
+        ogImage="https://mallelbostan.com/hero/downtown-hero-1.webp"
         ogImageAlt="دليل محلات مول البستان وسط البلد"
         tags={["وسط البلد", "باب اللوق", "شارع البستان", "تكنولوجيا", "إلكترونيات", "مول البستان", "دليل محلات"]}
         jsonLd={directoryLd}
