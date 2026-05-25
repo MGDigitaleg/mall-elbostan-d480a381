@@ -289,12 +289,12 @@ export function Footer() {
             تواصل معنا
           </span>
 
-          <a href="mailto:info@mallelbostan.com" aria-label="راسل إدارة مول البستان عبر البريد الإلكتروني" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
+          <Link to="/contact" aria-label="تواصل مع إدارة مول البستان عبر نموذج التواصل" className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
             <span className="flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg" style={{ background: "#2563EB15", border: "1px solid #2563EB28" }} aria-hidden="true">
               <Mail className="h-3.5 w-3.5" style={{ color: "#60A5FA" }} />
             </span>
-            <span className="font-poppins text-[0.78rem]">info@mallelbostan.com</span>
-          </a>
+            <span className="font-poppins text-[0.78rem]">نموذج التواصل</span>
+          </Link>
 
           {officialPhone ? (
             <a href={`tel:${officialPhone}`} aria-label={`اتصل بإدارة مول البستان على الرقم ${officialPhone}`} className="flex items-center gap-2.5 text-[0.8rem] transition-colors hover:text-white" style={{ color: "#8896AB" }}>
@@ -373,7 +373,7 @@ export function Footer() {
               <span style={{ color: "#2A3444" }}>|</span>
               <span>&copy; {new Date().getFullYear()} جميع الحقوق محفوظة</span>
             </div>
-            <nav aria-label="روابط قانونية وفهارس الموقع" className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem]" style={{ color: "#3D4A5C" }}>
+            <nav aria-label="روابط قانونية وفهارس الموقع" className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-5 text-[0.7rem] ps-12 lg:ps-14" style={{ color: "#3D4A5C" }}>
               <Link to="/terms" aria-label="شروط استخدام مول البستان" className="transition-colors duration-200 hover:text-slate-300">الشروط</Link>
               <Link to="/privacy" aria-label="سياسة الخصوصية لمول البستان" className="transition-colors duration-200 hover:text-slate-300">الخصوصية</Link>
               <Link to="/sitemap" aria-label="فهرس صفحات مول البستان" className="transition-colors duration-200 hover:text-slate-300">خريطة الموقع</Link>
