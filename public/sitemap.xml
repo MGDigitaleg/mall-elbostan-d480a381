@@ -4,16 +4,16 @@
   AUTO-GENERATED at build time by scripts/build-sitemap.ts
   Source of truth: supabase/functions/sitemap/index.ts (sections list)
   Do NOT edit by hand — re-run `bun run prebuild` to regenerate.
-  Generated: 2026-05-04
+  Generated: 2026-05-25
 -->
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap><loc>https://mallelbostan.com/sitemap-pages.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-categories.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-devices.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-stores.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-products.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-offers.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-blog.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-images.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
-  <sitemap><loc>https://mallelbostan.com/sitemap-news.xml</loc><lastmod>2026-05-04</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-pages.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-categories.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-devices.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-stores.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-products.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-offers.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-blog.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-images.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
+  <sitemap><loc>https://mallelbostan.com/sitemap-news.xml</loc><lastmod>2026-05-25</lastmod></sitemap>
 </sitemapindex>
