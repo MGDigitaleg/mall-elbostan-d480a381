@@ -204,17 +204,20 @@ const DowntownDirectory = () => {
             <div className="flex items-center gap-2">
               <Filter className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-[0.72rem] text-muted-foreground">حالة التوثيق:</span>
-              {["الكل", "Verified", "Official source linked", "Needs review"].map((s) => (
+              {[
+                { v: "الكل", label: "الكل" },
+                { v: "verified", label: "موثّق" },
+                { v: "listed", label: "مدرج" },
+                { v: "needs", label: "قيد التحقق" },
+              ].map((s) => (
                 <button
-                  key={s}
-                  onClick={() => handleFilterChange(setSelectedStatus, s)}
+                  key={s.v}
+                  onClick={() => handleFilterChange(setSelectedStatus, s.v)}
                   className={`rounded-md px-2.5 py-1 text-[0.65rem] font-medium transition-all ${
-                    selectedStatus === s
-                      ? "bg-foreground/10 text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                    selectedStatus === s.v ? "bg-foreground/10 text-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {s === "الكل" ? "الكل" : s === "Verified" ? "موثّق" : s === "Official source linked" ? "مصدر رسمي" : "قيد المراجعة"}
+                  {s.label}
                 </button>
               ))}
             </div>
