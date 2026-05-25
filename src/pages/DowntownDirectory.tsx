@@ -3,24 +3,20 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, Archive, HelpCircle, Filter } from "lucide-react";
+import { Building2, Phone, MapPin, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, AlertCircle, Filter, ListChecks } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { TenantLogo } from "@/components/TenantLogo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getPublicBadge, isAdminOnlyStatus, publicSafe } from "@/lib/downtownVerification";
 
-const statusConfig: Record<string, { label: string; color: string; icon: typeof CheckCircle }> = {
-  "Verified": { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
-  "Official source linked": { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
-  "Needs review": { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
-  "Archived / inactive": { label: "غير نشط", color: "bg-muted/50 text-muted-foreground border-border", icon: Archive },
-  "Unknown status": { label: "غير محدد", color: "bg-muted/30 text-muted-foreground border-border", icon: HelpCircle },
-  // Legacy fallbacks
-  verified: { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
-  official_source_linked: { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
-  needs_review: { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
+const BADGE_TONE: Record<string, { color: string; Icon: typeof ShieldCheck }> = {
+  green: { color: "bg-success/10 text-success border-success/20", Icon: ShieldCheck },
+  blue:  { color: "bg-primary/10 text-primary border-primary/20", Icon: ListChecks },
+  amber: { color: "bg-orange-500/10 text-orange-600 border-orange-500/20", Icon: AlertCircle },
+  gray:  { color: "bg-muted/40 text-muted-foreground border-border", Icon: ShieldQuestion },
 };
 
 const CATEGORIES = [
