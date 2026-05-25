@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminSectionCard } from "@/components/admin/AdminPrimitives";
 import {
-  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi,
+  ReportShell, DateRangeFilter, useDateRange, RankTable, ReportKpi, ExportActions,
 } from "@/components/admin/AdminReports";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
