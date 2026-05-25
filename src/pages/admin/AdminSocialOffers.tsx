@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,8 +11,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { ArrowRight, Bell, CheckCircle2, Clock, Eye, Inbox, Plus, Store as StoreIcon, ExternalLink, Trash2 } from "lucide-react";
+import { ArrowRight, Bell, CheckCircle2, Clock, Eye, Inbox, Plus, Store as StoreIcon, ExternalLink, Trash2, XCircle, Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { SocialOfferConvertWizard } from "@/components/admin/SocialOfferConvertWizard";
 
 type Store = { id: string; name_ar: string; slug: string; logo_url: string | null; opening_status: string | null; branch_context: string | null };
 type MonitoredMerchant = {
@@ -25,11 +26,13 @@ type MonitoredMerchant = {
 type IntakePost = {
   id: string; merchant_id: string; store_id: string; branch_context: string;
   source_platform: string; source_post_url: string | null; source_caption: string | null;
-  source_thumbnail_url: string | null; offer_title: string | null; offer_subtitle: string | null;
+  source_thumbnail_url: string | null; source_published_at: string | null;
+  offer_title: string | null; offer_subtitle: string | null;
   short_specs: string | null; current_price: number | null; old_price: number | null; currency: string;
   opening_related: boolean; review_status: string; publish_status: string;
   published_deal_id: string | null; published_at: string | null; expires_at: string | null;
   featured: boolean; category: string | null; notes: string | null; created_at: string;
+  media_assets: unknown; curated_media_assets: unknown;
 };
 type Notification = {
   id: string; intake_id: string; merchant_id: string; notification_type: string;
@@ -54,6 +57,8 @@ const AdminSocialOffers = () => {
   useRequireAdmin();
   const qc = useQueryClient();
   const [tab, setTab] = useState("queue");
+  const [wizardPostId, setWizardPostId] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { data: merchants = [], isLoading: loadingMerchants } = useQuery({
     queryKey: ["social-monitored-merchants"],
@@ -111,7 +116,29 @@ const AdminSocialOffers = () => {
     [posts]
   );
   const approvedPosts = useMemo(() => posts.filter((p) => p.review_status === "approved"), [posts]);
+  const rejectedPosts = useMemo(() => posts.filter((p) => p.review_status === "rejected"), [posts]);
   const unreadCount = notifications.filter((n) => n.unread).length;
+
+  // Auto-open wizard when navigated with ?post=ID
+  useEffect(() => {
+    const postId = searchParams.get("post");
+    if (postId && posts.find((p) => p.id === postId)) {
+      setWizardPostId(postId);
+    }
+  }, [searchParams, posts]);
+
+  const activeWizardPost = wizardPostId ? posts.find((p) => p.id === wizardPostId) ?? null : null;
+
+  const openWizard = (id: string) => setWizardPostId(id);
+  const closeWizard = (open: boolean) => {
+    if (!open) {
+      setWizardPostId(null);
+      if (searchParams.get("post")) {
+        searchParams.delete("post");
+        setSearchParams(searchParams, { replace: true });
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -133,12 +160,15 @@ const AdminSocialOffers = () => {
 
       <main className="container py-6">
         <Tabs value={tab} onValueChange={setTab} dir="rtl">
-          <TabsList className="mb-6">
+          <TabsList className="mb-6 flex-wrap h-auto">
             <TabsTrigger value="queue">
               <Inbox className="w-4 h-4 ml-1" /> طابور المراجعة ({pendingPosts.length})
             </TabsTrigger>
             <TabsTrigger value="approved">
               <CheckCircle2 className="w-4 h-4 ml-1" /> المعتمدة ({approvedPosts.length})
+            </TabsTrigger>
+            <TabsTrigger value="rejected">
+              <XCircle className="w-4 h-4 ml-1" /> المرفوضة ({rejectedPosts.length})
             </TabsTrigger>
             <TabsTrigger value="merchants">
               <StoreIcon className="w-4 h-4 ml-1" /> سجل المحلات ({merchants.length})
@@ -151,7 +181,7 @@ const AdminSocialOffers = () => {
           <TabsContent value="queue" className="space-y-4">
             <div className="flex items-center justify-between">
               <p className="text-sm text-muted-foreground">
-                المنشورات المُكتشفة أو المُدخلة يدوياً بانتظار المراجعة قبل النشر على صفحة العروض وصفحة المتجر.
+                المنشورات المُكتشفة أو المُدخلة يدوياً بانتظار المراجعة. استخدم «معالج التحويل» لإنشاء عرض رسمي منظَّم.
               </p>
               <ManualIntakeDialog merchants={merchants} stores={stores} onSaved={() => qc.invalidateQueries({ queryKey: ["social-offer-intake"] })} />
             </div>
@@ -162,7 +192,7 @@ const AdminSocialOffers = () => {
             ) : (
               <div className="grid gap-4">
                 {pendingPosts.map((post) => (
-                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} />
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
                 ))}
               </div>
             )}
@@ -174,7 +204,22 @@ const AdminSocialOffers = () => {
             ) : (
               <div className="grid gap-4">
                 {approvedPosts.map((post) => (
-                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} />
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="rejected" className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              المنشورات المرفوضة تبقى متاحة هنا للمراجعة ويمكن إعادتها إلى طابور المراجعة لإعادة تقييمها.
+            </p>
+            {rejectedPosts.length === 0 ? (
+              <EmptyState title="لا توجد منشورات مرفوضة" />
+            ) : (
+              <div className="grid gap-4">
+                {rejectedPosts.map((post) => (
+                  <PostReviewCard key={post.id} post={post} merchants={merchants} stores={stores} onConvert={openWizard} />
                 ))}
               </div>
             )}
@@ -209,6 +254,18 @@ const AdminSocialOffers = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      <SocialOfferConvertWizard
+        post={activeWizardPost}
+        stores={stores}
+        open={!!activeWizardPost}
+        onOpenChange={closeWizard}
+        onConverted={() => {
+          qc.invalidateQueries({ queryKey: ["social-offer-intake"] });
+          qc.invalidateQueries({ queryKey: ["admin-offers-pipeline-deals"] });
+          qc.invalidateQueries({ queryKey: ["admin-offers-pipeline-intake"] });
+        }}
+      />
     </div>
   );
 };
@@ -225,7 +282,7 @@ function EmptyState({ title, hint }: { title: string; hint?: string }) {
   );
 }
 
-function PostReviewCard({ post, merchants, stores }: { post: IntakePost; merchants: MonitoredMerchant[]; stores: Store[] }) {
+function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePost; merchants: MonitoredMerchant[]; stores: Store[]; onConvert?: (id: string) => void }) {
   const qc = useQueryClient();
   const merchant = merchants.find((m) => m.id === post.merchant_id);
   const store = stores.find((s) => s.id === post.store_id);
@@ -320,7 +377,7 @@ function PostReviewCard({ post, merchants, stores }: { post: IntakePost; merchan
   };
 
   const updateField = async (patch: Partial<IntakePost>) => {
-    const { error } = await supabase.from("social_offer_intake").update(patch).eq("id", post.id);
+    const { error } = await supabase.from("social_offer_intake").update(patch as never).eq("id", post.id);
     if (error) toast({ title: "تعذّر التحديث", description: error.message, variant: "destructive" });
     else refresh();
   };
@@ -399,9 +456,14 @@ function PostReviewCard({ post, merchants, stores }: { post: IntakePost; merchan
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
+        {onConvert && post.review_status !== "approved" && (
+          <Button onClick={() => onConvert(post.id)} disabled={busy} size="sm">
+            <Sparkles className="w-4 h-4 ml-1" /> فتح معالج التحويل
+          </Button>
+        )}
         {post.review_status !== "approved" && (
-          <Button onClick={approveAndPublish} disabled={busy} size="sm">
-            <CheckCircle2 className="w-4 h-4 ml-1" /> اعتماد ونشر
+          <Button onClick={approveAndPublish} disabled={busy} size="sm" variant="outline">
+            <CheckCircle2 className="w-4 h-4 ml-1" /> اعتماد سريع
           </Button>
         )}
         {post.review_status !== "rejected" && (
