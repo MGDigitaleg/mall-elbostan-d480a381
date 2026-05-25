@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useState, useMemo, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,8 +11,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { ArrowRight, Bell, CheckCircle2, Clock, Eye, Inbox, Plus, Store as StoreIcon, ExternalLink, Trash2 } from "lucide-react";
+import { ArrowRight, Bell, CheckCircle2, Clock, Eye, Inbox, Plus, Store as StoreIcon, ExternalLink, Trash2, XCircle, Sparkles } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { SocialOfferConvertWizard } from "@/components/admin/SocialOfferConvertWizard";
 
 type Store = { id: string; name_ar: string; slug: string; logo_url: string | null; opening_status: string | null; branch_context: string | null };
 type MonitoredMerchant = {
