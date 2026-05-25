@@ -99,6 +99,16 @@ const AdminStorePrizes = lazy(() => lazyRetry(() => import("./pages/admin/AdminS
 const AdminSpinWinners = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinWinners }))));
 const AdminSpinReports = lazy(() => lazyRetry(() => import("./pages/admin/AdminSpinSystem").then(m => ({ default: m.AdminSpinReports }))));
 
+/* ── Merchant Portal ── */
+const MerchantOverview = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantOverview")));
+const MerchantMyStore = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyStore")));
+const MerchantMyProducts = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyProducts")));
+const MerchantMyOffers = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyOffers")));
+const MerchantMyLeads = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMyLeads")));
+const MerchantExternal = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantExternal")));
+const MerchantMedia = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantMedia")));
+const MerchantAccount = lazy(() => lazyRetry(() => import("./pages/merchant/MerchantAccount")));
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -119,7 +129,7 @@ function ScrollToTop() {
 }
 
 /* Routes that should NOT show the public header/footer/widgets */
-const adminPaths = ["/admin"];
+const adminPaths = ["/admin", "/merchant"];
 const immersivePaths = ["/market-echo", "/countdown"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
@@ -255,6 +265,16 @@ function AppLayout() {
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route path="/admin/roles" element={<AdminRoles />} />
+
+            {/* Merchant Portal */}
+            <Route path="/merchant" element={<MerchantOverview />} />
+            <Route path="/merchant/store" element={<MerchantMyStore />} />
+            <Route path="/merchant/products" element={<MerchantMyProducts />} />
+            <Route path="/merchant/offers" element={<MerchantMyOffers />} />
+            <Route path="/merchant/leads" element={<MerchantMyLeads />} />
+            <Route path="/merchant/external" element={<MerchantExternal />} />
+            <Route path="/merchant/media" element={<MerchantMedia />} />
+            <Route path="/merchant/account" element={<MerchantAccount />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
