@@ -18,7 +18,10 @@ const groups: Group[] = [
   {
     label: "نظرة عامة",
     reviewerAllowed: true,
-    items: [{ title: "لوحة التحكم", url: "/admin", icon: LayoutDashboard, reviewerAllowed: true }],
+    items: [
+      { title: "لوحة التحكم", url: "/admin", icon: LayoutDashboard, reviewerAllowed: true },
+      { title: "مركز التقارير", url: "/admin/reports", icon: BarChart3 },
+    ],
   },
   {
     label: "المحلات والتأجير",

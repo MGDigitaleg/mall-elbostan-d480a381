@@ -81,6 +81,14 @@ const AdminUsers = lazy(() => lazyRetry(() => import("./pages/admin/AdminUsers")
 const AdminSettings = lazy(() => lazyRetry(() => import("./pages/admin/AdminSettings")));
 const AdminRoles = lazy(() => lazyRetry(() => import("./pages/admin/AdminRoles")));
 const AdminQrCampaigns = lazy(() => lazyRetry(() => import("./pages/admin/AdminQrCampaigns")));
+const AdminReportsIndex = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportsIndex")));
+const AdminReportTraffic = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportTraffic")));
+const AdminReportCampaigns = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportCampaigns")));
+const AdminReportStores = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportStores")));
+const AdminReportProducts = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportProducts")));
+const AdminReportOffers = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportOffers")));
+const AdminReportLeads = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportLeads")));
+const AdminReportSpin = lazy(() => lazyRetry(() => import("./pages/admin/reports/AdminReportSpin")));
 
 // Wrapper components for lazy-loaded admin named exports
 const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoresList")));
@@ -270,6 +278,14 @@ function AppLayout() {
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route path="/admin/roles" element={<AdminRoles />} />
             <Route path="/admin/qr-campaigns" element={<AdminQrCampaigns />} />
+            <Route path="/admin/reports" element={<AdminReportsIndex />} />
+            <Route path="/admin/reports/traffic" element={<AdminReportTraffic />} />
+            <Route path="/admin/reports/campaigns" element={<AdminReportCampaigns />} />
+            <Route path="/admin/reports/stores" element={<AdminReportStores />} />
+            <Route path="/admin/reports/products" element={<AdminReportProducts />} />
+            <Route path="/admin/reports/offers" element={<AdminReportOffers />} />
+            <Route path="/admin/reports/leads" element={<AdminReportLeads />} />
+            <Route path="/admin/reports/spin" element={<AdminReportSpin />} />
 
             {/* Merchant Portal */}
             <Route path="/merchant" element={<MerchantOverview />} />
