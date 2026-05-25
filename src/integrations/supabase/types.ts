@@ -1884,6 +1884,7 @@ export type Database = {
           is_opening_participant: boolean
           last_sync_at: string | null
           last_sync_error: string | null
+          lifecycle_status: string
           logo_url: string | null
           long_description_ar: string | null
           long_description_en: string | null
@@ -1930,6 +1931,7 @@ export type Database = {
           is_opening_participant?: boolean
           last_sync_at?: string | null
           last_sync_error?: string | null
+          lifecycle_status?: string
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
@@ -1976,6 +1978,7 @@ export type Database = {
           is_opening_participant?: boolean
           last_sync_at?: string | null
           last_sync_error?: string | null
+          lifecycle_status?: string
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
