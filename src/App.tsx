@@ -254,6 +254,7 @@ function AppLayout() {
             <Route path="/admin/cloud-status" element={<AdminCloudStatus />} />
             <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/admin/settings" element={<AdminSettings />} />
+            <Route path="/admin/roles" element={<AdminRoles />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
