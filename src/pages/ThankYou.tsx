@@ -45,8 +45,7 @@ const ThankYou = () => {
       <SEOHead
         title={copy.title}
         description={copy.body}
-        canonicalPath="/thank-you"
-        noindex
+        noIndex
       />
       <section className="container max-w-2xl mx-auto px-4 py-20 text-center">
         <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-success/15 mb-6">
