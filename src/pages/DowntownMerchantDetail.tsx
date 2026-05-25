@@ -423,9 +423,11 @@ const DowntownMerchantDetail = () => {
                             {rm.name_en}
                           </p>
                         )}
-                        <span className="mt-0.5 inline-block text-[0.6rem] font-medium" style={{ color: rmStatus.text }}>
-                          {rmStatus.label}
-                        </span>
+                        {rmBadge && rmStyle && (
+                          <span className="mt-0.5 inline-block text-[0.6rem] font-medium" style={{ color: rmStyle.text }}>
+                            {rmBadge.label}
+                          </span>
+                        )}
                       </div>
                     </Link>
                   );
