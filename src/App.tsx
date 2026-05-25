@@ -78,7 +78,8 @@ const AdminDatabase = lazy(() => lazyRetry(() => import("./pages/admin/AdminData
 const AdminCloudStatus = lazy(() => lazyRetry(() => import("./pages/admin/AdminCloudStatus")));
 
 // Wrapper components for lazy-loaded admin named exports
-const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminStores }))));
+const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoresList")));
+const AdminStoreDetail = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoreDetail")));
 const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits }))));
 const AdminEvents = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents }))));
 const AdminRewards = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards }))));
@@ -214,6 +215,7 @@ function AppLayout() {
             <Route path="/admin/leads" element={<AdminLeads />} />
             <Route path="/admin/tenant-assets" element={<AdminTenantAssets />} />
             <Route path="/admin/stores" element={<AdminStores />} />
+            <Route path="/admin/stores/:id" element={<AdminStoreDetail />} />
             <Route path="/admin/units" element={<AdminUnits />} />
             <Route path="/admin/events" element={<AdminEvents />} />
             <Route path="/admin/rewards" element={<AdminRewards />} />

@@ -1864,16 +1864,26 @@ export type Database = {
       }
       stores: {
         Row: {
+          admin_notes: string | null
           branch_context: string | null
           category: string | null
           cover_image_url: string | null
           created_at: string
+          display_name: string | null
           email: string | null
+          external_store_handle: string | null
+          external_store_type: string
+          external_store_url: string | null
           featured: boolean
           floor_id: string | null
+          floor_label: string | null
           gallery: Json | null
           id: string
+          import_offers: boolean
+          import_products: boolean
           is_opening_participant: boolean
+          last_sync_at: string | null
+          last_sync_error: string | null
           logo_url: string | null
           long_description_ar: string | null
           long_description_en: string | null
@@ -1890,22 +1900,36 @@ export type Database = {
           short_description_en: string | null
           slug: string
           status: string
+          sync_log: Json
+          sync_mode: string
+          sync_status: string
           unit_code: string | null
+          unit_label: string | null
           updated_at: string
           website: string | null
           whatsapp: string | null
         }
         Insert: {
+          admin_notes?: string | null
           branch_context?: string | null
           category?: string | null
           cover_image_url?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
+          external_store_handle?: string | null
+          external_store_type?: string
+          external_store_url?: string | null
           featured?: boolean
           floor_id?: string | null
+          floor_label?: string | null
           gallery?: Json | null
           id?: string
+          import_offers?: boolean
+          import_products?: boolean
           is_opening_participant?: boolean
+          last_sync_at?: string | null
+          last_sync_error?: string | null
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
@@ -1922,22 +1946,36 @@ export type Database = {
           short_description_en?: string | null
           slug: string
           status?: string
+          sync_log?: Json
+          sync_mode?: string
+          sync_status?: string
           unit_code?: string | null
+          unit_label?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
         }
         Update: {
+          admin_notes?: string | null
           branch_context?: string | null
           category?: string | null
           cover_image_url?: string | null
           created_at?: string
+          display_name?: string | null
           email?: string | null
+          external_store_handle?: string | null
+          external_store_type?: string
+          external_store_url?: string | null
           featured?: boolean
           floor_id?: string | null
+          floor_label?: string | null
           gallery?: Json | null
           id?: string
+          import_offers?: boolean
+          import_products?: boolean
           is_opening_participant?: boolean
+          last_sync_at?: string | null
+          last_sync_error?: string | null
           logo_url?: string | null
           long_description_ar?: string | null
           long_description_en?: string | null
@@ -1954,7 +1992,11 @@ export type Database = {
           short_description_en?: string | null
           slug?: string
           status?: string
+          sync_log?: Json
+          sync_mode?: string
+          sync_status?: string
           unit_code?: string | null
+          unit_label?: string | null
           updated_at?: string
           website?: string | null
           whatsapp?: string | null
