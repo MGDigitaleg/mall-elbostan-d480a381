@@ -456,9 +456,14 @@ function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePo
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
+        {onConvert && post.review_status !== "approved" && (
+          <Button onClick={() => onConvert(post.id)} disabled={busy} size="sm">
+            <Sparkles className="w-4 h-4 ml-1" /> فتح معالج التحويل
+          </Button>
+        )}
         {post.review_status !== "approved" && (
-          <Button onClick={approveAndPublish} disabled={busy} size="sm">
-            <CheckCircle2 className="w-4 h-4 ml-1" /> اعتماد ونشر
+          <Button onClick={approveAndPublish} disabled={busy} size="sm" variant="outline">
+            <CheckCircle2 className="w-4 h-4 ml-1" /> اعتماد سريع
           </Button>
         )}
         {post.review_status !== "rejected" && (
