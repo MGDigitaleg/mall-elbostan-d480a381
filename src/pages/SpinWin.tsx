@@ -21,7 +21,8 @@ import type { MallFloorId } from "@/lib/mallFloorGeometry";
 import type { SpinPrizeResult } from "@/components/map/AtriumSpinModal";
 import { useCampaignStatus } from "@/hooks/useCampaignStatus";
 import { useCampaignSettings } from "@/hooks/useCampaignSettings";
-import { trackSpinSubmit, trackSpinResult, trackEvent } from "@/lib/analytics";
+import { trackSpinSubmit, trackSpinResult, trackSpinRegistration, trackEvent } from "@/lib/analytics";
+import { captureUtmFromUrl } from "@/lib/utm";
 import { Clock as ClockIcon } from "lucide-react";
 
 /* ─── 8 visible wheel segments (visual only — backend decides outcome) ─── */
@@ -127,11 +128,14 @@ const SpinWin = () => {
     }
 
     setLoading(true);
+    const utm = captureUtmFromUrl();
     trackSpinSubmit({
       placement: "spin_win_page_form",
       has_email: Boolean(form.email.trim()),
       has_visitor_token: Boolean(form.visitor_token.trim()),
+      ...utm,
     });
+    trackSpinRegistration({ placement: "spin_win_page_form", ...utm });
     try {
       const { data, error } = await supabase.functions.invoke("spin", {
         body: {
@@ -139,6 +143,10 @@ const SpinWin = () => {
           phone: form.phone.trim(),
           email: form.email.trim() || null,
           visitor_token: form.visitor_token.trim() || null,
+          utm_source: utm.utm_source ?? null,
+          utm_medium: utm.utm_medium ?? null,
+          utm_campaign: utm.utm_campaign ?? null,
+          utm_content: utm.utm_content ?? null,
         },
       });
 
