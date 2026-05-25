@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type Item = { title: string; url: string; icon: LucideIcon; adminOnly?: boolean };
-type Group = { label: string; items: Item[] };
+type Item = { title: string; url: string; icon: LucideIcon; adminOnly?: boolean; reviewerAllowed?: boolean };
+type Group = { label: string; items: Item[]; reviewerAllowed?: boolean };
 
 const groups: Group[] = [
   {
