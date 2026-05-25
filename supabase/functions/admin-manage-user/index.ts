@@ -5,10 +5,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+type InviteRole = "admin" | "editor" | "reviewer";
+type AssignedRole = InviteRole | "none";
+
 type Action =
-  | { action: "invite"; email: string; role: "admin" | "editor" }
-  | { action: "set_role"; user_id: string; role: "admin" | "editor" | "none" }
+  | { action: "invite"; email: string; role: InviteRole }
+  | { action: "set_role"; user_id: string; role: AssignedRole }
   | { action: "reset_password"; email: string }
+  | { action: "resend_invite"; email: string; role?: InviteRole }
   | { action: "disable"; user_id: string; disabled: boolean }
   | { action: "delete"; user_id: string };
 
@@ -66,6 +70,17 @@ Deno.serve(async (req) => {
         });
         if (error) throw error;
         return ok({ ok: true });
+      }
+      case "resend_invite": {
+        const { data, error } = await admin.auth.admin.inviteUserByEmail(body.email, {
+          redirectTo: `${origin}/admin/reset-password`,
+        });
+        if (error) throw error;
+        if (data.user && body.role) {
+          await admin.from("user_roles").delete().eq("user_id", data.user.id);
+          await admin.from("user_roles").insert({ user_id: data.user.id, role: body.role });
+        }
+        return ok({ user: data.user });
       }
       case "disable": {
         const { error } = await admin.auth.admin.updateUserById(body.user_id, {

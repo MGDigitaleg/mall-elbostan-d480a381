@@ -11,13 +11,14 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type Item = { title: string; url: string; icon: LucideIcon; adminOnly?: boolean };
-type Group = { label: string; items: Item[] };
+type Item = { title: string; url: string; icon: LucideIcon; adminOnly?: boolean; reviewerAllowed?: boolean };
+type Group = { label: string; items: Item[]; reviewerAllowed?: boolean };
 
 const groups: Group[] = [
   {
     label: "نظرة عامة",
-    items: [{ title: "لوحة التحكم", url: "/admin", icon: LayoutDashboard }],
+    reviewerAllowed: true,
+    items: [{ title: "لوحة التحكم", url: "/admin", icon: LayoutDashboard, reviewerAllowed: true }],
   },
   {
     label: "المحلات والتأجير",
@@ -32,12 +33,13 @@ const groups: Group[] = [
   },
   {
     label: "المنتجات والعروض",
+    reviewerAllowed: true,
     items: [
       { title: "فئات المنتجات", url: "/admin/product-categories", icon: LayoutGrid },
-      { title: "المنتجات", url: "/admin/products", icon: ShoppingBag },
-      { title: "مسار العروض", url: "/admin/offers", icon: Tag },
+      { title: "المنتجات", url: "/admin/products", icon: ShoppingBag, reviewerAllowed: true },
+      { title: "مسار العروض", url: "/admin/offers", icon: Tag, reviewerAllowed: true },
       { title: "العروض (الكلاسيكي)", url: "/admin/deals", icon: Tag, adminOnly: true },
-      { title: "عروض السوشيال", url: "/admin/social-offers", icon: Bell, adminOnly: true },
+      { title: "عروض السوشيال", url: "/admin/social-offers", icon: Bell, adminOnly: true, reviewerAllowed: true },
       { title: "منتجات Kasr Zero", url: "/admin/kz-products", icon: Cpu },
     ],
   },
@@ -92,10 +94,20 @@ const groups: Group[] = [
   },
 ];
 
-export function AdminSidebar({ isAdmin }: { isAdmin: boolean }) {
+export function AdminSidebar({
+  isAdmin,
+  isEditor = false,
+  isReviewer = false,
+}: {
+  isAdmin: boolean;
+  isEditor?: boolean;
+  isReviewer?: boolean;
+}) {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const { pathname } = useLocation();
+  // Reviewer-only (no admin/editor) sees a stripped-down moderation view.
+  const reviewerOnly = !isAdmin && !isEditor && isReviewer;
 
   return (
     <Sidebar collapsible="icon" side="right">
@@ -116,7 +128,13 @@ export function AdminSidebar({ isAdmin }: { isAdmin: boolean }) {
       </SidebarHeader>
       <SidebarContent>
         {groups.map((group) => {
-          const items = group.items.filter((i) => (i.adminOnly ? isAdmin : true));
+          let items = group.items;
+          if (reviewerOnly) {
+            if (!group.reviewerAllowed) return null;
+            items = items.filter((i) => i.reviewerAllowed);
+          } else {
+            items = items.filter((i) => (i.adminOnly ? isAdmin : true));
+          }
           if (!items.length) return null;
           return (
             <SidebarGroup key={group.label}>

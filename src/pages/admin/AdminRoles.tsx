@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type Role = "admin" | "editor" | "none";
-type AccessLevel = "admin" | "editor"; // editor implies admin also has access
+type Role = "admin" | "editor" | "reviewer" | "none";
+type AccessLevel = "admin" | "editor" | "reviewer";
 
 type AdminUser = {
   id: string;
@@ -42,10 +42,10 @@ type Section = {
 const SECTIONS: Section[] = [
   { key: "stores", label: "المحلات والوحدات", description: "إدارة بطاقات المحلات والوحدات والأصول.", icon: Store, access: "editor", to: "/admin/stores" },
   { key: "products", label: "المنتجات والفئات", description: "كتالوج المنتجات والتصنيفات.", icon: ShoppingBag, access: "editor", to: "/admin/products" },
-  { key: "offers", label: "العروض والصفقات", description: "مسار العروض والصفقات المعتمدة.", icon: Tag, access: "editor", to: "/admin/offers" },
+  { key: "offers", label: "مسار العروض", description: "مراجعة واعتماد العروض (متاح للمراجع).", icon: Tag, access: "reviewer", to: "/admin/offers" },
+  { key: "social", label: "عروض السوشيال", description: "مراجعة منشورات السوشيال (متاح للمراجع).", icon: Globe, access: "reviewer", to: "/admin/social-offers" },
   { key: "content", label: "المدونة والفعاليات", description: "المحتوى التحريري والفعاليات والوظائف.", icon: FileText, access: "editor", to: "/admin/blog" },
   { key: "campaigns", label: "أدر واربح والمكافآت", description: "الحملات والجوائز والمتاجر المشاركة.", icon: Sparkles, access: "editor", to: "/admin/spin-system" },
-  { key: "social", label: "عروض السوشيال", description: "مراقبة وإلتقاط العروض من المنصات.", icon: Globe, access: "admin", to: "/admin/social-offers" },
   { key: "leads", label: "العملاء المحتملون", description: "نماذج التواصل والاستفسارات.", icon: UsersIcon, access: "admin", to: "/admin/leads" },
   { key: "seo", label: "SEO والفهرسة", description: "التدقيق وسجلات IndexNow.", icon: Globe, access: "admin", to: "/admin/seo-audit" },
   { key: "users", label: "مستخدمو الأدمن", description: "إدارة الأعضاء والصلاحيات.", icon: UsersIcon, access: "admin", to: "/admin/users" },
@@ -53,17 +53,19 @@ const SECTIONS: Section[] = [
   { key: "database", label: "قاعدة البيانات والسجلات", description: "Edge Functions والنسخ الاحتياطية والتدقيق.", icon: Database, access: "admin", to: "/admin/database" },
 ];
 
-const ROLE_LABEL: Record<Role, string> = { admin: "مسؤول", editor: "محرر", none: "بدون" };
+const ROLE_LABEL: Record<Role, string> = { admin: "مسؤول", editor: "محرر", reviewer: "مراجع", none: "بدون" };
 
 function roleOf(u: AdminUser): Role {
   if (u.roles.includes("admin")) return "admin";
   if (u.roles.includes("editor")) return "editor";
+  if (u.roles.includes("reviewer")) return "reviewer";
   return "none";
 }
 
 function hasAccess(role: Role, level: AccessLevel) {
   if (role === "admin") return true;
-  if (role === "editor" && level === "editor") return true;
+  if (role === "editor" && (level === "editor" || level === "reviewer")) return true;
+  if (role === "reviewer" && level === "reviewer") return true;
   return false;
 }
 
@@ -105,7 +107,7 @@ export default function AdminRoles() {
       .filter((u) => (search ? (u.email ?? "").toLowerCase().includes(search.toLowerCase()) : true))
       .sort((a, b) => {
         const ra = roleOf(a), rb = roleOf(b);
-        const order: Record<Role, number> = { admin: 0, editor: 1, none: 2 };
+        const order: Record<Role, number> = { admin: 0, editor: 1, reviewer: 2, none: 3 };
         return order[ra] - order[rb];
       });
   }, [data, search]);
@@ -116,6 +118,7 @@ export default function AdminRoles() {
       total: list.length,
       admins: list.filter((u) => roleOf(u) === "admin").length,
       editors: list.filter((u) => roleOf(u) === "editor").length,
+      reviewers: list.filter((u) => roleOf(u) === "reviewer").length,
       none: list.filter((u) => roleOf(u) === "none").length,
     };
   }, [data]);
@@ -143,10 +146,11 @@ export default function AdminRoles() {
         />
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           <StatCard label="إجمالي الأعضاء" value={counts.total} icon={UsersIcon} tone="neutral" />
           <StatCard label="مسؤولون" value={counts.admins} icon={ShieldCheck} tone="primary" />
           <StatCard label="محررون" value={counts.editors} icon={FileText} tone="success" />
+          <StatCard label="مراجعون" value={counts.reviewers} icon={ShieldCheck} tone="primary" />
           <StatCard label="بدون صلاحية" value={counts.none} icon={ShieldAlert} tone="danger" />
         </div>
 
@@ -212,6 +216,7 @@ export default function AdminRoles() {
                               <SelectContent>
                                 <SelectItem value="admin">مسؤول</SelectItem>
                                 <SelectItem value="editor">محرر</SelectItem>
+                                <SelectItem value="reviewer">مراجع</SelectItem>
                                 <SelectItem value="none">بدون</SelectItem>
                               </SelectContent>
                             </Select>
@@ -287,9 +292,10 @@ export default function AdminRoles() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>القسم</TableHead>
-                    <TableHead className="text-center w-24">مسؤول</TableHead>
-                    <TableHead className="text-center w-24">محرر</TableHead>
-                    <TableHead className="text-center w-24">بدون</TableHead>
+                    <TableHead className="text-center w-20">مسؤول</TableHead>
+                    <TableHead className="text-center w-20">محرر</TableHead>
+                    <TableHead className="text-center w-20">مراجع</TableHead>
+                    <TableHead className="text-center w-20">بدون</TableHead>
                     <TableHead>الوصف</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -303,7 +309,8 @@ export default function AdminRoles() {
                         </Link>
                       </TableCell>
                       <Cell yes />
-                      <Cell yes={s.access === "editor"} />
+                      <Cell yes={hasAccess("editor", s.access)} />
+                      <Cell yes={hasAccess("reviewer", s.access)} />
                       <Cell yes={false} />
                       <TableCell className="text-xs text-muted-foreground">{s.description}</TableCell>
                     </TableRow>
@@ -314,9 +321,10 @@ export default function AdminRoles() {
             <div className="rounded-lg border border-border bg-secondary/40 p-4 text-xs text-muted-foreground flex gap-2">
               <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <div>
-                النظام يعتمد دورين فقط: <strong className="text-foreground">مسؤول</strong> (وصول كامل) و
-                <strong className="text-foreground"> محرر</strong> (محتوى فقط: محلات، منتجات، عروض، مدونة، حملات).
-                الصلاحيات مطبّقة على مستوى قاعدة البيانات عبر RLS مع دالة <code>has_role</code> الآمنة.
+                النظام يعتمد ثلاثة أدوار: <strong className="text-foreground">مسؤول</strong> (وصول كامل)،
+                <strong className="text-foreground"> محرر</strong> (إدارة كل المحتوى)،
+                <strong className="text-foreground"> مراجع</strong> (مراجعة عروض السوشيال ومسار العروض/المنتجات فقط).
+                الصلاحيات مطبّقة على مستوى قاعدة البيانات عبر RLS مع دوال <code>has_role</code> و<code>can_review</code> الآمنة.
               </div>
             </div>
           </TabsContent>
