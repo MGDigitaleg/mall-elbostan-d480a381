@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-export type AppRole = "admin" | "editor" | "moderator" | "user";
+export type AppRole = "admin" | "editor" | "reviewer" | "moderator" | "user";
 
 interface AuthState {
   user: User | null;
@@ -11,8 +11,11 @@ interface AuthState {
   roles: AppRole[];
   isAdmin: boolean;
   isEditor: boolean;
+  isReviewer: boolean;
   /** True if user can manage content tables (admin OR editor). */
   canManageContent: boolean;
+  /** True if user can review moderation queues (admin OR reviewer). */
+  canReview: boolean;
 }
 
 async function loadRoles(userId: string): Promise<AppRole[]> {
@@ -29,11 +32,9 @@ export function useAuth(): AuthState & { signOut: () => Promise<void> } {
   const [roles, setRoles] = useState<AppRole[]>([]);
 
   useEffect(() => {
-    // 1) Subscribe FIRST to avoid missing the initial event
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       if (session?.user) {
-        // defer the role fetch to avoid deadlocks inside the auth callback
         setTimeout(() => {
           loadRoles(session.user.id).then((r) => {
             setRoles(r);
@@ -46,7 +47,6 @@ export function useAuth(): AuthState & { signOut: () => Promise<void> } {
       }
     });
 
-    // 2) Then read existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -68,6 +68,7 @@ export function useAuth(): AuthState & { signOut: () => Promise<void> } {
 
   const isAdmin = roles.includes("admin");
   const isEditor = roles.includes("editor");
+  const isReviewer = roles.includes("reviewer");
 
   return {
     user,
@@ -75,7 +76,9 @@ export function useAuth(): AuthState & { signOut: () => Promise<void> } {
     roles,
     isAdmin,
     isEditor,
+    isReviewer,
     canManageContent: isAdmin || isEditor,
+    canReview: isAdmin || isReviewer,
     signOut,
   };
 }
@@ -96,8 +99,7 @@ export function useRequireAdmin() {
 
 /**
  * Require admin OR editor — used for content management pages
- * (stores, blog, deals, jobs, faqs, events, products, downtown,
- * spin prizes/competition stores/campaign settings, etc.).
+ * (stores, blog, deals, jobs, faqs, events, products, etc.).
  */
 export function useRequireContentAccess() {
   const auth = useAuth();
@@ -108,6 +110,23 @@ export function useRequireContentAccess() {
       navigate("/admin/login");
     }
   }, [auth.loading, auth.user, auth.canManageContent, navigate]);
+
+  return auth;
+}
+
+/**
+ * Require admin OR reviewer — for moderation queues
+ * (social offers intake, offers pipeline review).
+ */
+export function useRequireReviewerAccess() {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!auth.loading && (!auth.user || !auth.canReview)) {
+      navigate("/admin/login");
+    }
+  }, [auth.loading, auth.user, auth.canReview, navigate]);
 
   return auth;
 }

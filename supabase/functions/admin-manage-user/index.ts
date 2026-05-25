@@ -5,10 +5,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+type InviteRole = "admin" | "editor" | "reviewer";
+type AssignedRole = InviteRole | "none";
+
 type Action =
-  | { action: "invite"; email: string; role: "admin" | "editor" }
-  | { action: "set_role"; user_id: string; role: "admin" | "editor" | "none" }
+  | { action: "invite"; email: string; role: InviteRole }
+  | { action: "set_role"; user_id: string; role: AssignedRole }
   | { action: "reset_password"; email: string }
+  | { action: "resend_invite"; email: string; role?: InviteRole }
   | { action: "disable"; user_id: string; disabled: boolean }
   | { action: "delete"; user_id: string };
 
