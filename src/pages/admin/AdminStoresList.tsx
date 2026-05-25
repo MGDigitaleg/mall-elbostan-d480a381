@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useRequireContentAccess } from "@/hooks/useAuth";
 import { AdminShell } from "@/components/admin/AdminShell";
 import {
-  AdminPageHeader, AdminStatusBadge, AdminEmptyState,
+  AdminPageHeader, AdminStatusBadge, AdminEmptyState, AdminFilterPanel,
 } from "@/components/admin/AdminPrimitives";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
