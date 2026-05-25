@@ -3,24 +3,20 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Building2, Phone, MapPin, ExternalLink, CheckCircle, AlertCircle, Store, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, Archive, HelpCircle, Filter } from "lucide-react";
+import { Building2, Phone, MapPin, Search, Globe, ChevronLeft, ShieldCheck, ShieldQuestion, AlertCircle, Filter, ListChecks } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { TenantLogo } from "@/components/TenantLogo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getPublicBadge, isAdminOnlyStatus, publicSafe } from "@/lib/downtownVerification";
 
-const statusConfig: Record<string, { label: string; color: string; icon: typeof CheckCircle }> = {
-  "Verified": { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
-  "Official source linked": { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
-  "Needs review": { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
-  "Archived / inactive": { label: "غير نشط", color: "bg-muted/50 text-muted-foreground border-border", icon: Archive },
-  "Unknown status": { label: "غير محدد", color: "bg-muted/30 text-muted-foreground border-border", icon: HelpCircle },
-  // Legacy fallbacks
-  verified: { label: "موثّق", color: "bg-success/10 text-success border-success/20", icon: ShieldCheck },
-  official_source_linked: { label: "مصدر رسمي", color: "bg-primary/10 text-primary border-primary/20", icon: ExternalLink },
-  needs_review: { label: "قيد المراجعة", color: "bg-orange-500/10 text-orange-600 border-orange-500/20", icon: AlertCircle },
+const BADGE_TONE: Record<string, { color: string; Icon: typeof ShieldCheck }> = {
+  green: { color: "bg-success/10 text-success border-success/20", Icon: ShieldCheck },
+  blue:  { color: "bg-primary/10 text-primary border-primary/20", Icon: ListChecks },
+  amber: { color: "bg-orange-500/10 text-orange-600 border-orange-500/20", Icon: AlertCircle },
+  gray:  { color: "bg-muted/40 text-muted-foreground border-border", Icon: ShieldQuestion },
 };
 
 const CATEGORIES = [
@@ -53,11 +49,14 @@ const DowntownDirectory = () => {
     },
   });
 
+  const visibleMerchantsAll = useMemo(() => {
+    return (merchants ?? []).filter(m => !isAdminOnlyStatus(m.verification_status));
+  }, [merchants]);
+
   const filtered = useMemo(() => {
-    if (!merchants) return [];
     const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, "");
     const searchNorm = search ? normalize(search) : "";
-    return merchants.filter((m) => {
+    return visibleMerchantsAll.filter((m) => {
       const matchesSearch = !searchNorm ||
         normalize(m.name_ar).includes(searchNorm) ||
         m.name_ar.toLowerCase().includes(search.toLowerCase()) ||
@@ -65,10 +64,14 @@ const DowntownDirectory = () => {
         (m.phone && m.phone.replace(/\s+/g, "").includes(searchNorm)) ||
         (m.category && normalize(m.category).includes(searchNorm));
       const matchesCategory = selectedCategory === "الكل" || m.category === selectedCategory;
-      const matchesStatus = selectedStatus === "الكل" || m.verification_status === selectedStatus;
+      const badge = getPublicBadge(m);
+      const matchesStatus = selectedStatus === "الكل"
+        || (selectedStatus === "verified" && badge?.tone === "green")
+        || (selectedStatus === "listed"   && badge?.tone === "blue")
+        || (selectedStatus === "needs"    && badge?.tone === "amber");
       return matchesSearch && matchesCategory && matchesStatus;
     });
-  }, [merchants, search, selectedCategory, selectedStatus]);
+  }, [visibleMerchantsAll, search, selectedCategory, selectedStatus]);
 
   // Reset pagination when filters change
   const visibleMerchants = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
@@ -147,7 +150,7 @@ const DowntownDirectory = () => {
             {[
               { label: "محل تجاري", value: merchants?.length ?? 0 },
               { label: "تصنيف", value: Object.keys(categoryCounts).length },
-              { label: "موثّق", value: merchants?.filter(m => m.verification_status === "Verified" || m.verification_status === "verified").length ?? 0 },
+              { label: "موثّق", value: visibleMerchantsAll.filter(m => getPublicBadge(m)?.tone === "green").length },
             ].map((s) => (
               <div key={s.label} className="rounded-xl border px-5 py-2.5" style={{ borderColor: "hsl(0 0% 100% / 0.08)", background: "hsl(0 0% 100% / 0.03)" }}>
                 <span className="text-[1.2rem] font-bold" style={{ color: "#F8FAFC" }}>{s.value}</span>
@@ -201,17 +204,20 @@ const DowntownDirectory = () => {
             <div className="flex items-center gap-2">
               <Filter className="h-3.5 w-3.5 text-muted-foreground" />
               <span className="text-[0.72rem] text-muted-foreground">حالة التوثيق:</span>
-              {["الكل", "Verified", "Official source linked", "Needs review"].map((s) => (
+              {[
+                { v: "الكل", label: "الكل" },
+                { v: "verified", label: "موثّق" },
+                { v: "listed", label: "مدرج" },
+                { v: "needs", label: "قيد التحقق" },
+              ].map((s) => (
                 <button
-                  key={s}
-                  onClick={() => handleFilterChange(setSelectedStatus, s)}
+                  key={s.v}
+                  onClick={() => handleFilterChange(setSelectedStatus, s.v)}
                   className={`rounded-md px-2.5 py-1 text-[0.65rem] font-medium transition-all ${
-                    selectedStatus === s
-                      ? "bg-foreground/10 text-foreground"
-                      : "text-muted-foreground hover:text-foreground"
+                    selectedStatus === s.v ? "bg-foreground/10 text-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {s === "الكل" ? "الكل" : s === "Verified" ? "موثّق" : s === "Official source linked" ? "مصدر رسمي" : "قيد المراجعة"}
+                  {s.label}
                 </button>
               ))}
             </div>
@@ -252,8 +258,10 @@ const DowntownDirectory = () => {
             <>
               <div className="grid gap-3 sm:grid-cols-2">
                 {visibleMerchants.map((m) => {
-                  const status = statusConfig[m.verification_status] ?? statusConfig["Unknown status"];
-                  const StatusIcon = status.icon;
+                  const badge = getPublicBadge(m);
+                  const tone = badge ? BADGE_TONE[badge.tone] : null;
+                  const BadgeIcon = tone?.Icon;
+                  const safePhone = publicSafe(m.phone, m);
                   return (
                     <Link
                       key={m.id}
@@ -273,10 +281,12 @@ const DowntownDirectory = () => {
                             <p className="text-[0.88rem] font-bold text-foreground group-hover:text-primary transition-colors">{m.name_ar}</p>
                             {m.name_en && <p className="font-poppins text-[0.7rem] text-muted-foreground">{m.name_en}</p>}
                           </div>
-                          <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${status.color}`}>
-                            <StatusIcon className="ml-0.5 h-2.5 w-2.5" />
-                            {status.label}
-                          </Badge>
+                          {badge && tone && BadgeIcon && (
+                            <Badge variant="outline" className={`shrink-0 text-[0.55rem] ${tone.color}`}>
+                              <BadgeIcon className="ml-0.5 h-2.5 w-2.5" />
+                              {badge.label}
+                            </Badge>
+                          )}
                         </div>
 
                         {m.category && (
@@ -285,9 +295,9 @@ const DowntownDirectory = () => {
 
                         <div className="mt-2 flex flex-wrap items-center gap-3 text-[0.72rem] text-muted-foreground">
                           {m.floor && <span>الدور {m.floor}</span>}
-                          {m.phone && (
+                          {safePhone && (
                             <span className="flex items-center gap-1 text-primary">
-                              <Phone className="h-3 w-3" /> {m.phone}
+                              <Phone className="h-3 w-3" /> {safePhone}
                             </span>
                           )}
                           {m.website && (

@@ -13,15 +13,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TenantLogo } from "@/components/TenantLogo";
 
-const statusConfig: Record<string, { label: string; bg: string; text: string; border: string; icon: typeof CheckCircle }> = {
-  "Verified":               { label: "موثّق", bg: "rgba(16,185,129,0.08)", text: "#10B981", border: "rgba(16,185,129,0.2)", icon: ShieldCheck },
-  "Official source linked": { label: "مصدر رسمي", bg: "rgba(37,99,235,0.08)", text: "#2563EB", border: "rgba(37,99,235,0.2)", icon: ExternalLink },
-  "Needs review":           { label: "قيد المراجعة", bg: "rgba(249,115,22,0.08)", text: "#F97316", border: "rgba(249,115,22,0.2)", icon: AlertCircle },
-  "Archived / inactive":    { label: "غير نشط", bg: "rgba(100,116,139,0.08)", text: "#64748B", border: "rgba(100,116,139,0.2)", icon: Archive },
-  "Unknown status":         { label: "غير محدد", bg: "rgba(100,116,139,0.06)", text: "#94A3B8", border: "rgba(100,116,139,0.15)", icon: HelpCircle },
-  verified:                 { label: "موثّق", bg: "rgba(16,185,129,0.08)", text: "#10B981", border: "rgba(16,185,129,0.2)", icon: ShieldCheck },
-  official_source_linked:   { label: "مصدر رسمي", bg: "rgba(37,99,235,0.08)", text: "#2563EB", border: "rgba(37,99,235,0.2)", icon: ExternalLink },
-  needs_review:             { label: "قيد المراجعة", bg: "rgba(249,115,22,0.08)", text: "#F97316", border: "rgba(249,115,22,0.2)", icon: AlertCircle },
+import { getPublicBadge, publicSafe } from "@/lib/downtownVerification";
+
+const BADGE_STYLE: Record<string, { bg: string; text: string; border: string }> = {
+  green: { bg: "rgba(16,185,129,0.08)",  text: "#10B981", border: "rgba(16,185,129,0.2)" },
+  blue:  { bg: "rgba(37,99,235,0.08)",   text: "#2563EB", border: "rgba(37,99,235,0.2)" },
+  amber: { bg: "rgba(249,115,22,0.08)",  text: "#F97316", border: "rgba(249,115,22,0.2)" },
+  gray:  { bg: "rgba(100,116,139,0.08)", text: "#64748B", border: "rgba(100,116,139,0.2)" },
 };
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -96,8 +94,10 @@ const DowntownMerchantDetail = () => {
     );
   }
 
-  const status = statusConfig[merchant.verification_status] ?? statusConfig["Unknown status"];
-  const StatusIcon = status.icon;
+  const badge = getPublicBadge(merchant);
+  const badgeStyle = badge ? BADGE_STYLE[badge.tone] : null;
+  const safePhone = publicSafe(merchant.phone, merchant);
+  const safeWhatsapp = publicSafe(merchant.whatsapp, merchant);
 
 
   const socialLinks = [
