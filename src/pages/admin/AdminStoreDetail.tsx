@@ -321,62 +321,7 @@ export default function AdminStoreDetail() {
 
           {/* EXTERNAL */}
           <TabsContent value="external">
-            <AdminSectionCard title="ربط متجر خارجي">
-              <p className="text-sm text-muted-foreground mb-4">
-                اربط متجر التاجر الخارجي (Shopify / WooCommerce / موقع) ليظهر للزوار، مع إمكانية تفعيل المزامنة لاحقاً.
-                المزامنة الفعلية ستتفعّل في المرحلة التالية عند ربط مُوصِّل المزود.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                <Field label="نوع المتجر الخارجي">
-                  <select value={store.external_store_type} onChange={(e) => update({ external_store_type: e.target.value })}
-                    className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-                    {EXT_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
-                  </select>
-                </Field>
-                <Field label="رابط المتجر">
-                  <Input value={store.external_store_url ?? ""} onChange={(e) => update({ external_store_url: e.target.value })}
-                    placeholder="https://..." disabled={!extLinked} />
-                </Field>
-                <Field label="معرّف / Handle">
-                  <Input value={store.external_store_handle ?? ""} onChange={(e) => update({ external_store_handle: e.target.value })}
-                    placeholder="my-store.myshopify.com" disabled={!extLinked} />
-                </Field>
-                <Field label="وضع المزامنة">
-                  <select value={store.sync_mode} onChange={(e) => update({ sync_mode: e.target.value })}
-                    disabled={!extLinked}
-                    className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
-                    <option value="manual">يدوي</option>
-                    <option value="scheduled">دوري (جاهز للتفعيل)</option>
-                    <option value="webhook">Webhook (جاهز للتفعيل)</option>
-                  </select>
-                </Field>
-                <Field label="استيراد المنتجات" inline>
-                  <Switch checked={!!store.import_products} disabled={!extLinked} onCheckedChange={(v) => update({ import_products: v })} />
-                </Field>
-                <Field label="استيراد العروض" inline>
-                  <Switch checked={!!store.import_offers} disabled={!extLinked} onCheckedChange={(v) => update({ import_offers: v })} />
-                </Field>
-              </div>
-
-              <div className="mt-5 rounded-lg border border-border bg-secondary/40 p-3 flex items-center justify-between gap-3">
-                <div className="text-sm">
-                  <div className="font-bold text-foreground flex items-center gap-2">
-                    حالة المزامنة:
-                    <AdminStatusBadge tone={store.sync_status === "error" ? "danger" : store.sync_status === "success" ? "success" : "neutral"}>
-                      {store.sync_status}
-                    </AdminStatusBadge>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">
-                    {store.last_sync_at ? `آخر مزامنة: ${new Date(store.last_sync_at).toLocaleString("ar-EG")}` : "لم تتم أي مزامنة بعد."}
-                    {store.last_sync_error && <span className="block text-red-600 mt-1">{store.last_sync_error}</span>}
-                  </div>
-                </div>
-                <Button variant="outline" size="sm" className="gap-1" disabled
-                  title="المزامنة الفعلية ستتفعّل عند ربط Edge Function للمزود (Batch C).">
-                  <RefreshCw className="w-4 h-4" /> مزامنة الآن
-                </Button>
-              </div>
-            </AdminSectionCard>
+            <AdminStoreExternalTab store={store} onPatch={update} onReload={reload} />
           </TabsContent>
 
           {/* LOCATION */}
