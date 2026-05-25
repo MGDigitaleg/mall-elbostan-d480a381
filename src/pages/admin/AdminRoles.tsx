@@ -292,9 +292,10 @@ export default function AdminRoles() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>القسم</TableHead>
-                    <TableHead className="text-center w-24">مسؤول</TableHead>
-                    <TableHead className="text-center w-24">محرر</TableHead>
-                    <TableHead className="text-center w-24">بدون</TableHead>
+                    <TableHead className="text-center w-20">مسؤول</TableHead>
+                    <TableHead className="text-center w-20">محرر</TableHead>
+                    <TableHead className="text-center w-20">مراجع</TableHead>
+                    <TableHead className="text-center w-20">بدون</TableHead>
                     <TableHead>الوصف</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -308,7 +309,8 @@ export default function AdminRoles() {
                         </Link>
                       </TableCell>
                       <Cell yes />
-                      <Cell yes={s.access === "editor"} />
+                      <Cell yes={hasAccess("editor", s.access)} />
+                      <Cell yes={hasAccess("reviewer", s.access)} />
                       <Cell yes={false} />
                       <TableCell className="text-xs text-muted-foreground">{s.description}</TableCell>
                     </TableRow>
@@ -319,9 +321,10 @@ export default function AdminRoles() {
             <div className="rounded-lg border border-border bg-secondary/40 p-4 text-xs text-muted-foreground flex gap-2">
               <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <div>
-                النظام يعتمد دورين فقط: <strong className="text-foreground">مسؤول</strong> (وصول كامل) و
-                <strong className="text-foreground"> محرر</strong> (محتوى فقط: محلات، منتجات، عروض، مدونة، حملات).
-                الصلاحيات مطبّقة على مستوى قاعدة البيانات عبر RLS مع دالة <code>has_role</code> الآمنة.
+                النظام يعتمد ثلاثة أدوار: <strong className="text-foreground">مسؤول</strong> (وصول كامل)،
+                <strong className="text-foreground"> محرر</strong> (إدارة كل المحتوى)،
+                <strong className="text-foreground"> مراجع</strong> (مراجعة عروض السوشيال ومسار العروض/المنتجات فقط).
+                الصلاحيات مطبّقة على مستوى قاعدة البيانات عبر RLS مع دوال <code>has_role</code> و<code>can_review</code> الآمنة.
               </div>
             </div>
           </TabsContent>
