@@ -118,6 +118,7 @@ export default function AdminRoles() {
       total: list.length,
       admins: list.filter((u) => roleOf(u) === "admin").length,
       editors: list.filter((u) => roleOf(u) === "editor").length,
+      reviewers: list.filter((u) => roleOf(u) === "reviewer").length,
       none: list.filter((u) => roleOf(u) === "none").length,
     };
   }, [data]);
