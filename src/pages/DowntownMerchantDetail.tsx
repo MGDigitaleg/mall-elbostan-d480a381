@@ -94,8 +94,10 @@ const DowntownMerchantDetail = () => {
     );
   }
 
-  const status = statusConfig[merchant.verification_status] ?? statusConfig["Unknown status"];
-  const StatusIcon = status.icon;
+  const badge = getPublicBadge(merchant);
+  const badgeStyle = badge ? BADGE_STYLE[badge.tone] : null;
+  const safePhone = publicSafe(merchant.phone, merchant);
+  const safeWhatsapp = publicSafe(merchant.whatsapp, merchant);
 
 
   const socialLinks = [
