@@ -397,7 +397,8 @@ const DowntownMerchantDetail = () => {
               </h2>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                 {relatedMerchants.map((rm) => {
-                  const rmStatus = statusConfig[rm.verification_status] ?? statusConfig["Unknown status"];
+                  const rmBadge = getPublicBadge(rm);
+                  const rmStyle = rmBadge ? BADGE_STYLE[rmBadge.tone] : null;
                   return (
                     <Link
                       key={rm.id}
