@@ -115,7 +115,7 @@ const AdminDashboard = () => {
         ...((draftOffers.data ?? []) as any[]).map((r) => ({
           id: r.id, kind: "offer" as const,
           title: r.title_ar, subtitle: "عرض مسودة",
-          href: `/admin/deals`, createdAt: r.created_at,
+          href: `/admin/offers`, createdAt: r.created_at,
         })),
         ...((draftProducts.data ?? []) as any[]).map((r) => ({
           id: r.id, kind: "product" as const,
