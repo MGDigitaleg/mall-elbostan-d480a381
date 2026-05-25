@@ -82,6 +82,7 @@ const groups: Group[] = [
     items: [
       { title: "الإعدادات", url: "/admin/settings", icon: Settings, adminOnly: true },
       { title: "مستخدمو الأدمن", url: "/admin/users", icon: Users, adminOnly: true },
+      { title: "الأدوار والصلاحيات", url: "/admin/roles", icon: ShieldCheck, adminOnly: true },
       { title: "جاهزية الإطلاق", url: "/admin/launch-readiness", icon: Rocket, adminOnly: true },
       { title: "حالة Lovable Cloud", url: "/admin/cloud-status", icon: Cloud, adminOnly: true },
       { title: "النسخ الاحتياطية", url: "/admin/backup", icon: Database, adminOnly: true },
