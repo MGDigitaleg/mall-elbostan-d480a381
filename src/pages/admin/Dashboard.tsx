@@ -150,7 +150,7 @@ const AdminDashboard = () => {
           actions={
             <div className="flex flex-wrap gap-2">
               <Link to="/admin/stores"><Button variant="cta" size="sm" className="gap-1"><Plus className="w-4 h-4" /> محل جديد</Button></Link>
-              <Link to="/admin/deals"><Button variant="outline" size="sm" className="gap-1"><Plus className="w-4 h-4" /> عرض جديد</Button></Link>
+              <Link to="/admin/offers"><Button variant="outline" size="sm" className="gap-1"><Tag className="w-4 h-4" /> مسار العروض</Button></Link>
               <Link to="/admin/social-offers"><Button variant="outline" size="sm" className="gap-1"><Bell className="w-4 h-4" /> مراجعة السوشيال</Button></Link>
             </div>
           }
@@ -222,7 +222,7 @@ const AdminDashboard = () => {
               <div className="grid grid-cols-2 gap-2">
                 <Link to="/admin/stores"><Button variant="outline" size="sm" className="w-full justify-start gap-2"><Store className="w-4 h-4" /> المحلات</Button></Link>
                 <Link to="/admin/products"><Button variant="outline" size="sm" className="w-full justify-start gap-2"><ShoppingBag className="w-4 h-4" /> المنتجات</Button></Link>
-                <Link to="/admin/deals"><Button variant="outline" size="sm" className="w-full justify-start gap-2"><Tag className="w-4 h-4" /> العروض</Button></Link>
+                <Link to="/admin/offers"><Button variant="outline" size="sm" className="w-full justify-start gap-2"><Tag className="w-4 h-4" /> مسار العروض</Button></Link>
                 <Link to="/admin/social-offers"><Button variant="outline" size="sm" className="w-full justify-start gap-2"><Bell className="w-4 h-4" /> سوشيال</Button></Link>
                 {isAdmin && (
                   <>

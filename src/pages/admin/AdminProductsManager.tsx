@@ -127,7 +127,7 @@ export default function AdminProductsManager() {
           title="المنتجات"
           subtitle="إدارة كتالوج المنتجات: النشر، التمييز، النسخ، والأرشفة"
           actions={
-            <Link to="/admin/products">
+            <Link to="/admin/products/legacy">
               <Button variant="outline" size="sm" className="gap-1">
                 <Plus className="w-4 h-4" /> منتج جديد
               </Button>
@@ -262,7 +262,7 @@ export default function AdminProductsManager() {
                           >
                             <Archive className="w-4 h-4" />
                           </Button>
-                          <Link to={`/admin/products`} title="تحرير">
+                          <Link to={`/admin/products/legacy`} title="تحرير">
                             <Button size="sm" variant="ghost" className="h-8 px-2">
                               <Pencil className="w-4 h-4" />
                             </Button>
