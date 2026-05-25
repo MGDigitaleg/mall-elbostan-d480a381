@@ -76,9 +76,10 @@ function StoreSwitcher() {
     return (
       <div className="flex items-center gap-2 rounded-full border border-border bg-secondary px-3 py-1">
         <TenantLogo
-          src={activeStore.logo_url ?? undefined}
-          name={activeStore.name_ar}
-          className="w-5 h-5 rounded"
+          src={activeStore.logo_url}
+          alt={activeStore.name_ar}
+          fallbackName={activeStore.name_ar}
+          size="xs"
         />
         <span className="text-xs font-bold text-foreground truncate max-w-[160px]">
           {activeStore.name_ar}
