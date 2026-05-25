@@ -480,9 +480,9 @@ const AdminDashboard = () => {
 
         {/* === Top sources / campaigns / stores === */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          <RankBlock title="أعلى مصادر الزيارات" icon={Globe} rows={topSources} loading={loading} />
-          <RankBlock title="أفضل الحملات" icon={Megaphone} rows={topCampaigns} loading={loading} emptyHint="أضف utm_campaign في الروابط." />
-          <RankBlock title="أعلى محلات تجذب العملاء" icon={Store} rows={topStoreLeads} loading={loading} emptyHint="لا توجد عملاء مرتبطين بمحلات بعد." />
+          <RankBlock title="أعلى مصادر الزيارات" icon={Globe} rows={topSources} loading={loading} href="/admin/reports/traffic" />
+          <RankBlock title="أفضل الحملات" icon={Megaphone} rows={topCampaigns} loading={loading} emptyHint="أضف utm_campaign في الروابط." href="/admin/reports/campaigns" />
+          <RankBlock title="أعلى محلات تجذب العملاء" icon={Store} rows={topStoreLeads} loading={loading} emptyHint="لا توجد عملاء مرتبطين بمحلات بعد." href="/admin/reports/stores" />
         </div>
 
         {/* === Operations grid === */}
