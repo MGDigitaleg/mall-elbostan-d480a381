@@ -1,6 +1,6 @@
 ## Phase 2 — El Bostan Admin Finalization
 
-Status: A ✅ • B ✅ • C ⏳ • D ⏳ • E ⏳ • F partial (csvExport ✅, dashboard cockpit ⏳)
+Status: A ✅ • B ✅ • C ✅ • D ⏳ • E ⏳ • F partial (csvExport ✅, dashboard cockpit ⏳)
 
 Scope: refine and unify the existing admin into a production-grade ops dashboard. No rewrites from zero. Build in 6 sequenced batches so each ships verifiable value.
 
