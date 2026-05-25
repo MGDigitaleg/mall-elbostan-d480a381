@@ -55,6 +55,7 @@ const KzHome = lazy(() => lazyRetry(() => import("./pages/kz/KzHome")));
 const KzCart = lazy(() => lazyRetry(() => import("./pages/kz/KzCart")));
 
 const AdminLogin = lazy(() => lazyRetry(() => import("./pages/admin/Login")));
+const AdminResetPassword = lazy(() => lazyRetry(() => import("./pages/admin/ResetPassword")));
 const AdminDowntownMerchants = lazy(() => lazyRetry(() => import("./pages/admin/AdminDowntownMerchants")));
 const AdminDashboard = lazy(() => lazyRetry(() => import("./pages/admin/Dashboard")));
 const AdminLeads = lazy(() => lazyRetry(() => import("./pages/admin/AdminLeads")));
@@ -207,6 +208,7 @@ function AppLayout() {
 
             {/* Admin */}
             <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin/reset-password" element={<AdminResetPassword />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/downtown-merchants" element={<AdminDowntownMerchants />} />
             <Route path="/admin/leads" element={<AdminLeads />} />
