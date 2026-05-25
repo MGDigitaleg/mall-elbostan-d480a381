@@ -107,7 +107,7 @@ export default function AdminRoles() {
       .filter((u) => (search ? (u.email ?? "").toLowerCase().includes(search.toLowerCase()) : true))
       .sort((a, b) => {
         const ra = roleOf(a), rb = roleOf(b);
-        const order: Record<Role, number> = { admin: 0, editor: 1, none: 2 };
+        const order: Record<Role, number> = { admin: 0, editor: 1, reviewer: 2, none: 3 };
         return order[ra] - order[rb];
       });
   }, [data, search]);
