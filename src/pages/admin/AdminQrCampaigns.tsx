@@ -111,7 +111,12 @@ const AdminQrCampaigns = () => {
   };
 
   return (
-    <AdminShell title="حملات QR" subtitle="روابط مُتابَعة بـ UTM للطباعة وتوزيع QR Codes">
+    <AdminShell>
+      <div className="p-6 space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold">حملات QR</h1>
+          <p className="text-sm text-muted-foreground">روابط مُتابَعة بـ UTM للطباعة وتوزيع QR Codes</p>
+        </div>
       <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
         <Card className="p-6 space-y-4">
           <div className="flex items-center gap-2 font-semibold">
@@ -213,6 +218,7 @@ const AdminQrCampaigns = () => {
             </div>
           )}
         </Card>
+      </div>
       </div>
     </AdminShell>
   );
