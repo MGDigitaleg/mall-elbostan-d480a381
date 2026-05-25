@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   Package, Tag, MessageSquare, Plug, AlertTriangle, Plus, Pencil, Image as ImageIcon, Store as StoreIcon,
 } from "lucide-react";
-import { LIFECYCLE_LABELS } from "@/lib/storeLifecycle";
+import { LIFECYCLE_META } from "@/lib/storeLifecycle";
 
 interface Counts {
   productsPublished: number;
@@ -87,7 +87,7 @@ export default function MerchantOverview() {
         <AdminStatusBadge tone={isPublished ? "success" : "warning"}>
           {isPublished ? "ظاهر للعامة" : "غير منشور"}
         </AdminStatusBadge>
-        <AdminStatusBadge tone={lifecycle.tone as any}>{lifecycle.ar}</AdminStatusBadge>
+        <AdminStatusBadge tone={lifecycle.tone as any}>{lifecycle.label}</AdminStatusBadge>
         {activeStore.featured && <AdminStatusBadge tone="info">مميّز</AdminStatusBadge>}
         <AdminStatusBadge tone={externalConnected ? "success" : "neutral"}>
           {externalConnected ? `متصل: ${activeStore.external_store_type}` : "بدون متجر خارجي"}
