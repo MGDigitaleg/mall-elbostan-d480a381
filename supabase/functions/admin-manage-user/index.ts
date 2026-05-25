@@ -71,6 +71,17 @@ Deno.serve(async (req) => {
         if (error) throw error;
         return ok({ ok: true });
       }
+      case "resend_invite": {
+        const { data, error } = await admin.auth.admin.inviteUserByEmail(body.email, {
+          redirectTo: `${origin}/admin/reset-password`,
+        });
+        if (error) throw error;
+        if (data.user && body.role) {
+          await admin.from("user_roles").delete().eq("user_id", data.user.id);
+          await admin.from("user_roles").insert({ user_id: data.user.id, role: body.role });
+        }
+        return ok({ user: data.user });
+      }
       case "disable": {
         const { error } = await admin.auth.admin.updateUserById(body.user_id, {
           ban_duration: body.disabled ? "876000h" : "none",
