@@ -266,6 +266,16 @@ function AppLayout() {
             <Route path="/admin/settings" element={<AdminSettings />} />
             <Route path="/admin/roles" element={<AdminRoles />} />
 
+            {/* Merchant Portal */}
+            <Route path="/merchant" element={<MerchantOverview />} />
+            <Route path="/merchant/store" element={<MerchantMyStore />} />
+            <Route path="/merchant/products" element={<MerchantMyProducts />} />
+            <Route path="/merchant/offers" element={<MerchantMyOffers />} />
+            <Route path="/merchant/leads" element={<MerchantMyLeads />} />
+            <Route path="/merchant/external" element={<MerchantExternal />} />
+            <Route path="/merchant/media" element={<MerchantMedia />} />
+            <Route path="/merchant/account" element={<MerchantAccount />} />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
