@@ -26,11 +26,13 @@ type MonitoredMerchant = {
 type IntakePost = {
   id: string; merchant_id: string; store_id: string; branch_context: string;
   source_platform: string; source_post_url: string | null; source_caption: string | null;
-  source_thumbnail_url: string | null; offer_title: string | null; offer_subtitle: string | null;
+  source_thumbnail_url: string | null; source_published_at: string | null;
+  offer_title: string | null; offer_subtitle: string | null;
   short_specs: string | null; current_price: number | null; old_price: number | null; currency: string;
   opening_related: boolean; review_status: string; publish_status: string;
   published_deal_id: string | null; published_at: string | null; expires_at: string | null;
   featured: boolean; category: string | null; notes: string | null; created_at: string;
+  media_assets: unknown; curated_media_assets: unknown;
 };
 type Notification = {
   id: string; intake_id: string; merchant_id: string; notification_type: string;
