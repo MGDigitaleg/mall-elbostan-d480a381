@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type Role = "admin" | "editor" | "none";
-type AccessLevel = "admin" | "editor"; // editor implies admin also has access
+type Role = "admin" | "editor" | "reviewer" | "none";
+type AccessLevel = "admin" | "editor" | "reviewer";
 
 type AdminUser = {
   id: string;
@@ -42,10 +42,10 @@ type Section = {
 const SECTIONS: Section[] = [
   { key: "stores", label: "المحلات والوحدات", description: "إدارة بطاقات المحلات والوحدات والأصول.", icon: Store, access: "editor", to: "/admin/stores" },
   { key: "products", label: "المنتجات والفئات", description: "كتالوج المنتجات والتصنيفات.", icon: ShoppingBag, access: "editor", to: "/admin/products" },
-  { key: "offers", label: "العروض والصفقات", description: "مسار العروض والصفقات المعتمدة.", icon: Tag, access: "editor", to: "/admin/offers" },
+  { key: "offers", label: "مسار العروض", description: "مراجعة واعتماد العروض (متاح للمراجع).", icon: Tag, access: "reviewer", to: "/admin/offers" },
+  { key: "social", label: "عروض السوشيال", description: "مراجعة منشورات السوشيال (متاح للمراجع).", icon: Globe, access: "reviewer", to: "/admin/social-offers" },
   { key: "content", label: "المدونة والفعاليات", description: "المحتوى التحريري والفعاليات والوظائف.", icon: FileText, access: "editor", to: "/admin/blog" },
   { key: "campaigns", label: "أدر واربح والمكافآت", description: "الحملات والجوائز والمتاجر المشاركة.", icon: Sparkles, access: "editor", to: "/admin/spin-system" },
-  { key: "social", label: "عروض السوشيال", description: "مراقبة وإلتقاط العروض من المنصات.", icon: Globe, access: "admin", to: "/admin/social-offers" },
   { key: "leads", label: "العملاء المحتملون", description: "نماذج التواصل والاستفسارات.", icon: UsersIcon, access: "admin", to: "/admin/leads" },
   { key: "seo", label: "SEO والفهرسة", description: "التدقيق وسجلات IndexNow.", icon: Globe, access: "admin", to: "/admin/seo-audit" },
   { key: "users", label: "مستخدمو الأدمن", description: "إدارة الأعضاء والصلاحيات.", icon: UsersIcon, access: "admin", to: "/admin/users" },
@@ -53,17 +53,19 @@ const SECTIONS: Section[] = [
   { key: "database", label: "قاعدة البيانات والسجلات", description: "Edge Functions والنسخ الاحتياطية والتدقيق.", icon: Database, access: "admin", to: "/admin/database" },
 ];
 
-const ROLE_LABEL: Record<Role, string> = { admin: "مسؤول", editor: "محرر", none: "بدون" };
+const ROLE_LABEL: Record<Role, string> = { admin: "مسؤول", editor: "محرر", reviewer: "مراجع", none: "بدون" };
 
 function roleOf(u: AdminUser): Role {
   if (u.roles.includes("admin")) return "admin";
   if (u.roles.includes("editor")) return "editor";
+  if (u.roles.includes("reviewer")) return "reviewer";
   return "none";
 }
 
 function hasAccess(role: Role, level: AccessLevel) {
   if (role === "admin") return true;
-  if (role === "editor" && level === "editor") return true;
+  if (role === "editor" && (level === "editor" || level === "reviewer")) return true;
+  if (role === "reviewer" && level === "reviewer") return true;
   return false;
 }
 
