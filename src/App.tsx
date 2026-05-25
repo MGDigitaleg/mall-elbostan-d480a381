@@ -129,7 +129,7 @@ function ScrollToTop() {
 }
 
 /* Routes that should NOT show the public header/footer/widgets */
-const adminPaths = ["/admin"];
+const adminPaths = ["/admin", "/merchant"];
 const immersivePaths = ["/market-echo", "/countdown"];
 
 /** Pages with a full-bleed dark hero — header overlaps, no top padding */
