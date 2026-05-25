@@ -282,7 +282,7 @@ function EmptyState({ title, hint }: { title: string; hint?: string }) {
   );
 }
 
-function PostReviewCard({ post, merchants, stores }: { post: IntakePost; merchants: MonitoredMerchant[]; stores: Store[] }) {
+function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePost; merchants: MonitoredMerchant[]; stores: Store[]; onConvert?: (id: string) => void }) {
   const qc = useQueryClient();
   const merchant = merchants.find((m) => m.id === post.merchant_id);
   const store = stores.find((s) => s.id === post.store_id);
