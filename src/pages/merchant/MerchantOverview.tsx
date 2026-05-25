@@ -62,7 +62,7 @@ export default function MerchantOverview() {
 
   if (!activeStore) return null;
 
-  const lifecycle = LIFECYCLE_LABELS[activeStore.lifecycle_status as keyof typeof LIFECYCLE_LABELS] ?? { ar: activeStore.lifecycle_status, tone: "neutral" as const };
+  const lifecycle = LIFECYCLE_META[activeStore.lifecycle_status as keyof typeof LIFECYCLE_META] ?? { label: activeStore.lifecycle_status, tone: "neutral" as const };
   const isPublished = activeStore.status === "published";
   const externalConnected = activeStore.external_store_type && activeStore.external_store_type !== "none";
 
