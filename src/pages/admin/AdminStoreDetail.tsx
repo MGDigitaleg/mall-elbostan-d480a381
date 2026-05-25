@@ -20,6 +20,8 @@ import {
   Copy, Star, Archive, Eye, EyeOff, CheckCircle2,
 } from "lucide-react";
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
+import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
+import { resolveConnectionStatus } from "@/lib/externalConnectors";
 
 type Store = any;
 
