@@ -1,69 +1,59 @@
-## El Bostan Admin — Production Finalization Plan
+## Phase 2 — El Bostan Admin Finalization
 
-This is a large, multi-phase refactor. To ship it safely without breaking the public site or the 30+ existing admin modules, I'll deliver it in 4 sequential phases. Each phase is independently shippable and verifiable.
+Scope: refine and unify the existing admin into a production-grade ops dashboard. No rewrites from zero. Build in 6 sequenced batches so each ships verifiable value.
 
 ---
 
-### Phase 1 — Dashboard Home + Shell (UI/UX foundation)
+### Batch A — Unify shell across real admin pages
+Wrap these existing pages in `AdminShell` + new primitives (`AdminPageHeader`, `AdminStatCard`, `AdminSectionCard`, `AdminStatusBadge`, `AdminEmptyState`):
+- `/admin/stores`, `/admin/stores/:id`
+- `/admin/products`, `/admin/offers`, `/admin/deals`, `/admin/social-offers`
+- `/admin/leads`, `/admin/spin-winners`
+- `/admin/users`, `/admin/roles`, `/admin/settings`
 
-Replace the flat icon-wall dashboard with a real operational home.
+Normalize: page header pattern, filters bar, status chips (draft/pending/active/expired/archived), empty states, mobile-responsive tables (card fallback under md).
 
-- New `AdminShell` layout: persistent left sidebar (grouped nav: Overview, Content, Stores & Tenants, Offers, Spin, SEO, System, Settings), top bar with role badge + global search + sign out, mobile drawer.
-- New **Dashboard Home** (`/admin`) with:
-  - KPI strip: stores (total / active / opening-soon), products (published / draft), offers (live / expiring 7d), pending social posts, leads (7d).
-  - **Pending review queue** (social offers + draft offers + draft products) — top of page, actionable rows.
-  - **Recent activity** from `audit_logs` (last 20).
-  - **Alerts**: integration health (edge fn errors 24h), launch readiness summary, expiring offers.
-  - **Quick actions**: New Store, New Offer, Review Social Posts, Publish queue.
-- Standardized admin primitives (used everywhere going forward):
-  - `AdminPageHeader`, `AdminStatusBadge`, `AdminEmptyState`, `AdminTableSkeleton`, `AdminFilters`, `AdminDataTable`.
+### Batch B — Advanced tenant/store management
+- Store list: filters (branch, category, status, featured, opening_status), search, bulk actions (publish/unpublish/feature/archive), CSV export.
+- Store statuses enum: `draft | pending | opening_soon | active | inactive | archived` (migrate `stores.lifecycle_status` if missing; else map to existing `status`).
+- Store detail page tabs: Identity • Location/Map • Products • Offers • Social Sources • External Store • Publish • Activity.
+- Quick actions: publish, feature, archive, open public page, copy slug.
 
-### Phase 2 — Stores / Tenants Management
+### Batch C — External store wiring
+Reuse existing `stores.external_store_*` and `sync_*` columns. Add admin UI:
+- Connection card per store with: `external_store_type` (none|shopify|woocommerce|manual|custom), URL, handle, sync_mode (manual|scheduled|webhook-ready), toggles `import_products` / `import_offers`, `last_sync_at`, `sync_status` badge, sync log preview.
+- Architecture: connector registry in `src/lib/externalConnectors.ts` so new platforms plug in without UI changes.
+- No fake automation — only "Mark sync attempted" + manual upload path for Phase 2.
 
-Replace generic CRUD with a real tenant console.
+### Batch D — Products & offers workflows
+- Products manager: filters (store, category, status, featured), bulk publish/archive/duplicate, image preview column, inline status toggle.
+- Offers pipeline: extend existing kanban with Rejected column, convert-from-social action, duplicate action, attach related product picker, pricing validation, expiry warnings.
+- Social intake: explicit Approve→Convert wizard that creates a `deals` row in draft state. Never auto-publishes.
 
-- Schema additions on `stores`:
-  - `display_name`, `floor`, `unit`, `admin_notes`
-  - external commerce fields: `external_store_type` (shopify/woocommerce/manual/website/none), `external_store_url`, `external_store_handle`, `sync_mode` (manual/scheduled/webhook), `sync_status`, `last_sync_at`, `import_products`, `import_offers`
-  - status enum widened: draft / pending / opening_soon / active / inactive / archived
-- New pages:
-  - `/admin/stores` — filterable list (branch, category, status, featured), search, bulk publish/archive, status badges.
-  - `/admin/stores/:id` — tenant detail with tabs: **Identity**, **Location & Map**, **External Store**, **Products**, **Offers**, **Social Sources**, **Activity**. Edit forms per tab, publish/archive actions.
-- Extensible integration model: `external_store_type` drives which fields/connectors appear; safe no-op when type=`none`. Architecture ready for future product/offer sync workers.
+### Batch E — Security, roles, account control
+- Reset password flow audit: ensure `/reset-password` route exists, `resetPasswordForEmail` uses correct redirect.
+- Add `reviewer` role to `app_role` enum (keep admin/editor; reserve `super_admin` if not present — verify before migration).
+- Invite admin user (already in `admin-manage-user` — surface as primary CTA), disable/enable user toggle, last_sign_in_at column in users list.
+- Role-aware sidebar (already partially in place — extend to hide actions, not just nav).
 
-### Phase 3 — Products, Offers, Social Review
-
-- **Products admin** rebuilt on `AdminDataTable`: filters (store/category/status/featured), inline publish/feature/duplicate/archive, detail edit page with image manager, SEO fields, store/category assignment.
-- **Offers admin**: pipeline view (pending / approved / published / expired / rejected), create-from-scratch + create-from-intake conversion, link to store/product, homepage-teaser toggle.
-- **Social Offer Review**: tighten existing `/admin/social-offers` with clearer queue, one-click approve→draft offer (already partially exists). Confirm no auto-publish path.
-
-### Phase 4 — Admin Users / Roles / Publishing / Settings
-
-- **`/admin/users`** (super_admin + admin only):
-  - List admins (joined from `user_roles` + auth.users via edge function using service role).
-  - Invite admin (edge function: creates auth user + role row + sends password reset email).
-  - Assign / change role (admin, editor, reviewer; super_admin role added to enum).
-  - Enable/disable (sets role to none + revokes sessions).
-  - Force password reset (edge function triggers reset email).
-  - Last login from `auth.users.last_sign_in_at`.
-- **Role guards**: `useRequireRole(['admin','super_admin'])` hook; sidebar items filtered by role; protected route wrapper.
-- **Settings hub** (`/admin/settings`): consolidates contact settings, branch defaults, social monitoring settings, offer behavior, SEO utilities — into one tabbed page (links to existing pages where useful, no duplication).
-- **Publishing control**: standardize `draft / published / archived` actions + "last edited by/at" surfaced on all content edit pages.
+### Batch F — Ops tools + cockpit polish
+- CSV export utility `src/lib/csvExport.ts`; wire into spin-winners, leads, stores, products, offers.
+- Dashboard home upgrade: pending review widget (social intake + draft offers + pending stores), expiring offers (next 7d), opening-soon stores, recent edge function errors, sync issues, recent audit log.
+- Mobile: collapsible filters, sticky action bar, table→card fallback components in `AdminPrimitives`.
 
 ---
 
 ### Technical notes
+- Migrations needed only if: `lifecycle_status` enum missing on stores, `reviewer` role missing. Verify with `read_query` first.
+- No new core dependencies. Reuse `@tanstack/react-query`, `lucide-react`, shadcn.
+- Keep all copy in Fusha Arabic, use 'محلات' not 'متاجر', no emojis.
+- All status colors via existing `AdminStatusBadge` tones.
 
-- All new tables/columns via migrations with RLS (`has_role` / `can_manage_content`).
-- New edge functions: `admin-invite-user`, `admin-reset-user-password`, `admin-set-user-role`, `admin-disable-user` — all gated by `has_role(auth.uid(),'super_admin'|'admin')` server-side.
-- No credentials in code. Invites use Supabase's built-in password reset / invite emails.
-- Mobile: sidebar collapses to drawer, tables fall back to card lists < 768px.
-- Existing routes/pages preserved; old `Dashboard.tsx` becomes a legacy redirect to the new `/admin` home.
+### Out of scope (defer to Phase 3)
+- Real webhook receivers for Shopify/Woo.
+- Scheduled background sync workers.
+- Full QR/UTM campaign builder UI (architecture readiness only).
+- Reviewer-specific dashboards.
 
----
-
-### Scope confirmation
-
-Given the size (~15-25 new/rewritten files per phase, 3-4 migrations, 4 edge functions), I recommend shipping **Phase 1 first**, you review, then I continue Phase 2 → 3 → 4. Otherwise we risk a single massive change that's hard to QA.
-
-**Approve this plan to start Phase 1 (Dashboard Home + Admin Shell)?** Or tell me to plow through all 4 phases in one go.
+### Execution order
+A → B → C → D → E → F. Each batch is independently verifiable in preview before moving on. I'll start with Batch A on your approval.
