@@ -1782,6 +1782,41 @@ export type Database = {
           },
         ]
       }
+      store_managers: {
+        Row: {
+          created_at: string
+          id: string
+          is_primary: boolean
+          store_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean
+          store_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_primary?: boolean
+          store_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "store_managers_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       store_prizes: {
         Row: {
           active_from: string | null
@@ -2275,10 +2310,22 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_store_manager: { Args: { _user_id: string }; Returns: boolean }
+      manager_store_ids: { Args: { _user_id: string }; Returns: string[] }
+      manages_store: {
+        Args: { _store_id: string; _user_id: string }
+        Returns: boolean
+      }
       notify_indexing_ping: { Args: { _urls: Json }; Returns: undefined }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user" | "editor" | "reviewer"
+      app_role:
+        | "admin"
+        | "moderator"
+        | "user"
+        | "editor"
+        | "reviewer"
+        | "store_manager"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -2406,7 +2453,14 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user", "editor", "reviewer"],
+      app_role: [
+        "admin",
+        "moderator",
+        "user",
+        "editor",
+        "reviewer",
+        "store_manager",
+      ],
     },
   },
 } as const
