@@ -2318,6 +2318,7 @@ export type Database = {
           floor_id: string | null
           id: string
           map_area_id: string | null
+          media_url: string | null
           price_note: string | null
           status: string
           unit_code: string
@@ -2333,6 +2334,7 @@ export type Database = {
           floor_id?: string | null
           id?: string
           map_area_id?: string | null
+          media_url?: string | null
           price_note?: string | null
           status?: string
           unit_code: string
@@ -2348,6 +2350,7 @@ export type Database = {
           floor_id?: string | null
           id?: string
           map_area_id?: string | null
+          media_url?: string | null
           price_note?: string | null
           status?: string
           unit_code?: string
