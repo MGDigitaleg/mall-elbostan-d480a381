@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { ArrowRight, Plus, Pencil, Trash2 } from "lucide-react";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
 interface CrudPageProps {
   table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
@@ -24,6 +25,19 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+
+  const hasStoreField = fields.some((f) => f.type === "store");
+  const { data: storeOptions } = useQuery({
+    queryKey: ["crud-store-options"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("stores")
+        .select("id, name_ar")
+        .order("name_ar", { ascending: true });
+      return data ?? [];
+    },
+    enabled: hasStoreField,
+  });
 
   const { data: items, isLoading } = useQuery({
     queryKey: [table],
