@@ -56,10 +56,11 @@ export const AdminProductCategories = () => <AdminCrudPage table="product_catego
 export const AdminProducts = () => <AdminCrudPage table="products" title="المنتجات" nameField="name_ar" fields={[
   { key: "name_ar", label: "الاسم بالعربية" }, { key: "name_en", label: "الاسم بالإنجليزية" },
   { key: "slug", label: "الرابط (slug)" }, { key: "brand", label: "العلامة التجارية" },
+  { key: "store_id", label: "المحل المرتبط", type: "store" },
   { key: "short_description_ar", label: "وصف قصير", type: "textarea" },
   { key: "long_description_ar", label: "وصف تفصيلي", type: "textarea" },
   { key: "price", label: "السعر", type: "number" }, { key: "price_note", label: "ملاحظة السعر" },
-  { key: "sku", label: "SKU" }, { key: "image_url", label: "رابط الصورة" },
+  { key: "sku", label: "SKU" }, { key: "image_url", label: "صورة المنتج", type: "image" },
   { key: "external_buy_url", label: "رابط الشراء الخارجي" },
   { key: "status", label: "الحالة (draft/published/hidden)" },
   { key: "featured", label: "مميز (true/false)" },
