@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
 import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
 type Store = any;
 
