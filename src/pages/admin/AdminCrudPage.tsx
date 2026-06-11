@@ -54,6 +54,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
       fields.forEach((f) => {
         const val = data[f.key];
         if (f.type === "boolean") cleanData[f.key] = val === "true";
+        else if (f.type === "select" && f.options?.includes("true") && f.options?.includes("false")) cleanData[f.key] = val === "true";
         else if (f.type === "number") cleanData[f.key] = val ? Number(val) : null;
         else cleanData[f.key] = val || null;
       });
