@@ -457,10 +457,12 @@ export default function AdminProductsManager() {
                         />
                       </td>
                       <td className="px-3 py-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <div className="w-9 h-9 rounded-md bg-secondary overflow-hidden shrink-0">
-                            {p.image_url && (
-                              <img src={p.image_url} alt="" className="w-full h-full object-cover" loading="lazy" />
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className="w-20 h-20 rounded-lg border border-border bg-white overflow-hidden shrink-0 flex items-center justify-center">
+                            {p.image_url ? (
+                              <img src={p.image_url} alt={p.name_ar} className="w-full h-full object-contain p-1" loading="lazy" />
+                            ) : (
+                              <span className="text-[0.6rem] text-muted-foreground">لا صورة</span>
                             )}
                           </div>
                           <div className="min-w-0">
