@@ -72,11 +72,12 @@ export function ImageUploadField({
     e.target.value = "";
   };
 
-  const previewClass = shape === "wide" ? "w-full aspect-[3/1]" : "w-20 h-20";
+  const isWide = shape === "wide";
+  const previewClass = isWide ? "w-full aspect-[3/1]" : "w-20 h-20";
 
   return (
     <div className="space-y-2">
-      <div className="flex items-start gap-3">
+      <div className={isWide ? "space-y-3" : "flex items-start gap-3"}>
         <div
           className={`${previewClass} shrink-0 rounded-lg bg-white border border-border grid place-items-center overflow-hidden`}
         >
