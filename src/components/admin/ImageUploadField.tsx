@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Upload, Link2, Image as ImageIcon, X, Loader2, Video } from "lucide-react";
+import { Upload, Link2, Image as ImageIcon, X, Loader2 } from "lucide-react";
 
 type Props = {
   /** Current image URL value. */
