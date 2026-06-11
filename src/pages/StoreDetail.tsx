@@ -64,8 +64,9 @@ function inferOfferFilterCategory(offer: {
   return "الأجهزة";
 }
 
-const StoreDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
+const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
+  const { slug: slugParam } = useParams<{ slug: string }>();
+  const slug = slugOverride ?? slugParam;
   const [searchParams] = useSearchParams();
   const fromMap = searchParams.get("from") === "map";
   const initialTab = fromMap ? "map" : (searchParams.get("tab") as "map" | "offers" | "leasing" | null) ?? "map";
