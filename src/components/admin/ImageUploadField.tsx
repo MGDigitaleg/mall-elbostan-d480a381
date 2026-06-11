@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
-import { Upload, Link2, Image as ImageIcon, X, Loader2 } from "lucide-react";
+import { Upload, Link2, Image as ImageIcon, X, Loader2, Video } from "lucide-react";
 
 type Props = {
   /** Current image URL value. */
@@ -19,7 +19,13 @@ type Props = {
   /** Preview shape. */
   shape?: "square" | "wide";
   placeholder?: string;
+  /** When true, allows video file uploads alongside images. */
+  acceptVideo?: boolean;
 };
+
+function isVideoUrl(url: string) {
+  return /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+}
 
 /**
  * Lets the user either upload an image file (stored in Supabase Storage) or
@@ -33,22 +39,25 @@ export function ImageUploadField({
   bucket = "logos",
   shape = "square",
   placeholder = "https://…",
+  acceptVideo = false,
 }: Props) {
   const [mode, setMode] = useState<"upload" | "url">("upload");
   const [busy, setBusy] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = async (file: File) => {
-    if (!file.type.startsWith("image/")) {
-      toast({ title: "الملف ليس صورة", variant: "destructive" });
+    const isImage = file.type.startsWith("image/");
+    const isVideo = file.type.startsWith("video/");
+    if (!isImage && !(acceptVideo && isVideo)) {
+      toast({ title: acceptVideo ? "الملف ليس صورة أو فيديو" : "الملف ليس صورة", variant: "destructive" });
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      toast({ title: "حجم الصورة كبير", description: "الحد الأقصى 5 ميجابايت.", variant: "destructive" });
+    if (file.size > 20 * 1024 * 1024) {
+      toast({ title: "حجم الملف كبير", description: "الحد الأقصى 20 ميجابايت.", variant: "destructive" });
       return;
     }
     setBusy(true);
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const ext = file.name.split(".").pop()?.toLowerCase() || (isVideo ? "mp4" : "jpg");
     const path = `${pathPrefix || "misc"}/${kind}-${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from(bucket).upload(path, file, {
       upsert: true,
@@ -57,13 +66,13 @@ export function ImageUploadField({
     });
     if (error) {
       setBusy(false);
-      toast({ title: "تعذّر رفع الصورة", description: error.message, variant: "destructive" });
+      toast({ title: "تعذّر رفع الملف", description: error.message, variant: "destructive" });
       return;
     }
     const { data } = supabase.storage.from(bucket).getPublicUrl(path);
     setBusy(false);
     onChange(data.publicUrl);
-    toast({ title: "تم رفع الصورة" });
+    toast({ title: "تم رفع الملف" });
   };
 
   const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,6 +83,7 @@ export function ImageUploadField({
 
   const isWide = shape === "wide";
   const previewClass = isWide ? "w-full aspect-[3/1]" : "w-20 h-20";
+  const showVideo = value && isVideoUrl(value);
 
   return (
     <div className="space-y-2">
@@ -81,7 +91,14 @@ export function ImageUploadField({
         <div
           className={`${previewClass} shrink-0 rounded-lg bg-white border border-border grid place-items-center overflow-hidden`}
         >
-          {value ? (
+          {showVideo ? (
+            <video
+              src={value}
+              className={shape === "wide" ? "w-full h-full object-cover" : "w-full h-full object-contain p-1.5"}
+              controls
+              muted
+            />
+          ) : value ? (
             <img
               src={value}
               alt=""
@@ -102,7 +119,7 @@ export function ImageUploadField({
                 mode === "upload" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"
               }`}
             >
-              <Upload className="w-3.5 h-3.5" /> رفع صورة
+              <Upload className="w-3.5 h-3.5" /> {acceptVideo ? "رفع ملف" : "رفع صورة"}
             </button>
             <button
               type="button"
@@ -117,7 +134,13 @@ export function ImageUploadField({
 
           {mode === "upload" ? (
             <div className="flex items-center gap-2">
-              <input ref={inputRef} type="file" accept="image/*" className="sr-only" onChange={onPick} />
+              <input
+                ref={inputRef}
+                type="file"
+                accept={acceptVideo ? "image/*,video/*" : "image/*"}
+                className="sr-only"
+                onChange={onPick}
+              />
               <Button
                 type="button"
                 variant="outline"
@@ -127,7 +150,7 @@ export function ImageUploadField({
                 className="gap-1"
               >
                 {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
-                {busy ? "جارٍ الرفع…" : "اختر صورة"}
+                {busy ? "جارٍ الرفع…" : acceptVideo ? "اختر ملف" : "اختر صورة"}
               </Button>
               {value && (
                 <Button type="button" variant="ghost" size="sm" onClick={() => onChange("")} className="gap-1 text-red-600">
@@ -151,7 +174,11 @@ export function ImageUploadField({
             </div>
           )}
           <p className="text-[0.7rem] text-muted-foreground">
-            {mode === "upload" ? "PNG أو JPG، الحد الأقصى 5 ميجابايت." : "الصق رابط صورة مباشر (يُفضّل من مصدر موثوق)."}
+            {mode === "upload"
+              ? acceptVideo
+                ? "PNG أو JPG أو MP4 أو WebM، الحد الأقصى 20 ميجابايت."
+                : "PNG أو JPG، الحد الأقصى 5 ميجابايت."
+              : "الصق رابط صورة أو فيديو مباشر (يُفضّل من مصدر موثوق)."}
           </p>
         </div>
       </div>
