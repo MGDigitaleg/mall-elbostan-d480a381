@@ -15,7 +15,7 @@ interface CrudPageProps {
   table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
   title: string;
   nameField: string;
-  fields: { key: string; label: string; type?: string; options?: string[] }[];
+  fields: { key: string; label: string; type?: string; options?: string[]; acceptVideo?: boolean }[];
 }
 
 export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps) {
@@ -28,6 +28,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
 
   const hasStoreField = fields.some((f) => f.type === "store");
   const hasImageField = fields.some((f) => f.type === "image");
+  const imageFieldKey = fields.find((f) => f.type === "image")?.key;
   const { data: storeOptions } = useQuery({
     queryKey: ["crud-store-options"],
     queryFn: async () => {
@@ -117,15 +118,26 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
             {items?.map((item: Record<string, unknown>) => (
               <div key={item.id as string} className="card-premium p-4 flex flex-col gap-3">
                 {hasImageField && (
-                  item.image_url ? (
-                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted">
-                      <img
-                        src={item.image_url as string}
-                        alt={String(item[nameField] ?? "صورة المنتج")}
-                        className="w-full h-full object-contain"
-                        loading="lazy"
-                      />
-                    </div>
+                  (imageFieldKey && item[imageFieldKey]) ? (
+                    /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(item[imageFieldKey])) ? (
+                      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted">
+                        <video
+                          src={String(item[imageFieldKey])}
+                          className="w-full h-full object-cover"
+                          controls
+                          muted
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted">
+                        <img
+                          src={String(item[imageFieldKey])}
+                          alt={String(item[nameField] ?? "صورة")}
+                          className="w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                      </div>
+                    )
                   ) : (
                     <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted flex items-center justify-center text-muted-foreground text-sm">
                       لا توجد صورة
@@ -162,6 +174,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
                     pathPrefix={table}
                     kind={field.key}
                     shape="square"
+                    acceptVideo={field.acceptVideo}
                   />
                 ) : field.type === "store" ? (
                   <select
