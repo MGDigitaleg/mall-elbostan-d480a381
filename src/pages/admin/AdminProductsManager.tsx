@@ -428,137 +428,123 @@ export default function AdminProductsManager() {
               />
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-secondary/40 text-xs text-muted-foreground">
-                  <tr>
-                    <th className="w-8 px-3 py-2">
-                      <Checkbox checked={allOnPageSelected} onCheckedChange={toggleAll} aria-label="تحديد الكل" />
-                    </th>
-                    <th className="text-right px-3 py-2 font-bold">المنتج</th>
-                    <th className="text-right px-3 py-2 font-bold">المحل</th>
-                    <th className="text-right px-3 py-2 font-bold">الفئة</th>
-                    <th className="text-right px-3 py-2 font-bold">السعر</th>
-                    <th className="text-right px-3 py-2 font-bold">الحالة</th>
-                    <th className="text-right px-3 py-2 font-bold">إجراءات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((p) => (
-                    <tr
-                      key={p.id}
-                      className={`border-t border-border hover:bg-secondary/30 ${selected.has(p.id) ? "bg-primary/5" : ""}`}
-                    >
-                      <td className="px-3 py-2">
-                        <Checkbox
-                          checked={selected.has(p.id)}
-                          onCheckedChange={() => toggleOne(p.id)}
-                          aria-label={`تحديد ${p.name_ar}`}
-                        />
-                      </td>
-                      <td className="px-3 py-2">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-20 h-20 rounded-lg border border-border bg-white overflow-hidden shrink-0 flex items-center justify-center">
-                            {p.image_url ? (
-                              <img src={p.image_url} alt={p.name_ar} className="w-full h-full object-contain p-1" loading="lazy" />
-                            ) : (
-                              <span className="text-[0.6rem] text-muted-foreground">لا صورة</span>
-                            )}
-                          </div>
-                          <div className="min-w-0">
-                            <div className="font-bold text-foreground truncate flex items-center gap-1">
-                              {p.featured && <Star className="w-3 h-3 text-amber-500 fill-amber-500" />}
-                              {p.name_ar}
-                            </div>
-                            <div className="text-[0.7rem] text-muted-foreground truncate">{p.slug}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2 text-muted-foreground text-xs">{storeMap[p.store_id ?? ""] ?? "—"}</td>
-                      <td className="px-3 py-2 text-muted-foreground text-xs">{categoryMap[p.category_id ?? ""] ?? "—"}</td>
-                      <td className="px-3 py-2 font-semibold">{p.price ? `${p.price} ج.م` : "—"}</td>
-                      <td className="px-3 py-2">
-                        <AdminStatusBadge tone={STATUS_TONE[p.status] ?? "neutral"}>
-                          {STATUS_LABEL[p.status] ?? p.status}
-                        </AdminStatusBadge>
-                      </td>
-                      <td className="px-3 py-2">
-                        <div className="flex items-center gap-1 flex-wrap">
-                          <Button
-                            size="sm" variant="ghost" className="h-8 px-2"
-                            title={p.status === "published" ? "إلغاء النشر" : "نشر"}
-                            onClick={() => updateMut.mutate({
-                              id: p.id,
-                              patch: { status: p.status === "published" ? "draft" : "published" },
-                            })}
-                          >
-                            {p.status === "published" ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            <div className="p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {filtered.map((p) => (
+                  <div
+                    key={p.id}
+                    className={`group relative rounded-xl border bg-card overflow-hidden transition hover:shadow-md ${
+                      selected.has(p.id) ? "border-primary ring-1 ring-primary" : "border-border"
+                    }`}
+                  >
+                    <div className="absolute top-2 right-2 z-10">
+                      <Checkbox
+                        checked={selected.has(p.id)}
+                        onCheckedChange={() => toggleOne(p.id)}
+                        aria-label={`تحديد ${p.name_ar}`}
+                        className="bg-background/80 backdrop-blur"
+                      />
+                    </div>
+                    <div className="absolute top-2 left-2 z-10">
+                      <AdminStatusBadge tone={STATUS_TONE[p.status] ?? "neutral"}>
+                        {STATUS_LABEL[p.status] ?? p.status}
+                      </AdminStatusBadge>
+                    </div>
+
+                    <div className="aspect-[4/3] bg-white border-b border-border flex items-center justify-center overflow-hidden">
+                      {p.image_url ? (
+                        <img src={p.image_url} alt={p.name_ar} className="w-full h-full object-contain p-3" loading="lazy" />
+                      ) : (
+                        <span className="text-xs text-muted-foreground">لا توجد صورة</span>
+                      )}
+                    </div>
+
+                    <div className="p-3 space-y-2">
+                      <div className="font-bold text-foreground line-clamp-1 flex items-center gap-1">
+                        {p.featured && <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0" />}
+                        {p.name_ar}
+                      </div>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span className="truncate">{storeMap[p.store_id ?? ""] ?? "—"}</span>
+                        <span className="font-semibold text-foreground shrink-0">{p.price ? `${p.price} ج.م` : "—"}</span>
+                      </div>
+                      <div className="text-[0.7rem] text-muted-foreground truncate">{categoryMap[p.category_id ?? ""] ?? "—"}</div>
+
+                      <div className="flex items-center gap-1 flex-wrap pt-1 border-t border-border">
+                        <Button
+                          size="sm" variant="ghost" className="h-8 px-2"
+                          title={p.status === "published" ? "إلغاء النشر" : "نشر"}
+                          onClick={() => updateMut.mutate({
+                            id: p.id,
+                            patch: { status: p.status === "published" ? "draft" : "published" },
+                          })}
+                        >
+                          {p.status === "published" ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </Button>
+                        <Button
+                          size="sm" variant="ghost" className="h-8 px-2"
+                          title={p.featured ? "إزالة التمييز" : "تمييز"}
+                          onClick={() => updateMut.mutate({ id: p.id, patch: { featured: !p.featured } })}
+                        >
+                          {p.featured ? <StarOff className="w-4 h-4" /> : <Star className="w-4 h-4" />}
+                        </Button>
+                        <Button
+                          size="sm" variant="ghost" className="h-8 px-2"
+                          title="نسخ" onClick={() => duplicateMut.mutate(p.id)}
+                        >
+                          <Copy className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm" variant="ghost" className="h-8 px-2"
+                          title="أرشفة"
+                          onClick={() => updateMut.mutate({ id: p.id, patch: { status: "archived" } })}
+                        >
+                          <Archive className="w-4 h-4" />
+                        </Button>
+                        <Link to={`/admin/products/legacy`} title="تحرير">
+                          <Button size="sm" variant="ghost" className="h-8 px-2">
+                            <Pencil className="w-4 h-4" />
                           </Button>
-                          <Button
-                            size="sm" variant="ghost" className="h-8 px-2"
-                            title={p.featured ? "إزالة التمييز" : "تمييز"}
-                            onClick={() => updateMut.mutate({ id: p.id, patch: { featured: !p.featured } })}
-                          >
-                            {p.featured ? <StarOff className="w-4 h-4" /> : <Star className="w-4 h-4" />}
-                          </Button>
-                          <Button
-                            size="sm" variant="ghost" className="h-8 px-2"
-                            title="نسخ" onClick={() => duplicateMut.mutate(p.id)}
-                          >
-                            <Copy className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            size="sm" variant="ghost" className="h-8 px-2"
-                            title="أرشفة"
-                            onClick={() => updateMut.mutate({ id: p.id, patch: { status: "archived" } })}
-                          >
-                            <Archive className="w-4 h-4" />
-                          </Button>
-                          <Link to={`/admin/products/legacy`} title="تحرير">
+                        </Link>
+                        {p.status === "published" && p.slug && (
+                          <a href={`/products/${p.slug}`} target="_blank" rel="noreferrer" title="معاينة">
                             <Button size="sm" variant="ghost" className="h-8 px-2">
-                              <Pencil className="w-4 h-4" />
+                              <ExternalLink className="w-4 h-4" />
                             </Button>
-                          </Link>
-                          {p.status === "published" && p.slug && (
-                            <a href={`/products/${p.slug}`} target="_blank" rel="noreferrer" title="معاينة">
-                              <Button size="sm" variant="ghost" className="h-8 px-2">
-                                <ExternalLink className="w-4 h-4" />
-                              </Button>
-                            </a>
-                          )}
-                          <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                              <Button
-                                size="sm" variant="ghost"
-                                className="h-8 px-2 text-destructive hover:text-destructive" title="حذف"
+                          </a>
+                        )}
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              size="sm" variant="ghost"
+                              className="h-8 px-2 text-destructive hover:text-destructive" title="حذف"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent dir="rtl">
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>حذف {p.name_ar}؟</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                لا يمكن التراجع عن هذا الإجراء.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => deleteMut.mutate(p.id)}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                               >
-                                <Trash2 className="w-4 h-4" />
-                              </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogContent dir="rtl">
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>حذف {p.name_ar}؟</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  لا يمكن التراجع عن هذا الإجراء.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>إلغاء</AlertDialogCancel>
-                                <AlertDialogAction
-                                  onClick={() => deleteMut.mutate(p.id)}
-                                  className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                                >
-                                  حذف
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                                حذف
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
