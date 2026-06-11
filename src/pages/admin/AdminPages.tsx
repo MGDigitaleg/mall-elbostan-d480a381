@@ -9,7 +9,7 @@ export const AdminStores = () => <AdminCrudPage table="stores" title="المتا
   { key: "featured", label: "مميز (true/false)" },
 ]} />;
 export const AdminUnits = () => <AdminCrudPage table="units" title="الوحدات" nameField="unit_code" fields={[
-  { key: "unit_code", label: "رمز الوحدة" }, { key: "status", label: "الحالة (leased/available/reserved/hidden)" },
+  { key: "unit_code", label: "رمز الوحدة" }, { key: "status", label: "الحالة", type: "select", options: ["available", "leased", "reserved", "hidden"] },
   { key: "area_sqm", label: "المساحة م²", type: "number" }, { key: "activity_suggestion", label: "النشاط المقترح" },
   { key: "price_note", label: "ملاحظة السعر" }, { key: "description_ar", label: "وصف عربي" }, { key: "featured", label: "مميز (true/false)" },
 ]} />;
