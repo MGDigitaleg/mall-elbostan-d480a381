@@ -6,7 +6,7 @@ export const AdminStores = () => <AdminCrudPage table="stores" title="المتا
   { key: "short_description_ar", label: "وصف قصير عربي" }, { key: "long_description_ar", label: "وصف تفصيلي عربي", type: "textarea" },
   { key: "logo_url", label: "رابط الشعار" }, { key: "cover_image_url", label: "رابط صورة الغلاف" },
   { key: "phone", label: "الهاتف" }, { key: "whatsapp", label: "واتساب" }, { key: "email", label: "البريد" }, { key: "website", label: "الموقع" },
-  { key: "featured", label: "مميز (true/false)" },
+  { key: "featured", label: "وحدة مميزة", type: "select", options: ["true", "false"] },
 ]} />;
 export const AdminUnits = () => <AdminCrudPage table="units" title="الوحدات" nameField="unit_code" fields={[
   { key: "unit_code", label: "رمز الوحدة" }, { key: "status", label: "الحالة", type: "select", options: ["available", "leased", "reserved", "hidden"] },
