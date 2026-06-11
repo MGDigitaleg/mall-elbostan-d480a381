@@ -175,6 +175,18 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
                       <option key={s.id} value={s.id}>{s.name_ar}</option>
                     ))}
                   </select>
+                ) : field.type === "select" ? (
+                  <select
+                    value={formData[field.key] ?? ""}
+                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                    className="flex h-10 w-full rounded-md border border-border bg-secondary px-3 py-2 text-sm"
+                    dir="rtl"
+                  >
+                    <option value="">— اختر —</option>
+                    {field.options?.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
                 ) : (
                   <Input value={formData[field.key] ?? ""} onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} className="bg-secondary border-border" type={field.type === "number" ? "number" : "text"} dir={field.key.includes("email") || field.key.includes("phone") || field.key.includes("url") || field.key.includes("website") ? "ltr" : "rtl"} />
                 )}
