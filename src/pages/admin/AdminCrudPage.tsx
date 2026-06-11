@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 import { ArrowRight, Plus, Pencil, Trash2 } from "lucide-react";
+import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
 interface CrudPageProps {
   table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
@@ -24,6 +25,19 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
   const [showForm, setShowForm] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Record<string, string>>({});
+
+  const hasStoreField = fields.some((f) => f.type === "store");
+  const { data: storeOptions } = useQuery({
+    queryKey: ["crud-store-options"],
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("stores")
+        .select("id, name_ar")
+        .order("name_ar", { ascending: true });
+      return data ?? [];
+    },
+    enabled: hasStoreField,
+  });
 
   const { data: items, isLoading } = useQuery({
     queryKey: [table],
@@ -122,6 +136,26 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
                 <label className="text-sm text-muted-foreground mb-1 block">{field.label}</label>
                 {field.type === "textarea" ? (
                   <Textarea value={formData[field.key] ?? ""} onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} className="bg-secondary border-border" />
+                ) : field.type === "image" ? (
+                  <ImageUploadField
+                    value={formData[field.key] ?? ""}
+                    onChange={(url) => setFormData({ ...formData, [field.key]: url })}
+                    pathPrefix={table}
+                    kind={field.key}
+                    shape="square"
+                  />
+                ) : field.type === "store" ? (
+                  <select
+                    value={formData[field.key] ?? ""}
+                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                    className="flex h-10 w-full rounded-md border border-border bg-secondary px-3 py-2 text-sm"
+                    dir="rtl"
+                  >
+                    <option value="">— بدون محل —</option>
+                    {storeOptions?.map((s: { id: string; name_ar: string }) => (
+                      <option key={s.id} value={s.id}>{s.name_ar}</option>
+                    ))}
+                  </select>
                 ) : (
                   <Input value={formData[field.key] ?? ""} onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} className="bg-secondary border-border" type={field.type === "number" ? "number" : "text"} dir={field.key.includes("email") || field.key.includes("phone") || field.key.includes("url") || field.key.includes("website") ? "ltr" : "rtl"} />
                 )}
