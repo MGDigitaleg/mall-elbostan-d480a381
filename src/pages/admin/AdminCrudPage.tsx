@@ -28,6 +28,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
 
   const hasStoreField = fields.some((f) => f.type === "store");
   const hasImageField = fields.some((f) => f.type === "image");
+  const imageFieldKey = fields.find((f) => f.type === "image")?.key;
   const { data: storeOptions } = useQuery({
     queryKey: ["crud-store-options"],
     queryFn: async () => {
