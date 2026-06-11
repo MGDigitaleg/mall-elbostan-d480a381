@@ -12,6 +12,7 @@ export const AdminUnits = () => <AdminCrudPage table="units" title="الوحدا
   { key: "unit_code", label: "رمز الوحدة" }, { key: "status", label: "الحالة", type: "select", options: ["available", "leased", "reserved", "hidden"] },
   { key: "area_sqm", label: "المساحة م²", type: "number" }, { key: "activity_suggestion", label: "النشاط المقترح" },
   { key: "price_note", label: "ملاحظة السعر" }, { key: "description_ar", label: "وصف عربي" }, { key: "featured", label: "مميز (true/false)" },
+  { key: "media_url", label: "صورة أو فيديو الوحدة", type: "image", acceptVideo: true },
 ]} />;
 export const AdminEvents = () => <AdminCrudPage table="events" title="الفعاليات" nameField="title_ar" fields={[
   { key: "title_ar", label: "العنوان بالعربية" }, { key: "title_en", label: "العنوان بالإنجليزية" },

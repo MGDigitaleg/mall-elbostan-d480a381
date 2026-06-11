@@ -15,7 +15,7 @@ interface CrudPageProps {
   table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
   title: string;
   nameField: string;
-  fields: { key: string; label: string; type?: string; options?: string[] }[];
+  fields: { key: string; label: string; type?: string; options?: string[]; acceptVideo?: boolean }[];
 }
 
 export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps) {
@@ -174,6 +174,7 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
                     pathPrefix={table}
                     kind={field.key}
                     shape="square"
+                    acceptVideo={field.acceptVideo}
                   />
                 ) : field.type === "store" ? (
                   <select
