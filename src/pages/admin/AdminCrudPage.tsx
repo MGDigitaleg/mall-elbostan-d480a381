@@ -136,6 +136,26 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
                 <label className="text-sm text-muted-foreground mb-1 block">{field.label}</label>
                 {field.type === "textarea" ? (
                   <Textarea value={formData[field.key] ?? ""} onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} className="bg-secondary border-border" />
+                ) : field.type === "image" ? (
+                  <ImageUploadField
+                    value={formData[field.key] ?? ""}
+                    onChange={(url) => setFormData({ ...formData, [field.key]: url })}
+                    pathPrefix={table}
+                    kind={field.key}
+                    shape="square"
+                  />
+                ) : field.type === "store" ? (
+                  <select
+                    value={formData[field.key] ?? ""}
+                    onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                    className="flex h-10 w-full rounded-md border border-border bg-secondary px-3 py-2 text-sm"
+                    dir="rtl"
+                  >
+                    <option value="">— بدون محل —</option>
+                    {storeOptions?.map((s: { id: string; name_ar: string }) => (
+                      <option key={s.id} value={s.id}>{s.name_ar}</option>
+                    ))}
+                  </select>
                 ) : (
                   <Input value={formData[field.key] ?? ""} onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })} className="bg-secondary border-border" type={field.type === "number" ? "number" : "text"} dir={field.key.includes("email") || field.key.includes("phone") || field.key.includes("url") || field.key.includes("website") ? "ltr" : "rtl"} />
                 )}
