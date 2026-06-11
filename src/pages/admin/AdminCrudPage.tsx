@@ -15,7 +15,7 @@ interface CrudPageProps {
   table: "stores" | "units" | "events" | "rewards" | "deals" | "jobs" | "blog_posts" | "faqs" | "products" | "product_categories";
   title: string;
   nameField: string;
-  fields: { key: string; label: string; type?: string }[];
+  fields: { key: string; label: string; type?: string; options?: string[] }[];
 }
 
 export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps) {
