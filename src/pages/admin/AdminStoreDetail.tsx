@@ -246,8 +246,26 @@ export default function AdminStoreDetail() {
                     <option value="downtown">وسط البلد</option>
                   </select>
                 </Field>
-                <Field label="رابط الشعار"><Input value={store.logo_url ?? ""} onChange={(e) => update({ logo_url: e.target.value })} /></Field>
-                <Field label="رابط صورة الغلاف"><Input value={store.cover_image_url ?? ""} onChange={(e) => update({ cover_image_url: e.target.value })} /></Field>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <Field label="الشعار">
+                  <ImageUploadField
+                    value={store.logo_url}
+                    onChange={(url) => update({ logo_url: url || null })}
+                    pathPrefix={store.id}
+                    kind="logo"
+                    shape="square"
+                  />
+                </Field>
+                <Field label="صورة الغلاف">
+                  <ImageUploadField
+                    value={store.cover_image_url}
+                    onChange={(url) => update({ cover_image_url: url || null })}
+                    pathPrefix={store.id}
+                    kind="cover"
+                    shape="wide"
+                  />
+                </Field>
               </div>
               <div className="grid md:grid-cols-2 gap-4 mt-4">
                 <Field label="وصف قصير عربي"><Textarea rows={3} value={store.short_description_ar ?? ""} onChange={(e) => update({ short_description_ar: e.target.value })} /></Field>
