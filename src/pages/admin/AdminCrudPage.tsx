@@ -112,17 +112,33 @@ export function AdminCrudPage({ table, title, nameField, fields }: CrudPageProps
 
       <main className="container py-8">
         {isLoading ? <p className="text-muted-foreground">جاري التحميل...</p> : (
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {items?.map((item: Record<string, unknown>) => (
-              <div key={item.id as string} className="card-premium p-4 flex items-center justify-between">
-                <span className="font-medium text-foreground">{String(item[nameField] ?? item.id)}</span>
-                <div className="flex gap-2">
-                  <Button variant="ghost" size="icon" onClick={() => openEdit(item)}><Pencil className="w-4 h-4" /></Button>
-                  <Button variant="ghost" size="icon" onClick={() => deleteMutation.mutate(item.id as string)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+              <div key={item.id as string} className="card-premium p-4 flex flex-col gap-3">
+                {item.image_url ? (
+                  <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted">
+                    <img
+                      src={item.image_url as string}
+                      alt={String(item[nameField] ?? "صورة المنتج")}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-muted flex items-center justify-center text-muted-foreground text-sm">
+                    لا توجد صورة
+                  </div>
+                )}
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-foreground line-clamp-1">{String(item[nameField] ?? item.id)}</span>
+                  <div className="flex gap-2">
+                    <Button variant="ghost" size="icon" onClick={() => openEdit(item)}><Pencil className="w-4 h-4" /></Button>
+                    <Button variant="ghost" size="icon" onClick={() => deleteMutation.mutate(item.id as string)}><Trash2 className="w-4 h-4 text-destructive" /></Button>
+                  </div>
                 </div>
               </div>
             ))}
-            {items?.length === 0 && <p className="text-muted-foreground text-center py-8">لا توجد بيانات</p>}
+            {items?.length === 0 && <p className="text-muted-foreground text-center py-8 col-span-full">لا توجد بيانات</p>}
           </div>
         )}
       </main>
