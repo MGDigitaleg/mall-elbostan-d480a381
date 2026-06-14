@@ -81,10 +81,16 @@ const Leasing = () => {
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
     queryFn: async () => {
-      const { data } = await supabase.from("units").select("*").eq("status", "available").eq("featured", true).limit(6);
+      const { data } = await supabase
+        .from("units")
+        .select("*")
+        .eq("status", "available")
+        .neq("visibility", false)
+        .order("unit_code");
       return data ?? [];
     },
   });
+
 
   const handleFiles = (incoming: FileList | null) => {
     if (!incoming) return;
