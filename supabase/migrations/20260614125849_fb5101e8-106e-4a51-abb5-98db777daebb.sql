@@ -1,0 +1,2 @@
+ALTER TABLE public.social_offer_intake DROP CONSTRAINT IF EXISTS social_offer_intake_publish_status_check;
+ALTER TABLE public.social_offer_intake ADD CONSTRAINT social_offer_intake_publish_status_check CHECK (publish_status = ANY (ARRAY['draft'::text, 'ready'::text, 'published'::text, 'expired'::text, 'archived'::text]));
