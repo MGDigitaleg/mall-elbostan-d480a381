@@ -42,15 +42,14 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
-  mallFloors,
-  allMallUnits,
-  availableMallUnits,
+  mallFloors as staticMallFloors,
   floorLabelsAr,
   type MallFloorId,
   type MallUnit,
   type MallUnitStatus,
   type MallCategory,
 } from "@/lib/mallFloorGeometry";
+import { useMapData } from "@/hooks/useMapData";
 
 const storeCategoryToMapCategory: Record<string, MallCategory> = {
   "phones": "Accessories",
