@@ -73,7 +73,12 @@ type EditUnit = {
 };
 
 type FloorRow = { id: string; name_ar: string | null; sort_order: number | null };
-type StoreRow = { id: string; name_ar: string | null; name_en: string | null };
+type StoreRow = {
+  id: string;
+  name_ar: string | null;
+  name_en: string | null;
+  logo_url: string | null;
+};
 
 const parsePolygon = (poly: string): Array<[number, number]> =>
   poly
