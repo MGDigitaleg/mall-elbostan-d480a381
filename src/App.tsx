@@ -246,6 +246,7 @@ function AppLayout() {
             <Route path="/admin/stores" element={<AdminStores />} />
             <Route path="/admin/stores/:id" element={<AdminStoreDetail />} />
             <Route path="/admin/units" element={<AdminUnits />} />
+            <Route path="/admin/map" element={<AdminMapEditor />} />
             <Route path="/admin/events" element={<AdminEvents />} />
             <Route path="/admin/rewards" element={<AdminRewards />} />
             <Route path="/admin/deals" element={<AdminDeals />} />
