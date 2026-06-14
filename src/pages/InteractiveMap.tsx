@@ -109,6 +109,12 @@ const InteractiveMap = () => {
   // remains the default surface after selection on mobile.
   const [detailsSheetOpen, setDetailsSheetOpen] = useState(false);
   const { data: offersBySlug } = useUnitOffersCount();
+  // Live map geometry from the database (falls back to hardcoded plan).
+  const {
+    floors: mallFloors,
+    allUnits: allMallUnits,
+    availableUnits: availableMallUnits,
+  } = useMapData();
 
   // Auto-highlight unit from URL params
   useEffect(() => {
