@@ -576,16 +576,32 @@ const Leasing = () => {
 
                 {availableUnits && availableUnits.length > 0 ? (
                   <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-h-[28rem] space-y-2.5 overflow-y-auto pe-1">
-                    {availableUnits.map((unit) => (
-                      <motion.div
+                    {availableUnits.map((unit) => {
+                      const isSelected = selectedUnitId === unit.id;
+                      return (
+                      <motion.button
+                        type="button"
                         key={unit.id}
                         variants={fadeChild}
-                        className="group rounded-xl p-4 transition-all hover:bg-white/[0.06]"
-                        style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+                        onClick={() => {
+                          setSelectedUnitId(isSelected ? "" : unit.id);
+                          if (!isSelected) {
+                            formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }}
+                        aria-pressed={isSelected}
+                        className="group block w-full rounded-xl p-4 text-right transition-all hover:bg-white/[0.06]"
+                        style={{
+                          background: isSelected ? "hsl(25 85% 50% / 0.12)" : "hsl(0 0% 100% / 0.04)",
+                          border: isSelected ? "1px solid hsl(25 85% 50% / 0.5)" : "1px solid hsl(0 0% 100% / 0.08)",
+                        }}
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h3 className="text-[0.88rem] font-bold" style={{ color: "hsl(25 95% 55%)" }}>وحدة {unit.unit_code}</h3>
+                            <h3 className="text-[0.88rem] font-bold" style={{ color: "hsl(25 95% 55%)" }}>
+                              وحدة {unit.unit_code}
+                              {isSelected && <span className="ms-2 text-[0.68rem]" style={{ color: "hsl(152 69% 50%)" }}>✓ مختارة</span>}
+                            </h3>
                             <div className="mt-1 flex flex-wrap items-center gap-3 text-[0.78rem]" style={{ color: "hsl(220 15% 60%)" }}>
                               {unit.area_sqm && (
                                 <span className="flex items-center gap-1">
@@ -607,8 +623,9 @@ const Leasing = () => {
                             <ArrowUpLeft className="h-3.5 w-3.5 text-white/15 transition-all group-hover:text-white/40 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
                           </div>
                         </div>
-                      </motion.div>
-                    ))}
+                      </motion.button>
+                      );
+                    })}
                   </motion.div>
                 ) : (
                   <div className="rounded-xl border border-dashed p-6 text-center" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
