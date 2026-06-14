@@ -293,11 +293,7 @@ export default function AdminStoreDetail() {
                     value={store.phone ?? ""}
                     onChange={(e) => update({ phone: e.target.value })}
                     placeholder="+201012345678"
-                    aria-invalid={!!store.phone && !isValidEgyptPhone(store.phone)}
                   />
-                  {!!store.phone && !isValidEgyptPhone(store.phone) && (
-                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
-                  )}
                 </Field>
                 <Field label="واتساب">
                   <Input
