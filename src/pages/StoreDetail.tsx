@@ -88,7 +88,7 @@ const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
     queryFn: async () => {
       const { data } = await supabase
         .from("stores")
-        .select("id, slug, name_ar, name_en, category, floor_id, unit_code, status, short_description_ar, short_description_en, long_description_ar, long_description_en, logo_url, cover_image_url, gallery, phone, whatsapp, email, website, opening_hours, featured, map_x, map_y, map_area_id, created_at, updated_at, is_opening_participant, branch_context, opening_status, display_name, floor_label, unit_label, floors:floor_id(name_ar, name_en)")
+        .select("id, slug, name_ar, name_en, category, floor_id, unit_code, status, short_description_ar, short_description_en, long_description_ar, long_description_en, logo_url, cover_image_url, gallery, phone, whatsapp, hotline, email, website, opening_hours, featured, map_x, map_y, map_area_id, created_at, updated_at, is_opening_participant, branch_context, opening_status, display_name, floor_label, unit_label, floors:floor_id(name_ar, name_en)")
         .eq("slug", slug!)
         .maybeSingle();
       return data;
