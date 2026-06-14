@@ -437,6 +437,21 @@ const Leasing = () => {
                       <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>البريد الإلكتروني</label>
                       <FormInput value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" dir="ltr" />
                     </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>الوحدة المطلوبة (اختياري)</label>
+                      <FormSelect
+                        value={selectedUnitId}
+                        onChange={setSelectedUnitId}
+                        placeholder="استفسار عام — بدون تحديد وحدة"
+                        options={(availableUnits ?? []).map((u) => ({
+                          value: u.id,
+                          label: `وحدة ${u.unit_code}${u.area_sqm ? ` — ${u.area_sqm} م²` : ""}`,
+                        }))}
+                      />
+                      <p className="mt-1.5 text-[0.66rem]" style={{ color: "hsl(220 15% 50%)" }}>
+                        اتركها فارغة لإرسال استفسار عام، أو اختر وحدة من القائمة المجاورة.
+                      </p>
+                    </div>
                     <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
                       <div>
                         <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>نوع المساحة *</label>
