@@ -76,7 +76,9 @@ const Leasing = () => {
     message: "",
   });
   const [files, setFiles] = useState<File[]>([]);
+  const [selectedUnitId, setSelectedUnitId] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
