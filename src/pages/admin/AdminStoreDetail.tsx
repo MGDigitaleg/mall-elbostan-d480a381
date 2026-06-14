@@ -22,7 +22,7 @@ import {
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
 import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
-import { isValidEgyptPhone, normalizeEgyptPhone, normalizeEgyptWhatsapp } from "@/lib/egyptPhone";
+import { isValidEgyptPhone, normalizeEgyptPhone, normalizeEgyptWhatsapp, stripToDigits } from "@/lib/egyptPhone";
 
 type Store = any;
 
@@ -116,6 +116,7 @@ export default function AdminStoreDetail() {
       cover_image_url: store.cover_image_url,
       phone: store.phone ? normalizeEgyptPhone(store.phone) : null,
       whatsapp: store.whatsapp ? normalizeEgyptWhatsapp(store.whatsapp) : null,
+      hotline: store.hotline ? stripToDigits(store.hotline) : null,
       email: store.email, website: store.website, opening_hours: store.opening_hours,
       admin_notes: store.admin_notes,
       external_store_type: store.external_store_type, external_store_url: store.external_store_url,
@@ -317,6 +318,14 @@ export default function AdminStoreDetail() {
                 <Field label="البريد"><Input value={store.email ?? ""} onChange={(e) => update({ email: e.target.value })} /></Field>
                 <Field label="الموقع الإلكتروني"><Input value={store.website ?? ""} onChange={(e) => update({ website: e.target.value })} /></Field>
                 <Field label="ساعات العمل"><Input value={store.opening_hours ?? ""} onChange={(e) => update({ opening_hours: e.target.value })} /></Field>
+                <Field label="الخط الساخن">
+                  <Input
+                    dir="ltr"
+                    value={store.hotline ?? ""}
+                    onChange={(e) => update({ hotline: e.target.value })}
+                    placeholder="مثال: 16280"
+                  />
+                </Field>
               </div>
             </AdminSectionCard>
 
