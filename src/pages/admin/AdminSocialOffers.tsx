@@ -506,6 +506,9 @@ function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePo
             </Button>
           </Link>
         )}
+        <Button onClick={remove} disabled={busy} size="sm" variant="ghost" className="text-destructive hover:text-destructive">
+          <Trash2 className="w-4 h-4 ml-1" /> حذف
+        </Button>
       </div>
     </div>
   );
