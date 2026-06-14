@@ -22,7 +22,7 @@ import {
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
 import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
-import { isValidEgyptPhone, normalizeEgyptPhone, normalizeEgyptWhatsapp, stripToDigits } from "@/lib/egyptPhone";
+import { isValidEgyptPhone, normalizeEgyptWhatsapp, stripToDigits } from "@/lib/egyptPhone";
 
 type Store = any;
 
@@ -94,11 +94,7 @@ export default function AdminStoreDetail() {
   const save = async () => {
     if (!store) return;
 
-    // Validate Egyptian contact numbers before saving (+20 followed by 10 digits)
-    if (store.phone && !isValidEgyptPhone(store.phone)) {
-      toast({ title: "رقم الهاتف غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
-      return;
-    }
+    // Validate Egyptian WhatsApp number before saving (+20 followed by 10 digits)
     if (store.whatsapp && !isValidEgyptPhone(store.whatsapp)) {
       toast({ title: "رقم واتساب غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
       return;
@@ -114,7 +110,7 @@ export default function AdminStoreDetail() {
       short_description_ar: store.short_description_ar,
       long_description_ar: store.long_description_ar, logo_url: store.logo_url,
       cover_image_url: store.cover_image_url,
-      phone: store.phone ? normalizeEgyptPhone(store.phone) : null,
+      phone: store.phone ? stripToDigits(store.phone) : null,
       whatsapp: store.whatsapp ? normalizeEgyptWhatsapp(store.whatsapp) : null,
       hotline: store.hotline ? stripToDigits(store.hotline) : null,
       email: store.email, website: store.website, opening_hours: store.opening_hours,
@@ -297,11 +293,7 @@ export default function AdminStoreDetail() {
                     value={store.phone ?? ""}
                     onChange={(e) => update({ phone: e.target.value })}
                     placeholder="+201012345678"
-                    aria-invalid={!!store.phone && !isValidEgyptPhone(store.phone)}
                   />
-                  {!!store.phone && !isValidEgyptPhone(store.phone) && (
-                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
-                  )}
                 </Field>
                 <Field label="واتساب">
                   <Input
