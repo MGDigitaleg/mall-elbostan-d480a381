@@ -666,9 +666,9 @@ function ManualIntakeDialog({ merchants, stores, onSaved }: { merchants: Monitor
       opening_related: openingRelated,
       review_status: "pending_review",
       publish_status: "draft",
-      relevance_status: "manual",
+      relevance_status: "relevant",
       relevance_score: 1,
-      source_capture_method: "manual",
+      source_capture_method: postUrl ? "manual_url" : "manual_draft",
       detected_keywords: [],
       raw_payload: { source: "manual_intake", store_slug: store?.slug },
     });
