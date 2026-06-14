@@ -372,8 +372,8 @@ const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
 
             {/* Hero CTAs */}
             <div className="flex flex-wrap gap-2 pt-0.5">
-              {store.whatsapp && (
-                <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
+               {store.whatsapp && store.whatsapp.replace(/\D/g, "") && (
+                <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer">
                   <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold shadow-md shadow-primary/20">
                     <MessageCircle className="h-3.5 w-3.5" />تواصل واتساب
                   </Button>
@@ -961,8 +961,8 @@ function StoreContactCard({ store }: { store: { phone?: string | null; email?: s
           </div>
         </div>
         <div className="space-y-2 p-4">
-          {store.whatsapp && (
-            <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer" className="block">
+          {store.whatsapp && store.whatsapp.replace(/\D/g, "") && (
+            <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="block">
               <div className="flex items-center gap-3 rounded-xl border border-emerald-500/15 bg-emerald-500/5 px-4 py-3 transition-all hover:border-emerald-500/25 hover:bg-emerald-500/8 hover:shadow-sm">
                 <MessageCircle className="h-4 w-4 text-emerald-500" />
                 <span className="flex-1 text-[0.8rem] font-semibold text-foreground">تواصل عبر واتساب</span>
