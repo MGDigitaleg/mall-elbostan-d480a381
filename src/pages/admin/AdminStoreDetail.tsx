@@ -22,6 +22,7 @@ import {
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
 import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { isValidEgyptPhone, normalizeEgyptPhone, normalizeEgyptWhatsapp } from "@/lib/egyptPhone";
 
 type Store = any;
 
