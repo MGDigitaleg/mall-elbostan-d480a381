@@ -984,6 +984,15 @@ function StoreContactCard({ store }: { store: { phone?: string | null; hotline?:
               </button>
             </div>
           )}
+          {store.hotline && (
+            <a href={`tel:${store.hotline}`} className="block">
+              <div className="flex items-center gap-3 rounded-xl border border-border px-4 py-3 transition-all hover:border-primary/20 hover:bg-muted/20">
+                <Phone className="h-4 w-4 text-primary" />
+                <span dir="ltr" className="flex-1 font-poppins text-[0.8rem] font-semibold text-foreground">{store.hotline}</span>
+                <span className="text-[0.65rem] font-bold text-muted-foreground/50">الخط الساخن</span>
+              </div>
+            </a>
+          )}
           {store.email && (
             <a href={`mailto:${store.email}`} className="block">
               <div className="flex items-center gap-3 rounded-xl border border-border px-4 py-3 transition-all hover:border-primary/20 hover:bg-muted/20">
