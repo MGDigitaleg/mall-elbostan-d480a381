@@ -936,7 +936,7 @@ function ShareButton({ name }: { name: string }) {
   );
 }
 
-function StoreContactCard({ store }: { store: { phone?: string | null; email?: string | null; website?: string | null; whatsapp?: string | null } }) {
+function StoreContactCard({ store }: { store: { phone?: string | null; hotline?: string | null; email?: string | null; website?: string | null; whatsapp?: string | null } }) {
   const [copied, setCopied] = useState(false);
   const hasContact = store.phone || store.email || store.website || store.whatsapp;
 
