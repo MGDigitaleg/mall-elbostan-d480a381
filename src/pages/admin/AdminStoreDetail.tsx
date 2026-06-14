@@ -110,7 +110,7 @@ export default function AdminStoreDetail() {
       short_description_ar: store.short_description_ar,
       long_description_ar: store.long_description_ar, logo_url: store.logo_url,
       cover_image_url: store.cover_image_url,
-      phone: store.phone ? normalizeEgyptPhone(store.phone) : null,
+      phone: store.phone ? stripToDigits(store.phone) : null,
       whatsapp: store.whatsapp ? normalizeEgyptWhatsapp(store.whatsapp) : null,
       hotline: store.hotline ? stripToDigits(store.hotline) : null,
       email: store.email, website: store.website, opening_hours: store.opening_hours,
