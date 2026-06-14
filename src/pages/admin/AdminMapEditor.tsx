@@ -563,8 +563,49 @@ export default function AdminMapEditor() {
                   </Select>
                 </div>
 
+                {selectedUnit.status === "occupied" && (
+                  <div className="rounded-md border border-border bg-muted/40 p-3">
+                    <Label className="text-xs text-muted-foreground">
+                      الجهة المستأجرة حالياً
+                    </Label>
+                    {currentTenant ? (
+                      <div className="mt-2 flex items-center gap-3">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
+                          {currentTenant.logo_url ? (
+                            <img
+                              src={currentTenant.logo_url}
+                              alt={currentTenant.name_ar || currentTenant.name_en || "شعار المحل"}
+                              className="h-full w-full object-contain p-1"
+                            />
+                          ) : (
+                            <MapPin className="h-5 w-5 opacity-40" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold">
+                            {currentTenant.name_ar || currentTenant.name_en || "محل"}
+                          </p>
+                          {currentTenant.name_en && currentTenant.name_ar && (
+                            <p className="truncate text-xs text-muted-foreground">
+                              {currentTenant.name_en}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="mt-2 text-sm text-amber-600">
+                        الوحدة مشغولة لكن لم يتم تحديد الجهة المستأجرة. اختر المحل أدناه.
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 <div>
-                  <Label className="text-xs">المحل المرتبط</Label>
+                  <Label className="text-xs">
+                    {selectedUnit.status === "occupied"
+                      ? "تغيير الجهة المستأجرة"
+                      : "المحل المرتبط"}
+                  </Label>
                   <Select
                     value={selectedUnit.store_id ?? "none"}
                     onValueChange={(v) =>
