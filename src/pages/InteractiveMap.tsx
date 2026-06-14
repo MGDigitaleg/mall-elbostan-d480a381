@@ -42,15 +42,14 @@ import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
-  mallFloors,
-  allMallUnits,
-  availableMallUnits,
+  mallFloors as staticMallFloors,
   floorLabelsAr,
   type MallFloorId,
   type MallUnit,
   type MallUnitStatus,
   type MallCategory,
 } from "@/lib/mallFloorGeometry";
+import { useMapData } from "@/hooks/useMapData";
 
 const storeCategoryToMapCategory: Record<string, MallCategory> = {
   "phones": "Accessories",
@@ -84,7 +83,7 @@ const InteractiveMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedFloor, setSelectedFloor] = useState<MallFloorId>(() => {
     const saved = localStorage.getItem("map-selected-floor");
-    return saved && mallFloors.some((f) => f.id === saved) ? (saved as MallFloorId) : "ground";
+    return saved && staticMallFloors.some((f) => f.id === saved) ? (saved as MallFloorId) : "ground";
   });
   const [statusFilter, setStatusFilter] = useState<"all" | MallUnitStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
@@ -110,6 +109,12 @@ const InteractiveMap = () => {
   // remains the default surface after selection on mobile.
   const [detailsSheetOpen, setDetailsSheetOpen] = useState(false);
   const { data: offersBySlug } = useUnitOffersCount();
+  // Live map geometry from the database (falls back to hardcoded plan).
+  const {
+    floors: mallFloors,
+    allUnits: allMallUnits,
+    availableUnits: availableMallUnits,
+  } = useMapData();
 
   // Auto-highlight unit from URL params
   useEffect(() => {

@@ -96,6 +96,7 @@ const AdminProductsManager = lazy(() => lazyRetry(() => import("./pages/admin/Ad
 const AdminOffersPipeline = lazy(() => lazyRetry(() => import("./pages/admin/AdminOffersPipeline")));
 const AdminStoreDetail = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoreDetail")));
 const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits }))));
+const AdminMapEditor = lazy(() => lazyRetry(() => import("./pages/admin/AdminMapEditor")));
 const AdminEvents = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents }))));
 const AdminRewards = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards }))));
 const AdminDeals = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminDeals }))));
@@ -245,6 +246,7 @@ function AppLayout() {
             <Route path="/admin/stores" element={<AdminStores />} />
             <Route path="/admin/stores/:id" element={<AdminStoreDetail />} />
             <Route path="/admin/units" element={<AdminUnits />} />
+            <Route path="/admin/map" element={<AdminMapEditor />} />
             <Route path="/admin/events" element={<AdminEvents />} />
             <Route path="/admin/rewards" element={<AdminRewards />} />
             <Route path="/admin/deals" element={<AdminDeals />} />

@@ -686,26 +686,35 @@ export type Database = {
       }
       floors: {
         Row: {
+          atrium_polygon: string | null
+          corridor_polygon: string | null
           created_at: string
           id: string
           name_ar: string
           name_en: string | null
+          shell_polygon: string | null
           sort_order: number
           updated_at: string
         }
         Insert: {
+          atrium_polygon?: string | null
+          corridor_polygon?: string | null
           created_at?: string
           id?: string
           name_ar: string
           name_en?: string | null
+          shell_polygon?: string | null
           sort_order?: number
           updated_at?: string
         }
         Update: {
+          atrium_polygon?: string | null
+          corridor_polygon?: string | null
           created_at?: string
           id?: string
           name_ar?: string
           name_en?: string | null
+          shell_polygon?: string | null
           sort_order?: number
           updated_at?: string
         }
@@ -2314,50 +2323,80 @@ export type Database = {
         Row: {
           activity_suggestion: string | null
           area_sqm: number | null
+          category: string | null
           created_at: string
           description_ar: string | null
           description_en: string | null
           featured: boolean
           floor_id: string | null
           id: string
+          is_featured: boolean
+          label_x: number | null
+          label_y: number | null
           map_area_id: string | null
           media_url: string | null
+          name_ar: string | null
+          name_en: string | null
+          polygon: string | null
           price_note: string | null
+          sort_order: number
           status: string
+          store_id: string | null
           unit_code: string
           updated_at: string
+          visibility: boolean
         }
         Insert: {
           activity_suggestion?: string | null
           area_sqm?: number | null
+          category?: string | null
           created_at?: string
           description_ar?: string | null
           description_en?: string | null
           featured?: boolean
           floor_id?: string | null
           id?: string
+          is_featured?: boolean
+          label_x?: number | null
+          label_y?: number | null
           map_area_id?: string | null
           media_url?: string | null
+          name_ar?: string | null
+          name_en?: string | null
+          polygon?: string | null
           price_note?: string | null
+          sort_order?: number
           status?: string
+          store_id?: string | null
           unit_code: string
           updated_at?: string
+          visibility?: boolean
         }
         Update: {
           activity_suggestion?: string | null
           area_sqm?: number | null
+          category?: string | null
           created_at?: string
           description_ar?: string | null
           description_en?: string | null
           featured?: boolean
           floor_id?: string | null
           id?: string
+          is_featured?: boolean
+          label_x?: number | null
+          label_y?: number | null
           map_area_id?: string | null
           media_url?: string | null
+          name_ar?: string | null
+          name_en?: string | null
+          polygon?: string | null
           price_note?: string | null
+          sort_order?: number
           status?: string
+          store_id?: string | null
           unit_code?: string
           updated_at?: string
+          visibility?: boolean
         }
         Relationships: [
           {
@@ -2365,6 +2404,13 @@ export type Database = {
             columns: ["floor_id"]
             isOneToOne: false
             referencedRelation: "floors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "units_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
             referencedColumns: ["id"]
           },
         ]
