@@ -532,7 +532,7 @@ const Leasing = () => {
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
-                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-2.5">
+                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-h-[28rem] space-y-2.5 overflow-y-auto pe-1">
                     {availableUnits.map((unit) => (
                       <motion.div
                         key={unit.id}
