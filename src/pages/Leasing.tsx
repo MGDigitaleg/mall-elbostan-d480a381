@@ -81,10 +81,16 @@ const Leasing = () => {
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
     queryFn: async () => {
-      const { data } = await supabase.from("units").select("*").eq("status", "available").eq("featured", true).limit(6);
+      const { data } = await supabase
+        .from("units")
+        .select("*")
+        .eq("status", "available")
+        .neq("visibility", false)
+        .order("unit_code");
       return data ?? [];
     },
   });
+
 
   const handleFiles = (incoming: FileList | null) => {
     if (!incoming) return;
@@ -513,14 +519,20 @@ const Leasing = () => {
                   <h2 className="mb-1.5 text-[1.15rem] font-extrabold md:text-[1.3rem]"
                       style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
                     وحدات <span style={{ color: "hsl(25 95% 55%)" }}>متاحة الآن</span>
+                    {availableUnits && availableUnits.length > 0 && (
+                      <span className="ms-2 align-middle text-[0.78rem] font-bold" style={{ color: "hsl(220 15% 55%)" }}>
+                        ({availableUnits.length})
+                      </span>
+                    )}
                   </h2>
                   <p className="text-[0.8rem] leading-[1.7]" style={{ color: "hsl(220 15% 55%)" }}>
-                    عيّنة من الوحدات البارزة — التفاصيل الكاملة على الخريطة.
+                    جميع الوحدات المتاحة للإيجار حالياً — استعرض المساحات والأنشطة المقترحة.
                   </p>
+
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
-                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-2.5">
+                  <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-h-[28rem] space-y-2.5 overflow-y-auto pe-1">
                     {availableUnits.map((unit) => (
                       <motion.div
                         key={unit.id}
