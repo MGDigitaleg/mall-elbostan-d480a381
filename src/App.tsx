@@ -95,7 +95,7 @@ const AdminStores = lazy(() => lazyRetry(() => import("./pages/admin/AdminStores
 const AdminProductsManager = lazy(() => lazyRetry(() => import("./pages/admin/AdminProductsManager")));
 const AdminOffersPipeline = lazy(() => lazyRetry(() => import("./pages/admin/AdminOffersPipeline")));
 const AdminStoreDetail = lazy(() => lazyRetry(() => import("./pages/admin/AdminStoreDetail")));
-const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminUnits }))));
+const AdminUnits = lazy(() => lazyRetry(() => import("./pages/admin/AdminUnits")));
 const AdminMapEditor = lazy(() => lazyRetry(() => import("./pages/admin/AdminMapEditor")));
 const AdminEvents = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminEvents }))));
 const AdminRewards = lazy(() => lazyRetry(() => import("./pages/admin/AdminPages").then(m => ({ default: m.AdminRewards }))));
