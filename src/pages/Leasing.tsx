@@ -147,17 +147,35 @@ const Leasing = () => {
       }
     }
 
+    const selectedUnit = (availableUnits ?? []).find((u) => u.id === selectedUnitId) || null;
+    const isGeneralRequest = !selectedUnit;
+    const unitLine = selectedUnit
+      ? `استفسار عن الوحدة ${selectedUnit.unit_code}${selectedUnit.area_sqm ? ` (${selectedUnit.area_sqm} م²)` : ""}`
+      : "استفسار عام (لم يتم تحديد وحدة)";
+    const composedMessage = [unitLine, form.message.trim()].filter(Boolean).join("\n\n");
+
     const { error } = await supabase.from("leads").insert({
       lead_type: "leasing",
       full_name: form.full_name.trim(),
       company: form.company.trim() || null,
       phone: form.phone.trim(),
       email: form.email.trim() || null,
-      message: form.message.trim() || null,
+      message: composedMessage || null,
       metadata: {
         source: "leasing_page",
         space_type: form.space_type,
         budget_range: form.budget_range,
+        request_type: isGeneralRequest ? "general" : "unit_specific",
+        is_general_request: isGeneralRequest,
+        selected_unit: selectedUnit
+          ? {
+              id: selectedUnit.id,
+              unit_code: selectedUnit.unit_code,
+              area_sqm: selectedUnit.area_sqm ?? null,
+              activity_suggestion: selectedUnit.activity_suggestion ?? null,
+              price_note: selectedUnit.price_note ?? null,
+            }
+          : null,
         attachments: uploaded,
         attachment_errors: uploadErrors,
       },
@@ -176,10 +194,18 @@ const Leasing = () => {
       has_message: Boolean(form.message.trim()),
       space_type: form.space_type,
       budget_range: form.budget_range,
+      request_type: isGeneralRequest ? "general" : "unit_specific",
+      unit_code: selectedUnit?.unit_code ?? null,
       attachments_count: uploaded.length,
     });
     setSubmitted(true);
-    toast({ title: "تم الإرسال", description: "هنرجع لك في أقرب وقت." });
+    toast({
+      title: "تم الإرسال",
+      description: selectedUnit
+        ? `تم إرسال استفسارك عن الوحدة ${selectedUnit.unit_code}.`
+        : "تم إرسال استفسارك العام — هنرجع لك في أقرب وقت.",
+    });
+
   };
 
   return (
