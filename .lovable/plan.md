@@ -1,109 +1,51 @@
-# Downtown Directory Verification System — Implementation Plan
+# Full Interactive Map Editor
 
-## Approach
+Today the map's entire geometry (floor shells, corridors, atrium, every unit polygon, label position, area, status, and category) is hardcoded in `src/lib/mallFloorGeometry.ts` and `MallFloorMap.tsx`. The `floors` table exists (3 rows) and `units` is empty. This plan moves the geometry into the database and adds a visual editor so the map is fully manageable from the admin dashboard — add/move/resize units, manage floors, edit areas/labels/status/category, and assign which store sits in each unit.
 
-The project already has a working `downtown_merchants` table and admin page (`AdminDowntownMerchants.tsx`). Rather than creating a parallel `stores` table (which would fragment data), I'll **extend the existing table** with verification fields, then rebuild the admin UI around the verification workflow you described.
+## Goal
+"Does this strengthen El Bostan as a place and a store ecosystem?" — Yes: the interactive map stays a core functional feature, now editable without code.
 
-## 1. Database migration
+## 1. Database (migration)
+Extend the existing `units` table to hold geometry and presentation:
+- `polygon text` — SVG points string (`"x,y x,y ..."`)
+- `label_x real`, `label_y real` — label/number anchor
+- `category text` — map category (Accessories, Laptops, …)
+- `store_id uuid references stores(id)` — which store occupies the unit (nullable)
+- `is_featured boolean`, `sort_order int`, `visibility boolean default true`
+- keep existing `unit_code`, `status`, `area_sqm`, `floor_id`, descriptions
 
-Extend `downtown_merchants` with new verification columns:
-- `detailed_specialisation`, `products_services`, `tech_related` (bool)
-- `floor_unit_location`, `opening_hours`
-- `current_status` (Open / Closed / Unclear / Needs Field Verification)
-- `confidence_score` (1–5), `evidence_summary`
-- `last_evidence_date`, `source_date_quality`
-- `confirmed_by_team_at`, `last_manual_check_date`
-- `show_verified_publicly` (bool, default false)
-- `recommended_badge`, `notes_for_website_team`, `missing_data`
-- `next_action`, `original_directory_presence`, `row_type`
+Add a per-floor geometry config on `floors`:
+- `shell_polygon text`, `corridor_polygon text`, `atrium_polygon text` (nullable; defaults fall back to shared constants)
 
-Update `verification_status` to support the 7 statuses:
-`VERIFIED_EXTERNAL`, `PARTIAL_EXTERNAL_MATCH`, `CONFLICT_CHECK`, `LISTED_ONLY`, `UNREVIEWED_LISTED_ONLY`, `EXTERNAL_VERIFIED_NOT_ON_SITE_LIST`, `EXTERNAL_DIRECTORY_CANDIDATE`.
+Grants: `units`/`floors` already have policies. Add a content-manager write policy (`can_manage_content`) for insert/update/delete, keep public read. Add `updated_at` trigger.
 
-Add a `downtown_directory_audit` table for status/badge change history (admin-only RLS).
+Then **seed** `units` from the current hardcoded `mallFloorGeometry` data (all 3 floors) via the insert tool so nothing visually changes on launch.
 
-## 2. Admin UI — `/admin/downtown-merchants` (rebuilt)
+## 2. Public map renders from DB
+- New hook `useMapData()` fetching floors + units (+ joined store name/logo/category/contact) with React Query.
+- Adapt `InteractiveMap.tsx` and `MallFloorMap.tsx` to consume DB rows mapped into the existing `MallUnit`/`MallFloor` shape. Keep the hardcoded data as a fallback if the DB is empty, so there is zero regression.
+- Status colors, atrium, corridors, labels unchanged.
 
-New tabbed layout:
+## 3. Admin visual editor (`/admin/map`)
+New page `src/pages/admin/AdminMapEditor.tsx` (guarded by `useRequireAdmin` / content-manager), linked from Admin Settings:
+- Floor tabs (ground / first / second).
+- Interactive SVG canvas reusing the same viewBox and shell/atrium rendering:
+  - **Select** a unit to edit its panel (code, area, status, category, assigned store, featured, visibility, description).
+  - **Move** unit by dragging; **resize/reshape** by dragging polygon vertices; live coordinate readout.
+  - **Add unit** (draws a default rectangle you then reshape) and **delete unit**.
+  - Drag the label anchor to reposition the number/logo.
+- Side panel form for the selected unit + store assignment (searchable dropdown of stores).
+- Floor settings (label, sort order, optional shell/corridor/atrium polygons).
+- **Save** writes via Supabase; optimistic local state with explicit Save/Discard so edits are deliberate.
 
-**Tab: Dashboard**
-- 7 KPI cards: Total / Verified External / Listed Only / Needs Verification / Conflicts / External Candidates / Tech-Related
-- Quick links into queues
+## 4. Verification
+- Seed parity: public map looks identical before/after the switch to DB.
+- Editor round-trip: move a unit, save, reload public map, confirm new position.
+- Build + existing map tests pass.
 
-**Tab: Directory**
-- Existing table, upgraded with:
-  - Filter by verification_status, category, tech_related, floor, current_status
-  - Search by name (AR/EN), phone, category
-  - Inline status editor (dropdown per row)
-  - CSV export
-  - Color-coded badges (green/gray/amber/red/purple)
+## Technical notes
+- Coordinate space: editor and public map share viewBox `-20 -20 1040 1040`; pointer coords converted via `getScreenCTM().inverse()`.
+- Reuse `tenantMapLookup` logic but drive it from `store_id` join going forward.
+- No changes to spin/win highlight URLs — `highlight=<unit_code>` keeps working since codes persist.
 
-**Tab: Verification Queue**
-- 4 grouped sections:
-  - High-Priority Tech (seeded list: Technology Egypt, Compu Tec, …)
-  - Needs Manual Verification (`UNREVIEWED_LISTED_ONLY` + `Needs Field Verification`)
-  - Data Conflicts (`CONFLICT_CHECK`, `PARTIAL_EXTERNAL_MATCH`)
-  - External Candidates Not on Site (`EXTERNAL_VERIFIED_NOT_ON_SITE_LIST`, `EXTERNAL_DIRECTORY_CANDIDATE`)
-
-**Tab: Import**
-- CSV upload accepting the 32 columns from your sheet
-- Parses `نعم`/`لا` → bool, `غير مؤكد` → null (kept in notes)
-- Duplicate name detection → flagged for review (no silent merge)
-- Checkbox: "Overwrite confirmed records" (default off; protects rows with `confirmed_by_team_at`)
-- Preview diff before commit
-
-**Store detail editor** (modal, existing pattern extended)
-- All new fields grouped: Basic / Content / Contact / Social / Media / Verification / Evidence / SEO / Publishing
-- Evidence panel: Source 1/2/3 + evidence_summary read-only block
-- "Mark as manually verified" button → sets `confirmed_by_team_at = now()`, `last_manual_check_date = today`
-- Audit log panel showing status/badge changes
-
-## 3. Public UI rules
-
-Update `DowntownDirectory.tsx`, `DowntownMerchantDetail.tsx`, and any merchant cards:
-
-**Badge logic:**
-```
-if (verification_status === 'VERIFIED_EXTERNAL'
-    && show_verified_publicly
-    && (last_manual_check_date || confirmed_by_team_at)) → "موثّق" green
-else if (verification_status === 'LISTED_ONLY') → "مدرج" gray/blue
-else if (verification_status === 'UNREVIEWED_LISTED_ONLY'
-         || current_status === 'Needs Field Verification') → "قيد التحقق" amber
-else → no public badge
-```
-
-**Hidden in public when null/unconfirmed:** phone, whatsapp, opening_hours.
-**Hidden from public directory entirely:** `EXTERNAL_VERIFIED_NOT_ON_SITE_LIST`, `EXTERNAL_DIRECTORY_CANDIDATE`, `CONFLICT_CHECK` (admin-only).
-**Filters added:** category, tech_related, floor, status.
-
-Public detail route stays `/downtown-branch/stores/[slug]` (existing).
-
-## 4. CSV seed
-
-Copy the uploaded `el_bostan_downtown_seed_store_import_final.csv` into the import flow as a one-click "Load Downtown Seed" action so the 61 stores are populated with their evidence/status from your sheet.
-
-## Technical details
-
-- **Files to create:**
-  - `src/components/admin/DowntownVerificationDashboard.tsx`
-  - `src/components/admin/DowntownVerificationQueue.tsx`
-  - `src/components/admin/DowntownCsvImporter.tsx`
-  - `src/lib/downtownVerification.ts` (badge logic, status maps)
-- **Files to edit:**
-  - `src/pages/admin/AdminDowntownMerchants.tsx` (tabs + integrations)
-  - `src/pages/DowntownDirectory.tsx` (public badge + filters)
-  - `src/pages/DowntownMerchantDetail.tsx` (hide unconfirmed contact)
-- **Migration:** single SQL adding columns + audit table + RLS (admins manage, public read active only).
-
-## Out of scope for this iteration
-
-- Separate `stores` table (extending existing avoids dual-write).
-- Reworking the New Cairo branch directory (different data model).
-- Email/notification triggers on status change (audit log only).
-
-## Confirmation needed
-
-This is a large change. Please confirm:
-1. Extend `downtown_merchants` (recommended) vs create a new `stores` table?
-2. Auto-load the 61-row CSV seed on first run, or leave as a manual import button?
+This is a large change; I'll implement it in the order above (DB → public read → editor), verifying parity at each step.
