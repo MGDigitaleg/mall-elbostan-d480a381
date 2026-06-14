@@ -392,7 +392,7 @@ const Leasing = () => {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.95fr_1.05fr]">
 
               {/* ── FORM ── */}
-              <div className="rounded-2xl p-6 md:p-7"
+              <div ref={formRef} id="leasing-form" className="scroll-mt-24 rounded-2xl p-6 md:p-7"
                    style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)", boxShadow: "0 8px 32px hsl(220 60% 5% / 0.2)" }}>
                 <div className="mb-2 flex items-center gap-2">
                   <div className="h-[3px] w-5 rounded-full" style={{ background: "hsl(25 85% 50%)" }} />
