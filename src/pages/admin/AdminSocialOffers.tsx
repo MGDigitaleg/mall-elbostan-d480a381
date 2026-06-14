@@ -314,6 +314,27 @@ function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePo
     setBusy(false);
   };
 
+  const remove = async () => {
+    if (!confirm("حذف هذا العرض نهائياً؟ لا يمكن التراجع عن هذا الإجراء.")) return;
+    setBusy(true);
+    // Delete the published deal first (if any), then the intake row.
+    if (post.published_deal_id) {
+      const { error: dealErr } = await supabase.from("deals").delete().eq("id", post.published_deal_id);
+      if (dealErr) {
+        toast({ title: "تعذّر حذف العرض المرتبط", description: dealErr.message, variant: "destructive" });
+        setBusy(false);
+        return;
+      }
+    }
+    const { error } = await supabase.from("social_offer_intake").delete().eq("id", post.id);
+    if (error) toast({ title: "تعذّر الحذف", description: error.message, variant: "destructive" });
+    else {
+      toast({ title: "تم حذف العرض" });
+      refresh();
+    }
+    setBusy(false);
+  };
+
   const approveAndPublish = async () => {
     if (!post.offer_title) {
       toast({ title: "ينقص عنوان العرض", description: "أضف عنواناً قبل الاعتماد والنشر.", variant: "destructive" });
@@ -485,6 +506,9 @@ function PostReviewCard({ post, merchants, stores, onConvert }: { post: IntakePo
             </Button>
           </Link>
         )}
+        <Button onClick={remove} disabled={busy} size="sm" variant="ghost" className="text-destructive hover:text-destructive">
+          <Trash2 className="w-4 h-4 ml-1" /> حذف
+        </Button>
       </div>
     </div>
   );
