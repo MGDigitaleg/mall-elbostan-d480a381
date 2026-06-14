@@ -198,6 +198,14 @@ export default function AdminMapEditor() {
     [units, selectedId],
   );
 
+  const currentTenant = useMemo(
+    () =>
+      selectedUnit?.store_id
+        ? (stores ?? []).find((s) => s.id === selectedUnit.store_id) ?? null
+        : null,
+    [selectedUnit, stores],
+  );
+
   const toSvgPoint = useCallback((clientX: number, clientY: number): [number, number] => {
     const svg = svgRef.current;
     if (!svg) return [0, 0];
