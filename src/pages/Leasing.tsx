@@ -519,10 +519,16 @@ const Leasing = () => {
                   <h2 className="mb-1.5 text-[1.15rem] font-extrabold md:text-[1.3rem]"
                       style={{ color: "hsl(0 0% 97%)", fontFamily: "var(--font-arabic-display)" }}>
                     وحدات <span style={{ color: "hsl(25 95% 55%)" }}>متاحة الآن</span>
+                    {availableUnits && availableUnits.length > 0 && (
+                      <span className="ms-2 align-middle text-[0.78rem] font-bold" style={{ color: "hsl(220 15% 55%)" }}>
+                        ({availableUnits.length})
+                      </span>
+                    )}
                   </h2>
                   <p className="text-[0.8rem] leading-[1.7]" style={{ color: "hsl(220 15% 55%)" }}>
-                    عيّنة من الوحدات البارزة — التفاصيل الكاملة على الخريطة.
+                    جميع الوحدات المتاحة للإيجار حالياً — استعرض المساحات والأنشطة المقترحة.
                   </p>
+
                 </div>
 
                 {availableUnits && availableUnits.length > 0 ? (
