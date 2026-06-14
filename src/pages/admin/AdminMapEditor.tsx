@@ -428,10 +428,10 @@ export default function AdminMapEditor() {
                 ref={svgRef}
                 viewBox="-20 -20 1040 1040"
                 className="block w-full h-auto touch-none select-none"
+                onPointerDown={() => setSelectedId(null)}
                 onPointerMove={onSvgPointerMove}
                 onPointerUp={onSvgPointerUp}
                 onPointerLeave={onSvgPointerUp}
-                onClick={() => setSelectedId(null)}
               >
                 <polygon points={OUTER_SHELL} fill="#F0EBE3" stroke="#7A7468" strokeWidth={2.5} />
                 <polygon points={CORRIDOR_BOUNDARY} fill="#E4DFD6" stroke="#9B9488" strokeWidth={1.2} />
