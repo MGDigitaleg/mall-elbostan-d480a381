@@ -276,8 +276,30 @@ export default function AdminStoreDetail() {
 
             <AdminSectionCard title="بيانات التواصل">
               <div className="grid md:grid-cols-2 gap-4">
-                <Field label="الهاتف"><Input value={store.phone ?? ""} onChange={(e) => update({ phone: e.target.value })} /></Field>
-                <Field label="واتساب"><Input value={store.whatsapp ?? ""} onChange={(e) => update({ whatsapp: e.target.value })} /></Field>
+                <Field label="الهاتف">
+                  <Input
+                    dir="ltr"
+                    value={store.phone ?? ""}
+                    onChange={(e) => update({ phone: e.target.value })}
+                    placeholder="+201012345678"
+                    aria-invalid={!!store.phone && !isValidEgyptPhone(store.phone)}
+                  />
+                  {!!store.phone && !isValidEgyptPhone(store.phone) && (
+                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
+                  )}
+                </Field>
+                <Field label="واتساب">
+                  <Input
+                    dir="ltr"
+                    value={store.whatsapp ?? ""}
+                    onChange={(e) => update({ whatsapp: e.target.value })}
+                    placeholder="+201012345678"
+                    aria-invalid={!!store.whatsapp && !isValidEgyptPhone(store.whatsapp)}
+                  />
+                  {!!store.whatsapp && !isValidEgyptPhone(store.whatsapp) && (
+                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
+                  )}
+                </Field>
                 <Field label="البريد"><Input value={store.email ?? ""} onChange={(e) => update({ email: e.target.value })} /></Field>
                 <Field label="الموقع الإلكتروني"><Input value={store.website ?? ""} onChange={(e) => update({ website: e.target.value })} /></Field>
                 <Field label="ساعات العمل"><Input value={store.opening_hours ?? ""} onChange={(e) => update({ opening_hours: e.target.value })} /></Field>
