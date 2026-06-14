@@ -8,6 +8,7 @@ import {
   Calendar, Briefcase, HelpCircle, Building2, Cpu, Sparkles, Trophy, Award,
   Gift, Ticket, Users, BarChart3, Bell, Globe, RefreshCw, Rocket, Cloud,
   Database, Activity, Phone, ScanSearch, FolderTree, Settings, ShieldCheck, QrCode,
+  Map,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -28,6 +29,7 @@ const groups: Group[] = [
     items: [
       { title: "المحلات", url: "/admin/stores", icon: Store },
       { title: "الوحدات", url: "/admin/units", icon: Building },
+      { title: "محرر الخريطة", url: "/admin/map", icon: Map, adminOnly: true },
       { title: "دليل وسط البلد", url: "/admin/downtown-merchants", icon: Building2 },
       { title: "أصول المستأجرين", url: "/admin/tenant-assets", icon: FolderTree, adminOnly: true },
       { title: "تدقيق شعارات المحلات", url: "/admin/tenant-branding", icon: ScanSearch, adminOnly: true },
