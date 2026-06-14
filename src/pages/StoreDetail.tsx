@@ -372,8 +372,8 @@ const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
 
             {/* Hero CTAs */}
             <div className="flex flex-wrap gap-2 pt-0.5">
-              {store.whatsapp && (
-                <a href={`https://wa.me/${store.whatsapp}`} target="_blank" rel="noopener noreferrer">
+               {store.whatsapp && store.whatsapp.replace(/\D/g, "") && (
+                <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer">
                   <Button variant="cta" className="h-9 gap-1.5 rounded-lg px-4 text-[0.78rem] font-bold shadow-md shadow-primary/20">
                     <MessageCircle className="h-3.5 w-3.5" />تواصل واتساب
                   </Button>
