@@ -65,6 +65,8 @@ const EXCLUDED_FROM_SITEMAP = new Set<string>([
   "/admin/reports/offers",
   "/admin/reports/leads",
   "/admin/reports/spin",
+  // Legacy vanity route now 301-redirects to the canonical /stores/el-badr
+  "/el-badr",
   "*",
 ]);
 

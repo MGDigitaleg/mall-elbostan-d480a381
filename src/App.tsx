@@ -195,7 +195,7 @@ function AppLayout() {
             <Route path="/devices/:pillar/:cluster" element={<DevicePage />} />
             <Route path="/devices/:pillar/:cluster/:longtail" element={<DevicePage />} />
             <Route path="/stores" element={<Stores />} />
-            <Route path="/el-badr" element={<StoreDetail slugOverride="el-badr" />} />
+            <Route path="/el-badr" element={<Navigate to="/stores/el-badr" replace />} />
             <Route path="/stores/category/:slug" element={<StoresCategory />} />
             <Route path="/stores/:slug" element={<StoreDetail />} />
             <Route path="/products" element={<Products />} />
