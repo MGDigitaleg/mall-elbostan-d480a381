@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useRequireAdmin } from "@/hooks/useAuth";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { AdminPageHeader } from "@/components/admin/AdminPrimitives";
-import { Users, Phone, Rocket, Database, Cloud, Activity, Bell, Globe, ShieldCheck } from "lucide-react";
+import { Users, Phone, Rocket, Database, Cloud, Activity, Bell, Globe, ShieldCheck, MapPin } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Card = { title: string; description: string; to: string; icon: LucideIcon };
