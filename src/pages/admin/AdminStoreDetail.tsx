@@ -22,6 +22,7 @@ import {
 import { LIFECYCLE_META, LIFECYCLE_VALUES, type Lifecycle } from "@/lib/storeLifecycle";
 import AdminStoreExternalTab from "@/components/admin/AdminStoreExternalTab";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
+import { isValidEgyptPhone, normalizeEgyptPhone, normalizeEgyptWhatsapp } from "@/lib/egyptPhone";
 
 type Store = any;
 
@@ -92,6 +93,17 @@ export default function AdminStoreDetail() {
 
   const save = async () => {
     if (!store) return;
+
+    // Validate Egyptian contact numbers before saving (+20 followed by 10 digits)
+    if (store.phone && !isValidEgyptPhone(store.phone)) {
+      toast({ title: "رقم الهاتف غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
+      return;
+    }
+    if (store.whatsapp && !isValidEgyptPhone(store.whatsapp)) {
+      toast({ title: "رقم واتساب غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
+      return;
+    }
+
     setSaving(true);
     const patch = {
       name_ar: store.name_ar, name_en: store.name_en, display_name: store.display_name,
@@ -101,7 +113,9 @@ export default function AdminStoreDetail() {
       unit_code: store.unit_code, branch_context: store.branch_context,
       short_description_ar: store.short_description_ar,
       long_description_ar: store.long_description_ar, logo_url: store.logo_url,
-      cover_image_url: store.cover_image_url, phone: store.phone, whatsapp: store.whatsapp,
+      cover_image_url: store.cover_image_url,
+      phone: store.phone ? normalizeEgyptPhone(store.phone) : null,
+      whatsapp: store.whatsapp ? normalizeEgyptWhatsapp(store.whatsapp) : null,
       email: store.email, website: store.website, opening_hours: store.opening_hours,
       admin_notes: store.admin_notes,
       external_store_type: store.external_store_type, external_store_url: store.external_store_url,
@@ -276,8 +290,30 @@ export default function AdminStoreDetail() {
 
             <AdminSectionCard title="بيانات التواصل">
               <div className="grid md:grid-cols-2 gap-4">
-                <Field label="الهاتف"><Input value={store.phone ?? ""} onChange={(e) => update({ phone: e.target.value })} /></Field>
-                <Field label="واتساب"><Input value={store.whatsapp ?? ""} onChange={(e) => update({ whatsapp: e.target.value })} /></Field>
+                <Field label="الهاتف">
+                  <Input
+                    dir="ltr"
+                    value={store.phone ?? ""}
+                    onChange={(e) => update({ phone: e.target.value })}
+                    placeholder="+201012345678"
+                    aria-invalid={!!store.phone && !isValidEgyptPhone(store.phone)}
+                  />
+                  {!!store.phone && !isValidEgyptPhone(store.phone) && (
+                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
+                  )}
+                </Field>
+                <Field label="واتساب">
+                  <Input
+                    dir="ltr"
+                    value={store.whatsapp ?? ""}
+                    onChange={(e) => update({ whatsapp: e.target.value })}
+                    placeholder="+201012345678"
+                    aria-invalid={!!store.whatsapp && !isValidEgyptPhone(store.whatsapp)}
+                  />
+                  {!!store.whatsapp && !isValidEgyptPhone(store.whatsapp) && (
+                    <p className="mt-1.5 text-xs text-destructive">رقم غير صحيح — يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.</p>
+                  )}
+                </Field>
                 <Field label="البريد"><Input value={store.email ?? ""} onChange={(e) => update({ email: e.target.value })} /></Field>
                 <Field label="الموقع الإلكتروني"><Input value={store.website ?? ""} onChange={(e) => update({ website: e.target.value })} /></Field>
                 <Field label="ساعات العمل"><Input value={store.opening_hours ?? ""} onChange={(e) => update({ opening_hours: e.target.value })} /></Field>
