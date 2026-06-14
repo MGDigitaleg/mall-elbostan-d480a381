@@ -8,6 +8,7 @@ import {
   Calendar, Briefcase, HelpCircle, Building2, Cpu, Sparkles, Trophy, Award,
   Gift, Ticket, Users, BarChart3, Bell, Globe, RefreshCw, Rocket, Cloud,
   Database, Activity, Phone, ScanSearch, FolderTree, Settings, ShieldCheck, QrCode,
+  Map,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
