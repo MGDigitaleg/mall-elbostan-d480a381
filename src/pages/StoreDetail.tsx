@@ -148,7 +148,6 @@ const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
         .from("deals")
         .select("id, title_ar, description_ar, valid_to, featured, brand, model, specs_short_ar, price_current, price_old, currency, offer_badge_ar, image_primary, opening_status, stores:store_id(name_ar, slug, logo_url, category, opening_status)")
         .eq("store_id", store!.id)
-        .eq("campaign_key", "opening-offers-2026")
         .eq("is_live", true)
         .order("featured", { ascending: false })
         .order("sort_order", { ascending: true })
