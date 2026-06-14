@@ -94,11 +94,7 @@ export default function AdminStoreDetail() {
   const save = async () => {
     if (!store) return;
 
-    // Validate Egyptian contact numbers before saving (+20 followed by 10 digits)
-    if (store.phone && !isValidEgyptPhone(store.phone)) {
-      toast({ title: "رقم الهاتف غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
-      return;
-    }
+    // Validate Egyptian WhatsApp number before saving (+20 followed by 10 digits)
     if (store.whatsapp && !isValidEgyptPhone(store.whatsapp)) {
       toast({ title: "رقم واتساب غير صحيح", description: "يجب أن يكون رقماً مصرياً بصيغة ‎+20‎ متبوعاً بعشرة أرقام.", variant: "destructive" });
       return;
