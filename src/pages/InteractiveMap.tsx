@@ -83,7 +83,7 @@ const InteractiveMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedFloor, setSelectedFloor] = useState<MallFloorId>(() => {
     const saved = localStorage.getItem("map-selected-floor");
-    return saved && mallFloors.some((f) => f.id === saved) ? (saved as MallFloorId) : "ground";
+    return saved && staticMallFloors.some((f) => f.id === saved) ? (saved as MallFloorId) : "ground";
   });
   const [statusFilter, setStatusFilter] = useState<"all" | MallUnitStatus>("all");
   const [categoryFilter, setCategoryFilter] = useState<"all" | MallCategory>("all");
