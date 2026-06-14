@@ -88,7 +88,7 @@ const StoreDetail = ({ slugOverride }: { slugOverride?: string } = {}) => {
     queryFn: async () => {
       const { data } = await supabase
         .from("stores")
-        .select("id, slug, name_ar, name_en, category, floor_id, unit_code, status, short_description_ar, short_description_en, long_description_ar, long_description_en, logo_url, cover_image_url, gallery, phone, whatsapp, email, website, opening_hours, featured, map_x, map_y, map_area_id, created_at, updated_at, is_opening_participant, branch_context, opening_status, display_name, floor_label, unit_label, floors:floor_id(name_ar, name_en)")
+        .select("id, slug, name_ar, name_en, category, floor_id, unit_code, status, short_description_ar, short_description_en, long_description_ar, long_description_en, logo_url, cover_image_url, gallery, phone, whatsapp, hotline, email, website, opening_hours, featured, map_x, map_y, map_area_id, created_at, updated_at, is_opening_participant, branch_context, opening_status, display_name, floor_label, unit_label, floors:floor_id(name_ar, name_en)")
         .eq("slug", slug!)
         .maybeSingle();
       return data;
@@ -936,7 +936,7 @@ function ShareButton({ name }: { name: string }) {
   );
 }
 
-function StoreContactCard({ store }: { store: { phone?: string | null; email?: string | null; website?: string | null; whatsapp?: string | null } }) {
+function StoreContactCard({ store }: { store: { phone?: string | null; hotline?: string | null; email?: string | null; website?: string | null; whatsapp?: string | null } }) {
   const [copied, setCopied] = useState(false);
   const hasContact = store.phone || store.email || store.website || store.whatsapp;
 
@@ -983,6 +983,15 @@ function StoreContactCard({ store }: { store: { phone?: string | null; email?: s
                 {copied ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-muted-foreground" />}
               </button>
             </div>
+          )}
+          {store.hotline && (
+            <a href={`tel:${store.hotline}`} className="block">
+              <div className="flex items-center gap-3 rounded-xl border border-border px-4 py-3 transition-all hover:border-primary/20 hover:bg-muted/20">
+                <Phone className="h-4 w-4 text-primary" />
+                <span dir="ltr" className="flex-1 font-poppins text-[0.8rem] font-semibold text-foreground">{store.hotline}</span>
+                <span className="text-[0.65rem] font-bold text-muted-foreground/50">الخط الساخن</span>
+              </div>
+            </a>
           )}
           {store.email && (
             <a href={`mailto:${store.email}`} className="block">

@@ -23,6 +23,7 @@ export default function MerchantMyStore() {
         short_description_ar: activeStore.short_description_ar ?? "",
         phone: activeStore.phone ?? "",
         whatsapp: activeStore.whatsapp ?? "",
+        hotline: activeStore.hotline ?? "",
         email: activeStore.email ?? "",
         website: activeStore.website ?? "",
         opening_hours: activeStore.opening_hours ?? "",
@@ -42,6 +43,7 @@ export default function MerchantMyStore() {
       short_description_ar: form.short_description_ar || null,
       phone: form.phone || null,
       whatsapp: form.whatsapp || null,
+      hotline: form.hotline || null,
       email: form.email || null,
       website: form.website || null,
       opening_hours: form.opening_hours || null,
@@ -87,6 +89,7 @@ export default function MerchantMyStore() {
             <div className="grid sm:grid-cols-2 gap-3">
               <Field label="رقم الهاتف"><Input value={form.phone} onChange={(e) => setField("phone", e.target.value)} dir="ltr" /></Field>
               <Field label="واتساب"><Input value={form.whatsapp} onChange={(e) => setField("whatsapp", e.target.value)} dir="ltr" /></Field>
+              <Field label="الخط الساخن"><Input value={form.hotline} onChange={(e) => setField("hotline", e.target.value)} dir="ltr" placeholder="مثال: 16280" /></Field>
               <Field label="البريد الإلكتروني"><Input type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} dir="ltr" /></Field>
               <Field label="الموقع الإلكتروني"><Input value={form.website} onChange={(e) => setField("website", e.target.value)} dir="ltr" /></Field>
             </div>

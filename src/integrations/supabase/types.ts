@@ -2076,6 +2076,7 @@ export type Database = {
           floor_id: string | null
           floor_label: string | null
           gallery: Json | null
+          hotline: string | null
           id: string
           import_offers: boolean
           import_products: boolean
@@ -2126,6 +2127,7 @@ export type Database = {
           floor_id?: string | null
           floor_label?: string | null
           gallery?: Json | null
+          hotline?: string | null
           id?: string
           import_offers?: boolean
           import_products?: boolean
@@ -2176,6 +2178,7 @@ export type Database = {
           floor_id?: string | null
           floor_label?: string | null
           gallery?: Json | null
+          hotline?: string | null
           id?: string
           import_offers?: boolean
           import_products?: boolean

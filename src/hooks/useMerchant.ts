@@ -15,6 +15,7 @@ export interface MerchantStore {
   short_description_ar: string | null;
   phone: string | null;
   whatsapp: string | null;
+  hotline: string | null;
   email: string | null;
   website: string | null;
   opening_hours: string | null;
@@ -72,7 +73,7 @@ export function useMerchant(): MerchantState {
     const { data: rows } = await supabase
       .from("stores")
       .select(
-        "id,slug,name_ar,name_en,logo_url,cover_image_url,status,lifecycle_status,short_description_ar,phone,whatsapp,email,website,opening_hours,external_store_type,external_store_url,external_store_handle,sync_status,gallery,category,floor_label,unit_label,branch_context,featured"
+        "id,slug,name_ar,name_en,logo_url,cover_image_url,status,lifecycle_status,short_description_ar,phone,whatsapp,hotline,email,website,opening_hours,external_store_type,external_store_url,external_store_handle,sync_status,gallery,category,floor_label,unit_label,branch_context,featured"
       )
       .in("id", ids);
 
