@@ -119,7 +119,7 @@ export default function AdminMapEditor() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("stores")
-        .select("id, name_ar, name_en")
+        .select("id, name_ar, name_en, logo_url")
         .order("name_ar");
       if (error) throw error;
       return (data ?? []) as StoreRow[];
