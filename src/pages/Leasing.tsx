@@ -76,7 +76,9 @@ const Leasing = () => {
     message: "",
   });
   const [files, setFiles] = useState<File[]>([]);
+  const [selectedUnitId, setSelectedUnitId] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const { data: availableUnits } = useQuery({
     queryKey: ["available-units"],
@@ -145,17 +147,35 @@ const Leasing = () => {
       }
     }
 
+    const selectedUnit = (availableUnits ?? []).find((u) => u.id === selectedUnitId) || null;
+    const isGeneralRequest = !selectedUnit;
+    const unitLine = selectedUnit
+      ? `استفسار عن الوحدة ${selectedUnit.unit_code}${selectedUnit.area_sqm ? ` (${selectedUnit.area_sqm} م²)` : ""}`
+      : "استفسار عام (لم يتم تحديد وحدة)";
+    const composedMessage = [unitLine, form.message.trim()].filter(Boolean).join("\n\n");
+
     const { error } = await supabase.from("leads").insert({
       lead_type: "leasing",
       full_name: form.full_name.trim(),
       company: form.company.trim() || null,
       phone: form.phone.trim(),
       email: form.email.trim() || null,
-      message: form.message.trim() || null,
+      message: composedMessage || null,
       metadata: {
         source: "leasing_page",
         space_type: form.space_type,
         budget_range: form.budget_range,
+        request_type: isGeneralRequest ? "general" : "unit_specific",
+        is_general_request: isGeneralRequest,
+        selected_unit: selectedUnit
+          ? {
+              id: selectedUnit.id,
+              unit_code: selectedUnit.unit_code,
+              area_sqm: selectedUnit.area_sqm ?? null,
+              activity_suggestion: selectedUnit.activity_suggestion ?? null,
+              price_note: selectedUnit.price_note ?? null,
+            }
+          : null,
         attachments: uploaded,
         attachment_errors: uploadErrors,
       },
@@ -174,10 +194,18 @@ const Leasing = () => {
       has_message: Boolean(form.message.trim()),
       space_type: form.space_type,
       budget_range: form.budget_range,
+      request_type: isGeneralRequest ? "general" : "unit_specific",
+      unit_code: selectedUnit?.unit_code ?? null,
       attachments_count: uploaded.length,
     });
     setSubmitted(true);
-    toast({ title: "تم الإرسال", description: "هنرجع لك في أقرب وقت." });
+    toast({
+      title: "تم الإرسال",
+      description: selectedUnit
+        ? `تم إرسال استفسارك عن الوحدة ${selectedUnit.unit_code}.`
+        : "تم إرسال استفسارك العام — هنرجع لك في أقرب وقت.",
+    });
+
   };
 
   return (
@@ -364,7 +392,7 @@ const Leasing = () => {
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.95fr_1.05fr]">
 
               {/* ── FORM ── */}
-              <div className="rounded-2xl p-6 md:p-7"
+              <div ref={formRef} id="leasing-form" className="scroll-mt-24 rounded-2xl p-6 md:p-7"
                    style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)", boxShadow: "0 8px 32px hsl(220 60% 5% / 0.2)" }}>
                 <div className="mb-2 flex items-center gap-2">
                   <div className="h-[3px] w-5 rounded-full" style={{ background: "hsl(25 85% 50%)" }} />
@@ -408,6 +436,21 @@ const Leasing = () => {
                     <div>
                       <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>البريد الإلكتروني</label>
                       <FormInput value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" dir="ltr" />
+                    </div>
+                    <div>
+                      <label className="mb-1.5 block text-[0.72rem] font-bold" style={{ color: "hsl(220 20% 80%)" }}>الوحدة المطلوبة (اختياري)</label>
+                      <FormSelect
+                        value={selectedUnitId}
+                        onChange={setSelectedUnitId}
+                        placeholder="استفسار عام — بدون تحديد وحدة"
+                        options={(availableUnits ?? []).map((u) => ({
+                          value: u.id,
+                          label: `وحدة ${u.unit_code}${u.area_sqm ? ` — ${u.area_sqm} م²` : ""}`,
+                        }))}
+                      />
+                      <p className="mt-1.5 text-[0.66rem]" style={{ color: "hsl(220 15% 50%)" }}>
+                        اتركها فارغة لإرسال استفسار عام، أو اختر وحدة من القائمة المجاورة.
+                      </p>
                     </div>
                     <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
                       <div>
@@ -533,16 +576,32 @@ const Leasing = () => {
 
                 {availableUnits && availableUnits.length > 0 ? (
                   <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-h-[28rem] space-y-2.5 overflow-y-auto pe-1">
-                    {availableUnits.map((unit) => (
-                      <motion.div
+                    {availableUnits.map((unit) => {
+                      const isSelected = selectedUnitId === unit.id;
+                      return (
+                      <motion.button
+                        type="button"
                         key={unit.id}
                         variants={fadeChild}
-                        className="group rounded-xl p-4 transition-all hover:bg-white/[0.06]"
-                        style={{ background: "hsl(0 0% 100% / 0.04)", border: "1px solid hsl(0 0% 100% / 0.08)" }}
+                        onClick={() => {
+                          setSelectedUnitId(isSelected ? "" : unit.id);
+                          if (!isSelected) {
+                            formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }
+                        }}
+                        aria-pressed={isSelected}
+                        className="group block w-full rounded-xl p-4 text-right transition-all hover:bg-white/[0.06]"
+                        style={{
+                          background: isSelected ? "hsl(25 85% 50% / 0.12)" : "hsl(0 0% 100% / 0.04)",
+                          border: isSelected ? "1px solid hsl(25 85% 50% / 0.5)" : "1px solid hsl(0 0% 100% / 0.08)",
+                        }}
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <h3 className="text-[0.88rem] font-bold" style={{ color: "hsl(25 95% 55%)" }}>وحدة {unit.unit_code}</h3>
+                            <h3 className="text-[0.88rem] font-bold" style={{ color: "hsl(25 95% 55%)" }}>
+                              وحدة {unit.unit_code}
+                              {isSelected && <span className="ms-2 text-[0.68rem]" style={{ color: "hsl(152 69% 50%)" }}>✓ مختارة</span>}
+                            </h3>
                             <div className="mt-1 flex flex-wrap items-center gap-3 text-[0.78rem]" style={{ color: "hsl(220 15% 60%)" }}>
                               {unit.area_sqm && (
                                 <span className="flex items-center gap-1">
@@ -564,8 +623,9 @@ const Leasing = () => {
                             <ArrowUpLeft className="h-3.5 w-3.5 text-white/15 transition-all group-hover:text-white/40 group-hover:-translate-y-0.5 group-hover:-translate-x-0.5" />
                           </div>
                         </div>
-                      </motion.div>
-                    ))}
+                      </motion.button>
+                      );
+                    })}
                   </motion.div>
                 ) : (
                   <div className="rounded-xl border border-dashed p-6 text-center" style={{ borderColor: "hsl(0 0% 100% / 0.1)" }}>
